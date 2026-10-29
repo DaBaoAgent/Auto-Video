@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>妲己形象 · 四款变体（静帧审核）</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #f4e9d0; overflow: hidden; }
+  canvas { display: block; width: 1920px; height: 1080px; }
+</style>
+<script type="importmap">{"imports":{
+  "simplex-noise": "/node_modules/simplex-noise/dist/esm/simplex-noise.js"}}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script type="module">
+  import { drawDaji, VARIANTS } from './js/char.js';
+  import { PAL, hs, boil, circlePts, fillPoly } from './js/engine.js';
+
+  const W = 1920, H = 1080;
+  let ctx, DPR = 1, IMG = {};
+  const q = new URLSearchParams(location.search);
+  const V = +(q.get('v') || 0);
+  const T = +(q.get('t') || 0);
+
+  async function init(canvas, dpr) {
+    DPR = dpr || 1;
+    canvas.width = Math.round(W * DPR); canvas.height = Math.round(H * DPR);
+    ctx = canvas.getContext('2d');
+    const load = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+    IMG.paper = await load('assets/paper_base.jpg');
+    IMG.tooth = await load('assets/paper_tooth.png');
+  }
+
+  function render(t) {
+    const c = ctx;
+    c.setTransform(DPR, 0, 0, DPR, 0, 0);
+    c.fillStyle = PAL.cream; c.fillRect(0, 0, W, H);
+    const s = 1.05;
+    c.drawImage(IMG.paper, (W - W * s) / 2, (H - H * s) / 2, W * s, H * s);
+
+    // 人物：脚底 y=1000，身高约 700
+    const inCtx = q.get('c') === '1';
+    if (inCtx) {
+      // 殿柱 + 地面：让她站在殿里，而不是浮在纸上
+      c.save();
+      c.globalAlpha = 0.92;
+      c.fillStyle = PAL.ink;
+      c.fillRect(312, -40, 74, 1000);
+      c.fillRect(296, 952, 106, 54);         // 础石
+      c.fillRect(292, -40, 112, 26);         // 栌斗
+      c.globalAlpha = 1;
+      c.fillStyle = PAL.cream; c.globalAlpha = 0.45;
+      c.fillRect(324, 0, 4, 946);
+      c.globalAlpha = 0.22;
+      c.fillRect(0, 1006, W, 3);
+      c.restore();
+    }
+    drawDaji(c, { x: inCtx ? 1250 : 960, y: inCtx ? 1006 : 1032, s: inCtx ? 1.18 : 1.16, variant: V, t });
+
+    // 标题（左上，小字，只做审核标注；落地图不显示）
+    if (!inCtx) {
+    c.save();
+    c.globalAlpha = 0.85;
+    c.fillStyle = PAL.ink;
+    c.font = '600 34px "Microsoft YaHei"';
+    c.fillText('妲己 · ' + VARIANTS[V].name, 96, 120);
+    c.font = '400 24px "Microsoft YaHei"';
+    c.globalAlpha = 0.6;
+    c.fillText(VARIANTS[V].note, 96, 164);
+    c.restore();
+    }
+
+    // 可选：把片中字幕一起画上，便于判断在成片里的观感
+    if (q.get('c') === '1') {
+      c.save();
+      c.font = '600 52px "Microsoft YaHei"';
+      c.fillStyle = PAL.ink;
+      c.textAlign = 'center';
+      c.globalAlpha = 0.92;
+      c.fillText('妲己到底长什么样', inCtx ? 700 : W / 2, H - 96);
+      c.restore();
+    }
+
+    // 纸齿 + 暗角
+    c.save();
+    c.setTransform(DPR, 0, 0, DPR, 0, 0);
+    c.globalCompositeOperation = 'multiply';
+    c.globalAlpha = 0.45;
+    c.drawImage(IMG.tooth, 40, 30, W, H, 0, 0, W, H);
+    c.globalCompositeOperation = 'source-over';
+    const g = c.createRadialGradient(W / 2, H / 2, H * 0.42, W / 2, H / 2, H * 1.02);
+    g.addColorStop(0, 'rgba(28,22,19,0)');
+    g.addColorStop(1, 'rgba(28,22,19,0.22)');
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+    c.restore();
+  }
+
+  (async () => {
+    await init(document.getElementById('c'), window.devicePixelRatio || 1);
+    window.DEMO = { width: W, height: H, fps: 24, duration: 1 };
+    window.renderAt = async (t) => { render(t); };
+    render(T);
+    window.__ready = true;
+  })().catch((e) => console.error('init failed', e && e.stack || e));
+</script>
+</body>
+</html>

@@ -32,6 +32,11 @@ jianying/template/out/
 jianying/projects/*/work/out/*.mp4
 jianying/projects/*/out/*.mp4
 
+# shouhui 可重新生成的中间产物
+shouhui/projects/*/out/stills/
+shouhui/projects/*/out/check_*.png
+shouhui/projects/*/assets/vid/
+
 # 工作区内部数据和临时文件
 .workbuddy/
 *.log

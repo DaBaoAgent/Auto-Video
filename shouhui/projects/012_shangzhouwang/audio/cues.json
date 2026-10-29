@@ -1,0 +1,96 @@
+{
+  "cues": [
+    {
+      "type": "thud",
+      "t": 0.62,
+      "gain": 1.0,
+      "f": 92,
+      "dur": 0.3
+    },
+    {
+      "type": "brush",
+      "t": 0.74,
+      "gain": 0.34,
+      "dur": 1.18,
+      "rate": 0.55
+    },
+    {
+      "type": "brush",
+      "t": 1.92,
+      "gain": 0.32,
+      "dur": 0.76,
+      "rate": 0.62
+    },
+    {
+      "type": "brush",
+      "t": 2.7,
+      "gain": 0.22,
+      "dur": 0.28,
+      "rate": 1.1
+    },
+    {
+      "type": "whoosh",
+      "t": 3.2,
+      "gain": 0.62,
+      "dur": 0.3
+    },
+    {
+      "type": "pop",
+      "t": 3.66,
+      "gain": 0.5,
+      "f": 700,
+      "dur": 0.13
+    },
+    {
+      "type": "pop",
+      "t": 4.0,
+      "gain": 0.34,
+      "f": 980,
+      "dur": 0.11
+    },
+    {
+      "type": "brush",
+      "t": 4.06,
+      "gain": 0.22,
+      "dur": 0.78,
+      "rate": 0.9
+    },
+    {
+      "type": "whoosh",
+      "t": 4.92,
+      "gain": 0.6,
+      "dur": 0.58
+    },
+    {
+      "type": "crackle",
+      "t": 4.96,
+      "gain": 0.42,
+      "dur": 1.7,
+      "density": 24
+    },
+    {
+      "type": "whoosh",
+      "t": 6.7,
+      "gain": 0.8,
+      "dur": 0.3
+    },
+    {
+      "type": "crackle",
+      "t": 6.72,
+      "gain": 0.34,
+      "dur": 0.3,
+      "density": 30
+    },
+    {
+      "type": "flutter",
+      "t": 7.18,
+      "gain": 0.3,
+      "dur": 1.3
+    },
+    {
+      "type": "stamp",
+      "t": 8.16,
+      "gain": 0.85
+    }
+  ]
+}

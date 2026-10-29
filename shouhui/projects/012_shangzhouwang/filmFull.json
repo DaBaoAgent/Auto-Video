@@ -1,0 +1,12 @@
+{
+  "audio": {
+    "narration": "D:/@kaifa/AutoJY/出稿/012_商纣王/配音.wav",
+    "sfx_cues": "audio/cuesFull.json",
+    "sfx": "audio/sfxFull.wav",
+    "mix": "audio/mixFull.wav",
+    "bgm": "audio/bgm-loop.wav",
+    "bgm_gain": 0.17,
+    "sfx_gain": 0.55,
+    "target_lufs": -14
+  }
+}

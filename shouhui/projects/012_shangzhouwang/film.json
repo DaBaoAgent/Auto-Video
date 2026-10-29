@@ -1,0 +1,94 @@
+{
+  "slug": "012_shangzhouwang",
+  "title": "商纣王 · 妲己到底长什么样（前 10 秒样片）",
+  "style": "05-cel-boil",
+  "out_name": "012_商纣王_前10秒_手绘样片.mp4",
+  "source": {
+    "script": "出稿/012_商纣王/口播稿.md",
+    "voice": "出稿/012_商纣王/配音.wav",
+    "voice_in": 0.15,
+    "_note": "配音 0.15s 处是静音窗终点，从这里起 10.00s 正好收在 10.15s 的句间停顿上"
+  },
+  "render": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "duration": 10,
+    "crf": 18
+  },
+  "audio": {
+    "narration": "audio/narration.wav",
+    "sfx_cues": "audio/cues.json",
+    "sfx": "audio/sfx.wav",
+    "mix": "audio/mix-final.wav",
+    "bgm": "D:/@kaifa/BGM/悬疑/悬疑-神秘 01_Ancient_Rite_仪式感悬疑_Kevin_MacLeod.mp3",
+    "bgm_gain": 0.18,
+    "sfx_gain": 0.55,
+    "target_lufs": -14
+  },
+  "rules": {
+    "style_spec": "1920×1080 / 24fps / 一拍二为主，快动作一拍一 / 纸张 multiply 10–15% / boil 每 2 帧换变体",
+    "beats": {
+      "drop": 0.62,
+      "write_da": [
+        0.74,
+        1.92
+      ],
+      "write_ji": [
+        1.92,
+        2.68
+      ],
+      "line": [
+        2.7,
+        2.98
+      ],
+      "q1": 3.66,
+      "q2": 4.0,
+      "tag": [
+        4.06,
+        4.86
+      ],
+      "fire": [
+        4.92,
+        6.7
+      ],
+      "seal": 8.96,
+      "ash": 7.2
+    },
+    "assets": {
+      "font_main": "assets/font/LongCang-Regular.ttf（OFL）",
+      "font_seal": "assets/font/LXGWMarkerGothic-Regular.ttf（OFL）",
+      "paper": "assets/paper_base.jpg + paper_tooth.png（来自 mg-styles-15 05-cel-boil）",
+      "engine": "js/engine.js（原样复制自 demos/05-cel-boil/js/engine.js，MIT）"
+    },
+    "color": {
+      "ink": "#1c1613",
+      "red": "#e5402b",
+      "yellow": "#ffc425",
+      "cream": "#f4e9d0"
+    },
+    "shots": {
+      "A": [
+        0.0,
+        3.2
+      ],
+      "T1": [
+        3.2,
+        3.5
+      ],
+      "B": [
+        3.5,
+        6.7
+      ],
+      "T2": [
+        6.7,
+        7.0
+      ],
+      "C": [
+        7.0,
+        10.0
+      ],
+      "_note": "3 镜 + 2 转场；镜长 3.2 / 3.2 / 3.0s，转场各 0.30s"
+    }
+  }
+}

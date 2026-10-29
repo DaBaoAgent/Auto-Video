@@ -1,0 +1,102 @@
+{
+  "slug": "012_shangzhouwang",
+  "title": "商纣王 · 妲己（前 20 秒）",
+  "style": "05-cel-boil",
+  "page": "film20.html",
+  "out_name": "012_商纣王_前20秒_手绘样片.mp4",
+  "source": {
+    "script": "出稿/012_商纣王/口播稿.md",
+    "voice": "出稿/012_商纣王/配音.wav",
+    "voice_in": 0.15,
+    "_note": "配音 0.15s 起 19.74s，收在 19.89s 的句间停顿上"
+  },
+  "render": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "duration": 19.75,
+    "crf": 18
+  },
+  "audio": {
+    "narration": "audio/narr20.wav",
+    "sfx_cues": "audio/cues20-keep.json",
+    "sfx": "audio/sfx20-keep.wav",
+    "mix": "audio/mix20-keep.wav",
+    "bgm": "D:/@kaifa/BGM/悬疑/悬疑-神秘 01_Ancient_Rite_仪式感悬疑_Kevin_MacLeod.mp3",
+    "bgm_gain": 0.17,
+    "sfx_gain": 0.55,
+    "target_lufs": -14
+  },
+  "rules": {
+    "shots_by_story": {
+      "A": {
+        "range": [
+          0.0,
+          3.6
+        ],
+        "beat": "设问：墨滴落纸 → 写「妲己」→ 问号 + 朱砂线"
+      },
+      "T1": {
+        "range": [
+          3.6,
+          3.86
+        ],
+        "beat": "斜墨刷承接"
+      },
+      "B": {
+        "range": [
+          3.86,
+          7.8
+        ],
+        "beat": "空白卷册展开，笔尖悬停不落墨（一个字都没写）"
+      },
+      "T2": {
+        "range": [
+          7.8,
+          8.3
+        ],
+        "beat": "竹简自上方落下（落下的就是 C 镜的竹简）"
+      },
+      "C": {
+        "range": [
+          8.3,
+          12.4
+        ],
+        "beat": "竹简 + 两处朱圈（先秦记载总共就两处）"
+      },
+      "T3": {
+        "range": [
+          12.4,
+          12.9
+        ],
+        "beat": "墨泛（自下而上淹没）"
+      },
+      "D": {
+        "range": [
+          12.9,
+          16.4
+        ],
+        "beat": "妲己背影登场（举袖·掩面）+ 殿柱 + 缓推"
+      },
+      "E": {
+        "range": [
+          16.4,
+          19.75
+        ],
+        "beat": "抬袖 → 墨没全屏 → 只剩笄上一点朱"
+      }
+    },
+    "character": {
+      "name": "妲己",
+      "variant": "举袖·掩面",
+      "file": "js/char.js",
+      "scale": 1.12
+    },
+    "assets": {
+      "font_main": "assets/font/LongCang-Regular.ttf（OFL）",
+      "font_seal": "assets/font/LXGWMarkerGothic-Regular.ttf（OFL）",
+      "paper": "assets/paper_base.jpg + paper_tooth.png（mg-styles-15 05-cel-boil）",
+      "engine": "js/engine.js（上游原样，MIT）"
+    }
+  }
+}

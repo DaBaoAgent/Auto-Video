@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>shouhui · 012_商纣王 · 前 10 秒样片</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #f4e9d0; overflow: hidden; }
+  canvas { display: block; width: 1920px; height: 1080px; }
+</style>
+<script type="importmap">{"imports":{
+  "simplex-noise": "/node_modules/simplex-noise/dist/esm/simplex-noise.js",
+  "opentype": "/node_modules/opentype.js/dist/opentype.min.mjs"}}</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script type="module">
+  import { init, render, W, H, FPS, V5, linkAt } from './js/scene.js';
+  window.DEMO = { width: W, height: H, fps: FPS, duration: 10, motionBlur: { samples: 1, shutter: 0.5 } };
+  (async () => {
+    await init(document.getElementById('c'), window.devicePixelRatio || 1);
+    window.renderAt = async (t) => { render(t); };
+    if (V5) window.linkAt = linkAt;
+    render(0);
+    window.__ready = true;
+  })().catch((e) => { console.error('init failed', e && e.stack || e); });
+</script>
+</body>
+</html>
