@@ -27,6 +27,11 @@ zhidiao/**/*.webm
 # zhidiao 外部运行时与大模型
 zhidiao/vendor/
 
+# jianying 渲染产物
+jianying/template/out/
+jianying/projects/*/work/out/*.mp4
+jianying/projects/*/out/*.mp4
+
 # 工作区内部数据和临时文件
 .workbuddy/
 *.log

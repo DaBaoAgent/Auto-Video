@@ -8,14 +8,14 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
-![Pipelines](https://img.shields.io/badge/pipelines-2%20live-111111?style=flat-square)
+![Pipelines](https://img.shields.io/badge/pipelines-3%20live-111111?style=flat-square)
 ![Roadmap](https://img.shields.io/badge/roadmap-99%20styles-c43b32?style=flat-square)
 
 </div>
 
 一条视频最耗时的地方，常常是配音、字幕、分镜、渲染和交付之间的反复接线。Auto-Video 收集可以直接运行的视频制作管线，把这条重复劳动沉淀成可复现的工程。
 
-每条管线都包含实际执行脚本、模板、定版参数和验收条件。今天有 2 条，路线图目标是 99 条。历史纪录片和纸雕剪影已经可以开工，更多题材、画风、节奏和平台需求会继续进入这里。
+每条管线都包含实际执行脚本、模板、定版参数和验收条件。今天有 3 条，路线图目标是 99 条。纸本历史短片、历史纪录片和纸雕剪影已经可以开工，更多题材、画风、节奏和平台需求会继续进入这里。
 
 ![lishi 历史科普短片画面](lishi/template/src/out/_compat.png)
 
@@ -25,6 +25,7 @@
 
 | 管线 | 适合的内容 | 视觉与生产方法 | 状态 |
 | --- | --- | --- | --- |
+| [jianying](jianying/SKILL.md) | 历史叙事、人物独白、悬案考据 | 绢本/纸本、卡片运动语法、Remotion 渲染 | 已上线 |
 | [lishi](lishi/SKILL.md) | 历史人物、战事、悬案、纪年叙事 | 纸本/绢本、AI 静帧底图、代码运镜、Remotion 渲染 | 已上线 |
 | [zhidiao](zhidiao/SKILL.md) | 长视频、历史图说、纸雕剪影解说 | TTS、词级转写、拼音 DP 对齐、HyperFrames 渲染 | 已上线 |
 
@@ -74,6 +75,18 @@ python lishi/scripts/lishi.py all --project <slug>
 
 完整入口与参数见 [lishi/SKILL.md](lishi/SKILL.md) 和 [lishi/pipeline.json](lishi/pipeline.json)。
 
+### jianying
+
+需要 Python 3.11+、Node.js 18+、ffmpeg、numpy 和 ffprobe。新选题从 `new` 开始，`init` 会把模板和依赖链接到选题目录：
+
+```bash
+python jianying/scripts/jianying_shotcraft.py new myfilm --title "标题"
+python jianying/scripts/jianying_shotcraft.py init --project myfilm
+python jianying/scripts/jianying_shotcraft.py all --project myfilm
+```
+
+逐行配音还需要 GPT-SoVITS。完整入口、镜头卡和验收规则见 [jianying/SKILL.md](jianying/SKILL.md)。
+
 ### zhidiao
 
 首次运行前要先准备 GPT-SoVITS、Faster-Whisper、HyperFrames，以及单片 composition 使用的共享样式、GSAP 和字体。迁移与依赖说明见 [zhidiao/MIGRATION.md](zhidiao/MIGRATION.md)。
@@ -90,6 +103,12 @@ python scripts/zhidiao_assemble.py --slug <slug>
 
 ```text
 Auto-Video/
+├── jianying/
+│   ├── SKILL.md              # 纸本历史短片入口
+│   ├── scripts/              # 七阶段编排与制作脚本
+│   ├── cards/                # 镜头运动语法
+│   ├── references/           # 流程、主题、声音与验收规则
+│   └── template/             # Remotion 画面工程
 ├── lishi/
 │   ├── SKILL.md              # 历史科普短片入口
 │   ├── pipeline.json         # 定版参数
@@ -114,7 +133,7 @@ Auto-Video/
 
 ## 路线图
 
-当前：`2 / 99`
+当前：`3 / 99`
 
 Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管线必须带自己的流程说明、脚本、可复用资源和验收条件，才算完成迁移。
 
