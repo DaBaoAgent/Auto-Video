@@ -1,0 +1,905 @@
+{
+ "total": 385.47,
+ "frames": 11565,
+ "scenes": [
+  {
+   "s": 0,
+   "e": 3.11,
+   "type": "foodhook",
+   "minMoving": 8,
+   "maxTextCov": 4.17,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 3.11,
+   "e": 5.238,
+   "type": "foodmore",
+   "minMoving": 11,
+   "maxTextCov": 3.58,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 5.238,
+   "e": 7.262,
+   "type": "question",
+   "minMoving": 14,
+   "maxTextCov": 6.65,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 7.262,
+   "e": 10.24,
+   "type": "exclude",
+   "minMoving": 7,
+   "maxTextCov": 7.48,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 10.24,
+   "e": 14.212,
+   "type": "hero-reveal",
+   "minMoving": 9,
+   "maxTextCov": 5.94,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 14.212,
+   "e": 17.313,
+   "type": "caobai-sil",
+   "minMoving": 12,
+   "maxTextCov": 4.38,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 17.313,
+   "e": 20.068,
+   "type": "poison72",
+   "minMoving": 10,
+   "maxTextCov": 9.27,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 20.068,
+   "e": 21.412,
+   "type": "myth",
+   "minMoving": 9,
+   "maxTextCov": 14.07,
+   "pure": true,
+   "ok": true
+  },
+  {
+   "s": 21.412,
+   "e": 25.707,
+   "type": "bigger",
+   "minMoving": 10,
+   "maxTextCov": 18.87,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 25.707,
+   "e": 30.974,
+   "type": "fourcards",
+   "minMoving": 8,
+   "maxTextCov": 5.85,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 30.974,
+   "e": 32.35,
+   "type": "fourbig",
+   "minMoving": 14,
+   "maxTextCov": 13.37,
+   "pure": true,
+   "ok": true
+  },
+  {
+   "s": 32.35,
+   "e": 35.018,
+   "type": "civ-big",
+   "minMoving": 10,
+   "maxTextCov": 12.07,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 35.018,
+   "e": 42.678,
+   "type": "sil-hunt",
+   "minMoving": 16,
+   "maxTextCov": 4.07,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 42.678,
+   "e": 44.968,
+   "type": "unstable-q",
+   "minMoving": 9,
+   "maxTextCov": 8.38,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 44.968,
+   "e": 48.62,
+   "type": "row3",
+   "minMoving": 8,
+   "maxTextCov": 8.38,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 48.62,
+   "e": 50.656,
+   "type": "whatdid",
+   "minMoving": 11,
+   "maxTextCov": 8.28,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 50.656,
+   "e": 55.317,
+   "type": "sil-seed",
+   "minMoving": 19,
+   "maxTextCov": 3.76,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 55.317,
+   "e": 56.751,
+   "type": "fivegrain",
+   "minMoving": 9,
+   "maxTextCov": 7.27,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 56.751,
+   "e": 59.788,
+   "type": "taste",
+   "minMoving": 9,
+   "maxTextCov": 5.67,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 59.788,
+   "e": 62.528,
+   "type": "sil-plant",
+   "minMoving": 22,
+   "maxTextCov": 3.14,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 62.528,
+   "e": 64.752,
+   "type": "plant-big",
+   "minMoving": 11,
+   "maxTextCov": 5.08,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 64.752,
+   "e": 67.121,
+   "type": "origin-big",
+   "minMoving": 9,
+   "maxTextCov": 9.83,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 67.121,
+   "e": 70,
+   "type": "diff-q",
+   "minMoving": 15,
+   "maxTextCov": 10.81,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 70,
+   "e": 72.97,
+   "type": "civ-bigword",
+   "minMoving": 9,
+   "maxTextCov": 11.18,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 72.97,
+   "e": 77.327,
+   "type": "duo-move",
+   "minMoving": 9,
+   "maxTextCov": 10.56,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 77.327,
+   "e": 82.895,
+   "type": "sil-village",
+   "minMoving": 16,
+   "maxTextCov": 5,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 82.895,
+   "e": 87.002,
+   "type": "store-center",
+   "minMoving": 11,
+   "maxTextCov": 5.43,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 87.002,
+   "e": 89.405,
+   "type": "timeline",
+   "minMoving": 9,
+   "maxTextCov": 5.77,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 89.405,
+   "e": 94.033,
+   "type": "agri-origin",
+   "minMoving": 10,
+   "maxTextCov": 12.31,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 94.033,
+   "e": 96.295,
+   "type": "start-center",
+   "minMoving": 12,
+   "maxTextCov": 8.08,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 96.295,
+   "e": 101.351,
+   "type": "fivegrain2",
+   "minMoving": 9,
+   "maxTextCov": 12.12,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 101.351,
+   "e": 106.445,
+   "type": "staple-big",
+   "minMoving": 9,
+   "maxTextCov": 15.32,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 106.445,
+   "e": 108.784,
+   "type": "chapter",
+   "minMoving": 10,
+   "maxTextCov": 7.94,
+   "pure": true,
+   "ok": true
+  },
+  {
+   "s": 108.784,
+   "e": 112.686,
+   "type": "med-origin",
+   "minMoving": 9,
+   "maxTextCov": 13.77,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 112.686,
+   "e": 116.124,
+   "type": "hardendure",
+   "minMoving": 11,
+   "maxTextCov": 5.58,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 116.124,
+   "e": 119.384,
+   "type": "duo-live",
+   "minMoving": 8,
+   "maxTextCov": 5.7,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 119.384,
+   "e": 126.335,
+   "type": "caobai-sil2",
+   "minMoving": 15,
+   "maxTextCov": 3.76,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 126.335,
+   "e": 130.603,
+   "type": "row3",
+   "minMoving": 7,
+   "maxTextCov": 6.55,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 130.603,
+   "e": 133.2,
+   "type": "book-note",
+   "minMoving": 13,
+   "maxTextCov": 5,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 133.2,
+   "e": 135.226,
+   "type": "bencao-big",
+   "minMoving": 9,
+   "maxTextCov": 14.65,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 135.226,
+   "e": 138.983,
+   "type": "trust-center",
+   "minMoving": 11,
+   "maxTextCov": 7.29,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 138.983,
+   "e": 146.255,
+   "type": "sil-clinic",
+   "minMoving": 13,
+   "maxTextCov": 5,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 146.255,
+   "e": 150.289,
+   "type": "sil-clinic2",
+   "minMoving": 15,
+   "maxTextCov": 1.91,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 150.289,
+   "e": 152.3,
+   "type": "clinical-big",
+   "minMoving": 8,
+   "maxTextCov": 12.83,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 152.3,
+   "e": 154.748,
+   "type": "three-test",
+   "minMoving": 7,
+   "maxTextCov": 6.58,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 154.748,
+   "e": 160.993,
+   "type": "row3",
+   "minMoving": 7,
+   "maxTextCov": 5.93,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 160.993,
+   "e": 163.875,
+   "type": "chapter",
+   "minMoving": 10,
+   "maxTextCov": 8.66,
+   "pure": true,
+   "ok": true
+  },
+  {
+   "s": 163.875,
+   "e": 166.732,
+   "type": "needle-link",
+   "minMoving": 10,
+   "maxTextCov": 9.32,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 166.732,
+   "e": 172.5,
+   "type": "bian-center",
+   "minMoving": 10,
+   "maxTextCov": 8.71,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 172.5,
+   "e": 179.236,
+   "type": "evolution",
+   "minMoving": 8,
+   "maxTextCov": 6.47,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 179.236,
+   "e": 182.891,
+   "type": "principle-big",
+   "minMoving": 8,
+   "maxTextCov": 13.96,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 182.891,
+   "e": 190.204,
+   "type": "who-confirm",
+   "minMoving": 9,
+   "maxTextCov": 16.76,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 190.204,
+   "e": 193.013,
+   "type": "source-center",
+   "minMoving": 11,
+   "maxTextCov": 7.35,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 193.013,
+   "e": 195.854,
+   "type": "birth-intro",
+   "minMoving": 10,
+   "maxTextCov": 8.56,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 195.854,
+   "e": 200.198,
+   "type": "sil-birth",
+   "minMoving": 13,
+   "maxTextCov": 3.45,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 200.198,
+   "e": 205.989,
+   "type": "row3",
+   "minMoving": 7,
+   "maxTextCov": 6.24,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 205.989,
+   "e": 210.931,
+   "type": "save-big",
+   "minMoving": 8,
+   "maxTextCov": 15.72,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 210.931,
+   "e": 213.581,
+   "type": "chapter",
+   "minMoving": 10,
+   "maxTextCov": 9.8,
+   "pure": true,
+   "ok": true
+  },
+  {
+   "s": 213.581,
+   "e": 215.732,
+   "type": "commerce-big",
+   "minMoving": 9,
+   "maxTextCov": 9.53,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 215.732,
+   "e": 220.826,
+   "type": "market-rule",
+   "minMoving": 11,
+   "maxTextCov": 6.8,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 220.826,
+   "e": 224.106,
+   "type": "swap-duo",
+   "minMoving": 8,
+   "maxTextCov": 9.14,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 224.106,
+   "e": 229.553,
+   "type": "market-big",
+   "minMoving": 9,
+   "maxTextCov": 11.6,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 229.553,
+   "e": 233.108,
+   "type": "war-swap",
+   "minMoving": 17,
+   "maxTextCov": 4.05,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 233.108,
+   "e": 238.134,
+   "type": "nofight-big",
+   "minMoving": 8,
+   "maxTextCov": 8.68,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 238.134,
+   "e": 241.766,
+   "type": "sil-market",
+   "minMoving": 15,
+   "maxTextCov": 5.3,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 241.766,
+   "e": 245,
+   "type": "peace-origin",
+   "minMoving": 9,
+   "maxTextCov": 14.18,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 245,
+   "e": 249.589,
+   "type": "not-capital",
+   "minMoving": 9,
+   "maxTextCov": 15.69,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 249.589,
+   "e": 256.612,
+   "type": "today-market",
+   "minMoving": 11,
+   "maxTextCov": 9.8,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 256.612,
+   "e": 259.656,
+   "type": "duo-brothers",
+   "minMoving": 8,
+   "maxTextCov": 5.71,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 259.656,
+   "e": 262.087,
+   "type": "jiangji-timeline",
+   "minMoving": 8,
+   "maxTextCov": 5.83,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 262.087,
+   "e": 266.124,
+   "type": "sil-banquan",
+   "minMoving": 12,
+   "maxTextCov": 3.46,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 266.124,
+   "e": 269.351,
+   "type": "huaxia-big",
+   "minMoving": 9,
+   "maxTextCov": 9.63,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 269.351,
+   "e": 273.925,
+   "type": "sil-zhuolu",
+   "minMoving": 18,
+   "maxTextCov": 3.76,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 273.925,
+   "e": 277.843,
+   "type": "yanhz-big",
+   "minMoving": 8,
+   "maxTextCov": 8.8,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 277.843,
+   "e": 281.144,
+   "type": "behind-row",
+   "minMoving": 7,
+   "maxTextCov": 8.85,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 281.144,
+   "e": 287.932,
+   "type": "agri-first",
+   "minMoving": 9,
+   "maxTextCov": 14.6,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 287.932,
+   "e": 292.179,
+   "type": "alliance-big",
+   "minMoving": 9,
+   "maxTextCov": 16.76,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 292.179,
+   "e": 298.465,
+   "type": "huaxia-origin",
+   "minMoving": 8,
+   "maxTextCov": 13.45,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 298.465,
+   "e": 301.328,
+   "type": "why-yan",
+   "minMoving": 14,
+   "maxTextCov": 11.1,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 301.328,
+   "e": 303.531,
+   "type": "bowl-center",
+   "minMoving": 10,
+   "maxTextCov": 5.94,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 303.531,
+   "e": 307.854,
+   "type": "sil-boil",
+   "minMoving": 17,
+   "maxTextCov": 2.84,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 307.854,
+   "e": 312.142,
+   "type": "sil-pottery",
+   "minMoving": 12,
+   "maxTextCov": 3.45,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 312.142,
+   "e": 317.751,
+   "type": "pottery-big",
+   "minMoving": 8,
+   "maxTextCov": 11.07,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 317.751,
+   "e": 322.088,
+   "type": "row3",
+   "minMoving": 7,
+   "maxTextCov": 5.93,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 322.088,
+   "e": 329.176,
+   "type": "yan-fire",
+   "minMoving": 10,
+   "maxTextCov": 11.38,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 329.176,
+   "e": 332.604,
+   "type": "rel-a",
+   "minMoving": 8,
+   "maxTextCov": 9.24,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 332.604,
+   "e": 336.25,
+   "type": "rel-b",
+   "minMoving": 8,
+   "maxTextCov": 8.69,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 336.25,
+   "e": 340.468,
+   "type": "norelation-q",
+   "minMoving": 14,
+   "maxTextCov": 12.02,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 340.468,
+   "e": 345.456,
+   "type": "heritage-big",
+   "minMoving": 9,
+   "maxTextCov": 15.95,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 345.456,
+   "e": 349.5,
+   "type": "west-q",
+   "minMoving": 14,
+   "maxTextCov": 11.73,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 349.5,
+   "e": 353.465,
+   "type": "sil-cave",
+   "minMoving": 15,
+   "maxTextCov": 4.07,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 353.465,
+   "e": 358.933,
+   "type": "three-doing",
+   "minMoving": 7,
+   "maxTextCov": 13.88,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 358.933,
+   "e": 363.872,
+   "type": "shenong-start",
+   "minMoving": 9,
+   "maxTextCov": 14.19,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 363.872,
+   "e": 368.048,
+   "type": "never-stop",
+   "minMoving": 8,
+   "maxTextCov": 7.38,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 368.048,
+   "e": 372.6,
+   "type": "bone-big",
+   "minMoving": 8,
+   "maxTextCov": 14.15,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 372.6,
+   "e": 377.424,
+   "type": "only-civ",
+   "minMoving": 9,
+   "maxTextCov": 23.02,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 377.424,
+   "e": 383.45,
+   "type": "bone-center",
+   "minMoving": 11,
+   "maxTextCov": 7.99,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 383.45,
+   "e": 385.47,
+   "type": "endcard",
+   "minMoving": 16,
+   "maxTextCov": 6.45,
+   "pure": true,
+   "ok": true
+  }
+ ],
+ "issues": [],
+ "textCov": {
+  "max": 23.02,
+  "mean": 7.8,
+  "over30": 0
+ },
+ "moving": {
+  "min": 7,
+  "mean": 11.8,
+  "under5": 0
+ },
+ "motionPoints": {
+  "windows": 193,
+  "withNew": 193,
+  "emptyAt": []
+ },
+ "pureRatio": 3.3
+}

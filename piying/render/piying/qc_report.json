@@ -1,0 +1,158 @@
+{
+ "total": 44.75,
+ "frames": 1343,
+ "scenes": [
+  {
+   "s": 0,
+   "e": 3.11,
+   "type": "foodhook",
+   "minMoving": 12,
+   "maxTextCov": 5.79,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 3.11,
+   "e": 5.238,
+   "type": "foodmore",
+   "minMoving": 13,
+   "maxTextCov": 3.58,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 5.238,
+   "e": 7.262,
+   "type": "question",
+   "minMoving": 14,
+   "maxTextCov": 6.65,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 7.262,
+   "e": 10.24,
+   "type": "exclude",
+   "minMoving": 9,
+   "maxTextCov": 7.48,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 10.24,
+   "e": 14.212,
+   "type": "hero-reveal",
+   "minMoving": 10,
+   "maxTextCov": 7.6,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 14.212,
+   "e": 17.313,
+   "type": "caobai-sil",
+   "minMoving": 12,
+   "maxTextCov": 4.38,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 17.313,
+   "e": 20.068,
+   "type": "poison72",
+   "minMoving": 11,
+   "maxTextCov": 10.71,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 20.068,
+   "e": 21.412,
+   "type": "myth",
+   "minMoving": 9,
+   "maxTextCov": 14.07,
+   "pure": true,
+   "ok": true
+  },
+  {
+   "s": 21.412,
+   "e": 25.707,
+   "type": "bigger",
+   "minMoving": 10,
+   "maxTextCov": 18.87,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 25.707,
+   "e": 30.974,
+   "type": "fourcards",
+   "minMoving": 12,
+   "maxTextCov": 6.16,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 30.974,
+   "e": 32.35,
+   "type": "fourbig",
+   "minMoving": 14,
+   "maxTextCov": 13.37,
+   "pure": true,
+   "ok": true
+  },
+  {
+   "s": 32.95,
+   "e": 37.667,
+   "type": "sil-seed",
+   "minMoving": 19,
+   "maxTextCov": 3.76,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 37.667,
+   "e": 39.101,
+   "type": "fivegrain",
+   "minMoving": 14,
+   "maxTextCov": 7.89,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 39.101,
+   "e": 42.138,
+   "type": "taste",
+   "minMoving": 12,
+   "maxTextCov": 5.67,
+   "pure": false,
+   "ok": true
+  },
+  {
+   "s": 42.138,
+   "e": 44.75,
+   "type": "sil-plant",
+   "minMoving": 22,
+   "maxTextCov": 3.14,
+   "pure": false,
+   "ok": true
+  }
+ ],
+ "issues": [],
+ "textCov": {
+  "max": 18.87,
+  "mean": 6.8,
+  "over30": 0
+ },
+ "moving": {
+  "min": 9,
+  "mean": 13.8,
+  "under5": 0
+ },
+ "motionPoints": {
+  "windows": 23,
+  "withNew": 23,
+  "emptyAt": []
+ },
+ "pureRatio": 6.1
+}

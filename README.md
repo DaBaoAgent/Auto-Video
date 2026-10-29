@@ -8,14 +8,14 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
-![Pipelines](https://img.shields.io/badge/pipelines-4%20live-111111?style=flat-square)
+![Pipelines](https://img.shields.io/badge/pipelines-5%20live-111111?style=flat-square)
 ![Roadmap](https://img.shields.io/badge/roadmap-99%20styles-c43b32?style=flat-square)
 
 </div>
 
 一条视频最耗时的地方，常常是配音、字幕、分镜、渲染和交付之间的反复接线。Auto-Video 收集可以直接运行的视频制作管线，把这条重复劳动沉淀成可复现的工程。
 
-每条管线都包含实际执行脚本、模板、定版参数和验收条件。今天有 4 条，路线图目标是 99 条。纸本历史短片、历史纪录片、纸雕剪影和逐帧手绘已经可以开工，更多题材、画风、节奏和平台需求会继续进入这里。
+每条管线都包含实际执行脚本、模板、定版参数和验收条件。今天有 5 条，路线图目标是 99 条。纸本历史短片、历史纪录片、纸雕剪影、逐帧手绘和皮影剪影已经可以开工，更多题材、画风、节奏和平台需求会继续进入这里。
 
 ![lishi 历史科普短片画面](lishi/template/src/out/_compat.png)
 
@@ -27,6 +27,7 @@
 | --- | --- | --- | --- |
 | [jianying](jianying/SKILL.md) | 历史叙事、人物独白、悬案考据 | 绢本/纸本、卡片运动语法、Remotion 渲染 | 已上线 |
 | [lishi](lishi/SKILL.md) | 历史人物、战事、悬案、纪年叙事 | 纸本/绢本、AI 静帧底图、代码运镜、Remotion 渲染 | 已上线 |
+| [piying](piying/SKILL.md) | 历史神话、皮影剪影、卡片式讲解 | Playwright、Canvas 逐帧渲染、ffmpeg 音频合成 | 已上线 |
 | [shouhui](shouhui/SKILL.md) | 手绘历史科普、短叙事、动作转场 | Canvas 手绘、线条沸腾、逐帧浏览器渲染 | 已上线 |
 | [zhidiao](zhidiao/SKILL.md) | 长视频、历史图说、纸雕剪影解说 | TTS、词级转写、拼音 DP 对齐、HyperFrames 渲染 | 已上线 |
 
@@ -100,6 +101,21 @@ python shouhui/scripts/shouhui.py render 012_shangzhouwang
 
 完整环境和外部依赖见 [shouhui/MIGRATION.md](shouhui/MIGRATION.md)，手绘管线规则见 [shouhui/SKILL.md](shouhui/SKILL.md)。
 
+### piying
+
+需要 Node.js 20+、Edge 或 Chrome、ffmpeg 和 ffprobe。渲染示例页前先安装 Playwright：
+
+```bash
+cd piying
+npm ci
+cd render/piying
+node gen_full_yandi.js
+node qc_full_yandi.js
+node audit_yandi.js full
+```
+
+迁移后的素材路径已经改为模块内相对路径。完整规格与门禁说明见 [piying/SKILL.md](piying/SKILL.md) 和 [piying/MIGRATION.md](piying/MIGRATION.md)。
+
 ### zhidiao
 
 首次运行前要先准备 GPT-SoVITS、Faster-Whisper、HyperFrames，以及单片 composition 使用的共享样式、GSAP 和字体。迁移与依赖说明见 [zhidiao/MIGRATION.md](zhidiao/MIGRATION.md)。
@@ -127,6 +143,11 @@ Auto-Video/
 │   ├── pipeline.json         # 定版参数
 │   ├── scripts/              # 对齐、分镜、音轨、渲染、封装
 │   └── template/             # Remotion 画面工程
+├── piying/
+│   ├── SKILL.md              # 皮影剪影管线入口
+│   ├── render/piying/        # 分镜、渲染、QC 与交付门禁
+│   ├── output/               # 炎帝示例输入与素材
+│   └── tools/                # 配音、转写与素材处理
 ├── shouhui/
 │   ├── SKILL.md              # 逐帧手绘短片入口
 │   ├── scripts/              # 编排、逐帧渲染与音效
@@ -145,13 +166,14 @@ Auto-Video/
 | 内容与时间轴 | Python、GPT-SoVITS、Faster-Whisper、拼音 DP 对齐 |
 | 画面工程 | TypeScript、Remotion、HTML、CSS、SVG、GSAP |
 | 逐帧手绘 | Canvas、puppeteer-core、simplex-noise、opentype.js |
+| 皮影剪影 | Playwright、Canvas、逐帧截图、ffmpeg |
 | 长视频渲染 | HyperFrames、浏览器逐帧渲染 |
 | 音频与交付 | ffmpeg、ffprobe、响度归一、两遍压缩 |
 | 自动质检 | 字幕重叠检查、补间审计、频闪检测、成品抽帧 |
 
 ## 路线图
 
-当前：`4 / 99`
+当前：`5 / 99`
 
 Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管线必须带自己的流程说明、脚本、可复用资源和验收条件，才算完成迁移。
 
@@ -159,7 +181,7 @@ Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管
 
 ## English
 
-Auto-Video is a growing collection of repeatable video production pipelines for AI-assisted storytelling. The current pipelines cover historical documentary shorts built with Remotion, paper-cut silhouette videos rendered with HyperFrames, and frame-by-frame hand-drawn animation rendered with puppeteer-core. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
+Auto-Video is a growing collection of repeatable video production pipelines for AI-assisted storytelling. The current pipelines cover historical documentary shorts built with Remotion, paper-cut silhouette videos rendered with HyperFrames, frame-by-frame hand-drawn animation, and Canvas-based shadow-puppet animation rendered with Playwright. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
 
 ## 关注更新
 
