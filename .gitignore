@@ -10,10 +10,22 @@ __pycache__/
 
 # Remotion 与构建缓存
 .remotion/
+zhidiao/.hyperframes/
 
 # 可重新生成的大体积成片
 out/**/*.mp4
 projects/*/work/out/*.mp4
+zhidiao/renders/
+zhidiao/output/
+zhidiao/**/*.mp3
+zhidiao/**/*.wav
+zhidiao/**/*.mp4
+zhidiao/**/*.mov
+zhidiao/**/*.mkv
+zhidiao/**/*.webm
+
+# zhidiao 外部运行时与大模型
+zhidiao/vendor/
 
 # 工作区内部数据和临时文件
 .workbuddy/
