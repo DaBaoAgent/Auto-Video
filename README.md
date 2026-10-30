@@ -66,9 +66,23 @@ flowchart LR
 
 ## 效果展示 🖼️
 
+![Auto-Video 管线样片拼图](showcase/showcase-poster.jpg)
+
+<sub>当前 5 条管线的 30 秒样片（来自 `D:\BaiduSyncdisk\MG 动画\管线样片`，会持续同步）。点击下方样片名可播放。</sub>
+
+| 管线 | 30 秒样片 | 示例内容 |
+| --- | --- | --- |
+| [xuni](xuni/SKILL.md) | [合成波 / VHS 样片](showcase/xuni_30s.mp4) | 009《朊病毒·同类相食》 |
+| [shiliang](shiliang/SKILL.md) | [扁平矢量 2D MG 样片](showcase/shiliang_30s.mp4) | 010《生命 3.0》 |
+| [xianshiqi](xianshiqi/SKILL.md) | [赛博朋克 HUD 样片](showcase/xianshiqi_30s.mp4) | UAP / FUSION CENTER |
+| [dengju](dengju/SKILL.md) | [等轴 2.5D 样片](showcase/dengju_30s.mp4) | 013《羽人》 |
+| [piying](piying/SKILL.md) | [皮影剪影样片](showcase/piying_30s.mp4) | 波斯湾伊甸园 |
+
+<sub>更多管线成片画面：</sub>
+
 ![lishi 历史科普短片画面](lishi/template/src/out/_compat.png)
 
-<sub>`lishi` 的纸本视觉系统：楷体纪年、绢本底图、代码运镜与句级字幕。更多管线成片在各自 `projects/`、`output/` 与发布目录中。</sub>
+<sub>`lishi` 的纸本视觉系统：楷体纪年、绢本底图、代码运镜与句级字幕。</sub>
 
 ## 快速开始 🚀
 
