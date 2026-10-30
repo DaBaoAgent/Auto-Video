@@ -1,0 +1,32 @@
+{
+  "cao": {
+    "name": "曹军",
+    "flag": "曹",
+    "css": "cao",
+    "col": "#3d7de0",
+    "dark": "#1d3f78",
+    "light": "#8db4f0",
+    "panel": "曹操军",
+    "legend": "曹操（北军）"
+  },
+  "sun": {
+    "name": "吴军",
+    "flag": "孙",
+    "css": "sun",
+    "col": "#d84040",
+    "dark": "#7e2020",
+    "light": "#f09a93",
+    "panel": "孙权军",
+    "legend": "孙权（江东）"
+  },
+  "liu": {
+    "name": "刘军",
+    "flag": "刘",
+    "css": "liu",
+    "col": "#3fae6a",
+    "dark": "#1e5e38",
+    "light": "#8fd6ae",
+    "panel": "刘备军",
+    "legend": "刘备（客军）"
+  }
+}

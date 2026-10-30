@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "scriptHash": "affaa2294a4f21b1ece2a3f5aaedd70333779e55bffee054507d2f5e2af4de11",
+  "scriptFile": "爆款口播稿.txt",
+  "source": "../../../../content/01-赤壁之战",
+  "base": "chibi",
+  "voice": "anna",
+  "audioReady": true,
+  "subtitleTiming": "local-asr-aligned",
+  "acts": 46,
+  "estimatedSeconds": 1371,
+  "render": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "music": "existing-scene-assets-with-CC0-source-records",
+  "provider": "siliconflow",
+  "model": "FunAudioLLM/CosyVoice2-0.5B",
+  "speed": 0.95,
+  "pausePolicy": {
+    "thresholdDb": -38,
+    "maximumSeconds": 0.55,
+    "sentencePauseSeconds": 0.32
+  },
+  "actualSeconds": 1400.906
+}

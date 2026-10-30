@@ -27,6 +27,22 @@ zhidiao/**/*.webm
 # zhidiao 外部运行时与大模型
 zhidiao/vendor/
 
+# tuiyan 成片与可再生成中间产物（发布信息/封面/分镜表保留入库）
+tuiyan/content/**/视频输出/
+tuiyan/content/**/*.mp4
+tuiyan/content/**/*.mov
+tuiyan/content/**/*.mkv
+tuiyan/content/**/*.webm
+tuiyan/content/**/*.mp3
+tuiyan/content/**/*.wav
+tuiyan/vendor/battlefield-editor/docs/screenshots/
+tuiyan/vendor/battlefield-editor/tools/render-out/
+
+# jilupian 成片与可再生成产物（代码与配置入库；配音/模型/字体不入库见 MIGRATION）
+jilupian/output/
+jilupian/**/成片.mp4
+jilupian/config.local.yaml
+
 # jianying 渲染产物
 jianying/template/out/
 jianying/projects/*/work/out/*.mp4

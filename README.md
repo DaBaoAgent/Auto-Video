@@ -8,14 +8,14 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
-![Pipelines](https://img.shields.io/badge/pipelines-5%20live-111111?style=flat-square)
+![Pipelines](https://img.shields.io/badge/pipelines-7%20live-111111?style=flat-square)
 ![Roadmap](https://img.shields.io/badge/roadmap-99%20styles-c43b32?style=flat-square)
 
 </div>
 
 一条视频最耗时的地方，常常是配音、字幕、分镜、渲染和交付之间的反复接线。Auto-Video 收集可以直接运行的视频制作管线，把这条重复劳动沉淀成可复现的工程。
 
-每条管线都包含实际执行脚本、模板、定版参数和验收条件。今天有 5 条，路线图目标是 99 条。纸本历史短片、历史纪录片、纸雕剪影、逐帧手绘和皮影剪影已经可以开工，更多题材、画风、节奏和平台需求会继续进入这里。
+每条管线都包含实际执行脚本、模板、定版参数和验收条件。今天有 7 条，路线图目标是 99 条。纸本历史短片、历史纪录片、纸雕剪影、逐帧手绘、皮影剪影、3D 战争推演和纪录片解说已经可以开工，更多题材、画风、节奏和平台需求会继续进入这里。
 
 ![lishi 历史科普短片画面](lishi/template/src/out/_compat.png)
 
@@ -30,6 +30,8 @@
 | [piying](piying/SKILL.md) | 历史神话、皮影剪影、卡片式讲解 | Playwright、Canvas 逐帧渲染、ffmpeg 音频合成 | 已上线 |
 | [shouhui](shouhui/SKILL.md) | 手绘历史科普、短叙事、动作转场 | Canvas 手绘、线条沸腾、逐帧浏览器渲染 | 已上线 |
 | [zhidiao](zhidiao/SKILL.md) | 长视频、历史图说、纸雕剪影解说 | TTS、词级转写、拼音 DP 对齐、HyperFrames 渲染 | 已上线 |
+| [tuiyan](tuiyan/SKILL.md) | 历史战争推演、全 3D 战场重现、战役解说 | 3D 兵棋推演引擎、稳帧逐帧渲染、ffmpeg 音效/BGM 合成 | 已上线 |
+| [jilupian](jilupian/SKILL.md) | 纪录片解说、历史/自然/社会题材成片 | 片源核验→下载→口播→配音→影子匹配→渲染，S1–S9 流水线 | 已上线 |
 
 ## 管线里有什么
 
@@ -128,6 +130,33 @@ python scripts/zhidiao_assemble.py --slug <slug>
 
 封面、分镜素材和交付打包工具都在 `zhidiao/tools/`。完整七阶段流程见 [zhidiao/references/pipeline.md](zhidiao/references/pipeline.md)。
 
+### tuiyan
+
+需要 Node.js 18+、Python 3.10+、ffmpeg 和 Edge/Chrome。渲染引擎与赤壁之战 46 幕完整包在 `vendor/battlefield-editor/`（迁移自 alannew 项目，只保留最终成片管线），首次运行先装节点依赖：
+
+```bash
+cd tuiyan/vendor/battlefield-editor
+npm ci
+node tools/validate-data.mjs --pkg packages/chibi-full/battlefield.json   # 数据校验
+PROXY=1 node tools/verify-zh.mjs                                          # 中文残留门禁（errors: 0）
+node tools/render-film.mjs --pkg packages/chibi-full/battlefield.json --out <输出目录>  # 全片稳帧渲染
+```
+
+TTS 配音、影视原声 OST 为本机自备项；完整说明与依赖见 [tuiyan/SKILL.md](tuiyan/SKILL.md)、[tuiyan/MIGRATION.md](tuiyan/MIGRATION.md)。
+
+### jilupian
+
+需要 Python 3.11+、uv、ffmpeg/ffprobe，以及一个 OpenAI 兼容模型服务（默认智谱 GLM）。给一份片源 URL 清单即可自动出片：
+
+```bash
+cd jilupian
+uv sync --all-extras --locked
+$env:GLM_API_KEY = "你的 API Key"
+python -m autoup.run --manifest urls.txt --batch 202611-A
+```
+
+配音默认走 GPT-SoVITS 本地服务（可自备，或 `--set voice.engine=edge_tts` 切免费方案）。配音模块、模型、字体等外部依赖一律引导下载，见 [jilupian/MIGRATION.md](jilupian/MIGRATION.md)；完整规则见 [jilupian/SKILL.md](jilupian/SKILL.md)。
+
 ## 仓库结构
 
 ```text
@@ -152,11 +181,23 @@ Auto-Video/
 │   ├── SKILL.md              # 逐帧手绘短片入口
 │   ├── scripts/              # 编排、逐帧渲染与音效
 │   └── projects/             # 示例工程与可直接查看的样片
-└── zhidiao/
-    ├── SKILL.md              # 纸雕剪影长视频入口
-    ├── references/           # 目录契约、渲染、质检与交付规则
-    ├── scripts/              # 配音对齐、组装、审计、抽帧
-    └── tools/                # TTS、分镜素材、封面与交付打包
+├── zhidiao/
+│   ├── SKILL.md              # 纸雕剪影长视频入口
+│   ├── references/           # 目录契约、渲染、质检与交付规则
+│   ├── scripts/              # 配音对齐、组装、审计、抽帧
+│   └── tools/                # TTS、分镜素材、封面与交付打包
+└── tuiyan/
+    ├── SKILL.md              # 历史战争推演视频入口（全 3D 战场重现）
+    ├── pipeline/laorou/      # 口播稿子管线（机检 + 中文去味）
+    ├── scripts/              # 封面、试听、抽帧审核、发布校验
+    ├── references/           # 开发报告总纲
+    └── vendor/battlefield-editor/  # 3D 兵棋引擎 + 赤壁之战 46 幕完整包
+├── jilupian/
+    ├── SKILL.md              # 纪录片解说流水线入口（S1–S9）
+    ├── autoup/               # 主包：阶段、TTS 适配器、配置
+    ├── references/           # 内容风格、下载规则、流程规格
+    ├── docs/                 # 产品规则、剪辑策略、开发记录
+    └── tests/                # 测试与 CI 门禁
 ```
 
 ## 技术栈
@@ -173,7 +214,7 @@ Auto-Video/
 
 ## 路线图
 
-当前：`5 / 99`
+当前：`7 / 99`
 
 Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管线必须带自己的流程说明、脚本、可复用资源和验收条件，才算完成迁移。
 

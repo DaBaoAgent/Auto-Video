@@ -1,0 +1,5871 @@
+{
+  "1": {
+    "title": "大战一触即发",
+    "text": "公元二零八年的冬天，长江之上，风急浪高。曹操刚扫平北方，亲率大军南下，兵锋直指江东。挡在他前面的，是孙权跟刘备的联军，退无可退。双方在赤壁一带摆开阵势，大战一触即发。这一仗，就是赤壁之战。",
+    "anna": {
+      "dur": 23.936,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "3c81fd577511e505899d92873cd2aa60e4aec5b678465f881ef0e569cd589ee5",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 10.83,
+          "before": 0.91,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 16.76,
+          "before": 0.61,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8889,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 9
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.84,
+          "text": "公元二零八年的冬天"
+        },
+        {
+          "t": 2.42,
+          "end": 3.38,
+          "text": "长江之上"
+        },
+        {
+          "t": 3.68,
+          "end": 4.64,
+          "text": "风急浪高"
+        },
+        {
+          "t": 4.94,
+          "end": 6.98,
+          "text": "曹操刚扫平北方"
+        },
+        {
+          "t": 6.98,
+          "end": 8.72,
+          "text": "亲率大军南下"
+        },
+        {
+          "t": 8.96,
+          "end": 10.78,
+          "text": "兵锋直指江东"
+        },
+        {
+          "t": 11.15,
+          "end": 12.4,
+          "text": "挡在他前面的"
+        },
+        {
+          "t": 12.57,
+          "end": 14.68,
+          "text": "是孙权跟刘备的联军"
+        },
+        {
+          "t": 15.14,
+          "end": 16.14,
+          "text": "退无可退"
+        },
+        {
+          "t": 16.49,
+          "end": 18.98,
+          "text": "双方在赤壁一带摆开阵势"
+        },
+        {
+          "t": 19.23,
+          "end": 21.06,
+          "text": "大战一触即发"
+        },
+        {
+          "t": 21.63,
+          "end": 22.16,
+          "text": "这一仗"
+        },
+        {
+          "t": 22.65,
+          "end": 23.84,
+          "text": "就是赤壁之战"
+        }
+      ]
+    }
+  },
+  "2": {
+    "title": "三个名场面，正史都没影",
+    "text": "不过有意思的是，你要问大家赤壁之战里都发生了啥，十个人里得有八个，讲的全是演义那一套：诸葛亮草船借箭、借东风、关羽华容道放曹操。我告诉大家，这几件事，正史里基本都没影。草船借箭的主角压根不是诸葛亮，借东风也不是那么回事，关羽放曹操，更是小说给加的戏。",
+    "anna": {
+      "dur": 28.094,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "a50ddb7afe03c14f0d4d69a220766e9ae7e6893aad64e19f9645d742d619ca9f",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 9.67,
+          "before": 0.8,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 15.6,
+          "before": 0.64,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 19.97,
+          "before": 0.73,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 25.63,
+          "before": 0.68,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9369,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 7
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.46,
+          "text": "不过有意思的是"
+        },
+        {
+          "t": 1.46,
+          "end": 4.76,
+          "text": "你要问大家赤壁之战里都发生了啥"
+        },
+        {
+          "t": 5.24,
+          "end": 7.2,
+          "text": "十个人里得有八个"
+        },
+        {
+          "t": 7.74,
+          "end": 9.67,
+          "text": "讲的全是演义那一套"
+        },
+        {
+          "t": 9.99,
+          "end": 12.0,
+          "text": "诸葛亮草船借箭"
+        },
+        {
+          "t": 12.0,
+          "end": 12.68,
+          "text": "借东风"
+        },
+        {
+          "t": 13.2,
+          "end": 15.02,
+          "text": "关羽华容道放曹操"
+        },
+        {
+          "t": 15.44,
+          "end": 16.12,
+          "text": "我告诉大家"
+        },
+        {
+          "t": 16.66,
+          "end": 17.4,
+          "text": "这几件事"
+        },
+        {
+          "t": 17.4,
+          "end": 19.14,
+          "text": "正史里基本都没影"
+        },
+        {
+          "t": 19.49,
+          "end": 22.22,
+          "text": "草船借箭的主角压根不是诸葛亮"
+        },
+        {
+          "t": 22.66,
+          "end": 24.38,
+          "text": "借东风也不是那么回事"
+        },
+        {
+          "t": 24.74,
+          "end": 25.88,
+          "text": "关羽放曹操"
+        },
+        {
+          "t": 25.88,
+          "end": 27.68,
+          "text": "更是小说给加的戏"
+        }
+      ]
+    }
+  },
+  "3": {
+    "title": "真相比小说更精彩",
+    "text": "那问题就来了：把这些热闹全拿掉，真实的赤壁之战，到底是怎么打的？曹操到底带了多少兵？一场以少胜多的仗，凭什么把曹操打得退回北方？今天这期啊，咱就来好好认识一下赤壁之战。",
+    "anna": {
+      "dur": 20.112,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "36d9d25148ae0feee50ce4bf2bf9f14923987118132ebf9a715345270c2f15a9",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.96,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 3
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.0,
+          "text": "那问题就来了"
+        },
+        {
+          "t": 1.62,
+          "end": 3.68,
+          "text": "把这些热闹全拿掉"
+        },
+        {
+          "t": 4.35,
+          "end": 5.6,
+          "text": "真实的赤壁之战"
+        },
+        {
+          "t": 5.87,
+          "end": 7.15,
+          "text": "到底是怎么打的"
+        },
+        {
+          "t": 7.76,
+          "end": 9.48,
+          "text": "曹操到底带了多少兵"
+        },
+        {
+          "t": 10.0,
+          "end": 11.74,
+          "text": "一场以少胜多的仗"
+        },
+        {
+          "t": 12.16,
+          "end": 14.76,
+          "text": "凭什么把曹操打得退回北方"
+        },
+        {
+          "t": 15.6,
+          "end": 16.92,
+          "text": "今天这期啊"
+        },
+        {
+          "t": 16.92,
+          "end": 19.72,
+          "text": "咱就来好好认识一下赤壁之战"
+        }
+      ]
+    }
+  },
+  "4": {
+    "title": "两个关子",
+    "text": "老规矩，先卖两个关子。头一个，曹操打这仗之前，给孙权写过一封信，那封信写得是又横又傲，结果后世成了他吹牛的证据。再一个，打赢这仗的头号功臣周瑜，两年以后就病死了，才三十六岁。这两件事，咱后面都细说。",
+    "anna": {
+      "dur": 21.652,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "8d83684a99911fe9fe9164e2d2be0d4959b9acb55b919890d15b39a047bcbff3",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 2.06,
+          "before": 0.61,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 12.24,
+          "before": 0.65,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 19.44,
+          "before": 0.56,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9651,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 3
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.64,
+          "text": "老规矩"
+        },
+        {
+          "t": 1.0,
+          "end": 2.06,
+          "text": "先卖两个关子"
+        },
+        {
+          "t": 2.38,
+          "end": 2.8,
+          "text": "头一个"
+        },
+        {
+          "t": 3.38,
+          "end": 4.72,
+          "text": "曹操打这仗之前"
+        },
+        {
+          "t": 5.0,
+          "end": 6.48,
+          "text": "给孙权写过一封信"
+        },
+        {
+          "t": 6.91,
+          "end": 9.2,
+          "text": "那封信写得是又横又傲"
+        },
+        {
+          "t": 9.39,
+          "end": 11.95,
+          "text": "结果后世成了他吹牛的证据"
+        },
+        {
+          "t": 12.27,
+          "end": 12.79,
+          "text": "再一个"
+        },
+        {
+          "t": 13.28,
+          "end": 15.82,
+          "text": "打赢这仗的头号功臣周瑜"
+        },
+        {
+          "t": 15.82,
+          "end": 17.47,
+          "text": "两年以后就病死了"
+        },
+        {
+          "t": 17.82,
+          "end": 18.82,
+          "text": "才三十六岁"
+        },
+        {
+          "t": 19.14,
+          "end": 19.98,
+          "text": "这两件事"
+        },
+        {
+          "t": 20.38,
+          "end": 21.56,
+          "text": "咱后面都细说"
+        }
+      ]
+    }
+  },
+  "5": {
+    "title": "系列第一仗",
+    "text": "对了，先自我介绍一下：我是艾伦，准备用十年时间，好好讲完中国历史上的所有大小战争。今天这期，就是这个系列的第一仗。",
+    "anna": {
+      "dur": 12.602,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "b1c012f83900207bd7180c0c725930529e46956099a24cc4be064b661f5784b7",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 3.6,
+          "before": 0.62,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 9.61,
+          "before": 1.05,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.98,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 1
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.76,
+          "text": "对了"
+        },
+        {
+          "t": 1.06,
+          "end": 2.2,
+          "text": "先自我介绍一下"
+        },
+        {
+          "t": 2.55,
+          "end": 3.5,
+          "text": "我是艾伦"
+        },
+        {
+          "t": 3.94,
+          "end": 5.12,
+          "text": "准备用十年时间"
+        },
+        {
+          "t": 5.12,
+          "end": 9.02,
+          "text": "好好讲完中国历史上的所有大小战"
+        },
+        {
+          "t": 9.02,
+          "end": 9.31,
+          "text": "争"
+        },
+        {
+          "t": 9.63,
+          "end": 10.36,
+          "text": "今天这期"
+        },
+        {
+          "t": 10.98,
+          "end": 12.602,
+          "text": "就是这个系列的第一仗"
+        }
+      ]
+    }
+  },
+  "6": {
+    "title": "家底与结局",
+    "text": "先报家底。赤壁之战，发生在建安十三年，也就是公元二零八年，地点在长江中游，今天湖北赤壁市一带的江面上。打仗的双方，一边是曹操，刚把北方收拾利索，又兵不血刃拿下了荆州；另一边，是孙权跟刘备的联军。\n\n结果大伙都知道：曹操的水军被一把火烧掉，人马退回北方。这一退，天下三分的架子，就算是搭起来了。这仗在中国战争史上的名头有多响呢？它是中国古代最有名的水战，也是以少胜多的经典案例，两千年过去，讲它的人就没断过。",
+    "anna": {
+      "dur": 46.468,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "4f15f6cc4c0340728c2e3475d978d6ebc91612f3f68b8cd5189fbe794086628b",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 11.86,
+          "before": 0.85,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 16.74,
+          "before": 0.61,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 34.07,
+          "before": 0.57,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 43.27,
+          "before": 0.71,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9831,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 3
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.29,
+          "text": "先报家底"
+        },
+        {
+          "t": 1.94,
+          "end": 2.68,
+          "text": "赤壁之战"
+        },
+        {
+          "t": 2.68,
+          "end": 4.46,
+          "text": "发生在建安十三年"
+        },
+        {
+          "t": 4.6,
+          "end": 6.56,
+          "text": "也就是公元二零八年"
+        },
+        {
+          "t": 7.06,
+          "end": 8.78,
+          "text": "地点在长江中游"
+        },
+        {
+          "t": 8.9,
+          "end": 11.86,
+          "text": "今天湖北赤壁市一带的江面上"
+        },
+        {
+          "t": 12.18,
+          "end": 13.18,
+          "text": "打仗的双方"
+        },
+        {
+          "t": 13.18,
+          "end": 14.48,
+          "text": "一边是曹操"
+        },
+        {
+          "t": 14.48,
+          "end": 16.21,
+          "text": "刚把北方收拾利索"
+        },
+        {
+          "t": 16.53,
+          "end": 18.5,
+          "text": "又兵不血刃拿下了荆州"
+        },
+        {
+          "t": 18.72,
+          "end": 19.48,
+          "text": "另一边"
+        },
+        {
+          "t": 19.91,
+          "end": 21.86,
+          "text": "是孙权跟刘备的联军"
+        },
+        {
+          "t": 22.2,
+          "end": 23.74,
+          "text": "结果大伙都知道"
+        },
+        {
+          "t": 24.32,
+          "end": 26.8,
+          "text": "曹操的水军被一把火烧掉"
+        },
+        {
+          "t": 27.04,
+          "end": 28.52,
+          "text": "人马退回北方"
+        },
+        {
+          "t": 28.84,
+          "end": 29.6,
+          "text": "这一退"
+        },
+        {
+          "t": 30.14,
+          "end": 31.76,
+          "text": "天下三分的架子"
+        },
+        {
+          "t": 32.04,
+          "end": 33.18,
+          "text": "就算是搭起来了"
+        },
+        {
+          "t": 33.57,
+          "end": 36.74,
+          "text": "这仗在中国战争史上的名头有多响"
+        },
+        {
+          "t": 36.74,
+          "end": 36.97,
+          "text": "呢"
+        },
+        {
+          "t": 37.34,
+          "end": 39.57,
+          "text": "它是中国古代最有名的水战"
+        },
+        {
+          "t": 39.79,
+          "end": 42.2,
+          "text": "也是以少胜多的经典案例"
+        },
+        {
+          "t": 42.52,
+          "end": 43.8,
+          "text": "两千年过去"
+        },
+        {
+          "t": 44.07,
+          "end": 45.9,
+          "text": "讲它的人就没断过"
+        }
+      ]
+    }
+  },
+  "7": {
+    "title": "兵力账：会猎信",
+    "text": "下面，咱先来辟谣，把演义欠的账，一笔一笔算清楚。\n\n头一笔，兵力账。演义里说曹操带了八十三万大军，听着就吓人。再经评书戏曲一代代这么传，这数字就深深刻进大伙脑子里了。它是从哪来的呢？源头还真在曹操自己身上。他给孙权写过一封信，原话是：“今治水军八十万众，方与将军会猎于吴。”翻译过来就是：我带着八十万水军，想请将军一起打个猎。“会猎”是客气话，威胁才是真的。",
+    "anna": {
+      "dur": 38.63,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "28ed6337cf2d0eeb028d5e6d39e5aa9f1b52f288bcfa595659c2e08261004802",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 4.97,
+          "before": 0.79,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 7.27,
+          "before": 0.6,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 12.66,
+          "before": 0.83,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 19.25,
+          "before": 0.58,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 20.96,
+          "before": 1.11,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 24.52,
+          "before": 0.99,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 27.16,
+          "before": 0.65,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 33.17,
+          "before": 0.7,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 38.94,
+          "before": 0.96,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8553,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 22
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.42,
+          "text": "下面"
+        },
+        {
+          "t": 0.42,
+          "end": 1.56,
+          "text": "咱先来辟谣"
+        },
+        {
+          "t": 2.19,
+          "end": 3.44,
+          "text": "把演义欠的账"
+        },
+        {
+          "t": 3.44,
+          "end": 4.92,
+          "text": "一笔一笔算清楚"
+        },
+        {
+          "t": 5.29,
+          "end": 5.84,
+          "text": "头一笔"
+        },
+        {
+          "t": 6.26,
+          "end": 6.74,
+          "text": "兵力账"
+        },
+        {
+          "t": 7.12,
+          "end": 10.48,
+          "text": "演义里说曹操带了八十三万大军"
+        },
+        {
+          "t": 10.92,
+          "end": 11.86,
+          "text": "听着就吓人"
+        },
+        {
+          "t": 12.23,
+          "end": 14.58,
+          "text": "再经评书戏曲一代代这么传"
+        },
+        {
+          "t": 14.89,
+          "end": 17.99,
+          "text": "这数字就深深刻进大伙脑子里了"
+        },
+        {
+          "t": 18.31,
+          "end": 19.44,
+          "text": "它是从哪来的呢"
+        },
+        {
+          "t": 19.76,
+          "end": 22.21,
+          "text": "源头还真在曹操自己身上"
+        },
+        {
+          "t": 22.53,
+          "end": 24.1,
+          "text": "他给孙权写过一封信"
+        },
+        {
+          "t": 24.5,
+          "end": 25.18,
+          "text": "原话是"
+        },
+        {
+          "t": 25.46,
+          "end": 27.41,
+          "text": "今治水军八十万众"
+        },
+        {
+          "t": 27.74,
+          "end": 29.8,
+          "text": "方与将军会猎于吴"
+        },
+        {
+          "t": 30.18,
+          "end": 31.1,
+          "text": "翻译过来就是"
+        },
+        {
+          "t": 31.1,
+          "end": 33.12,
+          "text": "我带着八十万水军"
+        },
+        {
+          "t": 33.28,
+          "end": 35.25,
+          "text": "想请将军一起打个猎"
+        },
+        {
+          "t": 35.57,
+          "end": 36.78,
+          "text": "会猎是客气话"
+        },
+        {
+          "t": 37.2,
+          "end": 38.2,
+          "text": "威胁才是真的"
+        }
+      ]
+    }
+  },
+  "8": {
+    "title": "周瑜算的那笔账",
+    "text": "那曹操真有八十万吗？周瑜当场就给孙权算了一笔账，原话是：“彼所将中国人，不过十五六万，且已久疲；所得表众，亦极七八万耳，尚怀狐疑。”翻成大白话：曹操自己带出来的北方兵，也就十五六万，还累得够呛；新收编的荆州降兵，最多七八万，人心还没归附。两头加一块，也就二十多万。",
+    "anna": {
+      "dur": 33.648,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "00b044c9ee4c1aa06b0da64fbb935b75dc4b7646558a2933d4054cbcf56ef098",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 2.38,
+          "before": 1.03,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 31.1,
+          "before": 0.69,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8839,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 13
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 2.38,
+          "text": "那曹操真有八十万吗"
+        },
+        {
+          "t": 2.7,
+          "end": 5.46,
+          "text": "周瑜当场就给孙权算了一笔账"
+        },
+        {
+          "t": 5.94,
+          "end": 6.98,
+          "text": "原话是"
+        },
+        {
+          "t": 7.55,
+          "end": 8.78,
+          "text": "彼所将中国人"
+        },
+        {
+          "t": 9.0,
+          "end": 10.36,
+          "text": "不过十五六万"
+        },
+        {
+          "t": 10.81,
+          "end": 11.8,
+          "text": "且已久疲"
+        },
+        {
+          "t": 12.32,
+          "end": 13.28,
+          "text": "所得表众"
+        },
+        {
+          "t": 13.55,
+          "end": 15.4,
+          "text": "亦极七八万耳"
+        },
+        {
+          "t": 15.7,
+          "end": 17.36,
+          "text": "尚怀狐疑"
+        },
+        {
+          "t": 17.36,
+          "end": 18.3,
+          "text": "翻成大白话"
+        },
+        {
+          "t": 19.07,
+          "end": 21.18,
+          "text": "曹操自己带出来的北方兵"
+        },
+        {
+          "t": 21.85,
+          "end": 22.96,
+          "text": "也就十五六万"
+        },
+        {
+          "t": 23.34,
+          "end": 24.16,
+          "text": "还累得够呛"
+        },
+        {
+          "t": 25.19,
+          "end": 26.84,
+          "text": "新收编的荆州降兵"
+        },
+        {
+          "t": 27.36,
+          "end": 28.31,
+          "text": "最多七八万"
+        },
+        {
+          "t": 28.84,
+          "end": 30.39,
+          "text": "人心还没归附"
+        },
+        {
+          "t": 30.71,
+          "end": 31.76,
+          "text": "两头加一块"
+        },
+        {
+          "t": 32.27,
+          "end": 33.26,
+          "text": "也就二十多万"
+        }
+      ]
+    }
+  },
+  "9": {
+    "title": "五万对二十几万",
+    "text": "联军这边呢，孙权给了周瑜三万人，刘备那边两万上下，满打满算，五万出头。五万人对二十几万人，算下来一个人得顶四五个。所以啊，这仗确实是以少胜多，但也不是什么五万打八十三万，是五万对二十几万。演义那个数，纯属给曹老板脸上贴金。",
+    "anna": {
+      "dur": 23.04,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "1e1a41f3f90bc12567504445c9f3dcf1f16954e2681b05779211770d4d852ef5",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9694,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 3
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.22,
+          "text": "联军这边呢"
+        },
+        {
+          "t": 1.58,
+          "end": 3.24,
+          "text": "孙权给了周瑜三万人"
+        },
+        {
+          "t": 3.7,
+          "end": 5.3,
+          "text": "刘备那边两万上下"
+        },
+        {
+          "t": 5.72,
+          "end": 6.4,
+          "text": "满打满算"
+        },
+        {
+          "t": 6.4,
+          "end": 7.28,
+          "text": "五万出头"
+        },
+        {
+          "t": 7.81,
+          "end": 9.51,
+          "text": "五万人对二十几万人"
+        },
+        {
+          "t": 9.84,
+          "end": 11.74,
+          "text": "算下来一个人得顶四五个"
+        },
+        {
+          "t": 12.36,
+          "end": 12.81,
+          "text": "所以啊"
+        },
+        {
+          "t": 13.19,
+          "end": 14.96,
+          "text": "这仗确实是以少胜多"
+        },
+        {
+          "t": 15.46,
+          "end": 17.53,
+          "text": "但也不是什么五万打八十三万"
+        },
+        {
+          "t": 17.69,
+          "end": 19.3,
+          "text": "是五万对二十几万"
+        },
+        {
+          "t": 19.59,
+          "end": 20.42,
+          "text": "演义那个数"
+        },
+        {
+          "t": 20.86,
+          "end": 22.68,
+          "text": "纯属给曹老板脸上贴金"
+        }
+      ]
+    }
+  },
+  "10": {
+    "title": "主角账：谁在指挥",
+    "text": "第二笔，主角账。受演义影响，一提赤壁，好多人脑子里全是诸葛亮：借箭、借风、神机妙算。其实这仗从头到尾的前线总指挥，是周瑜，那年他三十出头。诸葛亮在赤壁之战里负责啥呢？外交官。他出使柴桑，把孙权说服了，促成了孙刘联盟。演义里那场“舌战群儒”，是艺术加工，真实的记载里，就是一场推心置腹的谈话。但不管怎么说，仗怎么打，得听周瑜的。\n\n第三笔，就是那些名场面了，咱一个一个验货。",
+    "anna": {
+      "dur": 44.23,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "3ebd88b57d5a997e11a24013711a3879f7be5fc4432eefafe188afd8bb5aaec2",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 9.96,
+          "before": 1.01,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 20.14,
+          "before": 0.73,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 25.37,
+          "before": 0.76,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 36.44,
+          "before": 0.58,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 38.18,
+          "before": 0.56,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 39.7,
+          "before": 0.69,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 41.35,
+          "before": 0.6,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9038,
+        "longestUnmatched": 4,
+        "interpolatedCharacters": 15
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.16,
+          "text": "第二笔"
+        },
+        {
+          "t": 1.16,
+          "end": 1.81,
+          "text": "主角账"
+        },
+        {
+          "t": 1.81,
+          "end": 3.0,
+          "text": "受演义影响"
+        },
+        {
+          "t": 3.48,
+          "end": 4.24,
+          "text": "一提赤壁"
+        },
+        {
+          "t": 4.59,
+          "end": 7.02,
+          "text": "好多人脑子里全是诸葛亮"
+        },
+        {
+          "t": 7.5,
+          "end": 8.22,
+          "text": "借箭"
+        },
+        {
+          "t": 8.22,
+          "end": 9.08,
+          "text": "借风"
+        },
+        {
+          "t": 9.08,
+          "end": 9.9,
+          "text": "神机妙算"
+        },
+        {
+          "t": 10.28,
+          "end": 13.36,
+          "text": "其实这仗从头到尾的前线总指挥"
+        },
+        {
+          "t": 13.36,
+          "end": 14.12,
+          "text": "是周瑜"
+        },
+        {
+          "t": 14.63,
+          "end": 16.34,
+          "text": "那年他三十出头"
+        },
+        {
+          "t": 16.72,
+          "end": 19.45,
+          "text": "诸葛亮在赤壁之战里负责啥呢"
+        },
+        {
+          "t": 19.77,
+          "end": 20.42,
+          "text": "外交官"
+        },
+        {
+          "t": 20.82,
+          "end": 22.18,
+          "text": "他出使柴桑"
+        },
+        {
+          "t": 22.62,
+          "end": 24.27,
+          "text": "把孙权说服了"
+        },
+        {
+          "t": 24.66,
+          "end": 26.24,
+          "text": "促成了孙刘联盟"
+        },
+        {
+          "t": 26.24,
+          "end": 28.9,
+          "text": "演义里那场舌战群儒"
+        },
+        {
+          "t": 29.27,
+          "end": 30.42,
+          "text": "是艺术加工"
+        },
+        {
+          "t": 30.72,
+          "end": 32.14,
+          "text": "真实的记载里"
+        },
+        {
+          "t": 32.38,
+          "end": 34.84,
+          "text": "就是一场推心置腹的谈话"
+        },
+        {
+          "t": 35.22,
+          "end": 36.3,
+          "text": "但不管怎么说"
+        },
+        {
+          "t": 36.7,
+          "end": 37.48,
+          "text": "仗怎么打"
+        },
+        {
+          "t": 37.98,
+          "end": 38.9,
+          "text": "得听周瑜的"
+        },
+        {
+          "t": 39.26,
+          "end": 40.27,
+          "text": "第三笔"
+        },
+        {
+          "t": 40.4,
+          "end": 41.85,
+          "text": "就是那些名场面了"
+        },
+        {
+          "t": 42.12,
+          "end": 43.92,
+          "text": "咱一个一个验货"
+        }
+      ]
+    }
+  },
+  "11": {
+    "title": "草船借箭：主角是孙权",
+    "text": "先说草船借箭。这事历史上真有个原型，但主角是孙权，跟诸葛亮一点关系没有。原型记在《魏略》里：赤壁之战五年以后，孙权坐船去侦察曹营，曹操那边弓弩齐发，箭全扎在船的一边，船一歪，眼瞅着就要翻。孙权脑子一转，让船掉个头，拿另一边接着受箭，两边重量一平衡，船稳了，完事人家大摇大摆就回去了。你看，这是急中生智，跟“借箭”根本不沾边。演义把这事整个安到了诸葛亮头上，还加了草人、擂鼓的排场，其实是张冠李戴。",
+    "anna": {
+      "dur": 47.136,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "f0697baab2af81524182ae70dfde83c189d0f9be76ff2d3ac8c29540d6d6ac37",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 27.95,
+          "before": 0.77,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 30.2,
+          "before": 0.59,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 34.46,
+          "before": 0.64,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 39.77,
+          "before": 0.63,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 43.61,
+          "before": 0.65,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8647,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 23
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.4,
+          "text": "先说草船借箭"
+        },
+        {
+          "t": 1.4,
+          "end": 3.98,
+          "text": "这事历史上真有个原型"
+        },
+        {
+          "t": 4.35,
+          "end": 6.16,
+          "text": "但主角是孙权"
+        },
+        {
+          "t": 6.8,
+          "end": 8.54,
+          "text": "跟诸葛亮一点关系没有"
+        },
+        {
+          "t": 9.14,
+          "end": 11.05,
+          "text": "原型记在魏略里"
+        },
+        {
+          "t": 11.8,
+          "end": 13.36,
+          "text": "赤壁之战五年以后"
+        },
+        {
+          "t": 13.55,
+          "end": 16.7,
+          "text": "孙权坐船去侦察曹营"
+        },
+        {
+          "t": 16.7,
+          "end": 18.4,
+          "text": "曹操那边弓弩齐发"
+        },
+        {
+          "t": 18.4,
+          "end": 20.64,
+          "text": "箭全扎在船的一边"
+        },
+        {
+          "t": 21.16,
+          "end": 21.78,
+          "text": "船一歪"
+        },
+        {
+          "t": 22.17,
+          "end": 23.26,
+          "text": "眼瞅着就要翻"
+        },
+        {
+          "t": 23.26,
+          "end": 24.62,
+          "text": "孙权脑子一转"
+        },
+        {
+          "t": 25.07,
+          "end": 26.0,
+          "text": "让船掉个头"
+        },
+        {
+          "t": 26.0,
+          "end": 27.92,
+          "text": "拿另一边接着受箭"
+        },
+        {
+          "t": 28.27,
+          "end": 29.64,
+          "text": "两边重量一平衡"
+        },
+        {
+          "t": 30.07,
+          "end": 30.85,
+          "text": "船稳了"
+        },
+        {
+          "t": 31.35,
+          "end": 33.7,
+          "text": "完事人家大摇大摆就回去了"
+        },
+        {
+          "t": 34.35,
+          "end": 34.64,
+          "text": "你看"
+        },
+        {
+          "t": 35.32,
+          "end": 36.58,
+          "text": "这是急中生智"
+        },
+        {
+          "t": 37.0,
+          "end": 38.64,
+          "text": "跟借箭根本不沾边"
+        },
+        {
+          "t": 39.05,
+          "end": 42.26,
+          "text": "演义把这事整个安到了诸葛亮头上"
+        },
+        {
+          "t": 42.58,
+          "end": 43.58,
+          "text": "还加了草人"
+        },
+        {
+          "t": 43.92,
+          "end": 45.22,
+          "text": "擂鼓的排场"
+        },
+        {
+          "t": 45.22,
+          "end": 46.72,
+          "text": "其实是张冠李戴"
+        }
+      ]
+    }
+  },
+  "12": {
+    "title": "借东风：登坛查无此事",
+    "text": "再说借东风。有人可能要问：诸葛亮登坛做法借风，总该有吧？还真没有。登坛这个画面，是小说和戏曲给咱留下的印象，史书里翻不到。但风是真有。史料里写得明白，火攻那天刮起了东南风，风还特别大。就是巧了，这风把火吹向了曹军。至于这股东南风到底怎么来的，咱后面细讲。",
+    "anna": {
+      "dur": 30.232,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "7bfc6981d3a897612db34b5ce5ad2640d74a3838827b2b0132f572d79b1e4ad8",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 2.72,
+          "before": 0.59,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 6.47,
+          "before": 0.9,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 8.09,
+          "before": 0.75,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 13.07,
+          "before": 0.58,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 18.16,
+          "before": 0.66,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9279,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 8
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.1,
+          "text": "再说借东风"
+        },
+        {
+          "t": 1.32,
+          "end": 2.66,
+          "text": "有人可能要问"
+        },
+        {
+          "t": 3.06,
+          "end": 5.26,
+          "text": "诸葛亮登坛做法借风"
+        },
+        {
+          "t": 5.26,
+          "end": 6.2,
+          "text": "总该有吧"
+        },
+        {
+          "t": 6.52,
+          "end": 7.18,
+          "text": "还真没有"
+        },
+        {
+          "t": 7.58,
+          "end": 8.81,
+          "text": "登坛这个画面"
+        },
+        {
+          "t": 9.27,
+          "end": 11.79,
+          "text": "是小说和戏曲给咱留下的印象"
+        },
+        {
+          "t": 12.11,
+          "end": 13.12,
+          "text": "史书里翻不到"
+        },
+        {
+          "t": 13.76,
+          "end": 14.8,
+          "text": "但风是真有"
+        },
+        {
+          "t": 15.14,
+          "end": 16.42,
+          "text": "史料里写得明白"
+        },
+        {
+          "t": 16.42,
+          "end": 19.16,
+          "text": "火攻那天刮起了东南风"
+        },
+        {
+          "t": 19.77,
+          "end": 21.05,
+          "text": "风还特别大"
+        },
+        {
+          "t": 21.42,
+          "end": 22.53,
+          "text": "就是巧了"
+        },
+        {
+          "t": 23.04,
+          "end": 25.14,
+          "text": "这风把火吹向了曹军"
+        },
+        {
+          "t": 25.68,
+          "end": 28.47,
+          "text": "至于这股东南风到底怎么来的"
+        },
+        {
+          "t": 28.91,
+          "end": 29.9,
+          "text": "咱后面细讲"
+        }
+      ]
+    }
+  },
+  "13": {
+    "title": "华容道：没这出",
+    "text": "关羽华容道放曹操呢，也是编的。曹操确实是从华容道跑的，也确实狼狈，但史书上没有一丁点“关羽放行”的记载。那是罗贯中为了捧关羽，加的戏。",
+    "anna": {
+      "dur": 15.7,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "bccb78cfc59120b1eff667269a12545d5712e0b9ceaa9b9bdab92cc52d0b4233",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 12.45,
+          "before": 0.7,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8966,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 6
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 2.26,
+          "text": "关羽华容道放曹操呢"
+        },
+        {
+          "t": 2.79,
+          "end": 3.67,
+          "text": "也是编的"
+        },
+        {
+          "t": 3.95,
+          "end": 6.56,
+          "text": "曹操确实是从华容道跑的"
+        },
+        {
+          "t": 6.96,
+          "end": 8.18,
+          "text": "也确实狼狈"
+        },
+        {
+          "t": 8.4,
+          "end": 12.2,
+          "text": "但史书上没有一丁点关羽放行的记"
+        },
+        {
+          "t": 12.2,
+          "end": 12.42,
+          "text": "载"
+        },
+        {
+          "t": 12.77,
+          "end": 14.86,
+          "text": "那是罗贯中为了捧关羽"
+        },
+        {
+          "t": 14.86,
+          "end": 15.48,
+          "text": "加的戏"
+        }
+      ]
+    }
+  },
+  "14": {
+    "title": "苦肉计：没挨军棍",
+    "text": "还有句歇后语，叫“周瑜打黄盖，一个愿打一个愿挨”，说的是黄盖挨军棍诈降的苦肉计。实情是，史书里根本没有黄盖挨打这回事，人家用的招，是写了封诈降信。",
+    "anna": {
+      "dur": 17.954,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "f16697f0ddd690b3c20b59ec141f8918c4456bd1803882a3329acc65788682db",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 1.57,
+          "before": 0.67,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 6.76,
+          "before": 0.57,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 10.9,
+          "before": 0.87,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9206,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 5
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.54,
+          "text": "还有句歇后语"
+        },
+        {
+          "t": 1.89,
+          "end": 3.99,
+          "text": "叫周瑜打黄盖"
+        },
+        {
+          "t": 4.48,
+          "end": 6.32,
+          "text": "一个愿打一个愿挨"
+        },
+        {
+          "t": 6.73,
+          "end": 10.26,
+          "text": "说的是黄盖挨军棍诈降的苦肉计"
+        },
+        {
+          "t": 10.62,
+          "end": 11.34,
+          "text": "实情是"
+        },
+        {
+          "t": 11.34,
+          "end": 14.47,
+          "text": "史书里根本没有黄盖挨打这回事"
+        },
+        {
+          "t": 15.17,
+          "end": 16.02,
+          "text": "人家用的招"
+        },
+        {
+          "t": 16.28,
+          "end": 17.6,
+          "text": "是写了封诈降信"
+        }
+      ]
+    }
+  },
+  "15": {
+    "title": "周瑜的气量",
+    "text": "再补一笔，周瑜小心眼，也是演义黑的。正史里，史书给他的评价是四个字：“性度恢廓”，心胸开阔得很。东吴有个老将叫程普，资格老，一开始不服周瑜，处处挤兑他。周瑜从来不跟他计较，日子一长，程普服了，还跟人感慨说：“与周公瑾交，若饮醇醪，不觉自醉。”意思是，跟周瑜打交道，就跟喝好酒一样，不知不觉就醉了。你说这气度，像心眼小的人吗？",
+    "anna": {
+      "dur": 38.438,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "0957d3d1f27c6832eccdd08d4aca01041825c6adefd06e4e242782e2a4e4bd80",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 3.96,
+          "before": 0.8,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 8.26,
+          "before": 0.73,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 25.57,
+          "before": 0.86,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 30.24,
+          "before": 0.82,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.7985,
+        "longestUnmatched": 4,
+        "interpolatedCharacters": 27
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.84,
+          "text": "再补一笔"
+        },
+        {
+          "t": 1.24,
+          "end": 2.4,
+          "text": "周瑜小心眼"
+        },
+        {
+          "t": 2.83,
+          "end": 3.96,
+          "text": "也是演义黑的"
+        },
+        {
+          "t": 4.28,
+          "end": 5.25,
+          "text": "正史里"
+        },
+        {
+          "t": 5.6,
+          "end": 7.78,
+          "text": "史书给他的评价是四个字"
+        },
+        {
+          "t": 8.1,
+          "end": 9.56,
+          "text": "性度恢廓"
+        },
+        {
+          "t": 9.56,
+          "end": 11.06,
+          "text": "心胸开阔得很"
+        },
+        {
+          "t": 11.56,
+          "end": 13.62,
+          "text": "东吴有个老将叫程普"
+        },
+        {
+          "t": 14.22,
+          "end": 14.81,
+          "text": "资格老"
+        },
+        {
+          "t": 15.23,
+          "end": 16.64,
+          "text": "一开始不服周瑜"
+        },
+        {
+          "t": 16.86,
+          "end": 17.98,
+          "text": "处处挤兑他"
+        },
+        {
+          "t": 18.34,
+          "end": 20.02,
+          "text": "周瑜从来不跟他计较"
+        },
+        {
+          "t": 20.58,
+          "end": 21.42,
+          "text": "日子一长"
+        },
+        {
+          "t": 21.42,
+          "end": 22.87,
+          "text": "程普服了"
+        },
+        {
+          "t": 23.04,
+          "end": 24.58,
+          "text": "还跟人感慨说"
+        },
+        {
+          "t": 25.0,
+          "end": 26.1,
+          "text": "与周公瑾交"
+        },
+        {
+          "t": 26.47,
+          "end": 27.4,
+          "text": "若饮醇醪"
+        },
+        {
+          "t": 27.4,
+          "end": 28.74,
+          "text": "不觉自醉"
+        },
+        {
+          "t": 29.13,
+          "end": 29.6,
+          "text": "意思是"
+        },
+        {
+          "t": 30.1,
+          "end": 31.2,
+          "text": "跟周瑜打交道"
+        },
+        {
+          "t": 31.46,
+          "end": 33.05,
+          "text": "就跟喝好酒一样"
+        },
+        {
+          "t": 33.2,
+          "end": 34.84,
+          "text": "不知不觉就醉了"
+        },
+        {
+          "t": 35.39,
+          "end": 36.36,
+          "text": "你说这气度"
+        },
+        {
+          "t": 36.78,
+          "end": 38.08,
+          "text": "像心眼小的人吗"
+        }
+      ]
+    }
+  },
+  "16": {
+    "title": "从头捋：玄武池练兵",
+    "text": "好，账算完了，咱把这仗从头捋一遍。\n\n先看曹操这边。建安十三年春天，曹操在邺城挖了个大池子，叫玄武池，史书上写“作玄武池以肄舟师”，说白了，就是专门练水军。你看，人家南下的心思，不是临时起的。",
+    "anna": {
+      "dur": 22.086,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "e03366a6989c917315bd2c764a9ae12c42ba331e52f843ab707e3a7ebc29f6b6",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 15.65,
+          "before": 0.65,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8987,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 8
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.3,
+          "text": "好"
+        },
+        {
+          "t": 0.3,
+          "end": 1.04,
+          "text": "账算完了"
+        },
+        {
+          "t": 1.48,
+          "end": 3.25,
+          "text": "咱把这仗从头捋一遍"
+        },
+        {
+          "t": 3.74,
+          "end": 5.06,
+          "text": "先看曹操这边"
+        },
+        {
+          "t": 5.44,
+          "end": 7.22,
+          "text": "建安十三年春天"
+        },
+        {
+          "t": 7.86,
+          "end": 10.21,
+          "text": "曹操在邺城挖了个大池子"
+        },
+        {
+          "t": 10.64,
+          "end": 11.72,
+          "text": "叫玄武池"
+        },
+        {
+          "t": 12.04,
+          "end": 16.0,
+          "text": "史书上写作玄武池以肄舟师"
+        },
+        {
+          "t": 16.0,
+          "end": 16.68,
+          "text": "说白了"
+        },
+        {
+          "t": 16.68,
+          "end": 18.35,
+          "text": "就是专门练水军"
+        },
+        {
+          "t": 18.58,
+          "end": 19.02,
+          "text": "你看"
+        },
+        {
+          "t": 19.02,
+          "end": 20.52,
+          "text": "人家南下的心思"
+        },
+        {
+          "t": 20.52,
+          "end": 22.06,
+          "text": "不是临时起的"
+        }
+      ]
+    }
+  },
+  "17": {
+    "title": "荆州易主",
+    "text": "到了秋天，七月，大军南下。八月，荆州牧刘表病死了。九月，他儿子刘琮接手，扭头就投降。荆州这么大一块地方，基本等于白送，连刘表攒下的水军战船，也一并改了姓。",
+    "anna": {
+      "dur": 18.904,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "e618ad3f560cf4e77ee0239231f27393d3164fac07358cbc67170b55800884ce",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 3.0,
+          "before": 0.62,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 6.03,
+          "before": 0.65,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 10.85,
+          "before": 0.78,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 14.86,
+          "before": 0.63,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8923,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 7
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.92,
+          "text": "到了秋天"
+        },
+        {
+          "t": 1.54,
+          "end": 1.98,
+          "text": "七月"
+        },
+        {
+          "t": 2.17,
+          "end": 2.94,
+          "text": "大军南下"
+        },
+        {
+          "t": 3.32,
+          "end": 3.74,
+          "text": "八月"
+        },
+        {
+          "t": 3.99,
+          "end": 5.73,
+          "text": "荆州牧刘表病死了"
+        },
+        {
+          "t": 6.05,
+          "end": 6.57,
+          "text": "九月"
+        },
+        {
+          "t": 6.94,
+          "end": 8.48,
+          "text": "他儿子刘琮接手"
+        },
+        {
+          "t": 8.92,
+          "end": 10.12,
+          "text": "扭头就投降"
+        },
+        {
+          "t": 10.54,
+          "end": 12.06,
+          "text": "荆州这么大一块地方"
+        },
+        {
+          "t": 12.58,
+          "end": 13.72,
+          "text": "基本等于白送"
+        },
+        {
+          "t": 14.09,
+          "end": 16.86,
+          "text": "连刘表攒下的水军战船"
+        },
+        {
+          "t": 17.42,
+          "end": 18.904,
+          "text": "也一并改了姓"
+        }
+      ]
+    }
+  },
+  "18": {
+    "title": "长坂坡：三百里",
+    "text": "刘备这边就惨了。他本来驻在樊城，听说刘琮投降，赶紧往南撤，十几万百姓跟着跑，一天只能走十几里地。曹操哪肯放他走，派了五千精锐骑兵猛追，一天一夜追了三百多里，在当阳长坂坡给追上了。刘备的队伍一冲就散，多亏张飞守在桥头，横矛一嗓子把追兵镇住，赵云又护着家小，这才脱了身。",
+    "anna": {
+      "dur": 30.03,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "837b11bba7c1dffd737e5edc9e0501a966a48fcb8653f421d0b702ebcf83c7f5",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 11.01,
+          "before": 0.71,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 17.35,
+          "before": 0.68,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 22.08,
+          "before": 0.74,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9068,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 11
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.56,
+          "text": "刘备这边就惨了"
+        },
+        {
+          "t": 1.86,
+          "end": 3.48,
+          "text": "他本来驻在樊城"
+        },
+        {
+          "t": 3.48,
+          "end": 5.14,
+          "text": "听说刘琮投降"
+        },
+        {
+          "t": 5.14,
+          "end": 6.38,
+          "text": "赶紧往南撤"
+        },
+        {
+          "t": 6.63,
+          "end": 8.64,
+          "text": "十几万百姓跟着跑"
+        },
+        {
+          "t": 8.85,
+          "end": 11.01,
+          "text": "一天只能走十几里地"
+        },
+        {
+          "t": 11.33,
+          "end": 12.84,
+          "text": "曹操哪肯放他走"
+        },
+        {
+          "t": 12.84,
+          "end": 15.22,
+          "text": "派了五千精锐骑兵猛追"
+        },
+        {
+          "t": 15.22,
+          "end": 16.96,
+          "text": "一天一夜追了三百多里"
+        },
+        {
+          "t": 17.28,
+          "end": 19.28,
+          "text": "在当阳长坂坡给追上了"
+        },
+        {
+          "t": 19.7,
+          "end": 21.3,
+          "text": "刘备的队伍一冲就散"
+        },
+        {
+          "t": 21.65,
+          "end": 23.23,
+          "text": "多亏张飞守在桥头"
+        },
+        {
+          "t": 23.89,
+          "end": 26.22,
+          "text": "横矛一嗓子把追兵镇住"
+        },
+        {
+          "t": 26.78,
+          "end": 28.24,
+          "text": "赵云又护着家小"
+        },
+        {
+          "t": 28.48,
+          "end": 29.64,
+          "text": "这才脱了身"
+        }
+      ]
+    }
+  },
+  "19": {
+    "title": "退保夏口",
+    "text": "刘备一路退，跟关羽的船队接上头，又跟刘琦会合，一起退到夏口。然后派诸葛亮出使柴桑，找孙权谈联盟。这段刚才说过了，不重复。",
+    "anna": {
+      "dur": 13.296,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "212ff86e6ff52b978089b2b93271d5b5f393cf8a0f7a7fa1c7bbe4dc2b756332",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9615,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 2
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.04,
+          "text": "刘备一路退"
+        },
+        {
+          "t": 1.41,
+          "end": 3.22,
+          "text": "跟关羽的船队接上头"
+        },
+        {
+          "t": 3.22,
+          "end": 4.76,
+          "text": "又跟刘琦会合"
+        },
+        {
+          "t": 4.76,
+          "end": 6.23,
+          "text": "一起退到夏口"
+        },
+        {
+          "t": 6.48,
+          "end": 8.7,
+          "text": "然后派诸葛亮出使柴桑"
+        },
+        {
+          "t": 9.16,
+          "end": 10.68,
+          "text": "找孙权谈联盟"
+        },
+        {
+          "t": 11.19,
+          "end": 12.56,
+          "text": "这段刚才说过了"
+        },
+        {
+          "t": 12.56,
+          "end": 13.26,
+          "text": "不重复"
+        }
+      ]
+    }
+  },
+  "20": {
+    "title": "诸葛亮摊牌",
+    "text": "诸葛亮这一趟，其实挺有戏。孙权当时心里也打鼓，诸葛亮就跟他摊牌：您要是决心跟曹操掰手腕，那就早定；要是觉得打不过，干脆早点投降，别这么悬着。孙权一听就反问：那你们刘豫州怎么不投降？诸葛亮说：刘豫州是汉室宗亲，英才盖世，怎么可能受制于人。孙权当场就急了：“吾不能举全吴之地，十万之众，受制于人！”我手里有整个江东、十万兵马，怎么可能低头听人摆布？这么一激，联盟就成了。",
+    "anna": {
+      "dur": 42.362,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "6a1566e86035c06cf8e311decd1a4370ee406a2a0635a615dacccf2ab18133df",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 2.71,
+          "before": 0.71,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 20.74,
+          "before": 1.06,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 28.42,
+          "before": 0.75,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 35.65,
+          "before": 0.64,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 41.15,
+          "before": 0.67,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9427,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 9
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.18,
+          "text": "诸葛亮这一趟"
+        },
+        {
+          "t": 1.64,
+          "end": 2.64,
+          "text": "其实挺有戏"
+        },
+        {
+          "t": 3.24,
+          "end": 4.62,
+          "text": "孙权当时心里也打鼓"
+        },
+        {
+          "t": 5.2,
+          "end": 6.68,
+          "text": "诸葛亮就跟他摊牌"
+        },
+        {
+          "t": 7.04,
+          "end": 9.88,
+          "text": "您要是决心跟曹操掰手腕"
+        },
+        {
+          "t": 10.15,
+          "end": 11.2,
+          "text": "那就早定"
+        },
+        {
+          "t": 11.74,
+          "end": 12.9,
+          "text": "要是觉得打不过"
+        },
+        {
+          "t": 13.39,
+          "end": 14.46,
+          "text": "干脆早点投降"
+        },
+        {
+          "t": 14.8,
+          "end": 15.69,
+          "text": "别这么悬着"
+        },
+        {
+          "t": 16.05,
+          "end": 17.8,
+          "text": "孙权一听就反问"
+        },
+        {
+          "t": 18.08,
+          "end": 20.24,
+          "text": "那你们刘豫州怎么不投降"
+        },
+        {
+          "t": 20.67,
+          "end": 21.42,
+          "text": "诸葛亮说"
+        },
+        {
+          "t": 21.99,
+          "end": 23.74,
+          "text": "刘豫州是汉室宗亲"
+        },
+        {
+          "t": 24.31,
+          "end": 25.26,
+          "text": "英才盖世"
+        },
+        {
+          "t": 25.73,
+          "end": 27.2,
+          "text": "怎么可能受制于人"
+        },
+        {
+          "t": 27.76,
+          "end": 29.24,
+          "text": "孙权当场就急了"
+        },
+        {
+          "t": 29.56,
+          "end": 31.56,
+          "text": "吾不能举全吴之地"
+        },
+        {
+          "t": 31.96,
+          "end": 32.86,
+          "text": "十万之众"
+        },
+        {
+          "t": 33.18,
+          "end": 34.0,
+          "text": "受制于人"
+        },
+        {
+          "t": 34.41,
+          "end": 35.86,
+          "text": "我手里有整个江东"
+        },
+        {
+          "t": 35.86,
+          "end": 36.76,
+          "text": "十万兵马"
+        },
+        {
+          "t": 37.38,
+          "end": 39.24,
+          "text": "怎么可能低头听人摆布"
+        },
+        {
+          "t": 39.62,
+          "end": 40.88,
+          "text": "这么一激"
+        },
+        {
+          "t": 40.88,
+          "end": 42.0,
+          "text": "联盟就成了"
+        }
+      ]
+    }
+  },
+  "21": {
+    "title": "会猎信·东吴震恐",
+    "text": "曹操这边呢，拿下荆州以后，水军有了，战船也有了，顺江东下，剑指江东。他给孙权的那封信，就是这个时候送到的。\n\n信到了东吴，什么反应？史书上就六个字：“莫不响震失色。”满屋子人，脸都吓白了。张昭这些文臣带头说，打不过，不如早降。理由还挺充分：曹操挟天子以令诸侯，名正言顺；东吴就靠一条长江天险，可现在荆州的水军全归了曹操，长江天险，等于人家跟咱一人一半，这仗没法打。",
+    "anna": {
+      "dur": 44.244,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "fbbffd12648564d51ac8ac7659766c69ee6c4c3a3293a7f64131a2905292ceb0",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 12.03,
+          "before": 0.71,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 17.09,
+          "before": 0.97,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 25.21,
+          "before": 0.66,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9804,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 3
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.07,
+          "text": "曹操这边呢"
+        },
+        {
+          "t": 1.52,
+          "end": 2.7,
+          "text": "拿下荆州以后"
+        },
+        {
+          "t": 3.2,
+          "end": 3.99,
+          "text": "水军有了"
+        },
+        {
+          "t": 4.42,
+          "end": 5.38,
+          "text": "战船也有了"
+        },
+        {
+          "t": 5.8,
+          "end": 6.67,
+          "text": "顺江东下"
+        },
+        {
+          "t": 7.1,
+          "end": 7.97,
+          "text": "剑指江东"
+        },
+        {
+          "t": 8.63,
+          "end": 10.0,
+          "text": "他给孙权的那封信"
+        },
+        {
+          "t": 10.51,
+          "end": 12.03,
+          "text": "就是这个时候送到的"
+        },
+        {
+          "t": 12.35,
+          "end": 13.42,
+          "text": "信到了东吴"
+        },
+        {
+          "t": 13.73,
+          "end": 14.54,
+          "text": "什么反应"
+        },
+        {
+          "t": 15.07,
+          "end": 16.7,
+          "text": "史书上就六个字"
+        },
+        {
+          "t": 17.04,
+          "end": 18.68,
+          "text": "莫不响震失色"
+        },
+        {
+          "t": 19.23,
+          "end": 20.04,
+          "text": "满屋子人"
+        },
+        {
+          "t": 20.52,
+          "end": 21.48,
+          "text": "脸都吓白了"
+        },
+        {
+          "t": 21.74,
+          "end": 24.12,
+          "text": "张昭这些文臣带头说"
+        },
+        {
+          "t": 24.49,
+          "end": 25.06,
+          "text": "打不过"
+        },
+        {
+          "t": 25.59,
+          "end": 26.8,
+          "text": "不如早降"
+        },
+        {
+          "t": 26.8,
+          "end": 28.07,
+          "text": "理由还挺充分"
+        },
+        {
+          "t": 28.28,
+          "end": 30.86,
+          "text": "曹操挟天子以令诸侯"
+        },
+        {
+          "t": 31.22,
+          "end": 32.09,
+          "text": "名正言顺"
+        },
+        {
+          "t": 32.61,
+          "end": 35.22,
+          "text": "东吴就靠一条长江天险"
+        },
+        {
+          "t": 35.43,
+          "end": 38.77,
+          "text": "可现在荆州的水军全归了曹操"
+        },
+        {
+          "t": 39.34,
+          "end": 40.36,
+          "text": "长江天险"
+        },
+        {
+          "t": 40.36,
+          "end": 42.26,
+          "text": "等于人家跟咱一人一半"
+        },
+        {
+          "t": 42.78,
+          "end": 43.94,
+          "text": "这仗没法打"
+        }
+      ]
+    }
+  },
+  "22": {
+    "title": "鲁肃掏心窝",
+    "text": "眼看孙权要被说动摇了，鲁肃站出来了。他没讲什么大道理，就跟孙权掏心窝子算了一笔账：“今肃可迎操耳，如将军不可也。”翻译过来：我鲁肃投降，照样有官做，日子照过；将军您要是投降，您往哪儿搁？这一句，直接点到心坎上。",
+    "anna": {
+      "dur": 23.71,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "2c04428690ee5a99d3e6eba41fdca844a11209f66d4e4c4dcb23d601413be1dc",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 8.66,
+          "before": 1.09,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9326,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 6
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 2.19,
+          "text": "眼看孙权要被说动摇了"
+        },
+        {
+          "t": 2.64,
+          "end": 3.7,
+          "text": "鲁肃站出来了"
+        },
+        {
+          "t": 4.09,
+          "end": 5.75,
+          "text": "他没讲什么大道理"
+        },
+        {
+          "t": 5.93,
+          "end": 8.66,
+          "text": "就跟孙权掏心窝子算了一笔账"
+        },
+        {
+          "t": 8.98,
+          "end": 10.62,
+          "text": "今肃可迎操耳"
+        },
+        {
+          "t": 11.04,
+          "end": 12.52,
+          "text": "如将军不可也"
+        },
+        {
+          "t": 12.52,
+          "end": 13.82,
+          "text": "翻译过来"
+        },
+        {
+          "t": 14.17,
+          "end": 15.24,
+          "text": "我鲁肃投降"
+        },
+        {
+          "t": 15.64,
+          "end": 16.74,
+          "text": "照样有官做"
+        },
+        {
+          "t": 17.07,
+          "end": 18.0,
+          "text": "日子照过"
+        },
+        {
+          "t": 18.22,
+          "end": 19.88,
+          "text": "将军您要是投降"
+        },
+        {
+          "t": 20.22,
+          "end": 21.0,
+          "text": "您往哪儿搁"
+        },
+        {
+          "t": 21.35,
+          "end": 21.78,
+          "text": "这一句"
+        },
+        {
+          "t": 21.78,
+          "end": 23.28,
+          "text": "直接点到心坎上"
+        }
+      ]
+    }
+  },
+  "23": {
+    "title": "周瑜夜归·四条底细",
+    "text": "当天晚上，周瑜也赶回来见孙权，把曹操的底细一条条摆开。头一条，曹操后方不稳，马超、韩遂还在关西盯着他；再一条，他的兵大多是北方人，骑马在行，打水仗是赶鸭子上架；还有一条，大冬天出兵，马连草料都供不上；最后一条，北方人跑到长江边上来，水土不服，非闹病不可。",
+    "anna": {
+      "dur": 32.288,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "844f1ae7bcc670f57f091a5a0f703cf20e9fc50f2eb3b968cc235ed3d24ac768",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 25.95,
+          "before": 0.84,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9083,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 10
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.88,
+          "text": "当天晚上"
+        },
+        {
+          "t": 1.38,
+          "end": 3.28,
+          "text": "周瑜也赶回来见孙权"
+        },
+        {
+          "t": 3.84,
+          "end": 6.18,
+          "text": "把曹操的底细一条条摆开"
+        },
+        {
+          "t": 6.58,
+          "end": 7.48,
+          "text": "头一条"
+        },
+        {
+          "t": 8.0,
+          "end": 9.3,
+          "text": "曹操后方不稳"
+        },
+        {
+          "t": 9.78,
+          "end": 10.173,
+          "text": "马超"
+        },
+        {
+          "t": 10.173,
+          "end": 12.27,
+          "text": "韩遂还在关西盯着他"
+        },
+        {
+          "t": 12.53,
+          "end": 13.54,
+          "text": "再一条"
+        },
+        {
+          "t": 13.99,
+          "end": 15.86,
+          "text": "他的兵大多是北方人"
+        },
+        {
+          "t": 16.28,
+          "end": 17.44,
+          "text": "骑马在行"
+        },
+        {
+          "t": 17.57,
+          "end": 19.38,
+          "text": "打水仗是赶鸭子上架"
+        },
+        {
+          "t": 19.75,
+          "end": 20.56,
+          "text": "还有一条"
+        },
+        {
+          "t": 21.07,
+          "end": 21.98,
+          "text": "大冬天出兵"
+        },
+        {
+          "t": 21.98,
+          "end": 24.39,
+          "text": "马连草料都供不上"
+        },
+        {
+          "t": 24.81,
+          "end": 25.88,
+          "text": "最后一条"
+        },
+        {
+          "t": 26.27,
+          "end": 28.78,
+          "text": "北方人跑到长江边上来"
+        },
+        {
+          "t": 29.28,
+          "end": 30.12,
+          "text": "水土不服"
+        },
+        {
+          "t": 30.56,
+          "end": 31.6,
+          "text": "非闹病不可"
+        }
+      ]
+    }
+  },
+  "24": {
+    "title": "拔刀斫案",
+    "text": "四条摆完，周瑜下了结论：曹操这是自己送上门来的，哪有不打的道理？孙权听完，噌地拔出刀，一刀砍在面前的桌案上：“诸将吏敢复有言当迎操者，与此案同！”谁再敢提投降，跟这张桌子一个下场。这场面，你感受一下。",
+    "anna": {
+      "dur": 23.848,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "dca01659e023ab61a05316568f9505275b84ca30c437deeac312f44bd7ec51d0",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 7.09,
+          "before": 0.77,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 12.94,
+          "before": 0.63,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 21.85,
+          "before": 0.72,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8471,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 13
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.24,
+          "text": "四条摆完"
+        },
+        {
+          "t": 1.58,
+          "end": 2.76,
+          "text": "周瑜下了结论"
+        },
+        {
+          "t": 3.12,
+          "end": 5.56,
+          "text": "曹操这是自己送上门来的"
+        },
+        {
+          "t": 5.91,
+          "end": 7.09,
+          "text": "哪有不打的道理"
+        },
+        {
+          "t": 7.41,
+          "end": 8.4,
+          "text": "孙权听完"
+        },
+        {
+          "t": 8.4,
+          "end": 9.88,
+          "text": "噌地拔出刀"
+        },
+        {
+          "t": 10.12,
+          "end": 12.49,
+          "text": "一刀砍在面前的桌案上"
+        },
+        {
+          "t": 12.81,
+          "end": 16.07,
+          "text": "诸将吏敢复有言当迎操者"
+        },
+        {
+          "t": 16.44,
+          "end": 17.44,
+          "text": "与此案同"
+        },
+        {
+          "t": 18.07,
+          "end": 19.48,
+          "text": "谁再敢提投降"
+        },
+        {
+          "t": 19.48,
+          "end": 21.04,
+          "text": "跟这张桌子一个下场"
+        },
+        {
+          "t": 21.41,
+          "end": 22.1,
+          "text": "这场面"
+        },
+        {
+          "t": 22.66,
+          "end": 23.4,
+          "text": "你感受一下"
+        }
+      ]
+    }
+  },
+  "25": {
+    "title": "定盘子·逆江而上",
+    "text": "最后定盘子。周瑜拍胸脯：给我几万精兵，保准把曹操破了。孙权说，五万一时凑不齐，先给你三万，船和粮草都备齐了，你跟程普先出发，后援，我亲自盯着送。说到激动处，他还补了句狠的：“卿能办之者诚决，邂逅不如意，便还就孤，孤当与孟德决之。”意思就是：你打得赢就打，打不顺就回来，我亲自跟曹操决战。\n\n就这么着，周瑜跟程普带着三万人逆江而上，跟刘备会了师。",
+    "anna": {
+      "dur": 42.162,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "390f828bab7a4eff4ee0dd68576797e07f500863e3ebaae2bf15026ec1f89c49",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 21.33,
+          "before": 0.91,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 25.81,
+          "before": 0.88,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 27.79,
+          "before": 0.65,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 30.02,
+          "before": 0.79,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8403,
+        "longestUnmatched": 4,
+        "interpolatedCharacters": 23
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.3,
+          "text": "最后定盘子"
+        },
+        {
+          "t": 1.9,
+          "end": 3.68,
+          "text": "周瑜拍胸脯"
+        },
+        {
+          "t": 3.68,
+          "end": 4.96,
+          "text": "给我几万精兵"
+        },
+        {
+          "t": 5.46,
+          "end": 6.87,
+          "text": "保准把曹操破了"
+        },
+        {
+          "t": 7.17,
+          "end": 8.02,
+          "text": "孙权说"
+        },
+        {
+          "t": 8.69,
+          "end": 10.5,
+          "text": "五万一时凑不齐"
+        },
+        {
+          "t": 10.5,
+          "end": 11.56,
+          "text": "先给你三万"
+        },
+        {
+          "t": 12.04,
+          "end": 13.96,
+          "text": "船和粮草都备齐了"
+        },
+        {
+          "t": 14.14,
+          "end": 15.78,
+          "text": "你跟程普先出发"
+        },
+        {
+          "t": 15.78,
+          "end": 16.26,
+          "text": "后援"
+        },
+        {
+          "t": 16.55,
+          "end": 17.95,
+          "text": "我亲自盯着送"
+        },
+        {
+          "t": 18.43,
+          "end": 19.46,
+          "text": "说到激动处"
+        },
+        {
+          "t": 20.01,
+          "end": 21.33,
+          "text": "他还补了句狠的"
+        },
+        {
+          "t": 21.65,
+          "end": 23.46,
+          "text": "卿能办之者诚决"
+        },
+        {
+          "t": 23.96,
+          "end": 25.18,
+          "text": "邂逅不如意"
+        },
+        {
+          "t": 25.56,
+          "end": 26.58,
+          "text": "便还就孤"
+        },
+        {
+          "t": 26.96,
+          "end": 28.44,
+          "text": "孤当与孟德决之"
+        },
+        {
+          "t": 28.86,
+          "end": 29.54,
+          "text": "意思就是"
+        },
+        {
+          "t": 29.54,
+          "end": 31.44,
+          "text": "你打得赢就打"
+        },
+        {
+          "t": 31.89,
+          "end": 33.09,
+          "text": "打不顺就回来"
+        },
+        {
+          "t": 33.59,
+          "end": 35.22,
+          "text": "我亲自跟曹操决战"
+        },
+        {
+          "t": 35.67,
+          "end": 36.28,
+          "text": "就这么着"
+        },
+        {
+          "t": 36.74,
+          "end": 39.98,
+          "text": "周瑜跟程普带着三万人逆江而上"
+        },
+        {
+          "t": 40.52,
+          "end": 41.82,
+          "text": "跟刘备会了师"
+        }
+      ]
+    }
+  },
+  "26": {
+    "title": "两军相遇·初战",
+    "text": "两军在赤壁碰上了，隔着长江对峙：曹操在北岸，联军在南岸。\n\n见面先打了一小仗。这时候，曹军里头已经在闹病了，史书上写着呢，“时曹公军众已有疾病”。第一次交手，曹军没占到便宜，退到江北乌林一带扎营。联军就守在江南，隔着江看着他们。",
+    "anna": {
+      "dur": 26.732,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "2133d229133e1a6259bfe8b8ce3b2399dd5e28a197e942bb495d0ba271b79652",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 3.8,
+          "before": 0.83,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 7.4,
+          "before": 0.71,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 9.66,
+          "before": 0.76,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 20.13,
+          "before": 0.6,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 22.15,
+          "before": 0.57,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 24.64,
+          "before": 0.59,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9896,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 1
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.93,
+          "text": "两军在赤壁碰上了"
+        },
+        {
+          "t": 2.47,
+          "end": 3.74,
+          "text": "隔着长江对峙"
+        },
+        {
+          "t": 4.14,
+          "end": 5.32,
+          "text": "曹操在北岸"
+        },
+        {
+          "t": 5.83,
+          "end": 6.89,
+          "text": "联军在南岸"
+        },
+        {
+          "t": 7.21,
+          "end": 8.7,
+          "text": "见面先打了一小仗"
+        },
+        {
+          "t": 9.08,
+          "end": 9.56,
+          "text": "这时候"
+        },
+        {
+          "t": 9.98,
+          "end": 12.24,
+          "text": "曹军里头已经在闹病了"
+        },
+        {
+          "t": 12.82,
+          "end": 14.01,
+          "text": "史书上写着呢"
+        },
+        {
+          "t": 14.56,
+          "end": 17.34,
+          "text": "时曹公军众已有疾病"
+        },
+        {
+          "t": 17.88,
+          "end": 18.79,
+          "text": "第一次交手"
+        },
+        {
+          "t": 19.14,
+          "end": 20.53,
+          "text": "曹军没占到便宜"
+        },
+        {
+          "t": 20.85,
+          "end": 22.68,
+          "text": "退到江北乌林一带扎营"
+        },
+        {
+          "t": 23.09,
+          "end": 24.58,
+          "text": "联军就守在江南"
+        },
+        {
+          "t": 24.99,
+          "end": 26.32,
+          "text": "隔着江看着他们"
+        }
+      ]
+    }
+  },
+  "27": {
+    "title": "捆成一垛柴火",
+    "text": "接下来，曹操犯了个要命的错。他的兵大多是北方人，上了船晕得七荤八素，吐得一塌糊涂，仗没法打。怎么办呢？他就让战船首尾相接，一条挨着一条，全串在一起。这么一搞，船是稳了，人也站得住了。可你想想，船全串在一块，不就等于把整个水寨，捆成了一大垛柴火吗？多说一句，演义里讲的“铁索连环”，史书里没有“铁索”这俩字，记载就四个字：首尾相接。铁索，是后人加的细节。",
+    "anna": {
+      "dur": 40.03,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "16de33775cdc207c5dd751869f1571f19d7564542af0a8fa13f0c12be144ccb6",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 2.91,
+          "before": 0.84,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 5.66,
+          "before": 0.58,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 8.61,
+          "before": 0.58,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 10.35,
+          "before": 0.97,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 12.25,
+          "before": 0.68,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 13.58,
+          "before": 0.84,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8851,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 17
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.98,
+          "text": "接下来"
+        },
+        {
+          "t": 1.14,
+          "end": 2.84,
+          "text": "曹操犯了个要命的错"
+        },
+        {
+          "t": 3.23,
+          "end": 5.14,
+          "text": "他的兵大多是北方人"
+        },
+        {
+          "t": 5.46,
+          "end": 7.83,
+          "text": "上了船晕得七荤八素"
+        },
+        {
+          "t": 8.15,
+          "end": 9.31,
+          "text": "吐得一塌糊涂"
+        },
+        {
+          "t": 9.63,
+          "end": 10.56,
+          "text": "仗没法打"
+        },
+        {
+          "t": 10.88,
+          "end": 11.53,
+          "text": "怎么办呢"
+        },
+        {
+          "t": 11.85,
+          "end": 13.8,
+          "text": "他就让战船首尾相接"
+        },
+        {
+          "t": 14.3,
+          "end": 15.6,
+          "text": "一条挨着一条"
+        },
+        {
+          "t": 16.01,
+          "end": 17.12,
+          "text": "全串在一起"
+        },
+        {
+          "t": 17.65,
+          "end": 18.22,
+          "text": "这么一搞"
+        },
+        {
+          "t": 18.59,
+          "end": 19.6,
+          "text": "船是稳了"
+        },
+        {
+          "t": 20.0,
+          "end": 21.07,
+          "text": "人也站得住了"
+        },
+        {
+          "t": 21.4,
+          "end": 22.36,
+          "text": "可你想想"
+        },
+        {
+          "t": 22.92,
+          "end": 24.26,
+          "text": "船全串在一块"
+        },
+        {
+          "t": 24.49,
+          "end": 26.28,
+          "text": "不就等于把整个水寨"
+        },
+        {
+          "t": 26.82,
+          "end": 28.35,
+          "text": "捆成了一大垛柴火吗"
+        },
+        {
+          "t": 29.28,
+          "end": 30.06,
+          "text": "多说一句"
+        },
+        {
+          "t": 30.46,
+          "end": 32.44,
+          "text": "演义里讲的铁索连环"
+        },
+        {
+          "t": 32.44,
+          "end": 34.8,
+          "text": "史书里没有铁索这俩字"
+        },
+        {
+          "t": 35.32,
+          "end": 36.48,
+          "text": "记载就四个字"
+        },
+        {
+          "t": 36.83,
+          "end": 37.72,
+          "text": "首尾相接"
+        },
+        {
+          "t": 38.31,
+          "end": 38.8,
+          "text": "铁索"
+        },
+        {
+          "t": 38.8,
+          "end": 40.03,
+          "text": "是后人加的细节"
+        }
+      ]
+    }
+  },
+  "28": {
+    "title": "黄盖献计",
+    "text": "这时候，周瑜手下的老将黄盖，出了个主意。他跟周瑜说：“今寇众我寡，难与持久。然观操军船舰首尾相接，可烧而走也。”大白话就是：人家比咱人多，拖不起；但他们的船都串在一起了，一把火，就能把事办了。",
+    "anna": {
+      "dur": 24.448,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "e48cb4d0fa989f0bd46a3449635fac80c1a4bda5287c9adb411822565972dbad",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 9.74,
+          "before": 0.64,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9375,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 5
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.06,
+          "text": "这时候"
+        },
+        {
+          "t": 1.6,
+          "end": 3.58,
+          "text": "周瑜手下的老将黄盖"
+        },
+        {
+          "t": 3.97,
+          "end": 4.8,
+          "text": "出了个主意"
+        },
+        {
+          "t": 5.28,
+          "end": 6.18,
+          "text": "他跟周瑜说"
+        },
+        {
+          "t": 7.0,
+          "end": 8.2,
+          "text": "今寇众我寡"
+        },
+        {
+          "t": 8.75,
+          "end": 9.74,
+          "text": "难与持久"
+        },
+        {
+          "t": 10.06,
+          "end": 13.12,
+          "text": "然观操军船舰首尾相接"
+        },
+        {
+          "t": 13.62,
+          "end": 14.74,
+          "text": "可烧而走也"
+        },
+        {
+          "t": 15.15,
+          "end": 16.44,
+          "text": "大白话就是"
+        },
+        {
+          "t": 17.06,
+          "end": 18.14,
+          "text": "人家比咱人多"
+        },
+        {
+          "t": 18.52,
+          "end": 19.08,
+          "text": "拖不起"
+        },
+        {
+          "t": 19.41,
+          "end": 21.63,
+          "text": "但他们的船都串在一起了"
+        },
+        {
+          "t": 21.92,
+          "end": 22.76,
+          "text": "一把火"
+        },
+        {
+          "t": 23.02,
+          "end": 24.2,
+          "text": "就能把事办了"
+        }
+      ]
+    }
+  },
+  "29": {
+    "title": "诈降信",
+    "text": "说干就干。黄盖先给曹操写了封诈降信，信里说得有鼻子有眼：我黄盖在江东混了这些年，看得明白，你们人多势众，我决定弃暗投明。曹操收到信，还专门见了送信的人，私下盘问了半天，最后撂下一句话：我就怕你小子是诈降。话是这么说，可他那边，防线一点没加。",
+    "anna": {
+      "dur": 23.906,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "95416be91815292241a174f8c95d4e3a19268fb9ec3134fd914566970f07164a",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 12.06,
+          "before": 0.83,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 21.21,
+          "before": 0.72,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8762,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 13
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.9,
+          "text": "说干就干"
+        },
+        {
+          "t": 1.4,
+          "end": 3.7,
+          "text": "黄盖先给曹操写了封诈降信"
+        },
+        {
+          "t": 4.24,
+          "end": 5.68,
+          "text": "信里说得有鼻子有眼"
+        },
+        {
+          "t": 5.99,
+          "end": 8.26,
+          "text": "我黄盖在江东混了这些年"
+        },
+        {
+          "t": 8.74,
+          "end": 9.3,
+          "text": "看得明白"
+        },
+        {
+          "t": 9.3,
+          "end": 10.32,
+          "text": "你们人多势众"
+        },
+        {
+          "t": 10.72,
+          "end": 12.06,
+          "text": "我决定弃暗投明"
+        },
+        {
+          "t": 12.38,
+          "end": 13.32,
+          "text": "曹操收到信"
+        },
+        {
+          "t": 13.78,
+          "end": 15.22,
+          "text": "还专门见了送信的人"
+        },
+        {
+          "t": 15.72,
+          "end": 16.99,
+          "text": "私下盘问了半天"
+        },
+        {
+          "t": 17.32,
+          "end": 18.49,
+          "text": "最后撂下一句话"
+        },
+        {
+          "t": 18.66,
+          "end": 20.7,
+          "text": "我就怕你小子是诈降"
+        },
+        {
+          "t": 21.02,
+          "end": 21.84,
+          "text": "话是这么说"
+        },
+        {
+          "t": 22.22,
+          "end": 22.78,
+          "text": "可他那边"
+        },
+        {
+          "t": 22.78,
+          "end": 23.88,
+          "text": "防线一点没加"
+        }
+      ]
+    }
+  },
+  "30": {
+    "title": "火船准备",
+    "text": "然后就到执行环节了。黄盖挑了十艘蒙冲斗舰，船上装满干柴，柴里灌上油，外面裹上布，插上旗子，每艘船后头还拴了条小快船，给放火的人留的退路。你看人家这个准备，做得细不细。",
+    "anna": {
+      "dur": 19.09,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "ef5df30b226d58aa385e2352278106a2e8f2b5769371978442c200921d72170f",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 1.89,
+          "before": 0.61,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 16.29,
+          "before": 1.22,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9452,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 4
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.89,
+          "text": "然后就到执行环节了"
+        },
+        {
+          "t": 2.21,
+          "end": 4.58,
+          "text": "黄盖挑了十艘蒙冲斗舰"
+        },
+        {
+          "t": 4.79,
+          "end": 6.47,
+          "text": "船上装满干柴"
+        },
+        {
+          "t": 6.88,
+          "end": 7.92,
+          "text": "柴里灌上油"
+        },
+        {
+          "t": 8.45,
+          "end": 9.39,
+          "text": "外面裹上布"
+        },
+        {
+          "t": 9.86,
+          "end": 10.66,
+          "text": "插上旗子"
+        },
+        {
+          "t": 11.08,
+          "end": 13.74,
+          "text": "每艘船后头还拴了条小快船"
+        },
+        {
+          "t": 13.74,
+          "end": 16.0,
+          "text": "给放火的人留的退路"
+        },
+        {
+          "t": 16.32,
+          "end": 17.48,
+          "text": "你看人家这个准备"
+        },
+        {
+          "t": 18.04,
+          "end": 18.88,
+          "text": "做得细不细"
+        }
+      ]
+    }
+  },
+  "31": {
+    "title": "东南风起",
+    "text": "到了那天，东南风起。十艘火船打头，朝着曹军水寨就去了。曹军的将士呢？史书里写得传神：“皆延颈观望，指言盖降。”一个个伸长了脖子看热闹，指着船队说：来了来了，黄盖来投降了。",
+    "anna": {
+      "dur": 21.768,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "2af0ed0129f4890275215598eecacf086cc22340ff38de69b9ace3b18ebc5416",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8873,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 8
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.88,
+          "text": "到了那天"
+        },
+        {
+          "t": 1.32,
+          "end": 2.36,
+          "text": "东南风起"
+        },
+        {
+          "t": 2.61,
+          "end": 4.35,
+          "text": "十艘火船打头"
+        },
+        {
+          "t": 4.86,
+          "end": 6.7,
+          "text": "朝着曹军水寨就去了"
+        },
+        {
+          "t": 7.29,
+          "end": 8.77,
+          "text": "曹军的将士呢"
+        },
+        {
+          "t": 9.14,
+          "end": 10.94,
+          "text": "史书里写得传神"
+        },
+        {
+          "t": 11.68,
+          "end": 12.94,
+          "text": "皆延颈观望"
+        },
+        {
+          "t": 13.17,
+          "end": 14.27,
+          "text": "指言盖降"
+        },
+        {
+          "t": 14.63,
+          "end": 17.32,
+          "text": "一个个伸长了脖子看热闹"
+        },
+        {
+          "t": 17.54,
+          "end": 18.56,
+          "text": "指着船队说"
+        },
+        {
+          "t": 19.11,
+          "end": 19.76,
+          "text": "来了来了"
+        },
+        {
+          "t": 20.24,
+          "end": 21.56,
+          "text": "黄盖来投降了"
+        }
+      ]
+    }
+  },
+  "32": {
+    "title": "点火：火烧赤壁",
+    "text": "等到离曹军水寨还有二里多地，十艘船同时点火。那天风有多大呢？史书原话：“风盛猛”，“火烈风猛”。着了火的船，借着风势，跟箭一样扎进曹军的船阵。曹军的船全串在一起啊，一条都跑不了，火一烧就是一大片，“悉延烧岸上营落”，连岸上的营帐都给燎了。没多大工夫，“烟炎张天”，黑烟腾腾，火光冲天，人马烧死的、淹死的，不计其数。",
+    "anna": {
+      "dur": 38.994,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "503846357d2edf65dca96bb2e57134d08ec97c7a270df9582f184ae644f26bf6",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 5.36,
+          "before": 0.86,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 7.86,
+          "before": 0.8,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 24.86,
+          "before": 1.01,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 30.71,
+          "before": 0.68,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8594,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 18
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 2.96,
+          "text": "等到离曹军水寨还有二里多地"
+        },
+        {
+          "t": 3.5,
+          "end": 5.36,
+          "text": "十艘船同时点火"
+        },
+        {
+          "t": 5.68,
+          "end": 7.32,
+          "text": "那天风有多大呢"
+        },
+        {
+          "t": 7.64,
+          "end": 9.14,
+          "text": "史书原话"
+        },
+        {
+          "t": 9.14,
+          "end": 10.8,
+          "text": "风盛猛"
+        },
+        {
+          "t": 10.8,
+          "end": 12.17,
+          "text": "火烈风猛"
+        },
+        {
+          "t": 12.37,
+          "end": 13.3,
+          "text": "着了火的船"
+        },
+        {
+          "t": 13.68,
+          "end": 14.47,
+          "text": "借着风势"
+        },
+        {
+          "t": 14.86,
+          "end": 17.32,
+          "text": "跟箭一样扎进曹军的船阵"
+        },
+        {
+          "t": 17.81,
+          "end": 19.78,
+          "text": "曹军的船全串在一起啊"
+        },
+        {
+          "t": 20.01,
+          "end": 21.46,
+          "text": "一条都跑不了"
+        },
+        {
+          "t": 21.93,
+          "end": 23.78,
+          "text": "火一烧就是一大片"
+        },
+        {
+          "t": 24.16,
+          "end": 26.26,
+          "text": "悉延烧岸上营落"
+        },
+        {
+          "t": 26.96,
+          "end": 29.0,
+          "text": "连岸上的营帐都给燎了"
+        },
+        {
+          "t": 29.38,
+          "end": 30.35,
+          "text": "没多大工夫"
+        },
+        {
+          "t": 30.83,
+          "end": 32.48,
+          "text": "烟炎张天"
+        },
+        {
+          "t": 32.92,
+          "end": 33.88,
+          "text": "黑烟腾腾"
+        },
+        {
+          "t": 34.28,
+          "end": 35.18,
+          "text": "火光冲天"
+        },
+        {
+          "t": 35.77,
+          "end": 36.89,
+          "text": "人马烧死的"
+        },
+        {
+          "t": 37.26,
+          "end": 37.78,
+          "text": "淹死的"
+        },
+        {
+          "t": 37.78,
+          "end": 38.7,
+          "text": "不计其数"
+        }
+      ]
+    }
+  },
+  "33": {
+    "title": "主力压上·黄盖坠江",
+    "text": "周瑜的主力随后就压上来了，鼓声震天。曹操的水军，就这么没了。一封诈降信，十艘火船，把二十几万大军烧回了北方。这笔买卖，做得也太划算了。\n\n说个细节，火攻的执行人黄盖，那天自己也差点没回来。他中了箭，掉进冬天的江水里，被自己人捞上来的时候，人都冻僵了，谁也没认出他，随手给搁在一边。多亏他攒着劲喊了一嗓子，韩当听出了他的声音：这不是公覆吗！赶紧给他换衣服救治，这才把命捡回来。",
+    "anna": {
+      "dur": 41.752,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "94e71b8edd76708c6b72717aee0f4a328279b36b49ef9b5deda05477ca87f739",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 2.61,
+          "before": 0.65,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 7.39,
+          "before": 0.96,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 13.86,
+          "before": 0.78,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 33.62,
+          "before": 0.61,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 36.37,
+          "before": 0.72,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9136,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 14
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 2.56,
+          "text": "周瑜的主力随后就压上来了"
+        },
+        {
+          "t": 2.93,
+          "end": 3.72,
+          "text": "鼓声震天"
+        },
+        {
+          "t": 4.46,
+          "end": 5.58,
+          "text": "曹操的水军"
+        },
+        {
+          "t": 6.17,
+          "end": 7.06,
+          "text": "就这么没了"
+        },
+        {
+          "t": 7.38,
+          "end": 8.4,
+          "text": "一封诈降信"
+        },
+        {
+          "t": 8.9,
+          "end": 9.92,
+          "text": "十艘火船"
+        },
+        {
+          "t": 10.36,
+          "end": 12.86,
+          "text": "把二十几万大军烧回了北方"
+        },
+        {
+          "t": 13.21,
+          "end": 14.06,
+          "text": "这笔买卖"
+        },
+        {
+          "t": 14.44,
+          "end": 15.87,
+          "text": "做得也太划算了"
+        },
+        {
+          "t": 16.33,
+          "end": 17.14,
+          "text": "说个细节"
+        },
+        {
+          "t": 17.72,
+          "end": 19.34,
+          "text": "火攻的执行人黄盖"
+        },
+        {
+          "t": 19.53,
+          "end": 21.67,
+          "text": "那天自己也差点没回来"
+        },
+        {
+          "t": 21.81,
+          "end": 23.05,
+          "text": "他中了箭"
+        },
+        {
+          "t": 23.47,
+          "end": 25.05,
+          "text": "掉进冬天的江水里"
+        },
+        {
+          "t": 25.52,
+          "end": 27.28,
+          "text": "被自己人捞上来的时候"
+        },
+        {
+          "t": 27.8,
+          "end": 28.85,
+          "text": "人都冻僵了"
+        },
+        {
+          "t": 29.14,
+          "end": 30.3,
+          "text": "谁也没认出他"
+        },
+        {
+          "t": 30.88,
+          "end": 32.14,
+          "text": "随手给搁在一边"
+        },
+        {
+          "t": 32.51,
+          "end": 34.65,
+          "text": "多亏他攒着劲喊了一嗓子"
+        },
+        {
+          "t": 34.97,
+          "end": 36.44,
+          "text": "韩当听出了他的声音"
+        },
+        {
+          "t": 36.8,
+          "end": 37.85,
+          "text": "这不是公覆吗"
+        },
+        {
+          "t": 38.27,
+          "end": 40.05,
+          "text": "赶紧给他换衣服救治"
+        },
+        {
+          "t": 40.18,
+          "end": 41.46,
+          "text": "这才把命捡回来"
+        }
+      ]
+    }
+  },
+  "34": {
+    "title": "败走华容道",
+    "text": "曹操退到岸上，把剩下的船烧了，带着残兵往西撤，走华容道。这条路是片烂泥地，《山阳公载记》里写得那叫一个惨：赶上泥泞，路不通，天还刮着大风。曹操下令，让老弱残兵背草铺路，骑兵算是过去了，可那些铺路的兵，被人马这么一踩，陷进泥里，死了一大片。曹操自己好不容易逃出来，回头还挺得意，跟手下说：刘备确实是个人物，可惜他动手太慢，他要是早点放火，咱这些人一个都跑不了。你听听，这嘴硬的。",
+    "anna": {
+      "dur": 41.536,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "2ba75cfa3405e4f1229ea6796154d436e455e921cdd1cbdea464b8b700f41d3e",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 5.47,
+          "before": 0.7,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 9.42,
+          "before": 0.81,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 12.85,
+          "before": 1.01,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 28.87,
+          "before": 0.76,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9565,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 7
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.48,
+          "text": "曹操退到岸上"
+        },
+        {
+          "t": 1.92,
+          "end": 3.29,
+          "text": "把剩下的船烧了"
+        },
+        {
+          "t": 3.59,
+          "end": 5.42,
+          "text": "带着残兵往西撤"
+        },
+        {
+          "t": 5.79,
+          "end": 6.88,
+          "text": "走华容道"
+        },
+        {
+          "t": 6.88,
+          "end": 9.04,
+          "text": "这条路是片烂泥地"
+        },
+        {
+          "t": 9.36,
+          "end": 11.92,
+          "text": "山阳公载记里写得那叫一个惨"
+        },
+        {
+          "t": 12.3,
+          "end": 13.12,
+          "text": "赶上泥泞"
+        },
+        {
+          "t": 13.73,
+          "end": 14.36,
+          "text": "路不通"
+        },
+        {
+          "t": 14.96,
+          "end": 16.42,
+          "text": "天还刮着大风"
+        },
+        {
+          "t": 16.93,
+          "end": 17.72,
+          "text": "曹操下令"
+        },
+        {
+          "t": 18.12,
+          "end": 20.24,
+          "text": "让老弱残兵背草铺路"
+        },
+        {
+          "t": 20.5,
+          "end": 22.06,
+          "text": "骑兵算是过去了"
+        },
+        {
+          "t": 22.24,
+          "end": 23.68,
+          "text": "可那些铺路的兵"
+        },
+        {
+          "t": 23.68,
+          "end": 24.94,
+          "text": "被人马这么一踩"
+        },
+        {
+          "t": 24.94,
+          "end": 26.2,
+          "text": "陷进泥里"
+        },
+        {
+          "t": 26.42,
+          "end": 27.26,
+          "text": "死了一大片"
+        },
+        {
+          "t": 27.63,
+          "end": 29.36,
+          "text": "曹操自己好不容易逃出来"
+        },
+        {
+          "t": 29.36,
+          "end": 30.86,
+          "text": "回头还挺得意"
+        },
+        {
+          "t": 31.39,
+          "end": 32.18,
+          "text": "跟手下说"
+        },
+        {
+          "t": 32.62,
+          "end": 34.05,
+          "text": "刘备确实是个人物"
+        },
+        {
+          "t": 34.25,
+          "end": 35.74,
+          "text": "可惜他动手太慢"
+        },
+        {
+          "t": 36.16,
+          "end": 37.64,
+          "text": "他要是早点放火"
+        },
+        {
+          "t": 38.02,
+          "end": 39.52,
+          "text": "咱这些人一个都跑不了"
+        },
+        {
+          "t": 40.13,
+          "end": 40.62,
+          "text": "你听听"
+        },
+        {
+          "t": 41.01,
+          "end": 41.536,
+          "text": "这嘴硬的"
+        }
+      ]
+    }
+  },
+  "35": {
+    "title": "输在疾病",
+    "text": "但是话说回来，曹操这把输的，真不光是火。还有两个字：疾病。史书上写得清清楚楚：“于是大疫，吏士多死者，乃引军还。”军营里闹起了瘟疫，病死的、累死的一茬接一茬，曹操只能撤。到底闹的是什么病？后来有人考证，猜是血吸虫病，也有人不同意，说可能是别的传染病，反正到现在，也没个定论。",
+    "anna": {
+      "dur": 34.814,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "59f24ecfc8c814491bc1ae2e5c51c3665866d69151a4846b3700ca9d31379055",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 6.57,
+          "before": 0.84,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 15.95,
+          "before": 0.9,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 25.36,
+          "before": 0.7,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 31.03,
+          "before": 0.77,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.887,
+        "longestUnmatched": 3,
+        "interpolatedCharacters": 13
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.24,
+          "text": "但是话说回来"
+        },
+        {
+          "t": 1.88,
+          "end": 3.86,
+          "text": "曹操这把输的"
+        },
+        {
+          "t": 4.24,
+          "end": 5.22,
+          "text": "真不光是火"
+        },
+        {
+          "t": 5.64,
+          "end": 6.52,
+          "text": "还有两个字"
+        },
+        {
+          "t": 6.92,
+          "end": 7.48,
+          "text": "疾病"
+        },
+        {
+          "t": 7.95,
+          "end": 9.86,
+          "text": "史书上写得清清楚楚"
+        },
+        {
+          "t": 9.86,
+          "end": 11.907,
+          "text": "于是大疫"
+        },
+        {
+          "t": 11.907,
+          "end": 13.87,
+          "text": "吏士多死者"
+        },
+        {
+          "t": 14.26,
+          "end": 15.32,
+          "text": "乃引军还"
+        },
+        {
+          "t": 15.75,
+          "end": 17.6,
+          "text": "军营里闹起了瘟疫"
+        },
+        {
+          "t": 17.92,
+          "end": 18.68,
+          "text": "病死的"
+        },
+        {
+          "t": 18.86,
+          "end": 21.1,
+          "text": "累死的一茬接一茬"
+        },
+        {
+          "t": 21.1,
+          "end": 22.36,
+          "text": "曹操只能撤"
+        },
+        {
+          "t": 22.96,
+          "end": 24.26,
+          "text": "到底闹的是什么病"
+        },
+        {
+          "t": 24.58,
+          "end": 26.01,
+          "text": "后来有人考证"
+        },
+        {
+          "t": 26.43,
+          "end": 27.96,
+          "text": "猜是血吸虫病"
+        },
+        {
+          "t": 28.14,
+          "end": 29.55,
+          "text": "也有人不同意"
+        },
+        {
+          "t": 29.87,
+          "end": 31.6,
+          "text": "说可能是别的传染病"
+        },
+        {
+          "t": 32.11,
+          "end": 32.94,
+          "text": "反正到现在"
+        },
+        {
+          "t": 33.54,
+          "end": 34.34,
+          "text": "也没个定论"
+        }
+      ]
+    }
+  },
+  "36": {
+    "title": "风的真相",
+    "text": "再说开头那股东南风。大冬天的，长江上正常刮的是西北风，偏偏那天来了东南风。这风到底怎么来的？有人说是当地江湖之间的小气候，有人说是赶上了冷空气的间隙，反正没有定论。但有一样能确定：黄盖这一把火，赌的就是风向。风向不对，烧的就是自己。结果老天爷赏脸，赌赢了。",
+    "anna": {
+      "dur": 30.238,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "80d7a2d5f7407a0993bdfc9f84c5ce5afd5e56786b05700b269b6a56cbcf693d",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 9.3,
+          "before": 1.06,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 11.81,
+          "before": 0.73,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 22.86,
+          "before": 0.77,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 26.35,
+          "before": 0.7,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 29.3,
+          "before": 0.79,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 31.52,
+          "before": 0.68,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9735,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 3
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 2.24,
+          "text": "再说开头那股东南风"
+        },
+        {
+          "t": 2.24,
+          "end": 3.79,
+          "text": "大冬天的"
+        },
+        {
+          "t": 4.3,
+          "end": 6.6,
+          "text": "长江上正常刮的是西北风"
+        },
+        {
+          "t": 6.6,
+          "end": 9.22,
+          "text": "偏偏那天来了东南风"
+        },
+        {
+          "t": 9.62,
+          "end": 11.07,
+          "text": "这风到底怎么来的"
+        },
+        {
+          "t": 11.39,
+          "end": 14.75,
+          "text": "有人说是当地江湖之间的小气候"
+        },
+        {
+          "t": 15.28,
+          "end": 18.18,
+          "text": "有人说是赶上了冷空气的间隙"
+        },
+        {
+          "t": 18.69,
+          "end": 20.06,
+          "text": "反正没有定论"
+        },
+        {
+          "t": 20.41,
+          "end": 21.68,
+          "text": "但有一样能确定"
+        },
+        {
+          "t": 22.03,
+          "end": 23.14,
+          "text": "黄盖这一把火"
+        },
+        {
+          "t": 23.63,
+          "end": 24.72,
+          "text": "赌的就是风向"
+        },
+        {
+          "t": 25.07,
+          "end": 25.66,
+          "text": "风向不对"
+        },
+        {
+          "t": 26.2,
+          "end": 27.28,
+          "text": "烧的就是自己"
+        },
+        {
+          "t": 27.64,
+          "end": 29.04,
+          "text": "结果老天爷赏脸"
+        },
+        {
+          "t": 29.39,
+          "end": 29.94,
+          "text": "赌赢了"
+        }
+      ]
+    }
+  },
+  "37": {
+    "title": "信的后续",
+    "text": "对了，开头说的那封信，还有后续。后来曹操又给孙权写信，还嘴硬呢：“赤壁之役，值有疾病，孤烧船自退，横使周瑜虚获此名。”那回赶上闹病，是我自己烧船退的兵，白白让周瑜得了个虚名。你看，死不认账这毛病，曹老板也有。",
+    "anna": {
+      "dur": 22.318,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "f3b0b78385b8f98315e5c78f7a28b509fcc51eb00cbc2e37314603eee21fb516",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 3.16,
+          "before": 0.73,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.931,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 6
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.5,
+          "text": "对了"
+        },
+        {
+          "t": 0.9,
+          "end": 2.1,
+          "text": "开头说的那封信"
+        },
+        {
+          "t": 2.4,
+          "end": 3.16,
+          "text": "还有后续"
+        },
+        {
+          "t": 3.48,
+          "end": 5.58,
+          "text": "后来曹操又给孙权写信"
+        },
+        {
+          "t": 5.82,
+          "end": 6.56,
+          "text": "还嘴硬呢"
+        },
+        {
+          "t": 6.74,
+          "end": 7.9,
+          "text": "赤壁之役"
+        },
+        {
+          "t": 8.03,
+          "end": 8.92,
+          "text": "值有疾病"
+        },
+        {
+          "t": 9.23,
+          "end": 10.26,
+          "text": "孤烧船自退"
+        },
+        {
+          "t": 10.58,
+          "end": 12.72,
+          "text": "横使周瑜虚获此名"
+        },
+        {
+          "t": 12.97,
+          "end": 14.34,
+          "text": "那回赶上闹病"
+        },
+        {
+          "t": 14.34,
+          "end": 16.4,
+          "text": "是我自己烧船退的兵"
+        },
+        {
+          "t": 16.53,
+          "end": 18.6,
+          "text": "白白让周瑜得了个虚名"
+        },
+        {
+          "t": 19.0,
+          "end": 19.2,
+          "text": "你看"
+        },
+        {
+          "t": 19.8,
+          "end": 21.02,
+          "text": "死不认账这毛病"
+        },
+        {
+          "t": 21.26,
+          "end": 22.06,
+          "text": "曹老板也有"
+        }
+      ]
+    }
+  },
+  "38": {
+    "title": "战后洗牌",
+    "text": "好，仗讲完了，咱说说后续。这一仗的影响，实在太大了。\n\n曹操退回北方，留曹仁守江陵。可江陵也没守多久，周瑜带兵围攻了差不多一年，曹军退到襄阳一线。刘备呢，趁这个机会拿下荆南四个郡，后来又借了荆州打底，转头进了四川，这就是后世“借荆州”这笔账的由来。孙权这边，稳稳当当守着江东。三分天下这个局面，就是从赤壁这一仗开始的。",
+    "anna": {
+      "dur": 36.998,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "65efa8ffa6bb45485ee01b6fca23652d2b89e19f1282e560e9db9cba1587f42b",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 2.57,
+          "before": 0.7,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 21.14,
+          "before": 0.56,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 25.23,
+          "before": 0.68,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 29.17,
+          "before": 0.79,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9706,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 4
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.24,
+          "text": "好"
+        },
+        {
+          "t": 0.24,
+          "end": 1.0,
+          "text": "仗讲完了"
+        },
+        {
+          "t": 1.52,
+          "end": 2.54,
+          "text": "咱说说后续"
+        },
+        {
+          "t": 2.89,
+          "end": 3.96,
+          "text": "这一仗的影响"
+        },
+        {
+          "t": 4.14,
+          "end": 5.23,
+          "text": "实在太大了"
+        },
+        {
+          "t": 5.6,
+          "end": 7.16,
+          "text": "曹操退回北方"
+        },
+        {
+          "t": 7.16,
+          "end": 8.98,
+          "text": "留曹仁守江陵"
+        },
+        {
+          "t": 9.57,
+          "end": 11.2,
+          "text": "可江陵也没守多久"
+        },
+        {
+          "t": 11.66,
+          "end": 14.38,
+          "text": "周瑜带兵围攻了差不多一年"
+        },
+        {
+          "t": 14.96,
+          "end": 16.68,
+          "text": "曹军退到襄阳一线"
+        },
+        {
+          "t": 16.94,
+          "end": 17.65,
+          "text": "刘备呢"
+        },
+        {
+          "t": 17.91,
+          "end": 20.68,
+          "text": "趁这个机会拿下荆南四个郡"
+        },
+        {
+          "t": 21.08,
+          "end": 22.92,
+          "text": "后来又借了荆州打底"
+        },
+        {
+          "t": 23.34,
+          "end": 24.52,
+          "text": "转头进了四川"
+        },
+        {
+          "t": 24.93,
+          "end": 28.14,
+          "text": "这就是后世借荆州这笔账的由来"
+        },
+        {
+          "t": 28.51,
+          "end": 29.32,
+          "text": "孙权这边"
+        },
+        {
+          "t": 29.78,
+          "end": 31.34,
+          "text": "稳稳当当守着江东"
+        },
+        {
+          "t": 31.84,
+          "end": 33.74,
+          "text": "三分天下这个局面"
+        },
+        {
+          "t": 34.21,
+          "end": 36.58,
+          "text": "就是从赤壁这一仗开始的"
+        }
+      ]
+    }
+  },
+  "39": {
+    "title": "别小看曹操",
+    "text": "不过话说回来，也别觉得曹操是个庸手。官渡之战是他打的，北方是他统一的，论真本事，那是顶级水平。可这一回，冬天、大江、新收编的兵、闹起来的疫病，样样跟他作对。再厉害的人，也架不住这么连环折腾。",
+    "anna": {
+      "dur": 20.262,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "6b4feaacee603cb037b08a9540935e25bdde36c2204f7b0613d4c9cea6c3bb74",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 3.71,
+          "before": 0.76,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 10.7,
+          "before": 0.59,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 17.5,
+          "before": 0.66,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.963,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 3
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.35,
+          "text": "不过话说回来"
+        },
+        {
+          "t": 1.85,
+          "end": 3.68,
+          "text": "也别觉得曹操是个庸手"
+        },
+        {
+          "t": 4.03,
+          "end": 5.54,
+          "text": "官渡之战是他打的"
+        },
+        {
+          "t": 6.05,
+          "end": 7.4,
+          "text": "北方是他统一的"
+        },
+        {
+          "t": 7.66,
+          "end": 8.76,
+          "text": "论真本事"
+        },
+        {
+          "t": 8.99,
+          "end": 10.26,
+          "text": "那是顶级水平"
+        },
+        {
+          "t": 10.58,
+          "end": 11.3,
+          "text": "可这一回"
+        },
+        {
+          "t": 11.83,
+          "end": 12.18,
+          "text": "冬天"
+        },
+        {
+          "t": 12.18,
+          "end": 12.62,
+          "text": "大江"
+        },
+        {
+          "t": 12.62,
+          "end": 13.74,
+          "text": "新收编的兵"
+        },
+        {
+          "t": 13.74,
+          "end": 15.25,
+          "text": "闹起来的疫病"
+        },
+        {
+          "t": 15.6,
+          "end": 16.79,
+          "text": "样样跟他作对"
+        },
+        {
+          "t": 17.11,
+          "end": 17.88,
+          "text": "再厉害的人"
+        },
+        {
+          "t": 18.2,
+          "end": 19.88,
+          "text": "也架不住这么连环折腾"
+        }
+      ]
+    }
+  },
+  "40": {
+    "title": "周瑜之死",
+    "text": "再说周瑜。打赢赤壁两年后，他准备西进伐蜀，走到巴丘，病死了，才三十六岁。三十六岁啊，搁现在，也就是个年轻人。东吴的顶梁柱，就这么塌了一根。\n\n孙权穿着素服给他发丧，哭得身边的人都跟着掉泪。后来他自己当了皇帝，还跟大臣说：“孤非周公瑾，不帝矣。”没有周公瑾，我当不了这个皇帝。",
+    "anna": {
+      "dur": 33.298,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "a136ebba4ee93c845672c476710d41dac58da3e587d364ec41cd4ada5460c9d7",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 8.82,
+          "before": 0.59,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 22.63,
+          "before": 0.7,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 27.34,
+          "before": 0.6,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 29.3,
+          "before": 0.65,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 32.49,
+          "before": 0.61,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8684,
+        "longestUnmatched": 4,
+        "interpolatedCharacters": 15
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.12,
+          "text": "再说周瑜"
+        },
+        {
+          "t": 1.71,
+          "end": 3.18,
+          "text": "打赢赤壁两年后"
+        },
+        {
+          "t": 3.57,
+          "end": 5.55,
+          "text": "他准备西进伐蜀"
+        },
+        {
+          "t": 5.67,
+          "end": 6.42,
+          "text": "走到巴丘"
+        },
+        {
+          "t": 6.42,
+          "end": 7.27,
+          "text": "病死了"
+        },
+        {
+          "t": 7.81,
+          "end": 8.82,
+          "text": "才三十六岁"
+        },
+        {
+          "t": 9.14,
+          "end": 10.49,
+          "text": "三十六岁啊"
+        },
+        {
+          "t": 11.0,
+          "end": 11.42,
+          "text": "搁现在"
+        },
+        {
+          "t": 11.98,
+          "end": 13.37,
+          "text": "也就是个年轻人"
+        },
+        {
+          "t": 14.04,
+          "end": 15.24,
+          "text": "东吴的顶梁柱"
+        },
+        {
+          "t": 15.61,
+          "end": 16.84,
+          "text": "就这么塌了一根"
+        },
+        {
+          "t": 16.84,
+          "end": 19.66,
+          "text": "孙权穿着素服给他发丧"
+        },
+        {
+          "t": 20.34,
+          "end": 22.32,
+          "text": "哭得身边的人都跟着掉泪"
+        },
+        {
+          "t": 22.68,
+          "end": 25.06,
+          "text": "后来他自己当了皇帝"
+        },
+        {
+          "t": 25.5,
+          "end": 26.6,
+          "text": "还跟大臣说"
+        },
+        {
+          "t": 27.01,
+          "end": 28.3,
+          "text": "孤非周公瑾"
+        },
+        {
+          "t": 28.69,
+          "end": 29.44,
+          "text": "不帝矣"
+        },
+        {
+          "t": 29.9,
+          "end": 31.18,
+          "text": "没有周公瑾"
+        },
+        {
+          "t": 31.55,
+          "end": 33.02,
+          "text": "我当不了这个皇帝"
+        }
+      ]
+    }
+  },
+  "41": {
+    "title": "曲有误，周郎顾",
+    "text": "顺带说一句，周瑜还不是个糙武将。他精通音律，喝到半醉，谁弹错一个音，他都能听出来，回头看一眼。所以当时有句话，叫“曲有误，周郎顾”。能打仗，懂音乐，长得还帅，你说这人上哪说理去。",
+    "anna": {
+      "dur": 20.164,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "1d5fe59160ced6dd8b9a4b29b3a08b1fe35f95f9c8dafa9eeafa6c6bace59eb8",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 14.78,
+          "before": 0.58,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9315,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 5
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.06,
+          "text": "顺带说一句"
+        },
+        {
+          "t": 1.68,
+          "end": 3.3,
+          "text": "周瑜还不是个糙武将"
+        },
+        {
+          "t": 3.75,
+          "end": 4.75,
+          "text": "他精通音律"
+        },
+        {
+          "t": 5.14,
+          "end": 5.9,
+          "text": "喝到半醉"
+        },
+        {
+          "t": 6.3,
+          "end": 7.54,
+          "text": "谁弹错一个音"
+        },
+        {
+          "t": 7.54,
+          "end": 8.9,
+          "text": "他都能听出来"
+        },
+        {
+          "t": 8.9,
+          "end": 9.91,
+          "text": "回头看一眼"
+        },
+        {
+          "t": 10.28,
+          "end": 11.91,
+          "text": "所以当时有句话"
+        },
+        {
+          "t": 12.5,
+          "end": 13.46,
+          "text": "叫曲有误"
+        },
+        {
+          "t": 13.98,
+          "end": 14.78,
+          "text": "周郎顾"
+        },
+        {
+          "t": 15.1,
+          "end": 15.79,
+          "text": "能打仗"
+        },
+        {
+          "t": 15.91,
+          "end": 16.46,
+          "text": "懂音乐"
+        },
+        {
+          "t": 16.8,
+          "end": 17.56,
+          "text": "长得还帅"
+        },
+        {
+          "t": 17.78,
+          "end": 19.84,
+          "text": "你说这人上哪说理去"
+        }
+      ]
+    }
+  },
+  "42": {
+    "title": "铜雀台：冤枉他了",
+    "text": "还有件事得替曹操说句公道话，那就是铜雀台。杜牧有句诗大伙都熟：“东风不与周郎便，铜雀春深锁二乔。”意思是，要是那股东风不给面子，大乔小乔就得被曹操抓走，锁进铜雀台。这个想象挺美，但有个硬伤：铜雀台，是赤壁之战打完两年以后，才在邺城修的。仗都打完了才修，锁谁去啊？顺便一说，二乔里的小乔，就是周瑜的夫人，大乔是孙策的，周瑜跟孙策还是连襟。所以杜牧这诗，把曹操、周瑜、二乔凑一台戏，是文学，不是历史。",
+    "anna": {
+      "dur": 47.61,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "f66b968001cc1a989e22f116b7be6278e8c7168e688d51fcecf4a3124e551295",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 2.97,
+          "before": 0.76,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 12.91,
+          "before": 0.71,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 23.42,
+          "before": 0.81,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 33.03,
+          "before": 0.82,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 40.04,
+          "before": 0.69,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8757,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 21
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 2.97,
+          "text": "还有件事得替曹操说句公道话"
+        },
+        {
+          "t": 3.29,
+          "end": 4.86,
+          "text": "那就是铜雀台"
+        },
+        {
+          "t": 4.86,
+          "end": 7.26,
+          "text": "杜牧有句诗大伙都熟"
+        },
+        {
+          "t": 7.72,
+          "end": 10.28,
+          "text": "东风不与周郎便"
+        },
+        {
+          "t": 10.28,
+          "end": 12.36,
+          "text": "铜雀春深锁二乔"
+        },
+        {
+          "t": 12.79,
+          "end": 13.38,
+          "text": "意思是"
+        },
+        {
+          "t": 13.8,
+          "end": 15.61,
+          "text": "要是那股东风不给面子"
+        },
+        {
+          "t": 15.73,
+          "end": 18.2,
+          "text": "大乔小乔就得被曹操抓走"
+        },
+        {
+          "t": 18.5,
+          "end": 19.66,
+          "text": "锁进铜雀台"
+        },
+        {
+          "t": 20.19,
+          "end": 21.27,
+          "text": "这个想象挺美"
+        },
+        {
+          "t": 21.71,
+          "end": 22.5,
+          "text": "但有个硬伤"
+        },
+        {
+          "t": 22.91,
+          "end": 23.72,
+          "text": "铜雀台"
+        },
+        {
+          "t": 24.08,
+          "end": 26.26,
+          "text": "是赤壁之战打完两年以后"
+        },
+        {
+          "t": 26.66,
+          "end": 27.91,
+          "text": "才在邺城修的"
+        },
+        {
+          "t": 28.29,
+          "end": 30.38,
+          "text": "仗都打完了才修"
+        },
+        {
+          "t": 30.84,
+          "end": 32.06,
+          "text": "锁谁去啊"
+        },
+        {
+          "t": 32.06,
+          "end": 32.8,
+          "text": "顺便一说"
+        },
+        {
+          "t": 33.3,
+          "end": 34.62,
+          "text": "二乔里的小乔"
+        },
+        {
+          "t": 34.82,
+          "end": 36.37,
+          "text": "就是周瑜的夫人"
+        },
+        {
+          "t": 36.61,
+          "end": 38.22,
+          "text": "大乔是孙策的"
+        },
+        {
+          "t": 38.54,
+          "end": 40.68,
+          "text": "周瑜跟孙策还是连襟"
+        },
+        {
+          "t": 41.06,
+          "end": 42.34,
+          "text": "所以杜牧这诗"
+        },
+        {
+          "t": 42.34,
+          "end": 43.26,
+          "text": "把曹操"
+        },
+        {
+          "t": 43.26,
+          "end": 43.74,
+          "text": "周瑜"
+        },
+        {
+          "t": 43.74,
+          "end": 45.2,
+          "text": "二乔凑一台戏"
+        },
+        {
+          "t": 45.2,
+          "end": 46.16,
+          "text": "是文学"
+        },
+        {
+          "t": 46.56,
+          "end": 47.3,
+          "text": "不是历史"
+        }
+      ]
+    }
+  },
+  "43": {
+    "title": "文化的分量",
+    "text": "再说说这场仗的文化分量。后世写它的诗，一抓一大把。杜牧路过古战场，捡到一支断戟，写了“折戟沉沙铁未销，自将磨洗认前朝”。苏轼更绝，一首《念奴娇》，“大江东去，浪淘尽，千古风流人物”，把周瑜写成了“羽扇纶巾，谈笑间，樯橹灰飞烟灭”。",
+    "anna": {
+      "dur": 28.766042,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "5e870c3b65d2a6f34eb27aaf2cba0dba095cff48ac41a1a9ef13744a8712e0a6",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 5.44,
+          "before": 0.83,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 15.44,
+          "before": 0.71,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 18.63,
+          "before": 0.57,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 24.54,
+          "before": 0.6,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.7065,
+        "longestUnmatched": 4,
+        "interpolatedCharacters": 27
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 2.61,
+          "text": "再说说这场仗的文化分量"
+        },
+        {
+          "t": 2.76,
+          "end": 3.9,
+          "text": "后世写它的诗"
+        },
+        {
+          "t": 3.9,
+          "end": 5.05,
+          "text": "一抓一大把"
+        },
+        {
+          "t": 5.36,
+          "end": 7.26,
+          "text": "杜牧路过古战场"
+        },
+        {
+          "t": 7.64,
+          "end": 9.4,
+          "text": "捡到一支断戟"
+        },
+        {
+          "t": 9.4,
+          "end": 12.42,
+          "text": "写了折戟沉沙铁未销"
+        },
+        {
+          "t": 12.42,
+          "end": 14.86,
+          "text": "自将磨洗认前朝"
+        },
+        {
+          "t": 15.25,
+          "end": 16.18,
+          "text": "苏轼更绝"
+        },
+        {
+          "t": 16.18,
+          "end": 17.66,
+          "text": "一首念奴娇"
+        },
+        {
+          "t": 18.05,
+          "end": 18.84,
+          "text": "大江东去"
+        },
+        {
+          "t": 18.84,
+          "end": 19.65,
+          "text": "浪淘尽"
+        },
+        {
+          "t": 20.0,
+          "end": 21.38,
+          "text": "千古风流人物"
+        },
+        {
+          "t": 21.84,
+          "end": 24.82,
+          "text": "把周瑜写成了羽扇纶巾"
+        },
+        {
+          "t": 25.36,
+          "end": 26.32,
+          "text": "谈笑间"
+        },
+        {
+          "t": 26.8,
+          "end": 28.766,
+          "text": "樯橹灰飞烟灭"
+        }
+      ]
+    }
+  },
+  "44": {
+    "title": "文武两个赤壁",
+    "text": "不过有个冷知识。苏轼写赤壁的那个地方，在湖北黄冈，跟真正的古战场，并不是一处。现在主流的说法，古战场在蒲圻，也就是今天的赤壁市。后人干脆分开叫：黄冈那个叫“文赤壁”，出文章的地方；蒲圻那个叫“武赤壁”，动刀兵的地方。一个名字两套地方，也算是一段佳话了。",
+    "anna": {
+      "dur": 31.918,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "eaf72080806e6ae4bae0bdaef3ac16cb9c7a2d67b88235370a9389132310ffcb",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 5.96,
+          "before": 0.58,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 27.39,
+          "before": 0.83,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9439,
+        "longestUnmatched": 1,
+        "interpolatedCharacters": 6
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 2.16,
+          "text": "不过有个冷知识"
+        },
+        {
+          "t": 2.16,
+          "end": 4.14,
+          "text": "苏轼写赤壁的那个地方"
+        },
+        {
+          "t": 4.14,
+          "end": 6.3,
+          "text": "在湖北黄冈"
+        },
+        {
+          "t": 6.3,
+          "end": 7.67,
+          "text": "跟真正的古战场"
+        },
+        {
+          "t": 7.89,
+          "end": 8.74,
+          "text": "并不是一处"
+        },
+        {
+          "t": 9.25,
+          "end": 10.96,
+          "text": "现在主流的说法"
+        },
+        {
+          "t": 11.28,
+          "end": 13.36,
+          "text": "古战场在蒲圻"
+        },
+        {
+          "t": 13.79,
+          "end": 15.46,
+          "text": "也就是今天的赤壁市"
+        },
+        {
+          "t": 16.44,
+          "end": 18.34,
+          "text": "后人干脆分开叫"
+        },
+        {
+          "t": 19.08,
+          "end": 21.34,
+          "text": "黄冈那个叫文赤壁"
+        },
+        {
+          "t": 21.84,
+          "end": 23.04,
+          "text": "出文章的地方"
+        },
+        {
+          "t": 23.68,
+          "end": 25.44,
+          "text": "蒲圻那个叫武赤壁"
+        },
+        {
+          "t": 25.93,
+          "end": 27.1,
+          "text": "动刀兵的地方"
+        },
+        {
+          "t": 27.61,
+          "end": 29.4,
+          "text": "一个名字两套地方"
+        },
+        {
+          "t": 29.4,
+          "end": 31.64,
+          "text": "也算是一段佳话了"
+        }
+      ]
+    }
+  },
+  "45": {
+    "title": "两千年的热度·赢在哪",
+    "text": "到了今天，赤壁的热度一点没减。游戏里有它，影视里有它，课本里还有《赤壁赋》。一场仗能火两千年，这排面，真没谁了。\n\n这仗到底赢在哪呢？天时当然有，风帮了大忙。可光靠风，五万人也烧不动二十几万。真正的主角，是周瑜战前算的那笔账：水战不行、后勤拉胯、后方不稳、水土不服，四个软肋，一个没漏。曹操兵多，可每一处，都被人家拿捏着。所谓以少胜多，拼的就是这些别人看不见的细节。",
+    "anna": {
+      "dur": 43.568,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "a59aaf308ed1126f37f4b043e2e2316ebc820c61831e17df4660787566015795",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 3.41,
+          "before": 0.68,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 14.62,
+          "before": 0.8,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 17.36,
+          "before": 0.91,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 28.87,
+          "before": 0.72,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 37.86,
+          "before": 0.57,
+          "after": 0.32
+        },
+        {
+          "sourceStart": 40.65,
+          "before": 0.68,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.9477,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 8
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 0.78,
+          "text": "到了今天"
+        },
+        {
+          "t": 1.54,
+          "end": 3.36,
+          "text": "赤壁的热度一点没减"
+        },
+        {
+          "t": 3.73,
+          "end": 4.58,
+          "text": "游戏里有它"
+        },
+        {
+          "t": 5.18,
+          "end": 6.36,
+          "text": "影视里有它"
+        },
+        {
+          "t": 6.89,
+          "end": 9.08,
+          "text": "课本里还有赤壁赋"
+        },
+        {
+          "t": 9.61,
+          "end": 11.7,
+          "text": "一场仗能火两千年"
+        },
+        {
+          "t": 12.22,
+          "end": 12.92,
+          "text": "这排面"
+        },
+        {
+          "t": 13.38,
+          "end": 14.26,
+          "text": "真没谁了"
+        },
+        {
+          "t": 14.58,
+          "end": 16.52,
+          "text": "这仗到底赢在哪呢"
+        },
+        {
+          "t": 16.86,
+          "end": 17.86,
+          "text": "天时当然有"
+        },
+        {
+          "t": 18.28,
+          "end": 19.6,
+          "text": "风帮了大忙"
+        },
+        {
+          "t": 20.16,
+          "end": 21.0,
+          "text": "可光靠风"
+        },
+        {
+          "t": 21.33,
+          "end": 23.32,
+          "text": "五万人也烧不动二十几万"
+        },
+        {
+          "t": 23.96,
+          "end": 24.92,
+          "text": "真正的主角"
+        },
+        {
+          "t": 24.92,
+          "end": 27.36,
+          "text": "是周瑜战前算的那笔账"
+        },
+        {
+          "t": 27.76,
+          "end": 28.46,
+          "text": "水战不行"
+        },
+        {
+          "t": 29.02,
+          "end": 30.28,
+          "text": "后勤拉胯"
+        },
+        {
+          "t": 30.28,
+          "end": 31.17,
+          "text": "后方不稳"
+        },
+        {
+          "t": 31.42,
+          "end": 32.28,
+          "text": "水土不服"
+        },
+        {
+          "t": 32.62,
+          "end": 33.44,
+          "text": "四个软肋"
+        },
+        {
+          "t": 33.92,
+          "end": 34.64,
+          "text": "一个没漏"
+        },
+        {
+          "t": 35.16,
+          "end": 35.98,
+          "text": "曹操兵多"
+        },
+        {
+          "t": 36.35,
+          "end": 37.16,
+          "text": "可每一处"
+        },
+        {
+          "t": 37.16,
+          "end": 38.57,
+          "text": "都被人家拿捏着"
+        },
+        {
+          "t": 38.94,
+          "end": 40.26,
+          "text": "所谓以少胜多"
+        },
+        {
+          "t": 40.71,
+          "end": 43.22,
+          "text": "拼的就是这些别人看不见的细节"
+        }
+      ]
+    }
+  },
+  "46": {
+    "title": "收尾",
+    "text": "好了，赤壁之战的事，今天就先聊到这儿。回头再看三国戏，你心里就有杆秤了：哪些是罗贯中给咱加的戏，哪些是真刀真枪的史实。",
+    "anna": {
+      "dur": 14.894,
+      "provider": "siliconflow",
+      "model": "FunAudioLLM/CosyVoice2-0.5B",
+      "voice": "anna",
+      "speed": 0.95,
+      "fingerprint": "8730c02820fa3c40c284fa4607c2d2e56475b710fab998855855faa9a3b213d0",
+      "aligner": "small-int8-silence-v4",
+      "pausePolicy": {
+        "thresholdDb": -38,
+        "maximumSeconds": 0.55,
+        "sentencePauseSeconds": 0.32
+      },
+      "pauseEdits": [
+        {
+          "sourceStart": 8.91,
+          "before": 0.69,
+          "after": 0.32
+        }
+      ],
+      "timing": "local-asr-aligned",
+      "quality": {
+        "sourceMatch": 0.8462,
+        "longestUnmatched": 2,
+        "interpolatedCharacters": 8
+      },
+      "lines": [
+        {
+          "t": 0,
+          "end": 1.06,
+          "text": "好了"
+        },
+        {
+          "t": 1.06,
+          "end": 2.22,
+          "text": "赤壁之战的事"
+        },
+        {
+          "t": 2.54,
+          "end": 4.67,
+          "text": "今天就先聊到这儿"
+        },
+        {
+          "t": 4.79,
+          "end": 6.6,
+          "text": "回头再看三国戏"
+        },
+        {
+          "t": 7.07,
+          "end": 8.91,
+          "text": "你心里就有杆秤了"
+        },
+        {
+          "t": 9.23,
+          "end": 11.56,
+          "text": "哪些是罗贯中给咱加的戏"
+        },
+        {
+          "t": 12.18,
+          "end": 14.38,
+          "text": "哪些是真刀真枪的史实"
+        }
+      ]
+    }
+  }
+}

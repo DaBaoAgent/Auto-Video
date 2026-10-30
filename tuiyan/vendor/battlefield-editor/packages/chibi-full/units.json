@@ -1,0 +1,152 @@
+{
+  "units": [
+    {
+      "id": "caoMain",
+      "kind": "army",
+      "faction": "cao",
+      "n": 60,
+      "name": "曹操本军",
+      "generals": "曹操・张辽・徐晃・于禁",
+      "gait": "cav",
+      "start": {
+        "x": -250,
+        "z": -150,
+        "visible": true
+      },
+      "info": [
+        "北军主力",
+        "步骑约十五六万，新收荆州降卒七八万，号称八十万。远来疲弊、不习水土。"
+      ],
+      "commander": {
+        "img": "../chibi/assets/commanders/cao.jpg",
+        "name": "曹操",
+        "title": "汉丞相"
+      }
+    },
+    {
+      "id": "caoNavy",
+      "kind": "fleet",
+      "faction": "cao",
+      "n": 24,
+      "name": "曹军水师",
+      "generals": "蔡瑁・张允 编练",
+      "chainable": true,
+      "start": {
+        "x": -225,
+        "z": -2,
+        "visible": false,
+        "formation": "loose"
+      },
+      "info": [
+        "荆州降附水师",
+        "得刘表蒙冲斗舰数以千计，后以铁环连锁减低风浪摇晃。"
+      ]
+    },
+    {
+      "id": "caoRen",
+      "kind": "army",
+      "faction": "cao",
+      "n": 20,
+      "name": "江陵守军",
+      "generals": "曹仁・徐晃",
+      "start": {
+        "x": -226,
+        "z": -24,
+        "visible": false
+      },
+      "info": [
+        "江陵留守",
+        "战后曹仁、徐晃守江陵，拒周瑜年余。"
+      ],
+      "commander": {
+        "img": "../chibi/assets/commanders/caoren.jpg",
+        "name": "曹仁",
+        "title": "横野将军"
+      }
+    },
+    {
+      "id": "liuArmy",
+      "kind": "army",
+      "faction": "liu",
+      "n": 34,
+      "name": "刘备军",
+      "generals": "刘备・关羽・张飞・赵云",
+      "start": {
+        "x": -150,
+        "z": -104,
+        "visible": true
+      },
+      "info": [
+        "刘备直属",
+        "长坂新败后收拢关羽水军与刘琦江夏兵，合约两万。"
+      ],
+      "commander": {
+        "img": "../chibi/assets/commanders/liu.jpg",
+        "name": "刘备",
+        "title": "左将军・豫州牧"
+      }
+    },
+    {
+      "id": "liuFleet",
+      "kind": "fleet",
+      "faction": "liu",
+      "n": 5,
+      "name": "江夏水军",
+      "generals": "刘琦・关羽",
+      "start": {
+        "x": 160,
+        "z": -8,
+        "visible": true
+      },
+      "info": [
+        "江夏水军",
+        "刘琦所部江夏战士万人，屯夏口、樊口。"
+      ],
+      "commander": {
+        "img": "../chibi/assets/commanders/guanyu.jpg",
+        "name": "关羽",
+        "title": "偏将军・汉寿亭侯"
+      }
+    },
+    {
+      "id": "sunFleet",
+      "kind": "fleet",
+      "faction": "sun",
+      "n": 14,
+      "name": "周瑜水师",
+      "generals": "周瑜・程普・鲁肃",
+      "start": {
+        "x": 258,
+        "z": -6,
+        "visible": true
+      },
+      "info": [
+        "江东精锐",
+        "周瑜、程普领三万水师溯江而上，与曹军遇于赤壁。"
+      ],
+      "commander": {
+        "img": "../chibi/assets/commanders/zhouyu.jpg",
+        "name": "周瑜",
+        "title": "左都督"
+      }
+    },
+    {
+      "id": "hgFleet",
+      "kind": "fleet",
+      "faction": "sun",
+      "n": 6,
+      "fireShip": true,
+      "name": "黄盖先锋",
+      "generals": "黄盖・蒙冲斗舰十艘",
+      "start": {
+        "x": 52,
+        "z": 22,
+        "visible": false
+      },
+      "info": [
+        "火攻先锋",
+        "黄盖取蒙冲斗舰十艘，实以薪草膏油，外以帷幕伪降。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+# AutoUP 默认配置（可跨机器直接提交）。
+# 本机路径请写到 autoup/config.local.yaml（已加入 .gitignore）或使用 AUTOUP_* 环境变量。
+paths:
+  ffmpeg: "ffmpeg"
+  ffprobe: "ffprobe"
+  gpt_sovits_root: ""
+  output_root: "output"
+
+video:
+  width: 1920
+  height: 1080
+  fps: 30
+  crf: 18
+  preset: "medium"
+  prefer_gpu: true
+
+voice:
+  engine: "gpt_sovits"
+  fallback_engine: "edge_tts"
+  gap_seconds: 0.3
+  gpt_sovits:
+    api: "http://127.0.0.1:9880/tts"
+    ping: "http://127.0.0.1:9880/ping"
+    text_lang: "zh"
+    prompt_lang: "zh"
+    speed_factor: 1.0
+    startup_timeout: 180
+    voices:
+      default:
+        ref_audio_path: ""
+        prompt_text: ""
+  edge_tts:
+    voice: "zh-CN-YunjianNeural"
+    rate: "+0%"
+    volume: "+0%"
+
+bgm:
+  enabled: true
+  volume: 0.12
+  duck_ratio: 0.35
+  fade_out_seconds: 3.0
+  directory: null
+  pick: "random"
+
+subtitle:
+  font_path: "assets/fonts/05_江西拙楷.ttf"
+  font_size: 85
+  primary_colour: "&H00FFFFFF"
+  outline_colour: "&H00000000"
+  outline: 2.0
+  shadow: 1.0
+  margin_v: 60
+  max_chars_per_line: 15
+
+llm:
+  base_url: "https://open.bigmodel.cn/api/paas/v4"
+  model: "glm-4.6"
+  temperature: 0.7
+  max_retries: 3
+  max_tokens: 8192
+
+script:
+  target_chars: 4500
+  tolerance: 0.12
+  section_chars: 850
+  supplement_rounds: 2
+
+match:
+  batch_sentences: 6
+  window_overlap: 0.15
+  max_context_chars: 14000
+  repair_attempts: 2
+
+publish:
+  repair_attempts: 2
+
+download:
+  min_duration: 1800
+  min_height: 720
+  max_height: 1080
+  proxy: ""
+  verify_workers: 4
+
+cover:
+  font_path: "assets/fonts/05_江西拙楷.ttf"
