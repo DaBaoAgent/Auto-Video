@@ -1,0 +1,1170 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>xuni · 009 朊病毒 · synthwave 30s</title>
+<style>
+@font-face{font-family:'PuHuiTi';src:url('./assets/font/AlibabaPuHuiTi-3-85-Bold.ttf') format('truetype');font-display:block}
+html,body{margin:0;padding:0;background:#000;overflow:hidden;width:1920px;height:1080px}
+#gl{position:absolute;left:0;top:0;width:1920px;height:1080px;display:block}
+</style>
+<script type="importmap">{"imports":{
+  "three":"/node_modules/three/build/three.module.js",
+  "three/addons/":"/node_modules/three/examples/jsm/"
+}}</script>
+</head><body>
+<canvas id="gl"></canvas>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+
+const W = 1920, H = 1080, FPS = 30;
+const CUES = await (await fetch('./cues.json')).json();
+window.DEMO = { width: W, height: H, fps: FPS, duration: CUES.duration, motionBlur: { samples: 1, shutter: 0.5 } };
+
+// ---------------------------------------------------------------- helpers
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const smooth = k => { k = clamp(k); return k * k * (3 - 2 * k); };
+const eOutCubic = k => 1 - Math.pow(1 - clamp(k), 3);
+const eOutExpo = k => { k = clamp(k); return k === 1 ? 1 : 1 - Math.pow(2, -10 * k); };
+const eInOutSine = k => -(Math.cos(Math.PI * clamp(k)) - 1) / 2;
+const eOutBack = k => { k = clamp(k); const c = 1.70158; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const hash1 = n => { const r = mulberry32((n * 2654435761) >>> 0); r(); return r(); };
+const HZ = 585;
+const sceneTime = t => t;
+
+// ---------------------------------------------------------------- renderer / scene
+THREE.ColorManagement.enabled = false;
+const canvas = document.getElementById('gl');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
+renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+renderer.setPixelRatio(1); renderer.setSize(W, H, false);
+const rt = new THREE.WebGLRenderTarget(W, H, { type: THREE.HalfFloatType, samples: 4 });
+const composer = new EffectComposer(renderer, rt);
+composer.setPixelRatio(1); composer.setSize(W, H);
+
+const SHIFT = 45;
+const FOV = 50, FPX = (H / 2) / Math.tan(FOV / 2 * Math.PI / 180);
+const cam = new THREE.PerspectiveCamera(FOV, W / H, 0.1, 5000);
+cam.setViewOffset(W, H, 0, -SHIFT, W, H);
+cam.rotation.order = 'YXZ';
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x05000d);
+
+// ---------------------------------------------------------------- sky texture
+function makeSky() {
+  const c = document.createElement('canvas'); c.width = 1920; c.height = 1080;
+  const g = c.getContext('2d');
+  const gr = g.createLinearGradient(0, 0, 0, 1080);
+  gr.addColorStop(0.00, '#030008');
+  gr.addColorStop(0.22, '#0d0022');
+  gr.addColorStop(0.40, '#1a0332');
+  gr.addColorStop(0.52, '#2e0742');
+  gr.addColorStop(0.56, '#4a0d44');
+  gr.addColorStop(0.60, '#1e0428');
+  gr.addColorStop(0.75, '#0a0114');
+  gr.addColorStop(1.00, '#04000a');
+  g.fillStyle = gr; g.fillRect(0, 0, 1920, 1080);
+  // nebula clouds
+  const r = mulberry32(1986);
+  for (let i = 0; i < 22; i++) {
+    const x = r() * 1920, y = r() * 620, rad = 120 + r() * 380;
+    const col = i % 3 === 0 ? '33,230,255' : '255,46,136';
+    const rg = g.createRadialGradient(x, y, 0, x, y, rad);
+    rg.addColorStop(0, `rgba(${col},${0.035 + r() * 0.035})`);
+    rg.addColorStop(1, `rgba(${col},0)`);
+    g.fillStyle = rg; g.fillRect(x - rad, y - rad, rad * 2, rad * 2);
+  }
+  // stars
+  for (let i = 0; i < 260; i++) {
+    const x = r() * 1920, y = r() * 560, s = 0.6 + r() * 1.8, a = 0.25 + r() * 0.75;
+    g.fillStyle = `rgba(${200 + Math.floor(r() * 55)},${210 + Math.floor(r() * 45)},255,${a})`;
+    g.fillRect(x, y, s, s);
+    if (r() > 0.93) {
+      g.strokeStyle = `rgba(220,235,255,${a * 0.8})`; g.lineWidth = 1;
+      g.beginPath(); g.moveTo(x - 6, y); g.lineTo(x + 6, y); g.moveTo(x, y - 6); g.lineTo(x, y + 6); g.stroke();
+    }
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.minFilter = THREE.LinearFilter; tex.generateMipmaps = false;
+  return tex;
+}
+scene.background = makeSky();
+
+// ---------------------------------------------------------------- canvas texture helper
+function ctex(c) {
+  const t = new THREE.CanvasTexture(c);
+  t.minFilter = THREE.LinearFilter; t.magFilter = THREE.LinearFilter;
+  t.generateMipmaps = false; t.premultiplyAlpha = true;
+  return t;
+}
+const planeMat = (tex) => new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthTest: false, depthWrite: false, premultipliedAlpha: true, toneMapped: false });
+
+// ---------------------------------------------------------------- sun
+const sunC = document.createElement('canvas'); sunC.width = 1024; sunC.height = 1024;
+const sunG = sunC.getContext('2d');
+const sunTex = ctex(sunC);
+const sunMesh = new THREE.Mesh(new THREE.PlaneGeometry(430, 430), new THREE.MeshBasicMaterial({ map: sunTex, transparent: true, depthTest: true, depthWrite: false, premultipliedAlpha: true, toneMapped: false }));
+sunMesh.material.blending = THREE.NormalBlending;
+sunMesh.material.color.setScalar(0.92);
+sunMesh.renderOrder = 0;
+scene.add(sunMesh);
+
+// opaque ground: kills the sun below the horizon and gives the grid a floor
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(5000, 5000), new THREE.MeshBasicMaterial({ color: 0x04000a, depthWrite: true, toneMapped: false }));
+ground.rotation.x = -Math.PI / 2;
+ground.position.set(0, -0.03, -1200);
+ground.renderOrder = -1;
+scene.add(ground);
+function drawSun(phase) {
+  const g = sunG, cx = 512, cy = 512, R = 388;
+  g.clearRect(0, 0, 1024, 1024);
+  // outer halo
+  let rg = g.createRadialGradient(cx, cy, R * 0.7, cx, cy, 512);
+  rg.addColorStop(0, 'rgba(255,46,136,0.20)');
+  rg.addColorStop(0.55, 'rgba(255,80,90,0.08)');
+  rg.addColorStop(1, 'rgba(255,46,136,0)');
+  g.fillStyle = rg; g.fillRect(0, 0, 1024, 1024);
+  // disc
+  g.save(); g.beginPath(); g.arc(cx, cy, R, 0, Math.PI * 2); g.clip();
+  const gr = g.createLinearGradient(0, cy - R, 0, cy + R);
+  gr.addColorStop(0.00, '#FFD24E');
+  gr.addColorStop(0.30, '#FF9A3D');
+  gr.addColorStop(0.58, '#FF5A45');
+  gr.addColorStop(0.82, '#E81F7A');
+  gr.addColorStop(1.00, '#8E0C62');
+  g.fillStyle = gr; g.fillRect(cx - R, cy - R, R * 2, R * 2);
+  // horizontal band cuts in the lower half
+  g.globalCompositeOperation = 'destination-out';
+  const bands = [[0.12, 0.014], [0.20, 0.017], [0.30, 0.020], [0.40, 0.026], [0.51, 0.032], [0.62, 0.040], [0.74, 0.048], [0.86, 0.058]];
+  for (let i = 0; i < bands.length; i++) {
+    const u = (bands[i][0] + phase) % 1;
+    const y = cy + R * (0.05 + u * 0.92);
+    const h = R * 2 * bands[i][1];
+    g.fillRect(cx - R, y, R * 2, h);
+  }
+  g.globalCompositeOperation = 'source-over';
+  g.restore();
+  // inner rim + glow
+  g.save();
+  g.beginPath(); g.arc(cx, cy, R, 0, Math.PI * 2);
+  g.strokeStyle = 'rgba(255,235,180,0.55)'; g.lineWidth = 4;
+  g.shadowColor = '#FFD34D'; g.shadowBlur = 32; g.stroke();
+  g.strokeStyle = 'rgba(255,70,150,0.32)'; g.lineWidth = 14; g.shadowBlur = 60; g.stroke();
+  g.restore();
+  // anamorphic horizon streak
+  const lg = g.createLinearGradient(0, cy, 1024, cy);
+  lg.addColorStop(0, 'rgba(255,46,136,0)');
+  lg.addColorStop(0.35, 'rgba(255,90,120,0.10)');
+  lg.addColorStop(0.5, 'rgba(255,220,160,0.30)');
+  lg.addColorStop(0.65, 'rgba(255,90,120,0.10)');
+  lg.addColorStop(1, 'rgba(255,46,136,0)');
+  g.fillStyle = lg; g.fillRect(0, cy - 3, 1024, 6);
+  sunTex.needsUpdate = true;
+}
+
+// ---------------------------------------------------------------- mountains
+function makeRidge(w, h, seed, hue) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d'); const r = mulberry32(seed);
+  const pts = [];
+  let x = -40;
+  while (x < w + 60) {
+    const base = h * 0.62;
+    const n = Math.sin(x * 0.0031 + seed) * 0.12 + Math.sin(x * 0.0093 + seed * 2.1) * 0.06 + (r() - 0.5) * 0.05;
+    pts.push([x, base - n * h * 0.9]);
+    x += 8 + r() * 18;
+  }
+  // silhouette
+  g.beginPath(); g.moveTo(-40, h);
+  for (const p of pts) g.lineTo(p[0], p[1]);
+  g.lineTo(w + 60, h); g.closePath();
+  const gr = g.createLinearGradient(0, h * 0.3, 0, h);
+  gr.addColorStop(0, '#17062c'); gr.addColorStop(0.55, '#0a0318'); gr.addColorStop(1, '#04000a');
+  g.fillStyle = gr; g.fill();
+  // neon ridgeline
+  g.save();
+  g.beginPath(); g.moveTo(pts[0][0], pts[0][1]);
+  for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]);
+  g.strokeStyle = hue; g.lineWidth = 2.2; g.shadowColor = hue; g.shadowBlur = 16; g.stroke();
+  g.shadowBlur = 0; g.strokeStyle = 'rgba(255,255,255,0.65)'; g.lineWidth = 0.8; g.stroke();
+  g.restore();
+  const t = ctex(c);
+  return t;
+}
+const mountFar = new THREE.Mesh(new THREE.PlaneGeometry(3200, 300), planeMat(makeRidge(1600, 150, 7, '#21E6FF')));
+mountFar.position.set(0, 150, -1050); mountFar.renderOrder = 2;
+const mountNear = new THREE.Mesh(new THREE.PlaneGeometry(2600, 260), planeMat(makeRidge(1300, 130, 23, '#FF2E88')));
+mountNear.position.set(0, 130, -820); mountNear.renderOrder = 3;
+scene.add(mountFar, mountNear);
+
+// ---------------------------------------------------------------- palms
+function makePalm(seed, rim) {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 1024;
+  const g = c.getContext('2d'); const r = mulberry32(seed);
+  const baseX = 256 + (r() - 0.5) * 40;
+  g.save();
+  g.beginPath(); g.moveTo(baseX - 16, 1024);
+  g.quadraticCurveTo(baseX - 6, 620, baseX + 18, 330);
+  g.lineTo(baseX + 34, 334);
+  g.quadraticCurveTo(baseX + 10, 640, baseX + 18, 1024);
+  g.closePath(); g.fillStyle = '#030007'; g.fill();
+  // fronds
+  const top = [baseX + 26, 330];
+  for (let i = 0; i < 9; i++) {
+    const a = -Math.PI * 0.92 + (i / 8) * Math.PI * 0.84;
+    const len = 150 + r() * 130, droop = 40 + r() * 90;
+    const ex = top[0] + Math.cos(a) * len, ey = top[1] + Math.sin(a) * len * 0.55;
+    const cx = top[0] + Math.cos(a) * len * 0.5, cy = top[1] + Math.sin(a) * len * 0.2 - droop * 0.5;
+    g.beginPath(); g.moveTo(top[0], top[1]);
+    g.quadraticCurveTo(cx, cy, ex, ey + droop);
+    g.strokeStyle = '#030007'; g.lineWidth = 13; g.lineCap = 'round'; g.stroke();
+    // leaflets
+    for (let k = 1; k <= 8; k++) {
+      const u = k / 9;
+      const px = (1 - u) * (1 - u) * top[0] + 2 * (1 - u) * u * cx + u * u * ex;
+      const py = (1 - u) * (1 - u) * top[1] + 2 * (1 - u) * u * cy + u * u * (ey + droop);
+      const la = a + (k % 2 ? 0.55 : -0.55);
+      g.beginPath(); g.moveTo(px, py);
+      g.lineTo(px + Math.cos(la) * (22 + r() * 18), py + Math.sin(la) * (16 + r() * 14) + 12);
+      g.strokeStyle = '#030007'; g.lineWidth = 7; g.stroke();
+    }
+  }
+  g.restore();
+  // rim light: only the sun-facing edge, not the whole silhouette
+  g.save();
+  g.globalCompositeOperation = 'source-atop';
+  const rg = g.createLinearGradient(300, 0, 512, 0);
+  rg.addColorStop(0, 'rgba(0,0,0,0)'); rg.addColorStop(0.55, 'rgba(255,46,136,0.04)'); rg.addColorStop(1, rim);
+  g.fillStyle = rg; g.fillRect(0, 0, 512, 1024);
+  g.restore();
+  // a few bright tips
+  g.save();
+  g.strokeStyle = rim; g.lineWidth = 2; g.globalAlpha = 0.7; g.shadowColor = rim; g.shadowBlur = 8;
+  g.beginPath(); g.moveTo(top[0] + 8, top[1]); g.quadraticCurveTo(top[0] + 70, top[1] - 30, top[0] + 140, top[1] + 20); g.stroke();
+  g.restore();
+  return ctex(c);
+}
+const palms = [];
+{
+  const r = mulberry32(909);
+  for (let i = 0; i < 12; i++) {
+    const side = i % 2 ? 1 : -1;
+    const tex = makePalm(40 + i * 13, side > 0 ? '#FF2E88' : '#21E6FF');
+    const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthTest: false, depthWrite: false, premultipliedAlpha: true, toneMapped: false, opacity: 1 });
+    const sp = new THREE.Sprite(mat);
+    sp.userData = { side, x: side * (9 + r() * 12), z0: 4 + i * 19, s: 7.5 + r() * 3, ph: r() * 100 };
+    sp.scale.set(sp.userData.s * 0.5, sp.userData.s, 1);
+    sp.renderOrder = 4;
+    palms.push(sp); scene.add(sp);
+  }
+}
+
+// ---------------------------------------------------------------- grid
+const gridMat = new THREE.ShaderMaterial({
+  uniforms: { uScroll: { value: 0 }, uGlow: { value: 1 }, uCam: { value: 0 } },
+  transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+  vertexShader: `varying vec3 vW; void main(){ vec4 wp = modelMatrix*vec4(position,1.0); vW = wp.xyz; gl_Position = projectionMatrix*viewMatrix*wp; }`,
+  fragmentShader: `
+    precision highp float;
+    varying vec3 vW; uniform float uScroll, uGlow, uCam;
+    void main(){
+      vec2 p = vW.xz; p.y += uScroll;
+      vec2 q = p / 8.0;
+      vec2 d = abs(fract(q - 0.5) - 0.5) / fwidth(q);
+      float line = min(d.x, d.y);
+      float core = 1.0 - smoothstep(0.0, 1.0, line);
+      float glow = 1.0 - smoothstep(0.0, 3.0, line);
+      float depth = clamp((-vW.z + uCam) / 260.0, 0.0, 1.0);
+      vec3 col = mix(vec3(1.0, 0.14, 0.60), vec3(0.10, 0.88, 1.0), depth);
+      float fade = smoothstep(0.0, 0.06, depth) * (1.0 - smoothstep(0.26, 0.78, depth));
+      float a = (core * 1.25 + glow * 0.20) * fade * uGlow;
+      gl_FragColor = vec4(col * a, a);
+    }`
+});
+const grid = new THREE.Mesh(new THREE.PlaneGeometry(900, 1600), gridMat);
+grid.rotation.x = -Math.PI / 2;
+grid.position.set(0, 0, -760);
+grid.renderOrder = 1;
+scene.add(grid);
+
+// ---------------------------------------------------------------- helix
+const helix = new THREE.Group();
+scene.add(helix);
+{
+  const R = 1.7, Y0 = -7, Y1 = 7, N = 260;
+  const mkStrand = (phase, color) => {
+    const pts = [];
+    for (let i = 0; i <= N; i++) {
+      const u = i / N, y = lerp(Y0, Y1, u), a = u * Math.PI * 5.2 + phase;
+      pts.push(new THREE.Vector3(Math.cos(a) * R, y, Math.sin(a) * R));
+    }
+    const curve = new THREE.CatmullRomCurve3(pts);
+    const tube = new THREE.TubeGeometry(curve, 220, 0.045, 5, false);
+    const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.95, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
+    return new THREE.Mesh(tube, mat);
+  };
+  helix.add(mkStrand(0, 0xFF2E88), mkStrand(Math.PI, 0x21E6FF));
+  // rungs
+  const pos = [], col = [];
+  for (let i = 0; i <= 54; i++) {
+    const u = i / 54, y = lerp(Y0, Y1, u), a = u * Math.PI * 5.2;
+    const x1 = Math.cos(a) * R, z1 = Math.sin(a) * R, x2 = -x1, z2 = -z1;
+    pos.push(x1, y, z1, x2, y, z2);
+    const c = i % 2 ? [1.0, 0.16, 0.62] : [0.12, 0.90, 1.0];
+    col.push(...c, ...c);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  helix.add(new THREE.LineSegments(g, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false })));
+  // glow nodes
+  const gc = document.createElement('canvas'); gc.width = gc.height = 64;
+  const gg = gc.getContext('2d'); const rg = gg.createRadialGradient(32, 32, 0, 32, 32, 32);
+  rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.25, 'rgba(255,190,230,.7)'); rg.addColorStop(1, 'rgba(255,46,136,0)');
+  gg.fillStyle = rg; gg.fillRect(0, 0, 64, 64);
+  const gt = ctex(gc);
+  for (let i = 0; i <= 34; i++) {
+    const u = i / 34, y = lerp(Y0, Y1, u), a = u * Math.PI * 5.2;
+    const sm = new THREE.SpriteMaterial({ map: gt, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.75, toneMapped: false });
+    const sp = new THREE.Sprite(sm); sp.position.set(Math.cos(a) * R, y, Math.sin(a) * R);
+    sp.scale.setScalar(i % 2 ? 0.42 : 0.34); helix.add(sp);
+  }
+}
+helix.position.set(0, 4.0, -34);
+helix.visible = false;
+
+// ---------------------------------------------------------------- overlay canvas
+const ovC = document.createElement('canvas'); ovC.width = W; ovC.height = H;
+const ovG = ovC.getContext('2d');
+const ovTex = ctex(ovC);
+const ovScene = new THREE.Scene();
+const ovCam = new THREE.OrthographicCamera(-W / 2, W / 2, H / 2, -H / 2, -10, 10);
+const ovMesh = new THREE.Mesh(new THREE.PlaneGeometry(W, H), planeMat(ovTex));
+ovMesh.position.set(0, 0, 0);
+ovMesh.renderOrder = 10;
+ovScene.add(ovMesh);
+
+// ---------------------------------------------------------------- OSD canvas (after VHS)
+const osdC = document.createElement('canvas'); osdC.width = W; osdC.height = H;
+const osdG = osdC.getContext('2d');
+const osdTex = ctex(osdC);
+
+// ---------------------------------------------------------------- post
+composer.addPass(new RenderPass(scene, cam));
+const rp2 = new RenderPass(ovScene, ovCam); rp2.clear = false; rp2.clearDepth = true; composer.addPass(rp2);
+const sanitize = new ShaderPass({
+  uniforms: { tDiffuse: { value: null } },
+  vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `uniform sampler2D tDiffuse; varying vec2 vUv; void main(){ vec3 c = texture2D(tDiffuse, vUv).rgb;
+    bool bad = !(c.r == c.r) || !(c.g == c.g) || !(c.b == c.b) || c.r > 1e4 || c.g > 1e4 || c.b > 1e4;
+    c = bad ? vec3(0.) : min(max(c, vec3(0.)), vec3(24.)); gl_FragColor = vec4(c, 1.); }`
+});
+composer.addPass(sanitize);
+const bloom = new UnrealBloomPass(new THREE.Vector2(W, H), 0.42, 0.52, 0.84);
+composer.addPass(bloom);
+const vhs = new ShaderPass({
+  uniforms: {
+    tDiffuse: { value: null }, tOSD: { value: osdTex }, uRes: { value: new THREE.Vector2(W, H) },
+    uFrame: { value: 0 }, uTrack: { value: 0 }, uStatic: { value: 0 }, uGlitch: { value: 0 }, uGSeed: { value: 0 },
+    uMask: { value: 1 }, uFlash: { value: 0 }, uDim: { value: 1 }, uShake: { value: new THREE.Vector2() },
+    uSplit: { value: 0 }, uVSlip: { value: 0 }, uCrtX: { value: 1 }, uCrtY: { value: 1 }, uCrtG: { value: 0 }, uCrtA: { value: 0 }
+  },
+  vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `
+  precision highp float;
+  uniform sampler2D tDiffuse, tOSD; uniform vec2 uRes, uShake;
+  uniform float uFrame, uTrack, uStatic, uGlitch, uGSeed, uMask, uFlash, uDim, uSplit, uVSlip, uCrtX, uCrtY, uCrtG, uCrtA;
+  varying vec2 vUv;
+  float h11(float p){ p = fract(p*.1031); p *= p + 33.33; p *= p + p; return fract(p); }
+  float h21(vec2 p){ vec3 p3 = fract(vec3(p.xyx)*.1031); p3 += dot(p3, p3.yzx+33.33); return fract((p3.x+p3.y)*p3.z); }
+  float vn(float x){ float i = floor(x), f = fract(x); f = f*f*(3.-2.*f); return mix(h11(i), h11(i+1.), f); }
+  vec3 toYIQ(vec3 c){ return vec3(dot(c,vec3(.299,.587,.114)), dot(c,vec3(.596,-.274,-.322)), dot(c,vec3(.211,-.523,.312))); }
+  vec3 toRGB(vec3 c){ return vec3(c.x+.956*c.y+.621*c.z, c.x-.272*c.y-.647*c.z, c.x-1.106*c.y+1.703*c.z); }
+  const vec2 CSS = vec2(1920., 1080.);
+  void main(){
+    vec2 P0 = vUv * CSS;
+    vec2 cc = vec2(960., 540.), sc2 = vec2(uCrtX, uCrtY);
+    vec2 px = (P0 - cc) / sc2 + cc;
+    float inside = (1. - smoothstep(-1., 1., abs(P0.x - cc.x) - 960.*sc2.x - 1.)) * (1. - smoothstep(-1., 1., abs(P0.y - cc.y) - 540.*sc2.y - 1.));
+    px.y += uVSlip;
+    vec2 vuv = px / CSS;
+    float yTop = CSS.y - px.y, ln = floor(yTop), fr = uFrame;
+    float wob = (vn(yTop*.03 + fr*.9) - .5) * (1.1 + 12.*uTrack);
+    wob += (vn(yTop*.45 + fr*7.3) - .5) * (.35 + 2.5*uTrack);
+    float bandC = 1. - fract(fr*.023 + .18);
+    float band = smoothstep(.075, 0., abs(vuv.y - bandC)) * uTrack;
+    wob += band * (h21(vec2(ln*.5, fr)) - .5) * 70.;
+    float gh = 6. + 14.*h11(uGSeed*1.7+.3);
+    float gRow = floor((yTop + h11(uGSeed)*80.) / gh);
+    float gOn = uGlitch * step(.82, h21(vec2(gRow, uGSeed)));
+    wob += gOn * (h21(vec2(gRow, uGSeed+5.)) < .5 ? -1. : 1.) * (8. + 32.*h21(vec2(gRow, uGSeed+3.)));
+    float hs = 1. - smoothstep(5., 17., px.y);
+    wob += hs * (16. + 24.*h21(vec2(ln, fr)));
+    vec2 uv = vuv + (vec2(wob, 0.) + uShake) / CSS;
+    vec2 o1 = vec2(1., 0.) / CSS;
+    vec3 c0 = texture2D(tDiffuse, uv).rgb;
+    float Y = toYIQ(c0).x * .6 + .2 * (toYIQ(texture2D(tDiffuse, uv + o1).rgb).x + toYIQ(texture2D(tDiffuse, uv - o1).rgb).x);
+    vec2 iq = vec2(0.); float ws = 0., lag = 1. + gOn * 3.;
+    for (int i = 0; i < 9; i++) { float fi = float(i); float w = exp(-fi*.32); iq += toYIQ(texture2D(tDiffuse, uv - o1*(fi*1.7 + lag)).rgb).yz * w; ws += w; }
+    iq /= ws;
+    vec3 col = toRGB(vec3(Y, iq * 1.1));
+    float spx = mix(1.2, 2.2, max(uSplit, gOn));
+    float rr = texture2D(tDiffuse, uv + o1*spx).r, bb = texture2D(tDiffuse, uv - o1*spx).b;
+    col.r = mix(col.r, rr, .6); col.b = mix(col.b, bb, .6);
+    float rs = 0., rw = 0.;
+    for (int i = 1; i <= 6; i++) { float fi = float(i); float w = exp(-fi*.38); rs += texture2D(tDiffuse, uv - o1*(fi + spx)).r * w; rw += w; }
+    col.r = max(col.r, rs / rw * .82);
+    float sn = h21(vec2(floor(px.x*.5) + fr*37., ln*1.3 + fr*17.));
+    col = mix(col, vec3(sn*.9), uStatic);
+    col += band * sn*sn * .55;
+    float sline = step(.992 - band*.25 - uTrack*.02, h21(vec2(ln, fr*3.1)));
+    col += sline * smoothstep(.55, .95, vn(px.x/70. + ln*1.7 + fr*3.)) * (.12 + .55*uTrack) * vec3(.9,.95,1.);
+    col = mix(col, vec3(h21(vec2(px.x + fr, ln))) * .55, hs * .55);
+    col *= uDim; col += uFlash * vec3(1., .92, .97);
+    col *= mod(yTop, 3.) < 1. ? .88 : 1.;
+    col += (h21(vec2(px.x*1.37 + fr*13.1, px.y*.91 + fr*7.7)) - .5) * .05;
+    vec2 q = vuv - .5; col *= 1. - dot(q*vec2(.95,1.15), q*vec2(.95,1.15)) * .62;
+    vec4 os = texture2D(tOSD, vuv); col = col * (1. - os.a) + os.rgb;
+    float mw = mix(1440., 1920., uMask), mh = mix(1040., 1080., uMask), rad = mix(38., 0., uMask);
+    vec2 p = abs(px - vec2(960., 540.)) - vec2(mw*.5 - rad, mh*.5 - rad);
+    float sd = length(max(p, 0.)) + min(max(p.x, p.y), 0.) - rad;
+    col *= 1. - smoothstep(-.8, .8, sd);
+    col *= inside * (1. + (1. - uCrtY) * 1.4) * step(.02, uCrtX);
+    float lx = max(abs(P0.x - 960.) - 960.*uCrtX, 0.), ly = max(abs(P0.y - 540.) - 540.*uCrtY, 0.);
+    col += vec3(1., .92, .98) * uCrtG * exp(-ly*ly / 1.1) * exp(-lx*lx / 5.);
+    col += vec3(.72, .84, 1.) * uCrtA * 10. * exp(-length(vec2(lx, ly * 1.6)) / 60.);
+    gl_FragColor = vec4(clamp(col, 0., 1.), 1.);
+  }`
+});
+vhs.uniforms.tOSD.value = osdTex;
+composer.addPass(vhs);
+
+// ---------------------------------------------------------------- drawing helpers
+const FONT_CN = "'PuHuiTi'";
+const FONT_MONO = "'Consolas','Courier New',monospace";
+const FONT_IMPACT = "'Impact','Arial Black',sans-serif";
+const FONT_SCRIPT = "'Segoe Script','Brush Script MT',cursive";
+
+function rr(g, x, y, w, h, r) {
+  g.beginPath();
+  g.moveTo(x + r, y); g.lineTo(x + w - r, y); g.quadraticCurveTo(x + w, y, x + w, y + r);
+  g.lineTo(x + w, y + h - r); g.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  g.lineTo(x + r, y + h); g.quadraticCurveTo(x, y + h, x, y + h - r);
+  g.lineTo(x, y + r); g.quadraticCurveTo(x, y, x + r, y); g.closePath();
+}
+function star4(g, x, y, r, a, rot = 0) {
+  g.save(); g.translate(x, y); g.rotate(rot);
+  const gr = g.createRadialGradient(0, 0, 0, 0, 0, r);
+  gr.addColorStop(0, `rgba(255,255,255,${a})`); gr.addColorStop(0.25, `rgba(255,230,250,${a * 0.8})`); gr.addColorStop(1, 'rgba(255,46,136,0)');
+  g.fillStyle = gr; g.fillRect(-r, -r, r, r);
+  g.strokeStyle = `rgba(255,255,255,${a * 0.95})`; g.lineWidth = 1.4;
+  g.beginPath(); g.moveTo(-r, 0); g.lineTo(r, 0); g.moveTo(0, -r * 0.55); g.lineTo(0, r * 0.55); g.stroke();
+  g.restore();
+}
+function flare(g, x, y, I, len = 260) {
+  if (I <= 0.001) return;
+  const lg = g.createLinearGradient(x - len, y, x + len, y);
+  lg.addColorStop(0, 'rgba(255,46,136,0)'); lg.addColorStop(0.35, `rgba(255,80,180,${0.28 * I})`);
+  lg.addColorStop(0.5, `rgba(255,245,255,${0.85 * I})`); lg.addColorStop(0.65, `rgba(80,230,255,${0.28 * I})`); lg.addColorStop(1, 'rgba(33,230,255,0)');
+  g.save(); g.globalCompositeOperation = 'screen';
+  g.fillStyle = lg; g.fillRect(x - len, y - 2, len * 2, 4);
+  star4(g, x, y, 70 * I + 18, I);
+  g.restore();
+}
+function chromeText(g, text, cx, cy, size, o = {}) {
+  const alpha = o.alpha ?? 1, scale = o.scale ?? 1, glint = o.glint ?? -1, glow = o.glow ?? 0;
+  if (alpha <= 0.002) return;
+  g.save(); g.translate(cx, cy); g.scale(scale, scale); g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = `900 ${size}px ${FONT_CN}`;
+  g.letterSpacing = `${o.ls ?? 0}px`;
+  const w = g.measureText(text).width;
+  // ghost chroma
+  g.globalAlpha = alpha * 0.55;
+  g.fillStyle = '#FF2E88'; g.fillText(text, -size * 0.035, 0);
+  g.fillStyle = '#21E6FF'; g.fillText(text, size * 0.035, 0);
+  // extrusion
+  g.globalAlpha = alpha;
+  g.fillStyle = '#16032c';
+  for (let i = 3; i >= 1; i--) g.fillText(text, 0, i * size * 0.035);
+  // main gradient: broad mid-tones + two narrow highlights = chrome, without a white slab
+  const gr = g.createLinearGradient(0, -size * 0.62, 0, size * 0.62);
+  gr.addColorStop(0.00, '#a9c9e2'); gr.addColorStop(0.15, '#5f82a8'); gr.addColorStop(0.30, '#c9e2f5');
+  gr.addColorStop(0.43, '#3d5a7e'); gr.addColorStop(0.50, '#e6f4ff'); gr.addColorStop(0.57, '#3d5a7e');
+  gr.addColorStop(0.68, '#6a4cae'); gr.addColorStop(0.82, '#a3c4dc'); gr.addColorStop(1.00, '#4a6a8c');
+  g.fillStyle = gr;
+  if (glow > 0) { g.shadowColor = 'rgba(255,46,136,.75)'; g.shadowBlur = 12 * glow; }
+  g.fillText(text, 0, 0);
+  g.shadowBlur = 0;
+  // bevel: dark outer edge, thin white rim on top
+  g.lineWidth = Math.max(4, size * 0.034); g.strokeStyle = 'rgba(18,4,38,.92)'; g.strokeText(text, 0, 0);
+  g.lineWidth = Math.max(1.4, size * 0.009); g.strokeStyle = 'rgba(255,255,255,.88)'; g.strokeText(text, 0, 0);
+  // glint sweep: a star only — a full-height band reads as a tape artifact
+  if (glint >= 0 && glint <= 1) {
+    const gx = lerp(-w * 0.7, w * 0.7, glint);
+    g.save(); g.globalCompositeOperation = 'screen';
+    star4(g, gx, -size * 0.18, 58, 0.55 * alpha, 0.2);
+    const lg = g.createLinearGradient(gx - 150, 0, gx + 150, 0);
+    lg.addColorStop(0, 'rgba(255,255,255,0)'); lg.addColorStop(0.5, `rgba(255,255,255,${0.22 * alpha})`); lg.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = lg; g.fillRect(gx - 150, -size * 0.16, 300, size * 0.032);
+    g.restore();
+  }
+  g.restore();
+}
+
+// ---------------------------------------------------------------- overlay content
+function scrim(g, cx, cy, r, a) {
+  if (a <= 0.001) return;
+  const rg = g.createRadialGradient(cx, cy, r * 0.10, cx, cy, r);
+  rg.addColorStop(0, `rgba(2,0,8,${0.42 * a})`);
+  rg.addColorStop(0.55, `rgba(2,0,8,${0.22 * a})`);
+  rg.addColorStop(1, 'rgba(2,0,8,0)');
+  g.save(); g.fillStyle = rg; g.fillRect(cx - r, cy - r, r * 2, r * 2); g.restore();
+}
+
+function drawMythPanel(g, m, t, x, y, w, h, k, alpha) {
+  if (alpha <= 0.002) return;
+  const sc = k < 1 ? eOutBack(k) : 1;
+  g.save(); g.translate(x + w / 2, y + h / 2); g.scale(sc, sc); g.translate(-(x + w / 2), -(y + h / 2));
+  g.globalAlpha = alpha;
+  // shadow + glass
+  g.shadowColor = 'rgba(255,46,136,.55)'; g.shadowBlur = 28;
+  rr(g, x, y, w, h, 14); g.fillStyle = 'rgba(8,2,22,.82)'; g.fill();
+  g.shadowBlur = 0;
+  const border = g.createLinearGradient(x, y, x + w, y + h);
+  border.addColorStop(0, '#21E6FF'); border.addColorStop(0.5, '#FF2E88'); border.addColorStop(1, '#FFD34D');
+  rr(g, x, y, w, h, 14); g.strokeStyle = border; g.lineWidth = 2; g.stroke();
+  rr(g, x + 4, y + 4, w - 8, h - 8, 11); g.strokeStyle = 'rgba(255,255,255,.12)'; g.lineWidth = 1; g.stroke();
+  // title bar
+  g.save(); rr(g, x, y, w, 40, 14); g.clip();
+  g.fillStyle = 'rgba(255,255,255,.07)'; g.fillRect(x, y, w, 40);
+  g.restore();
+  g.font = `600 17px ${FONT_MONO}`; g.fillStyle = 'rgba(220,245,255,.75)'; g.textAlign = 'left'; g.textBaseline = 'middle';
+  g.fillText(`MYTH_${m.i}.EXE`, x + 18, y + 21);
+  g.textAlign = 'right'; g.fillStyle = 'rgba(255,46,136,.9)'; g.fillText(m.tag, x + w - 18, y + 21);
+  for (let i = 0; i < 3; i++) { g.beginPath(); g.arc(x + w - 54 + i * 10, y + 20, 3.2, 0, Math.PI * 2); g.fillStyle = i === 0 ? '#FF2E88' : i === 1 ? '#FFD34D' : '#21E6FF'; g.fill(); }
+  // index ghost
+  g.font = `900 150px ${FONT_CN}`; g.textAlign = 'right'; g.textBaseline = 'middle';
+  g.fillStyle = 'rgba(33,230,255,.10)'; g.fillText(m.i, x + w - 16, y + h * 0.62);
+  // name
+  g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+  g.font = `900 62px ${FONT_CN}`; g.fillStyle = '#ffffff';
+  g.shadowColor = '#FF2E88'; g.shadowBlur = 11; g.fillText(m.cn, x + 26, y + 132);
+  g.shadowBlur = 0;
+  g.font = `600 17px ${FONT_MONO}`; g.fillStyle = '#21E6FF'; g.fillText(`${m.en}  //  ${m.where}`, x + 28, y + 166);
+  // waveform
+  g.beginPath();
+  for (let i = 0; i <= 48; i++) {
+    const u = i / 48, ax = x + 26 + u * (w - 52);
+    const amp = 10 + 8 * Math.sin(u * 18 + t * 7 + Number(m.i)) + 4 * Math.sin(u * 51 - t * 11);
+    const ay = y + h - 42 + Math.sin(u * 26 + t * 9) * amp * 0.35;
+    i ? g.lineTo(ax, ay) : g.moveTo(ax, ay);
+  }
+  g.strokeStyle = 'rgba(33,230,255,.65)'; g.lineWidth = 1.6; g.stroke();
+  g.font = `500 13px ${FONT_MONO}`; g.fillStyle = 'rgba(180,210,230,.5)'; g.textAlign = 'left';
+  g.fillText('SIGNAL_LOCKED', x + 26, y + h - 18);
+  g.restore();
+}
+
+function drawSummary(g, k) {
+  if (k <= 0.004) return;
+  const x = 700, y = 292, w = 520, h = 316;
+  const sc = eOutBack(clamp(k * 1.6));
+  g.save(); g.translate(x + w / 2, y + h / 2); g.scale(sc, sc); g.translate(-(x + w / 2), -(y + h / 2));
+  g.globalAlpha = clamp(k * 2);
+  g.shadowColor = 'rgba(182,255,60,.45)'; g.shadowBlur = 26;
+  rr(g, x, y, w, h, 12); g.fillStyle = 'rgba(6,2,18,.92)'; g.fill(); g.shadowBlur = 0;
+  const bd = g.createLinearGradient(x, y, x + w, y);
+  bd.addColorStop(0, '#B6FF3C'); bd.addColorStop(0.55, '#21E6FF'); bd.addColorStop(1, '#FF2E88');
+  rr(g, x, y, w, h, 12); g.strokeStyle = bd; g.lineWidth = 2; g.stroke();
+  g.font = `600 17px ${FONT_MONO}`; g.fillStyle = 'rgba(220,245,255,.75)'; g.textAlign = 'left'; g.textBaseline = 'middle';
+  g.fillText('MYTH_DB // MERGE', x + 20, y + 24);
+  const rows = [['01', '中国·僵尸'], ['02', '欧洲·吸血鬼'], ['03', '阿拉伯·食尸鬼'], ['04', '非洲·活死人']];
+  for (let i = 0; i < 4; i++) {
+    const ry = y + 70 + i * 48;
+    g.font = `700 20px ${FONT_MONO}`; g.fillStyle = i % 2 ? '#21E6FF' : '#FF2E88';
+    g.fillText(rows[i][0], x + 22, ry);
+    g.font = `700 28px ${FONT_CN}`; g.fillStyle = '#F6FBFF'; g.fillText(rows[i][1], x + 66, ry);
+    g.font = `600 17px ${FONT_MONO}`; g.fillStyle = '#B6FF3C'; g.textAlign = 'right';
+    g.fillText('8F2A·C0DE', x + w - 22, ry); g.textAlign = 'left';
+  }
+  g.strokeStyle = 'rgba(255,255,255,.10)'; g.beginPath(); g.moveTo(x + 20, y + 258); g.lineTo(x + w - 20, y + 258); g.stroke();
+  g.font = `700 19px ${FONT_MONO}`; g.fillStyle = '#B6FF3C'; g.textAlign = 'center';
+  g.fillText('4 / 4  ·  SAME SOURCE', x + w / 2, y + 284);
+  g.restore();
+}
+
+function drawBrowser(g, t) {
+  const x = 380, y = 175, w = 1160, h = 640;
+  const ap = clamp((t - 8.60) / 0.45);
+  const open = eOutBack(ap);
+  g.save(); g.translate(x + w / 2, y + h / 2); g.scale(open, open); g.translate(-(x + w / 2), -(y + h / 2));
+  g.globalAlpha = clamp(ap * 2);
+  g.shadowColor = 'rgba(33,230,255,.55)'; g.shadowBlur = 34;
+  rr(g, x, y, w, h, 10); g.fillStyle = 'rgba(6,10,16,.965)'; g.fill();
+  g.shadowBlur = 0;
+  // body scan texture
+  g.save(); rr(g, x + 2, y + 50, w - 4, h - 52, 8); g.clip();
+  g.strokeStyle = 'rgba(33,230,255,.035)'; g.lineWidth = 1;
+  for (let yy = y + 52; yy < y + h; yy += 4) { g.beginPath(); g.moveTo(x + 2, yy); g.lineTo(x + w - 2, yy); g.stroke(); }
+  g.restore();
+  const border = g.createLinearGradient(x, y, x + w, y);
+  border.addColorStop(0, '#B6FF3C'); border.addColorStop(0.45, '#21E6FF'); border.addColorStop(1, '#FF2E88');
+  rr(g, x, y, w, h, 10); g.strokeStyle = border; g.lineWidth = 2.4; g.stroke();
+  // title bar
+  g.save(); rr(g, x, y, w, 48, 10); g.clip(); g.fillStyle = 'rgba(180,255,60,.10)'; g.fillRect(x, y, w, 48); g.restore();
+  g.font = `700 21px ${FONT_MONO}`; g.fillStyle = '#E9EFF6'; g.textAlign = 'left'; g.textBaseline = 'middle';
+  g.fillText('WORLD_MYTHS.DAT', x + 26, y + 25);
+  g.fillStyle = 'rgba(182,255,60,.8)'; g.font = `500 16px ${FONT_MONO}`; g.fillText('— MYTHOS.EXE', x + 232, y + 25);
+  for (let i = 0; i < 3; i++) { g.beginPath(); g.arc(x + w - 78 + i * 22, y + 24, 6, 0, Math.PI * 2); g.fillStyle = ['#B6FF3C', '#FFD34D', '#FF2E88'][i]; g.fill(); }
+  // header row
+  const hx = x + 34, hy = y + 86;
+  g.font = `600 17px ${FONT_MONO}`; g.fillStyle = 'rgba(160,190,210,.65)';
+  g.fillText('ID   MYTH              ORIGIN        SOURCE_HASH', hx, hy);
+  g.strokeStyle = 'rgba(33,230,255,.25)'; g.lineWidth = 1; g.beginPath(); g.moveTo(hx, hy + 14); g.lineTo(x + w - 34, hy + 14); g.stroke();
+  // query line while the index is still empty
+  if (t < 10.5) {
+    g.font = `600 21px ${FONT_MONO}`; g.fillStyle = 'rgba(182,255,60,.75)';
+    g.fillText('> QUERY: WHY DO ALL MYTHS MATCH ?', hx, hy + 62);
+    g.fillStyle = 'rgba(160,190,210,.5)'; g.font = `500 17px ${FONT_MONO}`;
+    g.fillText(t < 9.4 ? '> SCANNING LOCAL ARCHIVE ...' : '> 0 REMOTE LINKS / 4 LOCAL RECORDS', hx, hy + 94);
+    drawGlobe(g, x + w / 2, y + 350, 145, t);
+  }
+  // rows (typed in)
+  const rows = [
+    ['01', '中国 · 僵尸', 'CN', '8F2A·C0DE'],
+    ['02', '欧洲 · 吸血鬼', 'EU', '8F2A·C0DE'],
+    ['03', '阿拉伯 · 食尸鬼', 'AR', '8F2A·C0DE'],
+    ['04', '非洲 · 活死人', 'AF', '8F2A·C0DE']
+  ];
+  for (let i = 0; i < 4; i++) {
+    const rt = 10.55 + i * 0.35;
+    const k = clamp((t - rt) / 0.22);
+    if (k <= 0) continue;
+    const ry = hy + 58 + i * 54;
+    g.globalAlpha = clamp(ap * 2) * k;
+    g.font = `700 24px ${FONT_MONO}`; g.fillStyle = i % 2 ? '#21E6FF' : '#FF2E88'; g.fillText(rows[i][0], hx, ry);
+    g.font = `700 26px ${FONT_CN}`; g.fillStyle = '#E9EFF6'; g.fillText(rows[i][1], hx + 52, ry);
+    g.font = `600 20px ${FONT_MONO}`; g.fillStyle = 'rgba(180,210,230,.75)'; g.fillText(rows[i][2], hx + 352, ry);
+    const kh = Math.floor(clamp((t - rt - 0.1) / 0.12) * 9);
+    g.fillStyle = '#B6FF3C'; g.fillText(rows[i][3].slice(0, kh), hx + 500, ry);
+    g.strokeStyle = 'rgba(255,255,255,.05)'; g.beginPath(); g.moveTo(hx, ry + 22); g.lineTo(x + w - 34, ry + 22); g.stroke();
+  }
+  // network status
+  g.globalAlpha = clamp(ap * 2);
+  const nk = clamp((t - 9.8) / 0.25);
+  if (nk > 0) {
+    g.font = `700 21px ${FONT_MONO}`;
+    g.fillStyle = `rgba(255,60,110,${0.55 + 0.35 * Math.sin(t * 9)})`;
+    g.fillText('>> CONNECTION: NONE', hx, y + h - 128);
+    g.fillStyle = 'rgba(180,210,230,.55)'; g.font = `500 17px ${FONT_MONO}`;
+    g.fillText('>> 古人没有互联网 / NO SHARED SOURCE', hx, y + h - 96);
+  }
+  const sk = clamp((t - 11.94) / 0.22);
+  if (sk > 0) {
+    g.save(); g.translate(x + w * 0.66, y + h - 132); g.rotate(-0.10);
+    const sc2 = eOutBack(sk);
+    g.scale(sc2, sc2);
+    g.strokeStyle = '#B6FF3C'; g.lineWidth = 4; g.shadowColor = '#B6FF3C'; g.shadowBlur = 18;
+    rr(g, -190, -40, 380, 80, 8); g.stroke(); g.shadowBlur = 0;
+    g.font = `900 40px ${FONT_MONO}`; g.fillStyle = '#B6FF3C'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText('SAME SOURCE', 0, 2);
+    g.restore();
+  }
+  // cursor
+  const ck = t - 9.9;
+  const cx = x + 700 + Math.sin(t * 1.3) * 40, cy = y + 330 + Math.cos(t * 1.1) * 30;
+  g.globalAlpha = 0.9;
+  g.fillStyle = '#ffffff'; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + 4, cy + 22); g.lineTo(cx + 9, cy + 14); g.lineTo(cx + 17, cy + 21); g.lineTo(cx + 21, cy + 16); g.lineTo(cx + 13, cy + 9); g.lineTo(cx + 22, cy + 6); g.closePath(); g.fill();
+  g.restore();
+}
+
+function drawGlobe(g, cx, cy, r, t) {
+  g.save(); g.translate(cx, cy);
+  g.strokeStyle = 'rgba(33,230,255,.55)'; g.lineWidth = 1.4; g.shadowColor = '#21E6FF'; g.shadowBlur = 10;
+  g.beginPath(); g.arc(0, 0, r, 0, Math.PI * 2); g.stroke();
+  const ph = t * 0.55;
+  for (let i = 0; i < 4; i++) {
+    const a = ph + i * Math.PI / 4;
+    g.beginPath(); g.ellipse(0, 0, Math.abs(Math.cos(a)) * r, r, 0, 0, Math.PI * 2); g.stroke();
+  }
+  for (let i = -2; i <= 2; i++) {
+    const yy = i * r * 0.34, rr = Math.sqrt(Math.max(0, 1 - (yy / r) ** 2)) * r;
+    g.beginPath(); g.ellipse(0, yy, rr, rr * 0.20, 0, 0, Math.PI * 2); g.stroke();
+  }
+  g.shadowBlur = 0;
+  // four isolated myth nodes, no links
+  for (let i = 0; i < 4; i++) {
+    const a = ph * 0.3 + i * Math.PI / 2, rr = r * 0.82;
+    g.beginPath(); g.arc(Math.cos(a) * rr, Math.sin(a) * rr * 0.5, 4.5, 0, Math.PI * 2);
+    g.fillStyle = i % 2 ? '#FF2E88' : '#B6FF3C'; g.fill();
+  }
+  g.font = `600 15px ${FONT_MONO}`; g.textAlign = 'center'; g.fillStyle = 'rgba(255,60,110,.8)';
+  g.fillText('NO LINK', 0, r + 30);
+  g.restore();
+}
+
+function drawSkull(g, cx, cy, s, glow) {
+  g.save(); g.translate(cx, cy); g.scale(s / 100, s / 100);
+  const path = new Path2D();
+  // cranium + jaw
+  path.moveTo(-58, -18);
+  path.bezierCurveTo(-64, -74, -38, -98, 0, -98);
+  path.bezierCurveTo(38, -98, 64, -74, 58, -18);
+  path.bezierCurveTo(56, 14, 40, 34, 30, 40);
+  path.lineTo(30, 62); path.quadraticCurveTo(30, 76, 14, 76);
+  path.lineTo(-14, 76); path.quadraticCurveTo(-30, 76, -30, 62);
+  path.lineTo(-30, 40); path.bezierCurveTo(-40, 34, -56, 14, -58, -18); path.closePath();
+  // eyes
+  const e1 = new Path2D(); e1.ellipse(-27, -34, 17, 20, 0.1, 0, Math.PI * 2);
+  const e2 = new Path2D(); e2.ellipse(27, -34, 17, 20, -0.1, 0, Math.PI * 2);
+  // nose
+  const n = new Path2D(); n.moveTo(0, -8); n.lineTo(-10, 16); n.lineTo(10, 16); n.closePath();
+  // glow passes
+  g.lineCap = 'round'; g.lineJoin = 'round';
+  g.strokeStyle = 'rgba(255,46,136,.9)'; g.lineWidth = 5; g.shadowColor = '#FF2E88'; g.shadowBlur = 12 * glow;
+  g.stroke(path); g.stroke(e1); g.stroke(e2); g.stroke(n);
+  g.shadowBlur = 0;
+  g.strokeStyle = 'rgba(220,250,255,.95)'; g.lineWidth = 2;
+  g.stroke(path); g.stroke(e1); g.stroke(e2); g.stroke(n);
+  // teeth
+  g.strokeStyle = 'rgba(33,230,255,.85)'; g.lineWidth = 1.6;
+  for (let i = -2; i <= 2; i++) { g.beginPath(); g.moveTo(i * 11, 48); g.lineTo(i * 11, 72); g.stroke(); }
+  g.beginPath(); g.moveTo(-28, 48); g.lineTo(28, 48); g.stroke();
+  g.restore();
+}
+
+function drawLoop(g, t) {
+  const k = clamp((t - 12.82) / 0.5);
+  const ap = clamp(k * 2) * clamp((15.58 - t) / 0.18);
+  if (ap <= 0.002) return;
+  g.save(); g.globalAlpha = ap;
+  const cx = 960, cy = 470;
+  const pulse = 1 + 0.035 * Math.exp(-Math.abs(((t - 13.2) % 1.0)) * 9);
+  // orbit arrows
+  g.save(); g.translate(cx, cy); g.scale(pulse, pulse);
+  for (let i = 0; i < 2; i++) {
+    const a0 = i ? Math.PI * 0.08 : Math.PI * 1.08, a1 = i ? Math.PI * 0.92 : Math.PI * 1.92;
+    g.beginPath(); g.arc(0, 0, 238, a0, a1);
+    g.strokeStyle = i ? 'rgba(33,230,255,.85)' : 'rgba(255,46,136,.85)';
+    g.lineWidth = 3; g.shadowColor = g.strokeStyle; g.shadowBlur = 14; g.stroke(); g.shadowBlur = 0;
+    // arrowhead
+    const ae = a1, ex = Math.cos(ae) * 238, ey = Math.sin(ae) * 238;
+    g.save(); g.translate(ex, ey); g.rotate(ae + Math.PI / 2 + (i ? 0 : Math.PI));
+    g.beginPath(); g.moveTo(0, -18); g.lineTo(14, 10); g.lineTo(-14, 10); g.closePath();
+    g.fillStyle = i ? '#21E6FF' : '#FF2E88'; g.fill(); g.restore();
+  }
+  g.restore();
+  drawSkull(g, cx, cy, 225, 0.7 + 0.3 * Math.sin(t * 7));
+  // top/bottom labels, clear of the skull and the orbit ring
+  const topY = 148, botY = 838;
+  g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.font = `900 58px ${FONT_CN}`; g.letterSpacing = '8px';
+  g.fillStyle = '#F6FBFF'; g.shadowColor = '#FF2E88'; g.shadowBlur = 12;
+  g.fillText('活人 吃 死人', cx, topY); g.shadowBlur = 0;
+  g.fillStyle = '#F6FBFF'; g.shadowColor = '#21E6FF'; g.shadowBlur = 12;
+  g.fillText('死人 吃 活人', cx, botY); g.shadowBlur = 0;
+  g.letterSpacing = '0px';
+  g.font = `600 17px ${FONT_MONO}`; g.fillStyle = 'rgba(180,210,230,.7)';
+  g.fillText('THE LIVING EAT THE DEAD', cx, topY - 46);
+  g.fillText('THE DEAD EAT THE LIVING', cx, botY + 46);
+  // direction ticks
+  g.font = `700 15px ${FONT_MONO}`; g.fillStyle = 'rgba(255,255,255,.35)';
+  g.fillText('CLOCKWISE // IN', cx + 318, cy - 18);
+  g.fillText('COUNTER // OUT', cx - 320, cy + 24);
+  g.restore();
+}
+
+function drawData(g, t) {
+  const k = clamp((t - 22.54) / 0.42);
+  if (k <= 0 || t >= 27.55) return;
+  const x = 610, y = 165, w = 1150, h = 650;
+  const open = eOutCubic(k);
+  g.save(); g.translate(x + w / 2, y + h / 2); g.scale(lerp(0.7, 1, open), lerp(0.7, 1, open)); g.translate(-(x + w / 2), -(y + h / 2));
+  g.globalAlpha = clamp(k * 2) * clamp((27.55 - t) / 0.30);
+  g.shadowColor = 'rgba(255,46,136,.45)'; g.shadowBlur = 30;
+  rr(g, x, y, w, h, 8); g.fillStyle = 'rgba(5,4,14,.965)'; g.fill(); g.shadowBlur = 0;
+  const bd = g.createLinearGradient(x, y, x + w, y);
+  bd.addColorStop(0, '#FF2E88'); bd.addColorStop(0.5, '#FFD34D'); bd.addColorStop(1, '#21E6FF');
+  rr(g, x, y, w, h, 8); g.strokeStyle = bd; g.lineWidth = 2.2; g.stroke();
+  g.font = `700 20px ${FONT_MONO}`; g.fillStyle = '#FFD34D'; g.textAlign = 'left'; g.textBaseline = 'middle';
+  g.fillText('BSE // SURVEILLANCE', x + 28, y + 30);
+  g.fillStyle = 'rgba(220,240,255,.55)'; g.font = `500 15px ${FONT_MONO}`; g.textAlign = 'right';
+  g.fillText('UK · 1986—2012', x + w - 28, y + 30);
+  g.strokeStyle = 'rgba(255,255,255,.08)'; g.beginPath(); g.moveTo(x + 28, y + 52); g.lineTo(x + w - 28, y + 52); g.stroke();
+  // chart axes
+  const ax = x + 50, ay = y + 520, aw = 620, ah = 380;
+  g.strokeStyle = 'rgba(33,230,255,.35)'; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(ax, ay - ah); g.lineTo(ax, ay); g.lineTo(ax + aw, ay); g.stroke();
+  for (let i = 1; i <= 4; i++) { g.beginPath(); g.moveTo(ax, ay - ah * i / 4); g.lineTo(ax + aw, ay - ah * i / 4); g.strokeStyle = 'rgba(255,255,255,.06)'; g.stroke(); }
+  // projected curve
+  const prog = clamp((t - 23.0) / 3.4);
+  g.beginPath();
+  for (let i = 0; i <= 60; i++) {
+    const u = i / 60 * prog;
+    const px = ax + u * aw;
+    const py = ay - (Math.pow(u, 1.6) * 0.86 + 0.05 * Math.sin(u * 21)) * ah;
+    i ? g.lineTo(px, py) : g.moveTo(px, py);
+  }
+  g.strokeStyle = '#FF2E88'; g.lineWidth = 3; g.shadowColor = '#FF2E88'; g.shadowBlur = 16; g.stroke(); g.shadowBlur = 0;
+  // area fill
+  g.save(); g.lineTo(ax + aw * prog, ay); g.lineTo(ax, ay); g.closePath();
+  const ag = g.createLinearGradient(0, ay - ah, 0, ay);
+  ag.addColorStop(0, 'rgba(255,46,136,.28)'); ag.addColorStop(1, 'rgba(255,46,136,0)');
+  g.fillStyle = ag; g.fill(); g.restore();
+  // labels
+  g.font = `600 15px ${FONT_MONO}`; g.fillStyle = 'rgba(180,210,230,.6)'; g.textAlign = 'center';
+  g.fillText('PROJECTION / 传播规模推演', ax + aw / 2, ay + 26);
+  g.textAlign = 'left'; g.fillStyle = 'rgba(33,230,255,.7)';
+  g.fillText('0', ax - 4, ay + 26); g.textAlign = 'right'; g.fillText('TIME', ax + aw, ay + 26);
+  // stats block
+  const sx = x + 720;
+  g.textAlign = 'left'; g.font = `600 16px ${FONT_MONO}`; g.fillStyle = 'rgba(180,210,230,.6)';
+  g.fillText('PROJECTED CASES', sx, y + 105);
+  g.font = `900 64px ${FONT_MONO}`; g.fillStyle = '#F6FBFF';
+  g.shadowColor = '#21E6FF'; g.shadowBlur = 18;
+  g.fillText('500,000', sx, y + 175); g.shadowBlur = 0;
+  g.font = `500 22px ${FONT_MONO}`; g.fillStyle = 'rgba(255,255,255,.55)'; g.fillText('to 1,000,000', sx, y + 212);
+  g.font = `600 16px ${FONT_MONO}`; g.fillStyle = 'rgba(255,120,150,.75)';
+  g.fillText('ACTUAL DEATHS', sx, y + 278);
+  g.font = `900 48px ${FONT_MONO}`; g.fillStyle = 'rgba(255,60,110,.9)';
+  const redact = '█'.repeat(6);
+  g.fillText(redact, sx, y + 336);
+  g.font = `500 15px ${FONT_MONO}`; g.fillStyle = 'rgba(255,255,255,.35)'; g.fillText('DATA REDACTED', sx, y + 364);
+  // BSE stamp
+  const sk = clamp((t - 26.04) / 0.24);
+  if (sk > 0) {
+    g.save(); g.translate(x + w - 220, y + 520); g.rotate(-0.14); g.scale(eOutBack(sk), eOutBack(sk));
+    g.strokeStyle = '#FFD34D'; g.lineWidth = 4; g.shadowColor = '#FFD34D'; g.shadowBlur = 20;
+    rr(g, -130, -52, 260, 104, 6); g.stroke(); g.shadowBlur = 0;
+    g.font = `900 44px ${FONT_MONO}`; g.fillStyle = '#FFD34D'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText('BSE 1986', 0, 2);
+    g.restore();
+  }
+  g.restore();
+}
+
+function drawOverlay(t) {
+  const g = ovG;
+  g.clearRect(0, 0, W, H);
+  const sc = CUES.scenes;
+
+  // ---- four myth windows → one merged record
+  const outK = 1 - clamp((t - 6.55) / 0.38);
+  const conv = clamp((t - sc.converge[0]) / (sc.converge[1] - sc.converge[0]));
+  if (t >= 0.96 && t < 7.0) {
+    for (let i = 0; i < CUES.myths.length; i++) {
+      const m = CUES.myths[i];
+      const k = clamp((t - m.t) / 0.30);
+      if (k <= 0) continue;
+      const w = 400, h = 268;
+      const baseX = 200 + i * 400, baseY = 248;
+      const tx = 760, ty = 380;
+      const x = lerp(baseX, tx, conv);
+      const y = lerp(baseY, ty + i * 22, conv);
+      const ww = lerp(w, w * 0.62, conv), hh = lerp(h, h * 0.62, conv);
+      drawMythPanel(g, m, t, x, y, ww, hh, k, outK * lerp(1, 0.45, conv));
+    }
+  }
+  if (t >= 6.55 && t < 7.60) {
+    const k = clamp((t - 6.55) / 0.38) * (1 - clamp((t - 7.22) / 0.30));
+    drawSummary(g, k);
+  }
+
+  // ---- same-template title
+  if (t >= 7.60 && t < 8.78) {
+    const k = clamp((t - 7.60) / 0.10);
+    const alpha = clamp((8.78 - t) / 0.30) * clamp(k * 2);
+    scrim(g, 960, 500, 760, alpha);
+    const sc2 = lerp(1.55, 1.0, eOutCubic(k));
+    chromeText(g, '同一个模子', 960, 500, 190, { alpha, scale: sc2, glow: 1.2 * Math.exp(-(t - 7.7) * 3), glint: (t - 7.62) / 0.8, ls: 8 });
+    if (t > 7.7) {
+      g.save(); g.globalAlpha = alpha * 0.9; g.textAlign = 'center';
+      g.fillStyle = 'rgba(2,0,8,.65)'; g.fillRect(720, 605, 480, 44);
+      g.font = `600 23px ${FONT_MONO}`; g.fillStyle = '#21E6FF';
+      g.fillText('SAME TEMPLATE // SAME SOURCE', 960, 636);
+      g.restore();
+      flare(g, 960, 500, Math.exp(-(t - 7.7) * 2.2) * 0.7, 340);
+    }
+  }
+
+  // ---- browser
+  if (t >= 8.60 && t < 12.82) drawBrowser(g, t);
+
+  // ---- loop / skull
+  if (t >= 12.82 && t < 15.75) drawLoop(g, t);
+
+  // ---- glitch stamp
+  if (t >= 15.58 && t < 16.46) {
+    const k = clamp((t - 15.58) / 0.10);
+    const alpha = clamp((16.46 - t) / 0.16);
+    g.save(); g.globalAlpha = alpha;
+    g.fillStyle = 'rgba(2,0,8,.86)'; g.fillRect(0, 388, W, 252);
+    g.fillStyle = 'rgba(182,255,60,.18)'; g.fillRect(0, 388, W, 3); g.fillRect(0, 637, W, 3);
+    const jx = (hash1(Math.floor(t * FPS)) - 0.5) * 26, jy = (hash1(Math.floor(t * FPS) + 9) - 0.5) * 12;
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.font = `900 96px ${FONT_IMPACT}`;
+    g.lineWidth = 2;
+    g.strokeStyle = 'rgba(255,46,136,.85)'; g.strokeText('NOT A COINCIDENCE', 960 + jx - 5, 462 + jy);
+    g.strokeStyle = 'rgba(33,230,255,.85)'; g.strokeText('NOT A COINCIDENCE', 960 + jx + 5, 462 + jy);
+    g.lineWidth = 3; g.strokeStyle = '#B6FF3C'; g.shadowColor = '#B6FF3C'; g.shadowBlur = 14;
+    g.strokeText('NOT A COINCIDENCE', 960 + jx, 462 + jy); g.shadowBlur = 0;
+    g.font = `900 62px ${FONT_CN}`; g.fillStyle = '#ffffff'; g.shadowColor = '#FF2E88'; g.shadowBlur = 12;
+    g.fillText('这不是巧合', 960 + jx, 562 + jy); g.shadowBlur = 0;
+    g.font = `600 19px ${FONT_MONO}`; g.fillStyle = 'rgba(182,255,60,.8)';
+    g.fillText('// CONFIRMED', 960 + jx, 608 + jy);
+    g.restore();
+  }
+
+  // ---- helix title + labels
+  if (t >= 17.44 && t < 19.9) {
+    const a = clamp((t - 17.44) / 0.28) * clamp((19.9 - t) / 0.30);
+    chromeText(g, '基因记忆', 960, 208, 118, { alpha: a * 0.95, glow: 0.35, ls: 10 });
+  }
+  if (t >= 16.46 && t < 19.9) {
+    const k = clamp((t - 17.44) / 0.5) * clamp((19.9 - t) / 0.3);
+    g.save(); g.globalAlpha = k;
+    g.textAlign = 'left'; g.textBaseline = 'middle';
+    g.font = `600 18px ${FONT_MONO}`; g.fillStyle = '#21E6FF';
+    g.fillText('GENETIC MEMORY // 500,000 YA', 150, 300);
+    g.strokeStyle = 'rgba(33,230,255,.45)'; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(150, 322); g.lineTo(560, 322); g.stroke();
+    g.restore();
+  }
+  if (t >= 18.76 && t < 22.6) {
+    const k = clamp((t - 18.76) / 0.4) * clamp((22.6 - t) / 0.3);
+    g.save(); g.globalAlpha = k;
+    g.textAlign = 'right'; g.textBaseline = 'middle';
+    g.font = `600 18px ${FONT_MONO}`; g.fillStyle = '#FF2E88';
+    g.fillText('CHR 20 · LOCUS 129', 1770, 300);
+    g.strokeStyle = 'rgba(255,46,136,.45)'; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(1770, 322); g.lineTo(1390, 322); g.stroke();
+    g.restore();
+  }
+
+  // ---- second slam
+  if (t >= 21.10 && t < 22.6) {
+    const k = clamp((t - 21.10) / 0.22);
+    const alpha = clamp((22.6 - t) / 0.28) * clamp(k * 2);
+    scrim(g, 960, 505, 720, alpha);
+    chromeText(g, '记忆的原件', 960, 505, 180, { alpha, scale: lerp(1.35, 1, eOutCubic(k)), glow: Math.exp(-(t - 21.2) * 3), glint: (t - 21.18) / 0.8, ls: 6 });
+    flare(g, 960, 505, Math.exp(-(t - 21.2) * 1.8) * 0.9, 360);
+  }
+
+  // ---- data panel
+  if (t >= 22.54 && t < 29.4) drawData(g, t);
+
+  // ---- final title
+  if (t >= 27.50) {
+    const k = clamp((t - 27.50) / 0.24);
+    const alpha = clamp(k * 2);
+    scrim(g, 960, 520, 820, alpha);
+    chromeText(g, '朊病毒', 960, 475, 260, { alpha, scale: lerp(1.5, 1, eOutCubic(k)), glow: 1.1, glint: (t - 27.62) / 1.0, ls: 10 });
+    const k2 = clamp((t - 27.62) / 0.22);
+    g.save();
+    g.globalAlpha = clamp(k2 * 2) * 0.95; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.font = `900 104px ${FONT_CN}`; g.letterSpacing = '14px';
+    g.fillStyle = '#FFD9EC'; g.shadowColor = '#FF2E88'; g.shadowBlur = 26;
+    g.fillText('同类相食', 960, 650); g.shadowBlur = 0;
+    g.lineWidth = 2; g.strokeStyle = 'rgba(255,255,255,.85)'; g.strokeText('同类相食', 960, 650);
+    g.letterSpacing = '0px'; g.restore();
+    const k3 = clamp((t - 27.95) / 0.4);
+    g.save(); g.globalAlpha = clamp(k3 * 2) * 0.9; g.textAlign = 'center';
+    g.font = `600 20px ${FONT_MONO}`; g.fillStyle = '#21E6FF'; g.fillText('EP.009  //  XUNI  //  SYNTHWAVE', 960, 730);
+    g.restore();
+    flare(g, 960, 475, Math.exp(-(t - 27.5) * 2.5) * 0.8, 380);
+  }
+
+  ovTex.needsUpdate = true;
+}
+
+// ---------------------------------------------------------------- OSD + captions
+function drawOSD(t, mask) {
+  const g = osdG; g.clearRect(0, 0, W, H);
+  const fr = Math.floor(t * FPS);
+  g.textBaseline = 'top';
+  const shadow = (s, x, y, al = 'left', a = 1, col = '#f4f4ff', size = 34, font = FONT_MONO) => {
+    g.textAlign = al; g.globalAlpha = a; g.font = `600 ${size}px ${font}`;
+    g.fillStyle = 'rgba(0,0,0,.85)'; g.fillText(s, x + 3, y + 3);
+    g.fillStyle = col; g.fillText(s, x, y); g.globalAlpha = 1;
+  };
+  const left = lerp(285, 118, mask), right = lerp(1640, 1802, mask);
+  if (t < 2.6) {
+    shadow('PLAY', left, 72, 'left', 0.95, '#f4f4ff', 42);
+    const w = g.measureText('PLAY').width;
+    g.fillStyle = 'rgba(0,0,0,.85)'; g.beginPath(); g.moveTo(left + w + 26 + 3, 88 + 3); g.lineTo(left + w + 68 + 3, 108 + 3); g.lineTo(left + w + 26 + 3, 126 + 3); g.fill();
+    g.fillStyle = '#f4f4ff'; g.beginPath(); g.moveTo(left + w + 26, 88); g.lineTo(left + w + 68, 108); g.lineTo(left + w + 26, 126); g.fill();
+  } else {
+    shadow('REC', left, 72, 'left', 0.75, '#ff5a86', 34);
+    g.beginPath(); g.arc(left + 78, 88, 8, 0, Math.PI * 2); g.fillStyle = `rgba(255,60,110,${0.45 + 0.35 * Math.sin(t * 6)})`; g.fill();
+    shadow(`EP.009 · CH03`, left + 100, 72, 'left', 0.6, '#dfeaff', 26);
+  }
+  shadow('SYNTHWAVE // 30s SAMPLE', right, 74, 'right', 0.55, '#dfeaff', 24);
+  shadow(`SP  0:00:${String(Math.floor(t)).padStart(2, '0')}`, right, H - 122, 'right', t < 1 ? 0.9 : 0.55, '#f4f4ff', 34);
+  if (t < 1.3) shadow('TRACKING', left, H - 140, 'left', (fr % 2) ? 0.95 : 0.55, '#f4f4ff', 32);
+  else if (t > 1.3 && t < 2.0) shadow('Hi-Fi STEREO', left, H - 140, 'left', 0.5, '#dfeaff', 22);
+
+  // captions
+  const cap = CUES.captions.find(c => t >= c.t0 && t < c.t1);
+  if (cap) {
+    const a = clamp((t - cap.t0) / 0.10) * clamp((cap.t1 - t) / 0.08);
+    const y = H - 108;
+    const grd = g.createLinearGradient(0, H - 260, 0, H);
+    grd.addColorStop(0, 'rgba(3,0,10,0)'); grd.addColorStop(0.55, `rgba(3,0,10,${0.34 * a})`); grd.addColorStop(1, `rgba(3,0,10,${0.62 * a})`);
+    g.fillStyle = grd; g.fillRect(0, H - 260, W, 260);
+    g.textAlign = 'center'; g.textBaseline = 'alphabetic';
+    g.font = `700 54px ${FONT_CN}`; g.letterSpacing = '1px';
+    g.globalAlpha = a * 0.5; g.fillStyle = '#FF2E88'; g.fillText(cap.text, W / 2 - 3, y);
+    g.fillStyle = '#21E6FF'; g.fillText(cap.text, W / 2 + 3, y);
+    g.globalAlpha = a; g.fillStyle = '#ffffff'; g.shadowColor = 'rgba(0,0,0,.85)'; g.shadowBlur = 10;
+    g.fillText(cap.text, W / 2, y); g.shadowBlur = 0; g.letterSpacing = '0px';
+  }
+  osdTex.needsUpdate = true;
+}
+
+// ---------------------------------------------------------------- camera + animation
+const camPath = [
+  { t: 0.0, x: 0.0, y: 2.15, z: 0.0, ry: 0.00 },
+  { t: 1.4, x: 0.3, y: 2.10, z: -2.0, ry: 0.01 },
+  { t: 5.8, x: -0.8, y: 2.20, z: -10.0, ry: -0.02 },
+  { t: 7.7, x: 0.0, y: 2.35, z: -14.0, ry: 0.00 },
+  { t: 8.6, x: 0.8, y: 2.25, z: -18.0, ry: 0.02 },
+  { t: 12.8, x: -0.6, y: 2.45, z: -24.0, ry: -0.02 },
+  { t: 15.6, x: 0.0, y: 2.60, z: -20.0, ry: 0.00 },
+  { t: 16.5, x: 0.0, y: 2.55, z: -22.0, ry: 0.00 },
+  { t: 19.6, x: 0.0, y: 2.95, z: -24.5, ry: 0.00 },
+  { t: 21.2, x: 0.4, y: 2.80, z: -25.0, ry: 0.01 },
+  { t: 22.5, x: 0.0, y: 2.60, z: -24.0, ry: 0.00 },
+  { t: 27.0, x: 0.0, y: 2.55, z: -30.0, ry: 0.00 },
+  { t: 29.4, x: 0.0, y: 2.40, z: -95.0, ry: 0.00 }
+];
+function camAt(t) {
+  let a = camPath[0], b = camPath[camPath.length - 1];
+  for (let i = 0; i < camPath.length - 1; i++) if (t >= camPath[i].t && t <= camPath[i + 1].t) { a = camPath[i]; b = camPath[i + 1]; break; }
+  const k = clamp((t - a.t) / Math.max(1e-4, b.t - a.t));
+  const s = eInOutSine(k);
+  return { x: lerp(a.x, b.x, s), y: lerp(a.y, b.y, s), z: lerp(a.z, b.z, s), ry: lerp(a.ry, b.ry, s) };
+}
+const sunPath = [
+  { t: 0.0, x: 0, y: 930 }, { t: 6.2, x: 0, y: 880 }, { t: 6.8, x: 0, y: 760 },
+  { t: 7.7, x: 0, y: 400 }, { t: 8.6, x: 0, y: 400 },
+  { t: 12.8, x: 520, y: 440 }, { t: 15.6, x: 520, y: 460 },
+  { t: 16.5, x: -480, y: 450 }, { t: 19.6, x: -480, y: 440 }, { t: 21.2, x: -460, y: 460 },
+  { t: 22.5, x: -480, y: 470 }, { t: 27.0, x: -480, y: 470 },
+  { t: 27.5, x: 520, y: 560 }, { t: 29.4, x: 520, y: 530 }
+];
+function sunAt(t) {
+  let a = sunPath[0], b = sunPath[sunPath.length - 1];
+  for (let i = 0; i < sunPath.length - 1; i++) if (t >= sunPath[i].t && t <= sunPath[i + 1].t) { a = sunPath[i]; b = sunPath[i + 1]; break; }
+  const k = clamp((t - a.t) / Math.max(1e-4, b.t - a.t));
+  const s = eInOutSine(k);
+  return { x: lerp(a.x, b.x, s), y: lerp(a.y, b.y, s) };
+}
+function kickAt(t) {
+  const beats = []; let bt = CUES.beat0;
+  while (bt < 30) { beats.push(bt); bt += 60 / CUES.bpm; }
+  let amp = 0;
+  for (const b of beats) { const u = t - b; if (u >= 0 && u < 0.32) amp = Math.max(amp, Math.exp(-u * 14)); }
+  return amp;
+}
+
+window.renderAt = async (t) => {
+  const fr = Math.round(t * FPS);
+  const sc = CUES.scenes;
+  const shakeAmp = (t >= 7.7 && t < 8.1) || (t >= 21.1 && t < 21.5) ? 9 * Math.exp(-Math.abs(t - (t >= 21.1 ? 21.2 : 7.7)) * 14) : 0;
+  const shx = shakeAmp * (hash1(fr * 7 + 1) - 0.5) * 2, shy = shakeAmp * (hash1(fr * 7 + 2) - 0.5) * 2;
+  const p = camAt(t);
+  cam.position.set(p.x + shx * 0.02, p.y + shy * 0.02, p.z);
+  cam.rotation.set(0, p.ry, 0);
+
+  // sky follows nothing; mountains/sun track camera
+  mountFar.position.x = p.x * 0.86; mountFar.position.z = p.z - 1050;
+  mountNear.position.x = p.x * 0.93; mountNear.position.z = p.z - 820;
+
+  // sun: keyframed in screen space so it never fights the foreground copy
+  const sun = sunAt(t);
+  const dist = 950;
+  sunMesh.position.set(p.x + sun.x * dist / FPX, p.y - (sun.y - HZ) * dist / FPX, p.z - dist);
+  sunMesh.scale.setScalar(lerp(0.92, 0.80, smooth((t - 27.0) / 0.8)));
+  const sunBoost = ((t >= 7.6 && t < 8.7) || t >= 27.4) ? 1.28 : 0.92;
+  sunMesh.material.color.setScalar(sunBoost);
+  drawSun((t * 0.035) % 1);
+
+  // grid
+  grid.position.z = p.z - 760;
+  gridMat.uniforms.uScroll.value = t * 36 + Math.pow(Math.max(0, t - 27), 2) * 22;
+  gridMat.uniforms.uGlow.value = 0.85 + 0.35 * kickAt(t) + (t >= 27 ? 0.4 : 0);
+  gridMat.uniforms.uCam.value = p.z;
+
+  // palms conveyor
+  for (const sp of palms) {
+    const u = sp.userData;
+    const z = -((u.z0 + t * 21) % 190) - 10;
+    sp.position.set(u.x, u.s * 0.48 - 1.0, z);
+    const fade = clamp((-z - 62) / 30) * clamp((130 + z) / 44);
+    const endFade = t > 26.6 ? lerp(1, 0.22, clamp((t - 26.6) / 1.2)) : 1;
+    sp.material.opacity = fade * endFade * (t < 1.1 ? 0.65 : 1);
+    sp.visible = fade > 0.01;
+  }
+
+  // helix
+  const hIn = t >= 16.46 && t < 22.4;
+  helix.visible = hIn;
+  if (hIn) {
+    const riseK = clamp((t - 16.46) / 2.2);
+    const pushK = clamp((t - 18.8) / 2.3);
+    helix.position.set(0, lerp(-10.5, 4.0, eOutCubic(riseK)) + pushK * 0.4, -34);
+    helix.scale.setScalar(lerp(0.55, 0.88, eOutCubic(riseK)) * lerp(1.0, 1.12, eOutCubic(pushK)));
+    helix.rotation.y = t * (0.55 + pushK * 1.8);
+    helix.rotation.z = 0.10 * Math.sin(t * 0.7);
+  }
+
+  drawOverlay(t);
+  const mask = t < sc.mask_open[0] ? 0 : eOutExpo((t - sc.mask_open[0]) / (sc.mask_open[1] - sc.mask_open[0]));
+  drawOSD(t, mask);
+
+  // VHS uniforms
+  const V = vhs.uniforms;
+  V.uFrame.value = fr; V.uMask.value = mask;
+  V.uTrack.value = t < 1.1 ? (.72 + .22 * Math.sin(t * 9)) : Math.max(.65 * Math.exp(-(t - 1.1) * 9), 0);
+  const hits = [7.7, 12.82, 15.58, 21.2, 27.5];
+  for (const h of hits) { const u = t - h; if (u >= 0 && u < 0.22) V.uTrack.value = Math.max(V.uTrack.value, 0.55 * Math.exp(-u * 10)); }
+  if (t >= sc.tape_stop) V.uTrack.value = Math.max(V.uTrack.value, 0.35 + 1.2 * smooth((t - sc.tape_stop) / 0.5));
+  V.uStatic.value = t < 1.0 ? clamp(.40 - .30 * t + .12 * (hash1(fr + 500) - .5)) : (t >= sc.tape_stop ? .05 : 0);
+  let glv = 0, gseed = 0;
+  for (const gt of [0.37, 0.63, 1.53, 2.47, 3.23, 6.07, 9.37, 15.58, 21.22, 27.52]) {
+    const g0 = Math.round(gt * FPS); if (fr >= g0 && fr < g0 + 2) { glv = 1; gseed = gt * 13.7 + fr; }
+  }
+  if (t >= 15.58 && t < 16.46 && fr % 3 === 0) { glv = 0.9; gseed = fr * 3.1; }
+  if (t >= sc.tape_stop && t < sc.tape_stop + 0.3) { glv = 1; gseed = fr * 5.3; }
+  V.uGlitch.value = glv; V.uGSeed.value = gseed;
+  V.uSplit.value = t < 1.2 ? 1 : t < 1.5 ? 1 - smooth((t - 1.2) / .3) : (glv > 0 ? 1 : 0);
+  V.uVSlip.value = fr === Math.round(3.23 * FPS) ? 12 : (fr === Math.round(sc.tape_stop * FPS) ? -12 : 0);
+  const crt = t >= sc.crt_off[0] ? (() => {
+    const u = clamp((t - sc.crt_off[0]) / (sc.crt_off[1] - sc.crt_off[0]));
+    if (u < 0.35) return [1, lerp(1, 0.002, smooth(u / 0.35)), 0.05, 0];
+    if (u < 0.72) return [lerp(1, 0.006, smooth((u - 0.35) / 0.37)), 0.002, 1.0, 0.02];
+    return [lerp(0.006, 0.0, smooth((u - 0.72) / 0.28)), 0.002, 0.6, 0.02];
+  })() : [1, 1, 0, 0];
+  V.uCrtX.value = crt[0]; V.uCrtY.value = crt[1]; V.uCrtG.value = crt[2]; V.uCrtA.value = crt[3];
+  V.uFlash.value = (t >= 7.7 && t < 7.78) ? 0.32 * (1 - (t - 7.7) / 0.08) : (t >= 21.2 && t < 21.28) ? 0.26 * (1 - (t - 21.2) / 0.08) : 0;
+  V.uDim.value = (t >= 15.38 && t < 15.58) ? lerp(1, 0.55, smooth((t - 15.38) / 0.2)) : (t >= 21.0 && t < 21.2) ? lerp(1, 0.7, smooth((t - 21.0) / 0.2)) : 1;
+  V.uShake.value.set(shx, shy);
+  bloom.strength = 0.40 + 0.10 * kickAt(t) + ((t >= 7.7 && t < 8.0) || (t >= 21.2 && t < 21.5) ? 0.18 * Math.exp(-Math.abs(t - (t >= 21.2 ? 21.2 : 7.7)) * 8) : 0);
+  bloom.enabled = true;
+
+  composer.render(0);
+  renderer.getContext().finish();
+};
+
+// warm up fonts and the first frame
+await document.fonts.load(`900 100px ${FONT_CN}`);
+await document.fonts.ready;
+drawSun(0);
+await window.renderAt(0);
+window.__ready = true;
+</script>
+</body></html>

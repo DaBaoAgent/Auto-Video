@@ -1,0 +1,69 @@
+{
+  "version": "2026-10-30",
+  "pipeline": "dengju",
+  "style": "mg-styles-15/03-isometric",
+  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
+  "duration": { "default": 30, "min": 10, "max": 60 },
+  "palette": {
+    "bg_top": "#F3EFFF",
+    "bg_mid": "#DAD3F7",
+    "bg_low": "#C4BAEF",
+    "dot": "#A79EE2",
+    "mint": "#B7ECD6",
+    "grass": "#8CDBB6",
+    "sky": "#A8D2FF",
+    "peach": "#FFC4AC",
+    "butter": "#FFE6A1",
+    "coral": "#FF9E86",
+    "ink": "#2C2960",
+    "jade": "#CFEBDD",
+    "gold": "#FFD98A",
+    "sand": "#D9A38E",
+    "river": "#62F0F2"
+  },
+  "camera": {
+    "type": "orthographic",
+    "elevation_deg": 35.264,
+    "azimuth_deg": 45,
+    "view_height": 18,
+    "aspect": "16:9",
+    "path": "screen-space pan CAMX/CAMY + zoom CAMZ, no rotation"
+  },
+  "layers": [
+    "屏幕空间背景：粉彩渐变 + 等距点阵地面 + 岛影",
+    "微缩世界：瓦片/山体/工地/黑匣子/四物证/海面路线/南极冰盖/墓室",
+    "发光层：黑匣子内光、冰下河道、扫描环、墓室灯带",
+    "等距标签 DOM：SSR 斜切卡片 + 引线 + 锚点",
+    "字幕：PuHuiTi 54px + 常驻奶油渐变衬底"
+  ],
+  "render": {
+    "accumulator_spp": 4,
+    "shadow_map": 4096,
+    "ao_radius": 0.55,
+    "ao_strength": 1.05,
+    "bloom_strength": 0.28,
+    "bloom_radius": 0.35,
+    "bloom_threshold": 1.6,
+    "grain": 0.022,
+    "vignette": 0.22,
+    "jpeg_quality": 92,
+    "crf_delivery": 21,
+    "preset": "slow",
+    "edge": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+  },
+  "audio": {
+    "bpm": 112,
+    "beat0": 0.28,
+    "key": "F major",
+    "score_gain": 0.46,
+    "lufs": -14,
+    "true_peak": -1.5,
+    "aac_trim_db": -0.2,
+    "sample_rate": 48000
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/<集号>_等距<N>秒样片.mp4",
+    "final": "out/<编号>_<人物>/",
+    "final_rules": "references/publish.md"
+  }
+}

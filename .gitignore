@@ -43,6 +43,24 @@ jilupian/output/
 jilupian/**/成片.mp4
 jilupian/config.local.yaml
 
+# xuni/shiliang/xianshiqi/dengju 渲染产物与再生成输出（工程输入 cue/页面/字体入库）
+xuni/projects/*/out/
+xuni/projects/*/frames/
+xuni/projects/*/audio/
+xuni/projects/*/*.wav
+shiliang/projects/*/out/
+shiliang/projects/*/frames/
+shiliang/projects/*/audio/
+shiliang/projects/*/*.wav
+xianshiqi/projects/*/out/
+xianshiqi/projects/*/frames/
+xianshiqi/projects/*/audio/
+xianshiqi/projects/*/*.wav
+dengju/projects/*/out/
+dengju/projects/*/frames/
+dengju/projects/*/audio/
+dengju/projects/*/*.wav
+
 # jianying 渲染产物
 jianying/template/out/
 jianying/projects/*/work/out/*.mp4
