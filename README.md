@@ -2,9 +2,9 @@
 
 # Auto-Video 🎬
 
-### 把口播稿变成成片，把创作经验变成可复用管线
+### 一个想法（或一个对标视频链接）→ 11 种风格的动画成片
 
-面向 AI 视频、知识科普、历史叙事和自动化内容生产的**可运行管线集合**——挑一条，看 SKILL.md，跑示例工程，即可开工。
+Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿、本地克隆音色配音、11 条成片管线出片，一条流水线替你跑完所有做视频的流程——挑一条管线，看 SKILL.md，跑示例工程，即可开工。
 
 [![GitHub stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
@@ -14,13 +14,15 @@
 
 </div>
 
-一条视频最耗时的地方，常常是配音、字幕、分镜、渲染和交付之间的反复接线。Auto-Video 把这条重复劳动沉淀成**可直接运行的工程**：每条管线都带执行脚本、模板、定版参数和验收条件，下一支片子仍能沿用。
+做一条视频最耗时的，是把口播稿、配音、分镜、画面、字幕、渲染和交付反复接线。Auto-Video 把这套流程沉淀成**开箱即用的工程**：你只负责给出选题，或丢来一个优质对标视频链接，工作流会拆解结构、产出原创口播稿、用本地克隆音色完成配音，再按你选定的风格渲染成片——一个想法变成成片，全程不依赖生图、生视频大模型 API，也没有按次计费的调用成本。每条管线都带执行脚本、定版参数和验收条件，下一支片子直接沿用。
 
 ## 功能特性 ✨
 
-- [x] **11 条成片管线 + peiyin 配音前端**：纸本历史短片、历史纪录片、纸雕剪影、逐帧手绘、皮影剪影、3D 战争推演、纪录片解说、合成波、扁平矢量、赛博 HUD、等轴 2.5D，共 11 种成片风格；[peiyin](peiyin/SKILL.md) 覆盖「选题-出稿-配音」前端三模块（GPT-SoVITS 克隆音色批量合成）
+- [x] **对标复刻，一条链接起步**：给一个优质对标视频链接或选题，即可拆解结构、产出原创口播稿，套用 11 条管线做成成片（[jilupian](jilupian/SKILL.md) 直接吃片源 URL 清单自动出片）
+- [x] **选题 → 口播稿 → 配音 → 出片，四步闭环**：[peiyin](peiyin/SKILL.md) 承载前端三模块（选题规约、AI 味审计门禁、GPT-SoVITS 克隆音色批量合成），11 条管线负责画面与成片
+- [x] **不依赖生图 / 生视频大模型 API**：画面由 Remotion / Canvas / Three.js / 3D 兵棋引擎确定性逐帧渲染，配音由本地 GPT-SoVITS 克隆合成——参数可复现，无按次 API 费用
+- [x] **11 条成片管线**：纸本历史短片、历史纪录片、纸雕剪影、逐帧手绘、皮影剪影、3D 战争推演、纪录片解说、合成波、扁平矢量、赛博 HUD、等轴 2.5D
 - [x] **统一工程规范**：每条管线自带 `SKILL.md`（完整流程与已知坑）、定版参数、示例工程与验收条件
-- [x] **确定性逐帧渲染**：Remotion / Canvas / Three.js / 3D 兵棋引擎，参数可复现，画面无结构性错误
 - [x] **自动化质检**：字幕切点与重叠检查、频闪预算、补间审计、成品抽帧、响度 LUFS 归一
 - [x] **统一交付包**：封面、发布信息与成片按规则打包，可直接发布
 - [x] **外部依赖引导下载**：配音模型、渲染引擎、字体一律不入库（见下方 FAQ）
@@ -47,23 +49,26 @@
 
 ```mermaid
 flowchart LR
-    A[选题与口播稿] --> B[配音与时间轴]
-    B --> C[分镜与素材]
-    C --> D[画面组装]
-    D --> E[视频渲染]
-    E --> F[质量检查]
-    F --> G[封面与发布包]
+    A[选题 / 对标视频链接] --> B[原创口播稿]
+    B --> C[本地配音 · 克隆音色]
+    C --> D[分镜与素材]
+    D --> E[画面组装]
+    E --> F[视频渲染]
+    F --> G[质量检查]
+    G --> H[封面与发布包]
 ```
 
 | 阶段 | 输入 | 产出 | 通过条件 |
 | --- | --- | --- | --- |
+| 选题与口播稿 | 选题 / 对标视频链接、内容规约 | 原创口播稿 | 通过 AI 味审计，多音字 / 外文人名读音校正 |
+| 本地配音 | 口播稿、克隆音色 | 分句配音、时间轴 | 审查门禁通过（呼吸、幕间停顿、崩词） |
 | 配音对齐 | 口播稿、配音 | 词级或句级时间轴 | 字幕切点贴近真实语音 |
 | 分镜 | 时间轴、分镜表 | 镜头计划与素材映射 | 镜数、场景数、时长一致 |
 | 组装渲染 | 分镜、模板、字体、素材 | 分段视频或完整成片 | 参数可复现，画面无结构性错误 |
 | 质检 | 成片、时间轴、渲染数据 | 检查结果 | 字幕、频闪、补间和抽帧检查通过 |
 | 交付 | 成片、封面、发布信息 | 可直接发布的目录 | 文件结构、尺寸和元信息符合规则 |
 
-内容如何进入画面也写进了流程：口播稿如何对齐字幕，分镜如何锁定时间，素材如何对应镜头，成片如何检查，封面和发布信息如何打包。`lishi` 会检查字幕切点、镜数分组、全片频闪预算和成片响度；`zhidiao` 会断言场景数与 manifest 一致，检查 SVG 补间、字幕重叠和成品抽帧，再输出专用发布目录。
+内容如何进入画面也写进了流程：口播稿如何对齐字幕，分镜如何锁定时间，素材如何对应镜头，成片如何检查，封面和发布信息如何打包。前端三模块由 [peiyin](peiyin/SKILL.md) 承载（选题规约、口播稿审计、批量配音），[jilupian](jilupian/SKILL.md) 支持直接吃片源 URL 清单自动出片。`lishi` 会检查字幕切点、镜数分组、全片频闪预算和成片响度；`zhidiao` 会断言场景数与 manifest 一致，检查 SVG 补间、字幕重叠和成品抽帧，再输出专用发布目录。
 
 ## 效果展示 🖼️
 
@@ -331,7 +336,7 @@ Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管
 
 ## English
 
-Auto-Video is a growing collection of repeatable video production pipelines for AI-assisted storytelling. The current 11 pipelines cover paper-style historical shorts (Remotion), historical documentaries, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, plus four MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric). More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
+Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 11 styles. It writes original voice-over scripts, clones your voice locally with GPT-SoVITS, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) without calling image or video generation APIs. The current 11 pipelines cover paper-style historical shorts (Remotion), historical documentaries, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, plus four MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric). More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
 
 ## 关注更新
 
