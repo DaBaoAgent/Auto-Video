@@ -18,9 +18,9 @@ Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿�
 
 <div align="center">
 
-<video controls autoplay muted loop playsinline width="100%" src="https://dabaoagent.github.io/Auto-Video/showcase/showcase-grid.mp4"></video>
+![9 条管线样片九宫格](showcase/showcase-grid.gif)
 
-<sub>9 条管线样片九宫格：合成波 / 扁平矢量 / 赛博 HUD / 等轴 2.5D / 皮影剪影 / 水墨动画 / 像素风 / 纸本历史 / 彗星针。进仓库即可看到所有风格的动画成片预览，点击可播放完整 30 秒样片。</sub>
+<sub>9 条管线样片九宫格：合成波 / 扁平矢量 / 赛博 HUD / 等轴 2.5D / 皮影剪影 / 水墨动画 / 像素风 / 纸本历史 / 彗星针。进仓库即可看到所有风格的动画成片预览；想看 30 秒有声完整样片，点下方效果展示区的样片名。</sub>
 
 </div>
 
