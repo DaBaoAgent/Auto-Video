@@ -21,6 +21,8 @@ STYLE = {
     'xianshiqi': '赛博朋克 HUD / FUI',
     'dengju': '等轴 2.5D 微缩场景',
     'piying': '皮影剪影',
+    'shuimo': '水墨动画',
+    'xiangsu': '像素风',
     # 后续新增管线在此补充，例如：
     # 'jianying': '纸本历史短片',
 }
