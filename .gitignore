@@ -73,9 +73,22 @@ shouhui/projects/*/assets/vid/
 
 # 工作区内部数据和临时文件
 .workbuddy/
+.tmp/
 *.log
 Thumbs.db
 .DS_Store
+
+# peiyin 本地环境与大体积内容（权重/音色/运行时由 scripts/setup.ps1 引导下载，见 peiyin/MIGRATION.md）
+peiyin/GPT-SoVITS/.venv/
+peiyin/GPT-SoVITS/.cache/
+peiyin/GPT-SoVITS/runtime/
+peiyin/GPT-SoVITS/logs/
+peiyin/GPT-SoVITS/voices/
+peiyin/GPT-SoVITS/tts_server.log
+peiyin/GPT-SoVITS/GPT_SoVITS/pretrained_models/
+peiyin/GPT-SoVITS/GPT_SoVITS/text/G2PWModel/
+peiyin/GPT-SoVITS/GPT_SoVITS/text/ja_userdic/
+peiyin/GPT-SoVITS/TEMP/
 
 # 本地凭据
 .env

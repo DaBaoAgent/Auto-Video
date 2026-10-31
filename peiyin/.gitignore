@@ -1,0 +1,33 @@
+# 本地运行环境与大体积模型
+GPT-SoVITS/.venv/
+GPT-SoVITS/.cache/
+GPT-SoVITS/GPT_SoVITS/pretrained_models/
+GPT-SoVITS/runtime/
+GPT-SoVITS/SoVITS_weights*/
+GPT-SoVITS/GPT_weights*/
+GPT-SoVITS/TEMP/
+
+# Python 缓存与日志
+**/__pycache__/
+*.py[cod]
+*.log
+
+# 音视频和中间渲染产物
+*.wav
+*.mp3
+*.mp4
+*.mkv
+*.mov
+*.webm
+*.webp
+**/narration-chunks/
+
+# 临时文件
+*.tmp
+*.bak
+*.bak-*
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
