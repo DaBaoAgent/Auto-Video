@@ -23,6 +23,8 @@ STYLE = {
     'piying': '皮影剪影',
     'shuimo': '水墨动画',
     'xiangsu': '像素风',
+    'huixingzhen': '彗星针 · 史实图解',
+    'lishi': '纸本历史短片',
     # 后续新增管线在此补充，例如：
     # 'jianying': '纸本历史短片',
 }

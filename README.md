@@ -68,7 +68,7 @@ flowchart LR
 
 ![Auto-Video 管线样片拼图](showcase/showcase-poster.jpg)
 
-<sub>当前 7 条管线的 30 秒样片（来自 `D:\BaiduSyncdisk\@同步\1 MG 动画\管线样片`，会持续同步）。点击下方样片名可播放。</sub>
+<sub>当前 9 条管线的 30 秒样片（来自 `D:\BaiduSyncdisk\@同步\1 MG 动画\管线样片`，会持续同步）。点击下方样片名可播放。</sub>
 
 | 管线 | 30 秒样片 | 示例内容 |
 | --- | --- | --- |
@@ -79,6 +79,8 @@ flowchart LR
 | [piying](piying/SKILL.md) | [皮影剪影样片](showcase/piying_30s.mp4) | 波斯湾伊甸园 |
 | shuimo | [水墨动画样片](showcase/shuimo_30s.mp4) | 013《羽人》（水墨版） |
 | xiangsu | [像素风样片](showcase/xiangsu_30s.mp4) | 曹操 · 公元 197 年张绣投降 |
+| [lishi](lishi/SKILL.md) | [纸本历史短片样片](showcase/lishi_30s.mp4) | 朱元璋 · 碽妃疑案 |
+| huixingzhen | [彗星针样片](showcase/huixingzhen_30s.mp4) | 013《羽人》（史实图解） |
 
 <sub>更多管线成片画面：</sub>
 
