@@ -61,6 +61,16 @@ dengju/projects/*/frames/
 dengju/projects/*/audio/
 dengju/projects/*/*.wav
 
+# huixingzhen/shuimo 渲染产物与再生成输出（工程输入 cue/页面/字体入库）
+huixingzhen/projects/*/out/
+huixingzhen/projects/*/frames/
+huixingzhen/projects/*/audio/
+huixingzhen/projects/*/*.wav
+shuimo/projects/*/out/
+shuimo/projects/*/frames/
+shuimo/projects/*/audio/
+shuimo/projects/*/*.wav
+
 # jianying 渲染产物
 jianying/template/out/
 jianying/projects/*/work/out/*.mp4
@@ -89,6 +99,17 @@ peiyin/GPT-SoVITS/GPT_SoVITS/pretrained_models/
 peiyin/GPT-SoVITS/GPT_SoVITS/text/G2PWModel/
 peiyin/GPT-SoVITS/GPT_SoVITS/text/ja_userdic/
 peiyin/GPT-SoVITS/TEMP/
+
+# chengshi（城市年轮）渲染产物与再生成输出（数据/脚本入库；字体、成片、音轨不入库）
+chengshi/render/out/
+chengshi/template/out/
+chengshi/render/public/fonts/
+chengshi/template/public/
+projects/suzhou/out/
+projects/suzhou/**/*.mp4
+projects/suzhou/**/*.mov
+projects/suzhou/**/*.wav
+projects/suzhou/**/*.m4a
 
 # 本地凭据
 .env

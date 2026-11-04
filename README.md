@@ -2,13 +2,13 @@
 
 # Auto-Video 🎬
 
-### 一个想法（或一个对标视频链接）→ 11 种风格的动画成片
+### 一个想法（或一个对标视频链接）→ 15 种风格的动画成片
 
-Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿、本地克隆音色配音、11 条成片管线出片，一条流水线替你跑完所有做视频的流程——挑一条管线，看 SKILL.md，跑示例工程，即可开工。
+Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿、本地克隆音色配音、15 条成片管线出片，一条流水线替你跑完所有做视频的流程——挑一条管线，看 SKILL.md，跑示例工程，即可开工。
 
 [![GitHub stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
-![Pipelines](https://img.shields.io/badge/pipelines-11%20live-111111?style=flat-square)
+![Pipelines](https://img.shields.io/badge/pipelines-15%20live-111111?style=flat-square)
 ![Roadmap](https://img.shields.io/badge/roadmap-99%20styles-c43b32?style=flat-square)
 ![License](https://img.shields.io/badge/license-private-111111?style=flat-square)
 
@@ -26,10 +26,10 @@ Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿�
 
 ## 功能特性 ✨
 
-- [x] **对标复刻，一条链接起步**：给一个优质对标视频链接或选题，即可拆解结构、产出原创口播稿，套用 11 条管线做成成片（[jilupian](jilupian/SKILL.md) 直接吃片源 URL 清单自动出片）
-- [x] **选题 → 口播稿 → 配音 → 出片，四步闭环**：[peiyin](peiyin/SKILL.md) 承载前端三模块（选题规约、AI 味审计门禁、GPT-SoVITS 克隆音色批量合成），11 条管线负责画面与成片
+- [x] **对标复刻，一条链接起步**：给一个优质对标视频链接或选题，即可拆解结构、产出原创口播稿，套用 15 条管线做成成片（[jilupian](jilupian/SKILL.md) 直接吃片源 URL 清单自动出片）
+- [x] **选题 → 口播稿 → 配音 → 出片，四步闭环**：[peiyin](peiyin/SKILL.md) 承载前端三模块（选题规约、AI 味审计门禁、GPT-SoVITS 克隆音色批量合成），15 条管线负责画面与成片
 - [x] **不依赖生图 / 生视频大模型 API**：画面由 Remotion / Canvas / Three.js / 3D 兵棋引擎确定性逐帧渲染，配音由本地 GPT-SoVITS 克隆合成——参数可复现，无按次 API 费用
-- [x] **11 条成片管线**：纸本历史短片、历史纪录片、纸雕剪影、逐帧手绘、皮影剪影、3D 战争推演、纪录片解说、合成波、扁平矢量、赛博 HUD、等轴 2.5D
+- [x] **15 条成片管线**：纸本历史短片、历史纪录片、纸雕剪影、逐帧手绘、皮影剪影、3D 战争推演、纪录片解说、合成波、扁平矢量、赛博 HUD、等轴 2.5D、回形针科普、纸本水墨山水、像素风、城市年轮
 - [x] **统一工程规范**：每条管线自带 `SKILL.md`（完整流程与已知坑）、定版参数、示例工程与验收条件
 - [x] **自动化质检**：字幕切点与重叠检查、频闪预算、补间审计、成品抽帧、响度 LUFS 归一
 - [x] **统一交付包**：封面、发布信息与成片按规则打包，可直接发布
@@ -51,6 +51,10 @@ Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿�
 | [shiliang](shiliang/SKILL.md) | 扁平矢量 2D MG 口播短片 | mg-styles-15 01-flat-vector、逐帧渲染、MG-pop 配乐 | 已上线 |
 | [xianshiqi](xianshiqi/SKILL.md) | 赛博朋克 HUD / FUI 口播短片 | mg-styles-15 22-hud、深青霓虹线框、Three.js 全息体 | 已上线 |
 | [dengju](dengju/SKILL.md) | 等轴 2.5D 微缩场景口播短片 | mg-styles-15 03-isometric、等距正交相机、瓦片波浪运镜 | 已上线 |
+| [huixingzhen](huixingzhen/SKILL.md) | 回形针风科普、知识区/财经解释类 MG 短片 | mg-styles-15 19-paperclip、实拍照片贴纸化、大画布连续运镜 | 已上线 |
+| [shuimo](shuimo/SKILL.md) | 纸本水墨山水口播样片与短片 | kalpa-shan 生成式 SVG 山水、Canvas 墨渗/印章、古琴拨弦配乐 | 已上线 |
+| [xiangsu](xiangsu/SKILL.md) | 像素风历史/科普短片、像素风解说 | 640×360 索引色栅格 ×3 整数最近邻 + 输出分辨率 CRT、Canvas 逐像素、Puppeteer 逐帧渲染 | 已上线 |
+| [chengshi](chengshi/SKILL.md) | 城市年轮、地标演进、城市史航拍短片 | OSM/Esri/SRTM 真实地理数据、Three.js+Remotion 3D 城市、确定性生长 | 已上线 |
 | [peiyin](peiyin/SKILL.md) | 选题-出稿-配音（口播稿批量配音、前端三模块） | GPT-SoVITS 克隆音色、长稿分段合成、审查门禁、权重/音色引导下载 | 已上线 |
 
 ## 一条视频怎么生产 🔄
@@ -92,7 +96,7 @@ flowchart LR
 | [dengju](dengju/SKILL.md) | [等轴 2.5D 样片](https://dabaoagent.github.io/Auto-Video/showcase/dengju_30s.mp4) | 013《羽人》 |
 | [piying](piying/SKILL.md) | [皮影剪影样片](https://dabaoagent.github.io/Auto-Video/showcase/piying_30s.mp4) | 波斯湾伊甸园 |
 | shuimo | [水墨动画样片](https://dabaoagent.github.io/Auto-Video/showcase/shuimo_30s.mp4) | 013《羽人》（水墨版） |
-| xiangsu | [像素风样片](https://dabaoagent.github.io/Auto-Video/showcase/xiangsu_30s.mp4) | 曹操 · 公元 197 年张绣投降 |
+| [xiangsu](xiangsu/SKILL.md) | [像素风样片](https://dabaoagent.github.io/Auto-Video/showcase/xiangsu_30s.mp4) | 曹操 · 公元 197 年张绣投降 |
 | [lishi](lishi/SKILL.md) | [纸本历史短片样片](https://dabaoagent.github.io/Auto-Video/showcase/lishi_30s.mp4) | 朱元璋 · 碽妃疑案 |
 | huixingzhen | [彗星针样片](https://dabaoagent.github.io/Auto-Video/showcase/huixingzhen_30s.mp4) | 013《羽人》（史实图解） |
 
@@ -200,14 +204,14 @@ python -m autoup.run --manifest urls.txt --batch 202611-A
 
 配音默认走 GPT-SoVITS 本地服务（可自备，或 `--set voice.engine=edge_tts` 切免费方案）。配音模块、模型、字体等外部依赖一律引导下载，见 [jilupian/MIGRATION.md](jilupian/MIGRATION.md)；完整规则见 [jilupian/SKILL.md](jilupian/SKILL.md)。
 
-### xuni / shiliang / xianshiqi / dengju
+### xuni / shiliang / xianshiqi / dengju / huixingzhen / shuimo
 
-四条 MG 风格短片管线（合成波、扁平矢量、赛博 HUD、等轴 2.5D），从 `AutoJY` 迁移，名字不变。需要 Node.js 18+、Python 3.11+、ffmpeg 和 Edge；渲染引擎 `mg-styles-15` 未随仓库提交（与 shouhui 共用），首次先安装：
+六条 MG 风格短片管线（合成波、扁平矢量、赛博 HUD、等轴 2.5D、回形针科普、纸本水墨），从 `AutoJY` 迁移，名字不变。需要 Node.js 18+、Python 3.11+、ffmpeg 和 Edge；渲染引擎 `mg-styles-15` 未随仓库提交（与 shouhui 共用），首次先安装：
 
 ```bash
 git clone --depth 1 https://github.com/Vincentwei1021/mg-styles-15.git vendor/mg-styles-15
 cd vendor/mg-styles-15 && npm install && cd ..
-New-Item -ItemType Junction -Path 'xuni/node_modules' -Target 'vendor/mg-styles-15/node_modules'   # 四个管线各自建联接
+New-Item -ItemType Junction -Path 'xuni/node_modules' -Target 'vendor/mg-styles-15/node_modules'   # 各管线各自建联接
 ```
 
 以 xuni 为例（其余管线入口同名，见各自 README）：
@@ -222,7 +226,46 @@ python xuni/scripts/xuni.py qa 009_prion30
 python xuni/scripts/xuni.py publish 009_prion30
 ```
 
-每条管线自带示例工程（xuni=009_prion30、shiliang=010_shengming30、xianshiqi=UAP30、dengju=yuren30）与定版参数；完整说明见各管线 [SKILL.md](xuni/SKILL.md)。
+- `shuimo` 走 `shuimo.py` 编排（new/cues/audio/stills/render/sheet/mux/qa/publish），示例工程 `projects/yuren30`（013《羽人》30 秒样片）；`shuimo/node_modules` 同样建联接（只用到 puppeteer-core）。
+- `huixingzhen` 走 `render_frames.mjs` + 素材/音效脚本，示例工程 `projects/paperclip_zhou`（参考实现，未随仓库提交）；渲染器复用 `shouhui/scripts/render.mjs` 的 puppeteer-core，依赖 `shouhui/node_modules` 联接。
+
+每条管线自带示例工程（xuni=009_prion30、shiliang=010_shengming30、xianshiqi=UAP30、dengju=yuren30、shuimo=yuren30）与定版参数；完整说明见各管线 [SKILL.md](xuni/SKILL.md)。
+
+### xiangsu
+
+像素风管线：画面在 640×360 索引色帧缓冲里逐像素决定，×3 整数最近邻放大到 1920×1080，CRT 在输出分辨率上做。需要 Node.js 18+、Chrome、ffmpeg/ffprobe、Python+numpy 和 bash（Windows 用 Git Bash 或 WSL），渲染复用上一条的 `mg-styles-15` harness（`harness/render.mjs`、`tools/density.mjs`、像素字体）：
+
+```bash
+cd xiangsu
+# 脚本内默认路径仍是迁移前的 yandi 目录，运行前必须覆盖（见 SKILL.md「环境变量」）
+export XIANGSU_REPO="$PWD/../vendor/mg-styles-15"
+export XIANGSU_PROJ="<本片项目目录>"
+export XIANGSU_PY="<本机 python.exe，需 numpy>"
+bash build.sh                # 10 秒样片：音轨 → 渲染 1920×1080 → 4 项验收
+bash build.sh --no-audio     # 复用 audio.wav，只重渲画面
+```
+
+全片链路在 `full/`：`node assemble.mjs`（拼装 `demo/film.js` 片头 + `parts/*.js`）→ `bash build_full.sh`（音轨 → 渲染 → 验收）→ `node make_covers.mjs --final`（4:3 / 3:4 双封面）。片级参数 `XIANGSU_PROJ/FILM/DUR/COVER_OUT` 不给默认值，缺省直接报错。完整参数、冻结基线与验收口径见 [xiangsu/SKILL.md](xiangsu/SKILL.md) 与 [xiangsu/README.md](xiangsu/README.md)。
+
+### chengshi
+
+城市年轮管线：用 OSM 建筑/道路/水系、Esri 卫星影像与 SRTM 地形确定性渲染一座城市的年代演进（Three.js + Remotion），从 `AutoJY` 迁移，名字统一为 chengshi（无 sz 别名）。需要 Python（numpy/Pillow）、Node 18+、Edge（ANGLE）与 ffmpeg；逐句配音走本机 GPT-SoVITS（API 9880）。
+
+渲染工程两个目录：`chengshi/render`（苏州 v2 分镜，原名 `template_v2` → `sz` → 现归一到 `render`，`render_cut_v2.py` 用它）与 `chengshi/template`（通用 v1，`render_cut.py` 用它，`make_city.py` 默认走这条）。**运行时依赖不在仓库里**：`.venv/`、Remotion 的 `node_modules`、Edge、ffmpeg、GPT-SoVITS 都需本机自备，缺依赖时先在渲染工程目录 `npm install`。
+
+```bash
+# 建骨架（bbox 顺序：南,西,北,东）
+PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe chengshi/scripts/chengshi.py new --project <slug> --title "成都·一座城的年轮" --bbox 30.6,104.0,30.8,104.2
+
+# 一键出片：抓 OSM/SRTM/Esri → 白模 → TTS → 混音（-15 LUFS）→ 1080p 审片
+PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe chengshi/scripts/make_city.py --project <slug>
+
+# 单帧预览与交付（母版 + 封面 + 裁切 + 发布信息）
+PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe chengshi/scripts/chengshi.py still --project <slug> --frame 300
+PYTHONIOENCODING=utf-8 ./.venv/Scripts/python.exe chengshi/scripts/chengshi.py publish --project <slug>
+```
+
+示例工程 `projects/suzhou`（苏州《城长》160.7s）；4K 母版需 `--allow-4k`。六个叙事数据文件、运行手册与质量硬约束见 [chengshi/USAGE.md](chengshi/USAGE.md)，完整规则见 [chengshi/SKILL.md](chengshi/SKILL.md)。
 
 ## 仓库结构 🗂️
 
@@ -277,10 +320,30 @@ Auto-Video/
 │   ├── SKILL.md              # 赛博朋克 HUD / FUI 短片入口
 │   ├── scripts/              # 编排、配乐、混音、逐帧渲染
 │   └── projects/             # UAP 样片工程
-└── dengju/
-    ├── SKILL.md              # 等轴 2.5D 短片入口
-    ├── scripts/              # 编排、配乐、混音、逐帧渲染
-    └── projects/             # 013 羽人样片工程
+├── dengju/
+│   ├── SKILL.md              # 等轴 2.5D 短片入口
+│   ├── scripts/              # 编排、配乐、混音、逐帧渲染
+│   └── projects/             # 013 羽人样片工程
+├── huixingzhen/
+│   ├── SKILL.md              # 回形针风科普短片入口
+│   ├── scripts/              # 渲染、音效合成、贴纸/卡片/小帧素材
+│   └── theme/                # 深色主题定稿参数
+├── shuimo/
+│   ├── SKILL.md              # 纸本水墨山水样片入口
+│   ├── scripts/              # 编排、配乐、混音、逐帧渲染
+│   └── projects/             # 013 羽人水墨样片工程
+├── chengshi/
+│   ├── SKILL.md              # 城市年轮短片管线入口
+│   ├── USAGE.md              # 运行手册（环境 / 建城 / 出片 / 硬约束）
+│   ├── pipeline.json         # 定版参数
+│   ├── scripts/              # 抓数据、建城、配音、混音、渲染
+│   ├── render/               # Remotion 渲染工程（苏州 v2 分镜，原名 template_v2 → sz）
+│   └── template/             # 通用渲染工程（v1，render_cut.py 用它）
+└── xiangsu/
+    ├── SKILL.md              # 像素风管线入口
+    ├── MIGRATION.md          # 从 yandi 落地的来源、哈希校验与路径说明
+    ├── demo/                 # 前 10 秒样片源文件真身（film.js / sprites.js / cues.json / audio.py）
+    └── full/                 # 全片链路（assemble / parts / 音轨 / 封面 / 验收）
 ```
 
 ## 技术栈 🧰
@@ -308,7 +371,7 @@ Auto-Video/
 <details>
 <summary>mg-styles-15 是什么？为什么不在仓库里？</summary>
 
-`mg-styles-15` 是 shouhui / xuni / shiliang / xianshiqi / dengju 共用的外部渲染引擎（MIT 协议，含 node_modules 约 1.2GB）。仓库只保留管线代码与示例工程，引擎按引导 clone + `npm install` + junction 安装（见上方针式安装命令或各管线 README）。
+`mg-styles-15` 是 shouhui / xuni / shiliang / xianshiqi / dengju / huixingzhen / shuimo / xiangsu 共用的外部渲染引擎（MIT 协议，含 node_modules 约 1.2GB）。仓库只保留管线代码与示例工程，引擎按引导 clone + `npm install` + junction 安装（见上方针式安装命令或各管线 README）。
 
 </details>
 
@@ -328,7 +391,7 @@ Auto-Video/
 
 ## 路线图 🗺️
 
-当前：`11 / 99`
+当前：`15 / 99`
 
 Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管线必须带自己的流程说明、脚本、可复用资源和验收条件，才算完成迁移。
 
@@ -344,7 +407,7 @@ Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管
 
 ## English
 
-Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 11 styles. It writes original voice-over scripts, clones your voice locally with GPT-SoVITS, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) without calling image or video generation APIs. The current 11 pipelines cover paper-style historical shorts (Remotion), historical documentaries, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, plus four MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric). More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
+Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 15 styles. It writes original voice-over scripts, clones your voice locally with GPT-SoVITS, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) without calling image or video generation APIs. The current 15 pipelines cover paper-style historical shorts (Remotion), historical documentaries, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, pixel-art shorts (640×360 indexed framebuffer ×3 nearest-neighbour with output-resolution CRT), six MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric / paperclip explainer / ink-wash landscape), and city-growth films (real geodata: OSM buildings/roads/water, Esri satellite, SRTM terrain, Remotion + three.js). More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
 
 ## 关注更新
 

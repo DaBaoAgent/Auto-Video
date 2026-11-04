@@ -1,0 +1,27 @@
+{
+  "name": "chengshi-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "chengshi 城市年轮白模管线（Remotion + three.js）",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "still": "remotion still src/index.ts Chengshi",
+    "render": "remotion render src/index.ts Chengshi out/film.mp4",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-three/fiber": "^9.3.0",
+    "@react-three/postprocessing": "^3.0.4",
+    "@remotion/cli": "4.0.484",
+    "@remotion/three": "^4.0.484",
+    "postprocessing": "^6.37.8",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "remotion": "4.0.484",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.17",
+    "typescript": "6.0.3"
+  }
+}

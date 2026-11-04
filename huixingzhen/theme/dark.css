@@ -1,0 +1,69 @@
+/* ============================================================
+   回形针风 · 深色主题（“未解之谜”版）  huixingzhen/theme/dark.css
+   来源：projects/yuren30（《羽人》30s 样片）定稿参数
+   用法：整段替换渲染页 <style>，或 <link> 引入后按需覆盖
+   配套底图：projects/<slug>/assets/bg_dark_archive.png（tools/make_bg.py 生成）
+   ============================================================ */
+:root{
+    --bg:#0B0D11; --ink:#E9EFF6; --slate:#97A7B8; --line:#39434F;
+    --accent:#FF6B45; --accent-soft:#FFB79B; --yellow:#FFD84D; --paper:rgba(255,255,255,0.10); --dim:#6C7C8D;
+    --jade:#5D907C; --ice:#1E2A35; --rock:#3A332A; --deep:#05070A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1920px;height:1080px;overflow:hidden;background:var(--bg);}
+  body{font-family:"Alibaba PuHuiTi","Source Han Sans SC","Microsoft YaHei",sans-serif;color:var(--ink);
+       -webkit-font-smoothing:antialiased;}
+  #viewport{position:relative;width:1920px;height:1080px;overflow:hidden;
+    background:#0B0D11 url('assets/bg_dark_archive.png') center/cover no-repeat;}
+  #viewport::before{content:"";position:absolute;inset:0;z-index:0;
+    background-image:radial-gradient(circle,#2A3440 1.1px,transparent 1.3px);
+    background-size:26px 26px;}
+  #world{position:absolute;top:0;left:0;width:11520px;height:1080px;z-index:1;will-change:transform;}
+
+  .abs{position:absolute;}
+  .card{background:var(--paper);border:1.6px solid rgba(255,255,255,.22);border-radius:12px;
+        box-shadow:0 6px 22px rgba(0,0,0,.45);backdrop-filter:blur(2px);}
+  .tag{display:inline-block;background:rgba(255,255,255,.10);color:#fff;border-radius:999px;
+       border:1.4px solid rgba(255,255,255,.20);
+       padding:10px 24px;font-size:26px;font-weight:700;letter-spacing:2px;}
+  .tag.orange{background:var(--accent);border-color:transparent;color:#0B0D11;}
+  .tag.line{background:transparent;color:var(--ink);border:1.4px solid rgba(255,255,255,.22);}
+  .kicker{font-size:37px;color:var(--slate);letter-spacing:5px;font-weight:700;}
+  .mono{font-variant-numeric:tabular-nums;}
+  .small{font-size:24px;color:var(--dim);letter-spacing:1px;}
+
+  #chrome{position:absolute;inset:0;z-index:50;pointer-events:none;}
+  #brand{position:absolute;left:56px;top:44px;display:flex;align-items:center;gap:14px;}
+  #brand .logo{width:58px;height:58px;border-radius:50%;object-fit:cover;display:block;
+    box-shadow:0 4px 14px rgba(0,0,0,.55);}
+  #brand .idline{display:flex;align-items:baseline;gap:2px;}
+  #brand .name{font-size:27px;font-weight:900;letter-spacing:3px;line-height:1;}
+  #brand .ep{font-size:21px;color:var(--slate);letter-spacing:2.5px;line-height:1;}
+  #epTag{position:absolute;right:56px;top:44px;}
+  #foot{position:absolute;left:56px;right:56px;bottom:26px;display:flex;justify-content:space-between;
+    align-items:center;border-top:1.5px solid var(--line);padding-top:11px;}
+
+  /* 字幕：句级 ≤14 字 / 66 号 / 底距 112 / 淡入 5 帧 / Veil 常驻 */
+  @font-face{
+    font-family:'Alibaba PuHuiTi';
+    src:url('assets/font/AlibabaPuHuiTi-3-85-Bold.ttf') format('truetype');
+    font-weight:700 900; font-display:block;
+  }
+  #veil{position:absolute;left:0;right:0;bottom:0;height:400px;z-index:40;pointer-events:none;opacity:1;
+    background:linear-gradient(to top, rgba(3,5,9,0.86) 0%, rgba(3,5,9,0.44) 46%, rgba(3,5,9,0) 100%);}
+  #cap{position:absolute;left:0;right:0;bottom:112px;z-index:41;pointer-events:none;
+    display:flex;justify-content:center;opacity:0;}
+  #cap span{position:relative;font-family:'Alibaba PuHuiTi',sans-serif;font-weight:900;font-size:66px;
+    letter-spacing:0.14em;color:rgba(250,252,255,0.97);white-space:nowrap;transform:translateY(10px);}
+  #cap span::before{content:attr(data-text);position:absolute;left:0;top:0;z-index:-1;
+    -webkit-text-stroke:6px rgba(4,6,10,0.92);color:rgba(4,6,10,0.92);}
+
+  .item{position:absolute;width:400px;height:470px;}
+  .item .plate{position:absolute;left:0;top:0;width:400px;height:352px;background:rgba(255,255,255,.09);
+    border:1.6px solid rgba(255,255,255,.20);border-radius:12px;box-shadow:0 6px 22px rgba(0,0,0,.45);
+    overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .item .t1{position:absolute;left:2px;top:378px;font-size:40px;font-weight:900;letter-spacing:1px;}
+  .item .t2{position:absolute;left:2px;top:432px;font-size:25px;color:var(--slate);letter-spacing:1px;}
+  .item .idx{position:absolute;left:340px;top:-16px;width:46px;height:46px;border-radius:50%;
+    background:#E9EFF6;color:#0B0D11;font-size:23px;font-weight:900;display:flex;align-items:center;
+    justify-content:center;z-index:3;box-shadow:0 4px 14px rgba(0,0,0,.55);}

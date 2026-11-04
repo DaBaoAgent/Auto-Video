@@ -1,0 +1,118 @@
+{
+ "total_seconds": 160.7,
+ "fps": 30,
+ "lines": [
+  {
+   "id": 1,
+   "chapter": "序 · 江南",
+   "t0": 0.8,
+   "t1": 6.38,
+   "cn": "三千年前，太湖以东，一片水网还没有名字。",
+   "en": "Three thousand years ago, east of Lake Tai, this waterland had no name."
+  },
+  {
+   "id": 2,
+   "chapter": "序 · 江南",
+   "t0": 7.1,
+   "t1": 10.79,
+   "cn": "水，是这座城最早的一道年轮。",
+   "en": "Water was the first ring of this city."
+  },
+  {
+   "id": 3,
+   "chapter": "阖闾城",
+   "t0": 12.8,
+   "t1": 19.54,
+   "cn": "公元前五百一十四年，伍子胥相土尝水，筑起阖闾大城。",
+   "en": "In 514 BC, Wu Zixu read the land and water, and built the great city of Helü."
+  },
+  {
+   "id": 4,
+   "chapter": "阖闾城",
+   "t0": 20.3,
+   "t1": 27.77,
+   "cn": "八座水陆城门，墙内三横四直；河道与街巷，并肩而行。",
+   "en": "Eight water-and-land gates; inside, canals and streets ran side by side."
+  },
+  {
+   "id": 5,
+   "chapter": "会稽郡",
+   "t0": 30.5,
+   "t1": 37.88,
+   "cn": "秦置会稽郡，吴县为治所，江南的稻米，开始沿着水运北上。",
+   "en": "Under the Qin, Kuaiji Commandery ruled from Wu County; Jiangnan rice began moving north by water."
+  },
+  {
+   "id": 6,
+   "chapter": "苏州",
+   "t0": 44.5,
+   "t1": 50.91,
+   "cn": "隋开皇九年，因姑苏山得名——从此，它叫苏州。",
+   "en": "In 589, it took its name from Mount Gusu: Suzhou."
+  },
+  {
+   "id": 7,
+   "chapter": "山塘",
+   "t0": 58.5,
+   "t1": 65.1,
+   "cn": "唐宝历元年，白居易出任苏州刺史，开凿了七里山塘。",
+   "en": "In 825, Bai Juyi became governor of Suzhou and cut the Seven-Li Shantang."
+  },
+  {
+   "id": 8,
+   "chapter": "平江府",
+   "t0": 74.5,
+   "t1": 84.46,
+   "cn": "南宋的《平江图》上，刻下的是一座水陆双棋盘的城市——一河一街，一桥一巷。",
+   "en": "The Pingjiang Map of the Southern Song records a city of two chessboards — water and street, bridge and lane."
+  },
+  {
+   "id": 9,
+   "chapter": "苏州府",
+   "t0": 94.5,
+   "t1": 102.41,
+   "cn": "到了明清，园林、丝织与状元，把苏州的繁华写进巷子深处。",
+   "en": "By Ming and Qing, gardens, silk and scholars wrote Suzhou's prosperity deep into its lanes."
+  },
+  {
+   "id": 10,
+   "chapter": "姑苏",
+   "t0": 110.5,
+   "t1": 117.49,
+   "cn": "清代的姑苏，商船沿运河昼夜往来，烟火一直铺向四方。",
+   "en": "In the Qing, boats moved along the Grand Canal day and night, and Gusu's life spread far."
+  },
+  {
+   "id": 11,
+   "chapter": "开埠",
+   "t0": 124.5,
+   "t1": 131.43,
+   "cn": "一八九六年，苏州开埠；城墙外的世界，第一次靠得这么近。",
+   "en": "In 1896, Suzhou opened to foreign trade; the world outside the walls came close."
+  },
+  {
+   "id": 12,
+   "chapter": "园区",
+   "t0": 136.5,
+   "t1": 141.07,
+   "cn": "一九九四年，金鸡湖畔打下第一根桩。",
+   "en": "In 1994, the first pile was driven by Jinji Lake."
+  },
+  {
+   "id": 13,
+   "chapter": "年轮",
+   "t0": 142.4,
+   "t1": 147.66,
+   "cn": "城墙早已消失，年轮还在一圈圈生长。",
+   "en": "The walls are gone, yet the rings keep growing."
+  },
+  {
+   "id": 14,
+   "chapter": "年轮",
+   "t0": 148.45,
+   "t1": 150.95,
+   "cn": "这，就是苏州。",
+   "en": "This is Suzhou."
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "slug": "suzhou",
+ "title": "苏州·城长",
+ "title_en": "Suzhou: The Growing City",
+ "subtitle_cn": "苏州 · 从阖闾城到金鸡湖",
+ "subtitle_en": "Suzhou, from the City of Helü to Jinji Lake",
+ "fps": 30,
+ "width": 3840,
+ "height": 2160,
+ "duration": 160.7,
+ "scope_cn": "苏州 · 古城与太湖 · 实景影像 + 写实三维 · 4K",
+ "scope_en": "Suzhou · Old Town, Western Hills & Lake Tai · Realistic Aerial · © Esri / OpenStreetMap",
+ "credits": [
+  "写实航拍 · 黄金时刻 · 4K",
+  "影像：Esri World Imagery（Esri · Maxar · Earthstar Geographics）",
+  "地形：SRTM 30m · AWS Terrain Tiles（NASA / USGS）",
+  "建筑、道路、水系：© OpenStreetMap contributors（ODbL）",
+  "楼高：OSM building:levels / height，缺失按 3 层估算",
+  "配乐：《西厢待月》",
+  "史实框架 + 合理推演 · 示意重建，非考古复原"
+ ],
+ "data": {
+  "bbox": [
+   31.195,
+   120.395,
+   31.405,
+   120.8
+  ],
+  "origin": [
+   120.6535,
+   31.303
+  ],
+  "default_year": 2012,
+  "growth_outside": [
+   1994,
+   2022
+  ]
+ },
+ "audio": {
+  "music": "D:/@kaifa/BGM/西厢待月.mp3",
+  "loudness": {
+   "lufs": -15,
+   "tp": -1.5
+  }
+ },
+ "delivery": {
+  "out_dir": "014_苏州年轮"
+ }
+}

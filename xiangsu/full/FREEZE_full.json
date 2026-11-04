@@ -1,0 +1,104 @@
+{
+  "pipeline": "xiangsu2",
+  "project": "001_波斯湾伊甸园 · 全片",
+  "frozen_at": "2026-10-29 (rev2)",
+  "note": "272 秒全片（58 镜 / 195 条字幕 / 116 个节拍点）：640×360 索引色栅格 ×3 整数最近邻 → 1920×1080，CRT 在输出分辨率。在 xiangsu2 样片管线之上增加全片环境动效层（仅漂移微尘，无扫描光带），保证静止镜头也满足全片动效密度口径。rev2 按宝哥复审：取消自上而下的扫描光带、卡片中英文并排且收进框内、BGM 相对人声 +1.9 dB。render/xiangsu 与样片均未改动，xiangsu2/FREEZE.json 未覆盖。",
+  "spec": {
+    "framebuffer": [640, 360],
+    "upscale": "3x nearest-neighbour",
+    "output": [1920, 1080],
+    "fps": 30,
+    "frames": 8162,
+    "duration_s": 272.05,
+    "video": "h264 high / yuv420p / bt709 tv / crf 14 / preset slow / aq-mode=3",
+    "audio": "aac (requested -b:a 320k; measured ~259 kbps) / 48000 Hz / 2ch",
+    "crt": {
+      "scanline": "rgba(0,0,0,0.12), 1px dark line every 3px, generated at output resolution",
+      "vignette": "radial 0 -> 0.48 alpha, 0.38R -> 0.95R",
+      "phosphor": "overlay rgba(120,255,200,0.02)"
+    },
+    "ambient": {
+      "dust_specks": "100 颗 1–2 px 微尘，横向 52–98 px/s 漂移 + 正弦上下浮动，按落点亮度反向描点（亮底描暗 M(0)、暗底描亮 M(8)）；x 在 0..639 环绕，y 落在 14..285（避开 304 起的字幕带）",
+      "why": "镜头本身静止区最长 2.57 s 不达标；环境层是唯一新增的全片动画，改的是静止镜头的可测运动，不改变任何镜头的构图。rev2 已删除会形成可见横纹的扫描光带，只保留微尘",
+      "no_scan_band": "画面内不存在任何自上而下的扫描光带/扫描纹（CRT 的静态逐行扫描线属交付格式，保留）"
+    }
+  },
+  "sources": {
+    "full/assemble.mjs": "90f4b0adcf8c738107521f6fa3c44a55178561e15f928d1f3ffb6aeae4541245",
+    "full/audio.py": "06fbb53bf0c54dfa533d853629bd6f5acc42452db882e2675d45cf18337b356a",
+    "full/build_full.sh": "aab44bfeaff641fbe6740ce5429ebb4586054fa9ab1d9ba3e688b8992c2d91c1",
+    "full/make_audio.sh": "1914a6488ccf24f80494b5a01faf497d5386475cf357b508cc812637c0ef4943",
+    "full/verify_full.mjs": "15f22f54e63b39877b33a79f1544345ba2301488ed278c4e2244cd2a087f2770",
+    "full/send_film_mail.py": "62c3a4a151d8cacb679e3a83aafd84f22d7eeb8fa472f07589146b67e5bd9d3e",
+    "full/index.html": "7d879a045aa4b9aa31e71ff96f9d6f0829f05f72f73230f337c47b3f331d7320",
+    "full/cues.json": "e05a34aaff77f1476be327e748547550d7d308923ad51587aef321bf961c15e1",
+    "full/beats.json": "4485cf1e3396d4898309cea2076cc7ed2d050512832b63ed1b67ffbde3b65782",
+    "full/parts/00-util.js": "5341c95fad2ad1ad67f4e675e0c31064b0ecafc698e1e54a00d62a224576a10b",
+    "full/parts/10-shots-1.js": "8e353481db0bb4876b67ae787dd2c688b158e67b32dc6651b56b70c5acff6030",
+    "full/parts/20-shots-2.js": "7b0b803a203b2b36bebcc6ef53aed6534cb7f54c9cc1532d068bf9c084baa54a",
+    "full/parts/30-shots-3.js": "1e42bc48794991d0960f7849510a206e856ca2c6c974da650046bd317d2a559a",
+    "full/parts/40-shots-4.js": "4ce39e63dac1daa911e8f70800f81e0fe9096edb733042f185f0a6a2eb789744",
+    "full/parts/50-shots-5.js": "b49365d9a5ae8ec57851893ab4d6280e8a0b78a16147af55baef9478d1078178",
+    "full/parts/90-tail.js": "2e952b472d453148929d25155c0aed82a1c7a7741309aa017d07e3902804d386",
+    "demo/film.js (head, 未改)": "0a6d7f5847822e6a336b676f046822fe21f7656ae845ba4007c8f4aee638ce64",
+    "demo/sprites.js (未改)": "ef19041da186ff4bffcda46cc1d64fd63e343187f8a5218b1429ae32cbb4475f",
+    "built demos/xiangsu2-eden-full/film.js": "af38a982c0f38506917055a88e25a275507a6dc629276dc5175b3184d54c34ae"
+  },
+  "audio": {
+    "music.wav": "3d5c75ab0423fc1f64337799ab848cc877986aa9ad0939fe048138c4bb2882d0",
+    "mix_raw.wav": "1b887184749a8f1983d955a18e68c0fb9f655776d0c40675eae73a76de8c847c",
+    "audio.wav": "0f06c2bdffb3e0d918b6ee4d89b5e42e523345b1d18e324f3f6730e9e536d39f",
+    "loudness": { "integrated_lufs": -16.02, "true_peak_dbtp": -1.41, "lra_lu": 1.30 },
+    "mix": "voice + bed*0.20（rev2 由 0.16 提高，BGM 相对人声 +1.9 dB；两遍 loudnorm 后仍 -16 LUFS）"
+  },
+  "deliverable": {
+    "path": "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/全片_波斯湾伊甸园_272秒_1920x1080.mp4",
+    "bytes": 136567179,
+    "sha256": "5325721baa072ec1b3f4e24f776cac68e34e7e7a519aea1746fceb074454e857",
+    "ffprobe": "1920x1080 h264/yuv420p 30fps 8162f 272.067s (~4.02 Mbps); aac 48000 Hz 2ch (~259 kbps)"
+  },
+  "share_copy": {
+    "path": "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/全片_波斯湾伊甸园_272秒_1280x720_分享版.mp4",
+    "bytes": 33343559,
+    "sha256": "43f93d5433d7a5ce679da854aaec74550ebe2759e8aa2dc7756d6b00eed23a38",
+    "ffprobe": "1280x720 h264 30fps 8162f 272.067s (~0.98 Mbps); aac 48000 Hz 2ch; crf 24 / faststart，供邮件附件（<50 MB）",
+    "note": "母版 1920×1080 保留完整 3× 栅格；分享版仅用于邮件预览"
+  },
+  "verification": {
+    "result": "PASS 4/4",
+    "spec": "PASS",
+    "loudness": "PASS",
+    "density": {
+      "result": "PASS",
+      "window_rule": "每 2 s 窗口 >1% 动效点（192×108 灰度 · |Δ|>8）",
+      "longest_static_s": 0.00,
+      "note": "rev2 环境层改为纯漂移微尘后，全片最长无有效变化段 0.00 s（起点 0.03 s），每个 2 s 窗口均 >1% 动效点"
+    },
+    "pixel_density": {
+      "result": "PASS",
+      "method": "在 Y 平面判 3× 栅格（列块一致 + 非扫描线行可无损还原）；RGB 差值仅作参考，因为交付规格 yuv420p 的 4:2:0 色度抽样对抖动色块必然产生 ~2% 的 >12 级差，与编码质量无关",
+      "probes": {
+        "t=2.30": { "inner_col_mad": 0.36, "edge_col_mad": 4.36, "y_recon_mean": 0.15, "y_gt12_pct": 0.000, "rgb_recon_mean": 0.60 },
+        "t=45.00": { "inner_col_mad": 1.09, "edge_col_mad": 13.49, "y_recon_mean": 0.33, "y_gt12_pct": 0.000, "rgb_recon_mean": 1.63 },
+        "t=77.00": { "inner_col_mad": 0.77, "edge_col_mad": 11.98, "y_recon_mean": 0.28, "y_gt12_pct": 0.001, "rgb_recon_mean": 1.20 },
+        "t=120.00": { "inner_col_mad": 0.58, "edge_col_mad": 8.18, "y_recon_mean": 0.24, "y_gt12_pct": 0.001, "rgb_recon_mean": 0.83 },
+        "t=175.00": { "inner_col_mad": 0.84, "edge_col_mad": 16.36, "y_recon_mean": 0.26, "y_gt12_pct": 0.003, "rgb_recon_mean": 1.19 },
+        "t=220.00": { "inner_col_mad": 0.93, "edge_col_mad": 15.30, "y_recon_mean": 0.34, "y_gt12_pct": 0.004, "rgb_recon_mean": 1.27 },
+        "t=267.00": { "inner_col_mad": 1.28, "edge_col_mad": 17.44, "y_recon_mean": 0.35, "y_gt12_pct": 0.004, "rgb_recon_mean": 1.70 }
+      }
+    },
+    "card_review": {
+      "result": "PASS",
+      "city_cards": "t≈65.5–69 s 乌鲁克URUK / 埃利都ERIDU / 乌尔UR / 拉尔萨LARSA：中英文并排、无空格（单一连续墨迹簇），文字上留白 8 / 下留白 5 fb px，最右文字距内框 25–59 px",
+      "word_cards": "t≈69–74.2 s 犁PLOUGH / 农夫FARMER / 播种SOW：双字面并排、无空格（en 起点在 zh 宽度 −4 px 处），全部文字在 300×40 框内（左 10 / 右 8 / 上 6 / 下 4 px）",
+      "evidence_wall": "t≈57–60.9 s 照片卡字幕油墨距框底 2 fb px（≈6 输出像素），不再压边框"
+    }
+  },
+  "environment": {
+    "repo": "D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15",
+    "chrome": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "python": "D:/@kaifa/openviking/.venv/Scripts/python.exe",
+    "node": "v24.22.1",
+    "ffmpeg": "8.1.1-full_build"
+  }
+}

@@ -1,0 +1,125 @@
+{
+ "version": "rev4（音效版）",
+ "date": "2026-10-29",
+ "pipeline": "xiangsu2",
+ "change": "在 rev3 成片基础上插入 58 条真实音效（D:/@kaifa/@/音效）。视频码流未重编码（-c:v copy，逐字节与 rev3 相同）；仅重建音轨：voice + bed*0.20 + sfx*0.55，两遍 loudnorm。",
+ "deliverable": {
+  "path": "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/全片_波斯湾伊甸园_272秒_1920x1080.mp4",
+  "bytes": 195824510,
+  "sha256": "910d81c5fb70c9a250925d8b79e9d0b7b9a2953f3aa83c14ea847e3f5e808922",
+  "ffprobe": "1920x1080 h264/yuv420p 30fps 8162f 272.067s (~5.76 Mbps); aac 48000 Hz 2ch (~259 kbps)",
+  "video_bitstream_md5": "668a59a920a5bf71843b70e9c528eeaa（与 rev3 视频码流逐字节相同）"
+ },
+ "supersedes": {
+  "note": "rev3 母版曾备份为 全片_波斯湾伊甸园_272秒_1920x1080_rev3.mp4；2026-10-29 定稿清理时按宝哥要求删除（视频码流与 rev4 逐字节相同，母版内容未丢）。最后已知哈希如下。",
+  "bytes": 195901830,
+  "sha256": "aaeede5e49c6a2caa724c4f328078f19d0c315d03952486057654bf1062702b5"
+ },
+ "audio": {
+  "audio.wav": "cd5e7c99be6a098f588d2aabb9b03692578b3b103fdc64d58c4eb0d12e949f2f",
+  "mix": "voice + bed*0.20 + real_sfx*0.55",
+  "loudness_wav": {
+   "integrated_lufs": -16.0,
+   "true_peak_dbtp": -1.5,
+   "lra_lu": 1.6
+  },
+  "loudness_deliverable": {
+   "integrated_lufs": -16.0,
+   "true_peak_dbtp": -1.46,
+   "lra_lu": 1.6
+  },
+  "loudnorm_mode": "两遍：第二遍线性不可行（mix_raw 真峰 -1.18 dBTP，线性 +2.89 dB 会到 +1.71 dBTP），ffmpeg 退回 dynamic；与纯线性增益相比中位差 0.04 dB、p99 0.18 dB，仅最响的几个窗口最多压低 1.51 dB。"
+ },
+ "sfx": {
+  "plan": "full/sfx_cues.json（58 条）",
+  "source_dir": "D:/@kaifa/@/音效",
+  "cues": 58,
+  "distinct_clips": 21,
+  "span_s": 268.95,
+  "mean_gap_s": 4.72,
+  "min_gap_s": 2.1,
+  "max_gap_s": 6.9,
+  "prep": "开头静音切除（silencedetect -30 dB / 0.2 s）；每条最多 2 s（水冒泡 1.27 s、木门 1.74 s 按原长）；按交付口径先下混单声道再量，常量增益精确统一到 -21 LUFS；12 ms 淡入 / 50 ms 淡出；48 kHz 单声道 16-bit。",
+  "limiter": "仅峰值会超过 -1.0 dBTP 的 7 条加 alimiter 兜底（cue 0/3/9/35/39/46/57），最深约 2.6 dB（划水声），其余素材动态未动。",
+  "uniformity_check": "58 条成品复测：I 均值 -21.05 LUFS，极差 0.42 LU；TP 最高 -0.92 dBTP。",
+  "placement_check": "新版与 rev3 音轨对齐相减：音效窗口内差异 RMS -20.70 dBFS，窗口外 -37.93 dBFS（相差 17.2 dB），58 条全部可检出；最弱 cue 14（金属兵器碰撞）-25.9 dBFS。"
+ },
+ "verification": {
+  "tool": "full/verify_full.mjs",
+  "spec": "PASS  1920×1080 · h264/yuv420p · 30 fps · 8162 帧 · 272.067 s · aac 48000 Hz 2ch",
+  "loudness": "PASS  I=-16.00 LUFS · TP=-1.46 dBTP · LRA=1.60 LU",
+  "density": {
+   "result": "PASS",
+   "note": "每 2 s 窗口均 >1% 有效点；最长无有效变化段 0.37 s（起点 15.40 s，判据 ≤0.5%）；片尾 262–264s 平均 0.54% 但仍有 10 帧 >1%，不构成静止段。"
+  },
+  "pixel_density": {
+   "result": "PASS",
+   "criterion": "Y 平面：块内列差 <2.5、跨块更大、Y 还原差 <2.0、>12 级 <1%；RGB 值作参考（4:2:0 色度抽样所致）",
+   "frames": {
+    "t=2.30": {"inner": 0.34, "edge": 4.18, "y_recon": 0.13, "y_gt12_pct": 0.0, "rgb_recon": 0.57},
+    "t=45.00": {"inner": 1.1, "edge": 13.89, "y_recon": 0.35, "y_gt12_pct": 0.0, "rgb_recon": 1.56},
+    "t=77.00": {"inner": 0.87, "edge": 13.04, "y_recon": 0.28, "y_gt12_pct": 0.001, "rgb_recon": 1.25},
+    "t=120.00": {"inner": 0.57, "edge": 8.35, "y_recon": 0.22, "y_gt12_pct": 0.0, "rgb_recon": 0.84},
+    "t=175.00": {"inner": 0.86, "edge": 17.75, "y_recon": 0.3, "y_gt12_pct": 0.001, "rgb_recon": 1.14},
+    "t=220.00": {"inner": 0.95, "edge": 16.87, "y_recon": 0.34, "y_gt12_pct": 0.002, "rgb_recon": 1.38},
+    "t=267.00": {"inner": 1.39, "edge": 19.73, "y_recon": 0.37, "y_gt12_pct": 0.003, "rgb_recon": 1.75}
+   }
+  },
+  "conclusion": "PASS 4/4"
+ },
+ "source_hashes": {
+  "sfx_cues.json": "47d339f15ae88457aaf5875de05e939794917892b286c35a623ef4cc5d96d234",
+  "sfx_prep.py": "2839a55eeef6eb764eebdb7578222fe779358488813a1b5cb1d5edc87fd64caf",
+  "audio.py": "b14437a88b90949a2143d634f5ed3220dba818610c3a1fd189e9da5ff8f717c5",
+  "make_audio.sh": "2d027d717d7f8bb00bb1a1d35548e9cb79b0b3712078134f21a711f6bc8d69cc",
+  "out/sfx_prep/manifest.json": "516ceda02f0100f1a6e6de332aa3082b80c3040eb0d72167addb96df9c21a155"
+ },
+ "cleanup_2026-10-29": {
+  "order": "宝哥定稿：删除其他中间视频和文件，只保留最新成片（仅输出目录内的旧视频；渲染工程、源码、FREEZE 记录保留）。",
+  "deleted": [
+   "全片_波斯湾伊甸园_272秒_1920x1080_rev3.mp4（195,901,830 B, aaeede5e…）",
+   "全片_波斯湾伊甸园_272秒_1920x1080_rev2.mp4（136,567,179 B, 5325721b…）",
+   "全片_波斯湾伊甸园_272秒_1280x720_分享版_rev3.mp4（28,771,095 B, b3795eed…）",
+   "全片_波斯湾伊甸园_272秒_1280x720_分享版.mp4（33,343,559 B）",
+   "样片_前10秒_1920x1080.mp4（10,433,009 B, 9a63b49a…）",
+   "样片_前10秒_640x360.mp4（2,407,740 B, 52314eaf6d89a75f33f123eec66628a0302e6574c2bf4132250e17a4189d8e5d）",
+   "样片_第一分钟_1920x1080.mp4（52,794,270 B, 1d727d50…）"
+  ],
+  "kept": [
+   "全片_波斯湾伊甸园_272秒_1920x1080.mp4（唯一保留的成片）",
+   "口播稿.md / 配音.wav / 配音.transcript*.json / 素材与背景图目录（源资产，未动）"
+  ],
+  "note": "全部哈希在删除前已写入对应 FREEZE 文件与 README；xiangsu2/FREEZE.json 未覆盖。"
+ },
+ "archive_2026-10-29": {
+  "order": "宝哥定稿：按成片规范生成封面与发布信息，并归档到交付目录。",
+  "dir": "D:/@kaifa/yandi/out/3 波斯湾伊甸园/",
+  "top_level": ["波斯湾伊甸园_全片.mp4", "cover_4x3.png", "cover_3x4.png", "发布信息.txt"],
+  "film": {
+   "path": "D:/@kaifa/yandi/out/3 波斯湾伊甸园/波斯湾伊甸园_全片.mp4",
+   "note": "由 output/001_…/全片_波斯湾伊甸园_272秒_1920x1080.mp4 改名移动；字节与 SHA-256 与上面 deliverable 完全一致，deliverable.path 为归档前路径。",
+   "bytes": 195824510,
+   "sha256": "910d81c5fb70c9a250925d8b79e9d0b7b9a2953f3aa83c14ea847e3f5e808922"
+  },
+  "covers": {
+   "revision": "2026-10-29 宝哥要求改为半人半鱼为主体，重出两版封面。",
+   "method": "§4.4 代码合成（无 ImageGen）：取成片 t=42.4 s 的「神吗」镜头（40.86–45.62，日出暖金逆光、半人半鱼居中），关字幕、关 HUD；4:3 用 ×4 取 360×270 窗口（cropx=52、cropy=12），3:4 用 ×5 取 216×288 窗口（cropx=124、cropy=32），最近邻整数放大；顶部深色标题区（横版 0.30H、竖版 0.36H，鱼人头部在标题区之下）+ 华文行楷金色标题「波斯湾伊甸园」6 字（横版横排、竖版两列右起竖排）；无副标题/字母数字/水印。",
+   "cover_4x3.png": {"size": "1440×1080", "bytes": 381980, "sha256": "5505ba972d17acd1c18960d7cb6c2b14193db70c50706c95a51eecab6cffa8b0"},
+   "cover_3x4.png": {"size": "1080×1440", "bytes": 256906, "sha256": "4fa267e2233bf2a175f7ad521973cd3894e906c4061fd759bad94d1779db605d"},
+   "superseded": "初版绿洲镜头封面（t=113.8 s，4:3 480×360×3 / 3:4 270×360×4）已备份到 源文件/封面_v1_绿洲版/：cover_4x3.png 445,666 B sha256 3f4a0894…7e08；cover_3x4.png 355,755 B sha256 34efe68d…16ea。",
+   "generator": "full/make_covers.mjs（由 assembled film.js 生成可配副本 demos/xiangsu2-cover/coverfilm.js）"
+  },
+  "release_info": {
+   "bytes": 676,
+   "sha256": "6386b67779f72b88187ff021ab01098ed9074ed5701509fb1ede5e8894c10e11",
+   "format": "§5：5 选 1 / 推荐 / 次选 / 话题；5 条标题均 ≤27 字"
+  },
+  "source_files": [
+   "核验报告.txt（归档后 verify_full.mjs 复跑，PASS 4/4）",
+   "FREEZE_full_rev4.json（本记录副本）",
+   "封面_v1_绿洲版/（初版封面，t=113.8，已被鱼人版替换）",
+   "旧版封面发布/（2026-10-27 的封面与发布信息，已下架）"
+  ]
+ },
+ "share_copy": "按宝哥要求不生成 720p 分享版（2026-10-29）。"
+}
