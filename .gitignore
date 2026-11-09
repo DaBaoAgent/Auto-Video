@@ -128,7 +128,7 @@ map/projects/*/audio/*.wav
 map/projects/*/audio/*.m4a
 map/projects/*/review$n.png
 
-# goldenage/manga/tapestry/pencil/isometric/parable 六组 BB-Video 风格管线
+# goldenage/manga/tapestry/pencil/isometric/parable/shadow 七组 BB-Video 风格管线
 # 工程内的运行时副本、配音、抽帧与成片都可重新生成，不入库；template 只保留代码/文案/分镜/参数
 goldenage/template/out/
 goldenage/template/audio/
@@ -184,3 +184,12 @@ tapestry/projects/*/*.wav
 pencil/projects/*/*.wav
 isometric/projects/*/*.wav
 parable/projects/*/*.wav
+shadow/template/out/
+shadow/template/audio/
+shadow/template/review/
+shadow/template/lib/
+shadow/projects/*/out/
+shadow/projects/*/audio/
+shadow/projects/*/review/
+shadow/projects/*/lib/
+shadow/projects/*/*.wav

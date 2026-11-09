@@ -1,0 +1,76 @@
+{
+  "version": "2026-11-09",
+  "pipeline": "shadow",
+  "style": "bb-video/shadow",
+  "label": "皮影戏",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "logical": "幕面 16:9；人物脚在 Y.floor = H*0.8（横屏）/ H*0.66（竖屏）"
+  },
+  "duration": {
+    "default": 30,
+    "min": 8,
+    "max": 300
+  },
+  "palette": {
+    "screen": "#FCF9F1",
+    "stage": "#140C07",
+    "ink": "#1C130C",
+    "paper": "#F3D9A4",
+    "vermilion": "#B5321F",
+    "ochre": "#C8934A",
+    "green": "#3E7B6E",
+    "indigo": "#34506E",
+    "yellow": "#E3BE79",
+    "deep": "#6B4A2A",
+    "rod": "#2A1A10"
+  },
+  "fonts": [
+    "LXGW WenKai (霞鹜文楷)"
+  ],
+  "motion": {
+    "camera": "near static, slow push 1→1.02",
+    "scene_change": "lamp dim/return",
+    "max_scene_change_per": "4 s",
+    "joint_turn": "0.3–0.6 s",
+    "step": "0.5 s"
+  },
+  "audio": {
+    "bpm": 84,
+    "key": "D minor",
+    "lufs": -16,
+    "true_peak": -1.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "voice_lead_in": 0.7,
+    "tail": 1.2
+  },
+  "render": {
+    "engine": "Chrome DevTools Protocol, frame by frame",
+    "chrome": "CHROME_PATH (Windows: auto-detect Chrome/Edge)",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/",
+    "final": "out/<编号>_<人物>/",
+    "files": [
+      ".mp4",
+      "_封面.png",
+      "_字幕.srt",
+      "_署名.txt"
+    ],
+    "qa": "review/qa.json"
+  },
+  "sample": {
+    "name": "阿努纳奇 · 第一段",
+    "duration": "30.3 s / 1920×1080 / 30 fps",
+    "path": "template/",
+    "media_committed": false
+  }
+}
