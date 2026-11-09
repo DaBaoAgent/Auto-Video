@@ -1,0 +1,82 @@
+{
+  "version": "2026-11-09",
+  "pipeline": "isometric",
+  "style": "bb-video/isometric",
+  "label": "等距微缩世界",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "logical": "three.js 等距正交，世界单位米；地块 w/d 约 8–9 m"
+  },
+  "duration": {
+    "default": 30,
+    "min": 8,
+    "max": 300
+  },
+  "palette": {
+    "bg": "#E8EFEA",
+    "grass": "#8FCB6B",
+    "concrete": "#E6E1D6",
+    "asphalt": "#596273",
+    "floor": "#EFE9DD",
+    "water": "#7CC6E0",
+    "sand": "#EBD49A",
+    "wall": "#F4EFE6",
+    "roof": "#E9785E",
+    "metal": "#AEB6C1",
+    "dark": "#3B4250",
+    "wood": "#C89566",
+    "leaf": "#6DBB58",
+    "parcel": "#D7A86E",
+    "accent": "#FF6B4A",
+    "accent2": "#2FA7A0",
+    "ink": "#22303C"
+  },
+  "fonts": [
+    "Nunito",
+    "Noto Sans SC"
+  ],
+  "motion": {
+    "camera": "one continuous orthographic glide",
+    "glide_default": 1.4,
+    "layout": "zigzag",
+    "focus_lift": true
+  },
+  "audio": {
+    "bpm": 100,
+    "key": "F major",
+    "lufs": -16,
+    "true_peak": -1.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "voice_lead_in": 0.7,
+    "tail": 1.2
+  },
+  "render": {
+    "engine": "Chrome DevTools Protocol, frame by frame",
+    "chrome": "CHROME_PATH (Windows: auto-detect Chrome/Edge)",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/",
+    "final": "out/<编号>_<人物>/",
+    "files": [
+      ".mp4",
+      "_封面.png",
+      "_字幕.srt",
+      "_署名.txt"
+    ],
+    "qa": "review/qa.json"
+  },
+  "sample": {
+    "name": "阿努纳奇 · 第一段",
+    "duration": "30.4 s / 1920×1080 / 30 fps",
+    "path": "template/",
+    "media_committed": false
+  }
+}

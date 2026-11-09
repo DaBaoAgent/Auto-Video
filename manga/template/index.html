@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>阿努纳奇 · 第一段 · 日漫</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/dela-gothic-one@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zcool-qingke-huangyou@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/900.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/900.css">
+<style>html,body{margin:0;background:#000}#stage{position:relative;overflow:hidden}</style>
+<script src="assets/manifest.js"></script>
+<script src="timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/manga.js"></script>
+</head><body><div id="stage"></div><script>
+// 阿努纳奇 · 第一段 · 日漫分镜：一本书说地球是外星金矿 → 神 × 猿 → 人 → 书卖疯 → 学界骂翻 → 四十年后剪刀 → 细菌。
+// 时间全部来自旁白（T.start / T.end / T.word）。事实与屏幕文字见 brief.md。原创角色、原创分镜，不借用任何既有作品。
+const { M } = PROMO;
+PROMO.compose({
+  bpm: 140, offset: 0, grain: false, chapters: false, tail: 1.2,
+  theme: { bg: '#000', fg: '#fff', ink: '#141414', muted: '#777', accent: '#e0442a', paper: '#fff', fonts: { display: '"ZCOOL QingKe HuangYou", sans-serif', sans: '"Noto Sans SC", sans-serif', serif: '"Noto Serif SC", serif' } },
+  build: (F) => {
+    const T = F.T, s = T.start, e = T.end, w = T.word;
+    const R = PROMO.manga(F, { spot: '#e0442a' });
+    const a1 = s('l1'), a2 = s('l2'), a3 = s('l3'), a4 = s('l4'), a5 = s('l5'), a6 = s('l6'), a7 = s('l7'), a8 = s('l8'), fin = F.duration;
+
+    R.cast({
+      人: { build: 'normal', proportions: 'hero', hair: 'short', hairTone: 'black', eyes: 'round', brows: 'thick', outfit: { top: 'white', bottom: 'black', shoes: 'black' } },
+      学者: { build: 'slim', proportions: 'stocky', hair: 'bald', eyes: 'narrow', brows: 'thin', jaw: 'point', outfit: { top: 'tone', bottom: 'black', coat: 'white', collar: true } },
+    });
+
+    /* ---------- drawing kit: everything is inked SVG inside the panel ---------- */
+    const poly = (g, k, pts, o = {}) => k.shape(g, k.ptsD(pts.map(([x, y]) => [x * k.w, y * k.h])), o);
+    const line = (g, k, pts, w_, o = {}) => k.line(g, pts.map(([x, y]) => [x * k.w, y * k.h]), w_ * Math.min(k.w, k.h) / 400, o);
+    function bookIcon(g, k, cx, cy, ww, hh, rot, o = {}) {
+      const grp = k.sv('g', { transform: `translate(${cx * k.w},${cy * k.h}) rotate(${rot})` }, g);
+      const W = ww * k.w, H = hh * k.h;
+      const p = (pts, oo) => k.shape(grp, k.ptsD(pts), oo);
+      p([[-W / 2, -H / 2], [W / 2, -H / 2], [W / 2, H / 2], [-W / 2, H / 2]], { fill: o.dark ? '#141414' : '#fff', lw: 3.2 });
+      p([[-W / 2 + W * .05, -H / 2 + H * .12], [W / 2 - W * .04, -H / 2 + H * .1], [W / 2 - W * .04, H / 2 - H * .08], [-W / 2 + W * .05, H / 2 - H * .06]], { fill: '#fff', lw: 1.8 });
+      for (let i = 0; i < 3; i++) k.line(grp, [[-W * .38, -H * .18 + i * H * .12], [W * .3, -H * .19 + i * H * .12]], 2.4, { color: '#141414' });
+      if (o.title) k.sv('text', { x: 0, y: H * .06, 'text-anchor': 'middle', 'font-size': H * .2, 'font-family': '"Noto Sans SC", sans-serif', 'font-weight': 900, fill: '#141414' }, grp).textContent = o.title;
+      return grp;
+    }
+    function tabletIcon(g, k, cx, cy, ww, hh) {
+      const grp = k.sv('g', { transform: `translate(${cx * k.w},${cy * k.h})` }, g);
+      const W = ww * k.w, H = hh * k.h;
+      k.shape(grp, k.ptsD([[-W / 2, -H / 2], [W / 2, -H / 2], [W / 2 + W * .02, H / 2], [-W / 2 + W * .02, H / 2]]), { fill: '#fff', lw: 3.4, tone: k.dots(.28, 5) });
+      for (let r = 0; r < 4; r++) for (let c = 0; c < 6; c++) {
+        const X = -W * .38 + c * W * .15, Y = -H * .3 + r * H * .18;
+        k.line(grp, [[X - W * .04, Y], [X + W * .04, Y - H * .012]], 3.2);
+        k.line(grp, [[X - W * .03, Y + H * .03], [X + W * .035, Y + H * .02]], 2.6);
+      }
+      return grp;
+    }
+    function moonGod(g, k, cx, cy, r) {
+      const grp = k.sv('g', {}, g), X = cx * k.w, Y = cy * k.h, RR = r * Math.min(k.w, k.h);
+      k.shape(grp, k.ptsD(Array.from({ length: 48 }, (_, i) => { const a = i / 48 * Math.PI * 2; return [X + Math.cos(a) * RR, Y + Math.sin(a) * RR]; })), { fill: '#fff', lw: 3.6, tone: k.dots(.22, 5) });
+      k.sv('circle', { cx: X - RR * .3, cy: Y - RR * .18, r: RR * .12, fill: '#141414' }, grp);
+      k.sv('circle', { cx: X + RR * .24, cy: Y - RR * .18, r: RR * .12, fill: '#141414' }, grp);
+      k.line(grp, [[X - RR * .32, Y + RR * .3], [X, Y + RR * .42], [X + RR * .3, Y + RR * .28]], 4);
+      return grp;
+    }
+    function vatIcon(g, k, cx, cy, ww, hh) {
+      const grp = k.sv('g', {}, g), X = cx * k.w, Y = cy * k.h, W = ww * k.w, H = hh * k.h;
+      k.shape(grp, k.ptsD([[X - W / 2, Y - H / 2], [X + W / 2, Y - H / 2], [X + W / 2, Y + H / 2], [X - W / 2, Y + H / 2]]), { fill: '#fff', lw: 3.6, tone: k.dots(.14, 5) });
+      k.sv('ellipse', { cx: X, cy: Y - H / 2, rx: W / 2, ry: H * .08, fill: '#fff', stroke: '#141414', 'stroke-width': 3 }, grp);
+      const rr = Math.min(W, H) * .3;
+      k.sv('circle', { cx: X, cy: Y, r: rr, fill: '#141414' }, grp);
+      k.sv('circle', { cx: X, cy: Y, r: rr * .86, fill: '#fff' }, grp);
+      for (let kk = 0; kk < 2; kk++) {
+        const pts = [];
+        for (let i = 0; i <= 20; i++) { const u = i / 20; pts.push([X + Math.sin(u * Math.PI * 3.1 + kk * Math.PI) * rr * .5, Y - rr * .8 + u * rr * 1.6]); }
+        k.line(grp, pts, 3.4);
+      }
+      return grp;
+    }
+    function bacteriumIcon(g, k, cx, cy, r) {
+      const grp = k.sv('g', {}, g), X = cx * k.w, Y = cy * k.h, RR = r * Math.min(k.w, k.h);
+      for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2; k.line(grp, [[X + Math.cos(a) * RR, Y + Math.sin(a) * RR * .8], [X + Math.cos(a) * RR * 1.3, Y + Math.sin(a) * RR * 1.04]], 4); }
+      k.shape(grp, k.ptsD(Array.from({ length: 36 }, (_, i) => { const a = i / 36 * Math.PI * 2; return [X + Math.cos(a) * RR, Y + Math.sin(a) * RR * .8]; })), { fill: k.spot || '#141414', lw: 3, tone: k.dots(.2, 4) });
+      k.sv('circle', { cx: X - RR * .28, cy: Y - RR * .12, r: RR * .14, fill: '#fff' }, grp);
+      k.sv('circle', { cx: X + RR * .24, cy: Y - RR * .12, r: RR * .14, fill: '#fff' }, grp);
+      k.sv('circle', { cx: X - RR * .26, cy: Y - RR * .1, r: RR * .07, fill: '#141414' }, grp);
+      k.sv('circle', { cx: X + RR * .26, cy: Y - RR * .1, r: RR * .07, fill: '#141414' }, grp);
+      k.line(grp, [[X - RR * .18, Y + RR * .22], [X, Y + RR * .32], [X + RR * .18, Y + RR * .2]], 3.4);
+      return grp;
+    }
+    function scissorsIcon(g, k, cx, cy, ww, ang, open, dark) {
+      const grp = k.sv('g', { transform: `translate(${cx * k.w},${cy * k.h}) rotate(${ang})` }, g);
+      const L = ww * k.w;
+      for (const sg of [-1, 1]) {
+        const sub = k.sv('g', { transform: `rotate(${sg * open * 15})` }, grp);
+        k.shape(sub, k.ptsD([[0, -L * .012], [L, -L * .055], [L, L * .02], [0, L * .018]]), { fill: dark ? '#141414' : '#fff', lw: dark ? 5 : 3, tone: dark ? false : k.dots(.3, 4) });
+        if (dark) k.line(sub, [[L * .12, -L * .008], [L * .78, -L * .035]], 3.2, { color: '#fff' });
+        k.sv('circle', { cx: -L * .14, cy: sg * L * .075, r: L * .075, fill: 'none', stroke: '#141414', 'stroke-width': dark ? 24 : 9 }, sub);
+      }
+      k.sv('circle', { cx: 0, cy: 0, r: L * .028, fill: '#141414' }, grp);
+      return grp;
+    }
+
+    /* ============================================================ PAGE 1 · 1978 → 神 × 猿 → 人 ============================================================ */
+    const pg1b = e('l3') + 0.35;
+    const pg1 = R.page(0, pg1b, { in: 'cut' });
+    const [p1, p2, p3, p4, p5] = pg1.tiers([
+      { cols: [1, 1], h: 1.15 },
+      { cols: [1, 1], h: 1.05, cuts: [.05] },
+      { cols: [1], h: .62 },
+    ], { at: [a1, a1 + .3, a1 + .55, a1 + .8, a1 + 1.0] });
+
+    // 1 · the book falls out of the sky onto the city (right, first)
+    p1.bg('speed', { angle: 88, at: a1 });
+    p1.draw((g, k) => {
+      for (let i = 0; i < 6; i++) {
+        const x = i / 6, hh = .1 + (i * 37 % 11) / 26;
+        k.shape(g, k.ptsD([[x * k.w - 10, k.h], [x * k.w + 8, k.h], [x * k.w + 8, k.h * (1 - hh)], [x * k.w + k.w / 6 + 10, k.h * (1 - hh)], [x * k.w + k.w / 6 + 10, k.h]]), { fill: '#fff', lw: 2.8, tone: k.dots(.32, 5) });
+        for (let j = 0; j < 3; j++) k.sv('rect', { x: x * k.w + 12 + (j % 2) * 18, y: k.h * (1 - hh) + 12 + j * 20, width: 8, height: 10, fill: '#141414' }, g);
+      }
+    }, { at: a1, info: 'diagram' });
+    p1.draw((g, k) => bookIcon(g, k, .52, .3, .58, .34, -.16, { dark: true, title: '1978' }), { at: a1 + 0.5, info: 'diagram' });
+    p1.sfx('ドン', { x: .78, y: .22, size: .2, style: 'impact', at: a1 + 1.4 });
+    p1.balloon('narr', '1978', { x: .1, y: .08, at: a1 + .2 });
+
+    // 2 · the book cover: Earth is a gold mine (left)
+    p2.bg('tone', { density: .1, at: a2 });
+    p2.draw((g, k) => {
+      bookIcon(g, k, .5, .48, .7, .55, 0, { dark: true, title: '第十二个天体' });
+      // a gold nugget in front of the cover
+      k.shape(g, k.ptsD(Array.from({ length: 7 }, (_, i) => { const a = i / 7 * Math.PI * 2 - .4; return [.5 * k.w + Math.cos(a) * k.h * .1, .48 * k.h + Math.sin(a) * k.h * .08]; })), { fill: k.spot, lw: 3 });
+    }, { at: a2 + .1, info: 'diagram' });
+    p2.label('地球＝金矿', { x: .08, y: .09, at: a2 + .5 });
+    p2.sfx('バン', { x: .8, y: .82, size: .13, style: 'impact', at: a2 + .9 });
+
+    // 3 · the god and its gold (right, row 2)
+    p3.bg('grad', { angle: 200, at: a2 + 2.3 });
+    p3.draw((g, k) => {
+      moonGod(g, k, .52, .26, .16);
+      for (let i = 0; i < 3; i++) k.shape(g, k.ptsD([[.14 * k.w, (.72 + i * .06) * k.h], [.5 * k.w, (.7 + i * .06) * k.h], [.54 * k.w, (.79 + i * .06) * k.h], [.18 * k.w, (.8 + i * .06) * k.h]]), { fill: '#fff', lw: 3, tone: k.dots(.3, 5) });
+      line(g, k, [[.72, .86], [.68, .58]], 12);
+      line(g, k, [[.58, .64], [.78, .6]], 9);
+    }, { at: a2 + 2.4, info: 'diagram' });
+    p3.sfx('ゴゴゴ', { x: .12, y: .26, size: .11, style: 'rumble', vertical: true, at: a2 + 3.0 });
+    p3.label('神', { x: .82, y: .1, at: a2 + 2.8 });
+
+    // 4 · god × ape, mixed in a vat (left, row 2)
+    p4.bg('focus', { at: a2 + 3.2 });
+    p4.draw((g, k) => {
+      vatIcon(g, k, .55, .48, .36, .52);
+      line(g, k, [[.88, .06], [.74, .28]], 12);
+      // ape silhouette
+      k.sv('circle', { cx: .17 * k.w, cy: .36 * k.h, r: .075 * Math.min(k.w, k.h), fill: '#141414' }, g);
+      k.sv('ellipse', { cx: .225 * k.w, cy: .385 * k.h, rx: .035 * Math.min(k.w, k.h), ry: .026 * Math.min(k.w, k.h), fill: '#141414' }, g);
+      k.line(g, [[.2 * k.w, .55 * k.h], [.33 * k.w, .42 * k.h]], 26);
+      k.line(g, [[.13 * k.w, .6 * k.h], [.07 * k.w, .74 * k.h]], 22);
+      k.shape(g, k.ptsD([[.07 * k.w, .84 * k.h], [.1 * k.w, .56 * k.h], [.18 * k.w, .48 * k.h], [.28 * k.w, .56 * k.h], [.31 * k.w, .84 * k.h]]), { fill: '#141414', lw: 0 });
+      k.sv('circle', { cx: .12 * k.w, cy: .42 * k.h, r: .035 * Math.min(k.w, k.h), fill: '#fff' }, g);
+      // arrow: ape + god → human
+      line(g, k, [[.34, .9], [.7, .9]], 7);
+      k.shape(g, k.ptsD([[.7 * k.w, .85 * k.h], [.8 * k.w, .9 * k.h], [.7 * k.w, .95 * k.h]]), { fill: '#141414', lw: 0 });
+    }, { at: a2 + 3.3, info: 'diagram' });
+    p4.balloon('think', '神的基因 × 猿', { x: .58, y: .1, at: a2 + 3.6 });
+
+    // 5 · the new species
+    p5.bg('burst', { at: a3 - .3 });
+    p5.char('人', { shot: 'silhouette', x: .5, y: 1.02, size: .92, pose: 'stand', face: 'calm', at: a3 - .2 });
+    p5.sfx('人', { x: .78, y: .3, size: .3, fill: 'black', style: 'impact', at: a3 + .1 });
+    pg1.read([p1, p2, p3, p4, p5], [a1, a2, a2 + 2.3, a2 + 3.2, a3 - .25], { pad: 1.05 });
+    pg1.punch(a3 + .2, p5, { pad: 1.0 });
+
+    /* ============================================================ PAGE 2 · 几百万册 ============================================================ */
+    const pg2b = e('l4') + .3;
+    const pg2 = R.page(pg1b, pg2b, { in: 'slash' });
+    const [q1, q2] = pg2.tiers([{ cols: [1, 1.65], h: 1.05 }], { at: [a4, a4 + .35] });
+    // right: 20+
+    q1.bg('tone', { density: .08, at: a4 });
+    q1.draw((g, k) => {
+      k.sv('text', { x: k.w * .5, y: k.h * .48, 'text-anchor': 'middle', 'font-family': '"Dela Gothic One", sans-serif', 'font-size': k.h * .3, fill: '#141414' }, g).textContent = '20+';
+      k.sv('text', { x: k.w * .5, y: k.h * .62, 'text-anchor': 'middle', 'font-family': '"Noto Sans SC", sans-serif', 'font-size': k.h * .06, fill: '#141414' }, g).textContent = '种语言';
+    }, { at: a4 + .2, info: 'diagram' });
+    q1.sfx('バン', { x: .18, y: .14, size: .12, style: 'impact', at: a4 + .5 });
+    // left: a mountain of books
+    q2.bg('white', { at: a4 + .35 });
+    q2.draw((g, k) => {
+      for (let i = 0; i < 12; i++) {
+        const x = .18 + (i % 4) * .16, y = .78 - Math.floor(i / 4) * .16 + (i % 2) * .02;
+        bookIcon(g, k, x, y, .17, .12, (i % 3 - 1) * .12, { dark: i % 5 === 0, title: i % 5 === 0 ? '书' : '' });
+      }
+      k.sv('text', { x: .5 * k.w, y: .14 * k.h, 'text-anchor': 'middle', 'font-family': '"Noto Sans SC", sans-serif', 'font-weight': 900, 'font-size': k.h * .075, fill: '#141414' }, g).textContent = '几百万册';
+    }, { at: a4 + .5, info: 'diagram' });
+    q2.lines('speed', { box: [0, 0, 1, .35], at: a4 + .5 });
+    pg2.read([q1, q2], [a4, a4 + .6]);
+    pg2.punch(a4 + 1.1, q2, { pad: .95 });
+
+    /* ============================================================ PAGE 3 · 伪学术 / 后面 ============================================================ */
+    const pg3b = e('l6') + .1;
+    const pg3 = R.page(pg2b, pg3b, { in: 'turn' });
+    const [r1, r2, r3] = pg3.tiers([{ cols: [1, 1], h: 1.15 }, { cols: [1], h: .55 }], { at: [a5, a5 + 1.4, a6] });
+    // right: the tablet and the red stamp
+    r1.bg('white', { at: a5 });
+    r1.draw((g, k) => tabletIcon(g, k, .5, .48, .62, .62), { at: a5 + .2, info: 'diagram' });
+    r1.draw((g, k) => {
+      const X = k.w * .5, Y = k.h * .48, W = .62 * k.w, H = .62 * k.h;
+      k.line(g, [[X - .42 * W, Y - .48 * H], [X + .1 * W, Y + .4 * H]], 10, { color: k.spot });
+      k.line(g, [[X + .42 * W, Y - .48 * H], [X - .1 * W, Y + .4 * H]], 10, { color: k.spot });
+    }, { at: a5 + 1.5, info: 'diagram' });
+    r1.sfx('偽', { x: .7, y: .78, size: .18, fill: 'spot', style: 'impact', at: a5 + 1.5 });
+    r1.label('翻译错', { x: .08, y: .08, at: a5 + 2.2 });
+    // left: the academy sneers
+    r2.bg('focus', { at: a5 + 1.4 });
+    r2.char('学者', { shot: 'bust', x: .5, y: .5, size: .8, face: 'smug', facing: -1, at: a5 + 1.5 });
+    r2.manpu('vein', { x: .78, y: .2, size: .1, at: a5 + 1.8 });
+    r2.sfx('フン', { x: .2, y: .28, size: .12, style: 'rumble', at: a5 + 2.0 });
+    r2.balloon('talk', '伪学术', { x: .16, y: .62, at: a5 + 2.4 });
+    // the turn: black, one glint
+    r3.bg('black', { at: a6 });
+    r3.draw((g, k) => {
+      const X = k.w * .5, Y = k.h * .55;
+      k.line(g, [[X - .3 * k.w, Y + .08 * k.h], [X + .32 * k.w, Y - .1 * k.h]], 6, { color: '#fff' });
+      k.sv('circle', { cx: X + .3 * k.w, cy: Y - .09 * k.h, r: k.h * .02, fill: '#fff' }, g);
+    }, { at: a6 + .15, info: 'diagram' });
+    r3.sfx('ゴ', { x: .2, y: .3, size: .18, vertical: true, at: a6 + .2 });
+    pg3.read([r1, r2, r3], [a5, a5 + 1.4, a6]);
+    pg3.punch(a5 + 2.4, r2, { pad: 1.0 });
+    R.shake(a5 + 1.5, { amp: 6, dur: .3 });
+
+    /* ============================================================ PAGE 4 · 剪刀 → 细菌 ============================================================ */
+    const sp = R.splash(a7, a8, { bg: 'focus' });
+    sp.P.draw((g, k) => scissorsIcon(g, k, .36, .55, .5, -0.38, 1.15, true), { at: a7 + .1, info: 'diagram' });
+    sp.P.sfx('ギリ', { x: .8, y: .13, size: .13, style: 'impact', at: a7 + .4 });
+        R.flash(a7 + .1, { kind: 'white' });
+    R.shake(a7 + 1.6, { amp: 14, dur: .5 });
+
+    const pg4 = R.page(a8, fin, { in: 'ink' });
+    const [t1] = pg4.tiers([[1]], { at: [a8] });
+    t1.bg('tone', { density: .1, at: a8 });
+    t1.draw((g, k) => scissorsIcon(g, k, .5, .72, .62, .12, .9), { at: a8 + .1, info: 'diagram' });
+    t1.draw((g, k) => bacteriumIcon(g, k, .5, .62, .13), { at: a8 + .35, info: 'diagram' });
+    t1.sfx('细菌', { x: .18, y: .22, size: .2, fill: 'spot', style: 'impact', at: a8 + .6 });
+    t1.balloon('narr', '不是外星人', { x: .7, y: .18, at: a8 + .5 });
+    pg4.read([t1], [a8], { first: true });
+    pg4.punch(a8 + .7, t1, { pad: .95 });
+
+    T.lines.filter((l) => !l.silence).forEach((l) => F.info('diagram', l.start, Math.min(l.end + 0.2, F.duration), { group: l.id }));
+    F.section(0, 1, { name: 'cold' });
+    F.section(a2, 2, { name: 'rise' });
+    F.section(a5, 2, { name: 'turn' });
+    F.section(a7, 3, { name: 'battle', hit: true });
+    F.section(a8, 2, { name: 'reveal', hit: true });
+    F.coverAt(a3 + .4);
+  },
+});
+</script></body></html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>阿努纳奇 · 第一段 · 等距微缩世界</title>
+<!-- Fonts: Nunito (round, friendly Latin) + Noto Sans SC for Chinese. three.js loads from jsDelivr (import map); time is driven by our clock -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/nunito@5/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/900.css">
+<style>html,body{margin:0;background:#E8EFEA}#stage{position:relative;overflow:hidden}</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
+<script src="timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/isometric.js"></script>
+</head><body><div id="stage"></div><script>
+// 阿努纳奇 · 第一段 · 等距微缩世界：一条“神话生产线”——1978 的书 → 神的矿 → 造人车间 → 把书卖到世界。
+// 一个连续镜头在世界里滑行；时间全部来自旁白；屏幕上每个字都能在 brief.md 找到。
+PROMO.compose({
+  bpm: 100, offset: 0.2, grain: false, chapters: false, tail: 1.2,
+  captions: { size: 46, bg: 'rgba(34,48,60,.78)' },
+  theme: { bg: '#E8EFEA', fg: '#22303C', muted: '#5A6672', ink: '#22303C', paper: '#FFFFFF', accent: '#FF6B4A', fonts: { display: 'Nunito, "Noto Sans SC", sans-serif', serif: 'Nunito, "Noto Sans SC", sans-serif', sans: 'Nunito, "Noto Sans SC", sans-serif', script: 'Nunito, sans-serif' } },
+  build: async (F) => {
+    const T = F.T, s = T.start, e = T.end;
+    const W = await PROMO.isometric(F, { palette: 'day' });
+    const a1 = s('l1'), a2 = s('l2'), a3 = s('l3'), a4 = s('l4'), a5 = s('l5'), a6 = s('l6'), a7 = s('l7'), a8 = s('l8'), fin = F.duration;
+
+    /* ---------- four tiles on thick plinths ---------- */
+    const hall = W.tile({ x: -13, z: 0, w: 9, d: 9, top: 'concrete', at: .1 });
+    const mine = W.tile({ x: -3, z: 2, w: 8, d: 8, top: 'sand', at: .3 });
+    const lab = W.tile({ x: 7, z: -1, w: 9, d: 9, top: 'floor', at: .5 });
+    const town = W.tile({ x: 17, z: 2, w: 9, d: 9, top: 'grass', at: .7 });
+
+    /* ---------- 1978: the print hall ---------- */
+    W.walls({ tile: hall, w: 8.4, d: 8.4, sides: ['n', 'w'], sign: '1978', signMark: true });
+    const belt = W.conveyor({ tile: hall, from: [-3.2, -1.4], to: [2.4, -1.4], speed: 1.1 });
+    W.shelf({ tile: hall, x: -2.2, z: 2.2, w: 3.2, levels: 3, fill: true });
+    const book0 = W.parcel({ at: a1 + .5, tape: 'accent', mark: 'accent' }).place(belt.at(0));
+    book0.move(belt, a1 + .8, { dur: belt.dur() });
+    const p1 = W.person({ at: a1 + .6, shirt: 'accent' }).place(hall.p(-3.6, 2.8), -1e9, Math.PI / 2);
+    p1.move([hall.p(-3.6, 2.8), hall.p(3.2, 2.8)], a1 + 1.2, { speed: 1.0 });
+    W.label(book0, { text: '一本书', sub: '1978', at: a1 + .9, until: a2 + .6, h: 2.4 });
+
+    /* ---------- the gods' mine ---------- */
+    const gold1 = W.parcel({ at: a2 + .3, tape: 'wood', mark: 'wood' }).place(mine.p(-2, -1));
+    const gold2 = W.parcel({ at: a2 + .5, tape: 'wood', mark: 'wood' }).place(mine.p(-1.2, -.4));
+    W.stack({ p: mine.p(1.4, 1.2), n: 4, cols: 2, rows: 2, color: 'wood', mark: 'wood', at: a2 + .8 });
+    const truck = W.truck({ at: a2 + .4, brand: { text: '矿' } }).place(mine.p(2.6, -2.4), -1e9, Math.PI / 2);
+    W.lamp({ tile: mine, x: -2.6, z: 2.4, at: a2 + .2 });
+    W.label(mine.p(1.4, 1.2).add(new W.THREE.Vector3(0, 1.2, 0)), { text: '神的矿', sub: '挖金子', at: a2 + 1.4, until: a3 + .8, h: 2.8 });
+
+    /* ---------- the gene workshop ---------- */
+    W.walls({ tile: lab, w: 8.2, d: 8.2, sides: ['n', 'w'], doors: { n: [[-1.2, 1.2]], w: [[-1, 1]] }, sign: '造人' });
+    const table = W.table({ tile: lab, x: 1.2, z: 1.2, w: 2.6 });
+    W.locker({ tile: lab, x: -2.6, z: 2.6, at: a2 + .4 });
+    const sci1 = W.person({ at: a2 + .6, shirt: 'white' }).place(table.top(-1.4, 0.6), -1e9, Math.PI);
+    const sci2 = W.person({ at: a2 + .8, shirt: 'white' }).place(table.top(1.2, 0.6), -1e9, -Math.PI / 2);
+    const bot = W.bot({ at: a2 + 1.0 }).place(lab.p(-1.6, -1.8), -1e9, 0);
+    const human = W.person({ at: a3 - .1, shirt: 'accent', hat: 'hair' }).place(lab.p(.6, -2.6), -1e9, Math.PI);
+    W.label(human, { text: '人', sub: '新物种', at: a3 + .05, until: a4 + .4, h: 2.2 });
+    W.focus([lab], a3 - .2, a3 + 1.2);
+    sci1.move([lab.p(-4, 1.8), lab.p(-1.2, 1.8)], a2 + 1.6, { speed: .9 });
+    sci2.move([lab.p(2.2, 2.4), lab.p(2.2, -.4)], a2 + 2.2, { speed: .9 });
+
+    /* ---------- town: the book arrives ---------- */
+    [[-2.4, -2.2], [0.6, -2.4], [2.6, -1.4]].forEach(([x, z], i) => W.house({ tile: town, x, z, at: a4 + .2 + i * .15 }));
+    W.tree({ tile: town, x: -3, z: 2.4, at: a4 + .3 });
+    W.tree({ tile: town, x: 2.8, z: 2.6, kind: 'pine', at: a4 + .4 });
+    const readers = [[-1.2, 1.2], [1.4, 1.6]].map(([x, z], i) => W.person({ at: a4 + .5 + i * .2, shirt: i ? 'teal' : 'accent' }).place(town.p(x, z), -1e9, Math.PI));
+    W.counter(town.p(0, 2.8), { to: 20, unit: '+ 种语言', at: a4 + 1.6, until: a5 + .8 });
+
+    /* ---------- the route: one book, all the way out ---------- */
+    const lane = [hall.p(3.4, 1.6), mine.p(-2.8, 1.6), lab.p(-3.2, 2.2), town.p(-3, 1.2)];
+    W.route(lane, { at: a4 + .8, dur: 2.2, width: .34 });
+    const van = W.van({ at: a4 + .9, brand: { text: '书' } }).place(hall.p(3.6, 2.2), -1e9, Math.PI / 2);
+    van.move(lane, a4 + 1.2, { dur: 3.0, sfx: 'motor' });
+    W.stream(lane, { tile: town, at: a4 + 2.4, until: a5 + .6, every: .35, dur: 2.0 });
+
+    /* ---------- the sneer, the turn ---------- */
+    W.label(hall.p(0, 0), { text: '伪学术', sub: '翻译错了', at: a5 + .4, until: a7 + .4, h: 4.6, color: 'dark' });
+    W.focus([hall], a5, a6 + .8);
+
+    /* ---------- 40 years: the scissors and the bacterium ---------- */
+    W.label(lab.p(0, 0), { text: '剪刀', sub: '四十年后', at: a7 + .2, until: a8 + .4, h: 4.4 });
+    W.label(lab.p(.8, -2.6), { text: '细菌', sub: '不是外星人', at: a8 + .1, until: fin, h: 2.6, color: 'accent' });
+    W.focus([lab], a7, a8 + .6);
+    W.lights(human, a8);
+
+    /* ---------- one continuous camera ---------- */
+    W.camera([
+      { at: 0, fit: [hall, mine, lab, town], drift: .02 },
+      { at: a1 + .2, fit: [hall], dur: 1.4 },
+      { at: a2, fit: [mine], dur: 1.4 },
+      { at: a3 - .3, fit: [lab], dur: 1.2 },
+      { at: a4, fit: [hall, mine, lab, town], dur: 1.6 },
+      { at: a5, fit: [hall], dur: 1.4 },
+      { at: a7, fit: [lab], dur: 1.6 },
+      { at: a8, fit: [lab], dur: 1.0, min: .7 },
+    ]);
+    W.sky([[a1, 'day'], [a6 + .4, 'dusk'], [a7 + .4, 'night']]);
+
+    T.lines.filter((l) => !l.silence).forEach((l) => F.info('diorama', l.start, Math.min(l.end + .2, F.duration), { group: l.id }));
+    F.section(0, 1, { name: 'hook' });
+    F.section(a2, 2, { name: 'myth' });
+    F.section(a4, 2, { name: 'spread' });
+    F.section(a7, 3, { name: 'scissors', hit: true });
+    F.section(a8, 2, { name: 'reveal', hit: true });
+    F.coverAt(a3 + .5);
+    W.run();
+  },
+});
+</script></body></html>

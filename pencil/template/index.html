@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>阿努纳奇 · 第一段 · 铅笔手绘</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-bold.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/700.css">
+<style>html,body{margin:0;background:#eee8db}#stage{position:relative;overflow:hidden}</style>
+<script src="assets/manifest.js"></script>
+<script src="timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/pencil.js"></script>
+</head><body><div id="stage"></div><script>
+// 阿努纳奇 · 第一段 · 铅笔手绘：一张纸从左往右读，一本 1978 年的书 → 地球/基因 → 人 → 书卖疯 → 伪学术 → 剪刀 → 细菌。
+// 时间全部来自旁白；画上的字都在 brief.md 里。没有切镜，镜头在纸上移动。
+const { M } = PROMO;
+PROMO.compose({
+  bpm: 90, offset: 0, grain: false, chapters: false, tail: 1.2,
+  theme: { bg: '#eee8db', fg: '#2c2a27', ink: '#2c2a27', muted: '#5d5952', accent: '#d8902e', paper: '#eee8db', fonts: { display: '"LXGW WenKai", serif', serif: '"LXGW WenKai", serif', sans: '"LXGW WenKai", "Noto Sans SC", sans-serif' } },
+  build: (F) => {
+    const T = F.T, s = T.start, e = T.end, w = T.word;
+    const D = PROMO.pencil(F, { palette: 'graphite' });
+    const a1 = s('l1'), a2 = s('l2'), a3 = s('l3'), a4 = s('l4'), a5 = s('l5'), a6 = s('l6'), a7 = s('l7'), a8 = s('l8'), fin = F.duration;
+    const X = { b: 0, g: 900, h: 1500, m: 2100, k: 2850, cut: 3600, bac: 4350 };
+
+    /* ---------- 1 · 1978，一本摊开的书 ---------- */
+    D.cam(0, { x: X.b - 40, y: -80, z: 1.0 });
+    const desk = D.rect({ w: 520, h: 170, at: a1, rx0: -260, ry0: -60, lw: 5 });
+    D.line({ pts: [[-250, -60], [-250, 120]], at: a1, lw: 4 });
+    D.line({ pts: [[250, -60], [250, 120]], at: a1, lw: 4 });
+    D.poly({ pts: [[-250, -60], [-20, -80], [-20, -300], [-250, -270]], at: a1 + .2, lw: 4, shade: .2 });
+    D.poly({ pts: [[250, -60], [20, -80], [20, -300], [250, -270]], at: a1 + .3, lw: 4, shade: .2 });
+    for (let i = 0; i < 4; i++) { D.line({ pts: [[-220 + i * 4, -120 - i * 34], [-50, -134 - i * 34]], at: a1 + .5 + i * .1, lw: 2.6 }); D.line({ pts: [[50, -134 - i * 34], [220 - i * 4, -120 - i * 34]], at: a1 + .55 + i * .1, lw: 2.6 }); }
+    const au = D.figure({ x: X.b + 300, y: 80, height: 330, face: 'left', at: a1 + .4 });
+    au.fig.walk(a1 + .5, X.b + 250, {});
+    au.fig.look(a1 + 1.6, 'down', { until: a2 });
+    D.write('1978', { x: X.b - 180, y: -430, size: 92, at: a1 + .7, until: a2 + .5 });
+    D.write('一本书', { x: X.b + 60, y: -520, size: 48, at: a1 + 1.8, until: a2 + .5 });
+
+    /* ---------- 2 · 地球＝金矿 → 基因混一混 → 人 ---------- */
+    const globe = D.circle({ cx: X.g, cy: -260, r: 150, at: a2, lw: 5, shade: .25 });
+    D.arc({ cx: X.g, cy: -260, rx: 150, ry: 60, from: -20, to: 200, at: a2 + .5, lw: 3 });
+    D.arc({ cx: X.g, cy: -260, rx: 60, ry: 150, from: 90, to: 450, at: a2 + .6, lw: 3 });
+    D.line({ pts: [[X.g - 120, -320], [X.g - 40, -280], [X.g - 10, -310], [X.g + 50, -270], [X.g + 120, -300]], at: a2 + .8, lw: 3, smooth: true });
+    D.write('地球＝金矿', { x: X.g, y: -470, size: 48, at: a2 + 1.1, until: a4 });
+    // the gene: two strands braided, drawn over the globe
+    const helixA = [], helixB = [];
+    for (let i = 0; i <= 30; i++) { const u = i / 30, yy = -430 + u * 340, xx = Math.sin(u * Math.PI * 5) * 70; helixA.push([X.h - 70 + xx, yy]); helixB.push([X.h + 70 - xx, yy]); }
+    D.line({ pts: helixA, at: a2 + 2.6, lw: 4, smooth: true });
+    D.line({ pts: helixB, at: a2 + 2.7, lw: 4, smooth: true });
+    for (let i = 3; i < 30; i += 4) D.line({ pts: [[helixA[i][0], helixA[i][1]], [helixB[i][0], helixB[i][1]]], at: a2 + 3.0 + i * .02, lw: 2.4 });
+    D.write('神 × 猿', { x: X.h, y: -500, size: 52, at: a2 + 2.4, until: a4 });
+    D.move(a2, a2 + 1.2, { x: X.h, y: -200, z: 1.05 });
+    // the new species: a gesture figure, no face
+    const hum = D.figure({ x: X.h + 240, y: 60, height: 360, face: 'camera', at: a3 - .9 });
+    hum.fig.look(a3 + .1, 'camera');
+    hum.fig.look(a3 + .6, 'camera', { until: a4 });
+    D.write('人', { x: X.h - 260, y: -320, size: 110, at: a3 + .2, until: a4 });
+
+    /* ---------- 3 · 书卖疯：一摞书 + 一划一划的数 ---------- */
+    D.move(a3 + .9, a4 + .6, { x: X.m, y: -180, z: 1.0 });
+    for (let i = 0; i < 7; i++) {
+      D.rect({ w: 300, h: 44, at: a4 + .1 + i * .12, rx0: X.m - 150 + (i % 2) * 14, ry0: -40 - i * 46, lw: 3.4, shade: .18 });
+      D.line({ pts: [[X.m - 120, -24 - i * 46], [X.m + 120, -24 - i * 46]], at: a4 + .2 + i * .12, lw: 2 });
+    }
+    D.write('20+ 种语言', { x: X.m - 40, y: -450, size: 46, at: a4 + 1.4, until: a5 });
+    D.tally({ x: X.m + 300, y: -300, n: 5, at: a4 + 1.8, every: .18 });
+    D.write('20+', { x: X.m + 330, y: -380, size: 84, at: a4 + 2.2, until: a5, over: true });
+    D.write('种语言', { x: X.m + 330, y: -440, size: 38, at: a4 + 2.6, until: a5, over: true });
+
+    /* ---------- 4 · 伪学术：泥板被划掉 ---------- */
+    D.move(a4 + 2.4, a5 + .4, { x: X.k, y: -180, z: 1.02 });
+    D.poly({ pts: [[X.k - 230, -40], [X.k + 230, -40], [X.k + 240, -380], [X.k - 240, -380]], at: a5 + .1, lw: 5, shade: .2 });
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
+      const lx = X.k - 160 + c * 105, ly = -100 - r * 65;
+      D.line({ pts: [[lx - 22, ly], [lx + 22, ly - 4]], at: a5 + .5 + r * .1 + c * .02, lw: 3.2 });
+      D.line({ pts: [[lx - 16, ly + 10], [lx + 16, ly + 7]], at: a5 + .55 + r * .1 + c * .02, lw: 2.6 });
+    }
+    D.line({ pts: [[X.k - 170, -330], [X.k + 180, -70]], at: a5 + 2.0, lw: 14, wash: true });
+    D.line({ pts: [[X.k + 180, -330], [X.k - 170, -70]], at: a5 + 2.1, lw: 14, wash: true });
+    const sch = D.figure({ x: X.k - 330, y: 60, height: 340, face: 'right', at: a5 + .2 });
+    sch.fig.look(a5 + .8, 'down'); sch.fig.gesture(a5 + 2.2, 'point', { until: a6 });
+    D.write('伪学术', { x: X.k + 40, y: -480, size: 74, at: a5 + 1.6, until: a7 });
+
+    /* ---------- 5 · 四十年后：剪刀 ---------- */
+    D.move(a6 + .2, a6 + 1.6, { x: X.cut, y: -260, z: 1.0 });
+    const cx = X.cut, cy = -300;
+    D.line({ pts: [[cx - 40, cy + 40], [cx - 330, cy - 110]], at: a7 + .1, lw: 22 });
+    D.line({ pts: [[cx - 40, cy + 40], [cx - 320, cy + 150]], at: a7 + .2, lw: 22 });
+    D.line({ pts: [[cx - 40, cy + 40], [cx + 140, cy - 40]], at: a7 + .25, lw: 16 });
+    D.line({ pts: [[cx - 40, cy + 40], [cx + 130, cy + 100]], at: a7 + .3, lw: 16 });
+    D.circle({ cx: cx + 230, cy: cy - 60, r: 60, at: a7 + .5, lw: 16 });
+    D.circle({ cx: cx + 220, cy: cy + 130, r: 60, at: a7 + .55, lw: 16 });
+    D.circle({ cx: cx - 40, cy: cy + 40, r: 16, at: a7 + .6, lw: 6, shade: .3 });
+    D.write('2018', { x: X.cut, y: -560, size: 76, at: a7 + .2, until: a8 });
+    
+
+    /* ---------- 6 · 细菌 ---------- */
+    D.move(a8 - .2, a8 + .9, { x: X.bac, y: -280, z: 1.04 });
+    const bx = X.bac, by = -260, br = 110;
+    for (let i = 0; i < 9; i++) { const a = i / 9 * Math.PI * 2; D.line({ pts: [[bx + Math.cos(a) * br, by + Math.sin(a) * br], [bx + Math.cos(a) * br * 1.45, by + Math.sin(a) * br * 1.35]], at: a8 + .1 + i * .05, lw: 5 }); }
+    D.circle({ cx: bx, cy: by, r: br, at: a8 + .05, lw: 5, shade: .28 });
+    D.circle({ cx: bx - 32, cy: by - 12, r: 14, at: a8 + .5, lw: 3, shade: .4 });
+    D.circle({ cx: bx + 30, cy: by - 12, r: 14, at: a8 + .55, lw: 3, shade: .4 });
+    D.arc({ cx: bx, cy: by + 30, r: 34, from: 20, to: 160, at: a8 + .7, lw: 4 });
+    D.write('细菌', { x: X.bac - 280, y: -420, size: 88, at: a8 + .5, until: fin });
+    D.light({ x: bx, y: by, r: 330, at: a8 + .2, until: fin, dark: 0.42 });
+
+    F.section(0, 1, { name: 'open' });
+    F.section(a2, 2, { name: 'myth' });
+    F.section(a5, 2, { name: 'turn' });
+    F.section(a7, 3, { name: 'cut', hit: true });
+    F.section(a8, 2, { name: 'reveal', hit: true });
+    T.lines.filter((l) => !l.silence).forEach((l) => F.info('diagram', l.start, Math.min(l.end + .2, F.duration), { group: l.id }));
+    F.coverAt(a3 + .5);
+  },
+});
+</script></body></html>

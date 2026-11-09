@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>阿努纳奇 · 第一段 · 贝叶挂毯</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-bold.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cinzel@5/700.css">
+<style>html,body{margin:0;background:#e2cfa3}#stage{position:relative;overflow:hidden}</style>
+<script src="assets/manifest.js"></script>
+<script src="timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/tapestry.js"></script>
+</head><body><div id="stage"></div><script>
+// 阿努纳奇 · 第一段 · 贝叶挂毯刺绣长卷：一本 1978 年的书 → 神 × 猿 → 人 → 书卖疯 → 学界冷笑 → 剪刀 → 细菌。
+// 时间全部来自旁白；事实与刺绣说明词见 brief.md。布料一直向左滚，场景沿布排开。
+const { M } = PROMO;
+PROMO.compose({
+  bpm: 84, offset: 0, grain: false, chapters: false, tail: 1.3,
+  theme: { bg: '#e2cfa3', fg: '#2c3040', ink: '#2c3040', muted: '#6a87aa', accent: '#b0503a', paper: '#e2cfa3', fonts: { display: '"LXGW WenKai", serif', serif: '"LXGW WenKai", serif', sans: '"LXGW WenKai", serif', mono: '"LXGW WenKai", monospace' } },
+  build: (F) => {
+    const T = F.T, s = T.start, e = T.end, w = T.word;
+    const B = PROMO.tapestry(F, { palette: 'bayeux' });
+    const L = B.L;
+    const a1 = s('l1'), a2 = s('l2'), a3 = s('l3'), a4 = s('l4'), a5 = s('l5'), a6 = s('l6'), a7 = s('l7'), a8 = s('l8'), fin = F.duration;
+
+    B.cast({
+      作者: { tunic: 'red', cloak: 'ochre', hair: 'brown', beard: 'short', hat: 'cap' },
+      神: { tunic: 'blue', cloak: 'ochre', hair: 'brown', beard: 'long', hat: 'helmet', belt: 'red' },
+      学者: { tunic: 'navy', cloak: 'grey', hair: 'white', beard: 'long', hat: 'veil', robe: true },
+      人: { tunic: 'sage', hose: 'navy', hair: 'brown', beard: 'none' },
+    });
+
+    /* ---------- the cloth: scene positions and one continuous scroll ---------- */
+    const X = { s1: 0, s2: 900, s3: 1800, s4: 2650, s5: 3500, s6: 4350, s7: 5200 };
+    B.scroll([[0, 60], [a1, 60], [a2, X.s2], [a3, X.s3], [a4, X.s4], [a5, X.s5], [a6, X.s6 - 60], [a7, X.s6 + 40], [a8, X.s7], [fin, X.s7 + 150]]);
+
+    /* ---------- scene 1 · 1978, a book ---------- */
+    B.act({ x: X.s1, n: '第一幕', title: '神话', sub: '一九七八 · 一本书', at: .35 });
+    B.caption('此处，一本书出版', { x: X.s1 - 210, y: -440, sub: '1978 · 地球是金矿', at: a1 + .5 });
+    const au = B.figure('作者', { x: X.s1 + 230, at: a1 + .6, pose: 'write', h: 330 });
+    B.table({ x: X.s1 + 30, y: -10, w: 360, h: 190 });
+    B.book({ x: X.s1 + 30, y: -196, w: 130, h: 86, open: true });
+    B.roll({ x: X.s1 - 30, y: -40, w: 70, h: 150 });
+    au.pose(a1 + 1.6, 'point');
+    B.figure('人', { x: X.s1 - 140, at: a1 + 2.6, h: 250, pose: 'think' });
+
+    /* ---------- scene 2 · god × ape, spliced ---------- */
+    const god = B.figure('神', { x: X.s2 - 260, at: a2 + .4, h: 330, pose: 'raise' });
+    // the ape, carved simply: a hunched figure with a tail and no clothes
+    const ape = B.group({ x: X.s2 + 250, at: a2 + .6, z: 1 });
+    ape.circle({ x: 0, y: -250, r: 34, fill: 'brown' });
+    ape.shape({ d: 'M-46 -210 C-40 -150 -20 -120 0 -120 C20 -120 40 -150 46 -210 Z', fill: 'brown' });
+    ape.line({ d: 'M-40 -30 C-46 -90 -30 -120 -10 -120', w: 18, fill: 'brown' });
+    ape.line({ d: 'M40 -30 C46 -90 30 -120 10 -120', w: 18, fill: 'brown' });
+    ape.line({ d: 'M30 -140 C90 -150 110 -100 80 -70', w: 12, fill: 'brown' });
+    ape.circle({ x: -12, y: -262, r: 3, fill: 'ink' });
+    // the braid: two wools twisted
+    const braid = [];
+    for (let k = 0; k < 2; k++) {
+      const pts = [];
+      for (let i = 0; i <= 26; i++) { const u = i / 26; pts.push([X.s2 - 120 + u * 260, -230 + Math.sin(u * Math.PI * 5 + k * Math.PI) * 34]); }
+      B.line({ pts, w: 9, fill: k ? 'red' : 'blue', at: a2 + 1.4, order: 2 });
+    }
+    // the new small human is stitched out of the braid
+    B.figure('人', { x: X.s2 + 40, at: a2 + 3.2, h: 190, pose: 'stand', sketch: 1.4 });
+    B.caption('此处，神×猿', { x: X.s2 - 180, sub: '基因搅在一起', at: a2 + 1.0 });
+
+    /* ---------- scene 3 · the new species ---------- */
+    const hum = B.figure('人', { x: X.s3, at: a3 - .2, h: 380, pose: 'present' });
+    B.caption('此处，新物种', { x: X.s3 - 210, sub: '人', at: a3 + .1 });
+    B.push(a3 + .05, a3 + 1.1, { on: hum, pad: 1.5 }, { back: a3 + 1.0, backDur: .6 });
+
+    /* ---------- scene 4 · the book sells ---------- */
+    B.act({ x: X.s4 + 420, w: 620, n: '第二幕', title: '书卖疯了', sub: '几百万册', at: a4 - .6 });
+    B.table({ x: X.s4 + 30, y: -10, w: 640, h: 200 });
+    for (let i = 0; i < 9; i++) {
+      const bx = X.s4 - 230 + (i % 3) * 150, by = -176 - Math.floor(i / 3) * 78;
+      B.book({ x: bx, y: by, w: 120, h: 58, at: a4 + .2 + i * .12, open: false });
+    }
+    B.tally({ n: 5, x: X.s4 + 260, y: -250, cols: 5, gap: 46, make: (g) => { g.circle({ r: 9, fill: 'ochre' }); } });
+    B.caption('此处，书卖疯了', { x: X.s4 - 420, y: -400, sub: '译成二十多种语言', at: a4 + .6 });
+
+    /* ---------- scene 5 · the academy sneers ---------- */
+    const sc = B.figure('学者', { x: X.s5 - 250, at: a5 + .2, h: 350, pose: 'point' });
+    B.slab({ x: X.s5 + 90, y: -240, w: 300, h: 380, marks: 'wedge', at: a5 + .8 });
+    B.line({ pts: [[X.s5 - 40, -120], [X.s5 + 240, -400]], w: 12, fill: 'red', at: a5 + 1.8 });
+    B.line({ pts: [[X.s5 + 240, -120], [X.s5 - 40, -400]], w: 12, fill: 'red', at: a5 + 1.8 });
+    B.caption('此处，学界冷笑', { x: X.s5 + 380, y: -430, sub: '伪学术 · 翻译错了', at: a5 + 1.0 });
+    sc.pose(a5 + 2.4, 'raise');
+
+    /* ---------- scene 6 · forty years, the scissors ---------- */
+    const sx = X.s6 + 60;
+    const bl = B.group({ x: sx, y: -300, at: a7 - .9, z: 2 });
+    bl.line({ d: 'M0 0 L-330 -140', w: 26, fill: 'ink' });
+    bl.line({ d: 'M0 0 L-310 130', w: 26, fill: 'ink' });
+    bl.line({ d: 'M0 0 L90 -70', w: 20, fill: 'ink' });
+    bl.line({ d: 'M0 0 L80 70', w: 20, fill: 'ink' });
+    bl.circle({ x: 118, y: -92, r: 42, fill: null, edge: 'ink', lw: 14, order: 4 });
+    bl.circle({ x: 108, y: 92, r: 42, fill: null, edge: 'ink', lw: 14, order: 4 });
+    bl.circle({ x: 0, y: 0, r: 12, fill: 'ochre' });
+    B.slab({ x: sx + 40, y: -80, w: 260, h: 160, marks: 'lines', at: a7 - .3 });
+    B.caption('此处，四十年后', { x: X.s6 - 250, sub: '人类拿起了剪刀', at: a7 + .2 });
+    B.push(a7 + .4, a7 + 2.0, { on: bl, pad: 1.7 }, { back: a7 + 2.0, backDur: .7 });
+
+    /* ---------- scene 7 · the scissors are the bacteria's ---------- */
+    const bx = X.s7;
+    B.group({ x: bx, y: -330, at: a8 - 1.3, z: 2 }).line({ d: 'M-260 40 L120 -40', w: 20, fill: 'ink' });
+    const bac = B.group({ x: bx + 40, y: -300, at: a8 - 1.0, z: 3 });
+    bac.circle({ x: 0, y: 0, r: 74, fill: 'green' });
+    for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; bac.line({ d: `M${Math.cos(a) * 74} ${Math.sin(a) * 66} L${Math.cos(a) * 112} ${Math.sin(a) * 96}`, w: 8, fill: 'red' }); }
+    bac.dot({ x: -22, y: -10, r: 12, edge: 'cream', order: 8 }); bac.dot({ x: 24, y: -10, r: 12, edge: 'cream', order: 8 });
+    bac.dot({ x: -21, y: -9, r: 5, edge: 'ink', order: 9 }); bac.dot({ x: 25, y: -9, r: 5, edge: 'ink', order: 9 });
+    bac.line({ d: 'M-16 28 Q4 42 24 26', w: 5, fill: 'ink', order: 9 });
+    B.caption('此处，剪刀来自细菌', { x: X.s7 - 300, sub: '不是外星人', at: a8 + .4 });
+    B.push(a8 + .5, a8 + 1.9, { on: bac, pad: 2.4, back: a8 + 1.9, backDur: .6 });
+
+    /* ---------- ending: pull back over the whole cloth ---------- */
+    F.section(0, 1, { name: 'open' });
+    F.section(a4, 2, { name: 'turn' });
+    F.section(a7, 3, { name: 'scissors', hit: true });
+    F.section(a8, 2, { name: 'reveal', hit: true });
+    F.coverAt(a3 + .3);
+    T.lines.filter((l) => !l.silence).forEach((l) => F.info('diagram', l.start, Math.min(l.end + .2, F.duration), { group: l.id }));
+  },
+});
+</script></body></html>

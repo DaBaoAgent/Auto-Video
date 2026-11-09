@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>阿努纳奇 · 第一段 · 火柴人寓言（角色重制）</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-mono@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/900.css">
+<style>html,body{margin:0;background:#000}#stage{position:relative;overflow:hidden}</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
+<script src="assets/manifest.js"></script>
+<script src="timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/parable.js"></script>
+</head><body><div id="stage"></div><script>
+// 阿努纳奇 · 第一段 · 3D 火柴人寓言（角色重制）：左＝西琴（写书、举书、卖书、被打脸），
+// 中＝人（被捏出来、下矿、拿起剪刀），右＝外星人（坐飞船来、挖金矿、造人、后退）。
+// 每个动作都对到口播稿的字（T.word）；固定机位，无切镜。
+PROMO.compose({
+  bpm: 100, offset: 0, grain: false, tail: 1.4,
+  theme: { bg: '#000', fg: '#F2F2F0', ink: '#F2F2F0', muted: '#8C8C88', accent: '#E3262B', paper: '#000', fonts: { display: '"Noto Sans SC", sans-serif', sans: '"Noto Sans SC", sans-serif' } },
+  build: async (F) => {
+    const T = F.T, s = T.start, e = T.end, Wd = T.word;
+    const P = await PROMO.parable(F, { palette: 'void', boxPortrait: { y0: -1.6 } });
+    const a1 = s('l1'), a2 = s('l2'), a3 = s('l3'), a4 = s('l4'), a5 = s('l5'), a6 = s('l6'), a7 = s('l7'), a8 = s('l8'), fin = F.duration;
+    const w = (id, p, n) => Wd(id, p, n);
+
+    /* ---------- word anchors ---------- */
+    const tBook = w('l1', '书'), tEarth = w('l1', '地球'), tAlienW = w('l1', '外星人'), tGold = w('l1', '金矿');
+    const tThey = w('l2', '他们来了'), tDig = w('l2', '挖金子'), tTired = w('l2', '挖烦了'), tGene = w('l2', '基因'), tApe = w('l2', '猿猴'), tStir = w('l2', '搅在一起');
+    const tPinch = w('l2', '捏'), tNew = w('l2', '新物种'), tWork = w('l2', '替他们'), tDown = w('l2', '下矿');
+    const tShip = w('l4', '这本书'), tSell = w('l4', '卖'), tMillion = w('l4', '几百万册');
+    const tTrans = w('l4', '翻译成'), tLang = w('l4', '语言'), tWorld = w('l4', '全世界'), tBillion = w('l4', '几十亿人'), tBelieve = w('l4', '信过');
+    const tAcad = w('l5', '可学术界'), tSneer = w('l5', '冷笑'), tPseudo = w('l5', '伪学术'), tTablet = w('l5', '楔形文字'), tWrong = w('l5', '翻译错了');
+    const tIronic = w('l6', '最讽刺');
+    const tForty = w('l7', '四十年后'), tHuman7 = w('l7', '人类'), tTake = w('l7', '拿起'), tScissor = w('l7', '剪刀');
+    const tOnly = w('l8', '只不过'), tPinchUs = w('l8', '捏'), tNotAlien = w('l8', '不是外星人'), tBacteria = w('l8', '细菌');
+
+    const THREE = P.THREE;
+    const CLAY = 0xD9C6A2, CLAY2 = 0xB8A177, CREAM = 0xEFE7D6, GOLD = 0xE7B748, RED = 0xE3262B, DARK = 0x2A2622, WOOD = 0x8A6A45;
+    const mat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: o.rough ?? 0.62, metalness: o.metal ?? 0.02, emissive: c, emissiveIntensity: o.ei ?? 0, transparent: o.opacity !== undefined, opacity: o.opacity ?? 1, depthWrite: o.opacity === undefined, side: o.side ?? THREE.FrontSide });
+    const mesh = (g, geo, c, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, o) => { const m = new THREE.Mesh(geo, mat(c, o)); m.position.set(x, y, z); m.rotation.set(rx, ry, rz); m.castShadow = true; m.receiveShadow = true; g.add(m); return m; };
+    const anims = [];
+    const prop = (g, at, p, fn, o = {}) => { const it = P.item(g, o); it.at(at, p); if (fn) anims.push(fn); return it; };
+    const clamp01 = (q) => Math.max(0, Math.min(1, q));
+
+    /* ---------- 1 · the three roles ---------- */
+    const sitchin = P.figure('sitchin', { x: -1.35, z: -0.25, face: 'camera' });
+    const hum = P.figure('hum', { x: 0.1, z: -0.3, face: 'camera', scale: 0.82 });
+    hum.appear(10.0);
+    const alien = P.figure('alien', { x: 1.55, z: -0.35, face: 'camera', scale: 1.05 });
+    alien.appear(5.35);
+    /* 身份随场景走：名字、身份、动作一起变 */
+    const LB = (fg, text, at, until) => P.label(fg, text, { at, until, y: 1.9, follow: true, size: 34 });
+    LB(sitchin, '西琴', 1.0, 13.1);
+    LB(sitchin, '畅销书作者', 13.15, 17.3);
+    LB(sitchin, '伪学术作者', 17.36, 22.1);
+    LB(sitchin, '西琴', 22.15, 27.0);
+    LB(alien, '外星人', 5.45, 5.95);
+    LB(alien, '矿工', 5.96, 7.60);
+    LB(alien, '造物者', 7.64, 10.30);
+    LB(alien, '外星人', 10.35, 28.3);
+    LB(hum, '新物种', 10.05, 12.90);
+    LB(hum, '人', 12.95, 24.15);
+    LB(hum, '人类', 24.20, 28.0);
+
+    /* ---------- 2 · desk, book, tablet (left) ---------- */
+    const desk = new THREE.Group();
+    mesh(desk, new THREE.BoxGeometry(0.86, 0.07, 0.52), WOOD, 0, 0.82, 0.15);
+    for (const [dx, dz] of [[-0.35, 0.37], [0.35, 0.37], [-0.35, -0.02], [0.35, -0.02]]) mesh(desk, new THREE.BoxGeometry(0.055, 0.8, 0.055), 0x6B4F33, dx, 0.41, dz);
+    prop(desk, 0.55, [-1.35, 0, 0]);
+
+    const book = new THREE.Group();
+    for (const sx of [-1, 1]) {
+      mesh(book, new THREE.BoxGeometry(0.26, 0.38, 0.028), 0x9A7B52, sx * 0.13, 0, -0.02);
+      mesh(book, new THREE.BoxGeometry(0.225, 0.34, 0.02), CREAM, sx * 0.115, 0, 0.03);
+      for (let i = 0; i < 4; i++) mesh(book, new THREE.BoxGeometry(0.17, 0.007, 0.004), 0x7A6A52, sx * 0.12, 0.105 - i * 0.065, 0.042);
+    }
+    mesh(book, new THREE.BoxGeometry(0.035, 0.39, 0.035), CLAY, 0, 0, 0);
+    const bookIt = P.item(book, { face: 'camera' });
+    bookIt.at(0.55, [-1.4, 0.92, 0.12]);
+    bookIt.hold(sitchin, tBook - 0.4, tWrong, { hand: 'both' });
+    bookIt.at(tWrong, [-1.78, 0.22, 0.3], { dur: 0.3 });
+    bookIt.at(28.5, [-1.4, 0.92, 0.12], { dur: 0.3 });
+    anims.push((t) => { book.rotation.x = (t > tWrong && t < 28.5) ? -1.25 : 0; book.rotation.y = t > tWrong ? 0 : 0.16; });
+
+    // cuneiform tablet: marks + red X
+    const tab = new THREE.Group();
+    mesh(tab, new THREE.BoxGeometry(0.42, 0.52, 0.035), 0xC8B58F, 0, 0, 0);
+    const signs = [];
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
+      const sg = new THREE.Group(); sg.position.set(-0.14 + c * 0.095, 0.16 - r * 0.105, 0.02); tab.add(sg); signs.push(sg);
+      mesh(sg, new THREE.BoxGeometry(0.045, 0.011, 0.006), 0x5A4A36, 0, 0.008, 0);
+      mesh(sg, new THREE.BoxGeometry(0.035, 0.009, 0.006), 0x5A4A36, 0, -0.008, 0);
+    }
+    const xmark = new THREE.Group(); tab.add(xmark); xmark.position.z = 0.03;
+    mesh(xmark, new THREE.BoxGeometry(0.56, 0.035, 0.01), RED, 0, 0, 0, 0, 0, 0.78);
+    mesh(xmark, new THREE.BoxGeometry(0.56, 0.035, 0.01), RED, 0, 0, 0, 0, 0, -0.78);
+    xmark.scale.setScalar(0.001);
+    const tabIt = P.item(tab, {});
+    tabIt.at(0.55, [-1.76, 0.9, 0.18]);
+    tabIt.at(tTablet - 0.1, [-1.72, 1.32, 0.36], { dur: 0.5 });
+    anims.push((t) => {
+      xmark.scale.setScalar(t > tWrong - 0.3 ? Math.min(1, (t - tWrong + 0.3) / 0.3) : 0.001);
+      tab.rotation.z = (t > tSneer && t < tWrong + 0.5) ? Math.sin(t * 18) * 0.02 : 0;
+      for (let i = 0; i < signs.length; i++) signs[i].position.x += 0; // keep positions
+      tab.rotation.y = t > tWrong ? 0.15 : 0;
+    });
+
+    // the “伪学术” stamp
+    const stamp = new THREE.Group();
+    mesh(stamp, new THREE.BoxGeometry(0.4, 0.28, 0.07), 0x3A3128, 0, 0, 0);
+    mesh(stamp, new THREE.BoxGeometry(0.44, 0.05, 0.09), 0x2A241D, 0, 0.16, 0);
+    const stampIt = P.item(stamp, {});
+    stampIt.at(tSneer, [-1.12, 2.5, 0.32]);
+    stampIt.at(tPseudo, [-1.12, 1.05, 0.32], { dur: 0.16 });
+    stampIt.at(tPseudo + 1.0, [-1.12, 2.45, 0.32], { dur: 0.4 });
+    stampIt.at(21.2, null);
+    anims.push((t) => { stamp.rotation.z = (t > tPseudo && t < tPseudo + 0.18) ? 0.06 : 0; });
+
+    // book piles (a few million copies)
+    const bookGeo = new THREE.BoxGeometry(0.4, 0.055, 0.3, 1, 1, 1);
+    const BStacks = [];
+    for (const [x0, z0] of [[-1.78, 0.55], [-0.88, 0.55]]) {
+      const slots = [], times = [];
+      for (let i = 0; i < 10; i++) { slots.push({ x: x0, y: 0.03 + i * 0.058, z: z0, w: 0.4, h: 0.055, d: 0.3, ry: i % 2 ? 0.12 : -0.08, color: i % 3 === 0 ? 'block' : i % 3 === 1 ? 'brick' : 'wood', geo: bookGeo }); times.push(tMillion + 0.05 + i * 0.075); }
+      BStacks.push(P.stack({ slots, times, x: x0, z: z0, depth: 0.3, sound: 'place' }));
+    }
+
+    /* ---------- 3 · globe, saucer, mine, pickaxe ---------- */
+    const globe = new THREE.Group();
+    const globeMat = mat(0xBFAE8E, { rough: 0.82 });
+    globe.add(new THREE.Mesh(new THREE.SphereGeometry(0.45, 32, 24), globeMat));
+    const goldMat = new THREE.MeshStandardMaterial({ color: GOLD, roughness: 0.35, metalness: 0.55, emissive: GOLD, emissiveIntensity: 0.06 });
+    const goldBits = [];
+    for (let i = 0; i < 12; i++) {
+      const a = i * 2.4, b = (i * 0.83) % Math.PI - Math.PI / 2;
+      const v = new THREE.Vector3(Math.cos(a) * Math.cos(b), Math.sin(b), Math.sin(a) * Math.cos(b)).multiplyScalar(0.455);
+      const m = new THREE.Mesh(new THREE.SphereGeometry(0.045 + (i % 3) * 0.012, 10, 8), goldMat); m.position.copy(v); globe.add(m); goldBits.push(m);
+    }
+    const dots = [];
+    const dotMat = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.5, emissive: 0xFFFFFF, emissiveIntensity: 1.5 });
+    for (let i = 0; i < 56; i++) {
+      const a = i * 2.399, b = Math.asin((i / 56) * 2 - 1), r = 0.54;
+      const m = new THREE.Mesh(new THREE.SphereGeometry(0.032, 8, 8), dotMat);
+      m.position.set(Math.cos(a) * Math.cos(b) * r, Math.sin(b) * r, Math.sin(a) * Math.cos(b) * r);
+      m.userData.t0 = tWorld + (i % 12) * 0.055; m.scale.setScalar(0.001); globe.add(m); dots.push(m);
+    }
+    const globeIt = prop(globe, tEarth, [0.35, 1.78, -1.85], (t) => {
+      globe.rotation.y = t * 0.12;
+      goldMat.emissiveIntensity = t > tGold ? 0.45 + 0.12 * Math.sin(t * 3) : 0.06;
+      for (const d of dots) { const q = clamp01((t - d.userData.t0) / 0.25); d.scale.setScalar(0.001 + q * (0.75 + 0.25 * Math.sin(t * 3 + d.userData.t0 * 7))); }
+    });
+    globeIt.at(tForty, null);
+
+    const saucer = new THREE.Group();
+    mesh(saucer, new THREE.CylinderGeometry(0.58, 0.46, 0.13, 32), 0xCFC6B8, 0, 0, 0);
+    mesh(saucer, new THREE.SphereGeometry(0.24, 24, 16), 0xD9D2C5, 0, 0.12, 0);
+    const lightMat = new THREE.MeshStandardMaterial({ color: GOLD, roughness: 0.3, metalness: 0.4, emissive: GOLD, emissiveIntensity: 1.2 });
+    const lights = [];
+    for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2, m = new THREE.Mesh(new THREE.SphereGeometry(0.032, 8, 8), lightMat); m.position.set(Math.cos(a) * 0.52, -0.02, Math.sin(a) * 0.52); saucer.add(m); lights.push(m); }
+    const beamMat = new THREE.MeshBasicMaterial({ color: 0xFFF3CC, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
+    const beam = new THREE.Mesh(new THREE.ConeGeometry(0.52, 1.85, 32, 1, true), beamMat); beam.position.y = -0.95; beam.visible = false; saucer.add(beam);
+    const saucerIt = prop(saucer, tAlienW - 0.15, [1.42, 3.3, -2.15], (t) => {
+      saucer.rotation.y = t * 0.7; lightMat.emissiveIntensity = 0.9 + 0.5 * Math.sin(t * 6);
+      beamMat.opacity = 0.13 * clamp01((t - tAlienW + 0.1) / 0.35) * (1 - clamp01((t - tThey - 0.2) / 0.6));
+    });
+    saucerIt.at(tAlienW - 0.02, [1.42, 1.92, -2.15], { dur: 0.9 });
+
+    const mine = new THREE.Group();
+    const rocks = [[-0.28, 0.18, 0, 0.3, 0x6B6256], [0.08, 0.3, -0.1, 0.34, 0x5B5348], [0.34, 0.16, 0.05, 0.24, 0x746A5C], [-0.02, 0.1, 0.18, 0.2, 0x665C50], [0.22, 0.36, -0.02, 0.18, 0x7C7264]];
+    for (const [x, y, z, s, c] of rocks) mesh(mine, new THREE.DodecahedronGeometry(s, 0), c, x, y, z, x * 3, y * 5, z * 4);
+    const mineGold = new THREE.MeshStandardMaterial({ color: GOLD, roughness: 0.35, metalness: 0.55, emissive: GOLD, emissiveIntensity: 0.4 });
+    for (let i = 0; i < 9; i++) { const m = new THREE.Mesh(new THREE.SphereGeometry(0.035 + (i % 3) * 0.01, 8, 8), mineGold); m.position.set(-0.3 + (i * 0.083) % 0.7, 0.1 + (i * 0.13) % 0.38, 0.12 - (i % 2) * 0.18); mine.add(m); }
+    prop(mine, 0.6, [1.78, 0, -1.12], (t) => {
+      const hit = (tt) => Math.max(0, Math.sin((t - tt) * 42)) * Math.exp(-Math.abs(t - tt) * 7);
+      mine.position.x = (hit(6.05) + hit(6.25)) * 0.035;
+    });
+    const coinTimes = []; for (let i = 0; i < 16; i++) coinTimes.push(tDig + 0.12 + i * 0.035);
+    const coinsS = P.coins({ x: 1.42, z: -0.62, n: 16, per: 8, r: 0.085, h: 0.022, times: coinTimes });
+
+    const pick = new THREE.Group();
+    mesh(pick, new THREE.CylinderGeometry(0.04, 0.045, 0.78, 10), WOOD, 0, -0.38, 0);
+    mesh(pick, new THREE.BoxGeometry(0.42, 0.09, 0.09), 0x6E5A46, 0, -0.75, 0);
+    mesh(pick, new THREE.ConeGeometry(0.05, 0.16, 8), 0x6E5A46, -0.2, -0.75, 0, 0, 0, Math.PI / 2);
+    mesh(pick, new THREE.ConeGeometry(0.05, 0.16, 8), 0x6E5A46, 0.2, -0.75, 0, 0, 0, -Math.PI / 2);
+    const pickIt = P.item(pick, {});
+    pickIt.at(0.6, [1.92, 0.08, -0.72]);
+    pickIt.hold(alien, 5.94, 6.42, { hand: 'R' });
+    pickIt.at(6.42, [1.5, 0.08, -0.3], { dur: 0.2 });
+    pickIt.at(tWork + 0.14, [0.62, 1.0, -0.35], { dur: 0.35 });
+    pickIt.hold(hum, tWork + 0.28, tDown + 0.55, { hand: 'R' });
+    pickIt.at(tDown + 0.55, [0.78, 0.08, -0.55], { dur: 0.2 });
+
+    /* ---------- 4 · gene vat, helix, ape, creation beam ---------- */
+    const vat = new THREE.Group();
+    mesh(vat, new THREE.CylinderGeometry(0.16, 0.22, 0.52, 18), CLAY, 0, 0.26, 0);
+    mesh(vat, new THREE.CylinderGeometry(0.1, 0.16, 0.14, 16), CLAY, 0, 0.58, 0);
+    const lid = new THREE.Group(); vat.add(lid);
+    mesh(lid, new THREE.CylinderGeometry(0.12, 0.12, 0.06, 18), CLAY2, 0, 0.68, 0);
+    mesh(lid, new THREE.SphereGeometry(0.035, 10, 10), CLAY2, 0, 0.72, 0);
+    prop(vat, tGene - 0.55, [0.15, 0, -1.12], (t) => {
+      const q = Math.max(0, Math.sin(clamp01((t - tPinch) / 0.8) * Math.PI));
+      lid.position.y = q * 0.3; lid.rotation.z = q * 0.5;
+    });
+
+    const dna = new THREE.Group();
+    for (let i = 0; i < 24; i++) { const u = i / 24, y = u * 0.9, a = u * Math.PI * 4; mesh(dna, new THREE.SphereGeometry(0.022, 8, 8), i % 2 ? CLAY : CLAY2, Math.cos(a) * 0.14, y, Math.sin(a) * 0.14); }
+    const dnaIt = prop(dna, tGene + 0.1, [0.15, 0.78, -1.12], (t) => { dna.rotation.y = t * 1.1; const big = (t >= 84.24 && t < 98.8) || (t >= 115.57 && t < 132.3); dna.scale.setScalar(big ? 1.7 : 0.9 + 0.1 * Math.sin(t * 4)); });
+
+    const ape = new THREE.Group();
+    const aBody = new THREE.Group(); ape.add(aBody);
+    mesh(aBody, new THREE.SphereGeometry(0.19, 14, 12), CLAY2, 0, 0.42, 0);
+    const aHead = new THREE.Group(); aBody.add(aHead); aHead.position.set(0, 0.66, 0);
+    mesh(aHead, new THREE.SphereGeometry(0.14, 14, 12), CLAY2, 0, 0, 0);
+    mesh(aHead, new THREE.SphereGeometry(0.075, 10, 10), CLAY, 0.09, -0.04, 0);
+    const aArmL = new THREE.Group(), aArmR = new THREE.Group(); aBody.add(aArmL, aArmR);
+    aArmL.position.set(-0.16, 0.56, 0); aArmR.position.set(0.16, 0.56, 0);
+    mesh(aArmL, new THREE.CylinderGeometry(0.04, 0.035, 0.5, 8), CLAY2, 0, -0.25, 0);
+    mesh(aArmR, new THREE.CylinderGeometry(0.04, 0.035, 0.5, 8), CLAY2, 0, -0.25, 0);
+    mesh(aBody, new THREE.CylinderGeometry(0.05, 0.04, 0.3, 8), CLAY2, -0.08, 0.16, 0);
+    mesh(aBody, new THREE.CylinderGeometry(0.05, 0.04, 0.3, 8), CLAY2, 0.08, 0.16, 0);
+    const apeIt = prop(ape, tApe - 0.5, [-0.42, 0, -0.9], (t) => {
+      aBody.position.x = Math.sin(t * 0.7) * 0.08;
+      aBody.position.y = Math.abs(Math.sin(t * 2.0)) * 0.04;
+      aArmL.rotation.x = Math.sin(t * 2.4) * 0.6; aArmR.rotation.x = Math.sin(t * 2.4 + 2) * 0.45;
+      aHead.rotation.z = Math.sin(t * 1.0) * 0.14;
+    });
+    apeIt.at(tStir, [-0.1, 0, -0.95], { dur: 0.6 });
+
+    const beamMat2 = new THREE.MeshBasicMaterial({ color: 0xFFF6DA, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
+    const beam2 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.16, 2.1, 20, 1, true), beamMat2); beam2.position.set(0.15, 1.05, -0.95); const beam2G = new THREE.Group(); beam2G.add(beam2); prop(beam2G, tPinch, [0, 0, 0], (t) => { beamMat2.opacity = 0.1 * clamp01((t - tPinch) / 0.2) * (1 - clamp01((t - tNew - 0.45) / 0.5)); });
+
+    /* ---------- 5 · the red scissors, held by the human, with the germ at the hinge ---------- */
+    const sci = new THREE.Group(), bl1 = new THREE.Group(), bl2 = new THREE.Group(); sci.add(bl1, bl2);
+    for (const [b, sy] of [[bl1, 1], [bl2, -1]]) {
+      mesh(b, new THREE.BoxGeometry(1.25, 0.07, 0.06), RED, -0.58, sy * 0.02, 0);
+      mesh(b, new THREE.BoxGeometry(0.62, 0.06, 0.05), RED, 0.31, sy * 0.03, 0);
+      mesh(b, new THREE.TorusGeometry(0.13, 0.025, 8, 20), RED, 0.66, sy * 0.05, 0);
+    }
+    mesh(sci, new THREE.SphereGeometry(0.045, 10, 10), CLAY2, 0, 0, 0);
+    const sciWrap = new THREE.Group(); sciWrap.add(sci);
+    sci.rotation.z = -Math.PI / 2; sci.position.set(0, 0.66, 0); sciWrap.scale.setScalar(0.82);
+    const sciIt = P.item(sciWrap, {});
+    sciIt.at(tIronic + 0.1, [0.35, 3.15, -0.1]);
+    sciIt.at(tIronic + 0.2, [0.35, 1.15, -0.1], { dur: 1.0 });
+    sciIt.hold(hum, tTake + 0.2, 29.4, { hand: 'both', dur: 0.05 });
+    sciIt.at(28.5, null);
+
+    const germ = new THREE.Group();
+    const gSph = new THREE.Mesh(new THREE.SphereGeometry(0.22, 20, 16), new THREE.MeshStandardMaterial({ color: CLAY, roughness: 0.55, emissive: CLAY, emissiveIntensity: 0.15 })); gSph.scale.set(1, 0.9, 1); germ.add(gSph);
+    const cils = [];
+    for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2, cg = new THREE.Group(); germ.add(cg); cg.rotation.y = a; const c = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.008, 0.34, 6), mat(CLAY2)); c.position.set(0.34, 0, 0); c.rotation.z = Math.PI / 2; cg.add(c); cils.push(cg); }
+    for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2, sp = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.15, 0.03), mat(CLAY2)); sp.position.set(Math.cos(a) * 0.27, Math.sin(a) * 0.27, 0); sp.rotation.z = a - Math.PI / 2; germ.add(sp); }
+    mesh(germ, new THREE.SphereGeometry(0.033, 10, 10), 0x2A2622, -0.08, 0.06, 0.2);
+    mesh(germ, new THREE.SphereGeometry(0.033, 10, 10), 0x2A2622, 0.08, 0.06, 0.2);
+    germ.position.set(0, 0.66, 0); sciWrap.add(germ); germ.visible = false;
+    anims.push((t) => {
+      const on = t > tOnly + 0.05 && t < 28.45; germ.visible = on;
+      if (!on) return;
+      const q = clamp01((t - tOnly - 0.05) / 0.35), pop = 1 + 0.18 * Math.sin(Math.PI * Math.min(1, q));
+      germ.scale.setScalar(Math.max(0.001, q * pop * (0.92 + 0.08 * Math.sin(t * 5))));
+      cils.forEach((c, i) => { c.rotation.y = Math.sin(t * 3.5 + i) * 0.4; });
+      gSph.material.emissiveIntensity = 0.15 + 0.5 * clamp01((t - tBacteria + 0.2) / 0.5) + 0.12 * Math.sin(t * 7);
+    });
+    anims.push((t) => {
+      const o = 0.18 + 0.05 * Math.sin(t * 3.2) + (t > tPinchUs && t < tPinchUs + 0.7 ? 0.12 * Math.max(0, Math.sin((t - tPinchUs) * 6)) : 0);
+      bl1.rotation.z = o; bl2.rotation.z = -o;
+    });
+
+    // small ore the human works on
+    const ore = new THREE.Group();
+    mesh(ore, new THREE.DodecahedronGeometry(0.18, 0), 0x6B6256, 0, 0.16, 0, 0.4, 0.8, 0.2);
+    mesh(ore, new THREE.SphereGeometry(0.04, 8, 8), GOLD, 0.12, 0.24, 0.08);
+    mesh(ore, new THREE.SphereGeometry(0.03, 8, 8), GOLD, -0.06, 0.1, 0.14);
+    prop(ore, tWork, [0.78, 0, -0.58]);
+
+    // grass (ground dressing, still moves)
+    const Grass = [];
+    for (const [x, z, ph] of [[1.08, -0.95, 0.4], [-0.62, -1.35, 2.1]]) {
+      const g2 = new THREE.Group(); const blades = []; Grass.push(g2);
+      for (let i = 0; i < 5; i++) { const bg = new THREE.Group(); bg.position.x = (i - 2) * 0.07; g2.add(bg); const bl = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.3 + (i % 3) * 0.08, 0.02), mat(CLAY2)); bl.position.y = (0.3 + (i % 3) * 0.08) / 2; bl.rotation.z = (i - 2) * 0.16; bg.add(bl); blades.push(bg); }
+      prop(g2, 0.6, [x, 0, z], (t) => blades.forEach((b, i) => { b.rotation.z = Math.sin(t * 1.7 + i * 0.9 + ph) * 0.18; }));
+    }
+
+    // dim for “最讽刺的事情在后面”
+    const dim = document.createElement('div');
+    dim.style.cssText = 'position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;z-index:5';
+    F.stage.appendChild(dim);
+    P.onFrame((t) => {
+      const q = clamp01((t - tIronic) / 0.55), w2 = 1 - clamp01((t - (tForty + 0.15)) / 0.7);
+      let d0 = q * w2 * 0.62;
+      for (const cc of [28.52, 60.5, 98.8, 132.3, 160.1]) d0 = Math.max(d0, 0.92 * Math.max(0, 1 - Math.abs(t - cc) / 0.16));
+      dim.style.opacity = d0.toFixed(3);
+    });
+
+    /* ---------- 6 · Sitchin: write, show the book, sell it, get slapped down ---------- */
+    sitchin.pose(0.7, { hL: [0.42, 0.95, -0.12], hR: [0.48, 0.95, 0.12], lean: 0.18, nod: 0.35 }, { dur: 0.6 });
+    sitchin.tend(1.0, 2.9, { on: [-1.76, 0.95, 0.18] });
+    sitchin.pose(tBook - 0.4, { hL: [0.45, 0.95, -0.26], hR: [0.45, 0.95, 0.26], lean: 0.15, nod: 0.2 }, { dur: 0.3 });
+    sitchin.pose(tBook + 0.05, { hL: [0.45, 1.15, -0.28], hR: [0.45, 1.15, 0.28], lean: 0.02, nod: 0.02 }, { dur: 0.45 });
+    sitchin.pose(tEarth - 0.2, { hL: [0.6, 1.18, -0.28], hR: [0.6, 1.18, 0.28], lean: -0.04, nod: -0.05 }, { dur: 0.5 });
+    sitchin.pose(tThey, { hL: [0.48, 1.12, -0.28], hR: [0.48, 1.12, 0.28], lean: 0.02, nod: 0.02 }, { dur: 0.4 });
+    sitchin.pose(tShip, { hL: [0.5, 1.22, -0.28], hR: [0.5, 1.22, 0.28], lean: 0.02, nod: 0.04 }, { dur: 0.4 });
+    sitchin.celebrate(tBillion + 0.2, tBelieve + 0.5);
+    sitchin.pose(tBelieve + 0.55, { hL: [0.5, 1.18, -0.28], hR: [0.5, 1.18, 0.28], lean: 0.04, nod: 0.08 }, { dur: 0.4 });
+    sitchin.pose(tSneer, { hL: [0.48, 1.1, -0.28], hR: [0.48, 1.1, 0.28], lean: 0.06, nod: 0.12 }, { dur: 0.4 });
+    sitchin.pose(tPseudo - 0.15, { hL: [0.4, 1.0, -0.28], hR: [0.4, 1.0, 0.28], lean: -0.18, nod: -0.15 }, { dur: 0.3 });
+    sitchin.pose(tTablet, { hL: [0.5, 1.05, -0.28], hR: [0.52, 1.05, 0.28], lean: 0.25, nod: 0.35 }, { dur: 0.4 });
+    sitchin.pose(tWrong - 0.2, { hL: [0.35, 0.78, -0.24], hR: [0.35, 0.78, 0.24], lean: 0.42, nod: 0.6 }, { dur: 0.5 });
+    sitchin.pose(tIronic, { hL: [0.3, 0.72, -0.16], hR: [0.3, 0.72, 0.16], lean: 0.48, nod: 0.62 }, { dur: 0.4 });
+    sitchin.pose(tForty, { hL: [0.25, 0.6, -0.16], hR: [0.25, 0.6, 0.16], lean: 0.2, nod: 0.1 }, { dur: 0.6 });
+    sitchin.pose(tTake, { hL: [0.22, 0.82, -0.15], hR: [0.22, 0.82, 0.15], lean: 0.05, nod: 0.05 }, { dur: 0.5 });
+    sitchin.look(3.70, [0.35, 1.8, -1.85], { until: 4.20 });
+    sitchin.look(4.22, [1.42, 2.0, -2.15], { until: 4.86 });
+    sitchin.look(4.90, [0.35, 1.8, -1.85], { until: 5.28 });
+    sitchin.look(5.30, [1.55, 0.8, -0.4], { until: 5.94 });
+    sitchin.look(5.96, [1.78, 0.4, -1.12], { until: 6.55 });
+    sitchin.look(6.60, [0.15, 1.0, -1.12], { until: 7.58 });
+    sitchin.look(7.60, [0.15, 1.0, -1.12], { until: 9.70 });
+    sitchin.look(9.80, [0.1, 0.8, -0.3], { until: 10.80 });
+    sitchin.look(10.86, [0.1, 0.6, -0.4], { until: 11.90 });
+    sitchin.look(12.00, [0.1, 0.9, -0.3], { until: 13.20 });
+    sitchin.look(13.30, [0.15, 1.2, 0.1], { until: 14.00 });
+    sitchin.look(14.05, 'camera', { until: 14.60 });
+    sitchin.look(14.65, [0.35, 1.8, -1.85], { until: 15.90 });
+    sitchin.look(16.00, [0.35, 1.8, -1.85], { until: 16.90 });
+    sitchin.look(17.00, 'camera', { until: 17.90 });
+    sitchin.look(18.00, 'up', { until: 19.30 });
+    sitchin.look(19.35, 'up', { until: 19.65 });
+    sitchin.look(19.80, [0.15, 1.2, 0.2], { until: 21.00 });
+    sitchin.look(21.20, [-1.72, 1.32, 0.36], { until: 22.10 });
+    sitchin.look(22.20, [0.15, 2.2, -0.1], { until: 23.40 });
+    sitchin.look(23.55, [0.15, 1.5, -0.1], { until: 24.30 });
+    sitchin.look(24.40, [0.15, 1.2, -0.1], { until: 25.20 });
+    sitchin.look(25.25, [0.15, 1.6, -0.1], { until: 26.90 });
+    sitchin.look(27.00, [0.15, 1.7, -0.1], { until: 28.40 });
+    sitchin.look(28.50, 'down', { until: 28.52 });
+
+    /* ---------- 7 · alien: land, mine, get tired, mix genes, make a human, step back ---------- */
+    alien.turn(5.35, 'right', { dur: 0.1 });
+    alien.pose(5.45, 'stand', { dur: 0.35, face: 'right' });
+    alien.pose(5.94, { hL: [0.1, 1.0, -0.16], hR: [0.15, 1.55, 0.2], lean: -0.06, nod: 0.08 }, { dur: 0.25, face: 'right' });
+    alien.pose(6.05, { hL: [0.1, 1.0, -0.16], hR: [0.5, 1.02, 0.2], lean: 0.42, nod: 0.45 }, { dur: 0.16, face: 'right' });
+    alien.pose(6.14, { hL: [0.1, 1.0, -0.16], hR: [0.15, 1.55, 0.2], lean: 0.02, nod: 0.1 }, { dur: 0.16, face: 'right' });
+    alien.pose(6.25, { hL: [0.1, 1.0, -0.16], hR: [0.5, 1.02, 0.2], lean: 0.42, nod: 0.45 }, { dur: 0.16, face: 'right' });
+    alien.pose(6.40, 'wipe', { dur: 0.4, face: 'camera' });
+    alien.walk(7.05, 0.85, { speed: 0.9 });
+    alien.pose(7.95, 'stand', { dur: 0.3, face: 'camera' });
+    alien.walk(10.38, 1.2, { speed: 0.8 });
+    alien.pose(10.95, 'stand', { dur: 0.3, face: 'camera' });
+    alien.walk(20.26, 1.42, { speed: 0.6 });
+    alien.pose(20.60, 'stand', { dur: 0.3, face: 'camera' });
+    alien.pose(24.80, { hL: [0.2, 1.06, 0.06], hR: [0.2, 1.1, -0.06], lean: -0.02, nod: 0.05 }, { dur: 0.4 });
+    alien.walk(26.49, 1.92, { speed: 0.55 });
+    alien.pose(27.19, 'stand', { dur: 0.35, face: 'camera' });
+    alien.look(5.80, [1.78, 0.35, -1.12], { until: 5.94 });
+    alien.look(5.96, 'down', { until: 6.42 });
+    alien.look(6.47, [0.15, 1.0, -1.12], { until: 7.55 });
+    alien.look(7.60, [0.15, 1.0, -1.12], { until: 8.90 });
+    alien.tend(8.94, 10.24, { on: [0.15, 1.02, -1.12] });
+    alien.look(10.30, [0.1, 0.8, -0.3], { until: 10.84 });
+    alien.look(10.86, [0.78, 0.3, -0.58], { until: 11.86 });
+    alien.look(11.90, [0.1, 0.9, -0.3], { until: 13.20 });
+    alien.look(13.25, [-1.35, 1.2, 0.15], { until: 13.90 });
+    alien.look(13.95, [0.35, 1.8, -1.85], { until: 15.95 });
+    alien.look(16.00, [0.35, 1.8, -1.85], { until: 17.20 });
+    alien.look(17.25, 'camera', { until: 19.15 });
+    alien.gesture(19.20, 'shrug', { until: 20.10 });
+    alien.look(20.15, [-1.72, 1.32, 0.36], { until: 21.30 });
+    alien.look(21.35, [-1.72, 1.32, 0.36], { until: 22.10 });
+    alien.look(22.20, [0.15, 2.0, -0.1], { until: 23.40 });
+    alien.look(23.55, [0.15, 1.5, -0.1], { until: 24.30 });
+    alien.look(24.40, [0.15, 1.2, -0.1], { until: 25.20 });
+    alien.look(25.25, [0.15, 1.6, -0.1], { until: 26.44 });
+    alien.look(26.50, [0.15, 1.7, -0.1], { until: 27.75 });
+    alien.gesture(27.80, 'shrug', { until: 28.55 });
+    
+    /* ---------- 8 · human: made, put to work, takes the scissors ---------- */
+    hum.pose(9.78, 'crouch', { dur: 0.01 });
+    hum.pose(tNew + 0.05, 'stand', { dur: 0.55 });
+    hum.pose(tWork + 0.2, { hL: [0.05, 1.0, -0.15], hR: [0.15, 1.55, 0.2], lean: -0.05, nod: 0.1 }, { dur: 0.22, face: 'right' });
+    hum.pose(tWork + 0.42, { hL: [0.05, 1.0, -0.15], hR: [0.62, 1.0, 0.18], lean: 0.42, nod: 0.42 }, { dur: 0.16, face: 'right' });
+    hum.pose(tWork + 0.58, { hR: [0.15, 1.55, 0.2], lean: 0.02, nod: 0.1 }, { dur: 0.16, face: 'right' });
+    hum.pose(tWork + 0.78, { hR: [0.62, 1.0, 0.18], lean: 0.42, nod: 0.42 }, { dur: 0.16, face: 'right' });
+    hum.pose(tDown + 0.55, 'stand', { dur: 0.3, face: 'camera' });
+    hum.pose(tHuman7, 'stand', { dur: 0.35, face: 'camera' });
+    hum.pose(tTake - 0.1, { hL: [0.3, 1.4, -0.32], hR: [0.3, 1.4, -0.08], lean: 0.06, nod: 0.06 }, { dur: 0.35 });
+    hum.pose(tTake + 0.25, { hL: [0.24, 1.45, -0.32], hR: [0.24, 1.45, -0.08], lean: -0.03, nod: -0.08 }, { dur: 0.35 });
+    hum.pose(tScissor, { hL: [0.2, 1.5, -0.32], hR: [0.2, 1.5, -0.08], lean: -0.05, nod: -0.12 }, { dur: 0.3 });
+    hum.pose(26.55, { hL: [0.25, 1.3, -0.32], hR: [0.25, 1.3, -0.08], lean: 0.02, nod: -0.04 }, { dur: 0.4 });
+    hum.pose(tBacteria - 0.5, { hL: [0.3, 1.2, -0.3], hR: [0.3, 1.2, -0.07], lean: 0.04, nod: 0.18 }, { dur: 0.5 });
+    hum.look(10.50, 'camera', { until: 10.95 });
+    hum.look(11.00, [0.78, 0.3, -0.58], { until: 11.90 });
+    hum.look(11.95, 'down', { until: 12.95 });
+    hum.gesture(12.98, 'cheer', { until: 13.55 });
+    hum.look(13.60, [-1.35, 1.2, 0.15], { until: 14.50 });
+    hum.look(14.55, [0.35, 1.8, -1.85], { until: 15.95 });
+    hum.look(16.00, [0.35, 1.8, -1.85], { until: 17.20 });
+    hum.look(17.25, [-1.35, 1.2, 0.15], { until: 18.60 });
+    hum.look(18.65, [-1.35, 1.2, 0.15], { until: 19.60 });
+    hum.look(19.65, [-1.72, 1.32, 0.36], { until: 21.10 });
+    hum.look(21.15, [-1.72, 1.32, 0.36], { until: 22.10 });
+    hum.look(22.20, [0.15, 2.1, -0.1], { until: 23.40 });
+    hum.look(23.55, [0.15, 1.5, -0.1], { until: 24.35 });
+    hum.look(24.40, [0.3, 1.15, -0.05], { until: 25.05 });
+    hum.look(25.10, [0.3, 1.4, -0.05], { until: 26.80 });
+    hum.look(26.85, [0.3, 1.6, 0.0], { until: 28.40 });
+    hum.look(28.45, [0.3, 1.6, 0.0], { until: 28.52 });
+
+    /* ================= 三分钟样片：第二至第六幕 ================= */
+    const L2 = (n) => s('p2_' + n), L3 = (n) => s('p3_' + n);
+    const C2 = L2(1), C3 = L2(8), C4 = L3(1), C5 = L3(8), C6 = L3(15);
+    const bx = (g,w,h,d,c,x,y,z,rx=0,ry=0,rz=0) => mesh(g, new THREE.BoxGeometry(w,h,d), c, x,y,z, rx,ry,rz);
+    const cy = (g,r1,r2,h,sg,c,x,y,z,rx=0,ry=0,rz=0) => mesh(g, new THREE.CylinderGeometry(r1,r2,h,sg), c, x,y,z, rx,ry,rz);
+    const sp = (g,r,c,x,y,z,sx=1,sy=1,sz=1) => { const m = mesh(g, new THREE.SphereGeometry(r,16,12), c, x,y,z); m.scale.set(sx,sy,sz); return m; };
+
+    /* 第一幕的布景随场景退场 */
+    anims.push((t) => {
+      vat.visible = ape.visible = (t < C2) || (t >= L2(6) && t < C3);
+      dna.visible = (t < C2) || (t >= L2(6) && t < C3) || (t >= L2(12) && t < C4) || (t >= L3(4) && t < C5);
+      mine.visible = ore.visible = saucer.visible = t < C3;
+      if (coinsS) coinsS.g.visible = t < C3;
+      desk.visible = book.visible = t < C4;
+      tab.visible = (t < C2) || (t >= C3 && t < C4);
+      globe.visible = (t < C2) || (t >= L2(13) && t < C4);
+      BStacks.forEach((S) => { S.g.visible = (t < C2) || (t >= L2(13) && t < C4); });
+      Grass.forEach((g) => { g.visible = t < C2; });
+    });
+    pickIt.at(12.0, null);
+    pickIt.at(48.7, null);
+
+    /* ---------- S2 布景：苏美尔城、尼比鲁、圣经 ---------- */
+    const city = new THREE.Group();
+    for (let i = 0; i < 5; i++) bx(city, 1.1 - i * 0.16, 0.2, 0.9 - i * 0.13, 0x9A8A70, 0, 0.1 + i * 0.2, 0);
+    for (const [x, z] of [[-0.75, 0.45], [0.75, 0.35], [-0.62, -0.45], [0.8, -0.3]]) { bx(city, 0.26, 0.26, 0.26, 0x8B7C66, x, 0.13, z); bx(city, 0.32, 0.07, 0.32, 0x6E5A46, x, 0.3, z); }
+    const cityIt = prop(city, L2(2) - 0.05, [0.55, 0, -1.55]);
+    cityIt.at(L2(7), null);
+    cityIt.at(L3(3) - 0.05, [0.55, 0, -1.55]);
+    cityIt.at(L3(8) - 0.05, null);
+    const nib = new THREE.Group();
+    sp(nib, 0.3, 0x8894A8, 0, 0, 0);
+    { const r = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.012, 8, 64), mat(0xC8D0DC)); r.rotation.x = 1.15; nib.add(r); }
+    { const o = new THREE.Mesh(new THREE.TorusGeometry(0.85, 0.008, 8, 80), mat(0x6E7888)); o.rotation.x = 1.15; nib.add(o); }
+    const nibIt = prop(nib, L2(4) - 0.05, [0.9, 1.95, -1.5], (t) => { nib.rotation.y = t * 0.25; });
+    nibIt.at(L2(5) + 0.3, null);
+    const bible = new THREE.Group();
+    bx(bible, 0.68, 0.86, 0.05, 0x7A5A3A, 0, 0, -0.02); bx(bible, 0.6, 0.78, 0.03, CREAM, 0, 0, 0.02);
+    cy(bible, 0.02, 0.025, 0.22, 8, 0x6B4F33, -0.14, -0.2, 0.045); sp(bible, 0.1, 0x7A8A5A, -0.14, -0.04, 0.05);
+    bx(bible, 0.24, 0.08, 0.06, 0x8A6A45, 0.16, -0.24, 0.045); bx(bible, 0.12, 0.1, 0.06, 0x8A6A45, 0.16, -0.16, 0.045);
+    const bibleIt = prop(bible, L2(7), [-0.1, 1.12, -0.25]);
+    bibleIt.at(L2(8) - 0.05, null);
+    sciIt.at(L2(7), [-0.1, 1.55, -0.18], { dur: 0.3 });
+    sciIt.at(L2(8) - 0.05, null);
+    const slave = P.figure('slave', { x: 0.25, z: -0.75, face: 'camera', scale: 0.55 });
+    slave.show = [[53.0, 60.45]];
+
+    /* ---------- S3 布景：场记板、文凭、罗盘 ---------- */
+    const clap = new THREE.Group();
+    bx(clap, 0.5, 0.3, 0.04, 0x2A2622, 0, 0, 0);
+    for (let i = 0; i < 5; i++) bx(clap, 0.1, 0.06, 0.05, i % 2 ? 0xEDE7DA : 0x2A2622, -0.2 + i * 0.1, 0.17, 0.01);
+    const clapIt = prop(clap, L2(8), [-0.7, 1.1, -0.25]); clapIt.at(L2(9), null);
+    const dip = new THREE.Group();
+    bx(dip, 0.42, 0.3, 0.02, CREAM, 0, 0, 0); sp(dip, 0.04, RED, 0.12, -0.08, 0.02);
+    const dipIt = prop(dip, L2(9), [-1.25, 1.1, 0.1]); dipIt.at(L2(10), null);
+    const comp = new THREE.Group();
+    cy(comp, 0.17, 0.17, 0.03, 24, 0xC8B58F, 0, 0, 0); bx(comp, 0.02, 0.3, 0.02, 0x2A2622, 0, 0, 0.02); mesh(comp, new THREE.ConeGeometry(0.045, 0.12, 8), 0x2A2622, 0, 0.18, 0.02);
+    const compIt = prop(comp, L2(10), [-0.85, 1.15, -0.2]); compIt.at(L2(11), null);
+
+    /* ---------- S4 布景：营地、火、狼、作物 ---------- */
+    const fire = new THREE.Group();
+    for (const a of [0, 0.9, 1.8]) cy(fire, 0.03, 0.035, 0.4, 8, 0x6B4F33, Math.cos(a) * 0.16, 0.08, Math.sin(a) * 0.16, 0.35, 0, a);
+    const flame = new THREE.Mesh(new THREE.ConeGeometry(0.1, 0.3, 10), new THREE.MeshStandardMaterial({ color: GOLD, emissive: GOLD, emissiveIntensity: 0.8, roughness: 0.4 })); flame.position.y = 0.28; fire.add(flame);
+    const fireIt = prop(fire, L3(1) - 0.05, [-0.25, 0, -0.55], (t) => { flame.scale.y = 1 + 0.18 * Math.sin(t * 8); });
+    fireIt.at(L3(8) - 0.05, null);
+    const wolf = new THREE.Group();
+    bx(wolf, 0.5, 0.2, 0.18, 0x8C7A62, 0, 0.3, 0); bx(wolf, 0.18, 0.16, 0.16, 0x8C7A62, 0.3, 0.36, 0);
+    mesh(wolf, new THREE.ConeGeometry(0.05, 0.14, 6), 0x8C7A62, 0.42, 0.4, 0, 0, 0, -Math.PI / 2);
+    for (const [x, z] of [[-0.16, -0.06], [0.14, -0.06], [-0.16, 0.06], [0.14, 0.06]]) bx(wolf, 0.05, 0.22, 0.05, 0x7A6A54, x, 0.12, z);
+    const tail = new THREE.Group(); tail.position.set(-0.26, 0.36, 0); wolf.add(tail); cy(tail, 0.02, 0.03, 0.26, 6, 0x8C7A62, -0.08, -0.08, 0, 0, 0, 0.7);
+    const wolfIt = prop(wolf, L3(2) - 0.05, [0.75, 0, -0.55], (t) => { tail.rotation.z = Math.sin(t * 6) * 0.4; });
+    wolfIt.at(L3(2) + 1.8, [0.12, 0, -0.4], { dur: 1.5 }); wolfIt.at(L3(8) - 0.05, null);
+    const crops = new THREE.Group();
+    cy(crops, 0.015, 0.02, 0.7, 6, 0x7A8A4A, -0.25, 0.35, 0); cy(crops, 0.03, 0.04, 0.16, 8, GOLD, -0.25, 0.5, 0.02);
+    for (const x of [0, 0.08, 0.16]) cy(crops, 0.008, 0.008, 0.5, 5, 0xC8B58F, x, 0.25, -0.1);
+    mesh(crops, new THREE.TorusGeometry(0.12, 0.035, 8, 16, Math.PI * 0.9), 0xE7B748, 0.35, 0.3, 0, 0, 0, 0.5);
+    const cropsIt = prop(crops, L3(3) - 0.05, [0.35, 0, -1.15]); cropsIt.at(L3(8) - 0.05, null);
+
+    /* ---------- S5 布景：番茄、辐射、火箭、染色体、胰岛素 ---------- */
+    const tom = new THREE.Group(); sp(tom, 0.16, RED, 0, 0, 0);
+    for (let i = 0; i < 5; i++) { const a = i / 5 * Math.PI * 2; mesh(tom, new THREE.ConeGeometry(0.05, 0.1, 5), 0x6B8A4A, Math.cos(a) * 0.06, 0.16, Math.sin(a) * 0.06, 0.5, a, 0); }
+    const tomIt = prop(tom, L3(8) - 0.05, [0.25, 0.55, -0.35]); tomIt.at(L3(12) - 0.05, null);
+    const rad = new THREE.Group(); sp(rad, 0.14, GOLD, 0, 0, 0);
+    for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2; mesh(rad, new THREE.BoxGeometry(0.005, 0.25, 0.005), GOLD, Math.cos(a) * 0.27, Math.sin(a) * 0.27, 0, 0, 0, a); }
+    const radIt = prop(rad, L3(8) - 0.05, [0.25, 1.55, -0.8], (t) => { rad.rotation.z = t * 0.6; }); radIt.at(L3(9) - 0.05, null);
+    const rocket = new THREE.Group(); cy(rocket, 0.06, 0.08, 0.5, 12, 0xD8D2C5, 0, 0.35, 0); mesh(rocket, new THREE.ConeGeometry(0.06, 0.16, 12), 0xD8D2C5, 0, 0.68, 0);
+    for (const a of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) bx(rocket, 0.1, 0.12, 0.02, 0xB5321F, Math.cos(a) * 0.09, 0.18, Math.sin(a) * 0.09, 0, a, 0);
+    const rocketIt = prop(rocket, L3(9) - 0.05, [0.65, 0, -0.9], (t) => { rocket.position.y = Math.max(0, Math.sin((t - L3(9)) * 0.6)) * 0.2; }); rocketIt.at(L3(11) - 0.05, null);
+    const chromo = new THREE.Group();
+    for (const [x, a] of [[-0.08, 0.4], [0.08, -0.4]]) { const g2 = new THREE.Group(); g2.position.set(x, 0.9, -0.4); g2.rotation.z = a; bx(g2, 0.035, 0.26, 0.035, 0xC8B58F, 0, 0, 0); bx(g2, 0.035, 0.26, 0.035, 0xC8B58F, 0, 0, 0, 0, 0, Math.PI / 2); chromo.add(g2); }
+    const chromoIt = prop(chromo, L3(11) - 0.05, [0, 0, 0]); chromoIt.at(L3(12) - 0.05, null);
+    const paper = new THREE.Group(); bx(paper, 0.4, 0.5, 0.01, CREAM, 0, 0.9, -0.35); bx(paper, 0.06, 0.2, 0.06, RED, 0, 0.75, -0.3);
+    const paperIt = prop(paper, L3(12) - 0.05, [0, 0, 0]); paperIt.at(L3(13) - 0.05, null);
+    const ins = new THREE.Group(); sp(ins, 0.18, 0xB87A6A, 0, 0, 0, 1, 0.6, 0.7);
+    for (let i = 0; i < 4; i++) cy(ins, 0.03, 0.03, 0.12, 8, 0xEDE7DA, 0.3 + i * 0.08, -0.05, 0);
+    const insIt = prop(ins, L3(14) - 0.05, [0.15, 0.6, -0.35]); insIt.at(L3(15) - 0.05, null);
+
+    /* ---------- S6 布景：发酵罐、货架、番茄 ---------- */
+    const tank = new THREE.Group(); cy(tank, 0.3, 0.3, 0.7, 20, 0xC8C2B5, 0, 0.35, 0); mesh(tank, new THREE.SphereGeometry(0.3, 20, 12, 0, Math.PI * 2, 0, Math.PI / 2), 0xC8C2B5, 0, 0.7, 0); cy(tank, 0.02, 0.02, 0.4, 8, 0x8A8A8A, 0.32, 0.5, 0, 0, 0, Math.PI / 2);
+    const bubs = [];
+    for (let i = 0; i < 10; i++) { const b = new THREE.Mesh(new THREE.SphereGeometry(0.02, 6, 6), new THREE.MeshStandardMaterial({ color: 0xEDE7DA, emissive: 0xEDE7DA, emissiveIntensity: 0.3 })); b.position.set((i % 5 - 2) * 0.08, 0.2 + (i * 0.07) % 0.4, 0.1); tank.add(b); bubs.push(b); }
+    for (let i = 0; i < 5; i++) { const v = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.12, 8), new THREE.MeshStandardMaterial({ color: 0xEDE7DA, transparent: true, opacity: 0.7 })); v.position.set(0.75 + i * 0.06, 0.3, -0.4); tank.add(v); }
+    const tankIt = prop(tank, L3(15) - 0.05, [0.35, 0, -0.6], (t) => { bubs.forEach((b, i) => { b.position.y = 0.2 + ((t * 0.3 + i * 0.07) % 0.45); }); });
+    tankIt.at(L3(16) - 0.05, null);
+    const shelf = new THREE.Group(); bx(shelf, 0.7, 0.04, 0.25, 0x8A6A45, 0, 0.9, 0); bx(shelf, 0.04, 0.9, 0.04, 0x8A6A45, -0.33, 0.45, 0); bx(shelf, 0.04, 0.9, 0.04, 0x8A6A45, 0.33, 0.45, 0);
+    const tom2 = new THREE.Group(); sp(tom2, 0.14, RED, 0, 1.0, -0.5);
+    for (let i = 0; i < 5; i++) { const a = i / 5 * Math.PI * 2; mesh(tom2, new THREE.ConeGeometry(0.045, 0.09, 5), 0x6B8A4A, Math.cos(a) * 0.05, 1.14, Math.sin(a) * 0.05, 0.5, a, 0); }
+    const shelfIt = prop(shelf, L3(16) - 0.05, [0, 0, -0.55]);
+    const tom2It = prop(tom2, L3(16) - 0.05, [0, 0, 0]); tom2It.at(174, [0.95, 0.15, -0.3], { dur: 1.2 });
+
+    /* ---------- 身份 ---------- */
+    LB(sitchin, '西琴', 28.52, 46.0);
+    LB(sitchin, '西琴', 55.8, 60.45);
+    LB(sitchin, '被质疑的作者', 60.5, 70.15);
+    LB(sitchin, '自学的作者', 70.2, 92.05);
+    LB(sitchin, '畅销书作者', 92.1, 98.75);
+    LB(sitchin, '古人', 98.82, 115.56);
+    LB(sitchin, '沃森', 115.6, 132.25);
+    LB(sitchin, '科学家', 132.3, 176.9);
+    LB(hum, '苏美尔人', 28.52, 48.8);
+    LB(hum, '女神', 48.86, 55.7);
+    LB(hum, '神话', 55.76, 70.15);
+    LB(hum, '海泽', 70.2, 98.75);
+    LB(hum, '猎人', 98.82, 115.56);
+    LB(hum, '克里克', 115.6, 132.25);
+    LB(hum, '科学家', 132.3, 166.5);
+    LB(hum, '消费者', 166.6, 174.4);
+    LB(alien, '外星人', 28.52, 47.0);
+    LB(alien, '阿努纳奇', 47.05, 60.45);
+    LB(alien, '外星人', 60.5, 64.3);
+    LB(alien, '外星人', 70.2, 98.75);
+    LB(alien, '自然', 98.82, 151.8);
+    LB(alien, '细菌', 151.86, 176.9);
+    LB(slave, '人', 53.2, 60.45);
+
+    /* ---------- S2 动作 ---------- */
+    sitchin.pose(28.52, { hL: [0.45, 1.15, -0.26], hR: [0.45, 1.15, 0.26], lean: 0.05 }, { dur: 0.3, x: -1.35, z: -0.25, face: 'camera' });
+    bookIt.hold(sitchin, 29.0, 60.45, { hand: 'both' });
+    sitchin.look(28.6, [0.55, 1.0, -1.55], { until: L2(4) });
+    sitchin.pose(L2(2), { hL: [0.4, 1.2, -0.26], hR: [0.4, 1.2, 0.26], lean: 0.08 }, { dur: 0.4, face: 'camera' });
+    sitchin.pose(L2(3), { hR: [0.5, 1.5, 0.2], lean: -0.05, nod: -0.2 }, { dur: 0.35, face: 'camera' });
+    sitchin.pose(L2(4), { hL: [0.4, 1.2, -0.26], hR: [0.4, 1.2, 0.26], lean: 0.02 }, { dur: 0.35 });
+    sitchin.look(L2(4), [0.9, 1.95, -1.5], { until: L2(6) });
+    sitchin.look(L2(6), [0.15, 1.0, -1.12], { until: L2(7) });
+    sitchin.look(L2(7), [-0.1, 1.15, -0.2], { until: C3 });
+    hum.pose(28.52, { hL: [0.2, 0.8, -0.16], hR: [0.2, 0.8, 0.16], lean: 0.2 }, { dur: 0.3, x: 0.1, z: -0.3, face: 'camera' });
+    hum.look(28.6, [0.55, 1.0, -1.55], { until: L2(4) });
+    hum.walk(L2(2), 0.2, { speed: 0.5 });
+    hum.pose(L2(3), { hR: [0.4, 1.3, 0.2], lean: -0.02 }, { dur: 0.3, face: 'camera' });
+    hum.look(L2(4), [0.9, 1.95, -1.5], { until: L2(6) });
+    hum.walk(L2(6), 0.35, { speed: 0.5 });
+    hum.tend(L2(6) + 0.2, L2(7) - 0.15, { on: [0.15, 1.0, -1.12] });
+    hum.look(L2(7), [-0.1, 1.15, -0.2], { until: C3 });
+    hum.walk(L2(7), -0.05, { speed: 0.4 });
+    alien.pose(28.52, { hL: [0.2, 0.9, -0.16], hR: [0.2, 0.9, 0.16], lean: 0.02 }, { dur: 0.3, x: 1.55, z: -0.35, face: 'camera' });
+    alien.look(28.6, [0.55, 1.0, -1.55], { until: L2(4) });
+    alien.pose(L2(4), { hR: [0.5, 1.5, 0.2], lean: -0.05 }, { dur: 0.3 });
+    alien.look(L2(4), [0.9, 1.95, -1.5], { until: L2(5) });
+    alien.pose(L2(5), { hR: [0.5, 1.0, 0.2], lean: 0.4, nod: 0.4 }, { dur: 0.25, face: 'right' });
+    pickIt.hold(alien, 47.1, 48.6, { hand: 'R' });
+    alien.pose(L2(6), { hR: [0.2, 1.0, 0.2], lean: 0.05 }, { dur: 0.3, face: 'camera' });
+    alien.walk(L2(6), 0.9, { speed: 0.5 });
+    alien.tend(L2(6) + 0.3, L2(7) - 0.15, { on: [0.15, 1.0, -1.12] });
+    alien.look(L2(7), [-0.1, 1.15, -0.2], { until: C3 });
+    slave.pose(52.9, 'crouch', { dur: 0.05, x: 0.25, z: -0.75, face: 'camera' });
+    slave.pose(53.5, 'stand', { dur: 0.5, face: 'camera' });
+    slave.look(53.5, 'camera', { until: 60.45 });
+
+    /* ---------- S3 动作 ---------- */
+    sitchin.pose(C3, { hL: [0.4, 1.1, -0.2], hR: [0.4, 1.1, 0.2], lean: 0.05 }, { dur: 0.25, x: -1.35, z: -0.25, face: 'camera' });
+    sitchin.look(C3 + 0.1, [-0.7, 1.1, -0.2], { until: L2(9) });
+    sitchin.pose(L2(9), { hL: [0.45, 1.15, -0.16], hR: [0.55, 1.2, 0.16], lean: 0.1 }, { dur: 0.3 });
+    sitchin.look(L2(9), 'down', { until: L2(10) });
+    sitchin.pose(L2(10), { hL: [0.2, 1.0, -0.2], hR: [0.5, 1.1, 0.2], lean: 0.12 }, { dur: 0.3 });
+    sitchin.look(L2(10), [-0.35, 1.05, -0.35], { until: L2(11) });
+    sitchin.gesture(L2(11), 'shrug', { until: L2(12) });
+    sitchin.look(L2(12), [0.1, 1.2, -0.5], { until: L2(13) });
+    sitchin.celebrate(L2(13), L2(14) - 0.2);
+    sitchin.look(L2(14), [-0.3, 1.2, 0.2], { until: C4 });
+    hum.pose(C3, { hL: [0.2, 0.9, -0.18], hR: [0.2, 0.9, 0.18], lean: 0.05 }, { dur: 0.25, x: 0.1, z: -0.3, face: 'camera' });
+    hum.look(C3 + 0.1, [-0.7, 1.1, -0.2], { until: L2(9) });
+    hum.pose(L2(9), { hL: [0.2, 0.9, -0.2], hR: [0.3, 0.9, 0.2], lean: 0.1 }, { dur: 0.3 });
+    hum.walk(L2(10), -0.35, { speed: 0.5 });
+    hum.pose(L2(10) + 0.3, { hL: [0.2, 1.0, -0.2], hR: [0.4, 1.1, 0.2], lean: 0.1 }, { dur: 0.25, face: 'camera' });
+    hum.look(L2(10) + 0.4, [-0.35, 1.05, -0.35], { until: L2(11) });
+    hum.gesture(L2(11), 'point', { until: L2(12) });
+    hum.look(L2(12), [0.1, 1.2, -0.5], { until: L2(13) });
+    hum.look(L2(13), [-0.3, 1.2, 0.2], { until: C4 });
+    alien.pose(C3, { hL: [0.2, 0.9, -0.16], hR: [0.2, 0.9, 0.16], lean: 0.02 }, { dur: 0.25, x: 1.55, z: -0.35, face: 'camera' });
+    alien.look(L2(10), [-0.35, 1.05, -0.35], { until: L2(11) });
+    alien.gesture(L2(11), 'shrug', { until: L2(12) });
+    alien.look(L2(12), [0.1, 1.2, -0.5], { until: L2(13) });
+    alien.look(L2(13), [-0.3, 1.2, 0.2], { until: C4 });
+
+    /* ---------- S4 动作 ---------- */
+    sitchin.pose(C4, { hL: [0.2, 0.8, -0.18], hR: [0.2, 0.8, 0.18], lean: 0.35 }, { dur: 0.25, x: -1.0, z: -0.2, face: 'camera' });
+    sitchin.look(C4 + 0.1, [-0.25, 0.5, -0.55], { until: L3(2) });
+    sitchin.pose(L3(2), { hR: [0.45, 0.9, 0.2], lean: 0.3 }, { dur: 0.3 });
+    sitchin.look(L3(2), [0.12, 0.4, -0.4], { until: L3(3) });
+    sitchin.look(L3(3), [0.35, 0.6, -1.15], { until: L3(3) + 0.4 });
+    sitchin.gesture(L3(3) + 0.4, 'point', { until: L3(4) });
+    sitchin.look(L3(4), [0.1, 1.2, -0.6], { until: L3(7) });
+    sitchin.look(L3(7), [0, 0.6, -0.3], { until: C5 });
+    hum.pose(C4, { hL: [0.2, 0.8, -0.18], hR: [0.2, 0.8, 0.18], lean: 0.35 }, { dur: 0.25, x: 0, z: -0.25, face: 'camera' });
+    hum.look(C4 + 0.1, [-0.25, 0.5, -0.55], { until: L3(2) });
+    hum.pose(L3(2), { hR: [0.5, 0.9, 0.2], lean: 0.3 }, { dur: 0.3 });
+    hum.look(L3(2), [0.12, 0.4, -0.4], { until: L3(3) });
+    hum.walk(L3(3), 0.4, { speed: 0.5 });
+    hum.pose(L3(3) + 0.4, { hR: [0.5, 0.7, 0.2], lean: 0.5 }, { dur: 0.3, face: 'camera' });
+    hum.look(L3(3), [0.35, 0.6, -1.15], { until: L3(4) });
+    hum.look(L3(4), [0.1, 1.2, -0.6], { until: L3(6) });
+    hum.pose(L3(6), { hR: [0.4, 1.3, 0.1], lean: 0.05 }, { dur: 0.3 });
+    hum.look(L3(6), [0.1, 1.2, -0.6], { until: L3(7) });
+    hum.pose(L3(7), { hR: [0.4, 1.0, 0.1], lean: 0.1 }, { dur: 0.3 });
+    hum.look(L3(7), [0, 0.6, -0.3], { until: C5 });
+    alien.pose(C4, { hL: [0.2, 0.9, -0.16], hR: [0.2, 0.9, 0.16], lean: 0.02 }, { dur: 0.25, x: 1.25, z: -0.3, face: 'camera' });
+    alien.look(C4 + 0.1, [-0.25, 0.5, -0.55], { until: L3(2) });
+    alien.look(L3(2), [0.12, 0.4, -0.4], { until: L3(3) });
+    alien.look(L3(3), [0.35, 0.6, -1.15], { until: L3(4) });
+    alien.look(L3(4), [0.1, 1.2, -0.6], { until: L3(7) });
+    alien.look(L3(7), [0, 0.6, -0.3], { until: C5 });
+
+    /* ---------- S5 动作 ---------- */
+    sitchin.pose(C5, { hL: [0.2, 0.9, -0.18], hR: [0.2, 0.9, 0.18], lean: 0.05 }, { dur: 0.25, x: -0.8, z: -0.2, face: 'camera' });
+    sitchin.look(C5 + 0.1, [0.25, 0.6, -0.35], { until: L3(9) });
+    sitchin.look(L3(9), [0.65, 1.0, -0.9], { until: L3(11) });
+    sitchin.look(L3(11), [0.1, 1.0, -0.4], { until: L3(14) });
+    sitchin.look(L3(14), [0.15, 0.6, -0.35], { until: C6 });
+    hum.pose(C5, { hL: [0.2, 0.9, -0.18], hR: [0.2, 0.9, 0.18], lean: 0.05 }, { dur: 0.25, x: 0.3, z: -0.2, face: 'camera' });
+    hum.look(C5 + 0.1, [0.25, 0.6, -0.35], { until: L3(9) });
+    hum.pose(L3(8), { hR: [0.5, 1.0, 0.1], lean: 0.2 }, { dur: 0.3 });
+    hum.look(L3(9), [0.65, 1.0, -0.9], { until: L3(11) });
+    hum.pose(L3(10), { hR: [0.5, 1.3, 0.1], lean: -0.05 }, { dur: 0.3 });
+    hum.look(L3(11), [0.1, 1.0, -0.4], { until: L3(13) });
+    hum.pose(L3(11), { hR: [0.4, 1.1, 0.1], lean: 0.05 }, { dur: 0.3 });
+    hum.look(L3(13), [0, 1.1, -0.3], { until: L3(14) });
+    hum.look(L3(14), [0.15, 0.6, -0.35], { until: C6 });
+    alien.pose(C5, { hL: [0.2, 0.9, -0.16], hR: [0.2, 0.9, 0.16], lean: 0.02 }, { dur: 0.25, x: 1.25, z: -0.3, face: 'camera' });
+    alien.look(C5 + 0.1, [0.25, 0.6, -0.35], { until: L3(14) });
+    alien.look(L3(14), [0.15, 0.6, -0.35], { until: C6 });
+
+    /* ---------- S6 动作 ---------- */
+    sitchin.pose(C6, { hL: [0.2, 1.0, -0.18], hR: [0.2, 1.0, 0.18], lean: 0.02 }, { dur: 0.25, x: -1.0, z: -0.2, face: 'camera' });
+    sitchin.look(C6 + 0.1, [0.35, 0.7, -0.6], { until: L3(16) });
+    sitchin.look(L3(16), [0, 0.95, -0.5], { until: fin });
+    hum.pose(C6, { hL: [0.2, 1.0, -0.18], hR: [0.2, 1.0, 0.18], lean: 0.02 }, { dur: 0.25, x: 0.35, z: -0.2, face: 'camera' });
+    hum.look(C6 + 0.1, [0.35, 0.7, -0.6], { until: L3(16) });
+    hum.walk(L3(16), -0.05, { speed: 0.5 });
+    hum.pose(L3(16) + 0.3, { hR: [0.5, 1.0, 0.1], lean: 0.2 }, { dur: 0.3 });
+    hum.look(L3(16), [0, 0.95, -0.5], { until: fin });
+    alien.pose(C6, { hL: [0.2, 1.0, -0.16], hR: [0.2, 1.0, 0.16], lean: 0.02 }, { dur: 0.25, x: 1.4, z: -0.3, face: 'camera' });
+    alien.look(C6 + 0.1, [0.35, 0.7, -0.6], { until: L3(16) });
+    alien.look(L3(16), [0, 0.95, -0.5], { until: fin });
+
+    /* ---------- 3 分钟的字 ---------- */
+    P.tag([0.45, 2.55, -1.5], { text: '《第十二个天体》', size: 36, at: C2 + 0.3, until: L2(2) });
+    P.tag([0.9, 2.55, -1.5], { text: '3600 年', size: 34, at: L2(4) + 0.3, until: L2(5) });
+    P.tag([-0.1, 0.75, -0.2], { text: '删节版', size: 38, at: L2(7) + 0.1, until: L2(8) });
+    P.tag([-0.6, 1.7, -0.2], { text: '纪录片', size: 32, at: C3 + 0.2, until: L2(9) });
+    P.tag([-0.35, 1.5, -0.3], { text: '方位标记', size: 32, at: L2(10) + 1.2, until: L2(11) });
+    P.tag([-0.3, 1.4, -0.3], { text: '翻译错了', size: 34, color: 'accent', at: L2(11) + 0.1, until: L2(12) });
+    P.tag([0.1, 1.7, -0.5], { text: '后门基因', size: 32, color: 'accent', at: L2(12) + 0.2, until: L2(13) });
+    P.tag([-0.3, 1.8, 0.2], { text: '畅销', size: 36, at: L2(13) + 0.2, until: L2(14) });
+    P.tag([0.6, 1.55, -0.9], { text: '农业', size: 34, at: L3(3) + 0.2, until: L3(4) });
+    P.tag([0.5, 1.6, -0.6], { text: '1953 · DNA', size: 34, at: L3(4) + 0.2, until: L3(6) });
+    P.tag([0.1, 1.55, -0.4], { text: 'A · T · C · G', size: 30, at: L3(5) + 0.2, until: L3(6) });
+    P.tag([0.5, 1.65, -0.4], { text: '双眼皮 / 单眼皮', size: 28, at: L3(5) + 0.7, until: L3(6) });
+    P.tag([0.0, 1.7, -0.3], { text: '看见 ≠ 改', size: 30, at: L3(6) + 0.1, until: L3(7) });
+    P.tag([0.0, 1.4, -0.3], { text: '鞭炮', size: 36, color: 'accent', at: L3(7) + 0.1, until: L3(8) });
+    P.tag([0.5, 1.5, -0.35], { text: '辐射育种', size: 32, at: L3(8) + 0.2, until: L3(9) });
+    P.tag([0.65, 1.7, -0.9], { text: '太空育种', size: 32, at: L3(9) + 0.2, until: L3(11) });
+    P.tag([0.1, 1.6, -0.4], { text: '秋水仙素', size: 30, at: L3(11) + 0.2, until: L3(12) });
+    P.tag([0.0, 1.5, -0.3], { text: '前三十年', size: 34, at: L3(13) + 0.1, until: L3(14) });
+    P.tag([0.55, 1.5, -0.35], { text: '胰岛素', size: 34, at: L3(14) + 0.2, until: L3(15) });
+    P.tag([0.75, 1.55, -0.6], { text: '细菌工厂', size: 34, at: C6 + 0.2, until: L3(16) });
+    P.tag([0.0, 1.75, -0.5], { text: '更久 · 更甜', size: 32, at: L3(16) + 0.2, until: 174 });
+    P.tag([0.0, 1.55, -0.5], { text: '第一种基因工程食品', size: 28, at: L3(16) + 3.0, until: 174 });
+    P.tag([0.75, 1.3, -0.3], { text: '退市', size: 34, color: 'accent', at: 174.2, until: fin });
+    P.title('造人的剪刀', 174.6, fin, { sub: '三分钟样片', y: 0.11 });
+
+    /* ---------- 10 · 每一幕都有自己的运镜 ---------- */
+    const cam = P.camera, CAM0 = cam.position.clone();
+    const BC = P.box, BX = (BC.x0 + BC.x1) / 2, BY = (BC.y0 + BC.y1) / 2;
+    const SHOT = [
+      { t: 0.00, p: CAM0, q: [BX, BY, 0] },
+      { t: 2.40, p: [-0.5, 2.2, 8.8], q: [-1.15, 1.15, 0.1] },
+      { t: 5.10, p: [-0.5, 2.2, 8.8], q: [-1.15, 1.15, 0.1] },
+      { t: 6.20, p: [0.9, 1.9, 8.3], q: [1.1, 0.8, -0.4] },
+      { t: 8.00, p: [0.7, 1.9, 7.9], q: [0.1, 1.0, -0.8] },
+      { t: 10.20, p: [0.35, 1.55, 7.0], q: [0.1, 0.95, -0.45] },
+      { t: 12.40, p: [0.3, 1.5, 6.6], q: [0.1, 0.95, -0.3] },
+      { t: 13.30, p: [0.0, 2.15, 9.6], q: [-0.25, 1.1, 0] },
+      { t: 17.30, p: [-0.4, 2.0, 8.9], q: [-0.6, 1.1, 0.1] },
+      { t: 19.10, p: [-0.6, 1.95, 8.4], q: [-0.6, 1.1, 0.1] },
+      { t: 22.10, p: [0.1, 1.25, 7.0], q: [0.25, 1.5, -0.1] },
+      { t: 23.80, p: [0.25, 1.35, 6.6], q: [0.25, 1.3, 0] },
+      { t: 25.30, p: [0.3, 1.55, 6.4], q: [0.28, 1.45, 0] },
+      { t: 27.00, p: [0.3, 1.55, 5.6], q: [0.3, 1.45, 0] },
+      { t: 28.51, p: [0.3, 1.55, 5.6], q: [0.3, 1.45, 0] },
+      { t: 28.52, p: [-0.6, 2.05, 8.3], q: [-1.1, 1.15, 0] },
+      { t: 32.30, p: [0.0, 1.9, 8.6], q: [0.25, 1.1, -0.8] },
+      { t: 39.10, p: [-0.5, 1.9, 7.6], q: [-1.1, 1.3, 0] },
+      { t: 42.00, p: [0.3, 1.7, 7.2], q: [0.5, 1.9, -1.3] },
+      { t: 47.00, p: [0.9, 1.6, 6.8], q: [1.2, 0.6, -0.6] },
+      { t: 48.90, p: [0.3, 1.5, 6.8], q: [0.2, 0.9, -0.6] },
+      { t: 55.80, p: [-0.2, 1.6, 6.6], q: [-0.1, 1.1, -0.2] },
+      { t: 60.50, p: [-0.4, 1.9, 8.0], q: [-0.7, 1.1, 0] },
+      { t: 66.00, p: [-1.0, 1.85, 7.0], q: [-1.2, 1.2, 0.1] },
+      { t: 70.20, p: [-0.2, 1.9, 7.5], q: [-0.3, 1.1, 0] },
+      { t: 81.60, p: [-0.1, 1.8, 7.0], q: [-0.1, 1.0, -0.3] },
+      { t: 84.30, p: [0.2, 1.7, 6.6], q: [0.1, 1.2, -0.5] },
+      { t: 92.10, p: [0.0, 2.0, 9.0], q: [-0.3, 1.1, 0] },
+      { t: 95.60, p: [-0.2, 2.0, 9.2], q: [-0.5, 1.1, 0] },
+      { t: 98.80, p: [-0.3, 1.8, 7.2], q: [-0.2, 0.8, -0.5] },
+      { t: 103.50, p: [0.0, 1.5, 6.2], q: [0.0, 0.7, -0.4] },
+      { t: 109.10, p: [0.1, 1.7, 6.8], q: [0.1, 0.9, -0.7] },
+      { t: 115.60, p: [0.1, 1.8, 6.8], q: [0.1, 1.2, -0.5] },
+      { t: 122.30, p: [0.1, 1.9, 6.4], q: [0.1, 1.3, -0.4] },
+      { t: 126.70, p: [0.0, 1.8, 6.0], q: [0.0, 1.1, -0.3] },
+      { t: 129.10, p: [0.0, 1.6, 5.8], q: [0.0, 0.8, -0.3] },
+      { t: 132.30, p: [0.3, 1.7, 6.4], q: [0.2, 0.9, -0.3] },
+      { t: 136.80, p: [0.5, 1.9, 7.0], q: [0.4, 1.3, -0.5] },
+      { t: 143.40, p: [0.1, 1.7, 6.4], q: [0.0, 0.9, -0.4] },
+      { t: 146.00, p: [0.0, 1.7, 6.2], q: [0.0, 0.9, -0.3] },
+      { t: 151.90, p: [0.0, 1.6, 6.6], q: [0.0, 0.9, -0.4] },
+      { t: 160.10, p: [0.2, 1.7, 6.2], q: [0.2, 1.0, -0.4] },
+      { t: 166.60, p: [0.1, 1.9, 7.0], q: [0.0, 1.0, -0.3] },
+      { t: 170.00, p: [0.0, 1.8, 6.6], q: [0.0, 0.9, -0.3] },
+      { t: 176.90, p: [0.0, 1.8, 6.6], q: [0.0, 0.9, -0.3] },
+    ].map((s2) => ({ t: s2.t, p: s2.p.isVector3 ? s2.p.clone() : new THREE.Vector3(...s2.p), q: new THREE.Vector3(...s2.q) }));
+    const easeS = (x) => x * x * (3 - 2 * x);
+    const camAt = (t) => {
+      let i = 0; while (i < SHOT.length - 1 && t >= SHOT[i + 1].t) i++;
+      if (i === SHOT.length - 1) return SHOT[i];
+      const a = SHOT[i], b = SHOT[i + 1], k = easeS(Math.max(0, Math.min(1, (t - a.t) / (b.t - a.t))));
+      return { p: a.p.clone().lerp(b.p, k), q: a.q.clone().lerp(b.q, k) };
+    };
+    P.onFrame((t) => { const { p, q } = camAt(t); cam.position.copy(p); cam.lookAt(q); cam.updateMatrixWorld(); cam.matrixWorldInverse.copy(cam.matrixWorld).invert(); });
+
+    /* ---------- 9 · words ---------- */
+    P.counter({ at: 0.6, until: 25.0, y: 0.065, value: (t) => 1978 + 40 * Math.max(0, Math.min(1, (t - tForty) / 0.6)), fmt: (n) => `${Math.round(n)}`, facts: ['1978', '2018'], tick: 1 });
+    P.tag([-0.72, 1.25, 0.35], { text: '伪学术', size: 44, color: 'accent', at: tPseudo + 0.05, until: tPseudo + 1.1 });
+    P.tag([-1.35, 1.86, 0.56], { text: '几百万册', size: 38, at: tMillion + 0.1, until: tTrans + 0.3 });
+    P.tag([0.55, 1.85, 0.1], { text: '细菌', size: 44, at: tBacteria - 0.05, until: 28.5 });
+    P.fade(fin - 1.0, 0.9);
+    P.cover(174.0);
+
+    F.section(0, 1, { name: 'open' });
+    F.section(a2, 2, { name: 'myth' });
+    F.section(a4, 2, { name: 'spread' });
+    F.section(a7, 3, { name: 'take', hit: true });
+    F.section(a8, 2, { name: 'bacteria', hit: true });
+    F.section(28.52, 2, { name: 'book2' });
+    F.section(60.5, 2, { name: 'critique' });
+    F.section(98.8, 2, { name: 'before' });
+    F.section(132.3, 2, { name: 'crude' });
+    F.section(160.1, 2, { name: 'bacteria2' });
+    T.lines.filter((l) => !l.silence).forEach((l) => F.info('diagram', l.start, Math.min(l.end + 0.2, F.duration), { group: l.id }));
+    P.onFrame((t) => { for (const f of anims) f(t); });
+    P.run();
+  },
+});
+</script></body></html>
