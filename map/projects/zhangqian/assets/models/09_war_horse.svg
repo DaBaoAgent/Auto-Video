@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="战马">
+<title>战马 · 汉代买马 · 漫画版立绘</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M98 196 C68 202 52 230 58 264 C72 246 84 244 100 250 Z" fill="#6E4A24"/>
+  <path d="M222 258 L216 296 L220 334 L242 334 L238 296 L244 258 Z" fill="#6E4A24"/>
+  <path d="M154 258 L146 294 L152 334 L174 334 L168 294 L182 258 Z" fill="#6E4A24"/>
+  <path d="M96 208 C90 184 108 168 134 170 L222 172 C250 170 270 188 274 212 L272 246 C268 262 250 268 228 266 L124 264 C102 262 92 244 96 208 Z" fill="#9A6B31"/>
+  <path d="M96 234 C132 248 238 250 272 240 L272 246 C268 262 250 268 228 266 L124 264 C110 263 100 254 96 234 Z" fill="#7A5226" stroke="none"/>
+  <path d="M244 184 C258 158 274 140 294 128 L314 136 C300 156 288 182 278 204 Z" fill="#9A6B31"/>
+  <path d="M294 128 L320 122 Q336 128 332 146 L318 162 L294 154 Z" fill="#A9763C"/>
+  <path d="M298 128 L296 112 L308 124 Z" fill="#9A6B31"/>
+  <circle cx="310" cy="138" r="3.5" fill="#2E2924" stroke="none"/>
+  <path d="M320 148 Q326 144 332 148" fill="none" stroke-width="3"/>
+  <path d="M248 180 L242 162 L256 170 L252 152 L266 160 L264 142 L278 150 L276 134 L290 142 L280 126" fill="#6E4A24"/>
+  <path d="M242 258 L248 296 L240 334 L262 334 L258 296 L264 258 Z" fill="#9A6B31"/>
+  <path d="M130 258 L122 294 L130 334 L152 334 L146 294 L158 258 Z" fill="#9A6B31"/>
+  <g fill="#2E2924" stroke="none">
+    <rect x="238" y="328" width="26" height="10" rx="3"/><rect x="218" y="328" width="24" height="10" rx="3"/>
+    <rect x="128" y="328" width="26" height="10" rx="3"/><rect x="150" y="328" width="24" height="10" rx="3"/>
+  </g>
+  <path d="M162 170 L230 170 L238 208 L156 208 Z" fill="#C23B22"/>
+  <path d="M162 190 L234 190" fill="none" stroke="#E3BE79" stroke-width="4"/>
+  <path d="M176 168 Q200 158 224 170 L222 182 L178 182 Z" fill="#6E4A24"/>
+  <path d="M330 148 Q286 164 240 146" fill="none" stroke="#6E4A24" stroke-width="3"/>
+  <path d="M130 212 Q160 220 196 214" fill="none" stroke="#7A5226" stroke-width="3"/>
+</g>
+</svg>

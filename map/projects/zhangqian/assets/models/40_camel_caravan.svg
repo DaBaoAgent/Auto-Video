@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="丝路骆驼商队">
+<title>丝绸之路骆驼商队 · 漫画版立绘</title>
+<defs>
+  <g id="camel">
+    <!-- 腿 -->
+    <path d="M96 268 L88 330 L76 350 L92 356 L104 334 L110 270 Z" fill="#B07D46"/>
+    <path d="M132 268 L126 330 L114 350 L130 356 L142 334 L146 270 Z" fill="#9A6B31"/>
+    <path d="M180 268 L188 328 L200 348 L216 342 L202 318 L194 266 Z" fill="#B07D46"/>
+    <path d="M214 268 L224 326 L236 346 L252 340 L236 316 L228 266 Z" fill="#9A6B31"/>
+    <!-- 躯干与驼峰 -->
+    <path d="M74 232 Q76 196 104 188 Q118 158 142 184 Q168 168 188 196 Q218 202 226 232 Q228 258 208 268 Q150 280 100 268 Q76 260 74 232 Z" fill="#C8934A"/>
+    <path d="M118 158 Q134 132 154 160 Q140 176 118 170 Z" fill="#B07D46"/>
+    <path d="M176 172 Q192 148 210 178 Q196 190 176 184 Z" fill="#B07D46"/>
+    <!-- 驮包与丝绸 -->
+    <path d="M104 190 Q150 174 196 192 L192 230 Q150 214 108 230 Z" fill="#C23B22"/>
+    <path d="M108 230 Q150 214 192 230 L190 240 Q150 226 110 242 Z" fill="#8E2A18"/>
+    <path d="M112 196 Q150 184 188 198" fill="none" stroke="#E3BE79" stroke-width="4"/>
+    <path d="M114 214 Q150 202 186 216" fill="none" stroke="#E3BE79" stroke-width="4"/>
+    <!-- 脖子与头 -->
+    <path d="M74 214 Q56 200 60 174 Q64 150 84 146 L92 168 Q78 174 80 192 Q82 206 92 214 Z" fill="#C8934A"/>
+    <path d="M60 150 Q54 130 68 120 Q84 110 94 126 L88 148 Z" fill="#C8934A"/>
+    <path d="M66 122 L60 100 L78 118" fill="#B07D46"/>
+    <ellipse cx="72" cy="140" rx="4" ry="5" fill="#2E2924" stroke="none"/>
+    <path d="M92 152 Q112 150 116 162 Q104 168 96 160" fill="#B07D46"/>
+    <!-- 尾巴 -->
+    <path d="M228 220 Q248 232 246 260" fill="none" stroke="#9A6B31" stroke-width="8"/>
+  </g>
+</defs>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <use href="#camel" transform="translate(178 -14) scale(0.66)"/>
+  <use href="#camel" transform="translate(28 58) scale(0.86)"/>
+  <!-- 牵引绳 -->
+  <path d="M262 188 Q300 176 322 196" fill="none" stroke="#8E7A3E" stroke-width="4"/>
+  <!-- 地面沙丘 -->
+  <path d="M0 348 Q80 330 160 344 Q250 360 330 342 Q370 334 400 344 L400 380 L0 380 Z" fill="#E3BE79"/>
+  <g fill="none" stroke="#C8934A" stroke-width="3">
+    <path d="M20 362 Q100 348 180 362 M220 372 Q300 358 380 370"/>
+  </g>
+  <!-- 沙尘 -->
+  <g fill="none" stroke="#C4AC80" stroke-width="3" opacity="0.8">
+    <path d="M330 320 Q314 312 300 316 M350 300 Q334 292 320 296"/>
+  </g>
+</g>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="老石匠">
+<title>老石匠 · 火烧泼水开山 · 漫画版立绘</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 脚边待凿的岩石与桩孔 -->
+  <path d="M60 330 L96 302 L160 308 L184 336 L168 368 L74 366 Z" fill="#B9B3A2"/>
+  <path d="M96 302 L122 330 L104 366 M122 330 L160 308" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <path d="M118 330 L138 330 L138 350 L118 350 Z" fill="#4A463D"/>
+  <path d="M118 330 L138 330 L138 350 L118 350 Z" fill="none" stroke="#2E2924" stroke-width="3"/>
+  <!-- 双腿：弓步 -->
+  <path d="M162 244 L136 300 L118 344 L142 354 L160 312 L184 252 Z" fill="#8E6B3E"/>
+  <path d="M212 244 L244 298 L268 336 L290 322 L260 280 L238 240 Z" fill="#B07D46"/>
+  <path d="M108 338 Q128 332 146 346 L142 362 L104 358 Z" fill="#6E4A24"/>
+  <path d="M260 330 Q280 322 298 334 L296 352 L258 350 Z" fill="#6E4A24"/>
+  <!-- 短褂与皮围裙 -->
+  <path d="M158 138 L234 138 L246 246 L148 246 Z" fill="#7FA5A6"/>
+  <path d="M198 138 L234 138 L246 246 L198 246 Z" fill="#5C8587" stroke="none"/>
+  <path d="M172 190 L236 190 L242 300 L164 300 Z" fill="#B07D46"/>
+  <path d="M172 190 L236 190 L242 300 L164 300 Z" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <path d="M170 216 L242 216 M168 246 L240 246" fill="none" stroke="#8E6B3E" stroke-width="3"/>
+  <!-- 腰带与挂锤环 -->
+  <path d="M154 234 Q200 244 244 234 L244 250 Q200 260 154 250 Z" fill="#6E4A24"/>
+  <circle cx="238" cy="252" r="8" fill="none" stroke="#C8934A" stroke-width="4"/>
+  <!-- 左臂攥凿子 -->
+  <path d="M162 150 L118 196 L128 212 L172 172 Z" fill="#7FA5A6"/>
+  <ellipse cx="120" cy="208" rx="12" ry="13" fill="#E8C39A"/>
+  <path d="M120 208 L84 250 L92 258 L128 218 Z" fill="#B9B3A2"/>
+  <path d="M84 250 L70 264 L80 274 L92 258 Z" fill="#E3D9BE"/>
+  <!-- 右臂抡锤 -->
+  <path d="M232 146 L278 120 L288 140 L242 166 Z" fill="#5C8587"/>
+  <ellipse cx="284" cy="130" rx="13" ry="12" fill="#E8C39A"/>
+  <path d="M284 130 L312 88" fill="none" stroke="#8E6B3E" stroke-width="12"/>
+  <path d="M284 130 L312 88" fill="none" stroke="#B9A96B" stroke-width="6"/>
+  <path d="M296 72 L340 96 L330 124 L286 100 Z" fill="#6E6A60"/>
+  <path d="M304 82 L328 96" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <!-- 头：白巾、花白胡 -->
+  <ellipse cx="200" cy="108" rx="27" ry="30" fill="#E8C39A"/>
+  <path d="M200 78 A27 30 0 0 1 200 138 Z" fill="#C99B71" stroke="none"/>
+  <path d="M176 98 L190 97 M212 97 L226 98" fill="none" stroke-width="3"/>
+  <ellipse cx="186" cy="106" rx="3.5" ry="4" fill="#2E2924" stroke="none"/>
+  <ellipse cx="220" cy="106" rx="3.5" ry="4" fill="#2E2924" stroke="none"/>
+  <path d="M188 120 Q200 124 212 120" fill="none" stroke-width="3"/>
+  <path d="M180 114 Q178 144 200 148 Q224 144 220 114 Q216 134 200 136 Q184 134 180 114 Z" fill="#D8D2C4"/>
+  <!-- 白头巾 -->
+  <path d="M158 94 Q162 56 200 54 Q240 56 244 94 Q222 80 200 80 Q178 80 158 94 Z" fill="#FBF7EE"/>
+  <path d="M158 94 Q200 78 244 94 Q200 108 158 94 Z" fill="#E3D9BE"/>
+  <path d="M158 92 Q140 102 132 120 Q150 122 162 106 Z" fill="#FBF7EE"/>
+  <path d="M166 72 Q200 60 234 72" fill="none" stroke="#B9B3A2" stroke-width="3"/>
+  <!-- 汗滴与凿击火星 -->
+  <path d="M250 72 Q256 82 250 90" fill="none" stroke="#7FA5A6" stroke-width="3"/>
+  <g stroke="#C8934A" stroke-width="3">
+    <path d="M78 250 L60 240 M76 266 L58 268 M88 278 L74 290"/>
+  </g>
+</g>
+</svg>

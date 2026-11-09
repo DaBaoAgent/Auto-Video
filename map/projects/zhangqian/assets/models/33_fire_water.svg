@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="火烧泼水裂石">
+<title>火烧泼水 · 古法开山 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 岩石 -->
+  <path d="M92 196 L196 168 L308 198 L328 300 L268 348 L108 340 L78 272 Z" fill="#B9B3A2"/>
+  <path d="M196 168 L308 198 L328 300 L268 348 L196 306 Z" fill="#9E9A8C" stroke="none"/>
+  <!-- 火焰 -->
+  <path d="M148 206 Q126 164 154 128 Q158 158 174 162 Q166 120 196 96 Q198 136 218 150 Q238 120 242 158 Q260 176 244 208 Q224 232 190 226 Q160 230 148 206 Z" fill="#C23B22"/>
+  <path d="M166 206 Q154 178 172 154 Q176 178 190 180 Q186 150 204 138 Q206 168 218 180 Q230 164 230 188 Q236 204 220 216 Q198 226 180 216 Q168 216 166 206 Z" fill="#C8934A"/>
+  <path d="M180 208 Q176 192 188 182 Q192 198 202 200 Q202 184 212 178 Q214 196 220 204 Q220 216 204 220 Q188 220 180 208 Z" fill="#E3BE79"/>
+  <!-- 火焰外圈热浪 -->
+  <g fill="none" stroke="#C8934A" stroke-width="3" opacity="0.8">
+    <path d="M124 168 Q108 140 122 112 M252 150 Q266 122 254 96"/>
+  </g>
+  <!-- 水桶与泼水 -->
+  <g transform="rotate(-24 320 168)">
+    <path d="M292 142 L356 142 L346 214 L302 214 Z" fill="#8E6B3E"/>
+    <path d="M292 142 L356 142 L354 156 L294 156 Z" fill="#6E4A24"/>
+    <path d="M292 150 Q270 150 270 172 Q270 194 292 194" fill="none" stroke="#2E2924" stroke-width="5"/>
+    <path d="M300 160 L300 210 M330 160 L330 210" fill="none" stroke="#6E4A24" stroke-width="3"/>
+  </g>
+  <path d="M274 218 Q248 246 224 254" fill="none" stroke="#34506E" stroke-width="9"/>
+  <path d="M274 218 Q248 246 224 254" fill="none" stroke="#7FA5A6" stroke-width="5"/>
+  <g fill="#7FA5A6" stroke="none">
+    <path d="M260 232 Q252 244 262 248 Q268 238 260 232 Z"/>
+    <path d="M240 246 Q232 258 242 262 Q248 252 240 246 Z"/>
+    <path d="M272 206 Q282 216 274 224 Q266 214 272 206 Z"/>
+  </g>
+  <!-- 遇水炸裂的裂纹与蒸汽 -->
+  <path d="M196 226 L186 272 L200 300 L190 340 M226 232 L244 270 L236 312 M164 232 L150 268 L160 300" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <g fill="none" stroke="#FBF7EE" stroke-width="6" opacity="0.9">
+    <path d="M172 200 Q156 180 164 158 M236 190 Q250 172 244 150 M206 172 Q204 144 220 126"/>
+  </g>
+  <!-- 崩落的碎石 -->
+  <g fill="#C9C4B6">
+    <path d="M132 320 L148 312 L154 328 L138 334 Z"/>
+    <path d="M246 330 L264 320 L272 336 L254 344 Z"/>
+    <path d="M300 286 L314 278 L320 292 L306 298 Z"/>
+  </g>
+</g>
+</svg>

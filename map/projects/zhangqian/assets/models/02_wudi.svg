@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="汉武帝">
+<title>汉武帝 · 漫画版立绘</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 冕板与前后垂旒 -->
+  <path d="M148 52 L252 52 L258 68 L142 68 Z" fill="#2E2924"/>
+  <path d="M154 68 L154 112 M172 68 L172 116 M192 68 L192 118 M208 68 L208 118 M228 68 L228 116 M246 68 L246 112" fill="none" stroke="#2E2924" stroke-width="2.5"/>
+  <g fill="#C23B22" stroke="none">
+    <circle cx="154" cy="112" r="5"/><circle cx="172" cy="116" r="5"/><circle cx="192" cy="118" r="5"/>
+    <circle cx="208" cy="118" r="5"/><circle cx="228" cy="116" r="5"/><circle cx="246" cy="112" r="5"/>
+    <circle cx="154" cy="96" r="4"/><circle cx="172" cy="98" r="4"/><circle cx="192" cy="100" r="4"/>
+    <circle cx="208" cy="100" r="4"/><circle cx="228" cy="98" r="4"/><circle cx="246" cy="96" r="4"/>
+  </g>
+  <!-- 玄色冕服：衣身与暗面 -->
+  <path d="M162 146 C136 152 120 176 112 210 L96 322 Q200 350 304 322 L288 210 C280 176 264 152 238 146 Z" fill="#22364C"/>
+  <path d="M200 196 L238 146 C264 152 280 176 288 210 L304 322 Q252 337 200 338 Z" fill="#182A3B" stroke="none"/>
+  <!-- 宽袖 -->
+  <path d="M162 150 C124 158 100 192 88 246 L86 276 L142 262 L166 192 Z" fill="#22364C"/>
+  <path d="M238 150 C276 158 300 192 312 246 L314 276 L258 262 L234 192 Z" fill="#182A3B"/>
+  <path d="M86 276 L142 262 M314 276 L258 262" fill="none" stroke="#C23B22" stroke-width="12"/>
+  <!-- 交领与朱红衣缘 -->
+  <path d="M162 146 L200 200 L238 146" fill="#FBF7EE"/>
+  <path d="M162 146 L200 200 L238 146" fill="none" stroke="#C23B22" stroke-width="9"/>
+  <path d="M200 200 L168 242 M200 200 L232 242" fill="none" stroke="#C23B22" stroke-width="8"/>
+  <path d="M112 210 L96 322 M288 210 L304 322" fill="none" stroke="#C23B22" stroke-width="9"/>
+  <path d="M96 322 Q200 350 304 322" fill="none" stroke="#C23B22" stroke-width="12"/>
+  <!-- 肩部日月纹与衣襟云纹 -->
+  <circle cx="146" cy="184" r="13" fill="#E3BE79"/>
+  <circle cx="254" cy="184" r="13" fill="#FBF7EE"/>
+  <path d="M150 262 Q164 250 178 262 Q164 274 150 262 Z M222 262 Q236 250 250 262 Q236 274 222 262 Z" fill="#E3BE79" stroke="none"/>
+  <!-- 腰带、玉佩、绶带 -->
+  <path d="M128 238 Q200 254 272 238 L272 258 Q200 274 128 258 Z" fill="#B07D46"/>
+  <rect x="188" y="242" width="24" height="20" rx="3" fill="#E3BE79"/>
+  <path d="M200 262 L200 300" fill="none" stroke="#E3BE79" stroke-width="6"/>
+  <circle cx="200" cy="304" r="9" fill="#7FA5A6"/>
+  <!-- 双手交叠于腹前 -->
+  <ellipse cx="200" cy="228" rx="30" ry="16" fill="#E8C39A"/>
+  <path d="M180 224 L220 224 M182 232 L218 232" fill="none" stroke="#C99B71" stroke-width="2.5"/>
+  <!-- 颈与头 -->
+  <path d="M186 128 L186 148 L214 148 L214 128 Z" fill="#E8C39A"/>
+  <rect x="164" y="66" width="72" height="16" rx="4" fill="#2E2924"/>
+  <ellipse cx="200" cy="102" rx="32" ry="39" fill="#E8C39A"/>
+  <path d="M200 63 A32 39 0 0 1 200 141 Z" fill="#C99B71" stroke="none"/>
+  <!-- 鬓发与冠沿 -->
+  <path d="M168 88 Q170 68 200 68 Q230 68 232 88 L226 80 Q200 72 174 80 Z" fill="#2E2924" stroke="none"/>
+  <!-- 五官：浓眉、眼、鼻、须 -->
+  <path d="M174 100 L192 96 M208 96 L226 100" fill="none" stroke-width="6"/>
+  <ellipse cx="183" cy="109" rx="4.5" ry="5" fill="#2E2924" stroke="none"/>
+  <ellipse cx="217" cy="109" rx="4.5" ry="5" fill="#2E2924" stroke="none"/>
+  <path d="M200 110 L194 122 L206 122" fill="none" stroke-width="3"/>
+  <path d="M184 128 Q192 122 200 128 Q208 122 216 128" fill="none" stroke-width="4"/>
+  <path d="M190 132 Q200 142 210 132 M194 136 Q200 148 206 136" fill="none" stroke-width="3"/>
+  <!-- 履 -->
+  <path d="M150 334 Q152 352 174 354 L192 354 Q196 340 184 334 Z" fill="#2E2924" stroke="none"/>
+  <path d="M208 334 Q206 352 228 354 L246 354 Q250 340 238 334 Z" fill="#2E2924" stroke="none"/>
+</g>
+</svg>

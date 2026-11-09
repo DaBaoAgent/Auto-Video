@@ -2,13 +2,13 @@
 
 # Auto-Video 🎬
 
-### 一个想法（或一个对标视频链接）→ 15 种风格的动画成片
+### 一个想法（或一个对标视频链接）→ 16 种风格的动画成片
 
-Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿、本地克隆音色配音、15 条成片管线出片，一条流水线替你跑完所有做视频的流程——挑一条管线，看 SKILL.md，备好素材即可开工。
+Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿、本地克隆音色配音、16 条成片管线出片，一条流水线替你跑完所有做视频的流程——挑一条管线，看 SKILL.md，备好素材即可开工。
 
 [![GitHub stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
-![Pipelines](https://img.shields.io/badge/pipelines-15%20films%20%2B%201%20frontend-111111?style=flat-square)
+![Pipelines](https://img.shields.io/badge/pipelines-16%20films%20%2B%201%20frontend-111111?style=flat-square)
 ![Roadmap](https://img.shields.io/badge/roadmap-99%20styles-c43b32?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
@@ -29,10 +29,10 @@ Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿�
 <a id="features"></a>
 ## 功能特性 ✨
 
-- [x] **对标复刻，一条链接起步**：给一个优质对标视频链接或选题，即可拆解结构、产出原创口播稿，套用 15 条成片管线做成成片（[jilupian](jilupian/SKILL.md) 直接吃片源 URL 清单自动出片）
-- [x] **选题 → 口播稿 → 配音 → 出片，四步闭环**：[peiyin](peiyin/SKILL.md) 承载前端三模块（选题规约、AI 味审计门禁、GPT-SoVITS 克隆音色批量合成），15 条成片管线负责画面与成片
+- [x] **对标复刻，一条链接起步**：给一个优质对标视频链接或选题，即可拆解结构、产出原创口播稿，套用 16 条成片管线做成成片（[jilupian](jilupian/SKILL.md) 直接吃片源 URL 清单自动出片）
+- [x] **选题 → 口播稿 → 配音 → 出片，四步闭环**：[peiyin](peiyin/SKILL.md) 承载前端三模块（选题规约、AI 味审计门禁、GPT-SoVITS 克隆音色批量合成），16 条成片管线负责画面与成片
 - [x] **不依赖生图 / 生视频大模型 API**：画面由 Remotion / Canvas / Three.js / 3D 兵棋引擎确定性逐帧渲染，配音由本地 GPT-SoVITS 克隆合成——参数可复现，无按次 API 费用
-- [x] **15 条成片管线 + 1 个前端模块**：纸本历史短片、纸本历史科普、皮影剪影、逐帧手绘、纸雕剪影、3D 战争推演、纪录片解说、合成波、扁平矢量、赛博 HUD、等轴 2.5D、回形针科普、纸本水墨山水、像素风、城市年轮；[peiyin](peiyin/SKILL.md) 不计入成片风格，负责选题、出稿与配音
+- [x] **16 条成片管线 + 1 个前端模块**：纸本历史短片、纸本历史科普、皮影剪影、逐帧手绘、纸雕剪影、3D 战争推演、纪录片解说、合成波、扁平矢量、赛博 HUD、等轴 2.5D、回形针科普、纸本水墨山水、像素风、城市年轮、地图动画；[peiyin](peiyin/SKILL.md) 不计入成片风格，负责选题、出稿与配音
 - [x] **统一工程规范**：16 个模块各自带 `SKILL.md`（完整流程与已知坑）与验收条件；8 条另有 `pipeline.json` / `FREEZE.json` 定版参数，MG 组多数附带可运行示例工程
 - [x] **自动化质检**：字幕切点与重叠检查、频闪预算、补间审计、成品抽帧、响度 LUFS 归一
 - [x] **统一交付包**：封面、发布信息与成片按规则打包，可直接发布
@@ -43,7 +43,7 @@ Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿�
 <a id="pipelines"></a>
 ## 管线总览 📊
 
-15 条成片管线 + 1 个前端模块（`peiyin`）。成片管线负责画面与交付，`peiyin` 负责选题、口播稿与配音。
+16 条成片管线 + 1 个前端模块（`peiyin`）。成片管线负责画面与交付，`peiyin` 负责选题、口播稿与配音。
 
 | 管线 | 类型 | 适合的内容 | 视觉与生产方法 | 状态 |
 | --- | --- | --- | --- | --- |
@@ -62,6 +62,7 @@ Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿�
 | [shuimo](shuimo/SKILL.md) | 成片 | 纸本水墨山水口播样片与短片 | kalpa-shan 生成式 SVG 山水、Canvas 墨渗/印章、古琴拨弦配乐 | 已上线 |
 | [xiangsu](xiangsu/SKILL.md) | 成片 | 像素风历史/科普短片、像素风解说 | 640×360 索引色栅格 ×3 整数最近邻 + 输出分辨率 CRT、Canvas 逐像素、Puppeteer 逐帧渲染 | 已上线 |
 | [chengshi](chengshi/SKILL.md) | 成片 | 城市年轮、地标演进、城市史航拍短片 | OSM/Esri/SRTM 真实地理数据、Three.js+Remotion 3D 城市、确定性生长 | 已上线 |
+| [map](map/SKILL.md) | 成片 | 地图解说、路线与迁徙、历史地理、贸易与交通 | Natural Earth 真实底图、SVG 漫画贴纸锚定经纬度、Chrome 逐帧 + ffmpeg | 已上线 |
 | [peiyin](peiyin/SKILL.md) | 前端 | 选题-出稿-配音（口播稿批量配音、前端三模块） | GPT-SoVITS 克隆音色、长稿分段合成、审查门禁、权重/音色引导下载 | 已上线 |
 
 <a id="flow"></a>
@@ -360,6 +361,14 @@ Auto-Video/
 │   ├── showcase-poster.jpg   # 样片拼图封面
 │   └── *_30s.mp4             # 14 条 30 秒样片（GitHub Pages 托管）
 │   └── frames/               # 样片抽帧与 README 配图
+├── map/
+│   ├── SKILL.md              # 地图动画管线入口
+│   ├── pipeline.json         # 定版参数
+│   ├── runtime/              # 浏览器运行时 + 渲染器（BB-Video MIT）
+│   ├── scripts/              # 建工程、配音对齐、渲染、交付
+│   ├── references/           # 贴纸规范、分镜、QA
+│   ├── template/             # 8 s 可运行模板
+│   └── projects/zhangqian/   # 张骞全片实例（代码/文案/44 张贴纸）
 ├── jianying/
 │   ├── SKILL.md              # 纸本历史短片入口
 │   ├── MIGRATION.md

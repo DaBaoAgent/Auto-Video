@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="大沙漠">
+<title>大沙漠 · 漫画版微缩地形（沙丘 · 风纹 · 日轮 · 骆驼刺）</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 远处淡朱红日轮 -->
+  <circle cx="312" cy="104" r="34" fill="#E8A98C" stroke="none"/>
+  <circle cx="312" cy="104" r="34" fill="none" stroke="#C23B22" stroke-width="3" opacity="0.65"/>
+  <circle cx="312" cy="104" r="44" fill="none" stroke="#C23B22" stroke-width="2" opacity="0.35" stroke-dasharray="5 9"/>
+  <!-- 岛状地块侧面 -->
+  <path d="M40 320 Q200 350 360 320 L352 350 Q200 378 48 350 Z" fill="#A9763C"/>
+  <!-- 沙地基底 -->
+  <path d="M40 320 Q60 282 140 278 L280 278 Q344 282 360 320 Q200 350 40 320 Z" fill="#E3BE79"/>
+  <!-- 后丘 -->
+  <path d="M44 294 Q120 196 212 244 Q286 204 358 286 L358 310 Q200 330 44 310 Z" fill="#EED196"/>
+  <path d="M212 244 Q286 204 358 286 L358 310 Q286 300 212 268 Z" fill="#D6A863" stroke="none"/>
+  <path d="M44 294 Q120 196 212 244" fill="none" stroke="#C08F4C" stroke-width="3"/>
+  <!-- 中丘 -->
+  <path d="M42 308 Q142 232 232 278 Q302 246 358 300 L358 322 Q200 340 42 322 Z" fill="#E3BE79"/>
+  <path d="M232 278 Q302 246 358 300 L358 322 Q296 312 232 300 Z" fill="#C8934A" stroke="none"/>
+  <path d="M42 308 Q142 232 232 278" fill="none" stroke="#B07D46" stroke-width="3"/>
+  <!-- 前丘 -->
+  <path d="M42 322 Q150 274 240 304 Q308 284 358 314 L358 330 Q200 348 42 330 Z" fill="#D6A863"/>
+  <path d="M240 304 Q308 284 358 314 L358 330 Q302 322 240 318 Z" fill="#B07D46" stroke="none"/>
+  <!-- 沙脊风纹 -->
+  <g fill="none" stroke="#B07D46" stroke-width="2.2" opacity="0.85">
+    <path d="M70 292 Q128 226 190 250 M84 300 Q136 244 192 264 M100 308 Q146 262 196 278"/>
+    <path d="M250 268 Q296 246 336 276 M258 278 Q300 258 338 286"/>
+    <path d="M74 322 Q146 288 214 310 M92 328 Q152 300 214 316"/>
+  </g>
+  <!-- 风蚀石 -->
+  <path d="M84 306 Q92 288 108 292 Q120 296 116 310 Z" fill="#9A6B31"/>
+  <path d="M292 312 Q300 296 314 300 Q324 304 320 316 Z" fill="#9A6B31"/>
+  <!-- 骆驼刺 -->
+  <g fill="none" stroke="#6E5A2E" stroke-width="3">
+    <path d="M156 322 L150 298 M156 322 L160 294 M156 322 L166 302 M150 304 L142 298 M162 302 L170 296"/>
+    <path d="M262 326 L258 304 M262 326 L266 300 M262 326 L274 308 M258 310 L250 304 M268 308 L276 302"/>
+    <path d="M210 336 L206 318 M210 336 L214 314 M210 336 L220 322"/>
+  </g>
+  <!-- 地块前缘墨线 -->
+  <path d="M40 320 Q200 350 360 320" fill="none" stroke="#2E2924" stroke-width="4"/>
+</g>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="珞巴领队吉格">
+<title>吉格 · 珞巴族马帮领队 · 漫画版立绘</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 背上的洗衣机 -->
+  <g transform="rotate(-8 286 156)">
+    <rect x="244" y="104" width="92" height="108" rx="8" fill="#FBF7EE"/>
+    <rect x="252" y="114" width="76" height="26" rx="4" fill="#E3D9BE"/>
+    <circle cx="290" cy="174" r="25" fill="#7FA5A6"/>
+    <circle cx="290" cy="174" r="16" fill="#34506E"/>
+    <circle cx="290" cy="174" r="9" fill="#FBF7EE"/>
+    <path d="M254 148 L270 148 M254 156 L264 156" fill="none" stroke="#2E2924" stroke-width="3"/>
+    <path d="M244 212 L336 212" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  </g>
+  <!-- 背带 -->
+  <path d="M178 150 Q214 180 250 206 M212 146 Q238 170 260 196" fill="none" stroke="#C8934A" stroke-width="7"/>
+  <!-- 双腿：攀爬，前腿高抬 -->
+  <path d="M176 250 L158 304 L140 344 L164 354 L184 310 L208 254 Z" fill="#6E4A24"/>
+  <path d="M222 250 L246 300 L272 330 L292 314 L264 280 L250 244 Z" fill="#8E6B3E"/>
+  <path d="M130 338 Q150 330 170 344 L168 362 L126 358 Z" fill="#4A3A22"/>
+  <path d="M264 324 Q284 314 304 326 L302 346 L262 344 Z" fill="#4A3A22"/>
+  <path d="M140 356 Q158 348 178 358 M268 340 Q286 332 304 342" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <!-- 藏袍 / 短袍 -->
+  <path d="M166 140 L236 140 L250 256 L156 256 Z" fill="#8E2A18"/>
+  <path d="M202 140 L236 140 L250 256 L202 256 Z" fill="#6E2013" stroke="none"/>
+  <path d="M166 140 L202 178 L236 140" fill="#C8934A"/>
+  <path d="M166 140 L202 178 L236 140" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <!-- 藏袍斜襟与毛边 -->
+  <path d="M160 252 Q204 264 250 252 L250 268 Q204 280 160 268 Z" fill="#FBF7EE"/>
+  <path d="M172 246 L240 246" fill="none" stroke="#C8934A" stroke-width="4"/>
+  <!-- 腰带与腰刀 -->
+  <path d="M158 230 Q204 242 250 230 L250 246 Q204 258 158 246 Z" fill="#4A3A22"/>
+  <path d="M164 236 L196 244 L190 258 L158 250 Z" fill="#C8934A"/>
+  <path d="M170 246 L186 252" fill="none" stroke="#8E2A18" stroke-width="5"/>
+  <!-- 左臂攀岩前伸 -->
+  <path d="M170 152 L120 174 L112 158 L164 132 Z" fill="#8E2A18"/>
+  <ellipse cx="116" cy="166" rx="12" ry="12" fill="#E8C39A"/>
+  <!-- 右臂护住背带 -->
+  <path d="M236 152 L262 196 L246 208 L220 170 Z" fill="#6E2013"/>
+  <ellipse cx="254" cy="204" rx="12" ry="12" fill="#E8C39A"/>
+  <!-- 头：高颧骨、宽檐毡帽 -->
+  <ellipse cx="198" cy="108" rx="26" ry="30" fill="#E8C39A"/>
+  <path d="M198 78 A26 30 0 0 0 198 138 Z" fill="#C99B71" stroke="none"/>
+  <path d="M174 100 L188 99 M210 99 L224 100" fill="none" stroke-width="4"/>
+  <ellipse cx="184" cy="108" rx="3.5" ry="4.5" fill="#2E2924" stroke="none"/>
+  <ellipse cx="214" cy="108" rx="3.5" ry="4.5" fill="#2E2924" stroke="none"/>
+  <path d="M186 122 Q198 126 210 122" fill="none" stroke-width="3"/>
+  <path d="M180 106 Q174 112 180 118 M216 106 Q222 112 216 118" fill="none" stroke="#C99B71" stroke-width="2.5"/>
+  <!-- 帽 -->
+  <path d="M146 86 Q198 50 250 86 Q198 106 146 86 Z" fill="#B07D46"/>
+  <path d="M160 82 Q198 58 236 82 Q198 94 160 82 Z" fill="#9A6B31"/>
+  <path d="M160 72 Q198 38 236 72 L230 80 Q198 56 166 80 Z" fill="#C8934A"/>
+  <path d="M160 74 Q198 64 236 74" fill="none" stroke="#2E2924" stroke-width="8"/>
+  <!-- 汗水与风雪 -->
+  <path d="M228 86 Q234 96 228 104" fill="none" stroke="#7FA5A6" stroke-width="3"/>
+  <g stroke="#7FA5A6" stroke-width="3" opacity="0.75">
+    <path d="M60 70 L92 60 M66 98 L94 90 M310 52 L342 42"/>
+  </g>
+</g>
+</svg>

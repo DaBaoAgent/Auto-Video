@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="大力士">
+<title>大力士 · 逢山开路遇水搭桥 · 漫画版立绘</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 大锤（扛在右肩） -->
+  <path d="M286 96 L246 336" fill="none" stroke="#2E2924" stroke-width="11"/>
+  <path d="M286 96 L246 336" fill="none" stroke="#B9A96B" stroke-width="6"/>
+  <path d="M252 78 L316 62 L322 106 L258 122 Z" fill="#9A8A66"/>
+  <path d="M258 122 L322 106 L322 116 L258 132 Z" fill="#7A6B4E"/>
+  <!-- 双腿 -->
+  <path d="M172 258 L156 312 L142 340 L170 346 L192 310 L202 258 Z" fill="#C99B71"/>
+  <path d="M222 258 L240 312 L254 338 L226 346 L208 310 L198 258 Z" fill="#B98A5E"/>
+  <path d="M138 338 Q156 332 172 340 L172 352 L138 350 Z M224 338 Q242 332 258 336 L258 350 L224 352 Z" fill="#8E6B3E"/>
+  <!-- 腰布 -->
+  <path d="M160 240 L240 240 L244 278 L228 270 L214 282 L200 270 L186 282 L172 270 L156 278 Z" fill="#C23B22"/>
+  <path d="M162 250 Q200 258 238 250" fill="none" stroke="#8E2A18" stroke-width="4"/>
+  <!-- 躯干：宽肩、肌肉分面 -->
+  <path d="M150 130 C136 138 130 160 134 184 L152 244 L248 244 L266 184 C270 160 264 138 250 130 Z" fill="#C99B71"/>
+  <path d="M200 130 C214 138 220 160 216 184 L200 244 L248 244 L266 184 C270 160 264 138 250 130 Z" fill="#B98A5E" stroke="none"/>
+  <path d="M200 148 L200 224" fill="none" stroke="#A8794F" stroke-width="4"/>
+  <path d="M158 176 Q176 166 194 178 M206 178 Q224 166 242 176" fill="none" stroke="#A8794F" stroke-width="4"/>
+  <path d="M166 210 Q182 202 196 210 M204 210 Q218 202 234 210" fill="none" stroke="#A8794F" stroke-width="3"/>
+  <!-- 左臂（叉腰） -->
+  <path d="M150 136 C120 142 104 172 108 206 L124 224 L146 200 L160 156 Z" fill="#C99B71"/>
+  <ellipse cx="122" cy="222" rx="13" ry="14" fill="#C99B71"/>
+  <!-- 右臂（扛锤） -->
+  <path d="M250 136 C274 140 292 158 292 182 L272 196 L252 172 Z" fill="#B98A5E"/>
+  <ellipse cx="282" cy="186" rx="13" ry="14" fill="#B98A5E"/>
+  <!-- 头 -->
+  <ellipse cx="200" cy="98" rx="29" ry="32" fill="#C99B71"/>
+  <path d="M200 66 A29 32 0 0 1 200 130 Z" fill="#B98A5E" stroke="none"/>
+  <path d="M170 88 Q200 56 230 88 L226 78 Q200 62 174 78 Z" fill="#2E2924" stroke="none"/>
+  <path d="M174 96 L194 92 M206 92 L226 96" fill="none" stroke-width="6"/>
+  <ellipse cx="184" cy="106" rx="4" ry="5" fill="#2E2924" stroke="none"/>
+  <ellipse cx="216" cy="106" rx="4" ry="5" fill="#2E2924" stroke="none"/>
+  <path d="M200 106 L194 118 L206 118" fill="none" stroke-width="3"/>
+  <path d="M176 120 Q200 136 224 120 M182 126 Q200 140 218 126" fill="none" stroke-width="4"/>
+  <path d="M186 84 L200 78 L214 84" fill="#C23B22"/>
+</g>
+</svg>

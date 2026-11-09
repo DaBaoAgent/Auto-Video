@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="冰箱">
+<title>冰箱 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 机身 -->
+  <rect x="104" y="48" width="192" height="318" rx="16" fill="#FBF7EE"/>
+  <path d="M200 48 L280 48 Q296 48 296 64 L296 350 Q296 366 280 366 L200 366 Z" fill="#E3D9BE" stroke="none"/>
+  <!-- 上下门缝 -->
+  <path d="M104 184 L296 184" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <!-- 上门把手 -->
+  <rect x="272" y="104" width="12" height="54" rx="6" fill="#7FA5A6"/>
+  <!-- 下门把手 -->
+  <rect x="272" y="216" width="12" height="70" rx="6" fill="#7FA5A6"/>
+  <!-- 门边高光 -->
+  <path d="M120 64 L120 168 M120 200 L120 344" fill="none" stroke="#FBF7EE" stroke-width="5"/>
+  <!-- 磁性贴 / 冰箱贴 -->
+  <rect x="136" y="100" width="28" height="22" rx="4" fill="#C23B22"/>
+  <rect x="140" y="140" width="20" height="26" rx="3" fill="#C8934A"/>
+  <circle cx="150" cy="240" r="12" fill="#34506E"/>
+  <!-- 底部脚 -->
+  <path d="M120 366 L144 366 L144 378 L116 378 Z" fill="#6E6A60"/>
+  <path d="M256 366 L280 366 L284 378 L256 378 Z" fill="#6E6A60"/>
+  <!-- 冷气与霜 -->
+  <g stroke="#7FA5A6" stroke-width="3" opacity="0.8">
+    <path d="M70 92 Q60 108 70 124 M62 150 Q54 164 62 178 M330 96 Q340 112 330 128"/>
+  </g>
+  <g fill="#B9D2D1" stroke="none" opacity="0.9">
+    <circle cx="86" cy="210" r="4"/><circle cx="72" cy="226" r="3"/><circle cx="314" cy="252" r="4"/>
+  </g>
+</g>
+</svg>

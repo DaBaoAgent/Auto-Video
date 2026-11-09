@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="海贝">
+<title>海贝 · 货贝与环纹贝（印度洋暖水）· 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 左上贝 -->
+  <g transform="translate(122 132) rotate(-18)">
+    <ellipse cx="0" cy="0" rx="62" ry="46" fill="#FBF7EE"/>
+    <path d="M0 -46 A62 46 0 0 1 0 46 Z" fill="#E3D9BE" stroke="none"/>
+    <path d="M-34 -22 Q0 -36 34 -22 M-40 0 Q0 -14 40 0 M-34 22 Q0 8 34 22" fill="none" stroke="#C9B88E" stroke-width="3"/>
+    <path d="M0 -44 Q-12 0 0 44 Q12 0 0 -44 Z" fill="#7FA5A6"/>
+    <path d="M-8 -18 L8 18 M8 -18 L-8 18" fill="none" stroke="#FBF7EE" stroke-width="3"/>
+  </g>
+  <!-- 右上贝（环纹） -->
+  <g transform="translate(276 146) rotate(16)">
+    <ellipse cx="0" cy="0" rx="56" ry="42" fill="#F5F1E6"/>
+    <path d="M0 -42 A56 42 0 0 1 0 42 Z" fill="#E3D9BE" stroke="none"/>
+    <ellipse cx="0" cy="0" rx="38" ry="26" fill="none" stroke="#C8934A" stroke-width="5"/>
+    <ellipse cx="0" cy="0" rx="22" ry="14" fill="#C23B22" stroke="none"/>
+    <path d="M-46 -16 Q-30 -26 -18 -22 M18 22 Q32 26 46 16" fill="none" stroke="#C9B88E" stroke-width="3"/>
+  </g>
+  <!-- 下方大贝 -->
+  <g transform="translate(190 268) rotate(6)">
+    <ellipse cx="0" cy="0" rx="74" ry="54" fill="#FBF7EE"/>
+    <path d="M0 -54 A74 54 0 0 1 0 54 Z" fill="#E3D9BE" stroke="none"/>
+    <path d="M-46 -28 Q0 -42 46 -28 M-54 0 Q0 -16 54 0 M-46 28 Q0 12 46 28" fill="none" stroke="#C9B88E" stroke-width="3"/>
+    <path d="M0 -52 Q-16 0 0 52 Q16 0 0 -52 Z" fill="#7FA5A6"/>
+    <path d="M-12 -24 L12 24 M12 -24 L-12 24" fill="none" stroke="#FBF7EE" stroke-width="3.5"/>
+  </g>
+  <!-- 散落小贝 -->
+  <g fill="#F5F1E6" stroke="#B9A176" stroke-width="2.5">
+    <ellipse cx="72" cy="236" rx="18" ry="13" transform="rotate(-24 72 236)"/>
+    <ellipse cx="320" cy="250" rx="18" ry="13" transform="rotate(22 320 250)"/>
+    <ellipse cx="128" cy="336" rx="14" ry="10"/>
+    <ellipse cx="278" cy="338" rx="14" ry="10"/>
+  </g>
+  <!-- 水波点缀（印度洋暖水） -->
+  <path d="M40 84 Q60 74 80 84 M320 88 Q340 78 360 88 M300 316 Q320 306 340 316" fill="none" stroke="#7FA5A6" stroke-width="4" stroke-linecap="round"/>
+</g>
+</svg>

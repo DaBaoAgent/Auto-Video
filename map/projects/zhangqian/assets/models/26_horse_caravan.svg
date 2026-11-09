@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="驮马队">
+<title>驮马队 · 珞巴马帮 · 漫画版立绘</title>
+<defs>
+  <g id="packhorse">
+    <!-- 腿 -->
+    <path d="M92 254 L84 314 L72 334 L88 340 L100 318 L106 256 Z" fill="#6E4A24"/>
+    <path d="M126 254 L120 314 L108 334 L124 340 L136 318 L140 256 Z" fill="#8E6B3E"/>
+    <path d="M166 254 L174 312 L186 332 L202 326 L188 302 L180 252 Z" fill="#6E4A24"/>
+    <path d="M198 254 L208 310 L220 330 L236 324 L220 300 L214 252 Z" fill="#8E6B3E"/>
+    <path d="M66 326 Q80 318 94 330 L94 346 L64 342 Z" fill="#4A3A22"/>
+    <path d="M104 326 Q118 318 132 330 L132 346 L102 342 Z" fill="#4A3A22"/>
+    <path d="M180 324 Q194 316 208 326 L206 344 L178 340 Z" fill="#4A3A22"/>
+    <path d="M216 318 Q230 310 240 320 L238 338 L214 334 Z" fill="#4A3A22"/>
+    <!-- 躯干 -->
+    <path d="M74 206 Q92 178 140 176 Q190 174 216 198 Q228 214 220 236 Q196 258 150 258 Q96 258 76 236 Z" fill="#9A6B31"/>
+    <path d="M140 176 Q190 174 216 198 Q228 214 220 236 Q196 258 150 258 Z" fill="#7A5223" stroke="none"/>
+    <!-- 马鞍与货物 -->
+    <path d="M104 178 Q150 162 196 180 L192 200 Q150 184 108 198 Z" fill="#8E2A18"/>
+    <path d="M108 198 Q150 184 192 200 L190 212 Q150 198 110 212 Z" fill="#C8934A"/>
+    <!-- 木箱 -->
+    <rect x="100" y="128" width="52" height="52" rx="4" fill="#B07D46"/>
+    <path d="M100 144 L152 144 M100 164 L152 164 M126 128 L126 180" fill="none" stroke="#8E6B3E" stroke-width="2.5"/>
+    <!-- 洗衣机的方箱 -->
+    <rect x="152" y="116" width="46" height="62" rx="5" fill="#FBF7EE"/>
+    <rect x="158" y="122" width="34" height="12" rx="2" fill="#E3D9BE"/>
+    <circle cx="175" cy="154" r="13" fill="#7FA5A6"/>
+    <circle cx="175" cy="154" r="8" fill="#34506E"/>
+    <!-- 脖子与头 -->
+    <path d="M74 210 Q58 194 62 172 L80 164 Q84 186 94 200 Z" fill="#9A6B31"/>
+    <path d="M62 172 Q52 156 58 140 Q66 126 82 132 L88 152 Q76 158 74 172 Z" fill="#9A6B31"/>
+    <path d="M58 138 Q54 120 68 114 Q82 110 88 124 L80 138 Z" fill="#B07D46"/>
+    <path d="M68 116 L62 96 L76 112" fill="#6E4A24"/>
+    <ellipse cx="72" cy="142" rx="4" ry="5" fill="#2E2924" stroke="none"/>
+    <path d="M84 166 Q74 152 78 138" fill="none" stroke="#6E4A24" stroke-width="5"/>
+    <!-- 尾巴 -->
+    <path d="M222 196 Q246 208 244 244 Q242 264 230 270" fill="none" stroke="#6E4A24" stroke-width="9"/>
+    <path d="M222 196 Q246 208 244 244 Q242 264 230 270" fill="none" stroke="#8E6B3E" stroke-width="4"/>
+    <!-- 缰绳与驮架 -->
+    <path d="M96 170 Q112 188 128 178 M108 104 L104 166 M196 104 L196 170" fill="none" stroke="#B9A96B" stroke-width="4"/>
+  </g>
+</defs>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 三匹沿斜线排列（远小近大） -->
+  <use href="#packhorse" transform="translate(196 -22) scale(0.62)"/>
+  <use href="#packhorse" transform="translate(112 34) scale(0.78)"/>
+  <use href="#packhorse" transform="translate(-8 96) scale(0.92)"/>
+  <!-- 地面与扬尘 -->
+  <path d="M40 370 Q120 356 204 364 Q292 372 368 358" fill="none" stroke="#B9A176" stroke-width="4"/>
+  <g stroke="#C4AC80" stroke-width="3" opacity="0.8">
+    <path d="M70 356 Q54 348 44 352 M158 350 Q144 342 134 346 M262 356 Q248 348 238 352"/>
+  </g>
+</g>
+</svg>

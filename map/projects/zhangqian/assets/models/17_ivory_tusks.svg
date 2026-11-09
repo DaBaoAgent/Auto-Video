@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="象牙">
+<title>象牙 · 三星堆出土上千根 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 后侧象牙 -->
+  <path d="M120 322 C94 262 106 176 168 116 C142 186 146 260 176 322 Z" fill="#E8DFC8"/>
+  <path d="M168 116 C142 186 146 260 176 322 L158 322 C130 256 128 182 168 116 Z" fill="#C9BEA3" stroke="none"/>
+  <path d="M120 322 C94 262 106 176 168 116" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <!-- 前侧象牙 -->
+  <path d="M232 330 C262 268 256 172 196 104 C218 180 212 262 180 330 Z" fill="#F5F1E6"/>
+  <path d="M196 104 C218 180 212 262 180 330 L200 330 C232 258 234 176 196 104 Z" fill="#D8CDB0" stroke="none"/>
+  <path d="M232 330 C262 268 256 172 196 104" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <!-- 根部截面与纹理 -->
+  <path d="M108 316 Q142 330 178 316 L176 332 Q142 344 110 332 Z" fill="#C9BEA3"/>
+  <path d="M182 322 Q210 336 236 322 L234 338 Q210 350 184 338 Z" fill="#D8CDB0"/>
+  <path d="M126 292 Q140 298 154 292 M132 264 Q146 270 158 264 M138 236 Q150 242 160 236" fill="none" stroke="#C9BEA3" stroke-width="3"/>
+  <path d="M222 288 Q210 294 198 288 M226 258 Q214 264 202 258 M226 228 Q216 234 204 228" fill="none" stroke="#D8CDB0" stroke-width="3"/>
+  <!-- 高光 -->
+  <path d="M204 128 C232 186 234 258 214 306" fill="none" stroke="#FBF7EE" stroke-width="5"/>
+  <path d="M132 168 C114 216 114 268 130 302" fill="none" stroke="#FBF7EE" stroke-width="4"/>
+  <!-- 小碎象牙片 -->
+  <path d="M76 336 Q88 318 100 334 Z" fill="#E8DFC8"/>
+  <path d="M290 330 Q302 312 314 328 Z" fill="#E8DFC8"/>
+</g>
+</svg>

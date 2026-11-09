@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="邛竹拐杖">
+<title>邛竹拐杖 · 漫画版道具</title>
+<g transform="rotate(-36 200 200)" stroke="#2E2924" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 竿身：轮廓 / 竹色 / 受光面 -->
+  <path d="M200 62 C192 150 208 262 200 348" fill="none" stroke="#2E2924" stroke-width="36"/>
+  <path d="M200 62 C192 150 208 262 200 348" fill="none" stroke="#B9A96B" stroke-width="29"/>
+  <path d="M191 72 C184 152 198 260 191 338" fill="none" stroke="#DCCC8E" stroke-width="7"/>
+  <!-- 竹节：节鼓 + 节线 -->
+  <g stroke-width="3">
+    <ellipse cx="200" cy="122" rx="19" ry="7" fill="#8E7A3E"/>
+    <ellipse cx="200" cy="184" rx="19" ry="7" fill="#8E7A3E"/>
+    <ellipse cx="200" cy="246" rx="19" ry="7" fill="#8E7A3E"/>
+    <ellipse cx="200" cy="308" rx="19" ry="7" fill="#8E7A3E"/>
+  </g>
+  <path d="M181 118 Q200 126 219 118 M181 180 Q200 188 219 180 M181 242 Q200 250 219 242 M181 304 Q200 312 219 304" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <!-- 竹皮斑 -->
+  <g fill="#8E7A3E" stroke="none" opacity="0.75">
+    <ellipse cx="192" cy="152" rx="4" ry="7"/><ellipse cx="210" cy="216" rx="3" ry="6"/>
+    <ellipse cx="190" cy="278" rx="4" ry="8"/><ellipse cx="208" cy="330" rx="3" ry="5"/>
+  </g>
+  <!-- 顶端麻绳握把：交叉编织 -->
+  <rect x="180" y="70" width="40" height="44" rx="5" fill="#C8934A" stroke="#2E2924" stroke-width="4"/>
+  <g fill="none" stroke="#8E2A18" stroke-width="4">
+    <path d="M182 74 L218 88 M182 88 L218 102 M182 102 L218 114"/>
+    <path d="M218 74 L182 88 M218 88 L182 102 M218 102 L182 114"/>
+  </g>
+  <path d="M180 70 L220 70 M180 114 L220 114" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <!-- 顶端自然断口 -->
+  <ellipse cx="200" cy="62" rx="15" ry="6" fill="#E3C98A" stroke="#2E2924" stroke-width="4"/>
+  <path d="M190 61 Q200 58 210 61" fill="none" stroke="#8E7A3E" stroke-width="2.5"/>
+  <!-- 底端磨损 -->
+  <ellipse cx="200" cy="348" rx="15" ry="7" fill="#6E5A2E" stroke="#2E2924" stroke-width="4"/>
+  <path d="M190 349 L194 356 M204 349 L202 356" fill="none" stroke="#6E5A2E" stroke-width="3"/>
+</g>
+</svg>

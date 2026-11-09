@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="古蜀商队旗">
+<title>古蜀商队旗 · 蜀地通往印度洋 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 旗杆与底座 -->
+  <path d="M148 52 L148 348" fill="none" stroke="#2E2924" stroke-width="12"/>
+  <path d="M148 52 L148 348" fill="none" stroke="#B9A96B" stroke-width="7"/>
+  <path d="M148 44 L148 26" fill="none" stroke="#C23B22" stroke-width="7"/>
+  <circle cx="148" cy="24" r="9" fill="#C8934A"/>
+  <path d="M112 348 L184 348 L176 366 L120 366 Z" fill="#8E6B3E"/>
+  <!-- 旗面 -->
+  <path d="M152 68 L318 84 Q300 128 318 172 L152 186 Z" fill="#C23B22"/>
+  <path d="M152 68 L318 84 Q300 128 318 172 L236 180 Z" fill="#8E2A18" stroke="none"/>
+  <path d="M152 68 L318 84 Q300 128 318 172 L152 186 Z" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <!-- 旗缘 -->
+  <path d="M160 78 L306 92 M160 176 L306 162" fill="none" stroke="#E3BE79" stroke-width="4"/>
+  <!-- 日轮神鸟纹（简化图腾） -->
+  <circle cx="226" cy="126" r="34" fill="#E3BE79"/>
+  <circle cx="226" cy="126" r="24" fill="#C23B22"/>
+  <circle cx="226" cy="126" r="9" fill="#E3BE79" stroke="none"/>
+  <path d="M226 92 L232 108 L220 108 Z M226 160 L220 144 L232 144 Z M192 126 L208 120 L208 132 Z M260 126 L244 120 L244 132 Z" fill="#E3BE79" stroke="none"/>
+  <path d="M204 104 Q226 96 248 104 M204 148 Q226 156 248 148" fill="none" stroke="#E3BE79" stroke-width="3"/>
+  <!-- 飘带 -->
+  <path d="M152 190 Q120 214 128 246 Q136 226 154 224 Z" fill="#34506E"/>
+  <path d="M152 224 Q124 248 132 278 Q140 258 156 256 Z" fill="#7FA5A6"/>
+  <!-- 杆上缠绕的绳 -->
+  <path d="M140 204 L156 210 M140 222 L156 228 M140 240 L156 246" fill="none" stroke="#8E6B3E" stroke-width="4"/>
+  <!-- 商队小标记：布卷 -->
+  <path d="M196 292 Q230 276 264 292 L264 316 Q230 332 196 316 Z" fill="#F2E2BE"/>
+  <ellipse cx="196" cy="304" rx="10" ry="12" fill="#FBF7EE"/>
+  <path d="M206 292 Q230 282 254 292 M206 316 Q230 326 254 316" fill="none" stroke="#C23B22" stroke-width="4"/>
+</g>
+</svg>

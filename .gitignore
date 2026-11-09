@@ -119,3 +119,11 @@ projects/suzhou/**/*.m4a
 *.key
 *.pfx
 *.p12
+
+# map 渲染产物与再生成输出（工程代码/贴纸/时间轴入库；音频与成片不入库）
+map/projects/*/out/
+map/projects/*/review/
+map/projects/*/frames/
+map/projects/*/audio/*.wav
+map/projects/*/audio/*.m4a
+map/projects/*/review$n.png

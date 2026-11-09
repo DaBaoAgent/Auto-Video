@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="张骞">
+<title>张骞 · 西汉使节 · 漫画版立绘</title>
+<!-- 色板 INK #2E2924 / PAPER #FBF7EE / RED #C23B22 / BLUE #3B5A78 / OCHRE #C8934A / SKIN #E8C39A -->
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 旄节：竹杆 + 三层牦牛尾缨 -->
+  <path d="M290 356 L277 86" fill="none" stroke="#2E2924" stroke-width="14"/>
+  <path d="M290 356 L277 86" fill="none" stroke="#C8934A" stroke-width="9"/>
+  <path d="M277 88 C257 82 249 60 257 40 C266 60 276 64 283 78 Z" fill="#C23B22"/>
+  <path d="M277 88 C261 94 245 82 245 62 C261 76 273 80 280 82 Z" fill="#E0553A"/>
+  <path d="M277 88 C295 84 305 64 300 44 C290 62 281 68 272 80 Z" fill="#8E2A18"/>
+  <circle cx="277" cy="88" r="7" fill="#E3BE79"/>
+  <!-- 斜挎行囊 -->
+  <path d="M156 166 L216 244" fill="none" stroke="#8E2A18" stroke-width="10"/>
+  <rect x="108" y="228" width="48" height="64" rx="18" fill="#B07D46" transform="rotate(-18 132 260)"/>
+  <path d="M116 244 L150 234 M114 262 L148 252" fill="none" stroke="#8E2A18" stroke-width="3"/>
+  <!-- 深衣：衣身与暗面 -->
+  <path d="M160 148 C146 154 136 174 130 206 L116 318 Q200 344 284 318 L270 206 C264 174 254 154 240 148 Z" fill="#3B5A78"/>
+  <path d="M200 198 L240 148 C254 154 264 174 270 206 L284 318 Q242 331 200 333 Z" fill="#2A4360" stroke="none"/>
+  <!-- 宽袖 -->
+  <path d="M160 152 C130 158 106 188 96 238 L94 264 L142 254 L164 190 Z" fill="#3B5A78"/>
+  <path d="M94 264 L142 254" fill="none" stroke="#C23B22" stroke-width="10"/>
+  <path d="M240 152 C268 158 288 184 298 226 L302 250 L258 250 L236 190 Z" fill="#2A4360"/>
+  <path d="M302 250 L258 250" fill="none" stroke="#C23B22" stroke-width="10"/>
+  <!-- 交领右衽 -->
+  <path d="M160 148 L200 198 L240 148" fill="#FBF7EE"/>
+  <path d="M160 148 L200 198 L240 148" fill="none" stroke="#C23B22" stroke-width="7"/>
+  <path d="M200 198 L176 234" fill="none" stroke="#C23B22" stroke-width="7"/>
+  <!-- 腰带、带扣、绶带 -->
+  <path d="M134 226 Q200 240 266 226 L266 244 Q200 258 134 244 Z" fill="#B07D46"/>
+  <rect x="190" y="230" width="20" height="18" rx="3" fill="#E3BE79"/>
+  <path d="M214 246 Q222 280 216 310" fill="none" stroke="#C23B22" stroke-width="7"/>
+  <path d="M158 268 Q166 292 156 314 M242 266 Q234 292 244 314" fill="none" stroke="#22364C" stroke-width="3"/>
+  <!-- 衣摆朱红缘 -->
+  <path d="M116 318 Q200 344 284 318" fill="none" stroke="#C23B22" stroke-width="11"/>
+  <!-- 颈与头 -->
+  <path d="M186 130 L186 152 L214 152 L214 130 Z" fill="#E8C39A"/>
+  <ellipse cx="200" cy="99" rx="33" ry="41" fill="#E8C39A"/>
+  <path d="M200 58 A33 41 0 0 1 200 140 Z" fill="#C99B71" stroke="none"/>
+  <!-- 发、幅巾与飘带 -->
+  <path d="M167 94 Q162 54 200 52 Q238 54 233 94 L226 80 Q200 66 174 80 Z" fill="#2E2924" stroke="none"/>
+  <path d="M186 54 Q200 34 214 54 Z" fill="#2E2924"/>
+  <path d="M164 78 Q200 56 236 78 L232 94 Q200 76 168 94 Z" fill="#FBF7EE"/>
+  <path d="M168 86 L144 110 L156 116 L176 94 Z" fill="#FBF7EE"/>
+  <path d="M232 86 L252 106 L242 114 L224 94 Z" fill="#FBF7EE"/>
+  <!-- 五官：浓眉、眼、鼻、短须 -->
+  <path d="M176 96 L192 93 M208 93 L224 96" fill="none" stroke-width="5"/>
+  <ellipse cx="184" cy="106" rx="4" ry="5" fill="#2E2924" stroke="none"/>
+  <ellipse cx="216" cy="106" rx="4" ry="5" fill="#2E2924" stroke="none"/>
+  <path d="M200 108 L195 119 L205 119" fill="none" stroke-width="3"/>
+  <path d="M189 127 Q200 133 211 127 M192 133 Q200 139 208 133" fill="none" stroke-width="3"/>
+  <!-- 握节的手 -->
+  <ellipse cx="288" cy="238" rx="13" ry="17" fill="#E8C39A"/>
+  <path d="M280 232 L296 232 M279 240 L297 240 M281 248 L295 248" fill="none" stroke-width="2.5"/>
+  <!-- 布履 -->
+  <path d="M154 332 Q156 350 176 352 L192 352 Q196 338 186 332 Z" fill="#2E2924" stroke="none"/>
+  <path d="M212 332 Q210 350 230 352 L246 352 Q250 338 240 332 Z" fill="#2E2924" stroke="none"/>
+</g>
+</svg>

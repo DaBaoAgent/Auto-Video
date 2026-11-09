@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="青藏高原">
+<title>青藏高原 · 漫画版微缩地形（雪山 · 草甸 · 冰川融水河流）</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 岛状地块侧面（土层厚度） -->
+  <path d="M46 298 Q200 330 354 298 L348 334 Q200 364 52 334 Z" fill="#8E6B3E"/>
+  <!-- 高原草甸顶面 -->
+  <path d="M46 298 Q76 266 150 264 L286 264 Q342 268 354 298 Q200 330 46 298 Z" fill="#A8BE8E"/>
+  <!-- 左副峰 -->
+  <path d="M70 274 L132 150 L194 274 Z" fill="#B07D46"/>
+  <path d="M132 150 L194 274 L142 274 Z" fill="#8E6B3E" stroke="none"/>
+  <path d="M132 150 L108 194 L122 188 L132 202 L142 186 L156 196 Z" fill="#F5F1E6"/>
+  <!-- 右副峰 -->
+  <path d="M226 274 L296 158 L356 274 Z" fill="#B07D46"/>
+  <path d="M296 158 L356 274 L306 274 Z" fill="#8E6B3E" stroke="none"/>
+  <path d="M296 158 L272 202 L286 196 L296 210 L308 192 L322 204 Z" fill="#F5F1E6"/>
+  <!-- 主峰 -->
+  <path d="M126 278 L204 84 L282 278 Z" fill="#B07D46"/>
+  <path d="M204 84 L282 278 L216 278 Z" fill="#8E6B3E" stroke="none"/>
+  <path d="M204 84 L168 158 L184 150 L196 168 L210 148 L226 162 L240 152 Z" fill="#F5F1E6"/>
+  <!-- 山体岩纹 -->
+  <path d="M204 170 L188 214 M204 170 L224 208 M166 226 L152 254 M244 224 L260 252" fill="none" stroke="#8E6B3E" stroke-width="3"/>
+  <!-- 冰川融水河流：外岸 / 水面 / 高光 -->
+  <path d="M206 268 C186 284 226 296 206 312 C194 321 208 328 200 334" fill="none" stroke="#2E2924" stroke-width="22"/>
+  <path d="M206 268 C186 284 226 296 206 312 C194 321 208 328 200 334" fill="none" stroke="#7FA5A6" stroke-width="16"/>
+  <path d="M206 268 C186 284 226 296 206 312 C194 321 208 328 200 334" fill="none" stroke="#BBD7D2" stroke-width="6"/>
+  <!-- 草甸纹理与碎石 -->
+  <path d="M84 292 L96 286 M104 300 L116 294 M286 292 L298 286 M306 302 L318 296 M132 308 L142 302 M258 310 L268 304" fill="none" stroke="#6E8A56" stroke-width="3"/>
+  <path d="M74 310 Q84 300 94 310 Z M306 314 Q316 304 326 314 Z M158 316 Q166 308 174 316 Z" fill="#9A8A66"/>
+  <!-- 草丛 -->
+  <g fill="none" stroke="#5E7A48" stroke-width="2.5">
+    <path d="M116 286 L110 274 M116 286 L118 272 M116 286 L124 276"/>
+    <path d="M278 284 L272 272 M278 284 L280 270 M278 284 L286 274"/>
+  </g>
+  <!-- 地块前缘墨线 -->
+  <path d="M46 298 Q200 330 354 298" fill="none" stroke="#2E2924" stroke-width="4"/>
+</g>
+</svg>
