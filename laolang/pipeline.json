@@ -1,0 +1,115 @@
+{
+  "version": "2026-11-10",
+  "pipeline": "laolang",
+  "style": "bb-video/laolang",
+  "label": "上海美影手绘赛璐璐（老狼请客式）",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "logical": "4:3 片门 960×720 居中，左右留黑；人物设计空间 600×1000，地面 y=975"
+  },
+  "duration": {
+    "default": 62,
+    "min": 8,
+    "max": 300
+  },
+  "palette": {
+    "teal_0": "#1d403f",
+    "teal_1": "#2c5450",
+    "teal_2": "#3f6b60",
+    "teal_3": "#5d7f6d",
+    "olive_0": "#5f682b",
+    "olive_1": "#7f8840",
+    "ochre_0": "#8f6633",
+    "ochre_1": "#b98a49",
+    "ochre_2": "#d3aa63",
+    "cream_0": "#efe3c4",
+    "cream_1": "#e2d0a8",
+    "rust_0": "#a34c32",
+    "rust_1": "#c06a45",
+    "ink": "#2a211a",
+    "vermilion": "#b23a2b",
+    "gold": "#d8a53f",
+    "wall": "#2c5450"
+  },
+  "fonts": [
+    "Ma Shan Zheng（标题毛笔）",
+    "Noto Serif SC（正文）",
+    "KaiTi / STKaiti",
+    "SimSun（本机回退）"
+  ],
+  "motion": {
+    "drawings": 30,
+    "boil": 0.04,
+    "gate_weave": false,
+    "grain": "static",
+    "lamp_flicker": 0.008,
+    "dust": "static paperize only, no per-frame specks",
+    "person_scale": "0.24–0.26 (full body)",
+    "head_y_720": "360–430",
+    "foot_margin_720": "100–160 px",
+    "shots": 19,
+    "camera": "one different move per shot: push / pull / pan / follow / rise; no hand-held, no whip",
+    "transitions": "cut; veil or iris only to close",
+    "vignette": "radial rgba(4,14,13,.10) @0.55 → rgba(2,9,9,.62) edge + rgba(12,34,32,.07) teal wash"
+  },
+  "audio": {
+    "bpm": 84,
+    "key": "G major",
+    "lufs": -16,
+    "true_peak": -1.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "bgm": false,
+    "voice": "reuse the user's 配音.wav: cut + 48 kHz stereo only, no re-record, no voice change; DP-align to a word-level timeline",
+    "sfx_events": [
+      "step",
+      "door",
+      "doorStop",
+      "dust",
+      "wind",
+      "room",
+      "drip",
+      "flame",
+      "whoosh",
+      "glint",
+      "stamp"
+    ],
+    "sfx_notes": "26 cue points in the 60 s sample; light effects drop out under the voice"
+  },
+  "render": {
+    "engine": "Chrome DevTools Protocol, frame by frame",
+    "chrome": "CHROME_PATH (Windows: auto-detect Chrome/Edge)",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "segment_render": "--from/--to (the 60 s sample used 5 segments: 0–15.55, 15.55–33.1, 33.1–47.04, 47.04–55.44, 55.44–62.2)",
+    "fonts": "local fallback; the stable page has no CDN font links"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/",
+    "final": "out/<编号>_<人物>/",
+    "files": [
+      ".mp4",
+      "_封面.png",
+      "_字幕.srt",
+      "_署名.txt"
+    ],
+    "qa": "review/qa.json"
+  },
+  "frozen": {
+    "toon_cast": "toon-cast/",
+    "stable_snapshot": "toon-cast/archive/v20261110_stable/",
+    "page_sha256": "a797cbb10ed829182618dc2bc03dfe5447d51180ee42493b4de307063a3b38f0",
+    "toon_sha256": "ccba10e20eb3b8e26116f005d806436a10a4f5d6a03f2770f24dfce5b22be594",
+    "rule": "any change to proportions / hair / face / arm structure needs a new character sheet and user approval first"
+  },
+  "sample": {
+    "name": "玄奘 · 60 秒样片（统一景别 · 稳定版）",
+    "duration": "62.200 s / 1920×1080 / 30 fps / 1866 frames",
+    "path": "template/",
+    "media_committed": false
+  }
+}

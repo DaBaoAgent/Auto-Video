@@ -2,19 +2,19 @@
 
 # Auto-Video 🎬
 
-### 一个想法（或一个对标视频链接）→ 24 种风格的动画成片
+### 一个想法（或一个对标视频链接）→ 25 种风格的动画成片
 
-Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿、本地克隆音色配音、24 条成片管线出片，一条流水线替你跑完所有做视频的流程——挑一条管线，看 SKILL.md，备好素材即可开工。
+Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿、本地克隆音色配音、25 条成片管线出片，一条流水线替你跑完所有做视频的流程——挑一条管线，看 SKILL.md，备好素材即可开工。
 
 [![GitHub stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
-![Pipelines](https://img.shields.io/badge/pipelines-24%20films%20%2B%201%20frontend-111111?style=flat-square)
+![Pipelines](https://img.shields.io/badge/pipelines-25%20films%20%2B%201%20frontend-111111?style=flat-square)
 ![Roadmap](https://img.shields.io/badge/roadmap-99%20styles-c43b32?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
 </div>
 
-做一条视频最耗时的，是把口播稿、配音、分镜、画面、字幕、渲染和交付反复接线。Auto-Video 把这套流程沉淀成**开箱即用的工程**：你只负责给出选题，或丢来一个优质对标视频链接，工作流会拆解结构、产出原创口播稿、用本地克隆音色完成配音，再按你选定的风格渲染成片——一个想法变成成片，全程不依赖生图、生视频大模型 API，也没有按次计费的调用成本。每条管线都带执行脚本与验收条件（其中 8 条另有定版参数），下一支片子直接沿用。
+做一条视频最耗时的，是把口播稿、配音、分镜、画面、字幕、渲染和交付反复接线。Auto-Video 把这套流程沉淀成**开箱即用的工程**：你只负责给出选题，或丢来一个优质对标视频链接，工作流会拆解结构、产出原创口播稿、用本地克隆音色完成配音，再按你选定的风格渲染成片——一个想法变成成片，全程不依赖生图、生视频大模型 API，也没有按次计费的调用成本。每条管线都带执行脚本与验收条件（其中 17 条另有定版参数），下一支片子直接沿用。
 
 **目录**：[功能特性](#features) · [管线总览](#pipelines) · [一条视频怎么生产](#flow) · [效果展示](#showcase) · [快速开始](#quickstart) · [仓库结构](#layout) · [技术栈](#stack) · [常见问题](#faq) · [路线图](#roadmap) · [鸣谢与许可](#credits)
 
@@ -29,21 +29,21 @@ Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿�
 <a id="features"></a>
 ## 功能特性 ✨
 
-- [x] **对标复刻，一条链接起步**：给一个优质对标视频链接或选题，即可拆解结构、产出原创口播稿，套用 24 条成片管线做成成片（[jilupian](jilupian/SKILL.md) 直接吃片源 URL 清单自动出片）
-- [x] **选题 → 口播稿 → 配音 → 出片，四步闭环**：[peiyin](peiyin/SKILL.md) 承载前端三模块（选题规约、AI 味审计门禁、GPT-SoVITS 克隆音色批量合成），24 条成片管线负责画面与成片
+- [x] **对标复刻，一条链接起步**：给一个优质对标视频链接或选题，即可拆解结构、产出原创口播稿，套用 25 条成片管线做成成片（[jilupian](jilupian/SKILL.md) 直接吃片源 URL 清单自动出片）
+- [x] **选题 → 口播稿 → 配音 → 出片，四步闭环**：[peiyin](peiyin/SKILL.md) 承载前端三模块（选题规约、AI 味审计门禁、GPT-SoVITS 克隆音色批量合成），25 条成片管线负责画面与成片
 - [x] **不依赖生图 / 生视频大模型 API**：画面由 Remotion / Canvas / Three.js / 3D 兵棋引擎确定性逐帧渲染，配音由本地 GPT-SoVITS 克隆合成——参数可复现，无按次 API 费用
-- [x] **24 条成片管线 + 1 个前端模块**：纸本历史短片、纸本历史科普、皮影剪影、逐帧手绘、纸雕剪影、3D 战争推演、纪录片解说、合成波、扁平矢量、赛博 HUD、等轴 2.5D、回形针科普、纸本水墨山水、像素风、城市年轮、地图动画、美式黄金卡通、日漫漫画分镜、贝叶挂毯、铅笔手绘、等距微缩世界、3D 火柴人寓言、皮影戏（透光牛皮）、蓝图工程图；[peiyin](peiyin/SKILL.md) 不计入成片风格，负责选题、出稿与配音
-- [x] **统一工程规范**：24 个模块各自带 `SKILL.md`（完整流程与已知坑）与验收条件；16 条另有 `pipeline.json` / `FREEZE.json` 定版参数，MG 组与八条 BB-Video 风格组都附带可运行示例工程
+- [x] **25 条成片管线 + 1 个前端模块**：纸本历史短片、纸本历史科普、皮影剪影、逐帧手绘、纸雕剪影、3D 战争推演、纪录片解说、合成波、扁平矢量、赛博 HUD、等轴 2.5D、回形针科普、纸本水墨山水、像素风、城市年轮、地图动画、美式黄金卡通、日漫漫画分镜、贝叶挂毯、铅笔手绘、等距微缩世界、3D 火柴人寓言、皮影戏（透光牛皮）、蓝图工程图、上海美影手绘赛璐璐（老狼请客式）；[peiyin](peiyin/SKILL.md) 不计入成片风格，负责选题、出稿与配音
+- [x] **统一工程规范**：25 个模块各自带 `SKILL.md`（完整流程与已知坑）与验收条件；17 条另有 `pipeline.json` / `FREEZE.json` 定版参数，MG 组与九条 BB-Video 风格组都附带可运行示例工程
 - [x] **自动化质检**：字幕切点与重叠检查、频闪预算、补间审计、成品抽帧、响度 LUFS 归一
 - [x] **统一交付包**：封面、发布信息与成片按规则打包，可直接发布
-- [x] **样片与成片分层**：14 条 30 秒样片公开可播，8 条新风格样片 + 8 部完整成片本地归档（不随仓库提交）
+- [x] **样片与成片分层**：14 条 30 秒样片公开可播，9 条新风格样片（含 62 秒玄奘样片）+ 8 部完整成片本地归档（不随仓库提交）
 - [x] **外部依赖引导下载**：配音模型、渲染引擎、字体一律不入库（见下方 FAQ）
 - [x] **路线图 99 种风格**：按「完成一条，迁移一条」持续扩充
 
 <a id="pipelines"></a>
 ## 管线总览 📊
 
-24 条成片管线 + 1 个前端模块（`peiyin`）。成片管线负责画面与交付，`peiyin` 负责选题、口播稿与配音。
+25 条成片管线 + 1 个前端模块（`peiyin`）。成片管线负责画面与交付，`peiyin` 负责选题、口播稿与配音。
 
 | 管线 | 类型 | 适合的内容 | 视觉与生产方法 | 状态 |
 | --- | --- | --- | --- | --- |
@@ -71,6 +71,7 @@ Auto-Video 是**把想法变成成片的一站式工作流**：原创口播稿�
 | [parable](parable/SKILL.md) | 成片 | 一个道理的两种做法对比、15–45 s 社媒短片、一个卖点 | 黑虚空白色火柴人、道具生长、一个红色符号、固定广角 | 已上线 |
 | [shadow](shadow/SKILL.md) | 成片 | 历史典故、人物冲突、传统民俗、非遗叙事 | 素白幕/木质台框、透光牛皮影人、操纵杆道具、红纸签、灯暗换场 | 已上线 |
 | [blueprint](blueprint/SKILL.md) | 成片 | 机构/机器/装置/系统原理、硬件拆解、工程产品 | 蓝晒图纸、构造线→终线→标注、真实啮合机构、红铅笔唯一强调 | 已上线 |
+| [laolang](laolang/SKILL.md) | 成片 | 中国历史、民间故事、寓言、人物驱动的小故事 | 1980 上美影手绘赛璐璐、4:3 圆角片门、装饰绘景、定稿 toon 人物 + 24 动作、30 fps 稳定版、Chrome 逐帧 | 已上线 |
 | [peiyin](peiyin/SKILL.md) | 前端 | 选题-出稿-配音（口播稿批量配音、前端三模块） | GPT-SoVITS 克隆音色、长稿分段合成、审查门禁、权重/音色引导下载 | 已上线 |
 
 <a id="flow"></a>
@@ -97,7 +98,7 @@ flowchart LR
 | 质检 | 成片、时间轴、渲染数据 | 检查结果 | 字幕、频闪、补间和抽帧检查通过 |
 | 交付 | 成片、封面、发布信息 | 可直接发布的目录 | 文件结构、尺寸和元信息符合规则 |
 
-内容如何进入画面也写进了流程：口播稿如何对齐字幕，分镜如何锁定时间，素材如何对应镜头，成片如何检查，封面和发布信息如何打包。前端三模块由 [peiyin](peiyin/SKILL.md) 承载（选题规约、口播稿审计、批量配音），[jilupian](jilupian/SKILL.md) 支持直接吃片源 URL 清单自动出片。`lishi` 会检查字幕切点、镜数分组、全片频闪预算和成片响度；`zhidiao` 会断言场景数与 manifest 一致，检查 SVG 补间、字幕重叠和成品抽帧，再输出专用发布目录。`goldenage` / `manga` / `tapestry` / `pencil` / `isometric` / `parable` 八条管线都带 `--check`、抽帧复核、响度与黑帧 QA。
+内容如何进入画面也写进了流程：口播稿如何对齐字幕，分镜如何锁定时间，素材如何对应镜头，成片如何检查，封面和发布信息如何打包。前端三模块由 [peiyin](peiyin/SKILL.md) 承载（选题规约、口播稿审计、批量配音），[jilupian](jilupian/SKILL.md) 支持直接吃片源 URL 清单自动出片。`lishi` 会检查字幕切点、镜数分组、全片频闪预算和成片响度；`zhidiao` 会断言场景数与 manifest 一致，检查 SVG 补间、字幕重叠和成品抽帧，再输出专用发布目录。`goldenage` / `manga` / `tapestry` / `pencil` / `isometric` / `parable` / `shadow` / `blueprint` / `laolang` 九条管线都带 `--check`、抽帧复核、响度与黑帧 QA。
 
 <a id="showcase"></a>
 ## 效果展示 🖼️
@@ -350,12 +351,12 @@ $env:PYTHONIOENCODING = "utf-8"
 
 示例工程在仓库根目录的 `projects/suzhou`（苏州《城长》160.7 s，完整成片见 [效果展示](#showcase)）；4K 母版需 `--allow-4k`。六个叙事数据文件、运行手册与质量硬约束见 [chengshi/USAGE.md](chengshi/USAGE.md)，完整规则见 [chengshi/SKILL.md](chengshi/SKILL.md)。
 
-### goldenage / manga / tapestry / pencil / isometric / parable / shadow / blueprint
+### goldenage / manga / tapestry / pencil / isometric / parable / shadow / blueprint / laolang
 
-八条从 BB-Video 33 种风格里迁出的成片管线，都用同一套「口播稿 → 配音 → 时间轴 → 纯函数画面 → Chrome 逐帧 → ffmpeg」链路；运行时代码随管线 vendored（MIT），不依赖外部渲染引擎。六条都带阿努纳奇样片完整工程、`--check`、抽帧和 QA：
+九条从 BB-Video 33 种风格里迁出的成片管线，都用同一套「口播稿 → 配音 → 时间轴 → 纯函数画面 → Chrome 逐帧 → ffmpeg」链路；运行时代码随管线 vendored（MIT），不依赖外部渲染引擎。九条都带完整样片工程、`--check`、抽帧和 QA（其中 `laolang` 带玄奘 60 秒样片）：
 
 ```bash
-# 以 goldenage 为例；其余七条把 goldenage 换成 manga / tapestry / pencil / isometric / parable / shadow / blueprint
+# 以 goldenage 为例；其余八条把 goldenage 换成 manga / tapestry / pencil / isometric / parable / shadow / blueprint / laolang
 python goldenage/scripts/goldenage.py new projects/<名字> --title "片名"
 python goldenage/scripts/goldenage.py vo projects/<名字> --src 配音.wav --text 口播稿.txt
 python goldenage/scripts/goldenage.py check  projects/<名字>
@@ -364,11 +365,12 @@ python goldenage/scripts/goldenage.py render projects/<名字> --scale 0.6667
 python goldenage/scripts/goldenage.py deliver projects/<名字> --chugao 出稿/<编号>_<选题> --name "goldenage_片名_样片_1080p"
 ```
 
-- `template/` 是阿努纳奇样片的完整做法（不是空白模板）：`index.html` 逐幕画面、`brief.md` 事实表、`storyboard.md` 分镜、`score.js` / `sound.js` 配乐音效。
-- 八条管线各自的风格规则、逐幕做法与已知坑见 [goldenage/SKILL.md](goldenage/SKILL.md)、[manga/SKILL.md](manga/SKILL.md)、[tapestry/SKILL.md](tapestry/SKILL.md)、[pencil/SKILL.md](pencil/SKILL.md)、[isometric/SKILL.md](isometric/SKILL.md)、[parable/SKILL.md](parable/SKILL.md)、[shadow/SKILL.md](shadow/SKILL.md)、[blueprint/SKILL.md](blueprint/SKILL.md)。
+- `template/` 是各自完整样片的做法（不是空白模板）：`index.html` 逐幕画面、`brief.md` 事实表、`storyboard.md` 分镜、`score.js` / `sound.js` 配乐音效；`laolang` 用的是玄奘 60 秒样片。
+- 九条管线各自的风格规则、逐幕做法与已知坑见 [goldenage/SKILL.md](goldenage/SKILL.md)、[manga/SKILL.md](manga/SKILL.md)、[tapestry/SKILL.md](tapestry/SKILL.md)、[pencil/SKILL.md](pencil/SKILL.md)、[isometric/SKILL.md](isometric/SKILL.md)、[parable/SKILL.md](parable/SKILL.md)、[shadow/SKILL.md](shadow/SKILL.md)、[blueprint/SKILL.md](blueprint/SKILL.md)、[laolang/SKILL.md](laolang/SKILL.md)。
 - `isometric` 与已有的 `dengju`（mg-styles-15 等轴 2.5D）都画等距世界，但实现不同：`isometric` 是 BB-Video 的地块/路线/连续镜头运行时，`dengju` 是 mg-styles-15 的瓦片波浪运镜；按项目需要选。
 - `shadow` 与已有的 `piying` 都做皮影，但 `piying` 是 Playwright/Canvas 的剪影+卡片式讲解，`shadow` 是 BB-Video 的透光牛皮影人、操纵杆道具、红纸签与灯暗换场；按项目需要选。
 - `blueprint` 是蓝晒工程图，适合机构/机器/系统原理；它和 `swiss`（瑞士排版）、`launch`（产品发布）不是一类，按「要把原理画成图纸」的需求选。
+- `laolang` 是 1980 上美影手绘赛璐璐（老狼请客式）：4:3 片门、装饰绘景、定稿 toon 人物、24 动作、30 fps 稳定版；和 `goldenage`（美式橡皮管卡通）不是一类，按「要中国、手作、慢」的气质选。
 
 ### peiyin
 
@@ -458,9 +460,9 @@ Auto-Video/
 │   ├── references/           # 内容风格、下载规则、流程规格
 │   ├── docs/                 # 产品规则、剪辑策略、开发记录
 │   └── tests/                # 测试与 CI 门禁
-├── goldenage/ · manga/ · tapestry/ · pencil/ · isometric/ · parable/ · shadow/ · blueprint/
-│                            # 八条 BB-Video 风格管线：SKILL.md + runtime/ + scripts/ + references/ + template/
-│                            # 阿努纳奇样片完整工程随各自 template/ 入库（无音频与成片）
+├── goldenage/ · manga/ · tapestry/ · pencil/ · isometric/ · parable/ · shadow/ · blueprint/ · laolang/
+│                            # 九条 BB-Video 风格管线：SKILL.md + runtime/ + scripts/ + references/ + template/
+│                            # 完整样片工程随各自 template/ 入库（无音频与成片；laolang 是玄奘 60 秒样片）
 ├── xuni/
 │   ├── SKILL.md              # 合成波 / VHS / Y2K 短片入口
 │   ├── README.md · CREDITS.md · pipeline.json
@@ -562,9 +564,9 @@ Auto-Video/
 </details>
 
 <details>
-<summary>新风格八条管线和已有的 MG 管线有什么区别？</summary>
+<summary>新风格九条管线和已有的 MG 管线有什么区别？</summary>
 
-八条新管线来自 BB-Video 的风格运行时（BB-Video 共 33 种风格），画面是浏览器里的纯函数（Canvas / SVG / Three.js），同一帧永远渲染同一画面；它们和 `xuni` / `shiliang` / `dengju` 等 mg-styles-15 管线不是一套引擎。`isometric` 与 `dengju` 都画等距世界，但 `isometric` 是地块/路线/连续镜头运行时，`dengju` 是 mg-styles-15 的瓦片波浪运镜。`shadow` 与 `piying` 都做皮影，但 `shadow` 是 BB-Video 的透光牛皮+操纵杆，`piying` 是 Playwright/Canvas 剪影+卡片讲解。`blueprint` 是蓝晒工程图，专门讲机构/机器/系统原理。
+九条新管线来自 BB-Video 的风格运行时（BB-Video 共 33 种风格），画面是浏览器里的纯函数（Canvas / SVG / Three.js），同一帧永远渲染同一画面；它们和 `xuni` / `shiliang` / `dengju` 等 mg-styles-15 管线不是一套引擎。`isometric` 与 `dengju` 都画等距世界，但 `isometric` 是地块/路线/连续镜头运行时，`dengju` 是 mg-styles-15 的瓦片波浪运镜。`shadow` 与 `piying` 都做皮影，但 `shadow` 是 BB-Video 的透光牛皮+操纵杆，`piying` 是 Playwright/Canvas 剪影+卡片讲解。`blueprint` 是蓝晒工程图，专门讲机构/机器/系统原理。`laolang` 是 1980 上美影手绘赛璐璐（老狼请客式），4:3 片门、定稿 toon 人物与 24 动作，适合中国历史/民间故事。
 
 </details>
 
@@ -578,7 +580,7 @@ Auto-Video/
 <a id="roadmap"></a>
 ## 路线图 🗺️
 
-当前：`24 / 99` 成片管线（`peiyin` 是前端模块，不计入风格数）。另有一条 `youxi`（仁德天皇陵，192.7 s）已出片待封装，完成管线目录后计入路线图。
+当前：`25 / 99` 成片管线（`peiyin` 是前端模块，不计入风格数）。另有一条 `youxi`（仁德天皇陵，192.7 s）已出片待封装，完成管线目录后计入路线图。
 
 Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管线必须带自己的流程说明、脚本、可复用资源和验收条件，才算完成迁移。
 
@@ -590,14 +592,14 @@ Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管
 - **mg-styles-15**（合成波 / 扁平矢量 / HUD / 等轴等 MG 风格引擎）：[Vincentwei1021/mg-styles-15](https://github.com/Vincentwei1021/mg-styles-15)，MIT
 - **AlibabaPuHuiTi-3-85-Bold**（示例工程字体）：阿里巴巴普惠体，免费商用
 - **GPT-SoVITS**（配音方案）：[RVC-Boss/GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS)
-- **BB-Video**（goldenage / manga / tapestry / pencil / isometric / parable / shadow / blueprint 八条风格运行时与渲染链）：[BubbleBrainBB/BB-Video](https://github.com/BubbleBrainBB/BB-Video)，MIT
+- **BB-Video**（goldenage / manga / tapestry / pencil / isometric / parable / shadow / blueprint / laolang 九条风格运行时与渲染链）：[BubbleBrainBB/BB-Video](https://github.com/BubbleBrainBB/BB-Video)，MIT
 - **battlefield-editor**（3D 兵棋渲染引擎）：随 `tuiyan` 迁移自 alannew 项目
 - 本仓库管线由 `AutoUP`、`AutoJY`、`alannew` 等历史项目迁移归纳而来，出处与迁移说明见各管线 `MIGRATION.md` / `CREDITS.md`
 - **许可**：本仓库代码以 [MIT License](LICENSE) 发布（见根目录 `LICENSE`）；第三方组件遵循各自协议（见上）。
 
 ## English
 
-Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 24 styles, plus a `peiyin` frontend module for topic selection, script writing and GPT-SoVITS voice cloning. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) without calling image or video generation APIs. The current 24 film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, pixel-art shorts (640×360 indexed framebuffer ×3 nearest-neighbour with output-resolution CRT), six MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric / paperclip explainer / ink-wash landscape), eight BB-Video style runtimes (golden-age cartoon / manga / Bayeux tapestry / pencil test / isometric miniature / 3D stick-figure parable / shadow puppetry / blueprint engineering drawing), and city-growth films (real geodata: OSM buildings/roads/water, Esri satellite, SRTM terrain, Remotion + three.js). Fourteen 30-second samples are playable online; eight full films (about 2.2 GB) are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
+Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 25 styles, plus a `peiyin` frontend module for topic selection, script writing and GPT-SoVITS voice cloning. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) without calling image or video generation APIs. The current 25 film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, pixel-art shorts (640×360 indexed framebuffer ×3 nearest-neighbour with output-resolution CRT), six MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric / paperclip explainer / ink-wash landscape), nine BB-Video style runtimes (golden-age cartoon / manga / Bayeux tapestry / pencil test / isometric miniature / 3D stick-figure parable / shadow puppetry / blueprint engineering drawing / Shanghai Animation Film Studio hand-drawn cel, laolang), and city-growth films (real geodata: OSM buildings/roads/water, Esri satellite, SRTM terrain, Remotion + three.js). Fourteen 30-second samples are playable online; eight full films (about 2.2 GB) are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
 
 ## 关注更新
 

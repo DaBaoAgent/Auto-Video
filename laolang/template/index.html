@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>玄奘 · 一分钟样片 · toon × laolang</title>
+<style>html,body{margin:0;background:#0b0a08}#stage{position:relative;overflow:hidden}</style>
+<script src="timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/goldenage.js"></script>
+<script src="lib/laolang.js"></script>
+<script src="lib/toon.js"></script>
+<script src="lib/cast-lite.js"></script>
+<script src="lib/act.js"></script>
+<script src="lao_cast_full.js"></script>
+<script src="lao_poses.js"></script>
+<script src="lib/story.js"></script>
+</head><body><div id="stage"></div><script>
+// 玄奘 · 一分钟样片（0–62.2 s）· 1980 上美影《老狼请客》式绘景 + 定稿人物/动作库
+// 绘景、片门、颗粒、青绿/赭黄色板沿用 laolang；人物用 claude-animated-shorts 的 toon.ts
+// 身体/表情系统重画（长鼻、大眼、重眉、夸张嘴），cast.ts 的眨眼时钟，story.ts 的镜头/动作对白同步。
+const { M } = PROMO;
+const OUTFITS = window.LAO_FULL;
+
+PROMO.compose({
+  bpm: 84, offset: 0, grain: false, tail: 0.2,
+  theme: { bg: '#14110d', fg: '#efe3c4', ink: '#efe3c4', muted: '#b7a98a', accent: '#b23a2b', paper: '#14110d', fonts: { display: '"Ma Shan Zheng", "KaiTi", serif', serif: '"Noto Serif SC", "SimSun", serif', sans: '"Noto Sans SC", "Microsoft YaHei", sans-serif' } },
+  captions: { max: 18, font: '"Noto Serif SC", "SimSun", serif', weight: 500 },
+  build: (F) => {
+    const G = PROMO.laolang(F, { seed: 'xz-toon-lao', boil: 0.04, drawings: 30, captions: { max: 18, size: 37 } });
+    const L = G.lib, lao = L.lao, W = G.W, H = G.H, ACT = window.ACT, ST = window.STORY;
+    const { camPush, pop, clamp, lerp, K, F: inkFill } = L;
+    const TAU = Math.PI * 2;
+    const S = 0.26;                       // 1000 design units = 260 world units
+    const SW = 170 * S;                   // one toon step in world units (legs are half length now)
+    const A = ST.ACTS;
+    const TL = window.TIMELINE;
+    const cue = (line, ch) => {
+      const l = TL.lines.find((x) => x.id === line);
+      if (!l) return 0;
+      const w = (l.words || []).find((x) => x.text.includes(ch));
+      return w ? w.start : l.start;
+    };
+    const w2 = (t, at, dur) => { const u = clamp((t - at) / Math.max(0.001, dur), 0, 1); return u * u * (3 - 2 * u); };
+    const C = {
+      real: cue('l9', '真'), tang: cue('l10', '唐'), self: cue('l11', '自'),
+      name: cue('l12', '石'), kneel: cue('l13', '跪'), caves: cue('l14', '窟'),
+      five: cue('l15', '五'), night: cue('l16', '夜'), walk: cue('l16', '走'),
+      shi: cue('l17', '石'), stop: cue('l18', '停'), sheathe: cue('l18', '收'),
+      morn: cue('l19', '早'), die: cue('l19', '死'),
+    };
+
+    const shadow = (x, y, s, a = 0.26) => inkFill(L.pEll(x, y + 2, 26 * s, 5.5 * s, 0, TAU, 16), `rgba(40,30,20,${a})`);
+    const actor = (slot, x, gy, s, opts, side = true, dir = 1) => {
+      const c = CAST.draw(slot, OUTFITS[slot], opts, side);
+      L.push(); L.tr(x, gy); if (dir < 0) L.scl(-1, 1);
+      L.xfDraw(c, -300 * s, -975 * s, 600 * s, 1000 * s);
+      L.pop();
+    };
+    // a side actor facing right; the face is toon.ts bodySide + our lao face overlay
+    const side = (slot, x, gy, s, opts) => actor(slot, x, gy, s, opts, true, 1);
+    const front = (slot, x, gy, s, opts) => actor(slot, x, gy, s, opts, false, 1);
+    const sideL = (slot, x, gy, s, opts) => actor(slot, x, gy, s, opts, true, -1);
+
+    // ---- 1 · walk to the door ----
+    const wLead = ACT.walkCurve({ t0: 1.15, t1: 2.85, x0: 386, x1: 520, L0: SW * 2, phEnd: 0.25 });
+    const wNote = ACT.walkCurve({ t0: 1.40, t1: 2.98, x0: 300, x1: 452, L0: SW * 2, phEnd: 0.15 });
+    const wDig  = ACT.walkCurve({ t0: 1.65, t1: 3.08, x0: 212, x1: 374, L0: SW * 2, phEnd: 0.35 });
+    const WALKERS = [wLead, wNote, wDig];
+    const steps = ACT.footfalls(WALKERS, 0, 3.2);
+
+    G.shot(0, 4.15, (u, t) => {
+      camPush(K(t, [[0, 492], [2.6, 512], [4.15, 545]]), K(t, [[0, 440], [4.15, 460]]), K(t, [[0, 1.10], [2.6, 1.14], [4.15, 1.18]]));
+      L.xfDraw(lao.cliff(), 0, 0, W, H);
+      inkFill([0, 0, W, 0, W, H, 0, H], 'rgba(8,26,26,.16)');
+      motes(t, 12, 120, 760, 180, 620, '245,222,168', 0.09);
+      lao.door(t, A.push + 0.02, 0.72);
+      const push = clamp(ST.win(t, A.push + 0.02, 0.3) - ST.win(t, 3.7, 0.35), 0, 1);
+      const seeIn = ST.win(t, A.push + 0.45, 0.5);
+      const up = ST.win(t, 2.3, 0.4);
+      for (let i = 2; i >= 0; i--) {
+        const w = WALKERS[i](t);
+        const stop = w.stop;
+        const mode = i === 0 && stop > 0.8 ? 'push' : stop > 0.8 ? 'stand' : 'march';
+        const expr = i === 0 ? (seeIn > 0.35 ? 'shock' : up > 0.5 ? 'nervous' : 'neutral') : stop > 0.8 ? 'neutral' : 'neutral';
+        const o = {
+          phase: w.ph, mode, expr, blink: CAST.lidAt(t, i, [A.push]),
+          stride: 1, stomp: 1, pose: i === 0 ? push * 0.62 : 0,
+          light: -110, seed: i + 1,
+        };
+        const gy = 676 + (i === 2 ? 4 : 0);
+        const s = i === 0 ? S : i === 1 ? S * 0.96 : S * 1.02;
+        shadow(w.x, gy, s);
+        side(i, w.x, gy, s, o);
+      }
+      // dust at the threshold
+      if (t > 2.9) {
+        const d = clamp((t - 2.9) / 1.1, 0, 1);
+        for (let i = 0; i < 8; i++) {
+          const px = 560 + Math.sin(i * 2.1 + t * 1.3) * (16 + i * 2) * d;
+          const py = 652 - (i % 4) * 6 - d * (8 + i * 2);
+          inkFill(L.pEll(px, py, 16 + i * 2, 7 + i, 0, TAU, 12), `rgba(214,178,116,${0.05 + 0.03 * (i % 3)})`);
+        }
+      }
+      // foreground cave rock and branch frame the entrance
+      inkFill([0, 690, 120, 662, 230, 688, 280, 720, 0, 720], 'rgba(8,7,5,.80)');
+      const dbw = Math.sin(t * 1.15 + 0.6) * 3;
+      L.L([960, 0, 910 + dbw * 0.5, 70, 872 + dbw, 150, 842 + dbw * 1.4, 230], 8, '#0b0806', { taper: 0.2 });
+      for (let i = 0; i < 8; i++) inkFill(L.pEll(850 + (i * 13) % 80 + dbw * (0.4 + (i % 3) * 0.3), 60 + (i * 21) % 160, 10, 6, 0, TAU, 10), '#1b3528');
+      glow(714, 470, 18, 86, '240,160,70', 0.08, 8);
+      pop();
+    });
+
+    // ---- 2 · read the mural ----
+    G.shot(4.15, 8.56, (u, t) => {
+      const cam = K(t, [
+        [4.15, { x: 470, y: 332, z: 1.0 }],
+        [4.95, { x: 310, y: 335, z: 1.24 }],
+        [5.62, { x: 500, y: 336, z: 1.26 }],
+        [6.55, { x: 714, y: 336, z: 1.28 }],
+        [7.95, { x: 714, y: 411, z: 2.35 }],
+        [8.56, { x: 714, y: 411, z: 2.4 }],
+      ]);
+      camPush(cam.x, cam.y, cam.z);
+      L.xfDraw(lao.mural(), 0, 0, W, H);
+      lao.muralScene(t, { monkTurn: 0, apeTurn: 0, look: 0, grin: 0, blink: 0 });
+      const gl = ST.win(t, A.ring + 0.05, 0.4) * (0.8 + 0.2 * Math.sin(t * 9));
+      if (gl > 0.01) {
+        inkFill(L.pEll(714, 411, 30 + 8 * gl, 30 + 8 * gl, 0, TAU, 24), `rgba(240,207,122,${0.11 * gl})`);
+        inkFill(L.pEll(714, 411, 14, 14, 0, TAU, 18), `rgba(255,232,160,${0.18 * gl})`);
+      }
+      for (let i = 0; i < 18; i++) {
+        const px = 120 + ((i * 137 + t * (6 + i % 5)) % 720), py = 260 + ((i * 83 + t * (4 + i % 3)) % 300);
+        inkFill(L.pEll(px, py, 1.2 + (i % 3) * 0.5, 1.2 + (i % 3) * 0.5, 0, TAU, 6), `rgba(245,222,168,${0.08 + (i % 4) * 0.02})`);
+      }
+      pop();
+    });
+
+    // ---- 3a · three profiles go still ----
+    G.pause(8.56, 9.22, { energy: 1, name: 'stunned', hit: false });
+    G.shot(8.56, 9.22, (u, t) => {
+      camPush(K(t, [[8.56, 402], [9.22, 430]]), 390, 1.20);
+      L.xfDraw(lao.mural(), 0, 0, W, H);
+      motes(t, 12, 220, 760, 300, 620, '245,222,168', 0.10);
+      for (let i = 2; i >= 0; i--) {
+        const x = 230 + i * 170, gy = 600;
+        shadow(x, gy, 0.24);
+        side(i, x, gy, 0.24, { phase: 0.25, mode: 'stand', expr: 'shock', blink: CAST.lidAt(t, i, [8.56]), light: -110, seed: i + 1 });
+      }
+      pop();
+    });
+
+    // ---- 3b · hold on the three profiles, then the film cuts to the wall ----
+    G.shot(9.22, 10.8, (u, t) => {
+      camPush(K(t, [[9.22, 480], [10.8, 510]]), K(t, [[9.22, 390], [10.8, 395]]), K(t, [[9.22, 1.14], [10.8, 1.20]]));
+      L.xfDraw(lao.mural(), 0, 0, W, H);
+      motes(t, 12, 220, 760, 300, 620, '245,222,168', 0.10);
+      for (let i = 2; i >= 0; i--) {
+        const x = 230 + i * 170, gy = 600;
+        shadow(x, gy, 0.24);
+        side(i, x, gy, 0.24, { phase: 0.25, mode: 'stand', expr: 'nervous', blink: CAST.lidAt(t, i, [9.22]), light: -110, seed: i + 1 });
+      }
+      pop();
+    });
+
+    // ---- 4 · the book, Ming ----
+    G.shot(10.8, 14.14, (u, t) => {
+      const z = K(t, [[10.8, 1.14], [14.14, 1.20]]);
+      camPush(K(t, [[10.8, 690], [14.14, 700]]), 390, z);
+      L.xfDraw(lao.mural(), 0, 0, W, H);
+      motes(t, 10, 480, 900, 250, 560, '245,222,168', 0.10);
+      // table and open book on the right
+      inkFill([520, 548, 860, 548, 880, 566, 500, 566], '#6b4a2f');
+      L.S([520, 548, 860, 548, 880, 566, 500, 566], '#6b4a2f', 2.2, 'rgba(42,33,26,.9)');
+      L.L([540, 566, 530, 700], 3, '#4a3524'); L.L([850, 566, 860, 700], 3, '#4a3524');
+      L.S([586, 506, 680, 498, 690, 552, 596, 558], '#efe3c4', 2, 'rgba(42,33,26,.9)');
+      L.S([690, 498, 786, 508, 778, 560, 688, 552], '#e2d0a8', 2, 'rgba(42,33,26,.9)');
+      L.L([690, 500, 690, 552], 2, 'rgba(42,33,26,.5)');
+      for (let i = 0; i < 5; i++) L.L([606, 516 + i * 7, 676, 512 + i * 7], 1, 'rgba(74,58,40,.35)');
+      inkFill(L.pRR(722, 512, 26, 26, 2, 4), 'rgba(168,55,44,.85)');
+      side(1, 400, 600, 0.26, { phase: 0.1, mode: 'push', pose: 0.28, expr: 'neutral', blink: CAST.lidAt(t, 1), light: -110, seed: 2 });
+      pop();
+    });
+    G.write('西游记', { x: 400, y: 556, size: 16, color: '#4a3a2c', at: A.book + 0.15, until: 14.1, kind: 'label' });
+    G.write('明', { x: 540, y: 590, size: 14, color: '#efe3c4', at: A.ming + 0.1, until: 14.1, kind: 'label' });
+
+    G.write('西游记 · 明', { x: 480, y: 120, size: 38, color: '#4a3a2c', at: 10.9, until: 14.1, kind: 'headline' });
+
+    // ---- 5 · five hundred years ----
+    G.shot(14.14, 15.55, (u, t) => {
+      camPush(K(t, [[14.14, 600], [15.55, 585]]), 390, K(t, [[14.14, 1.12], [15.55, 1.08]]));
+      L.xfDraw(lao.mural(), 0, 0, W, H);
+      motes(t, 10, 240, 740, 300, 620, '245,222,168', 0.09);
+      L.L([230, 330, 720, 330], 4, '#a8372c', { taper: 0.05 });
+      inkFill(L.pEll(230, 330, 7, 7, 0, TAU, 12), '#a8372c');
+      inkFill(L.pEll(720, 330, 7, 7, 0, TAU, 12), '#a8372c');
+      side(2, 330, 600, 0.26, { phase: 0.1, mode: 'push', pose: 0.22, expr: 'nervous', blink: CAST.lidAt(t, 2), light: -110, seed: 3 });
+      pop();
+    });
+    G.write('唐 · 五百年 · 明', { x: 475, y: 286, size: 30, color: '#4a3a2c', at: 14.22, until: 15.55, kind: 'label' });
+
+    // ---- 6 · the question, then the one explanation ----
+    G.shot(15.55, 19.08, (u, t) => {
+      camPush(K(t, [[15.55, 690], [19.08, 700]]), 390, K(t, [[15.55, 1.16], [19.08, 1.20]]));
+      L.xfDraw(lao.mural(), 0, 0, W, H);
+      motes(t, 10, 220, 760, 300, 620, '245,222,168', 0.09);
+      side(0, 390, 600, 0.26, { phase: 0.15, mode: 'push', pose: 0.2, expr: 'nervous', blink: CAST.lidAt(t, 0, [15.35]), light: -110, seed: 1 });
+      pop();
+    });
+    G.write('?', { x: 500, y: 300, size: 92, color: '#a8372c', at: 16.1, until: 19.0, kind: 'headline', pop: true });
+
+    G.shot(19.08, 20.24, (u, t) => {
+      camPush(K(t, [[19.08, 690], [20.1, 714]]), 350, K(t, [[19.08, 1.70], [20.1, 1.85]]));
+      L.xfDraw(lao.mural(), 0, 0, W, H);
+      motes(t, 10, 620, 780, 260, 500, '245,222,168', 0.08);
+      lao.muralScene(t, { monkTurn: 0.1, apeTurn: -0.14, look: 1, grin: 0.5, blink: 0 });
+      pop();
+    });
+
+    G.write('玄奘', { x: 480, y: 160, size: 60, color: '#b23a2b', at: 19.15, until: 20.4, kind: 'headline', pop: true });
+    
+
+    // ================= 20.24–62.2 · 从壁画走进历史 =================
+    const hex2rgb = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+    const withA = (h, a) => { const c = hex2rgb(h); return `rgba(${c[0]},${c[1]},${c[2]},${a})`; };
+    const mix = (a, b, t) => { const A = hex2rgb(a), B = hex2rgb(b); return `rgb(${Math.round(A[0] + (B[0] - A[0]) * t)},${Math.round(A[1] + (B[1] - A[1]) * t)},${Math.round(A[2] + (B[2] - A[2]) * t)})`; };
+    const gradY = (y0, y1, c0, c1, steps = 30) => {
+      const A = hex2rgb(c0), B = hex2rgb(c1);
+      for (let i = 0; i < steps; i++) {
+        const t = (i + 0.5) / steps;
+        const ya = y0 + (y1 - y0) * i / steps, yb = y0 + (y1 - y0) * (i + 1) / steps + 0.4;
+        inkFill([0, ya, W, ya, W, yb, 0, yb], mix(c0, c1, t));
+      }
+    };
+    const glow = (cx, cy, r0, r1, rgb, a, steps = 12) => {
+      for (let i = steps; i >= 1; i--) {
+        const t = i / steps, r = r0 + (r1 - r0) * t;
+        inkFill(L.pEll(cx, cy, r, r, 0, TAU, 36), `rgba(${rgb},${(a * (1 - t) + 0.006).toFixed(3)})`);
+      }
+    };
+    const cloudBand = (x, y, len, w, a) => {
+      L.L([x, y, x + len * 0.3, y - 4, x + len * 0.7, y + 2, x + len, y - 1], w, `rgba(239,227,196,${a})`, { taper: 0.45 });
+      L.L([x + len * 0.16, y + 8, x + len * 0.55, y + 4, x + len * 0.9, y + 7], w * 0.6, `rgba(239,227,196,${a * 0.7})`, { taper: 0.5 });
+    };
+    const bird = (x, y, s = 1, t = 0) => {
+      const f = Math.sin(t * 3.6 + x * 0.05) * 2.2 * s;
+      L.L([x - 6 * s, y, x, y - 4 * s + f, x + 6 * s, y], 1.4 * s, 'rgba(42,33,26,.42)', { taper: 0.3 });
+      L.L([x + 2 * s, y + 1, x + 7 * s, y - 2 * s + f * 0.7, x + 12 * s, y + 1], 1.2 * s, 'rgba(42,33,26,.35)', { taper: 0.3 });
+    };
+    // 空气里的浮尘：缓慢上升、左右漂移，给静场一点呼吸
+    const motes = (t, n = 16, x0 = 80, x1 = 880, y0 = 180, y1 = 660, rgb = '245,222,168', amax = 0.15) => {
+      for (let i = 0; i < n; i++) {
+        const px = x0 + ((i * 137 + t * (3 + (i % 5) * 1.2)) % (x1 - x0));
+        const py = y1 - ((i * 83 + t * (4 + (i % 4) * 1.7)) % (y1 - y0));
+        const a = 0.035 + (i % 4) * (amax / 4) + 0.015 * Math.sin(t * 1.3 + i);
+        inkFill(L.pEll(px, py, 1.0 + (i % 3) * 0.55, 1.0 + (i % 2) * 0.5, 0, TAU, 6), `rgba(${rgb},${Math.max(0.02, a)})`);
+      }
+    };
+    const desert = (mode, t = 0) => {
+      const night = mode === 'night', dusk = mode === 'dusk', day = mode === 'day';
+      const top = night ? '#081d22' : dusk ? '#2a1a20' : day ? '#153842' : '#123438';
+      const mid = night ? '#163633' : dusk ? '#5a2e26' : day ? '#4a5a42' : '#3e5040';
+      const hor = night ? '#234a46' : dusk ? '#9a4a2a' : day ? '#c9a25a' : '#c9974f';
+      gradY(0, 330, top, mid, 24);
+      gradY(330, 448, mid, hor, 12);
+      // sun / moon：整片缓慢横移，外加极轻的呼吸
+      const sx = (night ? 720 : 742) + Math.sin(t * 0.045) * 6 + (t - 40) * 3.6;
+      const sy = (night ? 142 : 176) + Math.sin(t * 0.031 + 1.2) * 3 - (t - 40) * 0.30;
+      const sunPulse = 0.9 + 0.1 * Math.sin(t * 0.7);
+      glow(sx, sy, night ? 30 : 24, night ? 135 : 118, night ? '239,227,196' : '248,214,146', (night ? 0.08 : 0.09) * sunPulse, 12);
+      inkFill(L.pEll(sx, sy, night ? 31 : 28, night ? 31 : 28, 0, TAU, 40), night ? '#efe3c4' : '#f6df9f');
+      if (night) {
+        for (const [ox, oy, rx, ry] of [[-9, -7, 7, 5], [8, 5, 5, 4], [-3, 10, 4, 3]]) inkFill(L.pEll(sx + ox, sy + oy, rx, ry, 0, TAU, 12), 'rgba(178,170,142,.22)');
+        for (let i = 0; i < 46; i++) { const x = (i * 137 + 31) % W, y = 24 + (i * 83) % 270; if (Math.hypot(x - sx, y - sy) > 70) inkFill(L.pEll(x, y, 0.8 + (i % 3) * 0.5, 0.8 + (i % 3) * 0.4, 0, TAU, 6), `rgba(239,227,196,${0.22 + (i % 5) * 0.09})`); }
+      }
+      // painted cloud bands：横向慢慢漂
+      for (let i = 0; i < 4; i++) cloudBand(40 + i * 55 + Math.sin(t * 0.06 + i) * 12 + t * 0.9, 96 + i * 34, 190 + (i % 3) * 70, 7, night ? 0.055 : 0.13);
+      // far mountains, two cut-paper layers, with snow on the far peaks
+      const m1 = [0, 410, 70, 344, 150, 372, 238, 316, 320, 356, 410, 300, 500, 348, 590, 306, 690, 354, 790, 312, 890, 352, 960, 330];
+      L.S([...m1, 960, 470, 0, 470], night ? '#102a29' : dusk ? '#2a1c18' : day ? '#24403a' : '#1d3a36', 0, 'rgba(0,0,0,0)');
+      if (!night) L.L(m1, 1.4, 'rgba(42,33,26,.35)', { taper: 0.2 });
+      if (!night) {
+        for (const [px, py] of [[238, 316], [410, 300], [590, 306], [790, 312]]) {
+          inkFill([px - 13, py + 18, px - 2, py + 2, px, py - 2, px + 4, py + 4, px + 14, py + 19], day ? 'rgba(239,227,196,.55)' : 'rgba(239,227,196,.38)');
+        }
+      }
+      const m2 = [0, 446, 90, 402, 190, 424, 300, 388, 420, 420, 540, 384, 670, 418, 800, 386, 920, 420, 960, 404];
+      L.S([...m2, 960, 520, 0, 520], night ? '#0d2424' : dusk ? '#1e1412' : day ? '#1b3532' : '#162f2c', 0, 'rgba(0,0,0,0)');
+      if (!night) L.L(m2, 1.2, 'rgba(42,33,26,.25)', { taper: 0.2 });
+      // horizon haze
+      L.S([0, 400, W, 400, W, 450, 0, 450], night ? 'rgba(120,160,150,.06)' : 'rgba(239,227,196,.12)', 0, 'rgba(0,0,0,0)');
+      // five dune layers, each with a shadow side and a lit crest
+      const d1 = [0, 448, 110, 432, 230, 446, 360, 422, 500, 440, 640, 420, 780, 436, 900, 422, 960, 430];
+      if (!night)       L.S([...d1, 960, 540, 0, 540], night ? '#1a3a37' : '#8f6633', 0, 'rgba(0,0,0,0)');
+      if (!night) L.S([0, 470, 110, 454, 230, 468, 360, 444, 500, 462, 640, 442, 780, 458, 900, 444, 960, 452, 960, 540, 0, 540], night ? 'rgba(4,12,12,.25)' : 'rgba(12,20,16,.30)', 0, 'rgba(0,0,0,0)');
+      if (!night) L.L(d1, 1.6, night ? 'rgba(180,210,190,.20)' : 'rgba(239,227,196,.30)', { taper: 0.2 });
+      const d2 = [0, 500, 140, 480, 300, 496, 460, 472, 620, 490, 780, 470, 900, 486, 960, 476];
+      if (!night)       L.S([...d2, 960, 612, 0, 612], night ? '#183632' : '#7a532b', 0, 'rgba(0,0,0,0)');
+      if (!night) L.S([0, 526, 140, 506, 300, 522, 460, 498, 620, 516, 780, 496, 900, 512, 960, 502, 960, 612, 0, 612], night ? 'rgba(3,10,10,.28)' : 'rgba(10,18,14,.32)', 0, 'rgba(0,0,0,0)');
+      if (!night) L.L(d2, 1.6, night ? 'rgba(170,200,180,.16)' : 'rgba(239,227,196,.24)', { taper: 0.2 });
+      const d3 = [0, 556, 160, 532, 330, 552, 500, 526, 670, 546, 820, 528, 940, 542, 960, 536];
+      if (!night)       L.S([...d3, 960, 664, 0, 664], night ? '#16322f' : '#6b4a2f', 0, 'rgba(0,0,0,0)');
+      if (!night) L.S([0, 584, 160, 560, 330, 580, 500, 554, 670, 574, 820, 556, 940, 570, 960, 564, 960, 664, 0, 664], night ? 'rgba(2,8,8,.30)' : 'rgba(8,15,12,.34)', 0, 'rgba(0,0,0,0)');
+      if (!night) L.L(d3, 1.6, night ? 'rgba(160,190,170,.14)' : 'rgba(239,227,196,.20)', { taper: 0.2 });
+      const d4 = [0, 618, 180, 594, 360, 614, 540, 590, 720, 610, 880, 592, 960, 602];
+      if (!night)       L.S([...d4, 960, 700, 0, 700], night ? '#142e2c' : '#5a3f28', 0, 'rgba(0,0,0,0)');
+      if (!night) L.S([0, 644, 180, 620, 360, 640, 540, 616, 720, 636, 880, 618, 960, 628, 960, 700, 0, 700], night ? 'rgba(1,6,6,.34)' : 'rgba(6,12,10,.36)', 0, 'rgba(0,0,0,0)');
+      if (!night) L.L(d4, 1.6, night ? 'rgba(150,180,160,.12)' : 'rgba(239,227,196,.17)', { taper: 0.2 });
+      const d5 = [0, 676, 200, 656, 400, 672, 600, 652, 800, 668, 960, 656];
+      if (!night)       L.S([...d5, 960, 720, 0, 720], night ? '#122a28' : '#4a3524', 0, 'rgba(0,0,0,0)');
+      if (!night) L.L(d5, 1.4, night ? 'rgba(140,170,150,.16)' : 'rgba(74,58,40,.35)', { taper: 0.2 });
+      if (night) {
+        gradY(448, 720, '#1e403d', '#112725', 18);
+        inkFill([0, 520, 180, 500, 360, 520, 540, 500, 720, 516, 900, 502, 960, 510, 960, 560, 0, 560], 'rgba(0,0,0,.10)');
+        inkFill([0, 600, 200, 580, 400, 600, 620, 580, 820, 596, 960, 584, 960, 640, 0, 640], 'rgba(0,0,0,.12)');
+        inkFill([0, 670, 220, 652, 440, 670, 680, 652, 860, 666, 960, 658, 960, 720, 0, 720], 'rgba(0,0,0,.14)');
+        L.L(d1, 1.2, 'rgba(180,210,190,.12)', { taper: 0.2 });
+        L.L(d3, 1.2, 'rgba(180,210,190,.10)', { taper: 0.2 });
+        L.L(d5, 1.2, 'rgba(180,210,190,.08)', { taper: 0.2 });
+      }
+      // wind ripples and dry brush：沙纹被风推着缓慢滑动
+      const rippleN = night ? 0 : 90;
+      for (let i = 0; i < rippleN; i++) {
+        const x = (i * 97 + 23 + t * (2.6 + (i % 5) * 0.5)) % W;
+        const y = 440 + (i * 53) % 265, len = night ? 7 + (i % 5) * 4 : 12 + (i % 7) * 6;
+        L.L([x, y, x + len, y - 1 - (i % 3)], night ? 0.9 : 1.1, night ? 'rgba(150,190,175,.055)' : 'rgba(74,58,40,.16)', { taper: 0.22 });
+      }
+      for (let i = 0; i < 18; i++) { const x = 30 + (i * 59) % 900, y = 690 + (i % 3) * 8; L.L([x, y, x + 26, y - 2], 1.4, night ? 'rgba(140,170,150,.12)' : 'rgba(74,58,40,.22)', { taper: 0.3 }); }
+      // 贴地风沙：三条半透明沙带从右往左扫，近地颗粒被卷起
+      for (let k = 0; k < 3; k++) {
+        const off = W + 270 - ((t * (16 + k * 8) + k * 420) % (W + 540));
+        const y0 = 598 + k * 38;
+        const pts = [];
+        for (let i = 0; i <= 9; i++) { const x = off + i * 60; pts.push(x, y0 + Math.sin(i * 0.85 + t * 1.2 + k) * 10); }
+        inkFill([...pts, off + 540, 724, off, 724], `rgba(214,171,122,${night ? 0.055 : 0.14})`);
+        L.L(pts.map((v, i) => i % 2 ? v - 5 : v), 1.6, `rgba(74,58,40,${night ? 0.10 : 0.18})`, { taper: 0.4 });
+        L.L(pts, 1.8, `rgba(239,227,196,${night ? 0.08 : 0.28})`, { taper: 0.4 });
+      }
+      // 风线：几股有粗细变化的横风，不画成一片雨丝
+      const gustN = night ? 2 : 3;
+      for (let k = 0; k < gustN; k++) {
+        const head = W + 260 - ((t * (40 + k * 10) + k * 430) % (W + 520));
+        const y0 = 516 + k * 54 + Math.sin(t * 1.3 + k) * 9;
+        const pts = [];
+        for (let i = 0; i <= 8; i++) pts.push(head - i * 52, y0 + Math.sin(i * 0.72 + t * 1.7 + k) * 9 - i * 1.6);
+        L.L(pts, 2.8 + k * 0.6, night ? `rgba(180,210,190,${0.08 + k * 0.015})` : `rgba(239,227,196,${0.26 + k * 0.03})`, { taper: 0.42 });
+        // 风头卷一下，像被沙脊扯开的布
+        const hx = head, hy = y0;
+        L.L([hx, hy, hx + 12, hy - 7, hx + 6, hy - 17, hx - 5, hy - 15], 1.6, night ? 'rgba(180,210,190,.10)' : 'rgba(239,227,196,.28)', { taper: 0.35 });
+      }
+      // 贴地翻起的沙粒：只在近地面，短促、带方向
+      for (let i = 0; i < 54; i++) {
+        const y = 596 + (i * 31) % 108;
+        const x = W + 80 - ((i * 83 + t * (62 + (i % 7) * 9)) % (W + 200));
+        const len = 5 + (i % 4) * 5;
+        L.L([x, y, x - len, y - 0.5 - (i % 2)], 1.5, `rgba(214,171,122,${night ? 0.14 : 0.42})`, { taper: 0.35 });
+        if (i % 5 === 0) inkFill(L.pEll(x, y + 2, 1.2, 0.8, 0, TAU, 6), `rgba(239,227,196,${night ? 0.14 : 0.40})`);
+      }
+      // 大股沙雾：从右侧沙脊后面漫过来，有体积、有亮边
+      for (let k = 0; k < 4; k++) {
+        const px = W + 180 - ((t * (34 + k * 8) + k * 260) % (W + 360));
+        const py = 628 - k * 13 + Math.sin(t * 1.1 + k) * 5;
+        for (let j = 0; j < 4; j++) {
+          const ex = px - j * 24 + Math.sin(t * 1.6 + j + k) * 8;
+          const ey = py - j * 7;
+          inkFill(L.pEll(ex, ey, 54 + j * 9, 12 + j * 2.5, 0, TAU, 18), `rgba(214,171,122,${night ? 0.035 : 0.085 - j * 0.012})`);
+        }
+        L.L([px - 100, py - 6, px + 52, py - 10], 1.8, `rgba(239,227,196,${night ? 0.035 : 0.15})`, { taper: 0.4 });
+      }
+      // 两股小旋沙，贴着地皮打转
+      for (const [dx, dy, ds] of [[190, 650, 0.9], [742, 654, 0.75]]) {
+        const rot = t * 2.1;
+        for (let j = 0; j < 5; j++) {
+          const yy = dy - j * 10 * ds, xx = dx + Math.sin(rot + j * 0.9) * (7 - j * 0.8) * ds;
+          L.L([xx, yy, xx + Math.cos(rot + j * 0.9) * 5 * ds, yy - 6 * ds], 1.0, `rgba(214,171,122,${night ? 0.06 : 0.15})`, { taper: 0.35 });
+        }
+        inkFill(L.pEll(dx, dy + 5, 18 * ds, 4 * ds, 0, TAU, 12), `rgba(214,171,122,${night ? 0.05 : 0.11})`);
+      }
+      // 远处的小尘卷：一团被风从地面提起来的黄沙，边缘松散，不做成硬锥体
+      if (!night) {
+        const dx0 = 800 + Math.sin(t * 0.55) * 20;
+        const baseY = 662;
+        for (let k = 0; k < 8; k++) inkFill(L.pEll(dx0 - k * 14, baseY - k * 3, 58 + k * 12, 13 + k * 2, 0, TAU, 16), `rgba(214,171,122,${0.14 - k * 0.013})`);
+        for (let j = 0; j < 15; j++) {
+          const yy = baseY - 12 - j * 15;
+          const xx = dx0 + Math.sin(t * 1.25 + j * 0.48) * (7 + j * 1.3) - j * 1.4;
+          const rx = 36 - j * 1.4, ry = 12 - j * 0.25;
+          inkFill(L.pEll(xx, yy, Math.max(10, rx), Math.max(6, ry), 0, TAU, 16), `rgba(214,171,122,${Math.max(0.025, 0.10 - j * 0.004)})`);
+          if (j % 2 === 0) inkFill(L.pEll(xx - 8, yy - 2, Math.max(6, rx * 0.5), Math.max(3, ry * 0.5), 0, TAU, 12), 'rgba(239,227,196,.055)');
+        }
+        // 几道卷动的沙纹，只绕在柱体附近，不横贯整个画面
+        for (let k = 0; k < 5; k++) {
+          const yy = baseY - 30 - k * 45 + Math.sin(t * 1.5 + k) * 8;
+          const sway = Math.sin(t * 2.4 + k * 0.9) * (6 + k * 2);
+          L.L([dx0 - 30 - k * 4 + sway, yy, dx0 - 2 + sway * 0.6, yy - 16, dx0 + 26 - k * 2 + sway, yy - 6], 5.0 - k * 0.4, `rgba(239,227,196,${0.16 - k * 0.018})`, { taper: 0.45 });
+        }
+        // 顶部散开的沙冠
+        for (let k = 0; k < 4; k++) inkFill(L.pEll(dx0 - 20 + Math.sin(t * 1.4 + k) * 18, baseY - 238 - k * 9, 46 - k * 7, 17 - k * 3, 0, TAU, 16), `rgba(214,171,122,${0.10 - k * 0.015})`);
+        L.L([dx0 - 52, baseY - 242, dx0 - 12, baseY - 262, dx0 + 28, baseY - 252, dx0 + 44, baseY - 232], 2.2, 'rgba(239,227,196,.18)', { taper: 0.4 });
+        for (let i = 0; i < 12; i++) inkFill(L.pEll(dx0 - 50 + (i * 17) % 110, baseY - 10 - (i * 13) % 55, 1.6, 1.0, 0, TAU, 6), 'rgba(255,236,190,.35)');
+      }
+      // 地平线前横着漫过的沙幕，压住远山脚下
+      if (!night) {
+        const off = W + 120 - ((t * 24) % (W + 300));
+        for (let k = 0; k < 6; k++) {
+          const px = off - k * 74;
+          inkFill(L.pEll(px, 536 + Math.sin(t * 1.2 + k) * 8, 82, 24, 0, TAU, 18), `rgba(201,162,74,${0.09 - k * 0.008})`);
+        }
+        L.L([off - 440, 548, off - 300, 540, off - 160, 550, off, 542], 1.8, 'rgba(239,227,196,.20)', { taper: 0.4 });
+      }
+      // 一团被风推着滚的骆驼刺，给静止的沙原一个明确的“风”的方向
+      if (!night) {
+        const tx = W + 40 - ((t * 34) % (W + 80));
+        const ty = 620 - Math.abs(Math.sin(t * 2.4)) * 13;
+        for (let j = 0; j < 9; j++) {
+          const a = j / 9 * TAU + t * 2.6;
+          L.L([tx + Math.cos(a) * 12, ty + Math.sin(a) * 9, tx + Math.cos(a + 1.7) * 17, ty + Math.sin(a + 1.7) * 12], 1.5, 'rgba(42,33,26,.58)', { taper: 0.3 });
+        }
+        inkFill(L.pEll(tx, ty, 12, 8, 0, TAU, 12), 'rgba(42,33,26,.24)');
+        for (let k = 0; k < 4; k++) inkFill(L.pEll(tx + 22 + k * 15, ty + 5 - k * 3, 14 - k * 2, 4.5, 0, TAU, 10), `rgba(214,171,122,${0.14 - k * 0.025})`);
+      }
+      // foreground rocks and scrub
+      for (let i = 0; i < 10; i++) {
+        const x = 40 + (i * 137) % 900, y = 660 + (i * 31) % 48;
+        inkFill(L.pEll(x, y, 7 + (i % 3) * 4, 3 + (i % 2) * 2, 0, TAU, 12), night ? 'rgba(8,18,18,.62)' : 'rgba(74,58,40,.55)');
+        inkFill(L.pEll(x - 2, y - 1, 4 + (i % 2) * 2, 1.5, 0, TAU, 8), night ? 'rgba(90,120,110,.16)' : 'rgba(214,171,122,.22)');
+        for (let k = 0; k < 4; k++) L.L([x, y, x + (k - 1.5) * 4, y - 8 - k * 2], 1.1, night ? 'rgba(120,150,140,.30)' : 'rgba(74,58,40,.45)', { taper: 0.25 });
+      }
+      // dark foreground rock and grass, the print-like frame of the film
+      inkFill([0, 700, 140, 684, 300, 700, 520, 686, 720, 700, 960, 690, 960, 720, 0, 720], 'rgba(10,10,7,.72)');
+      L.S([-10, 720, -10, 648, 34, 622, 82, 636, 112, 672, 126, 720], 'rgba(8,8,6,.9)', 2.2, 'rgba(0,0,0,.65)');
+      L.S([-10, 648, 34, 622, 82, 636], 'rgba(42,38,28,.18)', 0, 'rgba(0,0,0,0)');
+      for (let i = 0; i < 22; i++) {
+        const x = 30 + (i * 43) % 900, h = 8 + (i % 6) * 5;
+        const gs = Math.sin(t * 1.6 + i * 0.7) * (2.2 + (i % 3) * 0.8);
+        L.L([x, 718, x + (i % 2 ? 5 : -5) + gs, 718 - h], 1.2, 'rgba(5,7,5,.82)', { taper: 0.4 });
+      }
+      // footprints along the old road
+      if (!night) for (let i = 0; i < 7; i++) { const x = 180 + i * 92, y = 690 - i * 6; inkFill(L.pEll(x, y, 3, 1.4, 0, TAU, 8), 'rgba(74,58,40,.18)'); inkFill(L.pEll(x + 10, y - 1, 3, 1.4, 0, TAU, 8), 'rgba(74,58,40,.14)'); }
+      if (!night) {
+        bird(120 + Math.sin(t * 0.35) * 8 + t * 1.1, 120 + Math.sin(t * 0.6) * 4, 0.8, t);
+        bird(152 + Math.sin(t * 0.35 + 0.5) * 7 + t * 1.1, 104 + Math.sin(t * 0.6 + 0.7) * 3, 0.65, t);
+        bird(830 - t * 0.7, 96 + Math.sin(t * 0.45) * 3, 0.7, t);
+      }
+    };
+    const temple = (t = 0) => {
+      gradY(0, 560, '#1e0f0c', '#3a2018', 22);
+      gradY(560, 720, '#1a0e0a', '#0c0705', 16);
+      // plaster patches and fine cracks
+      for (let i = 0; i < 26; i++) { const x = 40 + (i * 97) % 880, y = 180 + (i * 53) % 360; L.L([x, y, x + 8 + (i % 5) * 3, y + 40 + (i % 4) * 18], 0.9, 'rgba(42,33,26,.08)', { taper: 0.2 }); }
+      for (let i = 0; i < 16; i++) { const x = 60 + (i * 113) % 840, y = 200 + (i * 71) % 320; inkFill(L.pEll(x, y, 18 + (i % 4) * 6, 10 + (i % 3) * 4, 0, TAU, 16), i % 2 ? 'rgba(214,171,122,.08)' : 'rgba(42,33,26,.06)'); }
+      // faded wall painting: two halos, a row of small figures
+      for (const hx of [300, 660]) { L.S(L.pEll(hx, 300, 62, 62, 0, TAU, 32), 'rgba(0,0,0,0)', 1.4, 'rgba(201,162,74,.16)'); inkFill(L.pEll(hx, 300, 44, 44, 0, TAU, 28), 'rgba(201,162,74,.04)'); }
+      for (let i = 0; i < 6; i++) { const x = 180 + i * 110, y = 420; inkFill(L.pEll(x, y, 9, 18, 0, TAU, 14), 'rgba(143,102,51,.10)'); inkFill(L.pEll(x, y - 22, 6, 7, 0, TAU, 12), 'rgba(143,102,51,.10)'); }
+      // pillars with bases, capitals, fluting
+      for (const x of [120, 800]) {
+        inkFill([x - 10, 540, x + 50, 540, x + 56, 570, x - 16, 570], '#4a2a1e');
+        L.S([x, 150, x + 40, 150, x + 40, 540, x, 540], '#3a1e16', 2.6, 'rgba(10,6,4,.9)');
+        L.S([x - 12, 140, x + 52, 140, x + 52, 158, x - 12, 158], '#7a3a28', 2.2, 'rgba(42,33,26,.8)');
+        for (let k = 0; k < 4; k++) L.L([x + 8 + k * 8, 160, x + 8 + k * 8, 536], 1.2, 'rgba(214,171,122,.12)', { taper: 0.1 });
+        L.L([x + 2, 160, x + 2, 536], 2.0, 'rgba(20,10,8,.28)', { taper: 0.1 });
+        L.L([x + 38, 160, x + 38, 536], 1.4, 'rgba(214,171,122,.18)', { taper: 0.1 });
+        inkFill([x - 2, 180, x + 42, 180, x + 42, 188, x - 2, 188], 'rgba(201,162,74,.35)');
+        inkFill([x - 2, 500, x + 42, 500, x + 42, 508, x - 2, 508], 'rgba(201,162,74,.28)');
+      }
+      // beam with gold lozenges
+      L.S([96, 138, 864, 138, 864, 186, 96, 186], '#2a1512', 3, 'rgba(10,6,4,.9)');
+      L.S([108, 148, 852, 148, 852, 176, 108, 176], '#6b3a26', 1.6, 'rgba(42,33,26,.6)');
+      for (let i = 0; i < 12; i++) { const cx = 140 + i * 60; inkFill([cx - 9, 162, cx, 151, cx + 9, 162, cx, 173], i % 2 ? 'rgba(201,162,74,.55)' : 'rgba(163,76,50,.55)'); }
+      for (let i = 0; i < 7; i++) { const x = 180 + i * 100; L.S([x, 186, x + 10, 186, x + 10, 202, x, 202], '#3a2419', 1.2, 'rgba(42,33,26,.7)'); L.S([x - 4, 202, x + 14, 202, x + 14, 210, x - 4, 210], '#4a2a1e', 1.2, 'rgba(42,33,26,.7)'); }
+      // banners with gold borders and a circle motif：被殿门的风轻轻掀起
+      for (let bi = 0; bi < 2; bi++) {
+        const x = bi ? 660 : 250;
+        const ph = t * 1.25 + bi * 1.7;
+        const sw1 = Math.sin(ph) * 6.0, sw2 = Math.sin(ph - 0.35) * 8.0;
+        const swayAt = (yy) => sw1 * (yy - 200) / 252 + Math.sin(ph - 0.2) * 1.5 * (yy - 200) / 252;
+        L.L([x - 8, 196, x + 54, 196], 4, '#4a3524', { taper: 0 });
+        L.S([x, 200, x + 46, 200, x + 44 + sw1, 430, x + 23 + sw2, 452, x + 2 + sw1 * 0.8, 430], '#a34c32', 2.2, 'rgba(42,33,26,.8)');
+        L.L([x + 5, 210, x + 5 + swayAt(416), 416], 1.4, 'rgba(239,227,196,.42)', { taper: 0.1 });
+        L.L([x + 41, 210, x + 41 + swayAt(416), 416], 1.4, 'rgba(239,227,196,.32)', { taper: 0.1 });
+        L.S(L.pEll(x + 23 + swayAt(300), 300, 12, 12, 0, TAU, 18), 'rgba(0,0,0,0)', 1.6, 'rgba(239,227,196,.42)');
+        for (let k = 0; k < 3; k++) L.L([x + 8 + k * 15 + sw2 * 0.8, 430, x + 8 + k * 15 + sw2 * 0.95, 444], 1.2, 'rgba(201,162,74,.42)', { taper: 0.2 });
+      }
+      // mandorla and halo behind the Buddha
+      const bx = 710, by = 300;
+      L.S([bx, 148, bx + 98, 208, bx + 122, 330, bx + 82, 470, bx, 522, bx - 82, 470, bx - 122, 330, bx - 98, 208], 'rgba(201,162,74,.05)', 1.6, 'rgba(201,162,74,.34)');
+      L.S(L.pEll(bx, by, 102, 102, 0, TAU, 40), 'rgba(0,0,0,0)', 2.0, 'rgba(201,162,74,.42)');
+      L.S(L.pEll(bx, by, 86, 86, 0, TAU, 40), 'rgba(0,0,0,0)', 1.1, 'rgba(201,162,74,.26)');
+      for (let i = 0; i < 16; i++) {
+        const a = i / 16 * TAU + t * 0.012;
+        const ha = 0.16 + 0.08 * (0.5 + 0.5 * Math.sin(t * 0.9 + i * 0.7));
+        L.L([bx + Math.cos(a) * 86, by + Math.sin(a) * 86, bx + Math.cos(a) * 101, by + Math.sin(a) * 101], 1.2, `rgba(201,162,74,${ha})`, { taper: 0.2 });
+      }
+      // lotus pedestal
+      for (let row = 0; row < 3; row++) {
+        const y = 520 + row * 15, w = 92 - row * 12;
+        for (let i = 0; i < 7; i++) { const x = bx - w + i * (w * 2 / 6); inkFill(L.pEll(x, y, 17, 9, 0, TAU, 14), row === 0 ? '#d3aa63' : row === 1 ? '#b98a49' : '#8f6633'); L.L([x, y + 3, x, y + 10], 1.0, 'rgba(74,58,40,.3)', { taper: 0.2 }); }
+      }
+      L.S([bx - 116, 560, bx + 116, 560, bx + 128, 580, bx - 128, 580], '#6b4a2f', 2.4, 'rgba(42,33,26,.8)');
+      // crossed legs
+      L.S([bx - 82, 512, bx - 58, 486, bx + 58, 486, bx + 82, 512, bx + 62, 536, bx - 62, 536], '#b98a49', 2.0, 'rgba(42,33,26,.55)');
+      for (let i = 0; i < 5; i++) L.L([bx - 66 + i * 30, 492, bx - 52 + i * 30, 532], 1.2, 'rgba(74,58,40,.28)', { taper: 0.2 });
+      // torso and robe
+      L.S([bx - 52, 350, bx - 24, 332, bx + 24, 332, bx + 52, 350, bx + 40, 466, bx + 54, 486, bx - 54, 486, bx - 40, 466], '#c9a24a', 2.2, 'rgba(42,33,26,.55)');
+      inkFill([bx + 10, 340, bx + 50, 354, bx + 40, 468, bx + 52, 484, bx + 30, 484, bx + 18, 466], 'rgba(143,102,51,.28)');
+      L.L([bx - 38, 362, bx - 40, 430, bx - 24, 480], 1.4, 'rgba(74,58,40,.28)', { taper: 0.2 });
+      L.L([bx + 32, 364, bx + 34, 430, bx + 20, 480], 1.4, 'rgba(74,58,40,.24)', { taper: 0.2 });
+      L.S([bx - 48, 358, bx - 30, 348, bx + 34, 464, bx + 16, 474], '#a34c32', 1.4, 'rgba(42,33,26,.4)');
+      // arms and hands in the lap
+      L.S([bx - 44, 356, bx - 62, 408, bx - 44, 462, bx - 30, 458, bx - 42, 408, bx - 28, 368], '#b98a49', 1.6, 'rgba(42,33,26,.45)');
+      L.S([bx + 44, 356, bx + 62, 408, bx + 44, 462, bx + 30, 458, bx + 42, 408, bx + 28, 368], '#b98a49', 1.6, 'rgba(42,33,26,.45)');
+      inkFill(L.pEll(bx - 14, 472, 18, 10, 0, TAU, 18), '#d3aa63');
+      inkFill(L.pEll(bx + 14, 472, 18, 10, 0, TAU, 18), '#d3aa63');
+      // neck and head
+      inkFill([bx - 14, 324, bx + 14, 324, bx + 16, 350, bx - 16, 350], '#b98a49');
+      inkFill(L.pEll(bx, 296, 26, 31, 0, TAU, 28), '#d3aa63');
+      inkFill([bx + 8, 268, bx + 24, 276, bx + 24, 318, bx + 10, 322], 'rgba(143,102,51,.18)');
+      inkFill([bx - 20, 276, bx - 10, 272, bx - 8, 300, bx - 18, 306], 'rgba(255,227,160,.12)');
+      inkFill(L.pEll(bx, 278, 27, 19, Math.PI, TAU, 24), '#2c5450');
+      L.L([bx - 26, 282, bx - 14, 278, bx, 280, bx + 14, 278, bx + 26, 282], 1.2, 'rgba(201,162,74,.45)', { taper: 0.1 });
+      inkFill(L.pEll(bx - 26, 306, 4, 8, 0, TAU, 10), '#c9a24a');
+      inkFill(L.pEll(bx + 26, 306, 4, 8, 0, TAU, 10), '#c9a24a');
+      for (let i = 0; i < 14; i++) { const a = Math.PI + (i + 0.5) / 14 * Math.PI; const px = bx + Math.cos(a) * 22, py = 278 + Math.sin(a) * 15; inkFill(L.pEll(px, py, 3.6, 3.0, 0, TAU, 8), 'rgba(36,74,72,.9)'); }
+      inkFill(L.pEll(bx, 256, 11, 12, 0, TAU, 18), '#2c5450');
+      for (let i = 0; i < 6; i++) inkFill(L.pEll(bx - 7 + i * 2.8, 250 + (i % 2) * 4, 2.8, 2.5, 0, TAU, 8), 'rgba(36,74,72,.85)');
+      inkFill([bx - 10, 261, bx + 10, 261, bx + 9, 266, bx - 9, 266], 'rgba(201,162,74,.55)');
+      inkFill(L.pEll(bx - 26, 298, 6, 11, 0, TAU, 14), '#c9a24a');
+      inkFill(L.pEll(bx + 26, 298, 6, 11, 0, TAU, 14), '#c9a24a');
+      L.L([bx - 29, 293, bx - 26, 302], 1.0, 'rgba(74,58,40,.35)', { taper: 0.2 });
+      L.L([bx + 26, 293, bx + 29, 302], 1.0, 'rgba(74,58,40,.35)', { taper: 0.2 });
+      // face: long brows, closed eyes, a long nose, a faint smile, urna
+      L.L([bx - 21, 286, bx - 8, 289, bx - 2, 287], 1.6, 'rgba(42,33,26,.6)', { taper: 0.2 });
+      L.L([bx + 2, 287, bx + 8, 289, bx + 21, 286], 1.6, 'rgba(42,33,26,.6)', { taper: 0.2 });
+      L.L([bx - 19, 298, bx - 8, 300, bx - 2, 299], 1.5, 'rgba(42,33,26,.55)', { taper: 0.2 });
+      L.L([bx + 2, 299, bx + 8, 300, bx + 19, 298], 1.5, 'rgba(42,33,26,.55)', { taper: 0.2 });
+      L.L([bx - 16, 302, bx - 8, 303], 1.0, 'rgba(74,58,40,.3)', { taper: 0.2 });
+      L.L([bx + 8, 303, bx + 16, 302], 1.0, 'rgba(74,58,40,.3)', { taper: 0.2 });
+      L.L([bx - 1, 296, bx - 3, 310, bx + 1, 315, bx + 4, 311], 1.2, 'rgba(74,58,40,.45)', { taper: 0.2 });
+      L.L([bx - 6, 315, bx - 2, 317], 1.0, 'rgba(74,58,40,.35)', { taper: 0.2 });
+      L.L([bx + 2, 317, bx + 6, 315], 1.0, 'rgba(74,58,40,.35)', { taper: 0.2 });
+      L.L([bx - 8, 323, bx, 325, bx + 8, 323], 1.3, 'rgba(74,58,40,.5)', { taper: 0.2 });
+      inkFill([bx - 24, 302, bx - 14, 308, bx - 12, 320, bx - 22, 318], 'rgba(143,102,51,.14)');
+      inkFill([bx + 14, 302, bx + 24, 308, bx + 22, 318, bx + 12, 320], 'rgba(143,102,51,.14)');
+      L.L([bx - 12, 334, bx + 12, 334], 1.0, 'rgba(74,58,40,.28)', { taper: 0.2 });
+      L.L([bx - 10, 340, bx + 10, 340], 1.0, 'rgba(74,58,40,.24)', { taper: 0.2 });
+      inkFill(L.pEll(bx, 282, 2.2, 2.2, 0, TAU, 8), 'rgba(163,76,50,.7)');
+      // candles：火苗抖、光晕跟着呼吸
+      for (const x of [226, 754]) {
+        const fl = 0.78 + 0.18 * Math.sin(t * 3.8 + x * 0.02) + 0.07 * Math.sin(t * 8.2 + x);
+        const fx = x + Math.sin(t * 4.5 + x) * 0.9;
+        L.S([x - 12, 560, x + 12, 560, x + 6, 548, x - 6, 548], '#4a3524', 1.4, 'rgba(42,33,26,.6)');
+        L.L([x, 548, x, 500], 3.0, '#4a3524', { taper: 0.1 });
+        inkFill(L.pEll(fx, 494 - (fl - 0.8) * 2, 7, 10 + 2 * fl, 0, TAU, 14), '#d8a53f');
+        inkFill(L.pEll(fx, 486 - (fl - 0.8) * 3, 3.6, 6 + 2 * fl, 0, TAU, 12), '#ffd98a');
+        inkFill(L.pEll(fx, 484 - (fl - 0.8) * 4, 1.8, 3.4, 0, TAU, 8), 'rgba(255,247,214,.9)');
+        glow(fx, 488, 6, 48 + 10 * fl, '255,217,138', 0.055 * fl, 8);
+      }
+      // incense burner at the centre
+      L.S([470, 556, 490, 556, 486, 570, 474, 570], '#4a3524', 1.6, 'rgba(42,33,26,.6)');
+      inkFill(L.pEll(480, 552, 16, 6, 0, TAU, 14), '#8f6633');
+      for (let i = 0; i < 3; i++) { L.L([478 + i * 2, 548, 477 + i * 2, 532], 1.0, '#6b4a2f', { taper: 0.1 }); inkFill(L.pEll(477 + i * 2, 530, 1.6, 1.6, 0, TAU, 6), 'rgba(255,217,138,.7)'); }
+      for (let i = 0; i < 5; i++) {
+        const yy = 520 - i * 12;
+        const sw = Math.sin(t * 1.1 + i * 0.9) * (2 + i * 1.2);
+        const xx = 480 + Math.sin(t * 0.7 + i * 0.6) * 2;
+        L.L([xx, yy, xx + 8 + sw, yy - 10, xx - 2 + sw * 0.8, yy - 20], 1.2, `rgba(239,227,196,${0.14 - i * 0.02})`, { taper: 0.4 });
+      }
+      // floor boards and carpet
+      for (let i = 0; i < 8; i++) L.L([0, 580 + i * 18, W, 576 + i * 18], 1.1, 'rgba(42,33,26,.16)', { taper: 0 });
+      L.L([0, 560, W, 560], 2.2, 'rgba(42,33,26,.65)', { taper: 0 });
+      for (let i = 0; i < 6; i++) { const t = i / 5; L.L([480 + (t - 0.5) * 120, 720, 480 + (t - 0.5) * 40, 560], 1.0, 'rgba(42,33,26,.10)', { taper: 0 }); }
+      L.S([420, 560, 540, 560, 600, 720, 360, 720], 'rgba(163,76,50,.55)', 2.0, 'rgba(201,162,74,.45)');
+      L.L([432, 570, 372, 720], 1.4, 'rgba(201,162,74,.45)', { taper: 0 });
+      L.L([528, 570, 588, 720], 1.4, 'rgba(201,162,74,.45)', { taper: 0 });
+      // 香火与烛光里的浮尘
+      motes(t, 18, 90, 860, 190, 610, '245,222,168', 0.16);
+      // near pillar silhouettes frame the shrine, like the forest trunks in the reference
+      inkFill([0, 0, 46, 0, 58, 720, 0, 720], 'rgba(8,5,3,.82)');
+      inkFill([W - 46, 0, W, 0, W, 720, W - 58, 720], 'rgba(8,5,3,.82)');
+      L.L([46, 0, 58, 720], 2, 'rgba(120,66,45,.22)', { taper: 0 });
+      L.L([W - 46, 0, W - 58, 720], 2, 'rgba(120,66,45,.22)', { taper: 0 });
+    };
+
+    const bookPlate = () => {
+      inkFill([0, 0, W, 0, W, H, 0, H], '#c9b894');
+      L.S([70, 120, 890, 120, 910, 650, 50, 650], '#6b4a2f', 3, 'rgba(42,33,26,.9)');
+      L.S([130, 160, 840, 145, 860, 610, 110, 625], '#efe3c4', 2.5, 'rgba(42,33,26,.9)');
+      L.L([480, 150, 480, 620], 2, 'rgba(74,58,40,.45)');
+      for (let i = 0; i < 12; i++) { L.L([160, 210 + i * 28, 450, 205 + i * 28], 1, 'rgba(74,58,40,.22)', { taper: 0.1 }); L.L([510, 205 + i * 28, 800, 200 + i * 28], 1, 'rgba(74,58,40,.18)', { taper: 0.1 }); }
+      inkFill(L.pRR(720, 520, 44, 44, 2, 4), 'rgba(168,55,44,.85)');
+    };
+    const mogao = (t = 0) => {
+      L.xfDraw(lao.cliff(), 0, 0, W, H);
+      inkFill([0, 0, W, 0, W, H, 0, H], 'rgba(6,22,22,.24)');
+      // late-afternoon haze over the cliff, and a warm veil over the valley
+      inkFill([0, 0, W, 0, W, 120, 0, 120], 'rgba(239,227,196,.10)');
+      inkFill([0, 300, 430, 300, 430, 720, 0, 720], 'rgba(201,162,74,.06)');
+      for (let i = 0; i < 3; i++) L.L([40 + Math.sin(t * 0.25 + i) * 14, 110 + i * 24, 310 + Math.sin(t * 0.25 + i) * 20, 96 + i * 24], 1.2, 'rgba(239,227,196,.10)', { taper: 0.4 });
+      bird(300 + t * 0.8, 96 + Math.sin(t * 0.5) * 4, 0.7, t);
+      bird(330 + t * 0.8, 82 + Math.sin(t * 0.5 + 0.8) * 3, 0.55, t);
+      bird(360 + t * 0.7, 100 + Math.sin(t * 0.5 + 1.4) * 4, 0.6, t);
+      // the river and the oasis floor below the cliff
+      L.S([0, 420, 120, 400, 240, 430, 330, 470, 380, 540, 360, 620, 300, 720, 0, 720], 'rgba(55,90,85,.38)', 1.6, 'rgba(8,20,18,.45)');
+      L.S([0, 470, 90, 455, 180, 480, 250, 520, 270, 600, 230, 720, 0, 720], 'rgba(35,65,62,.30)', 0, 'rgba(0,0,0,0)');
+      for (let i = 0; i < 8; i++) {
+        const x = 40 + i * 32 + Math.sin(t * 1.1 + i) * 5, y = 470 + i * 12 + Math.sin(t * 1.7 + i * 0.7) * 1.5;
+        L.L([x, y, x + 50, y - 4], 1.1, `rgba(239,227,196,${0.10 + 0.08 * Math.abs(Math.sin(t * 1.3 + i * 0.8))})`, { taper: 0.3 });
+      }
+      const poplar = (x, y, s, ph) => {
+        const sw = Math.sin(t * 1.05 + ph) * 3.2 * s;
+        L.L([x, y, x - 2 + sw * 0.8, y - 92 * s], 2.4 * s, '#5a4a2f', { taper: 0.2 });
+        for (let k = 0; k < 5; k++) inkFill(L.pEll(x - 2 + sw * (0.35 + k * 0.1), y - 30 - k * 14 * s, 12 * s - k * 1.5 * s, 8 * s, 0, TAU, 12), k % 2 ? '#2f4a3a' : '#3a5a44');
+      };
+      poplar(238, 690, 0.9, 0.2); poplar(286, 700, 0.75, 1.4); poplar(340, 710, 0.62, 2.6);
+      // a pale path up to the cave
+      L.S([300, 720, 390, 720, 530, 650, 500, 636], 'rgba(214,171,122,.28)', 1.2, 'rgba(42,33,26,.15)');
+      for (let i = 0; i < 12; i++) { const x = 440 + (i * 47) % 500, y = 120 + (i * 71) % 520; L.L([x, y, x + 8, y + 34, x + 2, y + 90], 2.0, 'rgba(4,4,3,.45)', { taper: 0.3 }); }
+      // rock texture: fissures and pitting on the cliff face
+      for (let i = 0; i < 22; i++) { const x = 460 + (i * 89) % 500, y = 120 + (i * 67) % 560; L.L([x, y, x + 6 + (i % 7) * 4, y + 18 + (i % 5) * 12], 0.9, 'rgba(42,33,26,.22)', { taper: 0.3 }); }
+      for (let i = 0; i < 30; i++) { const x = 450 + (i * 113) % 510, y = 130 + (i * 47) % 550; inkFill(L.pEll(x, y, 2 + (i % 4), 1.4 + (i % 3), 0, TAU, 8), i % 3 ? 'rgba(42,33,26,.16)' : 'rgba(214,171,122,.14)'); }
+      inkFill([0, 0, W, 0, W, H, 0, H], 'rgba(5,16,16,.17)');
+      // large weathered planes and water stains break the horizontal strata
+      for (let i = 0; i < 4; i++) {
+        const x = 690 + i * 66;
+        inkFill([x, 130 + i * 30, x + 26, 150 + i * 30, x + 18, 360 + i * 20, x - 8, 380 + i * 20], 'rgba(42,33,26,.10)');
+        L.L([x + 4, 140 + i * 30, x - 2, 380 + i * 20], 2.0, 'rgba(42,33,26,.16)', { taper: 0.3 });
+      }
+      inkFill([560, 660, 760, 660, 730, 700, 540, 700], 'rgba(20,12,8,.18)');
+      // broad rock planes, so the face is not just horizontal stripes
+      inkFill([430, 150, 520, 130, 545, 330, 450, 360], 'rgba(143,102,51,.16)');
+      inkFill([450, 380, 540, 360, 560, 600, 470, 640], 'rgba(74,58,40,.12)');
+      inkFill([720, 140, 830, 120, 860, 320, 740, 350], 'rgba(42,33,26,.10)');
+      inkFill([860, 160, 940, 140, 950, 380, 880, 400], 'rgba(214,171,122,.10)');
+      // dark edge where the cliff meets the valley
+      L.L([404, 144, 422, 204, 410, 252, 446, 286, 432, 334, 462, 376, 448, 428, 476, 478, 462, 526, 486, 566, 470, 614, 500, 652, 486, 692, 500, 732], 2.0, 'rgba(30,50,45,.35)', { taper: 0.2 });
+      // a carved cave: rock rim, arched recess, dim warm interior, stone ledge
+      const mArch = (x, y, w, h) => { const r = w / 2, cx = x + r, pts = []; for (let i = 0; i <= 12; i++) { const a = Math.PI + i * Math.PI / 12; pts.push(cx + Math.cos(a) * r, y + r + Math.sin(a) * r); } pts.push(x + w, y + h, x, y + h); return pts; };
+      const mCave = (x, y, w, h) => {
+        L.S(mArch(x - 6, y - 6, w + 12, h + 8), '#6b5a3d', 2.0, 'rgba(42,33,26,.55)');
+        L.S(mArch(x, y, w, h), '#2a211a', 2.0, 'rgba(42,33,26,.9)');
+        inkFill(mArch(x + 4, y + 5, w - 8, h - 8), 'rgba(90,60,35,.38)');
+        inkFill([x + 4, y + 5, x + w - 4, y + 5, x + w - 4, y + h * 0.45, x + 4, y + h * 0.45], 'rgba(10,8,6,.35)');
+        inkFill([x + w * 0.18, y + h * 0.55, x + w * 0.82, y + h * 0.55, x + w * 0.82, y + h * 0.92, x + w * 0.18, y + h * 0.92], 'rgba(201,162,74,.10)');
+        inkFill([x - 6, y + h, x + w + 6, y + h, x + w + 12, y + h + 7, x - 12, y + h + 7], '#8f6633');
+        L.L([x - 6, y + h, x + w + 6, y + h], 1.4, 'rgba(42,33,26,.6)', { taper: 0 });
+        inkFill([x - 12, y + h + 7, x + w + 12, y + h + 7, x + w + 16, y + h + 14, x - 16, y + h + 14], 'rgba(42,33,26,.16)');
+      };
+      // main cave: wooden door frame, warm interior, a small plaque
+      inkFill([574, 640, 574, 504, 580, 466, 596, 438, 616, 422, 650, 422, 670, 438, 686, 466, 692, 504, 692, 640], 'rgba(60,40,24,.48)');
+      inkFill(L.pEll(630, 620, 62, 18, 0, TAU, 20), 'rgba(201,162,74,.10)');
+      // lit interior: a receding corridor and a hint of a seated figure
+      inkFill([596, 622, 670, 622, 662, 500, 604, 500], 'rgba(120,80,40,.22)');
+      inkFill([610, 602, 656, 602, 650, 520, 616, 520], 'rgba(201,162,74,.09)');
+      L.S(L.pEll(632, 566, 26, 26, 0, TAU, 24), 'rgba(201,162,74,.04)', 1.0, 'rgba(201,162,74,.16)');
+      inkFill(L.pEll(632, 570, 8, 10, 0, TAU, 14), 'rgba(201,162,74,.18)');
+      inkFill([620, 582, 644, 582, 650, 610, 614, 610], 'rgba(201,162,74,.12)');
+      inkFill([614, 610, 650, 610, 646, 618, 618, 618], 'rgba(201,162,74,.10)');
+      L.S([560, 640, 706, 640, 714, 652, 552, 652], '#8f6633', 1.6, 'rgba(42,33,26,.6)');
+      L.S([566, 430, 700, 430, 700, 450, 566, 450], '#4a3524', 2.2, 'rgba(42,33,26,.8)');
+      L.S([570, 450, 584, 450, 584, 640, 570, 640], '#4a3524', 2.0, 'rgba(42,33,26,.8)');
+      L.S([686, 450, 700, 450, 700, 640, 686, 640], '#4a3524', 2.0, 'rgba(42,33,26,.8)');
+      for (let i = 0; i < 5; i++) { inkFill(L.pEll(577, 470 + i * 32, 2, 2, 0, TAU, 8), 'rgba(201,162,74,.5)'); inkFill(L.pEll(693, 470 + i * 32, 2, 2, 0, TAU, 8), 'rgba(201,162,74,.5)'); }
+      L.S([606, 396, 666, 396, 668, 422, 604, 422], '#3a2419', 2.0, 'rgba(42,33,26,.8)');
+      for (let i = 0; i < 3; i++) inkFill([614 + i * 16, 404, 622 + i * 16, 404, 622 + i * 16, 414, 614 + i * 16, 414], 'rgba(201,162,74,.6)');
+      // extra caves above and to the right
+      mCave(818, 296, 36, 48); mCave(876, 318, 32, 44); mCave(906, 380, 36, 48); mCave(842, 432, 32, 44); mCave(604, 238, 30, 40);
+      for (const [x, y, w, h] of [[818, 296, 36, 48], [876, 318, 32, 44]]) {
+        inkFill([x + 5, y + h * 0.48, x + w - 5, y + h * 0.48, x + w - 5, y + h - 2, x + 5, y + h - 2], '#5a3a24');
+        L.L([x + w / 2, y + h * 0.48, x + w / 2, y + h - 2], 1.2, 'rgba(42,33,26,.5)', { taper: 0 });
+        L.L([x + 5, y + h * 0.48, x + w - 5, y + h * 0.48], 1.4, 'rgba(201,162,74,.35)', { taper: 0 });
+      }
+      // ladders between the caves
+      for (const [lx, ly] of [[812, 352], [884, 378]]) {
+        L.L([lx, ly, lx + 4, ly + 150], 2.0, '#6b4a2f', { taper: 0.1 }); L.L([lx + 14, ly, lx + 18, ly + 150], 2.0, '#6b4a2f', { taper: 0.1 });
+        for (let k = 0; k < 8; k++) L.L([lx + 1, ly + 12 + k * 18, lx + 17, ly + 12 + k * 18], 1.4, '#5a3a24', { taper: 0.1 });
+      }
+      // a red temple banner over the old «第 2 窟» plaque
+      const mbw = Math.sin(t * 1.5 + 0.8) * 4.5;
+      L.L([708, 400, 784, 400], 4, '#4a3524', { taper: 0 });
+      inkFill(L.pEll(706, 400, 5, 5, 0, TAU, 10), '#8f6633'); inkFill(L.pEll(786, 400, 5, 5, 0, TAU, 10), '#8f6633');
+      L.S([720, 410, 770, 410, 768 + mbw, 530, 745 + mbw * 1.3, 548, 722 + mbw * 0.7, 530], '#a34c32', 2.2, 'rgba(42,33,26,.75)');
+      L.L([724, 416, 766, 416, 764 + mbw, 524], 1.4, 'rgba(216,165,63,.55)', { taper: 0.1 });
+      L.L([726, 420, 726 + mbw * 0.8, 516], 1.4, 'rgba(239,227,196,.38)', { taper: 0.1 });
+      L.L([764, 420, 764 + mbw * 0.9, 516], 1.4, 'rgba(239,227,196,.3)', { taper: 0.1 });
+      L.S(L.pEll(745 + mbw * 0.5, 462, 10, 10, 0, TAU, 16), 'rgba(0,0,0,0)', 1.4, 'rgba(239,227,196,.42)');
+      for (let k = 0; k < 3; k++) L.L([732 + k * 13 + mbw * 0.9, 530, 732 + k * 13 + mbw * 1.1, 542], 1.2, 'rgba(201,162,74,.4)', { taper: 0.2 });
+      // foreground shelf shadow
+      inkFill([0, 680, W, 680, W, H, 0, H], 'rgba(143,102,51,.18)');
+      motes(t, 16, 420, 930, 160, 640, '245,222,168', 0.13);
+      // near branch and rocks frame the cliff, as the forest frames the reference film
+      const bw = Math.sin(t * 1.0 + 1) * 2.4;
+      L.L([0, 96, 70 + bw * 0.5, 128, 112 + bw, 205, 178 + bw * 1.4, 238], 9, '#0d0a07', { taper: 0.3 });
+      L.L([70 + bw * 0.5, 128, 128 + bw, 108, 182 + bw * 1.3, 78], 5, '#0d0a07', { taper: 0.3 });
+      for (let i = 0; i < 12; i++) { const bx = 20 + (i * 37) % 150 + bw * 1.2, by = 90 + (i * 23) % 120; inkFill(L.pEll(bx, by, 10, 6, 0, TAU, 10), i % 2 ? '#1d3a2e' : '#24443a'); }
+      // a near tree trunk at the left edge, like the forest framing in the reference；树冠被风带着微晃
+      const tw = Math.sin(t * 0.9) * 5.2 + Math.sin(t * 2.1) * 1.5;
+      const swayAt = (y) => tw * clamp((720 - y) / 500, 0, 1);
+      L.L([34, 720, 52, 590, 66 + swayAt(460) * 0.5, 460, 82 + swayAt(320), 320, 78 + swayAt(220), 220], 22, '#0b0806', { taper: 0.18 });
+      L.L([66 + swayAt(460) * 0.5, 460, 120 + swayAt(380), 380, 168 + swayAt(340), 340], 9, '#0b0806', { taper: 0.2 });
+      L.L([52 + swayAt(590) * 0.4, 590, 10 + swayAt(540), 540, -16 + swayAt(500), 500], 7, '#0b0806', { taper: 0.2 });
+      L.L([82 + swayAt(260), 260, 130 + swayAt(200), 200, 168 + swayAt(170), 170], 6, '#0b0806', { taper: 0.2 });
+      // dark canopy on the near tree, so it reads as a silhouette, not a pole
+      for (let i = 0; i < 30; i++) { const by = 70 + (i * 29) % 230, bx = -10 + (i * 43) % 170 + swayAt(by) * 1.25; inkFill(L.pEll(bx, by, 16 + (i % 3) * 6, 10 + (i % 2) * 5, 0, TAU, 12), i % 3 ? '#163024' : '#1d3a2e'); }
+      for (let i = 0; i < 18; i++) { const by = 300 + (i * 29) % 170, bx = 10 + (i * 31) % 170 + swayAt(by) * 1.1; inkFill(L.pEll(bx, by, 13, 8, 0, TAU, 12), i % 3 ? '#1b3528' : '#24443a'); }
+      // 几片被风带离树冠的叶子，在镜头前慢慢打转
+      for (let i = 0; i < 6; i++) {
+        const lx = 34 + ((i * 47 + t * (9 + i * 2.2)) % 235);
+        const ly = 95 + ((i * 71 + t * (7 + i * 1.5)) % 500);
+        const la = t * 1.3 + i * 1.1;
+        inkFill(L.pEll(lx, ly, 5.2, 2.3, la, TAU, 8), i % 2 ? 'rgba(47,74,58,.72)' : 'rgba(58,90,68,.64)');
+      }
+      inkFill([700, 720, 760, 658, 824, 678, 866, 720], 'rgba(7,7,5,.82)');
+      // warm interior and two red lanterns at the cave door：灯笼随风摆
+      inkFill(L.pEll(630, 610, 62, 28, 0, TAU, 22), `rgba(240,160,70,${0.08 + 0.03 * Math.sin(t * 2.2)})`);
+      for (let li = 0; li < 2; li++) {
+        const lx = li ? 668 : 592;
+        const swing = Math.sin(t * 1.7 + li * 1.9) * 0.1;
+        const lx2 = lx + Math.sin(swing) * 38;
+        L.L([lx, 420, lx2, 446], 2, '#2a1512', { taper: 0.1 });
+        inkFill(L.pEll(lx2, 458, 12, 15, 0, TAU, 16), '#b23a2b');
+        inkFill([lx2 - 10, 446, lx2 + 10, 446, lx2 + 8, 452, lx2 - 8, 452], '#d8a53f');
+        L.L([lx2, 472, lx2 - 2, 486], 1.4, '#d8a53f', { taper: 0.2 });
+        glow(lx2, 458, 8, 34, '240,150,60', 0.055 + 0.01 * Math.sin(t * 3 + li), 6);
+      }
+      // three stone steps below the threshold
+      for (let i = 0; i < 3; i++) inkFill([552 + i * 6, 652 + i * 14, 714 - i * 6, 652 + i * 14, 720 - i * 6, 666 + i * 14, 546 + i * 6, 666 + i * 14], i % 2 ? '#8f6633' : '#6b4a2f');
+    };
+
+    const towers = (t = 0) => {
+      for (let i = 0; i < 5; i++) {
+        const x = 150 + i * 140, y = 392, h = 56;
+        // adobe body, tapered
+        L.S([x - 14, y + h, x + 34, y + h, x + 28, y, x - 8, y], '#8f6633', 2.0, 'rgba(42,33,26,.75)');
+        // crenellated top
+        for (let k = 0; k < 4; k++) L.S([x - 10 + k * 11, y - 8, x - 2 + k * 11, y - 8, x - 2 + k * 11, y, x - 10 + k * 11, y], '#6b4a2f', 1.4, 'rgba(42,33,26,.7)');
+        // door and arrow slit
+        inkFill([x + 4, y + 28, x + 14, y + 28, x + 14, y + h, x + 4, y + h], 'rgba(42,33,26,.72)');
+        inkFill([x + 20, y + 12, x + 24, y + 12, x + 24, y + 24, x + 20, y + 24], 'rgba(42,33,26,.55)');
+        // flag：被风扯动
+        const fw = Math.sin(t * 2.3 + i * 1.2) * 3.5;
+        L.L([x + 10, y - 8, x + 10, y - 30], 1.4, '#4a3524', { taper: 0.1 });
+        L.S([x + 10, y - 30, x + 28 + fw, y - 25 + fw * 0.35, x + 10, y - 18], '#a34c32', 1.2, 'rgba(42,33,26,.6)');
+        L.L([x + 10, y - 26, x + 23 + fw * 0.6, y - 24], 0.9, 'rgba(239,227,196,.20)', { taper: 0.3 });
+        // base shadow
+        inkFill([x - 16, y + h, x + 36, y + h, x + 40, y + h + 8, x - 20, y + h + 8], 'rgba(42,33,26,.16)');
+      }
+    };
+    const fire = (x, y, t = 0) => {
+      const fl = 0.85 + 0.15 * Math.sin(t * 3.6 + x * 0.03) + 0.06 * Math.sin(t * 7.4 + x);
+      inkFill(L.pEll(x, y, 72, 22, 0, TAU, 24), `rgba(240,160,70,${0.08 + 0.03 * fl})`);
+      inkFill(L.pEll(x, y, 30, 10, 0, TAU, 16), `rgba(240,170,80,${0.12 + 0.05 * fl})`);
+      L.L([x - 16, y + 2, x + 18, y - 4], 5, '#3a2419', { taper: 0.1 });
+      L.L([x - 12, y - 4, x + 20, y + 3], 4, '#4a2e1e', { taper: 0.1 });
+      const f1 = Math.sin(t * 4.2 + x) * 5, f2 = Math.sin(t * 3.4 + x + 1.4) * 4;
+      L.S([x - 14, y, x - 6 + f1, y - 26 * fl, x - 1, y - 14, x + 4, y - 38 * fl, x + 9, y - 16, x + 15 + f2, y - 28, x + 16, y], 'rgba(216,121,58,.85)', 1.6, 'rgba(42,33,26,.5)');
+      L.S([x - 7, y, x - 2 + f1 * 0.6, y - 18, x + 2, y - 10, x + 6, y - 26 * fl, x + 9, y - 8, x + 11, y], 'rgba(240,170,70,.9)', 1.0, 'rgba(42,33,26,.3)');
+      L.S([x - 2, y, x + 1 + f2 * 0.4, y - 12, x + 4, y - 18 * fl, x + 6, y - 6, x + 7, y], 'rgba(255,225,150,.95)', 0, 'rgba(0,0,0,0)');
+      for (let i = 0; i < 7; i++) {
+        const ey = y - 30 - ((i * 7 + t * 13) % 34);
+        const ex = x - 8 + i * 3 + Math.sin(t * 2.4 + i) * 4;
+        inkFill(L.pEll(ex, ey, 1.2, 2.2, 0, TAU, 6), `rgba(255,200,110,${0.45 + 0.35 * Math.sin(t * 3 + i)})`);
+      }
+      for (let i = 0; i < 3; i++) {
+        const sx = x + Math.sin(t * 1.2 + i) * 6, sy = y - 38 - i * 10;
+        L.L([sx, sy, sx + 10 + i * 2, sy - 10, sx + 1, sy - 20], 1.2, `rgba(160,140,110,${0.10 - i * 0.02})`, { taper: 0.4 });
+      }
+    };
+    const cauldron = (x, y, s = 1, t = 0) => {
+      const fl = 0.85 + 0.15 * Math.sin(t * 3.8 + x * 0.02);
+      // warm pool and hearth stones
+      glow(x, y - 10 * s, 10 * s, 86 * s, '240,150,60', 0.09 * fl, 8);
+      inkFill(L.pEll(x, y + 2, 92 * s, 26 * s, 0, TAU, 24), `rgba(240,150,60,${0.08 + 0.04 * fl})`);
+      for (const [ox, oy, rx, ry] of [[-46, 4, 18, 8], [0, 8, 24, 9], [46, 4, 18, 8]]) {
+        inkFill(L.pEll(x + ox * s, y + oy * s, rx * s, ry * s, 0, TAU, 14), '#1a1410');
+        inkFill(L.pEll(x + ox * s, y + (oy - 2) * s, rx * 0.7 * s, ry * 0.5 * s, 0, TAU, 12), 'rgba(90,70,50,.25)');
+      }
+      // fire under the pot：抖动、舔锅底
+      for (let i = 0; i < 3; i++) {
+        const fx = x + (i - 1) * 14 * s;
+        const fh = fl * (0.9 + 0.12 * Math.sin(t * 3.2 + i * 2.1));
+        L.S([fx - 14 * s, y + 2 * s, fx - 5 * s + Math.sin(t * 3.0 + i) * 3, y - 34 * s * fh, fx, y - 18 * s, fx + 7 * s, y - 46 * s * fh, fx + 14 * s, y + 2 * s], i === 1 ? 'rgba(255,215,130,.95)' : 'rgba(216,121,58,.9)', 1.2, 'rgba(42,33,26,.5)');
+      }
+      // black iron pot, rim, handles
+      inkFill(L.pEll(x, y - 34 * s, 44 * s, 30 * s, 0, TAU, 28), '#14100d');
+      L.S(L.pEll(x, y - 34 * s, 44 * s, 30 * s, 0, TAU, 28), 'rgba(0,0,0,0)', 3.2 * s, 'rgba(0,0,0,.9)');
+      inkFill([x - 48 * s, y - 40 * s, x + 48 * s, y - 40 * s, x + 44 * s, y - 28 * s, x - 44 * s, y - 28 * s], '#2a211a');
+      L.L([x - 46 * s, y - 36 * s, x - 28 * s, y - 42 * s, x, y - 44 * s, x + 28 * s, y - 42 * s, x + 46 * s, y - 36 * s], 2.2 * s, 'rgba(150,120,90,.45)', { taper: 0.1 });
+      L.L([x - 46 * s, y - 54 * s, x - 58 * s, y - 34 * s], 5 * s, '#120f0c', { taper: 0.1 });
+      L.L([x + 46 * s, y - 54 * s, x + 58 * s, y - 34 * s], 5 * s, '#120f0c', { taper: 0.1 });
+      // steam：热气被夜风带偏
+      inkFill(L.pEll(x - 18 * s, y - 30 * s, 20 * s, 14 * s, 0, TAU, 16), `rgba(216,121,58,${0.08 + 0.03 * fl})`);
+      for (let i = 0; i < 5; i++) {
+        const sx = x - 18 * s + i * 11 * s + Math.sin(t * 0.9 + i * 0.8) * 5 * s;
+        const sy = y - 66 * s - i * 7 * s;
+        L.L([sx, sy, sx - 8 * s + Math.sin(t * 1.1 + i) * 4 * s, sy - 20 * s, sx - 18 * s + Math.sin(t * 1.3 + i) * 6 * s, sy - 38 * s], 2.4 * s, `rgba(210,190,160,${0.14 - i * 0.018})`, { taper: 0.4 });
+      }
+    };
+    const knifeAt = (hx, hy, ang, s = 1) => {
+      const c = Math.cos(ang), sn = Math.sin(ang);
+      const bx = hx + c * 10 * s, by = hy + sn * 10 * s;
+      L.S([bx - sn * 4 * s, by + c * 4 * s, bx + c * 60 * s - sn * 4 * s, by + sn * 60 * s + c * 4 * s, bx + c * 67 * s, by + sn * 67 * s, bx + sn * 4 * s, by - c * 4 * s], '#d8d8d0', 1.6, 'rgba(42,33,26,.7)');
+      L.L([bx + c * 12 * s, by + sn * 12 * s, bx + c * 58 * s, by + sn * 58 * s], 1.0, 'rgba(255,255,255,.45)', { taper: 0.2 });
+      L.S([hx - sn * 5 * s, hy + c * 5 * s, hx + c * 12 * s - sn * 5 * s, hy + sn * 12 * s + c * 5 * s, hx + c * 12 * s + sn * 5 * s, hy + sn * 12 * s - c * 5 * s, hx + sn * 5 * s, hy - c * 5 * s], '#4a3524', 1.2, 'rgba(42,33,26,.7)');
+    };
+
+    // A · 壁画猴脸推近
+    G.shot(20.24, 21.66, (u, t) => {
+      camPush(K(t, [[20.24, 714], [21.66, 720]]), K(t, [[20.24, 378], [21.66, 386]]), K(t, [[20.24, 1.75], [21.66, 2.05]]));
+      L.xfDraw(lao.mural(), 0, 0, W, H);
+      motes(t, 8, 600, 800, 240, 500, '245,222,168', 0.08);
+      lao.muralScene(t, { monkTurn: 0, apeTurn: -0.12, look: 1, grin: 0.3, blink: 0 });
+      const gl = 0.7 + 0.3 * Math.sin(t * 9);
+      inkFill(L.pEll(720, 332, 34, 30, 0, TAU, 24), `rgba(240,207,122,${0.10 * gl})`);
+      pop();
+    });
+
+    // B · 沙漠 · 玄奘独行
+    const wDesert = ACT.walkCurve({ t0: 21.9, t1: 25.5, x0: 300, x1: 720, L0: 2 * 170 * 0.24, phEnd: 0.10 });
+    G.shot(21.66, 25.96, (u, t) => {
+      // B · 横移跟拍：镜头向左缓移，人物保持全身、头靠近中线、脚下留白
+      camPush(K(t, [[21.66, 500], [25.96, 440]]), K(t, [[21.66, 360], [25.96, 355]]), 1.02);
+      desert('dawn', t);
+      const q = wDesert(t), qx = 1020 - q.x;
+      shadow(qx, 560, 0.24, 0.22);
+      sideL(3, qx, 560, 0.24, { phase: q.ph, mode: 'march', expr: 'neutral', blink: CAST.lidAt(t, 4), light: -110, seed: 4 });
+      for (let i = 0; i < 7; i++) {
+        const x = W + 60 - ((i * 137 + t * 70) % (W + 160)), y = 300 + (i % 3) * 40;
+        L.L([x, y, x - 46, y - 3], 1.4, 'rgba(239,227,196,.22)', { taper: 0.2 });
+      }
+      // 脚步带起的沙尘，往身后拖一小段
+      for (let i = 0; i < 7; i++) inkFill(L.pEll(qx + 18 + i * 11, 566 - i * 3, 15 + i * 4, 5 + i, 0, TAU, 12), `rgba(214,171,122,${0.13 - i * 0.012})`);
+      for (let i = 0; i < 3; i++) L.L([qx + 16 + i * 16, 570, qx + 36 + i * 16, 556, qx + 58 + i * 16, 564], 2.0, `rgba(239,227,196,${0.18 - i * 0.03})`, { taper: 0.4 });
+      for (let i = 0; i < 9; i++) inkFill(L.pEll(qx + 22 + (i * 17) % 70, 560 + (i * 5) % 12, 1.4, 1.0, 0, TAU, 6), 'rgba(239,227,196,.30)');
+      pop();
+    });
+
+    // C · 玄奘侧脸 · 狠
+    G.shot(25.96, 28.3, (u, t) => {
+      camPush(K(t, [[25.96, 470], [28.3, 486]]), 390, K(t, [[25.96, 1.06], [28.3, 1.12]]));
+      desert('dawn', t);
+      side(3, 470, 600, 0.26, { phase: 0, mode: 'stand', expr: 'stern', blink: CAST.lidAt(t, 4), light: -110, seed: 4, act: 'idle', actT: t });
+      for (let i = 0; i < 5; i++) {
+        const y = 430 + i * 34;
+        const x = W + 80 - ((i * 150 + t * 85) % (W + 220));
+        L.L([x, y, x - 130 - i * 12, y - 3], 1.4, 'rgba(239,227,196,.19)', { taper: 0.2 });
+      }
+      pop();
+    });
+
+    // D · 《大唐大慈恩寺三藏法师传》 · 石槃陀
+    G.shot(28.3, 33.1, (u, t) => {
+      // D · 书名页：慢推 + 轻下摇，避免 4.8 秒完全静止
+      camPush(K(t, [[28.3, 470], [33.1, 500]]), K(t, [[28.3, 365], [33.1, 352]]), K(t, [[28.3, 1.02], [33.1, 1.09]]));
+      bookPlate();
+      inkFill(L.pEll(780, 520, 18, 12, 0, TAU, 16), 'rgba(214,171,122,.9)');
+      pop();
+    });
+    G.write('大唐大慈恩寺三藏法师传', { x: 480, y: 190, size: 24, color: '#2a211a', at: 28.4, until: 32.95, kind: 'label', plain: true, font: 'SimSun, "Noto Serif SC", serif' });
+    G.write('石槃陀', { x: 480, y: 390, size: 50, color: '#2a211a', at: 30.8, until: 32.95, kind: 'label', pop: true, plain: true, font: 'SimSun, "Noto Serif SC", serif' });
+
+    // E · 塔尔寺 · 石槃陀求授戒
+    G.shot(33.1, 37.58, (u, t) => {
+      // E · 缓拉远 + 右移：从近景退到中全景，露出佛龛；人物全身、头靠近中线、脚下留白
+      camPush(K(t, [[33.1, 470], [37.58, 500]]), K(t, [[33.1, 400], [37.58, 392]]), K(t, [[33.1, 1.08], [37.58, 1.00]]));
+      temple(t);
+      // shadows and a prayer mat
+      inkFill(L.pEll(360, 600, 54, 10, 0, TAU, 20), 'rgba(20,12,8,.20)');
+      inkFill(L.pEll(545, 610, 58, 11, 0, TAU, 20), 'rgba(20,12,8,.22)');
+      L.S([470, 608, 635, 608, 646, 628, 458, 628], '#8f6633', 2.0, 'rgba(42,33,26,.55)');
+      for (let i = 0; i < 5; i++) L.L([476, 614 + i * 3, 640, 614 + i * 3], 1.0, 'rgba(74,58,40,.25)', { taper: 0 });
+      side(3, 360, 600, 0.26, { phase: 0, mode: 'stand', expr: 'relief', blink: CAST.lidAt(t, 4), light: -110, seed: 4, act: 'reach', actT: t });
+      sideL(5, 545, 600, 0.26, { phase: 0, mode: 'stand', expr: 'sad', blink: CAST.lidAt(t, 6), light: -110, seed: 6, actPose: { armN: [-70, -120], armF: [-70, -120], hip: 0, lean: 20, head: 16, kneel: true } });
+      inkFill(L.pEll(330, 494, 40, 30, 0, TAU, 20), 'rgba(255,217,138,.10)');
+      pop();
+    });
+
+    // F · 莫高窟 · 一窟一窟拜出来
+    const wCave = ACT.walkCurve({ t0: 37.8, t1: 42.9, x0: 330, x1: 580, L0: 2 * 170 * 0.16, phEnd: 0.1 });
+    G.shot(37.58, 43.24, (u, t) => {
+      // F · 横向跟拍：镜头跟着两个人向右移，轻微推近；人物全身、脚下留白
+      camPush(K(t, [[37.58, 380], [43.24, 520]]), K(t, [[37.58, 395], [43.24, 385]]), K(t, [[37.58, 1.03], [43.24, 1.05]]));
+      mogao(t);
+      const q = wCave(t);
+      shadow(q.x, 592, 0.24, 0.20);
+      shadow(q.x + 74, 594, 0.25, 0.21);
+      side(3, q.x, 592, 0.24, { phase: q.ph, mode: 'march', expr: 'neutral', blink: CAST.lidAt(t, 4), light: -110, seed: 4 });
+      side(5, q.x + 74, 594, 0.25, { phase: q.ph + 0.08, mode: 'march', expr: 'neutral', blink: CAST.lidAt(t, 6), light: -110, seed: 6 });
+      pop();
+    });
+
+    // G · 五座烽火台 · 石槃陀拍胸脯
+    G.shot(43.24, 47.04, (u, t) => {
+      camPush(K(t, [[43.24, 480], [47.04, 460]]), 390, K(t, [[43.24, 1.10], [47.04, 1.03]]));
+      desert('day', t);
+      towers(t);
+      shadow(360, 590, 0.26, 0.16);
+      shadow(560, 590, 0.26, 0.16);
+      side(3, 360, 590, 0.26, { phase: 0, mode: 'stand', expr: 'curious', blink: CAST.lidAt(t, 4), light: -110, seed: 4, act: 'idle', actT: t });
+      side(5, 560, 590, 0.26, { phase: 0, mode: 'stand', expr: 'stern', blink: CAST.lidAt(t, 6), light: -110, seed: 6, act: 'point', actT: t });
+      pop();
+    });
+    G.write('五座烽火台', { x: 480, y: 180, size: 26, color: '#4a3a2c', at: 43.55, until: 46.95, kind: 'label' });
+
+    // H · 夜 · 玄奘打坐 · 石槃陀提刀走来
+    const wNight = ACT.walkCurve({ t0: 47.2, t1: 51.2, x0: 560, x1: 760, L0: 2 * 170 * 0.26, phEnd: 0.10 });
+    G.shot(47.04, 51.38, (u, t) => {
+      camPush(K(t, [[47.04, 480], [51.38, 500]]), 390, K(t, [[47.04, 1.04], [51.38, 1.10]]));
+      const q = wNight(t), qx = 1320 - q.x;
+      desert('night', t);
+      cauldron(270, 600, 1.0, t);
+      // meditation mat and folded knees
+      inkFill(L.pEll(390, 606, 58, 12, 0, TAU, 20), 'rgba(20,12,8,.38)');
+      inkFill(L.pEll(370, 592, 18, 10, 0, TAU, 16), '#8a3f28');
+      inkFill(L.pEll(410, 592, 18, 10, 0, TAU, 16), '#8a3f28');
+      shadow(390, 600, 0.26, 0.14);
+      shadow(qx, 600, 0.26, 0.13);
+      side(3, 390, 600, 0.26, { phase: 0, mode: 'stand', expr: 'neutral', blink: 1, light: -110, seed: 4, act: 'sit', actT: t });
+      sideL(5, qx, 600, 0.26, { phase: q.ph, mode: 'march', expr: 'stern', blink: CAST.lidAt(t, 6), light: -110, seed: 6 });
+      knifeAt(qx - 36, 520, Math.PI * 0.72, 0.72);
+      pop();
+    });
+
+    // I · 石槃陀特写 · 月光下的刀
+    G.shot(51.38, 52.16, (u, t) => {
+      camPush(K(t, [[51.38, 480], [52.16, 486]]), 390, K(t, [[51.38, 1.02], [52.16, 1.06]]));
+      desert('night', t);
+      side(5, 480, 600, 0.26, { phase: 0, mode: 'stand', expr: 'stern', blink: CAST.lidAt(t, 6), light: -110, seed: 6, act: 'draw', actT: t });
+      knifeAt(495, 505, Math.PI * 0.55, 0.55);
+      inkFill(L.pEll(760, 150, 110, 110, 0, TAU, 32), 'rgba(239,227,196,.10)');
+      pop();
+    });
+
+    // J · 停住 · 把刀收了
+    G.shot(52.16, 55.44, (u, t) => {
+      camPush(K(t, [[52.16, 500], [55.44, 480]]), 390, K(t, [[52.16, 1.08], [55.44, 1.02]]));
+      desert('night', t);
+      cauldron(250, 600, 1.0, t);
+      // meditation mat and folded knees
+      inkFill(L.pEll(350, 606, 58, 12, 0, TAU, 20), 'rgba(20,12,8,.38)');
+      inkFill(L.pEll(330, 592, 18, 10, 0, TAU, 16), '#8a3f28');
+      inkFill(L.pEll(370, 592, 18, 10, 0, TAU, 16), '#8a3f28');
+      shadow(350, 600, 0.26, 0.14);
+      shadow(560, 600, 0.26, 0.16);
+      side(3, 350, 600, 0.26, { phase: 0, mode: 'stand', expr: 'neutral', blink: 1, light: -110, seed: 4, act: 'sit', actT: t });
+      const sheathed = t >= C.sheathe;
+      side(5, 560, 600, 0.26, { phase: 0, mode: 'stand', expr: sheathed ? 'relief' : 'nervous', blink: CAST.lidAt(t, 6), light: -110, seed: 6, act: sheathed ? 'sigh' : 'draw', actT: t });
+      pop();
+    });
+
+    // K · 第二天早上 · 太疯了
+    G.shot(55.44, 62.2, (u, t) => {
+      camPush(K(t, [[55.44, 480], [62.2, 500]]), K(t, [[55.44, 390], [62.2, 372]]), K(t, [[55.44, 1.08], [62.2, 1.02]]));
+      desert('dawn', t);
+      towers(t);
+      cauldron(240, 600, 0.8, t);
+      shadow(350, 590, 0.26, 0.16);
+      shadow(560, 590, 0.26, 0.16);
+      side(3, 350, 590, 0.26, { phase: 0, mode: 'stand', expr: 'sad', blink: CAST.lidAt(t, 4), light: -110, seed: 4, act: 'sigh', actT: t });
+      side(5, 560, 590, 0.26, { phase: 0, mode: 'stand', expr: 'nervous', blink: CAST.lidAt(t, 6), light: -110, seed: 6, act: 'point', actT: t });
+      pop();
+    });
+    
+
+    // sound: footsteps on the actual footfalls, the door, the dust, the ring, the title stamp
+    F.sfx(0.18, 'wind', 0.32, { dur: 3.6 });
+    for (const ft of steps) if (ft.walker === 0) F.sfx(ft.t, 'step', 0.34, { size: 0.44, pan: 0.1 });
+    F.sfx(A.push + 0.02, 'door', 0.82, { dur: 0.72 });
+    F.sfx(A.open + 0.5, 'doorStop', 0.5);
+    F.sfx(3.35, 'dust', 0.3, { dur: 0.8 });
+    F.sfx(4.3, 'room', 0.24, { dur: 4.2 });
+    F.sfx(4.9, 'drip', 0.2);
+    F.sfx(A.ring + 0.12, 'glint', 0.5, { note: 'E6' });
+    F.sfx(19.15, 'stamp', 0.5);
+
+    F.info('illustration', 0, 4.15, { group: 'door' });
+    F.info('illustration', 4.15, 8.56, { group: 'mural' });
+    F.info('illustration', 8.56, 10.8, { group: 'reaction' });
+    F.info('illustration', 10.8, 14.14, { group: 'book' });
+    F.info('illustration', 14.14, 15.35, { group: 'span' });
+    F.info('illustration', 15.35, 20.1, { group: 'question' });
+    F.section(0, 1, { name: 'story' });
+    F.section(4.15, 1, { name: 'quiet' });
+    F.section(8.56, 1, { name: 'quiet' });
+    F.section(10.8, 1, { name: 'quiet' });
+    F.section(14.14, 2, { name: 'resolve' });
+    F.section(15.55, 1, { name: 'quiet' });
+    F.section(19.08, 2, { name: 'resolve' });
+    // ---- 第二幕声音/信息 ----
+    F.sfx(20.3, 'wind', 0.24, { dur: 7 });
+    F.sfx(28.4, 'room', 0.16, { dur: 5 });
+    F.sfx(33.2, 'room', 0.18, { dur: 4 });
+    F.sfx(37.7, 'wind', 0.22, { dur: 5.5 });
+    F.sfx(43.3, 'wind', 0.16, { dur: 3.6 });
+    F.sfx(47.1, 'wind', 0.24, { dur: 8 });
+    for (const ft of ACT.footfalls([wNight], 47.04, 51.3)) F.sfx(ft.t, 'step', 0.26, { size: 0.38, pan: 0.2 });
+    F.sfx(51.4, 'glint', 0.4, { note: 'E5' });
+    F.sfx(52.2, 'step', 0.3);
+    F.sfx(55.5, 'wind', 0.2, { dur: 6.5 });
+    F.sfx(61.0, 'stamp', 0.38);
+    F.info('illustration', 20.24, 21.66, { group: 'myth' });
+    F.info('illustration', 21.66, 28.3, { group: 'desert' });
+    F.info('illustration', 28.3, 37.58, { group: 'stone' });
+    F.info('illustration', 37.58, 47.04, { group: 'road' });
+    F.info('illustration', 47.04, 55.44, { group: 'night' });
+    F.info('illustration', 55.44, 62.2, { group: 'dawn' });
+    F.section(20.24, 2, { name: 'resolve' });
+    F.section(28.3, 1, { name: 'quiet' });
+    F.section(33.1, 1, { name: 'quiet' });
+    F.section(37.58, 1, { name: 'quiet' });
+    F.section(43.24, 2, { name: 'resolve' });
+    F.section(47.04, 1, { name: 'quiet' });
+    F.section(51.38, 1, { name: 'hit' });
+    F.section(55.44, 1, { name: 'quiet' });
+    F.coverAt(60.6);
+
+    // 老狼请客式的暗角 + 青绿墨色罩染：压住画面四边，让中间的人物/灯火跳出来
+    const _render = F.render.bind(F);
+    F.render = (...a) => {
+      _render(...a);
+      const vg = document.createElement('canvas'); vg.width = W; vg.height = H;
+      const c2 = vg.getContext('2d');
+      const gr = c2.createRadialGradient(W / 2, H * 0.46, H * 0.22, W / 2, H * 0.5, H * 0.9);
+      gr.addColorStop(0, 'rgba(0,0,0,0)');
+      gr.addColorStop(0.55, 'rgba(4,14,13,.10)');
+      gr.addColorStop(1, 'rgba(2,9,9,.62)');
+      c2.fillStyle = gr; c2.fillRect(0, 0, W, H);
+      L.xfDraw(vg, 0, 0, W, H);
+      inkFill([0, 0, W, 0, W, H, 0, H], 'rgba(12,34,32,.07)');
+    };
+  },
+});
+</script><!-- 62 s 版的 lint 在 Chrome 里会长时间空转；渲染时跳过，成片另做逐帧 QA -->
+<script>window.__lint = () => [];</script></body></html>

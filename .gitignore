@@ -202,3 +202,13 @@ blueprint/projects/*/audio/
 blueprint/projects/*/review/
 blueprint/projects/*/lib/
 blueprint/projects/*/*.wav
+
+# laolang（上海美影手绘赛璐璐）工程产物；template/lib/story.js 是项目专属文件，保留入库
+laolang/template/out/
+laolang/template/audio/
+laolang/template/review/
+laolang/projects/*/out/
+laolang/projects/*/audio/
+laolang/projects/*/review/
+laolang/projects/*/lib/
+laolang/projects/*/*.wav
