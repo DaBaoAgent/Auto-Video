@@ -1,0 +1,27 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "jianying",
+    "no": "01",
+    "name_zh": "纸本卡片",
+    "name_en": "Paper-card Chronicle",
+    "station": "paper",
+    "station_no": "01",
+    "tagline": "绢本纸本美术 + 卡片运动语法，2–4 秒一镜，字幕贴着从句走。",
+    "engine": "Remotion",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/jianying_shotcraft.py",
+    "status": "live",
+    "sample": {
+      "file": "jianying 刘秀·位面之子.mp4",
+      "title": "刘秀·位面之子",
+      "seconds": 211.0
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": "SKILL.md",
+    "note": "定版参数还没有落成 JSON。迁移时把 SKILL.md 里的数值搬到这里，脚本再从 spec 读，别散写在代码里。"
+  }
+}

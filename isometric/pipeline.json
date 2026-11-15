@@ -1,4 +1,25 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "isometric",
+    "no": "26",
+    "name_zh": "等距微缩",
+    "name_en": "Isometric Diorama",
+    "station": "d3",
+    "station_no": "07",
+    "tagline": "45° 等距微缩世界，带厚底座的方形地块组成系统，镜头连续滑行、讲到哪块就抬起哪块。",
+    "engine": "Canvas · Chrome 逐帧",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/isometric.py",
+    "status": "live",
+    "sample": {
+      "file": "isometric_阿努纳奇.mp4",
+      "title": "阿努纳奇",
+      "seconds": 30.4
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-09",
   "pipeline": "isometric",
   "style": "bb-video/isometric",

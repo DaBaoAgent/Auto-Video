@@ -1,4 +1,25 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "pencil",
+    "no": "05",
+    "name_zh": "铅笔测试",
+    "name_en": "Pencil Test",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "蓝线起稿、石墨勾线、橡皮修改，画与画之间 morph。",
+    "engine": "Canvas · Chrome 逐帧",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/pencil.py",
+    "status": "live",
+    "sample": {
+      "file": "pencil_阿努纳奇.mp4",
+      "title": "阿努纳奇",
+      "seconds": 30.4
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-09",
   "pipeline": "pencil",
   "style": "bb-video/pencil",

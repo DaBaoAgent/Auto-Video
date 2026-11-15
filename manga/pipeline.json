@@ -1,4 +1,25 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "manga",
+    "no": "14",
+    "name_zh": "漫画分格",
+    "name_en": "Manga Panels",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "黑墨线、网点、分格、拟声词，镜头按阅读顺序读页。",
+    "engine": "Canvas · Chrome 逐帧",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/manga.py",
+    "status": "live",
+    "sample": {
+      "file": "manga_阿努纳奇_.mp4",
+      "title": "阿努纳奇",
+      "seconds": 30.4
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-09",
   "pipeline": "manga",
   "style": "bb-video/manga",

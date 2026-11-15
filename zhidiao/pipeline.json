@@ -1,0 +1,23 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "zhidiao",
+    "no": "03",
+    "name_zh": "纸雕剪影",
+    "name_en": "Paper-cut Lightbox",
+    "station": "paper",
+    "station_no": "01",
+    "tagline": "词级转写与拼音 DP 对齐，HyperFrames 渲一张会动的纸雕灯箱。",
+    "engine": "HyperFrames",
+    "aspect": null,
+    "fps": null,
+    "entry": "scripts/zhidiao_assemble.py",
+    "status": "beta",
+    "sample": null,
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": "SKILL.md",
+    "note": "定版参数还没有落成 JSON。迁移时把 SKILL.md 里的数值搬到这里，脚本再从 spec 读，别散写在代码里。"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xiangsu",
+    "no": "15",
+    "name_zh": "像素风",
+    "name_en": "Pixel Art",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "640×360 索引色帧缓冲逐像素绘制，×3 最近邻放大并在输出分辨率做 CRT。",
+    "engine": "Canvas · Puppeteer 逐帧",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": null,
+    "status": "live",
+    "sample": {
+      "file": "xiangsu 曹操.mp4",
+      "title": "曹操",
+      "seconds": 29.4
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": "SKILL.md",
+    "note": "定版参数还没有落成 JSON。迁移时把 SKILL.md 里的数值搬到这里，脚本再从 spec 读，别散写在代码里。"
+  }
+}

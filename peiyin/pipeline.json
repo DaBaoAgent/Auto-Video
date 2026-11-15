@@ -1,0 +1,23 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "peiyin",
+    "no": "33",
+    "name_zh": "配音前端",
+    "name_en": "Voice Front-end",
+    "station": "front",
+    "station_no": "11",
+    "tagline": "选题、口播稿审计、批量克隆配音与时间轴，成片之前的两个阶段。",
+    "engine": "GPT-SoVITS · 长稿分段合成",
+    "aspect": null,
+    "fps": null,
+    "entry": "scripts/synthesize_dabao_paragraphs.py",
+    "status": "beta",
+    "sample": null,
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": "SKILL.md",
+    "note": "定版参数还没有落成 JSON。迁移时把 SKILL.md 里的数值搬到这里，脚本再从 spec 读，别散写在代码里。"
+  }
+}

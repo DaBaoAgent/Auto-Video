@@ -1,4 +1,25 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "blueprint",
+    "no": "29",
+    "name_zh": "工程蓝图",
+    "name_en": "Blueprint",
+    "station": "diagram",
+    "station_no": "09",
+    "tagline": "蓝晒图纸、白色细线，构造线先出、尺寸与 leader 标注跟进，红铅笔唯一强调。",
+    "engine": "Canvas · Chrome 逐帧",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/blueprint.py",
+    "status": "live",
+    "sample": {
+      "file": "blueprint_玄奘.mp4",
+      "title": "玄奘 · 前 10 秒",
+      "seconds": 12.1
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-09",
   "pipeline": "blueprint",
   "style": "bb-video/blueprint",

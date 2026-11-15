@@ -1,4 +1,25 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "tapestry",
+    "no": "11",
+    "name_zh": "贝叶挂毯",
+    "name_en": "Bayeux Tapestry",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "亚麻底、羊毛绣线、茎针绣与铺线，长卷滚动推进。",
+    "engine": "Canvas · Chrome 逐帧",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/tapestry.py",
+    "status": "live",
+    "sample": {
+      "file": "tapestry_阿努纳奇.mp4",
+      "title": "阿努纳奇",
+      "seconds": 30.5
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-09",
   "pipeline": "tapestry",
   "style": "bb-video/tapestry",

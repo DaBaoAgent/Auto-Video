@@ -1,9 +1,38 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xianshiqi",
+    "no": "21",
+    "name_zh": "赛博 HUD",
+    "name_en": "Cyber HUD",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "深青黑底、青色霓虹线框、雷达扫掠与目标锁定。",
+    "engine": "Three.js + Canvas FUI 覆盖层",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/xianshiqi.py",
+    "status": "live",
+    "sample": {
+      "file": "xiangshiqi UAP_赛博.mp4",
+      "title": "UAP · 赛博",
+      "seconds": 30.0
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-10-30",
   "pipeline": "xianshiqi",
   "style": "mg-styles-15/22-hud",
-  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
-  "duration": { "default": 30, "min": 10, "max": 60 },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "duration": {
+    "default": 30,
+    "min": 10,
+    "max": 60
+  },
   "palette": {
     "bg_deep": "#010508",
     "bg_mid": "#03161d",
@@ -30,12 +59,15 @@
   "post": {
     "bloom_strength": 0.52,
     "bloom_radius": 0.62,
-    "bloom_threshold": 0.80,
+    "bloom_threshold": 0.8,
     "rgb_split_px": 0.8,
-    "scanline_darken": 0.90,
+    "scanline_darken": 0.9,
     "vignette": 0.58,
     "glitch_frames": 3,
-    "end_fade": [29.30, 30.00],
+    "end_fade": [
+      29.3,
+      30.0
+    ],
     "end_dim": 0.62
   },
   "audio": {

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto-Video · 管线工坊 —— 33 条成片管线，从口播稿到可发布成片</title>
+<meta name="description" content="Auto-Video 是 33 条 AI 视频生产管线的集合：纸本叙事、手绘笔触、传统工艺、卡通动画、平面图形、屏幕赛博、三维推演、地图地理、图纸说明、实拍混剪与配音前端。每条管线都有定版参数、可复现的渲染命令和样片。">
+<meta property="og:title" content="Auto-Video · 管线工坊">
+<meta property="og:description" content="33 条 AI 视频管线，11 个工位，样片可当场播放。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0b0a09">
+<link rel="stylesheet" href="assets/app.css">
+<link rel="preload" href="fonts/noto-serif-sc-600.woff2" as="font" type="font/woff2" crossorigin>
+<script defer src="assets/data.js"></script>
+<script defer src="assets/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#stations">跳到工位</a>
+
+<header class="top">
+  <div class="mark"><b>Auto-Video</b><small>管线工坊</small></div>
+  <div class="grow"></div>
+  <nav class="jump" id="jump" aria-label="工位快捷跳转"></nav>
+  <a class="gh" href="https://github.com/DaBaoAgent/Auto-Video" target="_blank" rel="noopener">GitHub ↗</a>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="hero__text">
+      <p class="kicker"><i></i><span id="kicker">33 条管线 · 11 个工位</span></p>
+      <h1>把一个想法<br><em>拍成一部片</em></h1>
+      <p class="lede">一条管线就是一套<b>画法 + 镜头语法 + 交付门禁</b>。给它口播稿和配音，它出成片：字幕贴着真实语音切、配色和字距写死在 <code>pipeline.json</code> 里、渲染命令可复现、出片前过 QA。</p>
+    </div>
+    <aside class="hero__side">
+      <p>目录 · 11 个工位</p>
+      <nav class="contents" id="contents" aria-label="工位目录"></nav>
+    </aside>
+    <div class="scrollhint">向下 →</div>
+  </section>
+
+  <div id="stations"></div>
+
+  <section class="library" id="library">
+    <div class="lib__head">
+      <div>
+        <h2>样片库</h2>
+        <span class="kick">Sample Library</span>
+        <p>同一批素材里的全部样片，按管线、横竖屏和时长筛。鼠标停住就播，点一下放大出声。</p>
+      </div>
+      <div class="meta" id="libcount"></div>
+    </div>
+    <div class="tools">
+      <button class="chip on" data-filter="all">全部</button>
+      <button class="chip" data-filter="pipeline">管线样片</button>
+      <button class="chip" data-filter="style">风格样片</button>
+      <button class="chip" data-filter="landscape">横屏</button>
+      <button class="chip" data-filter="portrait">竖屏</button>
+      <button class="chip" data-filter="long">一分钟以上</button>
+      <label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="搜片名 / 风格 / 管线  按 / 聚焦" aria-label="搜索样片"></label>
+    </div>
+    <div class="grid small" id="libgrid"></div>
+    <p class="emptyhint" id="libempty" hidden>没有匹配的样片。</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <div><b>Auto-Video</b>33 条 AI 视频管线 + 1 个配音前端。画面全部由代码、模板或本地模型生成。</div>
+  <div><b>数据来源</b><span class="mono">catalog/pipelines.json</span> 是唯一事实来源，站点由它生成。</div>
+  <div><b>仓库</b><a href="https://github.com/DaBaoAgent/Auto-Video" target="_blank" rel="noopener">github.com/DaBaoAgent/Auto-Video</a></div>
+  <div><b>许可</b>MIT · 样片版权归作者本人</div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="样片播放">
+  <button class="close" id="close">关闭 ESC</button>
+  <div class="lightbox__stage"><video id="lbvideo" controls playsinline></video></div>
+  <div class="lightbox__cap"><h3 id="lbtitle"></h3><span class="en" id="lben"></span><span class="meta" id="lbmeta"></span></div>
+</div>
+
+<noscript>
+  <p style="padding:0 64px">本站的工位与样片由 <code>assets/data.js</code> 渲染，需要开启 JavaScript。管线文档见
+  <a href="https://github.com/DaBaoAgent/Auto-Video">GitHub 仓库</a>。</p>
+</noscript>
+</body>
+</html>

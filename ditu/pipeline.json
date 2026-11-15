@@ -1,15 +1,50 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "ditu",
+    "no": "28",
+    "name_zh": "真实地形",
+    "name_en": "Terrain Map",
+    "station": "map",
+    "station_no": "08",
+    "tagline": "卫星地形 + terrarium 高程，按高程起伏的三维水面从 84 km 推到 26 km。",
+    "engine": "WebGL · 高程驱动水面",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/ditu.py",
+    "status": "live",
+    "sample": {
+      "file": "ditu 关羽.mp4",
+      "title": "关羽",
+      "seconds": 39.4
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-15",
   "pipeline": "ditu",
   "style": "satellite-3d-map/explainer",
-  "canvas": { "width": 1920, "height": 1080, "fps": 24 },
-  "duration": { "default": 39.4, "min": 8, "max": 120 },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24
+  },
+  "duration": {
+    "default": 39.4,
+    "min": 8,
+    "max": 120
+  },
   "terrain": {
     "source": "AWS Terrain Tiles terrarium z11 (S3) + EOX s2cloudless 3857 (CC BY 4.0)",
     "network_km": 260,
     "km_per_px": 0.0324,
-    "albedo": { "w": 1092, "h": 756 },
-    "wide": { "w": 582, "h": 408 },
+    "albedo": {
+      "w": 1092,
+      "h": 756
+    },
+    "wide": {
+      "w": 582,
+      "h": 408
+    },
     "height_bin": "little-endian uint16 grid, hmin 33.7 m, hmax 439.3 m",
     "water_m": 59.39,
     "flood_m": 10.4,
@@ -68,7 +103,11 @@
   "delivery": {
     "sample": "projects/<编号_名>/out/",
     "final": "projects/<编号_名>/out/<名>_map.mp4",
-    "files": ["<名>_map.mp4", "voice/cues.json", "FACTS.md"],
+    "files": [
+      "<名>_map.mp4",
+      "voice/cues.json",
+      "FACTS.md"
+    ],
     "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
   },
   "credits": [

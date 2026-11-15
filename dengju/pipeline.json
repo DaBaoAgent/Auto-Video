@@ -1,9 +1,38 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "dengju",
+    "no": "25",
+    "name_zh": "等轴 2.5D",
+    "name_en": "Isometric 2.5D",
+    "station": "d3",
+    "station_no": "07",
+    "tagline": "粉彩微缩模型、真正等轴正交相机、地面瓦片波浪与滑轨运镜。",
+    "engine": "Three.js 正交场景",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/dengju.py",
+    "status": "live",
+    "sample": {
+      "file": "dengju 羽人.mp4",
+      "title": "羽人",
+      "seconds": 30.0
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-10-30",
   "pipeline": "dengju",
   "style": "mg-styles-15/03-isometric",
-  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
-  "duration": { "default": 30, "min": 10, "max": 60 },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "duration": {
+    "default": 30,
+    "min": 10,
+    "max": 60
+  },
   "palette": {
     "bg_top": "#F3EFFF",
     "bg_mid": "#DAD3F7",

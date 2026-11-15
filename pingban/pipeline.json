@@ -1,11 +1,43 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "pingban",
+    "no": "07",
+    "name_zh": "平板速写",
+    "name_en": "Tablet Sketch",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "六格手卷，铅笔一笔一笔现场画，镜头跟着笔尖走。",
+    "engine": "纯 Canvas · 零依赖",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/pingban.py",
+    "status": "live",
+    "sample": {
+      "file": "pingban 关羽.mp4",
+      "title": "关羽",
+      "seconds": 39.4
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-15",
   "pipeline": "pingban",
   "style": "tablet-sketch/scroll",
-  "canvas": { "width": 1920, "height": 1080, "fps": 24 },
-  "duration": { "default": 39.4, "min": 8, "max": 120 },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24
+  },
+  "duration": {
+    "default": 39.4,
+    "min": 8,
+    "max": 120
+  },
   "world": {
-    "x0": -120, "y0": -90, "dw": 2160, "dh": 1260,
+    "x0": -120,
+    "y0": -90,
+    "dw": 2160,
+    "dh": 1260,
     "scale": 2.0,
     "grid": "六格 620×400 两行三列：G1(60,240) G2(750,240) G3(1440,240) G4(60,720) G5(750,720) G6(1440,720)",
     "rule": "每格一条贯通基线；格内元素一律写格坐标，禁止跨格叠画"
@@ -32,7 +64,11 @@
   "stroke": {
     "pen": "0.55 步长点阵 + 压力扰动 + 纸纹阈值取整",
     "blob": "dx/dy 偏移色块 + boustrophedon 上色 + stop/holes/cuts/replace",
-    "layers": ["light", "graph", "coral"],
+    "layers": [
+      "light",
+      "graph",
+      "coral"
+    ],
     "grain": "paper × colour × 铅笔三层 grain 阈值合成",
     "pen_speed": "手工感 = 每笔画 0.12–0.40 s，逐字/逐段出；不写缓动曲线，写「笔画队列」"
   },
@@ -67,7 +103,10 @@
   "delivery": {
     "sample": "projects/<编号_名>/out/",
     "final": "projects/<编号_名>/out/<名>_sketch.mp4",
-    "files": ["<名>_sketch.mp4", "voice/cues.json"],
+    "files": [
+      "<名>_sketch.mp4",
+      "voice/cues.json"
+    ],
     "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
   },
   "credits": [

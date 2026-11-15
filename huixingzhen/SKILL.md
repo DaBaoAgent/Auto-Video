@@ -1,3 +1,8 @@
+---
+name: huixingzhen
+description: 粗描边贴纸人科普 MG 管线（mg-styles-15 #19「回形针 PaperClip」风格）。实拍照片贴纸化 + 精确图表 + 大画布连续运镜 + 句级字幕 + 代码合成音效床 + 确定性 HTML 逐帧渲染。当用户要做知识区/硬核科普/财经解释类短视频，或说「用回形针风出一集」「huixingzhen 出片」时使用。
+---
+
 # huixingzhen · 回形针风科普短片管线
 
 description: 粗描边贴纸人科普 MG 管线（mg-styles-15 #19「回形针 PaperClip」风格）。实拍照片贴纸化 + 精确图表 + 大画布连续运镜 + 句级字幕 + 代码合成音效床 + 确定性 HTML 逐帧渲染。当用户要做知识区/硬核科普/财经解释类短视频，或说「用回形针风出一集」「huixingzhen 出片」时使用。

@@ -1,0 +1,27 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "piying",
+    "no": "08",
+    "name_zh": "皮影卡片",
+    "name_en": "Shadow-puppet Cards",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "皮影剪影配卡片式讲解，分镜生成与四查门禁。",
+    "engine": "Playwright + Canvas 逐帧",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": null,
+    "status": "live",
+    "sample": {
+      "file": "piying 波斯湾伊甸园.mp4",
+      "title": "波斯湾伊甸园",
+      "seconds": 272.2
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": "SKILL.md",
+    "note": "定版参数还没有落成 JSON。迁移时把 SKILL.md 里的数值搬到这里，脚本再从 spec 读，别散写在代码里。"
+  }
+}

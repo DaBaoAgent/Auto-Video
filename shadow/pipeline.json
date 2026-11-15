@@ -1,4 +1,25 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "shadow",
+    "no": "10",
+    "name_zh": "皮影戏",
+    "name_en": "Shadow Puppetry",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "素白幕、木质台框、透光牛皮影人，灯暗换场。",
+    "engine": "Canvas · Chrome 逐帧",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/shadow.py",
+    "status": "live",
+    "sample": {
+      "file": "shadow_玄奘.mp4",
+      "title": "玄奘",
+      "seconds": 203.0
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-09",
   "pipeline": "shadow",
   "style": "bb-video/shadow",

@@ -1,9 +1,38 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "shuimo",
+    "no": "09",
+    "name_zh": "纸本水墨",
+    "name_en": "Ink Wash",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "宣纸底、生成式 SVG 山水、墨渗转场、竖排题记与朱砂印。",
+    "engine": "SVG + Canvas",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/shuimo.py",
+    "status": "live",
+    "sample": {
+      "file": "shuimo 羽人 水墨.mp4",
+      "title": "羽人",
+      "seconds": 30.0
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-10-30",
   "pipeline": "shuimo",
   "style": "kalpa-shan/ink-wash",
-  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
-  "duration": { "default": 30, "min": 10, "max": 60 },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "duration": {
+    "default": 30,
+    "min": 10,
+    "max": 60
+  },
   "palette": {
     "paper_top": "#f3eddf",
     "paper_mid": "#efe7d6",
@@ -18,7 +47,15 @@
     "river_core": "#e8fafc",
     "gold": "#b88c42"
   },
-  "scenes": ["site", "objects", "coast", "ice", "cut", "pit", "chambers"],
+  "scenes": [
+    "site",
+    "objects",
+    "coast",
+    "ice",
+    "cut",
+    "pit",
+    "chambers"
+  ],
   "camera": {
     "type": "2D pan/zoom on pre-rasterised SVG layers",
     "base_scale": 0.8,
@@ -48,7 +85,16 @@
     "true_peak": -1.5,
     "aac_trim_db": -0.2,
     "sample_rate": 48000,
-    "instruments": ["Karplus-Strong 拨弦", "低频 drone", "木鱼", "鼓", "落印", "水滴", "毛笔擦纸", "铃"]
+    "instruments": [
+      "Karplus-Strong 拨弦",
+      "低频 drone",
+      "木鱼",
+      "鼓",
+      "落印",
+      "水滴",
+      "毛笔擦纸",
+      "铃"
+    ]
   },
   "delivery": {
     "sample": "出稿/<编号>_<选题>/shuimo <集号>_水墨<N>秒样片.mp4",

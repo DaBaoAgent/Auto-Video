@@ -1,9 +1,38 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "map",
+    "no": "27",
+    "name_zh": "地图贴纸",
+    "name_en": "Map Stickers",
+    "station": "map",
+    "station_no": "08",
+    "tagline": "Natural Earth 真实底图上，人物贴纸与标注卡锚定经纬度。",
+    "engine": "Chrome 逐帧 + ffmpeg",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/map.py",
+    "status": "live",
+    "sample": {
+      "file": "map_张骞寻路.mp4",
+      "title": "张骞寻路",
+      "seconds": 544.2
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-09",
   "pipeline": "map",
   "style": "bb-video-map/atlas",
-  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
-  "duration": { "default": 180, "min": 8, "max": 900 },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "duration": {
+    "default": 180,
+    "min": 8,
+    "max": 900
+  },
   "palette": {
     "land": "#F2EBDA",
     "sea": "#C4D8D4",
@@ -60,12 +89,25 @@
     "channels": 2,
     "voice_lead_in": 0.7,
     "tail": 1.2,
-    "instruments": ["felt piano", "pizzicato strings", "warm string bed", "shaker", "bell", "pen on paper", "wooden taps"]
+    "instruments": [
+      "felt piano",
+      "pizzicato strings",
+      "warm string bed",
+      "shaker",
+      "bell",
+      "pen on paper",
+      "wooden taps"
+    ]
   },
   "delivery": {
     "sample": "出稿/<编号>_<选题>/",
     "final": "out/<编号>_<人物>/",
-    "files": [".mp4", "_封面.png", "_字幕.srt", "_署名.txt"],
+    "files": [
+      ".mp4",
+      "_封面.png",
+      "_字幕.srt",
+      "_署名.txt"
+    ],
     "qa": "review/qa.json"
   }
 }

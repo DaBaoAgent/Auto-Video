@@ -1,0 +1,27 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "huixingzhen",
+    "no": "19",
+    "name_zh": "回形针风",
+    "name_en": "Paperclip Explainer",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "实拍照片贴纸化、精确图表、大画布连续运镜。",
+    "engine": "HTML 逐帧 · 确定性渲染",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/gen_episode.py",
+    "status": "live",
+    "sample": {
+      "file": "huixingzhen 羽人.mp4",
+      "title": "羽人",
+      "seconds": 597.3
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": "SKILL.md",
+    "note": "定版参数还没有落成 JSON。迁移时把 SKILL.md 里的数值搬到这里，脚本再从 spec 读，别散写在代码里。"
+  }
+}

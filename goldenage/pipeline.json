@@ -1,4 +1,25 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "goldenage",
+    "no": "13",
+    "name_zh": "黄金卡通",
+    "name_en": "Golden-age Toon",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "手绘城市背景 + 墨线赛璐璐角色，15 张/秒的抽搐墨线。",
+    "engine": "Canvas · Chrome 逐帧",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/goldenage.py",
+    "status": "live",
+    "sample": {
+      "file": "goldenage_阿努纳奇.mp4",
+      "title": "阿努纳奇",
+      "seconds": 30.3
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-09",
   "pipeline": "goldenage",
   "style": "bb-video/goldenage",

@@ -1,0 +1,94 @@
+{
+  "schema": "auto-video/station@1",
+  "updated": "2026-11-15",
+  "stations": [
+    {
+      "id": "paper",
+      "no": "01",
+      "name_zh": "纸本叙事",
+      "name_en": "Paper & Chronicle",
+      "blurb": "绢本、纸本、剪影，用卡片的运动语法讲历史：一镜 2–4 秒，字幕贴着真实语音走。",
+      "line": "墨还没干，纸已经翻到下一页"
+    },
+    {
+      "id": "hand",
+      "no": "02",
+      "name_zh": "手绘笔触",
+      "name_en": "Hand & Pencil",
+      "blurb": "一笔一笔画出来的画面：逐帧手绘、铅笔测试、彩铅排线、平板速写。",
+      "line": "笔尖停在最后一格，线还没收"
+    },
+    {
+      "id": "craft",
+      "no": "03",
+      "name_zh": "传统工艺",
+      "name_en": "Traditional Crafts",
+      "blurb": "老手艺的样子和节奏：皮影、水墨、灯影、刺绣、上美影手绘赛璐璐。",
+      "line": "牛皮影人挂在杆上，灯刚点起来"
+    },
+    {
+      "id": "toon",
+      "no": "04",
+      "name_zh": "卡通动画",
+      "name_en": "Cartoons",
+      "blurb": "经典卡通的角色与节奏：美式黄金卡通、漫画分格、像素、天书奇谭式的民间志怪。",
+      "line": "原画只清线到领口"
+    },
+    {
+      "id": "graphic",
+      "no": "05",
+      "name_zh": "平面图形",
+      "name_en": "Graphic & Motion",
+      "blurb": "图形和字当主角：扁平矢量、剪影律动、回形针式图表、尺度漫游。",
+      "line": "手托里的铅字是倒着排的"
+    },
+    {
+      "id": "screen",
+      "no": "06",
+      "name_zh": "屏幕赛博",
+      "name_en": "Screens & Neon",
+      "blurb": "屏幕本身的质感：深青霓虹的 HUD 界面，与合成波 / VHS / Y2K 的年代噪点。",
+      "line": "扫描线压过画面，磁带还在转"
+    },
+    {
+      "id": "d3",
+      "no": "07",
+      "name_zh": "三维推演",
+      "name_en": "3D & Diorama",
+      "blurb": "真三维与微缩模型：兵棋推演的战场、生长的城市、等轴正交的粉彩世界。",
+      "line": "机位推到底，地形刚好接上"
+    },
+    {
+      "id": "map",
+      "no": "08",
+      "name_zh": "地图地理",
+      "name_en": "Maps & Terrain",
+      "blurb": "真实地理数据：Natural Earth 贴纸地图，与卫星地形上按高程起伏的水面。",
+      "line": "经纬度钉住的地方，正好有人经过"
+    },
+    {
+      "id": "diagram",
+      "no": "09",
+      "name_zh": "图纸说明",
+      "name_en": "Diagram & Blueprint",
+      "blurb": "用图纸讲原理：蓝晒工程图的构造线与标注，黑虚空里的火柴人对比寓言。",
+      "line": "红笔刚画到一半"
+    },
+    {
+      "id": "live",
+      "no": "10",
+      "name_zh": "实拍混剪",
+      "name_en": "Live Footage",
+      "blurb": "真画面进场：Pixabay 素材按 id 拼接的竖屏口播，与片源 URL 清单驱动的纪录片解说。",
+      "line": "素材按顺序拼好，字幕压上最后一行"
+    },
+    {
+      "id": "front",
+      "no": "11",
+      "name_zh": "前端工位",
+      "name_en": "Front of House",
+      "blurb": "不成片，但决定片子的前半程：选题、口播稿审计、批量克隆配音与时间轴。",
+      "line": "稿子过审，音色已经在那里等着"
+    }
+  ]
+}

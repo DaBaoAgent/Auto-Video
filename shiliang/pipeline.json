@@ -1,9 +1,38 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "shiliang",
+    "no": "17",
+    "name_zh": "扁平矢量",
+    "name_en": "Flat Vector",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "纯色几何世界、弹性入场、元素驱动转场，纯标准库合成 MG-pop 配乐。",
+    "engine": "SVG 单页 · 逐帧确定性渲染",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/shiliang.py",
+    "status": "live",
+    "sample": {
+      "file": "shiliang 扁平矢量.mp4",
+      "title": "扁平矢量",
+      "seconds": 30.0
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-10-30",
   "pipeline": "shiliang",
   "style": "mg-styles-15/01-flat-vector",
-  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
-  "duration": { "default": 30, "min": 10, "max": 60 },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "duration": {
+    "default": 30,
+    "min": 10,
+    "max": 60
+  },
   "palette": {
     "ultramarine": "#2B2BFF",
     "ultramarine_dark": "#1F1FCC",
@@ -21,14 +50,23 @@
     "skin": "#FFB48C"
   },
   "motion": {
-    "overshoot_bezier": [0.34, 1.56, 0.64, 1],
+    "overshoot_bezier": [
+      0.34,
+      1.56,
+      0.64,
+      1
+    ],
     "spring_freq": 2.4,
     "spring_damping": 0.42,
     "stagger_frames": 3,
     "squash_amt": 0.12,
     "one_mover_rule": true
   },
-  "camera": { "base_scale": 1.12, "push_scale": 30.0, "shake_frames": 2 },
+  "camera": {
+    "base_scale": 1.12,
+    "push_scale": 30.0,
+    "shake_frames": 2
+  },
   "captions": {
     "max_han": 14,
     "font_px": 44,

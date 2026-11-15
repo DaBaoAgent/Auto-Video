@@ -1,4 +1,25 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "shipai",
+    "no": "31",
+    "name_zh": "实拍混剪",
+    "name_en": "Live-footage Cut",
+    "station": "live",
+    "station_no": "10",
+    "tagline": "Pixabay 按 id 下载、固定顺序拼接，MoneyPrinterTurbo 出底片，一行式字幕烧入。",
+    "engine": "MoneyPrinterTurbo + ffmpeg",
+    "aspect": "9:16",
+    "fps": null,
+    "entry": "scripts/shipai.py",
+    "status": "live",
+    "sample": {
+      "file": "shipai 实拍 玛雅.mp4",
+      "title": "玛雅",
+      "seconds": 17.9
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-15",
   "pipeline": "shipai",
   "label": "实拍素材口播竖屏短片（MoneyPrinterTurbo CLI 驱动）",
@@ -52,7 +73,10 @@
     "stroke": 2,
     "stroke_color": "#000000",
     "fill": "#FFFFFF",
-    "shadow": { "alpha": 0.15, "offset": 2 },
+    "shadow": {
+      "alpha": 0.15,
+      "offset": 2
+    },
     "timing": "clauses 首尾相接，时间来自 timeline.json（真实配音字时间），不按字数均分"
   },
   "audio": {

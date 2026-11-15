@@ -1,0 +1,27 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "tuiyan",
+    "no": "23",
+    "name_zh": "3D 战场推演",
+    "name_en": "3D Battle Sim",
+    "station": "d3",
+    "station_no": "07",
+    "tagline": "全 3D 兵棋推演，稳帧 1080p，音效与 BGM 按关键镜挂。",
+    "engine": "3D 兵棋引擎 · 逐帧稳帧渲染",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": null,
+    "status": "live",
+    "sample": {
+      "file": "tuiyan 3D 赤壁之战.mp4",
+      "title": "赤壁之战",
+      "seconds": 539.8
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": "SKILL.md",
+    "note": "定版参数还没有落成 JSON。迁移时把 SKILL.md 里的数值搬到这里，脚本再从 spec 读，别散写在代码里。"
+  }
+}

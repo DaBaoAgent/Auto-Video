@@ -1,9 +1,38 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xuni",
+    "no": "22",
+    "name_zh": "合成波 VHS",
+    "name_en": "Synthwave VHS",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "霓虹网格、日落、铬字、扫描线、Y2K 窗口。",
+    "engine": "Three.js + Canvas + VHS 后处理",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/xuni.py",
+    "status": "live",
+    "sample": {
+      "file": "xuni_朊病毒.mp4",
+      "title": "朊病毒",
+      "seconds": 30.0
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-10-30",
   "pipeline": "xuni",
   "style": "mg-styles-15/10-synthwave",
-  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
-  "duration": { "default": 30, "min": 10, "max": 60 },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "duration": {
+    "default": 30,
+    "min": 10,
+    "max": 60
+  },
   "palette": {
     "sky_top": "#030008",
     "sky_deep": "#1a0332",
@@ -13,7 +42,17 @@
     "cyan": "#21E6FF",
     "yellow": "#FFD34D",
     "acid": "#B6FF3C",
-    "chrome": ["#a9c9e2", "#5f82a8", "#c9e2f5", "#3d5a7e", "#e6f4ff", "#3d5a7e", "#6a4cae", "#a3c4dc", "#4a6a8c"]
+    "chrome": [
+      "#a9c9e2",
+      "#5f82a8",
+      "#c9e2f5",
+      "#3d5a7e",
+      "#e6f4ff",
+      "#3d5a7e",
+      "#6a4cae",
+      "#a3c4dc",
+      "#4a6a8c"
+    ]
   },
   "camera": {
     "fov": 50,
@@ -23,19 +62,25 @@
     "grid_scroll_units_per_s": 36
   },
   "post": {
-    "bloom_strength": 0.40,
+    "bloom_strength": 0.4,
     "bloom_radius": 0.52,
     "bloom_threshold": 0.84,
     "vhs_scanline_pct": 0.12,
     "vhs_rgb_split_px": 1.2,
     "vhs_vignette": 0.62,
-    "mask_open": [1.05, 1.65],
-    "tape_stop": 29.40,
-    "crt_off": [29.55, 29.93]
+    "mask_open": [
+      1.05,
+      1.65
+    ],
+    "tape_stop": 29.4,
+    "crt_off": [
+      29.55,
+      29.93
+    ]
   },
   "audio": {
     "bpm": 100,
-    "beat0": 1.10,
+    "beat0": 1.1,
     "score_gain": 0.45,
     "lufs": -14,
     "true_peak": -1.5,

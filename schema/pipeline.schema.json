@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dabaoagent.github.io/Auto-Video/schema/pipeline.schema.json",
+  "title": "Auto-Video pipeline.json",
+  "description": "每条管线的定版参数文件。顶层只有三块：schema（契约版本）、meta（统一元数据，由 catalog/pipelines.json 派生）、spec（管线私有的定版参数，随便写，不被校验）。",
+  "type": "object",
+  "required": ["schema", "meta"],
+  "properties": {
+    "schema": {
+      "const": "auto-video/pipeline@2",
+      "description": "契约版本。升级契约时改这里，tools/validate.py 会拦住旧版本。"
+    },
+    "meta": {
+      "type": "object",
+      "description": "统一元数据。这一块由 tools/normalize_pipelines.py 从 catalog/pipelines.json 写入，不要手改。",
+      "required": ["id", "no", "name_zh", "name_en", "station", "tagline", "engine", "aspect", "fps", "entry", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "description": "与目录名一致" },
+        "no": { "type": "string", "pattern": "^[0-9]{2}$", "description": "站点里的两位编号" },
+        "name_zh": { "type": "string" },
+        "name_en": { "type": "string" },
+        "station": { "type": "string", "description": "catalog/stations.json 里的工位 id" },
+        "station_no": { "type": "string", "pattern": "^[0-9]{2}$" },
+        "tagline": { "type": "string", "description": "一句话说明这条管线做什么" },
+        "engine": { "type": "string", "description": "渲染器 / 生产方法" },
+        "aspect": { "type": ["string", "null"], "enum": ["16:9", "9:16", "4:3", "1:1", null] },
+        "fps": { "type": ["integer", "null"], "minimum": 1, "maximum": 120 },
+        "entry": { "type": ["string", "null"], "description": "相对管线目录的入口脚本；没有单入口时为 null" },
+        "status": { "enum": ["live", "beta", "planned"] },
+        "sample": {
+          "type": ["object", "null"],
+          "required": ["file", "title", "seconds"],
+          "properties": {
+            "file": { "type": "string" },
+            "title": { "type": "string" },
+            "seconds": { "type": "number" }
+          }
+        },
+        "updated": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "description": "管线私有的定版参数（配色、字体、镜头、音频、交付门禁……）。结构自由，各管线自己解释。"
+    }
+  },
+  "additionalProperties": true,
+  "$comment": "顶层允许额外的历史扁平键（shipai/tianshu 等脚本直接读 data['paths']、cfg['stills']）。新管线请把私有参数放进 spec；两者并存的会在 validate.py 里报 warn。"
+}

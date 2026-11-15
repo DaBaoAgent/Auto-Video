@@ -1,17 +1,56 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "caiqian",
+    "no": "06",
+    "name_zh": "彩铅科普",
+    "name_en": "Colored-pencil Science",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "四张 G-buffer 由后处理叠成彩铅排线，锚定坐标防漂移。",
+    "engine": "G-buffer + 后处理",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/caiqian.py",
+    "status": "live",
+    "sample": {
+      "file": "caiqian 鳕鱼.mp4",
+      "title": "鳕鱼",
+      "seconds": 27.1
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-15",
   "pipeline": "caiqian",
   "style": "colored-pencil/science-illustration",
-  "canvas": { "width": 1920, "height": 1080, "fps": 24 },
-  "duration": { "default": 27.1, "min": 8, "max": 120 },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24
+  },
+  "duration": {
+    "default": 27.1,
+    "min": 8,
+    "max": 120
+  },
   "paper": {
     "base": "#F8F4EA",
     "tooth": "程序化纸齿（哈希噪声），post 阶段与颜料阈值合成",
     "supersample": "SS=2（3840×2160 后处理）→ 2×2 box downsample 回 1920×1080"
   },
   "pencil": {
-    "layers": ["outline", "hatch", "color", "wobble"],
-    "g_buffer": ["albedo + id", "light + depth + normal", "hatch direction", "anchor + reveal time"],
+    "layers": [
+      "outline",
+      "hatch",
+      "color",
+      "wobble"
+    ],
+    "g_buffer": [
+      "albedo + id",
+      "light + depth + normal",
+      "hatch direction",
+      "anchor + reveal time"
+    ],
     "hatch_angle": "0.62 + id × 0.11（每个材质一个排线角，避免同向带来的塑料感）",
     "boil": "一张画每 2 帧换一次，3 张循环（24 fps → 12 次/秒）",
     "anchor": "所有排线与纸齿在固定参考相机的投影坐标里算，相机只能在同镜内平移 —— 笔画黏在物体上，只有轮廓抖",
@@ -65,7 +104,11 @@
   "delivery": {
     "sample": "projects/<编号_名>/out/",
     "final": "projects/<编号_名>/out/<名>.mp4",
-    "files": ["<名>.mp4", "<名>.srt", "glyphs.json"],
+    "files": [
+      "<名>.mp4",
+      "<名>.srt",
+      "glyphs.json"
+    ],
     "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
   },
   "credits": [

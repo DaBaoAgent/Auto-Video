@@ -1,4 +1,25 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "bianping",
+    "no": "20",
+    "name_zh": "扁平尺度漫游",
+    "name_en": "Scale Zoom Explainer",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "从彗星撞木星连续推到黑洞事件视界，Orbi 小眼睛角色做引导。",
+    "engine": "SVG 代码绘制 · lemo-opuscar core/render",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/bianping.py",
+    "status": "live",
+    "sample": {
+      "file": "bianping 扁平尺度漫游 僵尸地球.mp4",
+      "title": "僵尸地球",
+      "seconds": 35.7
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-15",
   "pipeline": "bianping",
   "style": "lemo-opuscar/flat-space-explainer",
@@ -9,16 +30,31 @@
     "fps": 24,
     "logical": "16:9 full bleed, SVG viewBox 0 0 1920 1080"
   },
-  "duration": { "default": 36, "min": 10, "max": 600 },
-  "palette": {
-    "night": "#1D2052", "n2": "#252A63", "n3": "#30367C",
-    "mist": "#9298D4", "blue": "#4D7CFE", "blueD": "#3A5FD9",
-    "mint": "#3FD8AE", "mintD": "#22B38C",
-    "coral": "#FF6B5E", "coralD": "#E14B45",
-    "sun": "#FFC84A", "sunD": "#F2A12F",
-    "cream": "#FFF4E2", "creamD": "#F0DCC0"
+  "duration": {
+    "default": 36,
+    "min": 10,
+    "max": 600
   },
-  "fonts": ["Jost (latin, variable 100-900)", "Noto Sans SC Bold subset (CJK)"],
+  "palette": {
+    "night": "#1D2052",
+    "n2": "#252A63",
+    "n3": "#30367C",
+    "mist": "#9298D4",
+    "blue": "#4D7CFE",
+    "blueD": "#3A5FD9",
+    "mint": "#3FD8AE",
+    "mintD": "#22B38C",
+    "coral": "#FF6B5E",
+    "coralD": "#E14B45",
+    "sun": "#FFC84A",
+    "sunD": "#F2A12F",
+    "cream": "#FFF4E2",
+    "creamD": "#F0DCC0"
+  },
+  "fonts": [
+    "Jost (latin, variable 100-900)",
+    "Noto Sans SC Bold subset (CJK)"
+  ],
   "motion": {
     "engine": "SVG code-driven, t is a pure function",
     "renderer": "lemo-opuscar core/render/video.mjs",

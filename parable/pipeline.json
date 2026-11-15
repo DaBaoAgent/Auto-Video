@@ -1,4 +1,25 @@
 {
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "parable",
+    "no": "30",
+    "name_zh": "火柴人寓言",
+    "name_en": "Stick-figure Parable",
+    "station": "diagram",
+    "station_no": "09",
+    "tagline": "黑虚空里的白色火柴人，两个角色同一堆材料，一个红色物件承载意义，无切镜。",
+    "engine": "Three.js · 固定广角",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/parable.py",
+    "status": "live",
+    "sample": {
+      "file": "parable_阿努纳奇.mp4",
+      "title": "阿努纳奇",
+      "seconds": 178.3
+    },
+    "updated": "2026-11-15"
+  },
   "version": "2026-11-09",
   "pipeline": "parable",
   "style": "bb-video/parable",
