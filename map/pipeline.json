@@ -1,0 +1,71 @@
+{
+  "version": "2026-11-09",
+  "pipeline": "map",
+  "style": "bb-video-map/atlas",
+  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
+  "duration": { "default": 180, "min": 8, "max": 900 },
+  "palette": {
+    "land": "#F2EBDA",
+    "sea": "#C4D8D4",
+    "waterline": "#7FA5A6",
+    "coast": "#5E8A8E",
+    "park": "#D6DDB6",
+    "paper": "#FBF7EE",
+    "ink": "#2E2924",
+    "muted": "#857864",
+    "accent": "#C23B22",
+    "accent_dark": "#8E2A18",
+    "indigo": "#34506E",
+    "indigo_dark": "#182A3B",
+    "teal": "#7FA5A6",
+    "ochre": "#C8934A",
+    "ochre_dark": "#9A6B31",
+    "sand": "#E3BE79",
+    "bamboo": "#B9A96B",
+    "skin": "#E8C39A",
+    "skin_dark": "#C99B71"
+  },
+  "stickers": {
+    "viewBox": "0 0 400 400",
+    "stroke": "#2E2924",
+    "strokeWidth": 4,
+    "layerZ": 5,
+    "characterLift": "0.8–0.9 × width",
+    "fadeIn": 0.5,
+    "fadeOut": 0.45,
+    "popScale": "0.88 → 1.0"
+  },
+  "camera": {
+    "type": "one continuous camera; globe → region → city",
+    "globeZoom": 3.6,
+    "maxZoomSpeed": "2.5 levels/s",
+    "drift": true
+  },
+  "render": {
+    "engine": "Chrome DevTools Protocol, frame by frame",
+    "chrome": "CHROME_PATH (Windows: auto-detect Chrome/Edge)",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "seconds_per_frame_1080p": "0.3–0.6",
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+  },
+  "audio": {
+    "bpm": 96,
+    "key": "D major",
+    "lufs": -16,
+    "true_peak": -1.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "voice_lead_in": 0.7,
+    "tail": 1.2,
+    "instruments": ["felt piano", "pizzicato strings", "warm string bed", "shaker", "bell", "pen on paper", "wooden taps"]
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/",
+    "final": "out/<编号>_<人物>/",
+    "files": [".mp4", "_封面.png", "_字幕.srt", "_署名.txt"],
+    "qa": "review/qa.json"
+  }
+}

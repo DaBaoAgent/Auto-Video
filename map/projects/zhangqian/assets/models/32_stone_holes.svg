@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="桩孔石壁">
+<title>桩孔石壁 · 四十厘米宽、七十厘米深 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 崖壁大面 -->
+  <path d="M44 34 L356 22 L370 356 L30 374 Z" fill="#B9B3A2"/>
+  <path d="M44 34 L356 22 L370 356 L30 374 Z" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <!-- 岩石分块裂缝 -->
+  <path d="M44 120 L356 108 M36 230 L368 218 M50 310 L360 300 M150 30 L140 370 M268 26 L280 360" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <path d="M80 58 L96 96 M302 44 L286 84 M74 164 L88 198 M330 160 L314 196 M72 264 L86 296 M332 254 L318 286" fill="none" stroke="#8E8A7C" stroke-width="2.5"/>
+  <!-- 两排方形桩孔（上排 4，下排 4），孔内暗面 -->
+  <g fill="#4A463D">
+    <path d="M104 104 L148 102 L148 150 L104 152 Z"/>
+    <path d="M178 100 L222 98 L222 146 L178 148 Z"/>
+    <path d="M252 96 L296 94 L296 142 L252 144 Z"/>
+    <path d="M110 218 L154 216 L154 264 L110 266 Z"/>
+    <path d="M184 214 L228 212 L228 260 L184 262 Z"/>
+    <path d="M258 210 L302 208 L302 256 L258 258 Z"/>
+  </g>
+  <!-- 孔口凿痕高光 -->
+  <g fill="none" stroke="#E3D9BE" stroke-width="2.5">
+    <path d="M106 106 L146 104 M106 110 L106 148 M180 102 L220 100 M254 98 L294 96"/>
+    <path d="M112 220 L152 218 M186 216 L226 214 M260 212 L300 210"/>
+  </g>
+  <!-- 孔底深度线 -->
+  <g fill="none" stroke="#6E6A60" stroke-width="2">
+    <path d="M112 128 L140 126 M186 124 L214 122 M260 120 L288 118"/>
+    <path d="M118 242 L146 240 M192 238 L220 236 M266 234 L294 232"/>
+  </g>
+  <!-- 碎屑与新凿出的石片 -->
+  <g fill="#C9C4B6">
+    <path d="M96 340 L114 330 L122 344 L104 352 Z"/>
+    <path d="M176 350 L194 338 L204 354 L184 362 Z"/>
+    <path d="M286 330 L304 322 L312 336 L294 344 Z"/>
+  </g>
+  <!-- 一把凿子插在孔边 -->
+  <path d="M318 150 L354 118" fill="none" stroke="#8E7A3E" stroke-width="10"/>
+  <path d="M318 150 L354 118" fill="none" stroke="#C9C4B6" stroke-width="5"/>
+  <path d="M348 122 L362 110" fill="none" stroke="#2E2924" stroke-width="6"/>
+  <!-- 标尺（表示 40×70） -->
+  <path d="M336 190 L342 286" fill="none" stroke="#C23B22" stroke-width="4"/>
+  <path d="M330 190 L348 190 M330 286 L348 286" fill="none" stroke="#C23B22" stroke-width="4"/>
+  <path d="M360 220 L368 220 M360 246 L368 246" fill="none" stroke="#C23B22" stroke-width="3"/>
+</g>
+</svg>

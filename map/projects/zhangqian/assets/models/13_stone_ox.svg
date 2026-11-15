@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="石牛">
+<title>石牛 · 五头粪金牛传说 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 石台 -->
+  <path d="M48 314 L352 314 L338 350 L62 350 Z" fill="#7A6B4E"/>
+  <path d="M48 314 L352 314" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <!-- 尾 -->
+  <path d="M96 202 C72 212 66 244 78 276 L92 272 C84 246 88 226 104 218 Z" fill="#9A8A66"/>
+  <!-- 远腿 -->
+  <path d="M138 258 L134 306 L154 306 L158 258 Z M242 258 L238 306 L258 306 L262 258 Z" fill="#7A6B4E"/>
+  <!-- 牛身 -->
+  <path d="M96 196 C96 164 122 150 156 152 L246 152 C282 150 306 168 310 200 L306 258 C300 276 280 282 258 280 L134 280 C110 278 96 256 96 196 Z" fill="#9A8A66"/>
+  <path d="M96 224 C140 240 264 242 308 226 L306 258 C300 276 280 282 258 280 L134 280 C114 279 100 258 96 224 Z" fill="#7A6B4E" stroke="none"/>
+  <!-- 近腿 -->
+  <path d="M124 258 L120 310 L144 310 L148 258 Z M266 258 L262 310 L286 310 L290 258 Z" fill="#9A8A66"/>
+  <path d="M118 310 L146 310 L146 318 L118 318 Z M260 310 L288 310 L288 318 L260 318 Z" fill="#5E5238" stroke="none"/>
+  <!-- 头 -->
+  <path d="M278 172 C296 156 322 152 338 162 C352 172 350 196 336 210 L316 220 L284 210 Z" fill="#9A8A66"/>
+  <path d="M316 220 L336 210 C350 196 352 172 338 162 C342 186 332 204 316 220 Z" fill="#7A6B4E" stroke="none"/>
+  <!-- 牛角 -->
+  <path d="M292 160 C282 138 262 132 252 138 C266 144 274 154 278 166 Z" fill="#D8CDB0"/>
+  <path d="M330 158 C338 134 356 128 366 134 C352 142 346 152 342 166 Z" fill="#D8CDB0"/>
+  <!-- 耳 -->
+  <path d="M286 176 L266 168 L272 188 Z" fill="#7A6B4E"/>
+  <!-- 五官 -->
+  <circle cx="322" cy="182" r="4.5" fill="#2E2924" stroke="none"/>
+  <path d="M332 200 Q340 196 346 200" fill="none" stroke-width="3"/>
+  <circle cx="338" cy="192" r="2.5" fill="#2E2924" stroke="none"/>
+  <!-- 石纹与凿痕 -->
+  <path d="M130 186 L156 180 M180 174 L206 178 M226 190 L252 186 M150 244 L174 238 M238 246 L262 240" fill="none" stroke="#7A6B4E" stroke-width="3"/>
+  <path d="M196 152 L190 178 L202 186" fill="none" stroke="#7A6B4E" stroke-width="2.5"/>
+  <!-- 牛身后撒的金粒（呼应粪金） -->
+  <g fill="#E3BE79" stroke="#8E6B3E" stroke-width="2">
+    <circle cx="66" cy="292" r="7"/><circle cx="86" cy="302" r="5"/><circle cx="48" cy="306" r="4"/>
+  </g>
+</g>
+</svg>

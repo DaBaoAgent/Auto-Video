@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="墨脱公路与隧道">
+<title>墨脱公路 · 派墨公路隧道 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 山体 -->
+  <path d="M20 360 L52 150 L118 220 L170 90 L248 208 L306 140 L380 300 L380 380 L20 380 Z" fill="#B9B3A2"/>
+  <path d="M52 150 L118 220 L90 236 L62 206 Z" fill="#E3D9BE"/>
+  <path d="M170 90 L248 208 L210 222 L180 160 Z" fill="#E3D9BE"/>
+  <path d="M306 140 L380 300 L340 300 Z" fill="#E3D9BE"/>
+  <path d="M20 360 L52 150 M170 90 L248 208 M306 140 L380 300" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <!-- 隧道口 -->
+  <path d="M240 380 L240 316 Q240 274 282 274 Q324 274 324 316 L324 380 Z" fill="#4A463D"/>
+  <path d="M240 380 L240 316 Q240 274 282 274 Q324 274 324 316 L324 380 Z" fill="none" stroke="#2E2924" stroke-width="6"/>
+  <path d="M252 380 L252 322 Q252 294 282 294 Q312 294 312 322 L312 380 Z" fill="#2E2924"/>
+  <path d="M264 380 L264 330 Q264 310 282 310 Q300 310 300 330 L300 380 Z" fill="#E3BE79" opacity="0.9"/>
+  <!-- 盘山公路（从隧道口盘旋而下） -->
+  <path d="M240 356 Q190 340 170 314 Q146 282 168 262 Q192 242 232 258 Q270 272 282 244 Q292 218 260 208 Q226 198 210 222" fill="none" stroke="#2E2924" stroke-width="16"/>
+  <path d="M240 356 Q190 340 170 314 Q146 282 168 262 Q192 242 232 258 Q270 272 282 244 Q292 218 260 208 Q226 198 210 222" fill="none" stroke="#9E9A8C" stroke-width="10"/>
+  <path d="M240 356 Q190 340 170 314 Q146 282 168 262 Q192 242 232 258 Q270 272 282 244 Q292 218 260 208 Q226 198 210 222" fill="none" stroke="#FBF7EE" stroke-width="2" stroke-dasharray="12 10"/>
+  <!-- 护栏 -->
+  <g fill="none" stroke="#E3D9BE" stroke-width="3">
+    <path d="M176 326 L166 314 M196 336 L188 322 M222 344 L218 330 M250 342 L252 328 M272 320 L282 312"/>
+  </g>
+  <!-- 公路里程碑与急弯标志 -->
+  <path d="M120 300 L120 272 L136 272 L136 300 Z" fill="#FBF7EE"/>
+  <path d="M128 278 L128 292" fill="none" stroke="#C23B22" stroke-width="4"/>
+  <!-- 云雾 -->
+  <g fill="none" stroke="#FBF7EE" stroke-width="7" opacity="0.85">
+    <path d="M20 262 Q60 250 100 262 M300 230 Q340 218 380 230 M180 250 Q210 240 240 250"/>
+  </g>
+</g>
+</svg>

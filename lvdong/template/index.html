@@ -1,0 +1,17 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>剪影律动 · {{TITLE}}</title>
+<style>
+  @font-face { font-family: 'SCBold'; src: url('fonts/NotoSansSC.ttf'); font-weight: 100 900; }
+  @font-face { font-family: 'Anton'; src: url('fonts/Anton-Regular.ttf'); }
+  html, body { margin: 0; background: #000; overflow: hidden; }
+  canvas { position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; display: block; }
+  #g { z-index: 1 } #o { z-index: 2; pointer-events: none }
+</style></head>
+<body>
+<canvas id="g"></canvas>
+<canvas id="o"></canvas>
+<script src="/styles/silhouette-rhythm/demo/sky.js"></script>
+<script src="cast.js"></script>
+<script src="film.js"></script>
+</body></html>

@@ -1,0 +1,65 @@
+{
+  "version": "2026-10-30",
+  "pipeline": "shiliang",
+  "style": "mg-styles-15/01-flat-vector",
+  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
+  "duration": { "default": 30, "min": 10, "max": 60 },
+  "palette": {
+    "ultramarine": "#2B2BFF",
+    "ultramarine_dark": "#1F1FCC",
+    "ultramarine_light": "#4D4DFF",
+    "coral": "#FF5A4E",
+    "coral_dark": "#E0433A",
+    "sunflower": "#FFC62B",
+    "sunflower_dark": "#F0A91A",
+    "mint": "#2EE6A8",
+    "mint_dark": "#1FC28C",
+    "cream": "#FFF6E9",
+    "cream_dark": "#F1E3CC",
+    "ink": "#151433",
+    "ink_warm": "#2A2962",
+    "skin": "#FFB48C"
+  },
+  "motion": {
+    "overshoot_bezier": [0.34, 1.56, 0.64, 1],
+    "spring_freq": 2.4,
+    "spring_damping": 0.42,
+    "stagger_frames": 3,
+    "squash_amt": 0.12,
+    "one_mover_rule": true
+  },
+  "camera": { "base_scale": 1.12, "push_scale": 30.0, "shake_frames": 2 },
+  "captions": {
+    "max_han": 14,
+    "font_px": 44,
+    "bottom_margin": 96,
+    "pill_opacity": 0.94,
+    "pill_radius": 28,
+    "pad_x": 30,
+    "pad_y": 16
+  },
+  "audio": {
+    "bpm": 120,
+    "beat0": 0.0,
+    "key": "F",
+    "mode": "major",
+    "score_gain": 0.5,
+    "lufs": -14,
+    "true_peak": -1.5,
+    "aac_trim_db": -0.2,
+    "sample_rate": 48000
+  },
+  "render": {
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 21,
+    "crf_master": 16,
+    "preset": "slow",
+    "edge": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/<集号>_扁平矢量<N>秒样片.mp4",
+    "final": "out/<编号>_<人物>/",
+    "final_rules": "references/publish.md"
+  }
+}

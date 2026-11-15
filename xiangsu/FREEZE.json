@@ -1,0 +1,73 @@
+{
+  "pipeline": "xiangsu2",
+  "project": "001_波斯湾伊甸园",
+  "frozen_at": "2026-10-28",
+  "note": "伊甸园前 10 秒：640×360 索引色栅格 ×3 整数最近邻 → 1920×1080，CRT 在输出分辨率。render/xiangsu 只读，未修改。",
+  "spec": {
+    "framebuffer": [640, 360],
+    "upscale": "3x nearest-neighbour",
+    "output": [1920, 1080],
+    "fps": 30,
+    "frames": 300,
+    "duration_s": 10.0,
+    "video": "h264 high / yuv420p / bt709 tv / crf 14 / preset slow / aq-mode=3",
+    "audio": "aac (requested -b:a 320k; measured ~257 kbps) / 48000 Hz / 2ch",
+    "crt": {
+      "scanline": "rgba(0,0,0,0.12), 1px dark line every 3px, generated at output resolution",
+      "vignette": "radial 0 -> 0.48 alpha, 0.38R -> 0.95R",
+      "phosphor": "overlay rgba(120,255,200,0.02)"
+    }
+  },
+  "sources": {
+    "demo/index.html": "825a72cff674b9d5b9273a66e027b7057ca5b5ce87f327d96f65f51f10d1e2ba",
+    "demo/film.js": "0a6d7f5847822e6a336b676f046822fe21f7656ae845ba4007c8f4aee638ce64",
+    "demo/sprites.js": "ef19041da186ff4bffcda46cc1d64fd63e343187f8a5218b1429ae32cbb4475f",
+    "demo/cues.json": "568fd78aa9de32446c888f0361d8d6f2bdc185385599695d57fbe7bc2b661882",
+    "demo/audio.py": "7a88275a85e6715350b4df0ddba0c63c9594044a00915e7a8e9c2b799ecc2c2f",
+    "make_audio.sh": "3a7c3dffd9769d5298ace3ed601c3793e9ff0d8cabf9a83fbd923894ccd45236",
+    "build.sh": "c0963d959c1a1101d5ee52a49511365baa3bc5fb0a0d046196e2542d71c277b6",
+    "verify.mjs": "25adc08c914e5e6c389e1ce2ed3cdb3a12f369277b03c40cccdc41389d07305a"
+  },
+  "audio": {
+    "mix_raw.wav": "46f75cf691cb2f38431db763b26662e510d70b50c11ec5616d22cce4117293eb",
+    "audio.wav": "2b6e5ca5e95eb985a9f575467e3770a9a40f85be005bbaad57c64f5006b1e6c8",
+    "loudness": { "integrated_lufs": -15.88, "true_peak_dbtp": -1.5, "lra_lu": 1.5 }
+  },
+  "deliverable": {
+    "path": "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/样片_前10秒_1920x1080.mp4",
+    "bytes": 10433009,
+    "sha256": "9a63b49adca6c385b1b3ef69b6d4c199201c3d98caec83e1835761bc55127155",
+    "ffprobe": "1920x1080 h264/yuv420p 30fps 300f 10.000s; aac 48000 Hz 2ch"
+  },
+  "verification": {
+    "result": "PASS 4/4",
+    "spec": "PASS",
+    "loudness": "PASS",
+    "density": {
+      "result": "PASS",
+      "windows": ["0-2s 35/60", "2-4s 34/60", "4-6s 23/60", "6-8s 23/60", "8-10s 41/59"],
+      "longest_static_s": 0.13
+    },
+    "pixel_density": {
+      "result": "PASS",
+      "frames": {
+        "t=2.30": { "inner_col_mad": 0.33, "edge_col_mad": 4.14, "recon_mean": 0.56, "gt12_frac_pct": 0.702 },
+        "t=4.60": { "inner_col_mad": 0.55, "edge_col_mad": 7.78, "recon_mean": 0.91, "gt12_frac_pct": 0.919 },
+        "t=7.30": { "inner_col_mad": 0.94, "edge_col_mad": 10.38, "recon_mean": 1.35, "gt12_frac_pct": 0.952 }
+      }
+    }
+  },
+  "regression_vs_640_deliverable": {
+    "ssim_all": 0.967679,
+    "ssim_y": 0.955873,
+    "audio_packet_md5": "eaaba5452996ed096fe6a39a0698c7fc",
+    "note": "画面差异仅来自 CRT 在 1920×1080 输出分辨率重做；AAC 音频包与 640 样片逐字节相同。"
+  },
+  "environment": {
+    "repo": "D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15",
+    "chrome": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "python": "D:/@kaifa/openviking/.venv/Scripts/python.exe",
+    "node": "v24.22.1",
+    "ffmpeg": "8.1.1-full_build"
+  }
+}

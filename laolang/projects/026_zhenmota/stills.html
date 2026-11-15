@@ -1,0 +1,1496 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>镇魔塔 · 全片代表静帧 10 张</title>
+<style>html,body{margin:0;background:#0b0a08}#stage{position:relative;overflow:hidden}</style>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/goldenage.js"></script>
+<script src="lib/cel.js"></script>
+<script src="lib/laolang.js"></script>
+<script src="lib/toon.js"></script>
+<script src="lib/cast-lite.js"></script>
+<script src="lib/act.js"></script>
+<script src="lao_cast_full.js"></script>
+<script src="lao_poses.js"></script>
+</head><body><div id="stage"></div><script>
+// 镇魔塔 · 全片代表静帧 10 张
+// 画法 = 上美影 1980 赛璐璐动画的绘景底：水粉/水彩 wash、干笔、石纹裂纹、宣纸颗粒、手绘墨线。
+// 人物/动作 = LAO_FULL 定稿造型 + LAO_POSE 定稿动作，绘在绘景之上，再交给管线胶片颗粒统一。
+// 画面上不写任何字（brief/storyboard 的文案不属于本片，不臆造）。
+const OUTFITS = window.LAO_FULL;
+
+PROMO.compose({
+  bpm: 84, offset: 0, grain: false, tail: 0.2, duration: 10,
+  theme: { bg: '#14110d', fg: '#efe3c4', ink: '#efe3c4', muted: '#b7a98a', accent: '#b23a2b', paper: '#14110d', fonts: { display: '"KaiTi", "SimSun", serif', serif: '"SimSun", serif', sans: '"Microsoft YaHei", sans-serif' } },
+  captions: { max: 18, font: '"SimSun", serif', weight: 500 },
+  build: (F) => {
+    const G = PROMO.laolang(F, {
+      seed: 'zm-stills',
+      captions: { max: 18, size: 24 },
+      // 整帧当一张赛璐璐片洗印：描墨线 → 拷贝片调色 → 纸纹颜料颗粒
+      post: (c) => CEL.frame(c, { seed: 11, exp: 1.04, gamma: 0.90, con: 1.06, sat: 1.05, tooth: 0.100, wobble: 0.55, inkThr: 7, inkAmt: 0.60 }),
+    });
+    const L = G.lib, lao = L.lao, W = G.W, H = G.H, RS = G.RS;
+    const { camPush, clamp, lerp, F: inkFill, pEll, xfDraw } = L;
+    const PAL = lao.PAL, rgba = lao.rgba;
+    const TAU = Math.PI * 2, PI = Math.PI;
+
+    /* =========================================================
+       绘景工具箱（与 laolang.js 同一套画法）：
+       每张底先在离屏画布上按设备分辨率画一遍，再随相机整体飞。
+       ========================================================= */
+    let prn = 20261111;
+    const rnd = () => { prn = (prn * 16807) % 2147483647; return prn / 2147483647; };
+    const rs = (n) => { prn = (n * 7919 + 13) % 2147483647 || 7; };
+    const rr = (a, b) => a + (b - a) * rnd();
+    const hseed = (s) => { let h = 17; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 2147483647; return h; };
+    const pathIn = (x, pts, close = true) => {
+      const n = pts.length / 2 | 0;
+      if (n < 2) return;
+      const g = (i) => [pts[2 * ((i + n) % n)], pts[2 * ((i + n) % n) + 1]];
+      if (close) {
+        const a = g(0), b = g(n - 1);
+        x.beginPath(); x.moveTo((a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+        for (let i = 0; i < n; i++) { const c0 = g(i), c1 = g(i + 1); x.quadraticCurveTo(c0[0], c0[1], (c0[0] + c1[0]) / 2, (c0[1] + c1[1]) / 2); }
+        x.closePath();
+      } else {
+        x.beginPath(); x.moveTo(pts[0], pts[1]);
+        for (let i = 1; i < n; i++) x.lineTo(pts[2 * i], pts[2 * i + 1]);
+      }
+    };
+    const sub = (pts, n = 5) => {
+      const m = pts.length / 2 | 0, o = [];
+      for (let i = 0; i < m; i++) {
+        const ax = pts[2 * i], ay = pts[2 * i + 1], bx = pts[2 * ((i + 1) % m)], by = pts[2 * ((i + 1) % m) + 1];
+        for (let k = 0; k < n; k++) { const u = k / n; o.push(ax + (bx - ax) * u, ay + (by - ay) * u); }
+      }
+      return o;
+    };
+    const paint = (x, pts, fill, stroke = PAL.ink, lw = 1.4, alpha = 1) => {
+      // 先把每条边细分：平滑只切小圆角，矩形才不会变成鹅蛋
+      const n = pts.length / 2 | 0;
+      const p = n >= 3 ? sub(pts, n > 40 ? 1 : 4) : pts;
+      x.save(); x.globalAlpha = alpha; pathIn(x, p, true);
+      if (fill) { x.fillStyle = fill; x.fill(); }
+      if (stroke && lw > 0) { x.strokeStyle = stroke; x.lineWidth = lw; x.lineJoin = 'round'; x.lineCap = 'round'; x.stroke(); }
+      x.restore();
+    };
+    const paintLine = (x, pts, stroke, lw = 1.6, alpha = 1, close = false) => {
+      x.save(); x.globalAlpha = alpha; pathIn(x, pts, close); x.strokeStyle = stroke; x.lineWidth = lw; x.lineCap = 'round'; x.lineJoin = 'round'; x.stroke(); x.restore();
+    };
+    const wash = (x, x0, y0, w, h, stops, vert = true) => {
+      const g = vert ? x.createLinearGradient(0, y0, 0, y0 + h) : x.createLinearGradient(x0, 0, x0 + w, 0);
+      for (const s of stops) g.addColorStop(s[0], s[1]);
+      x.fillStyle = g; x.fillRect(x0, y0, w, h);
+    };
+    const blob = (x, cx, cy, rx, ry, col, a = 0.2, n = 7) => {
+      const pts = [];
+      for (let i = 0; i < n; i++) { const an = i / n * TAU; const k = 0.72 + rnd() * 0.5; pts.push(cx + Math.cos(an) * rx * k, cy + Math.sin(an) * ry * k); }
+      x.save(); x.globalAlpha = a; pathIn(x, pts, true); x.fillStyle = col; x.fill(); x.restore();
+    };
+    const dots = (x, x0, y0, w, h, n, col, a = 0.25, r0 = 0.5, r1 = 2) => {
+      x.save(); x.fillStyle = col;
+      for (let i = 0; i < n; i++) { x.globalAlpha = a * rr(0.3, 1); x.beginPath(); x.arc(x0 + rnd() * w, y0 + rnd() * h, rr(r0, r1), 0, TAU); x.fill(); }
+      x.restore();
+    };
+    const dry = (x, x0, y0, x1, y1, w, col, n = 8, a = 0.12) => {
+      x.save(); x.strokeStyle = col; x.lineCap = 'round';
+      for (let i = 0; i < n; i++) {
+        x.globalAlpha = a * rr(0.4, 1.2); x.lineWidth = w * rr(0.4, 1.1);
+        const dx = x1 - x0, dy = y1 - y0, l = Math.hypot(dx, dy) || 1, nx = -dy / l, ny = dx / l, o = rr(-w, w);
+        x.beginPath(); x.moveTo(x0 + nx * o, y0 + ny * o);
+        x.quadraticCurveTo((x0 + x1) / 2 + nx * (o + rr(-3, 3)), (y0 + y1) / 2 + ny * (o + rr(-3, 3)), x1 + nx * o, y1 + ny * o);
+        x.stroke();
+      }
+      x.restore();
+    };
+    const crack = (x, x0, y0, x1, y1, col = rgba(PAL.ink, 0.45), lw = 1) => {
+      const n = 5, pts = [];
+      for (let i = 0; i <= n; i++) { const u = i / n; pts.push(x0 + (x1 - x0) * u + rr(-5, 5), y0 + (y1 - y0) * u + rr(-4, 4)); }
+      paintLine(x, pts, col, lw, 1, false);
+    };
+    const leaf = (x, cx, cy, rx, ry, col, stroke = PAL.inkBlue, a = 0.9) => paint(x, [cx - rx, cy, cx, cy - ry, cx + rx, cy, cx, cy + ry * 0.7], col, stroke, 0.9, a);
+    /* 远山：不是一个色块剪影。脊线分远近、山体顺着走势扫干笔、山脚压一条雾带。
+       越远的山越淡越偏青，越近的才有重轮廓 —— 空气透视是画出来的，不是调色调出来的。 */
+    // 同一套山脊控制点在四个外景里平移缩放，四个远景就长得一模一样。
+    // 逐场把控制点沿正弦错开几像素：轮廓还是一条手画的山，但不是同一座。
+    const warpPts = (pts, k) => {
+      const out = pts.slice(), n = out.length / 2;
+      for (let i = 0; i < n; i++) {
+        const u = n > 1 ? i / (n - 1) : 0;
+        out[i * 2]     += Math.sin(u * 5.1 + k * 6.3) * 11 + Math.sin(u * 11.7 + k * 2.1) * 4;
+        out[i * 2 + 1] += Math.sin(u * 3.7 + k * 4.9) * 8 + Math.cos(u * 8.3 + k * 1.7) * 5;
+      }
+      return out;
+    };
+    const ridgeP = (x, pts, o = {}) => {
+      const yTop = o.yTop ?? 300, yBot = o.yBot ?? 520;
+      const g = x.createLinearGradient(0, yTop, 0, yBot);
+      g.addColorStop(0, o.top); g.addColorStop(0.62, o.mid || o.top); g.addColorStop(1, o.bot);
+      paint(x, sub(pts, 6), g, o.ink === false ? null : rgba(o.inkCol || PAL.teal0, o.ink ?? .4), o.lw ?? 1.8);
+      const hi = o.hi || PAL.cream, dk = o.dk || PAL.teal1;
+      for (let i = 0; i < (o.brush ?? 46); i++) {
+        const px = rr(-50, 1010), py = rr(yTop + 8, yBot - 6);
+        dry(x, px, py, px + rr(26, 120), py + rr(-5, 5), rr(3, 10), i % 3 ? hi : dk, 2, o.a ?? .10);
+      }
+      for (let i = 0; i < (o.dabs ?? 16); i++) blob(x, rr(-30, 990), rr(yTop + 12, yBot - 8), rr(26, 86), rr(6, 20), dk, o.da ?? .13, 9);
+      for (let i = 0; i < (o.labs ?? 10); i++) blob(x, rr(-30, 990), rr(yTop + 6, yBot * .5 + yTop * .5), rr(20, 60), rr(5, 14), hi, (o.la ?? .10), 9);
+      if (o.fog !== false) {
+        const fg = x.createLinearGradient(0, yBot - (o.fh ?? 34), 0, yBot + 4);
+        fg.addColorStop(0, rgba(o.fogCol || PAL.cream, 0)); fg.addColorStop(1, rgba(o.fogCol || PAL.cream, o.fa ?? .46));
+        x.fillStyle = fg; x.fillRect(-50, yBot - (o.fh ?? 34), 1060, (o.fh ?? 34) + 8);
+      }
+    };
+    const tree = (x, bx, by, s, trunk = '#4a3a2a', leafCol = PAL.olive1) => {
+      x.save(); x.translate(bx, by); x.scale(s, s);
+      paintLine(x, [0, 6, -12, -90, 2, -170, -8, -250], trunk, 18, .95);
+      paintLine(x, [-4, -120, -40, -168, -56, -210], trunk, 8, .9);
+      paintLine(x, [0, -170, 40, -210, 56, -252], trunk, 7, .9);
+      paintLine(x, [-3, 4, -13, -88, 1, -168], mixHex(trunk, PAL.cream, .35), 3.0, .55);
+      // 树冠是画出来的一团色，不是一摞菱形贴片：暗底 → 中间调 → 左上受光
+      const dark = mixHex(leafCol, '#141d18', 0.58), lit = mixHex(leafCol, PAL.cream, 0.34);
+      const crowns = [[-44, -226, 48, 32], [10, -262, 60, 36], [56, -220, 42, 28]];
+      for (const [cx2, cy2, rx, ry] of crowns) {
+        for (let i = 0; i < 14; i++) blob(x, cx2 + rr(-rx, rx) * .92, cy2 + rr(-ry, ry) * .74, rr(16, 34), rr(12, 24), dark, .92, 9);
+        for (let i = 0; i < 16; i++) blob(x, cx2 + rr(-rx, rx), cy2 + rr(-ry, ry) * .85, rr(12, 28), rr(9, 20), leafCol, .94, 9);
+        for (let i = 0; i < 6; i++) blob(x, cx2 + rr(-rx, rx * .1), cy2 + rr(-ry, -ry * .1), rr(8, 18), rr(5, 12), lit, .82, 8);
+      }
+      // 叶团里点深色小簇：树冠内部有层次，不是一块果冻
+      for (let i = 0; i < 26; i++) { const a2 = rr(0, TAU), r2 = rr(0, 66); blob(x, 8 + Math.cos(a2) * r2, -232 + Math.sin(a2) * r2 * .62, rr(3, 8), rr(2, 5), dark, .55, 6); }
+      for (let i = 0; i < 14; i++) { const a2 = rr(0, TAU), r2 = rr(0, 58); blob(x, 8 + Math.cos(a2) * r2, -232 + Math.sin(a2) * r2 * .62, rr(2, 5), rr(1.5, 4), lit, .45, 6); }
+      // 只在轮廓上点几片叶子，给边缘一点毛
+      for (let i = 0; i < 12; i++) {
+        const an = rr(0, TAU), rr0 = rr(46, 82);
+        leaf(x, rr(-20, 76) + Math.cos(an) * rr0, -226 + Math.sin(an) * rr0 * .6, rr(4, 8), rr(6, 12), i % 2 ? leafCol : lit, PAL.inkBlue, .85);
+      }
+      x.restore();
+    };
+    // 垂柳：一根横枝 + 下垂的柳丝，柳丝上挂叶簇（不是珠子）
+    const willowP = (x, cx, cy, s = 1, dark = PAL.olive0) => {
+      paintLine(x, [cx - 60 * s, cy - 6 * s, cx + 20 * s, cy + 6 * s, cx + 110 * s, cy + 26 * s], '#4a3524', 15 * s, .95);
+      for (let i = 0; i < 9; i++) {
+        const bx = cx + rr(-10, 120) * s, by = cy + rr(-2, 28) * s;
+        const len = rr(110, 210) * s;
+        paintLine(x, [bx, by, bx + rr(-14, 6) * s, by + len * .5, bx + rr(-24, 4) * s, by + len], dark, rr(1.3, 2.4) * s, .85);
+        for (let k = 0; k < 7; k++) {
+          const u = rr(.25, 1);
+          leaf(x, bx + rr(-12, 4) * s, by + len * u, rr(3, 6) * s, rr(7, 14) * s, k % 3 ? PAL.olive1 : PAL.olive2, PAL.inkBlue, .85);
+        }
+      }
+    };
+    // 自动描墨线：把绘景里的大形体边缘勾出来（上美影绘景的墨线骨架）
+    // 只在亮度梯度足够强的地方落笔，笔触随机断续，避免变成照片滤镜
+    const inkEdges = (c, thr = 30, amt = 0.6) => {
+      const x = c.getContext('2d'), w = c.width, h = c.height;
+      const im = x.getImageData(0, 0, w, h), d = im.data;
+      const lum = new Float32Array(w * h);
+      for (let p = 0, i = 0; p < w * h; p++, i += 4) lum[p] = d[i] * 0.3 + d[i + 1] * 0.59 + d[i + 2] * 0.11;
+      for (let y = 1; y < h - 1; y++) {
+        for (let xx = 1; xx < w - 1; xx++) {
+          const p = y * w + xx;
+          const g = Math.abs(lum[p + 1] - lum[p - 1]) + Math.abs(lum[p + w] - lum[p - w]);
+          if (g <= thr) continue;
+          const a = Math.min(0.48, (g - thr) / 130) * amt;
+          const i = p * 4;
+          d[i] = d[i] * (1 - a) + 22 * a;
+          d[i + 1] = d[i + 1] * (1 - a) + 31 * a;
+          d[i + 2] = d[i + 2] * (1 - a) + 27 * a;
+        }
+      }
+      x.putImageData(im, 0, 0);
+    };
+    // 四周压暗：赛璐璐绘景常用的大暗角，把观众的视线按到中间
+    // 压角要轻、要暖：八十年代的拷贝片四角是发黄的，不是数码暗角
+    const vignette = (x, a = 0.42) => {
+      const g = x.createRadialGradient(W / 2, H * 0.46, H * 0.34, W / 2, H * 0.52, W * 0.86);
+      g.addColorStop(0, 'rgba(0,0,0,0)');
+      g.addColorStop(0.66, `rgba(62,44,28,${(a * 0.16).toFixed(3)})`);
+      g.addColorStop(1, `rgba(56,38,24,${(a * 0.52).toFixed(3)})`);
+      x.fillStyle = g; x.fillRect(0, 0, W, H);
+      for (const s of [0, 1]) {
+        const gg = x.createLinearGradient(s ? W : 0, 0, s ? W * 0.86 : W * 0.14, 0);
+        gg.addColorStop(0, `rgba(56,38,24,${(a * 0.20).toFixed(3)})`); gg.addColorStop(1, 'rgba(56,38,24,0)');
+        x.fillStyle = gg; x.fillRect(s ? W * 0.86 : 0, 0, W * 0.14, H);
+      }
+    };
+    // 湿画法色带：打散整片渐变，但每带两头渐隐——硬边会变成扫描线
+    const bandBreak = (x, yMax = 470) => {
+      const cols = [[239, 227, 196], [48, 74, 70], [201, 162, 74], [30, 58, 56], [232, 205, 150], [110, 140, 126]];
+      let y = -70, i = 0;
+      while (y < yMax) {
+        const h = rr(70, 150), a = rr(0.030, 0.075), c = cols[i % cols.length];
+        const g = x.createLinearGradient(0, y, 0, y + h);
+        g.addColorStop(0, `rgba(${c[0]},${c[1]},${c[2]},0)`);
+        g.addColorStop(0.5, `rgba(${c[0]},${c[1]},${c[2]},${a.toFixed(3)})`);
+        g.addColorStop(1, `rgba(${c[0]},${c[1]},${c[2]},0)`);
+        x.fillStyle = g; x.fillRect(-30, y, 1020, h);
+        y += h * rr(0.55, 0.8); i++;
+      }
+    };
+    // 提饱和、提对比：赛璐璐绘景的颜色是“干净的浓”，不是水洗过的灰
+    const punch = (c, k = 1.06, sat = 1.16) => {
+      const x = c.getContext('2d'), im = x.getImageData(0, 0, c.width, c.height), d = im.data;
+      for (let i = 0; i < d.length; i += 4) {
+        if (!d[i + 3]) continue;
+        const r = d[i], g = d[i + 1], b = d[i + 2], l = r * 0.3 + g * 0.59 + b * 0.11;
+        d[i] = clamp(l + (r - l) * sat, 0, 255) * k + 128 * (1 - k);
+        d[i + 1] = clamp(l + (g - l) * sat, 0, 255) * k + 128 * (1 - k);
+        d[i + 2] = clamp(l + (b - l) * sat, 0, 255) * k + 128 * (1 - k);
+      }
+      x.putImageData(im, 0, 0);
+    };
+    // 80 年代赛璐璐拷贝片的调子：颜色偏闷、反差收窄、暗部泛青、亮部留暖
+    const filmTone = (c) => {
+      const x = c.getContext('2d'), im = x.getImageData(0, 0, c.width, c.height), d = im.data;
+      for (let i = 0; i < d.length; i += 4) {
+        if (!d[i + 3]) continue;
+        let r = d[i], g = d[i + 1], b = d[i + 2];
+        const l = (r * 0.3 + g * 0.59 + b * 0.11) / 255;
+        r = 8 + r * 0.80; g = 12 + g * 0.86; b = 12 + b * 0.82;
+        r += -4 * (1 - l) + 9 * l;
+        g += 5 * (1 - l) + 2 * l;
+        b += 5 * (1 - l) - 6 * l;
+        d[i] = clamp(r, 0, 255); d[i + 1] = clamp(g, 0, 255); d[i + 2] = clamp(b, 0, 255);
+      }
+      x.putImageData(im, 0, 0);
+    };
+    const paperize = (c, amt = 0.10, sd = 7) => {
+      const x = c.getContext('2d'), w = c.width, h = c.height, im = x.getImageData(0, 0, w, h), d = im.data;
+      let a = (sd * 2654435761) >>> 0;
+      const r = () => { a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+      for (let i = 0; i < d.length; i += 4) {
+        if (d[i + 3] === 0) continue;
+        const n = (r() - 0.5) * 255 * amt;
+        d[i] = clamp(d[i] + n * 1.12, 0, 255); d[i + 1] = clamp(d[i + 1] + n, 0, 255); d[i + 2] = clamp(d[i + 2] + n * 0.82, 0, 255);
+      }
+      x.putImageData(im, 0, 0);
+      x.save(); x.globalAlpha = 0.035; x.strokeStyle = '#2a211a';
+      for (let i = 0; i < 1400; i++) { const yy = r() * h, xx = r() * w, l = 3 + r() * 18; x.lineWidth = 0.4 + r() * 0.8; x.beginPath(); x.moveTo(xx, yy); x.lineTo(xx + l, yy + (r() - 0.5) * 1.2); x.stroke(); }
+      x.restore();
+    };
+    const PC = {};
+    const plate = (name, fn, amt = 0.09) => {
+      if (!PC[name]) {
+        rs(hseed(name));
+        const c = document.createElement('canvas');
+        c.width = Math.round(W * RS); c.height = Math.round(H * RS);
+        const x = c.getContext('2d'); x.scale(RS, RS);
+        fn(x);
+        // 1. 墨线勾形（全局还会再描一次，这里只留骨架）  2. 平色带破渐变  3. 全局明暗  4. 暗角  5. 颜料颗粒  6. 纸纹
+        inkEdges(c, 26, 0.20);
+        bandBreak(x, 470);
+        // 水粉笔触：横向长笔刷过天空，平涂渐变变成手刷的
+        CEL.brush(x, -30, -30, 1020, 500, 160, ['#efe3c4', '#7e9a7c', '#d3aa63', '#2c5450', '#e6c98d'], { a: 0.110, dir: 0, len: 1.35, wid: 2.8, seed: hseed(name) + 5 });
+        // 下半幅：斜向的干笔，地面/墙/道具不是一片平涂
+        CEL.brush(x, -30, 360, 1020, 400, 120, ['#efe3c4', '#8f6633', '#41491f', '#6b4a2f', '#e2d0a8'], { a: 0.070, dir: 2, len: 0.9, wid: 2.1, seed: hseed(name) + 17 });
+        let g1 = x.createLinearGradient(0, 0, 0, 130);
+        g1.addColorStop(0, 'rgba(12,22,22,.10)'); g1.addColorStop(1, 'rgba(12,22,22,0)');
+        x.fillStyle = g1; x.fillRect(0, 0, W, 130);
+        let g2 = x.createLinearGradient(0, 590, 0, 740);
+        g2.addColorStop(0, 'rgba(18,22,14,0)'); g2.addColorStop(1, 'rgba(18,22,14,.19)');
+        x.fillStyle = g2; x.fillRect(0, 590, W, 150);
+        vignette(x, 0.10);
+        mottle(x, 110, 0.030);
+        // 每场底色的饱和补偿：白墙、日景天空这些洗淡的场次要补回来，不能发灰
+        const PSAT = { s2: 1.06, s4: 1.28, s5: 0.96, s6: 0.96, s7: 1.10, s8: 1.14, s9: 1.38, s10: 1.18 };
+        punch(c, 1.0, PSAT[name] ?? 1.0);
+        paperize(c, amt * 0.50, hseed(name) % 97);
+        PC[name] = c;
+      }
+      return PC[name];
+    };
+    const plateDraw = (name, fn, amt) => xfDraw(plate(name, fn, amt), 0, 0, W, H);
+
+    const parseCol = (c) => {
+      if (typeof c === 'string' && c[0] === '#') {
+        const h = c.slice(1);
+        if (h.length === 3) return [parseInt(h[0] + h[0], 16), parseInt(h[1] + h[1], 16), parseInt(h[2] + h[2], 16), 1];
+        return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16), 1];
+      }
+      const m = (String(c).match(/[\d.]+/g) || [0, 0, 0, 1]).map(Number);
+      return [m[0], m[1], m[2], m.length > 3 ? m[3] : 1];
+    };
+    const mixHex = (a, b, t) => {
+      const A = parseCol(a), B = parseCol(b);
+      const ch = (i) => Math.round(A[i] + (B[i] - A[i]) * t);
+      return `rgba(${ch(0)},${ch(1)},${ch(2)},${(A[3] + (B[3] - A[3]) * t).toFixed(3)})`;
+    };
+    // 整张底子的颜料颗粒：大块晕染 + 干笔，让平涂面不再是矢量色块
+    const mottle = (x, n = 95, a = 0.028) => {
+      const cols = [PAL.cream, PAL.ochre1, PAL.teal1, PAL.ink, PAL.rust2];
+      for (let i = 0; i < n; i++) {
+        const cx = rr(-80, 1040), cy = rr(-60, 780), rx = rr(40, 200), ry = rr(20, 110);
+        blob(x, cx, cy, rx, ry, cols[(rnd() * cols.length) | 0], a * rr(0.35, 1.2), 9);
+      }
+      for (let i = 0; i < 46; i++) {
+        const y = rr(0, 760);
+        dry(x, -40, y, 1000, y + rr(-24, 24), rr(8, 34), cols[(rnd() * 3) | 0], 2, a * 0.9);
+      }
+      for (let i = 0; i < 12; i++) {
+        const cx = rr(0, 960), cy = rr(0, 720);
+        dots(x, cx, cy, rr(40, 160), rr(30, 100), 70, PAL.ink, 0.022, 0.3, 1.0);
+      }
+    };
+
+    /* ---------- 手绘塔 ---------- */
+    const pagodaP = (x, bx, by, s, o = {}) => {
+      const body = o.body || PAL.ochre3, bodyD = o.bodyD || PAL.ochre0;
+      const roof = o.roof || '#332f26', gold = o.gold || PAL.gold;
+      const tiers = o.tiers || 5;
+      paint(x, sub([bx - 108 * s, by + 16 * s, bx - 78 * s, by + 2 * s, bx - 30 * s, by - 6 * s, bx + 34 * s, by - 5 * s, bx + 82 * s, by + 4 * s, bx + 110 * s, by + 16 * s, bx + 80 * s, by + 22 * s, bx - 80 * s, by + 22 * s], 4), o.mound || 'rgba(65,73,31,.85)', null, 0, 1);
+      paint(x, sub([bx - 80 * s, by - 6 * s, bx + 80 * s, by - 6 * s, bx + 92 * s, by + 8 * s, bx - 92 * s, by + 8 * s], 4), PAL.ochre1, PAL.ink, 2.0 * s);
+      paint(x, sub([bx - 62 * s, by + 8 * s, bx + 62 * s, by + 8 * s, bx + 74 * s, by + 20 * s, bx - 74 * s, by + 20 * s], 4), '#7a5a38', PAL.ink, 1.6 * s);
+      for (let i = 0; i < 3; i++) {
+        paint(x, sub([bx - (46 - i * 6) * s, by + (10 + i * 7) * s, bx + (46 - i * 6) * s, by + (10 + i * 7) * s, bx + (52 - i * 6) * s, by + (16 + i * 7) * s, bx - (52 - i * 6) * s, by + (16 + i * 7) * s], 4), i % 2 ? PAL.ochre2 : PAL.ochre1, rgba(PAL.ochre0, .8), 1.1 * s);
+      }
+      let yy = by - 8 * s, w = 88 * s;
+      for (let i = 0; i < tiers; i++) {
+        const h = (64 - i * 6) * s, bw = w, topW = w * 0.82;
+        const g = x.createLinearGradient(bx - bw / 2, 0, bx + bw / 2, 0);
+        g.addColorStop(0, mixHex(body, PAL.cream, .22)); g.addColorStop(0.30, body); g.addColorStop(0.64, mixHex(body, bodyD, 0.40)); g.addColorStop(1, mixHex(bodyD, PAL.ink, .22));
+        paint(x, [bx - bw / 2, yy, bx + bw / 2, yy, bx + topW / 2, yy - h, bx - topW / 2, yy - h], g, PAL.ink, 2.0 * s);
+        // 塔身不是一整面墙：立柱分间、墙面有雨水痕
+        const nB = bw > 60 * s ? 5 : 4;
+        for (let k = 1; k < nB; k++) {
+          const u = k / nB, xb = bx - bw / 2 + bw * u, xt = bx - topW / 2 + topW * u;
+          paintLine(x, [xb, yy, xt, yy - h], rgba(PAL.ink, .30), 1.1 * s, .85);
+        }
+        paintLine(x, [bx + bw * .14, yy, bx + topW * .14, yy - h], rgba(PAL.ink, .18), 3.2 * s, .7);
+        for (let r = 0; r < 7; r++) { const y0 = yy - h * (r + .4) / 7, u0 = rr(-.42, .42); dry(x, bx + u0 * bw, y0, bx + u0 * bw + rr(4, 12) * s, y0 + rr(-2, 2) * s, 1.0 * s, rgba(PAL.ochre0, .40), 2, .16); }
+        for (let r = 1; r < 6; r++) { const y0 = yy - h * r / 6; paintLine(x, [bx - bw / 2 * (1 - r / 6 * 0.18), y0, bx + bw / 2 * (1 - r / 6 * 0.18), y0], rgba(PAL.ochre0, 0.16), 0.9 * s, 1); }
+        if (i === 0) {
+          paint(x, [bx - 15 * s, yy, bx - 15 * s, yy - 30 * s, bx, yy - 40 * s, bx + 15 * s, yy - 30 * s, bx + 15 * s, yy], PAL.ink, PAL.ochre0, 1.6 * s);
+          paint(x, [bx - 11 * s, yy, bx - 11 * s, yy - 28 * s, bx, yy - 34 * s, bx + 11 * s, yy - 28 * s, bx + 11 * s, yy], 'rgba(26,21,16,.85)', null, 0, 1);
+        } else {
+          for (const ox of [-0.26, 0, 0.26]) {
+            const ww = bw * (0.095 + rnd() * 0.035), wh = h * (0.34 + rnd() * 0.09), wx = bx + ox * bw + rr(-2, 2) - ww / 2, wy = yy - h * 0.66 + rr(-2, 2);
+            paint(x, [wx, wy + wh, wx, wy + wh * 0.34, wx + ww / 2, wy, wx + ww, wy + wh * 0.34, wx + ww, wy + wh], 'rgba(31,26,20,.86)', rgba(PAL.ink, .85), 1.0 * s);
+            paintLine(x, [wx + ww / 2, wy + 2 * s, wx + ww / 2, wy + wh], rgba(PAL.ochre2, .35), 0.8 * s, .7);
+          }
+        }
+        const ty = yy - h, ew = bw * 1.66 * (0.965 + rnd() * 0.07), eh = 15 * s;
+        // 每层檐都不对称：中心偏一点、左右伸出长短不一样，塔才不是镜像的图标
+        const ebx = bx + rr(-2.6, 2.6) * s;
+        const ewL = ew * (0.47 + rnd() * 0.05), ewR = ew * (0.47 + rnd() * 0.05);
+        const eave = [ebx - ewL, ty + 6 * s, ebx - ewL * 0.85, ty + 0.6 * s, ebx - ewL * 0.42, ty - eh * 0.60, ebx, ty - eh * (0.92 + rnd() * 0.12), ebx + ewR * 0.42, ty - eh * 0.60, ebx + ewR * 0.85, ty + 0.6 * s, ebx + ewR, ty + 6 * s,
+          ebx + ewR * 0.93, ty + eh * 0.95, ebx + ewR * 0.42, ty + eh * 0.55, ebx, ty + eh * 0.72, ebx - ewL * 0.42, ty + eh * 0.55, ebx - ewL * 0.93, ty + eh * 0.95];
+        paint(x, sub(eave, 4), (() => { const rg = x.createLinearGradient(0, ty - eh, 0, ty + eh); rg.addColorStop(0, mixHex(roof, PAL.cream, .30)); rg.addColorStop(0.34, mixHex(roof, PAL.cream, .10)); rg.addColorStop(0.62, roof); rg.addColorStop(1, mixHex(roof, PAL.ink, .45)); return rg; })(), PAL.ink, 2.6 * s);
+        // 瓦垄：一条脊一道影，从攒尖甩到檐口；不是装饰线，是屋顶的骨
+        for (let k = -7; k <= 7; k++) {
+          const u = k / 7, a0 = 0.34 * (1 - Math.abs(u) * .5), sp = 0.5 + Math.abs(u) * 0.06 * (k % 2 ? 1 : -1);
+          paintLine(x, [ebx + u * ew * 0.05, ty - eh * 0.90, ebx + u * ew * 0.30, ty - eh * 0.12, ebx + u * ew * sp, ty + 4.5 * s], rgba(PAL.ink, a0), 1.1 * s, .9);
+          paintLine(x, [ebx + u * ew * 0.05 + 1.2 * s, ty - eh * 0.84, ebx + u * ew * 0.30 + 1.2 * s, ty - eh * 0.10, ebx + u * ew * sp + 1.2 * s, ty + 4.5 * s], rgba(PAL.cream, .20), 1.0 * s, .8);
+        }
+        paint(x, [ebx - ewL * 0.93, ty + eh * 0.95, ebx - ewL * 0.42, ty + eh * 0.55, ebx, ty + eh * 0.72, ebx + ewR * 0.42, ty + eh * 0.55, ebx + ewR * 0.93, ty + eh * 0.95, ebx + ewR * 0.62, ty + eh * 1.18, ebx, ty + eh * 1.0, ebx - ewL * 0.62, ty + eh * 1.18], rgba(PAL.ink, .72), null, 0, 1);
+        // 斗拱：檐下一排小方块，塔才有木构，不是叠起来的蛋糕
+        if (bw > 44 * s) {
+          const nk = Math.max(3, Math.round(bw / (20 * s)));
+          for (let k = 0; k < nk; k++) {
+            const kx = bx - bw * .40 + k * (bw * .80 / (nk - 1 || 1));
+            paint(x, [kx - 4.2 * s, ty + eh * 1.02, kx + 4.2 * s, ty + eh * 1.02, kx + 4.2 * s, ty + eh * 1.52, kx - 4.2 * s, ty + eh * 1.52], k % 2 ? '#4a3324' : '#5c4029', rgba(PAL.ink, .55), 0.8 * s);
+            paintLine(x, [kx - 5.4 * s, ty + eh * 1.02, kx + 5.4 * s, ty + eh * 1.02], '#7a5836', 1.4 * s, .9);
+          }
+        }
+        // 平座栏杆：每一层檐口内侧的一道栏杆
+        if (bw > 44 * s) {
+          const ry = ty + eh * 1.60, rw = bw * .96;
+          paintLine(x, [bx - rw / 2, ry, bx + rw / 2, ry], rgba(PAL.ink, .62), 1.6 * s, .95);
+          paintLine(x, [bx - rw / 2, ry + 3.4 * s, bx + rw / 2, ry + 3.4 * s], rgba(PAL.ink, .34), 1.0 * s, .85);
+          for (let k = 0; k <= 6; k++) { const kx = bx - rw / 2 + rw * k / 6; paintLine(x, [kx, ry, kx, ry + 3.4 * s], rgba(PAL.ink, .48), 1.1 * s, .9); }
+        }
+        paintLine(x, [bx - ew / 2, ty + 6 * s, bx - ew * 0.55, ty + 1 * s, bx - ew * 0.585, ty - 5 * s], PAL.ink, 2.6 * s, 0.95);
+        paintLine(x, [bx + ew / 2, ty + 6 * s, bx + ew * 0.55, ty + 1 * s, bx + ew * 0.585, ty - 5 * s], PAL.ink, 2.6 * s, 0.95);
+        paintLine(x, [bx - ew * 0.30, ty - eh * 0.18, bx, ty - eh * 0.9, bx + ew * 0.30, ty - eh * 0.18], rgba(PAL.cream, 0.30), 1.6 * s, 0.9);
+        paintLine(x, [bx - ew * 0.34, ty + 6 * s, bx + ew * 0.34, ty + 6 * s], rgba(PAL.ink, .55), 1.3 * s, 1);
+        for (let k = -2; k <= 2; k++) paintLine(x, [bx + k * ew * 0.12, ty + 6 * s, bx + k * ew * 0.12, ty + 11 * s], rgba(PAL.ink, .4), 1.0 * s, 1);
+        yy = ty - eh * 0.5; w = topW;
+      }
+      paintLine(x, [bx, yy + 2 * s, bx, yy - 26 * s], gold, 3.2 * s, 0.95);
+      for (let k = 0; k < 3; k++) paint(x, pEll(bx, yy - 4 * s - k * 6 * s, (9 - k * 1.8) * s, 2.8 * s, 0, TAU, 14), roof, PAL.ink, 1.2 * s);
+      paint(x, pEll(bx, yy - 30 * s, 4.6 * s, 7 * s, 0, TAU, 14), gold, PAL.ink, 1.2 * s);
+    };
+
+    /* ---------- 手绘道具 ---------- */
+    const grassP = (x, x0, x1, y0, y1, n, col = PAL.olive0) => {
+      for (let i = 0; i < n; i++) {
+        const gx = rr(x0, x1), gy = rr(y0, y1), h = rr(6, 22);
+        paintLine(x, [gx, gy, gx + rr(-7, 7), gy - h, gx + rr(-11, 11), gy - h * rr(0.3, 1)], col, rr(0.7, 1.6), rr(0.5, 0.9));
+      }
+    };
+    // 摇橹船：有舷、有内舱阴影、篷子落在船上
+    const boatP = (x, bty) => {
+      paint(x, pEll(500, bty + 40, 330, 20, 0, TAU, 26), 'rgba(18,36,36,.20)', null, 0, 1);
+      const hull = [30, bty - 20, 140, bty - 36, 330, bty - 42, 520, bty - 44, 720, bty - 38, 880, bty - 24, 934, bty - 2, 906, bty + 54, 764, bty + 82, 520, bty + 90, 296, bty + 80, 116, bty + 58, 52, bty + 16];
+      paint(x, sub(hull, 4), '#6b4a2f', PAL.ink, 3.4);
+      paint(x, sub([62, bty - 16, 170, bty - 30, 350, bty - 36, 530, bty - 38, 720, bty - 32, 872, bty - 18, 892, bty - 8, 700, bty - 16, 520, bty - 20, 340, bty - 17, 170, bty - 10, 78, bty - 3], 4), '#9a6f3c', rgba(PAL.ink, .7), 2.2);
+      paint(x, sub([150, bty - 12, 360, bty - 18, 560, bty - 20, 720, bty - 14, 700, bty + 10, 540, bty + 16, 340, bty + 14, 170, bty + 6], 4), 'rgba(30,18,12,.55)', null, 0, 1);
+      for (let i = 0; i < 4; i++) paintLine(x, [90 + i * 10, bty + 8 + i * 10, 890 - i * 14, bty + i * 10], 'rgba(42,33,26,.28)', 1.4, .8);
+      // 船板横缝 + 舷内阴影：侧壳有厚度，船才不是一片叶子
+      for (let i = 0; i < 5; i++) paintLine(x, [84, bty + 8 + i * 15, 898, bty - 2 + i * 14], 'rgba(34,22,13,.34)', 1.5, .85);
+      paint(x, sub([70, bty - 16, 160, bty - 30, 340, bty - 36, 520, bty - 38, 720, bty - 32, 866, bty - 18, 862, bty - 8, 720, bty - 22, 520, bty - 26, 340, bty - 24, 160, bty - 18, 80, bty - 6], 4), 'rgba(24,14,8,.32)', null, 0, 1);
+      for (const px2 of [320, 382, 500, 552]) paintLine(x, [px2, bty - 34, px2, bty - 142], '#4a3524', 3.2, .9);
+      // 舱棚：实心竹席，前侧一整块 —— 之前只填了 28% 透明，远看就是铁丝框
+      paint(x, sub([306, bty - 138, 344, bty - 170, 500, bty - 174, 552, bty - 142, 554, bty - 44, 520, bty - 40, 340, bty - 40, 300, bty - 46], 4), '#6b4a2f', PAL.ink, 3.0);
+      for (let i = 0; i < 6; i++) paintLine(x, [330 + i * 38, bty - 44, 344 + i * 38, bty - 162], 'rgba(38,24,14,.35)', 1.4, .85);
+      for (let i = 0; i < 4; i++) paintLine(x, [310, bty - 60 - i * 26, 548, bty - 64 - i * 26], 'rgba(38,24,14,.28)', 1.3, .85);
+      // 篷顶：拱形席顶 + 压檐
+      paint(x, sub([288, bty - 136, 300, bty - 186, 348, bty - 224, 430, bty - 236, 500, bty - 226, 552, bty - 190, 566, bty - 140, 550, bty - 140, 530, bty - 186, 430, bty - 208, 336, bty - 184, 304, bty - 146], 4), '#4a3826', PAL.ink, 3.2);
+      paint(x, sub([554, bty - 142, 562, bty - 48, 540, bty - 42, 536, bty - 138], 3), 'rgba(12,8,5,.5)', null, 0, 1);
+      paintLine(x, [100, bty - 34, 40, bty - 6], '#4a3524', 3.0, .9);
+      paint(x, pEll(150, bty + 6, 16, 5, 0, TAU, 12), 'rgba(0,0,0,0)', '#8a7a5a', 1.6);
+      for (let i = 0; i < 6; i++) paintLine(x, [60 + i * 20, bty + 40 + i * 5, 900 - i * 24, bty + 34 + i * 5], `rgba(239,227,196,${0.15 - i * 0.02})`, 1.4, .8);
+      paintLine(x, [70, bty - 30, 120, bty - 37, 200, bty - 38], rgba(PAL.cream, .35), 1.6, .8);
+    };
+    const paintedFigure = (x, cx, gy, h, col, pose = 0) => {
+      const u = h / 100;
+      const hx = cx + Math.sin(pose * 1.7) * 3 * u;
+      paint(x, pEll(hx, gy - 82 * u, 9 * u, 10 * u, 0, TAU, 14), col, rgba(PAL.ink, .75), 1.6 * u);
+      paint(x, sub([hx - 14 * u, gy - 72 * u, hx + 14 * u, gy - 72 * u, hx + 18 * u, gy - 4 * u, hx + 8 * u, gy, hx - 8 * u, gy, hx - 18 * u, gy - 4 * u], 4), col, rgba(PAL.ink, .75), 1.6 * u);
+      paintLine(x, [hx - 7 * u, gy - 8 * u, hx - 10 * u, gy], col, 6 * u, 0.95);
+      paintLine(x, [hx + 7 * u, gy - 8 * u, hx + 10 * u, gy], col, 6 * u, 0.95);
+      const up = pose % 3 === 0;
+      paintLine(x, [hx + 12 * u, gy - 66 * u, hx + 24 * u, up ? gy - 100 * u : gy - 44 * u], col, 5 * u, 0.95);
+      paintLine(x, [hx - 12 * u, gy - 66 * u, hx - 20 * u, gy - 40 * u], col, 5 * u, 0.95);
+      if (up) paintLine(x, [hx + 24 * u, gy - 100 * u, hx + 25 * u, gy - 118 * u], rgba(PAL.ink, .8), 2.2 * u, 0.8);
+    };
+
+    /* =========================================================
+       定稿人物（造型 + 动作）
+       ========================================================= */
+    let _outl = null, _comp = null;
+    const actor = (slot, x, gy, s, opts, side = true, dir = 1, out = OUTFITS[slot]) => {
+      const c = CAST.draw(slot, out, opts, side);
+      // 人物也要吃环境光：受光面偏暖、脚边压一点冷褐，人才站在绘景里，不是贴上去的
+      if (opts.tint !== false) {
+        const g2 = c.getContext('2d');
+        g2.save(); g2.globalCompositeOperation = 'source-atop';
+        const gg = g2.createLinearGradient(0, 0, 600, 0);
+        gg.addColorStop(0, 'rgba(255,232,186,.11)');
+        gg.addColorStop(0.52, 'rgba(255,232,186,.02)');
+        gg.addColorStop(1, 'rgba(44,58,58,.11)');
+        g2.fillStyle = gg; g2.fillRect(0, 0, 600, 1000);
+        const gv = g2.createLinearGradient(0, 260, 0, 1000);
+        gv.addColorStop(0, 'rgba(0,0,0,0)'); gv.addColorStop(1, 'rgba(38,34,26,.18)');
+        g2.fillStyle = gv; g2.fillRect(0, 0, 600, 1000);
+        g2.restore();
+      }
+      // 赛璐璐描线：手绘动画的人物是画在透明片上、背描一道墨边的，
+      // 不是剪下来贴上去的贴纸。这里用剪影外扩 8 向合成一圈暖褐墨边。
+      const src = _outl || (_outl = document.createElement('canvas'));
+      src.width = 600; src.height = 1000;
+      const so = src.getContext('2d');
+      so.clearRect(0, 0, 600, 1000);
+      so.drawImage(c, 0, 0);
+      so.globalCompositeOperation = 'source-in';
+      so.fillStyle = 'rgba(46,34,24,.86)';
+      so.fillRect(0, 0, 600, 1000);
+      so.globalCompositeOperation = 'source-over';
+      const cmp = _comp || (_comp = document.createElement('canvas'));
+      cmp.width = 600; cmp.height = 1000;
+      const co = cmp.getContext('2d');
+      co.clearRect(0, 0, 600, 1000);
+      const rw = 2.7 + 1.7 * s, n = 10;
+      for (let k = 0; k < n; k++) {
+        const a = k / n * TAU;
+        co.drawImage(src, Math.cos(a) * rw, Math.sin(a) * rw);
+      }
+      co.drawImage(c, 0, 0);
+      L.push(); L.tr(x, gy); if (dir < 0) L.scl(-1, 1);
+      xfDraw(cmp, -300 * s, -975 * s, 600 * s, 1000 * s);
+      L.pop();
+    };
+    const sideA = (slot, x, gy, s, opts, out = OUTFITS[slot]) => actor(slot, x, gy, s, opts, true, 1, out);
+    const sideL = (slot, x, gy, s, opts, out = OUTFITS[slot]) => actor(slot, x, gy, s, opts, true, -1, out);
+    const castOpts = (extra) => Object.assign({ mode: 'stand', phase: 0, blink: 0, light: -110, actT: 0.8 }, extra);
+    const contactShadow = (x, gy, s, a = 0.30) => inkFill(pEll(x, gy + 2, 34 * s, 6 * s, 0, TAU, 18), `rgba(28,20,14,${a})`);
+    // 方向投影：光从左上打，影子往右下拖一条长的——人物才不是“贴”在地上
+    const castShadow = (x, gy, s, ang = 0.20, a = 0.18) => {
+      const len = 150 * s;
+      inkFill(pEll(x + Math.cos(ang) * len * 0.5, gy + 3 + Math.sin(ang) * len * 0.14, len * 0.5, 6.5 * s + 3, ang * 0.7, TAU, 24), `rgba(32,24,16,${a})`);
+    };
+    const lightPool = (x, y, r, col = '247,196,106', a = 0.10) => {
+      for (let i = 6; i >= 1; i--) inkFill(pEll(x, y, r * i / 6, r * 0.30 * i / 6, 0, TAU, 28), `rgba(${col},${(a * (1 - i / 6) + 0.004).toFixed(3)})`);
+    };
+    const bird = (x, y, s = 1) => {
+      L.L([x - 6 * s, y, x, y - 4 * s, x + 6 * s, y], 1.4 * s, 'rgba(42,33,26,.48)', { taper: 0.3 });
+      L.L([x + 2 * s, y + 1, x + 7 * s, y - 2 * s, x + 12 * s, y + 1], 1.2 * s, 'rgba(42,33,26,.4)', { taper: 0.3 });
+    };
+    /* 前景框景：压角的深色枝叶 / 草影，让画面有前后景，不是“人物站在布景前” */
+    const fgBough = (side, y = 0, s = 1, dark = 'rgba(22,34,26,.94)') => {
+      const X = side < 0 ? -14 : 974, d = side < 0 ? 1 : -1;
+      const pts = [X, y + 4 * s, X + d * 60 * s, y + 34 * s, X + d * 132 * s, y + 26 * s, X + d * 206 * s, y + 62 * s, X + d * 262 * s, y + 54 * s];
+      L.L(pts, 11 * s, dark, { taper: 0.42 });
+      L.L([X + d * 118 * s, y + 34 * s, X + d * 160 * s, y + 100 * s, X + d * 196 * s, y + 140 * s], 6 * s, dark, { taper: 0.3 });
+      L.L([X + d * 46 * s, y + 26 * s, X + d * 74 * s, y + 96 * s, X + d * 82 * s, y + 150 * s], 5 * s, dark, { taper: 0.3 });
+      for (let c = 0; c < 3; c++) {
+        const cxp = X + d * (52 + c * 82) * s, cyp = y + (28 + c * 14) * s;
+        for (let i = 0; i < 15; i++) {
+          const px = cxp + rr(-54, 54) * s, py = cyp + rr(-34, 46) * s;
+          inkFill(pEll(px, py, rr(13, 26) * s, rr(6, 12) * s, rr(0, 3), TAU, 9), i % 3 ? 'rgba(30,46,32,.92)' : dark);
+        }
+        for (let i = 0; i < 6; i++) inkFill(pEll(cxp + rr(-46, 46) * s, cyp + rr(-28, 30) * s, rr(5, 9) * s, rr(2.4, 5) * s, rr(0, 3), TAU, 7), 'rgba(58,74,42,.85)');
+      }
+      for (let i = 0; i < 10; i++) { const px = X + d * rr(4, 140) * s, py = y + rr(10, 130) * s; L.L([px, py, px + d * rr(26, 80) * s, py + rr(8, 42) * s], 1.5 * s, dark, { taper: 0.4 }); }
+    };
+    const fgGrass = (n, y = 726, col = 'rgba(24,36,24,.9)', s = 1) => {
+      for (let i = 0; i < n; i++) {
+        const gx = rr(-20, 980), gy = y + rr(-6, 8);
+        L.L([gx, gy, gx + rr(-9, 9) * s, gy - rr(18, 54) * s, gx + rr(-18, 18) * s, gy - rr(30, 70) * s], rr(1.2, 2.6) * s, col, { taper: 0.45 });
+      }
+    };
+    const fgRock = (cx, cy, rx, ry, col = 'rgba(30,40,30,.9)') => {
+      inkFill(sub([cx - rx, cy, cx - rx * .6, cy - ry * .8, cx, cy - ry, cx + rx * .55, cy - ry * .75, cx + rx, cy + ry * .1, cx + rx * .5, cy + ry * .3, cx - rx * .4, cy + ry * .28], 4), col);
+    };
+
+    /* =========================================================
+       1 · 镇魔塔外景
+       ========================================================= */
+    const scene1 = (t) => {
+      plateDraw('s1', (x) => {
+        wash(x, 0, 0, W, 470, [[0, '#8fac9e'], [0.28, '#b0bfa2'], [0.55, '#d5c99a'], [0.78, '#eedaa6'], [1, '#f7e7bd']]);
+        const sx = 716, sy = 288;
+        let sg = x.createRadialGradient(sx, sy, 8, sx, sy, 210);
+        sg.addColorStop(0, 'rgba(255,244,205,.62)'); sg.addColorStop(0.22, 'rgba(248,214,146,.30)'); sg.addColorStop(1, 'rgba(248,214,146,0)');
+        x.fillStyle = sg; x.fillRect(sx - 220, sy - 220, 440, 440);
+        paint(x, pEll(sx, sy, 32, 32, 0, TAU, 36), 'rgba(255,246,212,.95)', rgba(PAL.cream, .4), 1.0);
+        for (let i = 0; i < 5; i++) {
+          const cy = 146 + i * 40;
+          paint(x, sub([-40, cy, 150, cy - 10, 340, cy + 5, 520, cy - 8, 700, cy + 4, 880, cy - 7, 1000, cy + 2, 1000, cy + 20, 880, cy + 15, 700, cy + 23, 520, cy + 12, 340, cy + 21, 150, cy + 8, -40, cy + 14], 5), rgba(PAL.cream, .09 + i * 0.018), null, 0, 1);
+          dry(x, 0, cy + 7, 960, cy + 9, 18, PAL.cream, 6, .09);
+        }
+        // 远脊（淡青、几乎不描线）—— 山是小圆顶连成的丘，不是三角锥
+        ridgeP(x, [-40, 418, 30, 392, 96, 372, 158, 362, 214, 366, 268, 380, 322, 396, 372, 386, 424, 368, 476, 360, 528, 372, 578, 388, 626, 380, 676, 362, 726, 356, 778, 370, 828, 388, 878, 380, 926, 364, 964, 358, 1000, 372, 1000, 486, -40, 486],
+          { top: '#6f9189', mid: '#7d9c8f', bot: '#87a496', yTop: 340, yBot: 474, ink: .18, lw: 1.3, dk: '#5f8479', hi: '#cfdcc9', brush: 46, dabs: 14, a: .09 });
+        // 近脊（重一点，山脚压雾）
+        ridgeP(x, [-40, 470, 40, 448, 100, 436, 160, 430, 214, 436, 266, 450, 316, 462, 366, 456, 416, 442, 468, 432, 520, 440, 570, 456, 620, 462, 672, 452, 722, 436, 772, 430, 822, 440, 872, 456, 922, 462, 968, 454, 1000, 446, 1000, 520, -40, 520],
+          { top: '#43635d', mid: '#4e6d63', bot: '#5c7d70', yTop: 424, yBot: 474, ink: .55, lw: 2.1, dk: '#33564f', hi: '#bccfb4', brush: 42, dabs: 18, da: .18, a: .14, fh: 24, fa: .14 });
+        // 湖面：不是一条蓝带 —— 有岸线的暗反光、有被风打碎的横笔、有太阳的一条光柱
+        paint(x, [-40, 466, 1000, 466, 1000, 528, -40, 528], 'rgba(104,138,134,.70)', null, 0, 1);
+        for (let i = 0; i < 30; i++) { const yy = rr(468, 520), ex = rr(-40, 980), len = rr(40, 200); dry(x, ex, yy, ex + len, yy + rr(-1.5, 1.5), rr(1.2, 3.2), i % 3 ? 'rgba(226,236,214,.55)' : 'rgba(58,92,90,.42)', 2, .13); }
+        for (let i = 0; i < 16; i++) { const yy = rr(468, 492); dry(x, rr(-40, 900), yy, rr(60, 260), yy, rr(3, 7), '#3f6663', 2, .16); }
+        for (let i = 0; i < 9; i++) { const yy = 470 + i * 6; paintLine(x, [sx - 30 + i * 2.4, yy, sx + 30 - i * 2.4, yy], rgba(PAL.cream, .34 - i * .026), 2.4, 0.9); }
+        // 塔在水里的倒影：竖着一道被打断的暗影，从岸线往下越来越散
+        for (let i = 0; i < 14; i++) { const yy = 470 + i * 4.2, ww = (34 - i * 1.6) * 1.02; dry(x, 648 - ww, yy, 648 + ww, yy, 2.6, 'rgba(120,96,58,.30)', 2, .16); }
+        // 岸线是软的：一条雾化的亮带 + 芦苇，不然湖是贴上去的色条
+        for (let i = 0; i < 26; i++) dry(x, rr(-30, 900), 464 + rr(-3, 4), rr(80, 420), 464 + rr(-2, 5), rr(2, 7), 'rgba(232,232,206,.30)', 2, .12);
+        for (let i = 0; i < 46; i++) { const rx2 = rr(-30, 990), rh = rr(14, 40); paintLine(x, [rx2, 470, rx2 + rr(-5, 5), 470 - rh, rx2 + rr(-9, 9), 470 - rh * rr(.4, .8)], i % 3 ? 'rgba(74,88,44,.75)' : 'rgba(46,66,52,.7)', rr(.8, 1.6), .8); }
+        paint(x, sub([-40, 706, 60, 620, 176, 566, 320, 552, 462, 526, 618, 518, 776, 538, 900, 572, 1000, 602, 1000, 740, -40, 740], 5), '#7d8a3c', PAL.ochre0, 2.6);
+        for (let i = 0; i < 26; i++) { const bx = rr(-20, 980), by = rr(536, 690); blob(x, bx, by, rr(14, 48), rr(6, 18), i % 3 ? PAL.teal2 : PAL.teal1, 0.30, 8); }
+        // 草地：整片扫干笔 + 深浅斑块，不能是一块纯绿
+        for (let i = 0; i < 90; i++) {
+          const gy2 = rr(560, 730), gx2 = rr(-30, 990);
+          dry(x, gx2, gy2, gx2 + rr(20, 70), gy2 + rr(-4, 4), rr(3, 9), i % 3 ? PAL.olive0 : PAL.ochre2, 2, .13);
+        }
+        for (let i = 0; i < 40; i++) { const bx = rr(-30, 990), by = rr(600, 740); blob(x, bx, by, rr(20, 60), rr(5, 14), i % 2 ? '#5f6a22' : '#9aab4a', 0.16, 8); }
+        grassP(x, -30, 990, 566, 700, 120, PAL.olive0);
+        dots(x, 0, 520, 960, 200, 700, PAL.ochre4, 0.10, 0.4, 1.3);
+        tree(x, 120, 636, 0.62, '#3f3226', PAL.olive0);
+        tree(x, 286, 618, 0.50, '#3f3226', PAL.teal2);
+        tree(x, 872, 660, 0.58, '#3f3226', PAL.olive0);
+        pagodaP(x, 648, 540, 1.02, { mound: 'rgba(65,73,31,.9)' });
+        paint(x, sub([-40, 740, 130, 700, 300, 668, 466, 632, 578, 590, 626, 560, 662, 566, 586, 612, 470, 664, 302, 708, 138, 744, -40, 760], 5), '#b98a49', PAL.ochre0, 2.4);
+        dry(x, 60, 700, 560, 604, 22, PAL.ochre0, 12, .12);
+        for (let i = 0; i < 24; i++) blob(x, rr(20, 560), rr(610, 730), rr(2, 10), rr(1, 4), i % 4 ? PAL.ochre1 : PAL.cream3, 0.30, 7);
+        paint(x, sub([-40, 650, 90, 672, 230, 700, 300, 724, -40, 740], 4), '#41491f', PAL.ink, 2.2);
+        grassP(x, -20, 300, 676, 736, 46, PAL.olive0);
+        paintLine(x, [-20, 40, 60, 66, 132, 58], PAL.teal0, 15, .95);
+        paintLine(x, [52, 64, 96, 112, 108, 158], PAL.teal0, 7, .9);
+        for (let i = 0; i < 26; i++) { const px = rr(-24, 136), py = rr(24, 158), an2 = rr(0, TAU); inkFill(pEll(px, py, rr(7, 15), rr(3.4, 7.2), an2, TAU, 9), i % 3 ? 'rgba(74,86,44,.94)' : 'rgba(52,72,54,.92)'); }
+        for (let i = 0; i < 10; i++) { const px = rr(-16, 120), py = rr(34, 150); inkFill(pEll(px, py, rr(4, 8), rr(2, 4), rr(0, TAU), TAU, 7), 'rgba(126,138,70,.5)'); }
+        dots(x, 0, 0, W, H, 520, PAL.ink, 0.05, 0.3, 1.1);
+      }, 0.10);
+      // 一队人，个头/衣着/动作/表情各不相同，沿坡道往上走
+      // 四个百姓要有区分：斗笠 / 头巾 / 光头 / 白发，否则远看像同一个人复制四遍
+      const vs = [
+        [556, 656, 0.262, 0.28, 'walk', 'curious', 31, false, '#6b5a3c', '#4a3a2a', 0.97, 0.0, 'round', 'part', 'none', '#2a211a', '#2a211a'],
+        [462, 674, 0.295, 0.60, 'walk', 'neutral', 32, false, '#5a6a6a', '#3a4a4a', 0.94, 0.0, 'long', 'buzz', 'pith', '#8a7a52', '#3a3a32'],
+        [364, 696, 0.335, 0.10, 'carry', 'stern', 33, true, '#7a5a44', '#4a3424', 1.10, 0.25, 'square', 'buzz', 'band', '#8a3a2c', '#2a211a'],
+        [262, 722, 0.385, 0.78, 'carry', 'neutral', 34, true, '#8a6a3c', '#5a4a2c', 1.0, 1.0, 'round', 'part', 'none', '#2a211a', '#b8ac90'],
+      ];
+      for (const [vx, gy, s, ph, act, expr, sd, st, jk, pt, hd, bl, fc, hs, ht, cap, bd] of vs) {
+        const out = Object.assign({}, OUTFITS[8], { jacket: jk, robe: jk, pants: pt, head: hd, beardLen: bl, face: fc, hairStyle: hs, hat: ht, cap, beard: bd });
+        contactShadow(vx, gy, s, 0.30);
+        castShadow(vx, gy, s, 0.20, 0.13);
+        lightPool(vx, gy - 26, 52, '255,214,150', 0.10);
+        actor(8, vx, gy, s, castOpts({ act, actT: 1.2, mode: 'march', phase: ph, expr, seed: sd, straightArm: st, light: -70 }), true, 1, out);
+      }
+      fgGrass(34, 726, 'rgba(22,34,22,.85)', 1.15);
+      fgRock(46, 700, 74, 26, 'rgba(28,38,26,.92)');
+      fgBough(1, -6, 0.92);
+      inkFill([560, 0, 960, 0, 960, 720, 560, 720], 'rgba(230,160,80,.045)');
+      for (let i = 0; i < 12; i++) {
+        const px = 90 + ((i * 137 + t * 4) % 800), py = 180 + ((i * 83 + t * 3) % 380);
+        inkFill(pEll(px, py, 1.1, 1.1, 0, TAU, 6), `rgba(255,235,180,${0.08 + 0.05 * Math.sin(t * 1.3 + i)})`);
+      }
+    };
+
+    /* =========================================================
+       2 · 考古发掘现场
+       ========================================================= */
+    const scene2 = (t) => {
+      plateDraw('s2', (x) => {
+        wash(x, 0, 0, W, 420, [[0, '#7fa8a8'], [0.34, '#b3c2a0'], [0.66, '#e0c48c'], [1, '#f0dda8']]);
+        const sx2 = 812, sy2 = 168;
+        let g2 = x.createRadialGradient(sx2, sy2, 6, sx2, sy2, 150);
+        g2.addColorStop(0, 'rgba(255,244,205,.40)'); g2.addColorStop(1, 'rgba(248,214,146,0)');
+        x.fillStyle = g2; x.fillRect(sx2 - 160, sy2 - 160, 320, 320);
+        for (let i = 0; i < 3; i++) { const cy = 120 + i * 34; paint(x, sub([-40, cy, 200, cy - 8, 430, cy + 4, 660, cy - 7, 880, cy + 3, 1000, cy - 4, 1000, cy + 16, 880, cy + 12, 660, cy + 20, 430, cy + 10, 200, cy + 16, -40, cy + 12], 5), rgba(PAL.cream, .07 + i * .02), null, 0, 1); }
+        paint(x, sub([-40, 390, 100, 348, 240, 372, 380, 340, 520, 366, 660, 342, 800, 370, 920, 350, 1000, 368, 1000, 440, -40, 440], 4), '#5d7f6d', rgba(PAL.teal0, .45), 1.8);
+        pagodaP(x, 152, 402, 0.32, { body: 'rgba(201,162,74,.72)', roof: 'rgba(55,52,42,.75)', mound: 'rgba(70,90,52,.7)', tiers: 4 });
+        wash(x, 0, 404, W, 316, [[0, '#c2a469'], [0.45, '#b98a49'], [1, '#8a6134']]);
+        for (let i = 0; i < 40; i++) { const yy = rr(420, 720); dry(x, -40, yy, 1000, yy + rr(-4, 4), rr(4, 12), PAL.ochre0, 3, .10); }
+        dots(x, 0, 410, 960, 300, 900, PAL.ochre1, 0.10, 0.3, 1.4);
+        paintLine(x, [40, 700, 300, 676, 560, 668], rgba(PAL.ochre0, .35), 2.4, .8);
+        paintLine(x, [60, 710, 320, 688, 580, 678], rgba(PAL.ochre0, .28), 2.0, .8);
+        // 探方：规整方坑。远壁受光、坑底沉黑、坑口拉线 —— 一眼就是考古现场
+        const farL = 356, farR = 850, farY = 524, nearL = 330, nearR = 888, nearY = 696;
+        const WALL = 74;
+        // 切角：paint 会把长边上的点平滑成大弧，四个角必须先切掉才不会是“船形”
+        const chamf = (p, d = 12) => {
+          const o = [], n = p.length / 2;
+          for (let i = 0; i < n; i++) {
+            const ax = p[2 * i], ay = p[2 * i + 1], bx = p[2 * ((i + 1) % n)], by = p[2 * ((i + 1) % n) + 1];
+            const l = Math.hypot(bx - ax, by - ay) || 1, ux = (bx - ax) / l, uy = (by - ay) / l;
+            o.push(ax + ux * d, ay + uy * d, bx - ux * d, by - uy * d);
+          }
+          return o;
+        };
+        const pitPoly = chamf([farL, farY, farR, farY + 6, nearR, nearY, nearL, nearY - 6], 12);
+        paint(x, pitPoly, '#150e08', null, 0, 1);
+        // 远壁立面（受光的黄土）：上亮下沉 + 沿口投影 + 镐痕，别画成一块木板
+        const wallP = chamf([farL, farY, farR, farY + 6, farR - 10, farY + WALL + 4, farL + 8, farY + WALL - 2], 10);
+        x.save(); pathIn(x, wallP, true);
+        const wg = x.createLinearGradient(0, farY, 0, farY + WALL);
+        wg.addColorStop(0, '#c49250'); wg.addColorStop(0.5, '#a8773f'); wg.addColorStop(1, '#6f4c28');
+        x.fillStyle = wg; x.fill(); x.restore();
+        paint(x, [farL + 8, farY + 8, farR - 10, farY + 14, farR - 11, farY + 30, farL + 9, farY + 24], 'rgba(40,24,10,.32)', null, 0, 1);
+        paintLine(x, [farL + 8, farY + WALL - 2, farR - 10, farY + WALL + 4], 'rgba(44,26,12,.7)', 2.2, 1);
+        for (let i = 0; i < 13; i++) paintLine(x, [farL + 16 + i * 39, farY + 14, farL + 20 + i * 39, farY + WALL], 'rgba(70,44,20,.24)', 1.2, .8);
+        for (let i = 0; i < 5; i++) paintLine(x, [farL + 26 + i * 100, farY + 34 + i * 10, farL + 150 + i * 100, farY + 30 + i * 10], 'rgba(120,80,40,.14)', 2.4, .8);
+        for (let i = 0; i < 22; i++) blob(x, farL + 12 + rr(0, farR - farL - 20), farY + rr(14, WALL - 6), rr(4, 14), rr(3, 9), i % 2 ? 'rgba(80,50,22,.20)' : 'rgba(220,180,120,.16)', .7, 7);
+        // 远沿的土块：打断那条太直的边
+        for (let i = 0; i < 12; i++) {
+          const cx3 = farL + 10 + i * (farR - farL - 20) / 11;
+          blob(x, cx3, farY + rr(-2, 4), rr(9, 20), rr(4, 8), i % 3 ? 'rgba(168,119,63,.95)' : 'rgba(196,146,80,.95)', .9, 7);
+        }
+        // 坑底：往下沉黑
+        const dg = x.createLinearGradient(0, farY + WALL, 0, nearY + 10);
+        dg.addColorStop(0, 'rgba(10,6,4,.34)'); dg.addColorStop(0.55, 'rgba(8,5,3,.80)'); dg.addColorStop(1, 'rgba(5,3,2,.96)');
+        x.save(); pathIn(x, pitPoly, true); x.fillStyle = dg; x.fill(); x.restore();
+        // 坑沿：暗线压里侧、亮土压外侧
+        paintLine(x, chamf([farL, farY, farR, farY + 6, nearR, nearY, nearL, nearY - 6], 12), 'rgba(28,17,9,.9)', 2.8, 1, true);
+        paintLine(x, chamf([farL - 4, farY - 5, farR + 4, farY + 1, nearR + 4, nearY + 3, nearL - 4, nearY - 2], 12), '#c08a4a', 3.2, .5, true);
+        // 近沿的土层断面：有这一层，坑才是“洞”而不是描边
+        paint(x, chamf([nearL - 4, nearY - 4, nearR + 4, nearY, nearR + 4, nearY + 13, nearL - 4, nearY + 9], 10), '#8a6134', PAL.ink, 1.8);
+        // 坑沿投影：让坑口“咬”进地面
+        paint(x, sub([nearL - 6, nearY + 10, nearR + 6, nearY + 14, nearR + 20, nearY + 30, 600, nearY + 26, nearL - 16, nearY + 20], 4), 'rgba(58,36,16,.26)', null, 0, 1);
+        // 探方拉线：网格 + 四角木桩
+        for (let i = 1; i <= 3; i++) {
+          const u = i / 4, ax = farL + (farR - farL) * u, bx = nearL + (nearR - nearL) * u;
+          paintLine(x, [ax, farY + 3, bx, nearY - 2], 'rgba(238,228,196,.55)', 1.7, .95);
+        }
+        for (const u of [0.34, 0.68]) {
+          const lx = farL + (nearL - farL) * u, rx2 = farR + (nearR - farR) * u, yy = farY + 6 + (nearY - farY) * u;
+          paintLine(x, [lx, yy, rx2, yy + 8], 'rgba(238,228,196,.48)', 1.7, .95);
+        }
+        for (const [px3, py3] of [[farL, farY], [farR, farY + 6], [nearR, nearY], [nearL, nearY - 6]]) {
+          paint(x, [px3 - 4, py3 - 18, px3 + 4, py3 - 16, px3 + 4, py3 + 6, px3 - 4, py3 + 6], '#6b4a2f', PAL.ink, 1.2);
+        }
+        // 沿口翻上来的熟土（压在坑沿外侧，不能落进坑里）
+        paint(x, sub([352, 524, 334, 496, 374, 478, 416, 484, 410, 512, 384, 520], 4), 'rgba(168,119,63,.75)', null, 0, 1);
+        paint(x, sub([800, 522, 840, 506, 876, 516, 882, 534, 848, 528, 814, 532], 4), 'rgba(168,119,63,.65)', null, 0, 1);
+        for (let i = 0; i < 24; i++) {
+          const u = i / 24, rx = 300 + u * 590, ry = 688 - Math.sin(u * Math.PI) * 156 + Math.cos(u * 9) * 4;
+          blob(x, rx, ry, rr(2, 6), rr(1.5, 3.5), i % 3 ? PAL.ochre1 : PAL.cream3, .3, 6);
+        }
+        // 木梯靠在远壁上
+        paintLine(x, [812, 532, 764, 636], '#6b4a2f', 5.4, .95);
+        paintLine(x, [786, 530, 738, 634], '#6b4a2f', 5.4, .95);
+        for (let i = 0; i < 7; i++) {
+          const u = (i + 0.6) / 8;
+          paintLine(x, [812 + (764 - 812) * u, 532 + (636 - 532) * u, 786 + (738 - 786) * u, 530 + (634 - 530) * u], '#8a6134', 3.0, .9);
+        }
+        // 土筐（坑外近处）
+        for (const [kx, ky] of [[214, 716], [262, 722]]) { paint(x, pEll(kx, ky - 6, 28, 16, 0, TAU, 18), '#8a6134', PAL.ink, 2.0); paint(x, pEll(kx, ky - 14, 22, 8, 0, TAU, 14), '#5a4028', PAL.ink, 1.2); }
+        // 坑内出土物（暗处只留轮廓）
+        paint(x, sub([600, 640, 672, 634, 678, 664, 596, 670], 4), '#2b2b28', PAL.ink, 2.0);
+        paint(x, [600, 646, 672, 640], 'rgba(150,120,80,.35)', null, 0, 1);
+        paint(x, pEll(470, 646, 24, 28, 0, TAU, 20), '#8a6a3c', PAL.ink, 2.0);
+        paint(x, [452, 626, 488, 626, 482, 616, 458, 616], '#6b4a2f', PAL.ink, 1.2);
+        for (let i = 0; i < 8; i++) paintLine(x, [470 + rr(-14, 14), 622, 470 + rr(-18, 18), 668], 'rgba(60,36,16,.4)', 1.0, .7);
+        paintLine(x, [548, 660, 596, 650], '#6b4a2f', 2.0, .95);
+        paintLine(x, [594, 651, 606, 647], PAL.ink, 4.2, .8);
+        paintLine(x, [690, 668, 738, 656], '#6b4a2f', 2.6, .95);
+        paint(x, [736, 646, 758, 642, 760, 660, 738, 664], '#8a8a7a', PAL.ink, 1.2);
+        for (const [mx, my, mr] of [[250, 690, 62], [600, 500, 44]]) {
+          paint(x, sub([mx - mr, my, mx - mr * .5, my - mr * .42, mx, my - mr * .55, mx + mr * .55, my - mr * .4, mx + mr, my, mx + mr * .6, my + 6, mx - mr * .6, my + 6], 4), '#8a6134', PAL.ochre0, 2.0);
+          for (let i = 0; i < 40; i++) { const rx = mx + rr(-mr, mr), ry = my + rr(-mr * .4, 0); blob(x, rx, ry, rr(1.5, 5), rr(1, 3), i % 3 ? PAL.ochre1 : PAL.ochre3, .5, 6); }
+        }
+        // 测量三脚架：立在坑右侧，垂球线吊进坑里
+        paintLine(x, [928, 498, 886, 700], '#4a3a28', 5.0, .95);
+        paintLine(x, [928, 498, 974, 698], '#4a3a28', 5.0, .95);
+        paintLine(x, [928, 498, 934, 644], '#4a3a28', 4.4, .9);
+        paintLine(x, [886, 700, 974, 698], '#4a3a28', 2.4, .7);
+        paint(x, [912, 490, 944, 490, 940, 512, 916, 512], '#7a6a4a', PAL.ink, 1.8);
+        paintLine(x, [928, 512, 928, 620], 'rgba(232,220,190,.4)', 1.0, .9);
+        paint(x, pEll(928, 624, 5, 7, 0, TAU, 10), '#3a3a34', PAL.ink, 1.0);
+        // 工地帐篷（中景，给空荡的土坡一个落脚点）
+        paint(x, sub([596, 506, 652, 430, 726, 430, 782, 506], 3), '#b9a87e', PAL.ink, 2.2);
+        paint(x, sub([652, 430, 726, 430, 704, 460, 674, 460], 3), '#8a7a58', null, 0, 1);
+        paint(x, [664, 506, 690, 454, 716, 506], '#2a2418', null, 0, 1);
+        paintLine(x, [596, 506, 652, 430], '#d8cbaa', 2.0, .6);
+        paintLine(x, [782, 506, 726, 430], 'rgba(70,60,40,.55)', 2.0, .7);
+        paintLine(x, [584, 512, 794, 512], 'rgba(60,44,24,.3)', 3.0, .8);
+        // 中景草簇与碎石：土坡不能是大片空色块
+        for (let i = 0; i < 16; i++) {
+          const gx3 = 20 + (i * 173) % 920, gy3 = 470 + (i * 97) % 90;
+          paintLine(x, [gx3, gy3, gx3 + rr(-7, 7), gy3 - rr(10, 22), gx3 + rr(-13, 13), gy3 - rr(20, 34)], 1.6, 'rgba(96,104,58,.55)', {});
+        }
+        for (let i = 0; i < 9; i++) { const sx3 = 40 + (i * 233) % 880, sy3 = 486 + (i * 71) % 70; blob(x, sx3, sy3, rr(6, 16), rr(3, 7), 'rgba(150,120,74,.5)', .6, 7); }
+        // 远处测绘的标杆（立在土坡上，别浮在空中）
+        for (const [sx3, sy3, sh3] of [[432, 496, 74], [882, 486, 66]]) {
+          paint(x, [sx3 - 3, sy3 - sh3, sx3 + 3, sy3 - sh3, sx3 + 3, sy3, sx3 - 3, sy3], '#c9b48a', PAL.ink, 1.2);
+          for (let i = 0; i < 3; i++) paint(x, [sx3 - 3, sy3 - sh3 + 14 + i * 20, sx3 + 3, sy3 - sh3 + 14 + i * 20, sx3 + 3, sy3 - sh3 + 22 + i * 20, sx3 - 3, sy3 - sh3 + 22 + i * 20], i % 2 ? '#b23a2b' : '#e6dcc0', null, 0, 1);
+        }
+        for (let i = 0; i < 7; i++) { const bx2 = 880 + (i % 3) * 26, by2 = 690 - Math.floor(i / 3) * 18; paint(x, [bx2, by2, bx2 + 22, by2 - 2, bx2 + 22, by2 + 9, bx2, by2 + 11], PAL.ochre2, PAL.ink, 1.2); }
+        paint(x, sub([120, 690, 210, 664, 300, 676, 316, 706, 200, 714, 112, 706], 4), '#7f8840', PAL.olive0, 2.0);
+        dry(x, 130, 688, 300, 688, 10, PAL.olive0, 5, .2);
+        paint(x, pEll(96, 714, 20, 16, 0, TAU, 16), 'rgba(0,0,0,0)', PAL.ochre0, 3.0);
+        paintLine(x, [96, 700, 160, 686, 214, 700], '#6b4a2f', 3.0, .9);
+        grassP(x, 0, 300, 700, 730, 26, PAL.olive0);
+        grassP(x, 900, 960, 690, 726, 16, PAL.olive0);
+        dots(x, 0, 0, W, H, 400, PAL.ink, 0.045, 0.3, 1.1);
+      }, 0.09);
+      contactShadow(190, 706, 0.42, 0.32);
+      castShadow(190, 706, 0.42, 0.18, 0.15);
+      sideA(10, 190, 706, 0.42, castOpts({ act: 'point', actT: 1.2, expr: 'stern', seed: 11, light: -80 }));
+      contactShadow(566, 664, 0.30, 0.32);
+      castShadow(566, 664, 0.30, 0.18, 0.14);
+      sideL(11, 566, 664, 0.30, castOpts({ act: 'kneel', actT: 2.8, expr: 'curious', seed: 12, light: -80 }));
+      fgGrass(22, 734, 'rgba(30,40,24,.85)', 1.0);
+      fgBough(-1, -10, 0.7, 'rgba(28,40,28,.9)');
+      // 左下角一小堆新翻的土，压住画面角，前景才不透
+      inkFill([-20, 726, -10, 692, 60, 682, 150, 690, 214, 706, 226, 726], '#7d5a31');
+      L.L([-10, 692, 60, 682, 150, 690, 214, 706, 226, 726], 3.2, 'rgba(22,14,8,.8)', {});
+      for (let i = 0; i < 22; i++) {
+        const gx = 0 + (i * 97) % 220, gy = 690 + (i * 53) % 30;
+        L.L([gx, gy, gx + 6, gy - 12, gx + 11, gy - 4], 1.4, 'rgba(65,73,31,.85)', { taper: 0.4 });
+      }
+      for (let i = 0; i < 14; i++) {
+        const px = 6 + (i * 131) % 210, py = 688 + (i * 41) % 30;
+        inkFill(pEll(px, py, 3.4, 1.6, 0, TAU, 7), 'rgba(143,102,51,.55)');
+      }
+      for (let i = 0; i < 20; i++) {
+        const px = 120 + ((i * 131 + t * 6) % 800), py = 300 + ((i * 71 - t * 4 + 400) % 380);
+        inkFill(pEll(px, py, 1.2, 1.2, 0, TAU, 6), `rgba(255,238,190,${0.07 + 0.05 * Math.sin(t * 1.1 + i)})`);
+      }
+    };
+
+    /* =========================================================
+       3 · 地宫入口
+       ========================================================= */
+    const scene3 = (t) => {
+      plateDraw('s3', (x) => {
+        wash(x, 0, 0, W, H, [[0, '#22261f'], [0.42, '#2e3226'], [1, '#3a3d2c']]);
+        let yy = 10;
+        for (let r = 0; r < 11; r++) {
+          const hgt = rr(46, 74);
+          let xx = rr(-70, -20);
+          while (xx < 1000) {
+            const ww = rr(96, 168);
+            const col = ['#4a4a3f', '#55544a', '#43443a', '#5d5b4e'][(r + Math.floor(xx / 90)) % 4];
+            paint(x, [xx, yy, xx + ww - 4, yy - 2, xx + ww, yy + hgt - 4, xx + 2, yy + hgt], col, 'rgba(34,28,20,.55)', 1.4);
+            paint(x, [xx + 4, yy + 3, xx + ww - 12, yy + 2], 'rgba(125,154,124,.10)', null, 0, 1);
+            if (rnd() < 0.32) blob(x, xx + rr(20, ww - 20), yy + rr(16, hgt - 10), rr(8, 26), rr(4, 12), PAL.olive1, 0.16, 8);
+            if (rnd() < 0.25) crack(x, xx + rr(14, ww - 14), yy + 6, xx + rr(20, ww - 10), yy + hgt - 6, 'rgba(8,18,16,.5)', rr(0.7, 1.4));
+            xx += ww + rr(2, 8);
+          }
+          yy += hgt + rr(2, 7);
+        }
+        for (let i = 0; i < 12; i++) { const wx = rr(20, 940); dry(x, wx, rr(60, 200), wx + rr(-8, 8), rr(360, 520), rr(2, 5), PAL.teal0, 4, .16); }
+        const dx = 606, dTop = 214, dBot = 662, dW = 344;
+        paint(x, [dx - dW / 2 - 34, dTop - 30, dx + dW / 2 + 34, dTop - 30, dx + dW / 2 + 34, dBot, dx - dW / 2 - 34, dBot], '#0d1b19', null, 0, 1);
+        paint(x, pEll(dx, dTop + 10, dW / 2 + 34, 96, PI, TAU, 30), '#0d1b19', null, 0, 1);
+        const frame = (inset, col, lw) => {
+          paintLine(x, [dx - dW / 2 - inset, dBot, dx - dW / 2 - inset, dTop + 10, dx - dW / 2 - inset + 10, dTop - 34, dx - dW / 2 + 50, dTop - 70, dx, dTop - 82, dx + dW / 2 - 50, dTop - 70, dx + dW / 2 + inset - 10, dTop - 34, dx + dW / 2 + inset, dTop + 10, dx + dW / 2 + inset, dBot], col, lw, .95);
+        };
+        frame(30, PAL.ochre2, 4.0);
+        frame(16, PAL.ochre1, 2.0);
+        paint(x, sub([dx - dW / 2 - 34, dTop - 92, dx + dW / 2 + 34, dTop - 92, dx + dW / 2 + 22, dTop - 30, dx - dW / 2 - 22, dTop - 30], 4), PAL.ochre1, PAL.ink, 2.6);
+        for (let i = 0; i < 5; i++) {
+          const cx2 = dx - dW / 2 + 44 + i * (dW - 88) / 4;
+          x.save(); x.strokeStyle = rgba(PAL.ochre3, .9); x.lineWidth = 2.2;
+          x.beginPath(); x.arc(cx2 - 10, dTop - 58, 10, Math.PI * 0.2, Math.PI * 1.55); x.stroke();
+          x.beginPath(); x.arc(cx2 + 10, dTop - 58, 10, Math.PI * 1.2, Math.PI * 2.5); x.stroke();
+          x.restore();
+        }
+        for (const sgn of [-1, 1]) {
+          const x0 = sgn < 0 ? dx - dW / 2 - 4 : dx + 4, x1 = sgn < 0 ? dx - 4 : dx + dW / 2 + 4;
+          const g = x.createLinearGradient(x0, 0, x1, 0);
+          g.addColorStop(0, '#4e3d2c'); g.addColorStop(0.55, '#5f4a34'); g.addColorStop(1, '#3c2e22');
+          paint(x, [x0, dTop, x1, dTop, x1, dBot, x0, dBot], g, PAL.ink, 3.0);
+          const cx0 = sgn < 0 ? dx - dW / 2 : dx;
+          for (let r = 0; r < 8; r++) for (let c = 0; c < 4; c++) {
+            const bx2 = cx0 + 28 + c * ((dW / 2 - 56) / 3), by2 = dTop + 36 + r * 48;
+            paint(x, pEll(bx2 + rr(-2, 2), by2 + rr(-2, 2), rr(5, 8), rr(5, 8), 0, TAU, 12), rnd() < 0.5 ? '#6a5439' : '#7b6242', PAL.ink, 1.1);
+            paint(x, pEll(bx2 - 2, by2 - 2, 3.4, 3.4, 0, TAU, 10), 'rgba(211,170,99,.35)', null, 0, 1);
+          }
+          for (let r = 1; r < 8; r++) paintLine(x, [x0 + 6, dTop + r * 48, x1 - 6, dTop + r * 48], 'rgba(20,14,10,.28)', 1.2, .8);
+        }
+        paintLine(x, [dx, dTop, dx, dBot], 'rgba(10,8,6,.85)', 4.0, 1);
+        for (const sgn of [-1, 1]) {
+          const hx = dx + sgn * 30;
+          paint(x, pEll(hx, dBot - 150, 20, 20, 0, TAU, 20), 'rgba(0,0,0,0)', '#a8956a', 3.2);
+          paint(x, pEll(hx, dBot - 122, 13, 13, 0, TAU, 18), 'rgba(0,0,0,0)', '#a8956a', 2.4);
+        }
+        paint(x, sub([dx - dW / 2 - 44, dBot, dx + dW / 2 + 44, dBot, dx + dW / 2 + 56, dBot + 20, dx - dW / 2 - 56, dBot + 20], 4), PAL.ochre1, PAL.ink, 2.2);
+        wash(x, 0, dBot + 20, W, 740 - dBot - 20, [[0, '#2a4a45'], [1, '#101f1d']]);
+        for (let i = 0; i < 9; i++) { const fy = dBot + 34 + i * 8; paintLine(x, [-20, fy, 980, fy - 2], 'rgba(125,154,124,.10)', 1.4, .8); }
+        paint(x, sub([392, 660, 452, 660, 446, 676, 398, 676], 4), '#6b6b58', PAL.ink, 2.0);
+        paint(x, [404, 640, 440, 640, 436, 662, 408, 662], '#7a7a64', PAL.ink, 1.6);
+        for (let i = 0; i < 14; i++) blob(x, rr(360, 900), rr(560, 660), rr(6, 20), rr(3, 9), PAL.olive1, .18, 7);
+        paint(x, [dx - 3, dTop - 6, dx + 3, dTop - 6, dx + 3, dTop + 24, dx - 3, dTop + 24], 'rgba(190,235,220,.10)', null, 0, 1);
+        // 灯笼的暖光得照在墙上、照在门上，不是只在地上画一圈
+        const lw2 = x.createRadialGradient(422, 612, 20, 422, 612, 430);
+        lw2.addColorStop(0, 'rgba(247,196,106,.22)'); lw2.addColorStop(0.45, 'rgba(232,170,88,.10)'); lw2.addColorStop(1, 'rgba(232,170,88,0)');
+        x.fillStyle = lw2; x.fillRect(0, 0, W, H);
+        dots(x, 0, 0, W, H, 420, PAL.ink, 0.05, 0.3, 1.1);
+        const vg = x.createRadialGradient(480, 420, 260, 480, 460, 640);
+        vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(14,12,8,.16)');
+        x.fillStyle = vg; x.fillRect(0, 0, W, H);
+      }, 0.11);
+      // 洞口压角：近景岩石剪影，把地宫的“深”做出来
+      fgRock(-30, 760, 210, 240, 'rgba(20,18,12,.88)');
+      fgRock(996, 780, 220, 260, 'rgba(20,18,12,.88)');
+      fgBough(-1, -16, 1.25, 'rgba(6,14,12,.95)');
+      const lx = 422, ly = 624;
+      lightPool(lx, 660, 190, '247,196,106', 0.24);
+      lao.lantern(lx, ly, 1.05, 1);
+      inkFill(pEll(lx, 668, 54, 14, 0, TAU, 20), 'rgba(247,196,106,.12)');
+      contactShadow(272, 738, 0.54, 0.32);
+      sideA(4, 272, 738, 0.54, castOpts({ act: 'look_up', actT: 1.4, expr: 'relief', seed: 5, light: -125 }));
+      inkFill(pEll(520, 560, 180, 140, 0, TAU, 40), 'rgba(247,196,106,.035)');
+      inkFill([0, 0, 230, 0, 300, 720, 0, 720], 'rgba(125,154,124,.05)');
+      for (let i = 0; i < 6; i++) {
+        const mx = 180 + i * 150 + Math.sin(t * 0.5 + i) * 22, my = 600 + (i % 3) * 22;
+        inkFill(pEll(mx, my, 150, 22, 0, TAU, 24), `rgba(140,175,160,${0.025 + 0.01 * (i % 3)})`);
+      }
+      for (let i = 0; i < 14; i++) {
+        const px = 140 + ((i * 149 + t * 5) % 760), py = 260 + ((i * 97 + t * 3) % 380);
+        inkFill(pEll(px, py, 1.1, 1.1, 0, TAU, 6), `rgba(200,235,215,${0.10 + 0.05 * Math.sin(t + i)})`);
+      }
+    };
+
+    /* =========================================================
+       4 · 塔下相逢
+       ========================================================= */
+    const scene4 = (t) => {
+      plateDraw('s4', (x) => {
+        wash(x, 0, 0, W, 430, [[0, '#8ab4b4'], [0.36, '#b9c8a8'], [0.68, '#e6cc96'], [1, '#f6e6bc']]);
+        const sx4 = 300, sy4 = 190;
+        let g4 = x.createRadialGradient(sx4, sy4, 8, sx4, sy4, 180);
+        g4.addColorStop(0, 'rgba(255,244,205,.45)'); g4.addColorStop(1, 'rgba(248,214,146,0)');
+        x.fillStyle = g4; x.fillRect(sx4 - 190, sy4 - 190, 380, 380);
+        for (let i = 0; i < 4; i++) { const cy = 118 + i * 36; paint(x, sub([-40, cy, 180, cy - 9, 400, cy + 4, 620, cy - 7, 840, cy + 3, 1000, cy - 4, 1000, cy + 16, 840, cy + 12, 620, cy + 20, 400, cy + 10, 180, cy + 16, -40, cy + 12], 5), rgba(PAL.cream, .08 + i * .018), null, 0, 1); }
+        ridgeP(x, warpPts([-40, 398, 60, 380, 140, 364, 220, 354, 292, 360, 356, 374, 420, 386, 486, 376, 552, 360, 616, 348, 682, 356, 744, 372, 806, 382, 868, 370, 930, 354, 976, 346, 1000, 356, 1000, 430, -40, 430], 0.35), {top: '#6a8f82', mid: '#73978a', bot: '#86a795', yTop: 344, yBot: 430, ink: .28, lw: 1.6, dk: '#4e736c', hi: '#cfe0c8', brush: 32, dabs: 12, a: .09, fog: false });
+        pagodaP(x, 742, 402, 0.62, { body: 'rgba(201,162,74,.8)', roof: 'rgba(58,54,44,.8)' });
+        paint(x, [-20, 408, 980, 408, 980, 592, -20, 592], null, null, 0, 1);
+        // 河面：压成平的青灰绿，别做成沙滩
+        wash(x, 0, 408, W, 184, [[0, '#b9c3a8'], [0.5, '#a3b29c'], [1, '#8b9b8b']]);
+        for (let i = 0; i < 10; i++) { const yy = 418 + i * 18; paintLine(x, [-20, yy, 980, yy + 1], 'rgba(206,216,196,.16)', 1.4, .8); }
+        for (let i = 0; i < 5; i++) { const yy = 430 + i * 30, ww = rr(60, 180); paintLine(x, [rr(0, 700), yy, rr(0, 700) + ww, yy], 'rgba(70,89,78,.22)', 1.6, .8); }
+        dots(x, 0, 410, 700, 180, 320, PAL.ochre1, 0.05, 0.4, 1.3);
+        paint(x, [-20, 392, 980, 392, 986, 414, -20, 414], '#4a3a2c', PAL.ink, 2.4);
+        for (let i = 0; i < 26; i++) { const tx = -10 + i * 38; paint(x, [tx, 388, tx + 26, 388, tx + 30, 404, tx - 4, 404], '#5a4a3a', 'rgba(42,33,26,.6)', 1.2); }
+        // 月洞门：白粉墙 + 瓦顶 + 石脚，江南园林的框景
+        const wgrad = x.createLinearGradient(698, 0, 960, 0);
+        wgrad.addColorStop(0, '#dccfa9'); wgrad.addColorStop(0.55, '#cfc19c'); wgrad.addColorStop(1, '#b6a986');
+        paint(x, [698, 452, 960, 452, 960, 574, 698, 574], wgrad, 'rgba(44,35,26,.75)', 2.4);
+        paint(x, [698, 574, 960, 574, 960, 592, 698, 592], '#9a927c', 'rgba(38,30,22,.8)', 2.0);
+        // 墙头收口：一个侧面，墙才不会像一块立着的板
+        paint(x, [682, 462, 700, 458, 700, 590, 682, 586], '#a89a78', 'rgba(40,32,24,.85)', 2.2);
+        paint(x, [676, 458, 704, 454, 704, 468, 676, 472], '#3a3a32', PAL.ink, 1.8);
+        paint(x, sub([686, 456, 694, 418, 960, 418, 960, 456], 3), '#3e3e36', PAL.ink, 2.4);
+        for (let i = 0; i < 15; i++) { const tx = 698 + i * 18; paint(x, [tx, 420, tx + 7, 420, tx + 9, 454, tx + 1, 454], i % 2 ? '#33332c' : '#4a4a40', null, 0, 1); }
+        paintLine(x, [686, 456, 960, 456], '#2b2b25', 2.8);
+        paint(x, [694, 456, 960, 456, 960, 470, 694, 470], 'rgba(52,40,28,.18)', null, 0, 1);
+        for (let i = 0; i < 26; i++) paintLine(x, [rr(704, 956), rr(472, 568), rr(704, 956), rr(472, 568)], 'rgba(120,104,78,.13)', 1.2, .6);
+        paint(x, [704, 468, 960, 468, 960, 574, 704, 574], 'rgba(0,0,0,0)', null, 0, 1);
+        paint(x, pEll(818, 520, 80, 80, 0, TAU, 44), '#dccfa9', 'rgba(44,35,26,.8)', 2.8);
+        paint(x, pEll(818, 520, 64, 64, 0, TAU, 44), '#2b4f4a', 'rgba(30,24,18,.9)', 2.2);
+        // 洞里透出远岸与水光
+        paint(x, [818 - 60, 520, 818 + 60, 520, 818 + 60, 520 + 62], 'rgba(150,172,152,.5)', null, 0, 1);
+        paint(x, [818 - 54, 520 + 10, 818 + 54, 520 + 10, 818 + 54, 520 + 50], 'rgba(96,124,116,.45)', null, 0, 1);
+        for (let i = 0; i < 5; i++) paintLine(x, [818 - 44 + i * 18, 536 + i * 8, 818 - 26 + i * 18, 536 + i * 8], 'rgba(216,226,206,.28)', 1.4, .7);
+        paint(x, [818 - 64, 520, 818 - 50, 520, 818 - 50, 584, 818 - 64, 584], 'rgba(255,246,214,.18)', null, 0, 1);
+        // 墙头探出的花枝
+        paintLine(x, [960, 430, 906, 442, 862, 462, 830, 486], '#4a3524', 4.0, .9);
+        for (let i = 0; i < 14; i++) { const bx3 = rr(806, 958), by3 = rr(424, 490); leaf(x, bx3, by3, rr(4, 9), rr(7, 14), i % 3 ? PAL.olive1 : PAL.olive2, PAL.inkBlue, .92); blob(x, bx3 + rr(-8, 8), by3 + rr(-6, 6), rr(2.4, 5), rr(2, 4), PAL.magenta, .5, 6); }
+        wash(x, 0, 592, W, 148, [[0, '#7f8840'], [0.5, '#6b7636'], [1, '#4f5a28']]);
+        dots(x, 0, 596, 960, 140, 700, PAL.olive0, 0.10, 0.4, 1.3);
+        for (let i = 0; i < 46; i++) { const px = rr(300, 760), py = rr(658, 736); paint(x, pEll(px, py, rr(3, 8), rr(1.6, 4), rr(0, 3), TAU, 7), i % 3 ? 'rgba(201,184,148,.45)' : 'rgba(143,102,51,.35)', null, 0, 1); }
+        for (let i = 0; i < 5; i++) { const bx2 = 40 + i * 22; paintLine(x, [bx2 + 10, 720, bx2, 400, bx2 + 8, 250], PAL.olive0, 6, .95); for (let k = 0; k < 7; k++) paintLine(x, [bx2 + 8 - k * 0.6, 700 - k * 62, bx2 + 8 - k * 0.6, 690 - k * 62], rgba(PAL.ink, .3), 1.0, .6); }
+        for (let i = 0; i < 40; i++) { const lx2 = rr(10, 170), ly2 = rr(250, 470); leaf(x, lx2, ly2, rr(5, 12), rr(10, 22), i % 3 ? PAL.olive1 : PAL.olive2, PAL.inkBlue, .9); }
+        for (let i = 0; i < 16; i++) { const fx = rr(420, 700), fy = rr(600, 640); blob(x, fx, fy, rr(3, 7), rr(2, 5), i % 2 ? PAL.rust2 : PAL.magenta, .45, 6); }
+        grassP(x, 0, 980, 610, 736, 60, PAL.olive0);
+        dots(x, 0, 0, W, H, 460, PAL.ink, 0.045, 0.3, 1.1);
+      }, 0.09);
+      contactShadow(414, 728, 0.43, 0.30);
+      // 侧视只认 part / bald / buzz 三种发型，bun 会画成光头 —— 这里给白娘子改成长发
+      castShadow(414, 728, 0.43, 0.16, 0.14);
+      actor(5, 414, 728, 0.43, castOpts({ act: 'wave', actT: 1.3, expr: 'smile', seed: 6, light: -75 }), true, 1,
+        Object.assign({}, OUTFITS[5], { hairStyle: 'part', hair: '#1a1512' }));
+      contactShadow(580, 732, 0.43, 0.30);
+      castShadow(580, 732, 0.43, 0.16, 0.14);
+      sideL(6, 580, 732, 0.43, castOpts({ act: 'reach', actT: 1.3, expr: 'smile', seed: 7, light: -75 }));
+      fgGrass(26, 728, 'rgba(26,40,24,.82)', 1.1);
+      fgBough(-1, -8, 0.78, 'rgba(24,38,28,.9)');
+      for (let i = 0; i < 16; i++) {
+        const px = 100 + ((i * 71 + t * 13) % 800), py = 300 + ((i * 53 + t * 9) % 300);
+        inkFill(pEll(px, py, 3.4, 1.7, t * .8 + i, TAU, 8), i % 2 ? 'rgba(239,227,196,.55)' : 'rgba(216,165,63,.45)');
+      }
+      inkFill([0, 0, W, 0, W, 120, 0, 120], 'rgba(58,97,88,.10)');
+    };
+
+    /* =========================================================
+       5 · 方腊举义
+       ========================================================= */
+    const scene5 = (t) => {
+      plateDraw('s5', (x) => {
+        wash(x, 0, 0, W, 470, [[0, '#3a1517'], [0.30, '#6b2a24'], [0.62, '#a34c32'], [0.84, '#c06a45'], [1, '#8f4a30']]);
+        const sx5 = 760, sy5 = 250;
+        let g5 = x.createRadialGradient(sx5, sy5, 10, sx5, sy5, 230);
+        g5.addColorStop(0, 'rgba(255,214,150,.42)'); g5.addColorStop(0.3, 'rgba(240,150,90,.18)'); g5.addColorStop(1, 'rgba(240,150,90,0)');
+        x.fillStyle = g5; x.fillRect(sx5 - 240, sy5 - 240, 480, 480);
+        paint(x, pEll(sx5, sy5, 30, 30, 0, TAU, 32), 'rgba(255,226,170,.55)', null, 0, 1);
+        for (let i = 0; i < 6; i++) {
+          const cy = 90 + i * 46;
+          paint(x, sub([-40, cy, 180, cy - 16, 420, cy + 6, 660, cy - 12, 900, cy + 5, 1000, cy - 6, 1000, cy + 26, 900, cy + 20, 660, cy + 32, 420, cy + 18, 180, cy + 26, -40, cy + 20], 5), i % 2 ? 'rgba(40,24,20,.20)' : 'rgba(190,120,80,.12)', null, 0, 1);
+        }
+        paint(x, sub([-40, 452, 110, 404, 260, 434, 400, 396, 540, 430, 700, 400, 850, 434, 1000, 410, 1000, 520, -40, 520], 4), '#4a2a1e', 'rgba(30,18,14,.7)', 2.0);
+        for (let i = 0; i < 5; i++) { const fx = 60 + i * 200, fy = 452 - (i % 3) * 12; blob(x, fx, fy, rr(16, 34), rr(5, 12), 'rgba(255,200,120,.30)', .5, 8); }
+        wash(x, 0, 500, W, 240, [[0, '#5a3f28'], [0.5, '#46301f'], [1, '#241a12']]);
+        for (let i = 0; i < 30; i++) { const yy = rr(520, 730); dry(x, -40, yy, 1000, yy + rr(-3, 3), rr(5, 14), '#2a1e14', 3, .14); }
+        dots(x, 0, 500, 960, 240, 700, PAL.ochre1, 0.07, 0.4, 1.4);
+        for (let i = 0; i < 12; i++) {
+          const bx2 = 50 + i * 78 + (i % 3) * 8, gy = 604 - (i % 4) * 6;
+          paintedFigure(x, bx2, gy, 104 + (i % 5) * 8, i % 3 ? '#2e2118' : '#3a2a1e', i);
+          if (i % 4 === 1) { paintLine(x, [bx2 + 20, gy - 96, bx2 + 26, gy - 150], '#2e2118', 3.4, .9); paint(x, [bx2 + 22, gy - 150, bx2 + 36, gy - 146, bx2 + 26, gy - 130], '#2e2118', PAL.ink, 1.2); }
+        }
+        const banners = [[96, 580, 1.0, 0], [300, 596, 0.82, 1.4], [840, 586, 1.02, 2.6]];
+        for (const [bx2, by2, s, ph] of banners) {
+          paintLine(x, [bx2, by2, bx2 + 2, by2 - 150 * s], '#3a2a1e', 4.0 * s, .95);
+          paintLine(x, [bx2 + 2, by2 - 148 * s, bx2 + 52 * s, by2 - 140 * s], '#3a2a1e', 2.4 * s, .9);
+          const sw = Math.sin(ph) * 6 * s;
+          paint(x, sub([bx2 + 2, by2 - 146 * s, bx2 + 52 * s + sw, by2 - 138 * s, bx2 + 46 * s + sw, by2 - 76 * s, bx2 + 26 * s + sw, by2 - 82 * s, bx2 + 4 * s, by2 - 70 * s], 4), PAL.rust, 'rgba(30,18,14,.8)', 2.2 * s);
+          paint(x, [bx2 + 20 * s, by2 - 128 * s, bx2 + 30 * s, by2 - 100 * s, bx2 + 40 * s, by2 - 128 * s, bx2 + 30 * s, by2 - 90 * s], 'rgba(239,227,196,.5)', null, 0, 1);
+          dry(x, bx2 + 8, by2 - 120 * s, bx2 + 40 * s, by2 - 96 * s, 6, PAL.rust2, 5, .25);
+        }
+        paint(x, pEll(806, 700, 120, 26, 0, TAU, 24), 'rgba(20,14,10,.5)', null, 0, 1);
+        for (const [ox, oy, rx, ry] of [[-44, 0, 20, 8], [-14, 4, 24, 9], [22, 2, 20, 8], [52, -2, 15, 6]]) paint(x, pEll(806 + ox, 700 + oy, rx, ry, 0, TAU, 12), '#1a1410', null, 0, 1);
+        for (let i = 0; i < 4; i++) { paintLine(x, [700 + i * 60, 620, 724 + i * 64, 560, 704 + i * 58, 500], 'rgba(160,140,110,.16)', 6, .8); }
+        for (let i = 0; i < 40; i++) { const ex = rr(660, 960), ey = rr(400, 700), r = rr(.6, 2.2); paint(x, pEll(ex, ey, r, r, 0, TAU, 6), i % 3 ? 'rgba(255,190,110,.55)' : 'rgba(255,230,170,.65)', null, 0, 1); }
+        paint(x, sub([-40, 740, 100, 706, 260, 724, 420, 700, 560, 722, 700, 704, 860, 726, 1000, 710, 1000, 760, -40, 760], 4), '#1d160f', null, 0, 1);
+        grassP(x, 0, 960, 700, 736, 40, '#1d160f');
+        dots(x, 0, 0, W, H, 420, PAL.ink, 0.05, 0.3, 1.1);
+      }, 0.10);
+      contactShadow(636, 744, 0.56, 0.34);
+      castShadow(636, 744, 0.56, 0.15, 0.14);
+      actor(7, 636, 744, 0.56, castOpts({ expr: 'effort', seed: 8, light: -95, actPose: {} }), true, 1);
+      /* 举义：引擎的上臂+前臂只有 150 设计像素，够不到这颗大脑袋的上方，
+         手一抬刀就压在脸上。这里把整条举起的手臂和大刀单独画在画面坐标里。 */
+      (() => {
+        const SK = '#a9764f', CL = '#6f5740', INK = 'rgba(24,16,10,.9)';
+        const sh = [654, 492], el = [714, 416], fi = [744, 354];
+        L.L([...sh, ...el], 36, INK, { taper: 0.92 });
+        L.L([...sh, ...el], 31, CL, { taper: 0.92 });
+        L.L([...el, ...fi], 30, INK, { taper: 0.95 });
+        L.L([...el, ...fi], 25, CL, { taper: 0.95 });
+        // 袖口 + 手
+        inkFill([fi[0] - 20, fi[1] + 6, fi[0] + 18, fi[1] - 2, fi[0] + 16, fi[1] + 16, fi[0] - 18, fi[1] + 24], CL);
+        inkFill([fi[0] - 6, fi[1] - 16, fi[0] + 20, fi[1] - 12, fi[0] + 22, fi[1] + 12, fi[0] - 2, fi[1] + 14], SK);
+        L.L([fi[0] - 6, fi[1] - 16, fi[0] + 20, fi[1] - 12, fi[0] + 22, fi[1] + 12, fi[0] - 2, fi[1] + 14, fi[0] - 6, fi[1] - 16], 3.0, INK, {});
+        // 大刀：刀身朝右上方，整把都在头轮廓之外
+        const F = [fi[0] + 2, fi[1] - 8], D = [0.5, -0.866], Pp = [0.866, 0.5];
+        const pt = (t, w) => [F[0] + D[0] * t + Pp[0] * w, F[1] + D[1] * t + Pp[1] * w];
+        const root1 = pt(8, -16), root2 = pt(8, 16), belly = pt(90, 34), tip = pt(150, -8), notch = pt(112, -24);
+        inkFill([root1, root2, belly, tip, notch].flat(), '#cfc9b8');
+        L.L([root1, root2, belly, tip, notch, root1].flat(), 3.4, INK, {});
+        L.L([root2, belly, tip].flat(), 2.2, 'rgba(250,248,236,.6)', {});
+        L.L([root1, notch].flat(), 2.0, 'rgba(60,60,54,.35)', {});
+        // 护手、刀柄、红缨
+        inkFill([pt(-6, -22), pt(4, 26), pt(18, 24), pt(10, -20)].flat(), '#8a6a3c');
+        L.L([pt(-6, -22), pt(4, 26), pt(18, 24), pt(10, -20), pt(-6, -22)].flat(), 2.6, INK, {});
+        L.L([pt(-6, 2), pt(-42, 22)].flat(), 10, '#4a3020', { taper: 0.15 });
+        L.L([pt(-20, 8), pt(-38, 36), pt(-30, 64)].flat(), 4.2, '#b23a2b', { taper: 0.2 });
+      })();
+      contactShadow(356, 742, 0.44, 0.28);
+      castShadow(356, 742, 0.44, 0.18, 0.14);
+      sideA(8, 356, 742, 0.44, castOpts({ act: 'point', actT: 1.4, expr: 'stern', seed: 9, light: -95 }));
+      fgGrass(30, 730, 'rgba(18,14,10,.92)', 1.2);
+      fgBough(-1, -10, 0.86, 'rgba(16,10,8,.95)');
+      inkFill([540, 0, 960, 0, 960, 720, 540, 720], 'rgba(230,120,50,.07)');
+      for (let i = 0; i < 4; i++) {
+        const fx = 790 + (i - 1.5) * 14, fh = 1 + 0.1 * Math.sin(t * 3.4 + i);
+        inkFill([fx - 10, 704, fx - 4, 704 - 44 * fh, fx, 704 - 22, fx + 5, 704 - 58 * fh, fx + 11, 704], `rgba(255,190,110,${0.5 + 0.1 * i})`);
+      }
+      for (let i = 0; i < 18; i++) {
+        const ex = 640 + ((i * 47 + t * 26) % 300), ey = 690 - ((i * 29 + t * 44) % 240);
+        inkFill(pEll(ex, ey, 1.3, 2.0, 0, TAU, 6), `rgba(255,196,110,${0.35 + 0.3 * Math.sin(t * 3 + i)})`);
+      }
+      lightPool(806, 690, 190, '255,170,90', 0.10);
+    };
+
+    /* =========================================================
+       6 · 宫殿指点
+       ========================================================= */
+    const scene6 = (t) => {
+      plateDraw('s6', (x) => {
+        wash(x, 0, 0, W, H, [[0, '#42251a'], [0.4, '#63381f'], [0.78, '#7f4a28'], [1, '#4e2c1c']]);
+        for (let i = 0; i < 4; i++) {
+          const y0 = 0 + i * 34;
+          paint(x, [-20, y0, 980, y0, 980, y0 + 30, -20, y0 + 30], i % 2 ? '#5a3524' : '#4a2a1e', rgba(PAL.ink, .6), 1.4);
+        }
+        for (let i = 0; i < 9; i++) paint(x, [60 + i * 108, 6, 112 + i * 108, 6, 112 + i * 108, 30, 60 + i * 108, 30], i % 2 ? 'rgba(183,150,80,.30)' : 'rgba(140,60,44,.34)', null, 0, 1);
+        for (const side of [-1, 1]) {
+          const cxs = [140, 232, 318];
+          for (let i = cxs.length - 1; i >= 0; i--) {
+            const cx2 = 480 + side * (cxs[i] + 200) * 0.74, w2 = 34 - i * 6;
+            paint(x, [cx2 - w2, 60 + i * 26, cx2 + w2, 60 + i * 26, cx2 + w2 * 1.2, 660, cx2 - w2 * 1.2, 660], i === 0 ? '#8a3a2c' : '#6b2e24', PAL.ink, 2.4);
+            paint(x, [cx2 - w2 * .4, 70 + i * 26, cx2 - w2 * .2, 650], 'rgba(216,165,63,.28)', null, 0, 1);
+            for (const cy2 of [160, 380, 600]) paint(x, [cx2 - w2 * 1.2, cy2, cx2 + w2 * 1.2, cy2, cx2 + w2 * 1.2, cy2 + 14, cx2 - w2 * 1.2, cy2 + 14], '#c9a24a', rgba(PAL.ink, .6), 1.2);
+          }
+        }
+        paint(x, sub([336, 172, 624, 172, 646, 468, 314, 468], 4), 'rgba(60,34,22,.55)', 'rgba(201,162,74,.45)', 2.6);
+        const tg = x.createRadialGradient(480, 300, 10, 480, 300, 130);
+        tg.addColorStop(0, 'rgba(216,165,63,.20)'); tg.addColorStop(1, 'rgba(216,165,63,0)');
+        x.fillStyle = tg; x.fillRect(340, 160, 280, 280);
+        x.save(); x.strokeStyle = 'rgba(216,165,63,.30)'; x.lineWidth = 2.0; x.beginPath(); x.arc(480, 300, 84, 0, TAU); x.stroke(); x.restore();
+        for (let i = 0; i < 20; i++) { const a = i / 20 * TAU; paintLine(x, [480 + Math.cos(a) * 88, 300 + Math.sin(a) * 88, 480 + Math.cos(a) * 98, 300 + Math.sin(a) * 98], 'rgba(216,165,63,.18)', 1.2, .8); }
+        paint(x, sub([394, 456, 566, 456, 590, 540, 370, 540], 4), '#6b2e24', PAL.ink, 2.6);
+        paint(x, [394, 440, 420, 428, 420, 470, 394, 470], '#7a3a2c', PAL.ink, 2.0);
+        paint(x, [566, 440, 540, 428, 540, 470, 566, 470], '#7a3a2c', PAL.ink, 2.0);
+        paint(x, sub([300, 540, 660, 540, 700, 596, 260, 596], 4), '#5a2a20', PAL.ink, 2.4);
+        paint(x, sub([268, 596, 692, 596, 716, 640, 244, 640], 4), '#4a221a', PAL.ink, 2.2);
+        paint(x, sub([250, 640, 710, 640, 730, 672, 230, 672], 4), '#3e1c16', PAL.ink, 2.0);
+        paint(x, sub([304, 672, 656, 672, 742, 760, 218, 760], 4), 'rgba(163,76,50,.55)', 'rgba(201,162,74,.45)', 2.4);
+        for (let i = 0; i < 4; i++) paintLine(x, [318 + i * 6, 686 + i * 20, 250 + i * 10, 730 + i * 8], 'rgba(201,162,74,.22)', 1.2, .7);
+        wash(x, 0, 640, W, 100, [[0, '#4a2a1e'], [1, '#2a1712']]);
+        for (let i = 0; i < 6; i++) paintLine(x, [-20, 650 + i * 14, 980, 646 + i * 14], 'rgba(20,12,8,.20)', 1.2, .8);
+        for (const cx2 of [92, 868]) {
+          paint(x, [cx2 - 34, 44, cx2 + 34, 44, cx2 + 40, 680, cx2 - 40, 680], '#8a3a2c', PAL.ink, 3.0);
+          paint(x, [cx2 - 22, 52, cx2 - 16, 672], 'rgba(216,165,63,.30)', null, 0, 1);
+          for (const cy2 of [150, 380, 610]) paint(x, [cx2 - 40, cy2, cx2 + 40, cy2, cx2 + 40, cy2 + 14, cx2 - 40, cy2 + 14], '#c9a24a', rgba(PAL.ink, .6), 1.2);
+          paint(x, [cx2 - 48, 30, cx2 + 48, 30, cx2 + 48, 54, cx2 - 48, 54], '#5a3524', PAL.ink, 2.2);
+        }
+        for (const lx2 of [214, 746]) {
+          paintLine(x, [lx2, 44, lx2, 268], '#3a2a1e', 2.0, .9);
+          paint(x, pEll(lx2, 306, 36, 44, 0, TAU, 20), 'rgba(216,120,60,.55)', 'rgba(201,162,74,.8)', 2.4);
+          paint(x, pEll(lx2, 306, 24, 32, 0, TAU, 18), 'rgba(255,214,140,.35)', null, 0, 1);
+          for (let i = 0; i < 6; i++) paintLine(x, [lx2 - 34 + i * 14, 270, lx2 - 34 + i * 14, 342], 'rgba(201,162,74,.35)', 1.0, .7);
+          paintLine(x, [lx2, 348, lx2, 374], '#c9a24a', 2.0, .9);
+        }
+        paintedFigure(x, 316, 706, 152, 'rgba(38,20,16,.92)', 1);
+        paintedFigure(x, 376, 698, 136, 'rgba(46,26,20,.9)', 3);
+        paintedFigure(x, 604, 700, 136, 'rgba(46,26,20,.9)', 0);
+        paintedFigure(x, 664, 708, 150, 'rgba(38,20,16,.92)', 4);
+        const sh = x.createLinearGradient(480, 30, 480, 640);
+        sh.addColorStop(0, 'rgba(255,214,140,.10)'); sh.addColorStop(1, 'rgba(255,214,140,0)');
+        x.fillStyle = sh; x.fillRect(250, 20, 460, 640);
+        dots(x, 0, 0, W, H, 460, PAL.ink, 0.045, 0.3, 1.1);
+      }, 0.09);
+      contactShadow(480, 646, 0.50, 0.32);
+      castShadow(480, 646, 0.50, 0.14, 0.12);
+      sideA(2, 480, 646, 0.50, castOpts({ act: 'point', actT: 1.4, expr: 'stern', seed: 3, light: -100 }));
+      // 近景朱柱剪影压边：大殿的进深
+      inkFill(sub([0, 0, 58, 0, 86, 720, 0, 720], 4), 'rgba(40,16,12,.86)');
+      inkFill(sub([960, 0, 902, 0, 874, 720, 960, 720], 4), 'rgba(40,16,12,.86)');
+      inkFill(sub([0, 720, 960, 720, 960, 660, 0, 690], 4), 'rgba(30,14,10,.55)');
+      for (let i = 0; i < 10; i++) {
+        const px = 180 + ((i * 149 + t * 5) % 620), py = 200 + ((i * 97 + t * 4) % 380);
+        inkFill(pEll(px, py, 1.2, 1.2, 0, TAU, 6), `rgba(255,224,160,${0.10 + 0.05 * Math.sin(t + i)})`);
+      }
+    };
+
+    /* =========================================================
+       7 · 李煜叹愁
+       ========================================================= */
+    const scene7 = (t) => {
+      plateDraw('s7', (x) => {
+        // ── 窗外江南：雨中远山、江面、镇魔塔 ──
+        wash(x, 0, 0, W, 560, [[0, '#3e6068'], [0.28, '#5c838c'], [0.56, '#87a49e'], [0.84, '#b3bfa8'], [1, '#c2c8ae']]);
+        for (let i = 0; i < 6; i++) {
+          const cy = 14 + i * 74;
+          paint(x, sub([-40, cy, 160, cy - 14, 380, cy + 6, 600, cy - 10, 820, cy + 4, 1000, cy - 8, 1000, cy + 30, 820, cy + 22, 600, cy + 34, 380, cy + 22, 160, cy + 28, -40, cy + 24], 5), i % 2 ? 'rgba(24,44,50,.16)' : 'rgba(226,235,220,.07)', null, 0, 1);
+        }
+        paint(x, sub([-40, 398, 90, 340, 210, 366, 330, 322, 470, 360, 590, 326, 720, 362, 860, 334, 1000, 360, 1000, 474, -40, 474], 5), 'rgba(104,132,130,.62)', null, 0, 1);
+        paint(x, sub([-40, 434, 110, 396, 260, 418, 400, 382, 540, 414, 700, 386, 850, 416, 1000, 392, 1000, 474, -40, 474], 5), 'rgba(68,96,100,.82)', null, 0, 1);
+        paint(x, sub([-40, 464, 120, 440, 300, 458, 460, 436, 620, 456, 800, 438, 1000, 460, 1000, 504, -40, 504], 4), 'rgba(44,70,76,.92)', null, 0, 1);
+        paint(x, [-40, 498, 1000, 498, 1000, 544, -40, 544], 'rgba(90,122,126,.6)', null, 0, 1);
+        for (let i = 0; i < 8; i++) paintLine(x, [-40, 510 + i * 5, 1000, 507 + i * 5], 'rgba(210,226,216,.10)', 1.2, .7);
+        pagodaP(x, 690, 498, 0.50, { body: 'rgba(198,184,152,.66)', roof: 'rgba(52,54,48,.78)', mound: 'rgba(90,122,126,.62)' });
+        // 窗外枫枝：雨里唯一的暖色
+        paintLine(x, [-40, 300, 60, 276, 140, 286, 214, 262], '#3a2a22', 8.5, .95);
+        paintLine(x, [60, 276, 96, 226, 118, 178], '#3a2a22', 4.2, .9);
+        paintLine(x, [140, 286, 186, 318, 218, 356], '#3a2a22', 3.6, .9);
+        for (const [cx2, cy2, rx2, ry2] of [[112, 176, 58, 34], [52, 262, 54, 30], [196, 292, 46, 26], [20, 326, 62, 30]]) {
+          for (let i = 0; i < 9; i++) blob(x, cx2 + rr(-rx2, rx2), cy2 + rr(-ry2, ry2), rr(8, 18), rr(6, 13), 'rgba(126,52,34,.72)', .8, 8);
+          for (let i = 0; i < 12; i++) leaf(x, cx2 + rr(-rx2 * .9, rx2 * .9), cy2 + rr(-ry2 * .9, ry2 * .9), rr(5, 11), rr(7, 15), i % 3 ? '#a8442e' : '#c2703c', 'rgba(40,22,18,.75)', .92);
+        }
+        // 斜雨
+        for (let i = 0; i < 260; i++) {
+          const rx2 = rr(-40, 1000), ry2 = rr(70, 512);
+          paintLine(x, [rx2, ry2, rx2 - 9, ry2 + 32], 'rgba(216,232,226,.16)', 1.0, .85);
+        }
+        // ── 窗框、窗棂（木格长窗：粗棂 + 横档，不能画成玻璃幕墙）──
+        paint(x, [-24, 82, 984, 82, 984, 116, -24, 116], '#4a3524', PAL.ink, 3.0);
+        paint(x, [-24, 500, 984, 500, 984, 536, -24, 536], '#4a3524', PAL.ink, 3.0);
+        // 木棂不是 CAD 线：每根宽窄不一、带微弯、面上有木纹和一侧的暗边
+        for (const mx of [192, 484, 776]) {
+          const w2 = 22 + rr(0, 9), hw = w2 / 2, bow = rr(-3.5, 3.5);
+          paint(x, sub([mx - hw, 108, mx + hw, 108, mx + hw + bow * .45, 510, mx - hw + bow * .45, 510], 4), '#46321f', PAL.ink, 2.2);
+          paint(x, [mx - hw + 4, 116, mx - hw + 3 + bow * .4, 504], 'rgba(201,162,74,.16)', null, 0, 1);
+          paint(x, [mx + hw - 5, 116, mx + hw - 6 + bow * .4, 504], 'rgba(10,7,5,.30)', null, 0, 1);
+          for (let k = 0; k < 3; k++) {
+            const gx2 = mx - hw + 6 + k * (w2 - 12) / 2;
+            paintLine(x, [gx2, 118, gx2 + bow * .4, 502], 'rgba(58,42,28,.26)', 0.9, .8);
+          }
+        }
+        for (const my of [244, 400]) {
+          const hh = 17 + rr(0, 7), bow = rr(-2.5, 2.5);
+          paint(x, sub([-24, my - hh / 2, 984, my - hh / 2 + bow, 984, my + hh / 2 + bow, -24, my + hh / 2], 4), '#46321f', PAL.ink, 2.0);
+          paintLine(x, [-24, my - hh / 2 + 3.5, 984, my - hh / 2 + 3.5 + bow], 'rgba(201,162,74,.14)', 1.4, .8);
+          paintLine(x, [-24, my + hh / 2 - 3, 984, my + hh / 2 - 3 + bow], 'rgba(10,7,5,.26)', 1.2, .8);
+        }
+        // ── 室内顶枋 ──
+        paint(x, [-20, 0, 980, 0, 980, 86, -20, 86], '#1f1912', null, 0, 1);
+        for (let i = 0; i < 13; i++) paint(x, [-30 + i * 80, 60, 20 + i * 80, 60, 20 + i * 80, 86, -30 + i * 80, 86], i % 2 ? '#3a2a1e' : '#2a211a', null, 0, 1);
+        paint(x, sub([-40, 78, 160, 66, 380, 76, 600, 60, 820, 74, 1000, 62, 1000, 92, 820, 84, 600, 90, 380, 86, 160, 80, -40, 92], 5), '#3a2a1e', PAL.ink, 2.2);
+        // ── 室内地面 ──
+        wash(x, 0, 534, W, 186, [[0, '#5f5f4e'], [0.45, '#52523f'], [1, '#33332a']]);
+        paint(x, [-20, 534, 980, 534, 980, 558, -20, 558], '#6a6350', PAL.ink, 2.4);
+        for (let i = 0; i < 8; i++) paintLine(x, [-40, 566 + i * 22, 1000, 562 + i * 22], 'rgba(20,16,12,.22)', 1.4, .8);
+        for (let i = 0; i < 10; i++) { const px2 = -20 + i * 108; paintLine(x, [px2, 558, px2 + (px2 - 480) * 0.16, 720], 'rgba(20,16,12,.18)', 1.2, .7); }
+        for (let i = 0; i < 5; i++) { const px2 = rr(60, 900), py2 = rr(600, 720); blob(x, px2, py2, rr(30, 80), rr(6, 14), 'rgba(150,160,140,.16)', .5, 9); }
+        dots(x, 0, 0, W, H, 440, PAL.ink, 0.04, 0.3, 1.1);
+      }, 0.09);
+
+      // 人物：凭窗远望
+      contactShadow(360, 706, 0.40, 0.30);
+      castShadow(360, 706, 0.40, 0.16, 0.13);
+      // 宫灯的暖光漫过来：人物背后先铺一层暖，人才站在屋里、不是贴在窗上
+      inkFill(pEll(430, 566, 300, 236, 0, TAU, 44), 'rgba(247,196,106,.055)');
+      inkFill(pEll(560, 470, 230, 180, 0, TAU, 40), 'rgba(247,196,106,.035)');
+      sideA(3, 360, 706, 0.40, castOpts({ act: 'sigh', actT: 1.6, expr: 'sad', seed: 4, light: -70,
+        actPose: { armN: [-34, -118], armF: [6, 10], head: 13, lean: 5 } }),
+        Object.assign({}, OUTFITS[3], { robe: '#7e6f72', jacket: '#6f6266', pants: '#3f383e' }));
+
+      // 近景书案：压右下角，给画面一个前景层次
+      const poly7 = (pts, col, lw = 2.2, sc = 'rgba(18,11,8,.85)') => {
+        const f = pts.flat(); inkFill(f, col); L.L([...f, f[0], f[1]], lw, sc, {});
+      };
+      inkFill([544, 652, 1000, 624, 1000, 666, 544, 694], '#4a3226');
+      L.L([544, 652, 1000, 624], 2.6, 'rgba(20,12,8,.9)', {});
+      L.L([556, 668, 1000, 640], 1.2, 'rgba(24,14,10,.35)', {});
+      L.L([566, 682, 1000, 654], 1.0, 'rgba(24,14,10,.28)', {});
+      L.L([560, 658, 1000, 630], 1.0, 'rgba(168,124,80,.14)', {});
+      inkFill([544, 694, 1000, 666, 1000, 720, 544, 720], '#31201a');
+      L.L([544, 694, 1000, 666], 2.2, 'rgba(12,8,6,.95)', {});
+      L.L([560, 700, 960, 676], 1.4, 'rgba(150,110,70,.22)', {});
+      // 案上：摊开的词稿、笔搁、茶盏
+      poly7([[598, 640], [786, 626], [794, 648], [606, 662]], '#c2b190', 2.0);
+      for (let i = 0; i < 3; i++) L.L([622 + i * 4, 646 - i * 1.2, 690 + i * 6, 640 - i * 1.2], 1.2, 'rgba(48,34,26,.35)', { taper: 0.4 });
+      L.L([700, 638, 736, 634], 2.6, 'rgba(48,34,26,.5)', { taper: 0.3 });
+      poly7([[806, 636], [842, 632], [846, 642], [810, 646]], '#7a6a4a', 1.6);
+      L.L([822, 634, 828, 600, 836, 574], 2.0, '#3a2a1e', { taper: 0.55 });
+      L.L([836, 574, 840, 560], 5.0, '#2a1e16', { taper: 0.2 });
+      poly7([[872, 628], [896, 626], [900, 646], [874, 648]], '#9aa88a', 1.8);
+      inkFill(pEll(886, 628, 14, 4.5, 0, TAU, 14), 'rgba(60,80,60,.55)');
+
+      // 檐下宫灯：右上一点暖
+      L.L([840, 88, 840, 128], 1.8, 'rgba(20,14,10,.9)', {});
+      poly7([[820, 128], [860, 128], [853, 142], [827, 142]], '#3a2a1e', 1.8);
+      inkFill(pEll(840, 176, 30, 34, 0, TAU, 26), 'rgba(178,58,43,.92)');
+      inkFill(pEll(840, 176, 21, 26, 0, TAU, 24), 'rgba(206,96,62,.7)');
+      inkFill(pEll(840, 172, 12, 16, 0, TAU, 20), 'rgba(255,206,132,.55)');
+      L.L([826, 146, 826, 206], 1.4, 'rgba(60,22,16,.5)', {});
+      L.L([854, 146, 854, 206], 1.4, 'rgba(60,22,16,.5)', {});
+      poly7([[832, 208], [848, 208], [846, 218], [834, 218]], '#3a2a1e', 1.4);
+      L.L([840, 218, 840, 236], 2.4, '#8a3a2c', { taper: 0.2 });
+
+      // 窗上飘落的枫叶
+      for (let i = 0; i < 7; i++) {
+        const lx = 110 + ((i * 137 + t * 24) % 620), ly = 150 + ((i * 91 + t * 38) % 330);
+        inkFill(pEll(lx, ly, 5.2, 2.2, t * 0.8 + i, TAU, 10), i % 2 ? 'rgba(168,68,46,.85)' : 'rgba(194,112,60,.8)');
+      }
+      // 窗下雾带
+      for (let i = 0; i < 4; i++) {
+        const mx = 120 + i * 190 + Math.sin(t * 0.4 + i) * 30, my = 470 + (i % 2) * 14;
+        inkFill(pEll(mx, my, 170, 16, 0, TAU, 22), `rgba(210,220,205,${0.05 + 0.012 * (i % 3)})`);
+      }
+      // 灯光在案面的反光
+      inkFill(pEll(846, 636, 46, 10, -0.06, TAU, 18), 'rgba(247,196,106,.10)');
+    };
+
+    /* =========================================================
+       8 · 碑文考据
+       ========================================================= */
+    const scene8 = (t) => {
+      plateDraw('s8', (x) => {
+        wash(x, 0, 0, W, 430, [[0, '#5f8f6e'], [0.5, '#8fb573'], [1, '#c9c98a']]);
+        for (let i = 0; i < 4; i++) {
+          const x0 = 60 + i * 200;
+          const g = x.createLinearGradient(x0, 0, x0 + 120, 600);
+          g.addColorStop(0, 'rgba(255,236,180,.14)'); g.addColorStop(0.6, 'rgba(255,236,180,.05)'); g.addColorStop(1, 'rgba(255,236,180,0)');
+          x.fillStyle = g;
+          x.beginPath(); x.moveTo(x0, 0); x.lineTo(x0 + 64, 0); x.lineTo(x0 + 178, 620); x.lineTo(x0 + 88, 620); x.closePath(); x.fill();
+        }
+        for (let i = 0; i < 64; i++) {
+          const bx2 = rr(-40, 1000), by2 = rr(-46, 226);
+          const col = i % 4 === 0 ? 'rgba(45,82,66,.92)' : i % 3 ? 'rgba(29,58,46,.92)' : 'rgba(21,44,36,.92)';
+          leaf(x, bx2, by2, rr(24, 60), rr(14, 34), col, PAL.inkBlue, .9);
+        }
+        for (let i = 0; i < 18; i++) {
+          const bx2 = rr(0, 960), by2 = rr(110, 200);
+          paintLine(x, [bx2, by2, bx2 + rr(-14, 14), by2 + rr(18, 56)], 'rgba(29,58,46,.85)', 1.6, .8);
+          for (let k = 0; k < 3; k++) leaf(x, bx2 + rr(-12, 12), by2 + rr(8, 56), rr(5, 10), rr(8, 16), 'rgba(29,58,46,.92)', PAL.inkBlue, .82);
+        }
+        for (let i = 0; i < 7; i++) {
+          const bx2 = 20 + i * 150 + (i % 2) * 24, w2 = 13 + (i % 3) * 5;
+          paintLine(x, [bx2, 740, bx2 + (i % 2 ? 10 : -8), 380, bx2 + (i % 2 ? 4 : -14), 60], i % 2 ? '#28382c' : '#22312a', w2, .95);
+          paintLine(x, [bx2 + 6, 300, bx2 + 80, 210, bx2 + 130, 170], '#28382c', w2 * .5, .9);
+        }
+        wash(x, 0, 556, W, 184, [[0, '#4a5a32'], [0.6, '#3d4a2a'], [1, '#2a3220']]);
+        for (let i = 0; i < 26; i++) { const yy = rr(570, 720); dry(x, -40, yy, 1000, yy + rr(-3, 3), rr(5, 12), '#2a3220', 3, .12); }
+        dots(x, 0, 560, 960, 180, 600, PAL.ochre3, 0.08, 0.4, 1.4);
+        const stx = 664, sty = 700;
+        paint(x, sub([stx - 96, sty, stx + 96, sty, stx + 84, sty - 18, stx - 84, sty - 18], 4), '#6b6b58', PAL.ink, 2.4);
+        paint(x, sub([stx - 78, sty - 18, stx + 78, sty - 18, stx + 70, sty - 26, stx - 70, sty - 26], 4), '#7a7a64', PAL.ink, 2.0);
+        const sg2 = x.createLinearGradient(stx - 60, 0, stx + 60, 0);
+        sg2.addColorStop(0, '#8a8a72'); sg2.addColorStop(0.5, '#9a9a82'); sg2.addColorStop(1, '#75755f');
+        paint(x, [stx - 62, sty - 26, stx + 62, sty - 26, stx + 56, sty - 366, stx - 56, sty - 366], sg2, PAL.ink, 2.6);
+        paint(x, sub([stx - 56, sty - 366, stx + 56, sty - 366, stx + 46, sty - 404, stx + 18, sty - 418, stx - 18, sty - 418, stx - 46, sty - 404], 4), '#8a8a72', PAL.ink, 2.2);
+        x.save(); x.strokeStyle = rgba(PAL.ochre0, .8); x.lineWidth = 2.0;
+        x.beginPath(); x.arc(stx, sty - 388, 22, Math.PI * 0.15, Math.PI * 1.85); x.stroke();
+        x.beginPath(); x.arc(stx - 30, sty - 386, 10, 0, TAU); x.stroke();
+        x.beginPath(); x.arc(stx + 30, sty - 386, 10, 0, TAU); x.stroke(); x.restore();
+        for (let c = 0; c < 6; c++) for (let r = 0; r < 16; r++) {
+          const cx2 = stx - 40 + c * 16, cy2 = sty - 346 + r * 19;
+          if ((c * 7 + r * 3) % 5 === 0) continue;
+          paintLine(x, [cx2 - 5, cy2, cx2 + 5, cy2 - 2, cx2 + 1, cy2 - 10, cx2 + 5, cy2 - 15], rgba(PAL.ink, .5), 1.2, .9);
+          if (rnd() < .5) paintLine(x, [cx2 - 4, cy2 - 6, cx2 + 4, cy2 - 7], rgba(PAL.ink, .4), 1.0, .8);
+        }
+        for (let i = 0; i < 22; i++) crack(x, stx + rr(-56, 56), sty - rr(40, 360), stx + rr(-58, 58), sty - rr(30, 350), 'rgba(45,42,30,.30)', rr(.5, 1.2));
+        for (let i = 0; i < 16; i++) blob(x, stx + rr(-66, 66), sty - rr(0, 70), rr(6, 22), rr(3, 9), PAL.olive1, .25, 8);
+        paint(x, sub([stx - 130, sty - 4, stx - 46, sty - 8, stx - 40, sty + 12, stx - 126, sty + 14], 4), 'rgba(239,227,196,.72)', rgba(PAL.ink, .35), 1.4);
+        for (let i = 0; i < 7; i++) paintLine(x, [stx - 122, sty + 1 + i * 2, stx - 50, sty - 2 + i * 2], 'rgba(42,33,26,.18)', 1.0, .8);
+        paint(x, [stx - 180, sty - 2, stx - 146, sty - 4, stx - 150, sty + 8, stx - 184, sty + 10], '#4a4a40', PAL.ink, 1.6);
+        paintLine(x, [stx - 162, sty - 6, stx - 120, sty - 26], '#6b4a2f', 2.4, .9);
+        paintLine(x, [stx - 122, sty - 26, stx - 112, sty - 30], PAL.ink, 4.0, .8);
+        for (let i = 0; i < 40; i++) { const gx = rr(0, 960), gy = rr(580, 730); paintLine(x, [gx, gy, gx + rr(-6, 6), gy - rr(6, 20)], PAL.olive0, rr(.7, 1.5), .8); }
+        for (let i = 0; i < 12; i++) { const fx = rr(0, 960), fy = rr(600, 720); blob(x, fx, fy, rr(8, 20), rr(3, 7), PAL.olive1, .4, 8); }
+        for (let i = 0; i < 20; i++) { const lx2 = rr(0, 960), ly2 = rr(560, 730); leaf(x, lx2, ly2, rr(3, 6), rr(6, 12), i % 2 ? PAL.rust2 : PAL.ochre3, PAL.inkBlue, .7); }
+        dots(x, 0, 0, W, H, 420, PAL.ink, 0.05, 0.3, 1.1);
+      }, 0.10);
+      contactShadow(436, 742, 0.56, 0.30);
+      castShadow(436, 742, 0.56, 0.18, 0.14);
+      sideA(9, 436, 742, 0.56, castOpts({ act: 'look_down', actT: 1.6, expr: 'sad', seed: 10, light: -120 }));
+      // 近景竹影：墨竹压左缘，碑林才有纵深
+      for (const [bx4, w4] of [[18, 12], [66, 8], [112, 6]]) {
+        L.L([bx4, 740, bx4 + 8, 420, bx4 + 2, 120], w4, 'rgba(12,26,20,.9)', { taper: 0.25 });
+        for (let k = 0; k < 5; k++) L.L([bx4 + 4, 620 - k * 96, bx4 + 52, 592 - k * 96], 2.0, 'rgba(12,26,20,.85)', { taper: 0.5 });
+      }
+      fgGrass(20, 728, 'rgba(20,34,22,.9)', 1.0);
+      for (let i = 0; i < 9; i++) {
+        const lx = 80 + ((i * 61 + t * 9) % 760), ly = 240 + ((i * 47 + t * 7) % 330);
+        inkFill(pEll(lx, ly, 4.4, 2.0, t * 1.1 + i, TAU, 8), i % 2 ? 'rgba(58,90,68,.6)' : 'rgba(127,136,64,.55)');
+      }
+      for (let i = 0; i < 16; i++) {
+        const px = 60 + ((i * 131 + t * 4) % 860), py = 200 + ((i * 71 + t * 6) % 420);
+        inkFill(pEll(px, py, 1.2, 1.2, 0, TAU, 6), `rgba(255,240,190,${0.08 + 0.06 * Math.sin(t * 1.2 + i)})`);
+      }
+      inkFill([0, 0, 220, 0, 280, 720, 0, 720], 'rgba(20,50,44,.10)');
+    };
+
+    /* =========================================================
+       9 · 塔前打坐
+       ========================================================= */
+    // 引擎的 sit 只压低上身、腿是空的，画出来还是站着。这里按同一套平涂+墨线手绘一个真盘坐。
+    const seatedMonk = (cx, gy, s, t = 0) => {
+      const sp = (pts) => { const o = []; for (let i = 0; i < pts.length; i += 2) o.push(cx + pts[i] * s, gy + pts[i + 1] * s); return o; };
+      const ink = '#20160e', ROBE = '#efe3c4', ROBE2 = '#d6c6a0', SK = '#8f5f3a', KAS = '#a8783e';
+      const poly = (pts, col, lw = 2.4, scol = ink) => { inkFill(sp(pts), col); const q = pts.slice(); q.push(pts[0], pts[1]); L.L(sp(q), lw * s, scol, {}); };
+      const stroke = (pts, w, col, o = {}) => L.L(sp(pts), w * s, col, o);
+      const oval = (ex, ey, rx, ry, col, lw = 2.0, scol = ink) => { const p = []; for (let i = 0; i < 28; i++) { const a = i / 28 * TAU; p.push(ex + Math.cos(a) * rx, ey + Math.sin(a) * ry); } poly(p, col, lw, scol); };
+      const disc = (ex, ey, r, col) => { const p = []; for (let i = 0; i < 14; i++) { const a = i / 14 * TAU; p.push(ex + Math.cos(a) * r, ey + Math.sin(a) * r); } inkFill(sp(p), col); };
+      const breathe = Math.sin(t * 0.9) * 1.2;
+      // 接地影
+      inkFill(sp([-104, 3, -94, -8, 94, -8, 104, 3]), 'rgba(28,22,14,.20)');
+      // 盘腿的袍裾（宽而低的土堆形，坐姿的识别点全在这个底座）
+      poly([-102, 0, -98, -22, -66, -46, -22, -56, 22, -56, 66, -46, 98, -22, 102, 0], ROBE, 2.8);
+      stroke([0, -30, -30, -18, -62, -8, -84, 0], 1.8, 'rgba(70,52,32,.55)');
+      stroke([0, -30, 30, -18, 62, -8, 84, 0], 1.8, 'rgba(70,52,32,.55)');
+      stroke([-46, -46, -58, -30, -62, -12], 1.6, 'rgba(70,52,32,.45)');
+      stroke([46, -46, 58, -30, 62, -12], 1.6, 'rgba(70,52,32,.45)');
+      // 远侧手臂（压暗一档）
+      poly([-46, -144 + breathe, -68, -116, -58, -88, -30, -74, -18, -84, -30, -104, -40, -126], ROBE2, 2.2);
+      // 躯干
+      poly([-50, -146 + breathe, -16, -158 + breathe, 16, -158 + breathe, 50, -146 + breathe, 66, -96, 70, -54, -70, -54, -66, -96], ROBE, 2.8);
+      // 袈裟斜披
+      poly([-48, -145 + breathe, -10, -152 + breathe, 18, -146 + breathe, 40, -126, 30, -102, 2, -116, -22, -136], KAS, 2.2);
+      stroke([-30, -134, -6, -122, 18, -112], 1.4, 'rgba(60,38,20,.45)');
+      // 颈
+      poly([-13, -160 + breathe, 13, -160 + breathe, 11, -148, -11, -148], SK, 2.0);
+      // 近侧手臂 + 手
+      poly([48, -146 + breathe, 68, -116, 58, -88, 24, -76, 12, -86, 26, -102, 40, -124], ROBE, 2.4);
+      stroke([44, -132, 56, -116, 50, -100], 1.4, 'rgba(70,52,32,.45)');
+      oval(14, -78, 11, 7.5, SK, 1.8);
+      oval(-1, -79, 9.5, 7, SK, 1.8);
+      stroke([10, -82, 15, -80], 1.2, 'rgba(60,36,20,.6)');
+      // 头
+      oval(0, -190 + breathe, 30, 33, SK, 2.4);
+      oval(0, -206 + breathe, 29, 13, ROBE, 2.0);          // 头巾
+      oval(0, -217 + breathe, 10, 8, ROBE, 2.0);           // 巾顶髻
+      stroke([-28, -198 + breathe, -12, -204 + breathe, 6, -204 + breathe, 24, -198 + breathe], 1.4, 'rgba(90,70,44,.55)');
+      oval(29, -188 + breathe, 6, 9, SK, 1.6);             // 耳
+      // 闭目打坐：降眉 + 两道下弯的闭眼线
+      stroke([-19, -199 + breathe, -9, -201 + breathe], 1.6, ink);
+      stroke([8, -201 + breathe, 18, -199 + breathe], 1.6, ink);
+      stroke([-15, -189 + breathe, -10, -186 + breathe, -5, -189 + breathe], 1.7, ink);
+      stroke([5, -189 + breathe, 10, -186 + breathe, 15, -189 + breathe], 1.7, ink);
+      stroke([2, -188 + breathe, 5, -180 + breathe, 2, -179 + breathe], 1.3, 'rgba(60,36,20,.7)');
+      stroke([-4, -171 + breathe, 2, -172 + breathe, 6, -171 + breathe], 1.5, 'rgba(60,36,20,.8)');
+      // 念珠
+      for (let i = 0; i < 9; i++) {
+        const u = i / 8, bx = -28 + u * 54, by = -140 + Math.sin(u * Math.PI) * 22 + breathe;
+        disc(bx, by, 2.6, '#8a5a34');
+      }
+    };
+
+    const scene9 = (t) => {
+      plateDraw('s9', (x) => {
+        wash(x, 0, 0, W, 470, [[0, '#8fb8b6'], [0.30, '#c2cba6'], [0.58, '#ecd4a0'], [0.80, '#f4e3b8'], [1, '#faf0cf']]);
+        const sx9 = 214, sy9 = 320;
+        let g9 = x.createRadialGradient(sx9, sy9, 8, sx9, sy9, 210);
+        g9.addColorStop(0, 'rgba(255,244,205,.6)'); g9.addColorStop(0.25, 'rgba(248,214,146,.26)'); g9.addColorStop(1, 'rgba(248,214,146,0)');
+        x.fillStyle = g9; x.fillRect(sx9 - 220, sy9 - 220, 440, 440);
+        paint(x, pEll(sx9, sy9, 30, 30, 0, TAU, 32), 'rgba(255,246,212,.95)', rgba(PAL.cream, .4), 1.0);
+        for (let i = 0; i < 5; i++) { const cy = 140 + i * 38; paint(x, sub([-40, cy, 180, cy - 10, 420, cy + 4, 660, cy - 8, 900, cy + 3, 1000, cy - 4, 1000, cy + 20, 900, cy + 15, 660, cy + 22, 420, cy + 11, 180, cy + 17, -40, cy + 13], 5), rgba(PAL.cream, .10 + i * .02), null, 0, 1); }
+        ridgeP(x, warpPts([-40, 452, 60, 430, 140, 414, 220, 404, 292, 412, 356, 428, 420, 440, 486, 430, 552, 412, 616, 400, 682, 410, 744, 426, 806, 436, 868, 424, 930, 406, 976, 398, 1000, 410, 1000, 500, -40, 500], 0.72), {top: '#6a8f82', mid: '#73978a', bot: '#86a795', yTop: 396, yBot: 500, ink: .28, lw: 1.6, dk: '#4e736c', hi: '#cfe0c8', brush: 34, dabs: 12, a: .09, fog: false });
+        for (let i = 0; i < 6; i++) { const mx = 60 + i * 180, my = 500 + (i % 3) * 12; blob(x, mx, my, rr(90, 170), rr(14, 26), 'rgba(239,227,196,.30)', .5, 10); }
+        pagodaP(x, 632, 528, 1.18, { mound: 'rgba(70,90,52,.75)' });
+        // 塔基台面：远处一条石阶，往前铺错缝大石板，越近越暗
+        wash(x, 0, 552, W, 188, [[0, '#8f8b74'], [0.30, '#9a9580'], [0.72, '#83806c'], [1, '#63604f']]);
+        for (let i = 0; i < 3; i++) {
+          const y0 = 552 + i * 9;
+          paint(x, [-40, y0, 1000, y0 - 3, 1000, y0 + 4, -40, y0 + 7], i % 2 ? 'rgba(162,157,134,.34)' : 'rgba(72,68,54,.28)', 'rgba(40,32,24,.32)', 1.3);
+        }
+        for (let r = 0; r < 6; r++) {
+          const y0 = 584 + r * 26 + r * r * 1.2, hh = 24 + r * 3.5, off = (r % 2) * 60;
+          for (let c = -1; c < 8; c++) {
+            const x0 = -50 + c * (104 + r * 6) + off + rr(-6, 6), x1 = x0 + (98 + r * 6) + rr(-8, 8);
+            paint(x, [x0, y0 + rr(-2, 2), x1, y0 + rr(-3, 2), x1 + rr(-4, 4), y0 + hh, x0 - 3, y0 + hh], r % 3 === 1 ? 'rgba(120,118,100,.14)' : 'rgba(158,154,132,.10)', 'rgba(40,32,24,.22)', 1.3);
+          }
+        }
+        for (let i = 0; i < 34; i++) { const gx = rr(-20, 980), gy = rr(580, 724); blob(x, gx, gy, rr(10, 30), rr(2.5, 6), PAL.olive1, .28, 8); }
+        paint(x, sub([556, 564, 706, 564, 470, 726, 196, 726, 300, 656], 3), 'rgba(30,34,26,.16)', null, 0, 1);
+        paint(x, pEll(360, 698, 80, 17, 0, TAU, 26), PAL.rust, rgba(PAL.ink, .5), 2.0);
+        paint(x, pEll(360, 692, 71, 13, 0, TAU, 24), PAL.rust2, null, 0, 1);
+        for (let i = 0; i < 8; i++) { const a = i / 8 * TAU; paintLine(x, [360 + Math.cos(a) * 48, 695 + Math.sin(a) * 9, 360 + Math.cos(a) * 75, 698 + Math.sin(a) * 15], 'rgba(201,162,74,.35)', 1.2, .8); }
+        const ix = 712, iy = 700;
+        paint(x, pEll(ix, iy, 50, 14, 0, TAU, 20), 'rgba(30,22,14,.35)', null, 0, 1);
+        paint(x, [ix - 34, iy - 40, ix + 34, iy - 40, ix + 26, iy, ix - 26, iy], '#7a5a38', PAL.ink, 2.4);
+        paint(x, [ix - 40, iy - 44, ix + 40, iy - 44, ix + 34, iy - 54, ix - 34, iy - 54], '#8f6633', PAL.ink, 2.0);
+        for (let k = 0; k < 3; k++) paintLine(x, [ix - 10 + k * 10, iy - 54, ix - 10 + k * 10, iy - 84], '#5a4028', 1.6, .9);
+        paint(x, pEll(ix, iy - 40, 20, 5, 0, TAU, 14), 'rgba(247,196,106,.35)', null, 0, 1);
+        paint(x, pEll(486, 706, 26, 10, 0, TAU, 18), '#4a3a2c', PAL.ink, 2.0);
+        paint(x, [466, 698, 506, 698, 500, 706, 472, 706], '#6b4a2f', PAL.ink, 1.2);
+        paint(x, pEll(486, 696, 20, 6, 0, TAU, 16), 'rgba(216,165,63,.35)', null, 0, 1);
+        dots(x, 0, 0, W, H, 440, PAL.ink, 0.045, 0.3, 1.1);
+      }, 0.10);
+      seatedMonk(360, 690, 0.66, t);
+      fgGrass(26, 730, 'rgba(26,38,24,.85)', 1.1);
+      fgRock(880, 726, 96, 30, 'rgba(32,40,28,.9)');
+      fgBough(1, -8, 0.8, 'rgba(24,38,28,.9)');
+      for (let k = 0; k < 6; k++) {
+        const yy = 610 - k * 22, xx = 712 + Math.sin(t * 0.9 + k * 0.7) * (3 + k);
+        L.L([xx, yy, xx + 10 + Math.sin(t * 0.8 + k) * 5, yy - 18, xx - 2 + Math.sin(t * 0.7 + k) * 8, yy - 38], 1.6, `rgba(239,227,196,${0.14 - k * 0.018})`, { taper: 0.4 });
+      }
+      lightPool(712, 684, 90, '247,196,106', 0.08);
+      for (let i = 0; i < 4; i++) inkFill(pEll(140 + i * 240, 520 + (i % 2) * 14, 170, 18, 0, TAU, 22), `rgba(239,227,196,${0.05 + 0.01 * (i % 3)})`);
+      for (let i = 0; i < 12; i++) {
+        const px = 100 + ((i * 137 + t * 4) % 800), py = 220 + ((i * 83 + t * 5) % 380);
+        inkFill(pEll(px, py, 1.1, 1.1, 0, TAU, 6), `rgba(255,238,190,${0.09 + 0.05 * Math.sin(t * 1.2 + i)})`);
+      }
+    };
+
+    /* =========================================================
+       10 · 江面摇船
+       ========================================================= */
+    const scene10 = (t) => {
+      plateDraw('s10', (x) => {
+        wash(x, 0, 0, W, 500, [[0, '#9cc0bc'], [0.26, '#c6d0ae'], [0.55, '#e8d2a0'], [0.78, '#f2e0b2'], [1, '#faf0d2']]);
+        const sx10 = 770, sy10 = 150;
+        let g10 = x.createRadialGradient(sx10, sy10, 8, sx10, sy10, 180);
+        g10.addColorStop(0, 'rgba(255,244,205,.5)'); g10.addColorStop(0.3, 'rgba(248,214,146,.20)'); g10.addColorStop(1, 'rgba(248,214,146,0)');
+        x.fillStyle = g10; x.fillRect(sx10 - 190, sy10 - 190, 380, 380);
+        for (let i = 0; i < 4; i++) { const cy = 100 + i * 36; paint(x, sub([-40, cy, 180, cy - 9, 420, cy + 4, 660, cy - 7, 900, cy + 3, 1000, cy - 4, 1000, cy + 18, 900, cy + 14, 660, cy + 21, 420, cy + 10, 180, cy + 15, -40, cy + 11], 5), rgba(PAL.cream, .09 + i * .02), null, 0, 1); }
+        ridgeP(x, warpPts([-40, 414, 70, 392, 150, 378, 232, 368, 306, 376, 372, 392, 438, 404, 506, 394, 572, 376, 638, 364, 704, 374, 768, 390, 832, 400, 896, 388, 950, 372, 988, 364, 1000, 374, 1000, 470, -40, 470], 1.13), {top: '#6a8f82', mid: '#73978a', bot: '#86a795', yTop: 360, yBot: 470, ink: .28, lw: 1.6, dk: '#4e736c', hi: '#cfe0c8', brush: 30, dabs: 10, a: .09, fog: false });
+        paint(x, sub([620, 470, 700, 430, 800, 424, 900, 438, 1000, 462, 1000, 492, 620, 492], 4), '#4f6b44', PAL.ochre0, 2.0);
+        for (let i = 0; i < 12; i++) { const bx2 = rr(660, 990), by2 = rr(434, 470); blob(x, bx2, by2, rr(10, 26), rr(5, 12), i % 2 ? PAL.teal1 : PAL.olive0, .55, 8); }
+        pagodaP(x, 806, 462, 0.62, { mound: 'rgba(79,107,68,.9)' });
+        const bx3 = 180, by3 = 470, br3 = 96;
+        paint(x, pEll(bx3, by3, br3, br3 * .62, PI, TAU, 28), '#8a8a7a', PAL.ink, 2.4);
+        paint(x, [bx3 - br3, by3, bx3 + br3, by3, bx3 + br3, by3 + 22, bx3 - br3, by3 + 22], '#8a8a7a', PAL.ink, 2.0);
+        paint(x, pEll(bx3, by3, br3 * .7, br3 * .44, PI, TAU, 28), 'rgba(63,107,96,.9)', null, 0, 1);
+        paint(x, [bx3 - br3 * .7, by3, bx3 + br3 * .7, by3, bx3 + br3 * .7, by3 + 22, bx3 - br3 * .7, by3 + 22], 'rgba(63,107,96,.9)', null, 0, 1);
+        paint(x, [bx3 - br3 - 10, by3 - 2, bx3 + br3 + 10, by3 - 2, bx3 + br3 + 14, by3 - 14, bx3 - br3 - 14, by3 - 14], '#7a7a64', PAL.ink, 2.0);
+        for (let i = 0; i < 9; i++) paint(x, [bx3 - br3 + i * 24, by3 - 26, bx3 - br3 + 8 + i * 24, by3 - 26, bx3 - br3 + 8 + i * 24, by3 - 12, bx3 - br3 + i * 24, by3 - 12], '#6b6b58', PAL.ink, 1.0);
+        paint(x, [bx3 - br3 - 4, by3 - 30, bx3 + br3 + 4, by3 - 30, bx3 + br3 + 4, by3 - 22, bx3 - br3 - 4, by3 - 22], '#6b6b58', PAL.ink, 1.2);
+        wash(x, 0, 470, W, 270, [[0, '#6b8e8a'], [0.22, '#4c6b72'], [0.6, '#3f6b60'], [1, '#2a4a45']]);
+        for (let i = 0; i < 40; i++) { const yy = 476 + (i * 13) % 258; dry(x, -40, yy, 1000, yy + rr(-2, 2), rr(2, 6), PAL.cream, 3, .08); }
+        for (let i = 0; i < 12; i++) { const yy = 486 + i * 8; paintLine(x, [806 - 22 + (i % 5) * 10, yy, 806 - 14 + (i % 5) * 10, yy + 4], rgba(PAL.ochre3, .18 - i * .012), 2.0, .9); }
+        for (let i = 0; i < 8; i++) { const yy = 480 + i * 6; paintLine(x, [bx3 - 70 + (i % 4) * 24, yy, bx3 - 60 + (i % 4) * 24, yy + 3], 'rgba(201,184,148,.22)', 1.8, .9); }
+        for (let i = 0; i < 30; i++) { const yy = rr(480, 730), xx = rr(0, 960); paintLine(x, [xx, yy, xx + rr(18, 60), yy], rgba(PAL.cream, .12), 1.6, .8); }
+        willowP(x, 44, 30, 1.15);
+        const bty = 640;
+        boatP(x, bty);
+        dots(x, 0, 0, W, H, 280, PAL.ink, 0.030, 0.3, 1.1);
+      }, 0.10);
+      contactShadow(700, 632, 0.46, 0.30);
+      sideA(14, 700, 632, 0.46, castOpts({ act: 'push', actT: 1.5, expr: 'neutral', seed: 15, light: -75 }));
+      L.L([712, 300, 762, 430, 812, 566, 860, 706], 5.2, '#6b4a2f', { taper: 0.12 });
+      L.L([712, 300, 762, 430, 812, 566, 860, 706], 1.6, 'rgba(239,227,196,.22)', { taper: 0.3 });
+      inkFill(pEll(762, 430, 5, 9, -0.4, TAU, 12), 'rgba(42,33,26,.45)');
+      inkFill(pEll(860, 710, 24, 6, 0, TAU, 14), 'rgba(239,227,196,.22)');
+      for (let i = 0; i < 4; i++) inkFill(pEll(860 + i * 6, 714 + i * 6, 26 + i * 8, 5, 0, TAU, 14), `rgba(239,227,196,${0.10 - i * 0.018})`);
+      for (let i = 0; i < 22; i++) {
+        const yy = 480 + ((i * 37 + t * 6) % 250), xx = (i * 61 + t * 8) % 960;
+        inkFill([xx, yy, xx + 26 + (i % 4) * 12, yy], `rgba(239,227,196,${0.05 + (i % 3) * 0.03})`);
+      }
+      bird(300, 176, 0.8); bird(336, 158, 0.6);
+      // 近景芦苇剪影，水面才有前中后三层
+      for (let i = 0; i < 16; i++) {
+        const rx = -10 + i * 15 + rr(-4, 4), rh = rr(90, 190);
+        L.L([rx, 738, rx + rr(-8, 8), 738 - rh * 0.55, rx + rr(-18, 10), 738 - rh], rr(1.6, 3.0), 'rgba(20,30,22,.92)', { taper: 0.45 });
+        if (i % 3 === 0) inkFill(pEll(rx + rr(-10, 6), 738 - rh, 3.2, 9, rr(-0.4, 0.4), TAU, 7), 'rgba(58,44,28,.92)');
+      }
+      fgGrass(18, 734, 'rgba(20,30,22,.85)', 1.0);
+      for (let i = 0; i < 4; i++) inkFill(pEll(180 + i * 240, 466 + (i % 2) * 10, 180, 16, 0, TAU, 22), `rgba(239,227,196,${0.04 + 0.01 * (i % 3)})`);
+    };
+
+    /* ---------------- 一条 10 秒的片子，每秒一张 ---------------- */
+    const SCENES = [scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9, scene10];
+    const CAM = [
+      [480, 360, 1.00], [480, 360, 1.00], [480, 360, 1.02], [480, 352, 1.02], [480, 360, 1.00],
+      [480, 356, 1.00], [480, 366, 1.02], [480, 360, 1.00], [480, 358, 1.00], [480, 360, 1.00],
+    ];
+    G.shot(0, 10, (u, t) => {
+      const i = clamp(Math.floor(t), 0, 9);
+      const c = CAM[i];
+      camPush(c[0], c[1], c[2]);
+      SCENES[i](t - i);
+      L.pop();
+    });
+  },
+});
+</script></body></html>

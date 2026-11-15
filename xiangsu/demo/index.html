@@ -1,0 +1,15 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block;width:1920px;height:1080px}</style>
+</head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script type="module">
+  const ZH = '一群出土的雕像穿着教皇一样衣服却套鱼皮四千年前的苏美尔人管他们叫神但你要问是怎么来的会告诉你位半怪物考古现场衣冠庙波斯湾话0123456789';
+  const EN = 'ANCIENT SUMER EXCAVATION PRIEST KING FISH SKIN TEMPLE OF THE GODS PERSIAN GULF APKALLU 0123456789';
+  await document.fonts.load('12px "Fusion Pixel 12"', ZH + EN);
+  await document.fonts.ready;
+  await import('./film.js');
+  window.__ready = true;
+</script>
+</body></html>

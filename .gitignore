@@ -1,0 +1,264 @@
+# 依赖与虚拟环境
+node_modules/
+.venv/
+venv/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Remotion 与构建缓存
+.remotion/
+zhidiao/.hyperframes/
+
+# 可重新生成的大体积成片
+out/**/*.mp4
+projects/*/work/out/*.mp4
+zhidiao/renders/
+zhidiao/output/
+zhidiao/**/*.mp3
+zhidiao/**/*.wav
+zhidiao/**/*.mp4
+zhidiao/**/*.mov
+zhidiao/**/*.mkv
+zhidiao/**/*.webm
+
+# zhidiao 外部运行时与大模型
+zhidiao/vendor/
+
+# tuiyan 成片与可再生成中间产物（发布信息/封面/分镜表保留入库）
+tuiyan/content/**/视频输出/
+tuiyan/content/**/*.mp4
+tuiyan/content/**/*.mov
+tuiyan/content/**/*.mkv
+tuiyan/content/**/*.webm
+tuiyan/content/**/*.mp3
+tuiyan/content/**/*.wav
+tuiyan/vendor/battlefield-editor/docs/screenshots/
+tuiyan/vendor/battlefield-editor/tools/render-out/
+
+# jilupian 成片与可再生成产物（代码与配置入库；配音/模型/字体不入库见 MIGRATION）
+jilupian/output/
+jilupian/**/成片.mp4
+jilupian/config.local.yaml
+
+# xuni/shiliang/xianshiqi/dengju 渲染产物与再生成输出（工程输入 cue/页面/字体入库）
+xuni/projects/*/out/
+xuni/projects/*/frames/
+xuni/projects/*/audio/
+xuni/projects/*/*.wav
+shiliang/projects/*/out/
+shiliang/projects/*/frames/
+shiliang/projects/*/audio/
+shiliang/projects/*/*.wav
+xianshiqi/projects/*/out/
+xianshiqi/projects/*/frames/
+xianshiqi/projects/*/audio/
+xianshiqi/projects/*/*.wav
+dengju/projects/*/out/
+dengju/projects/*/frames/
+dengju/projects/*/audio/
+dengju/projects/*/*.wav
+
+# huixingzhen/shuimo 渲染产物与再生成输出（工程输入 cue/页面/字体入库）
+huixingzhen/projects/*/out/
+huixingzhen/projects/*/frames/
+huixingzhen/projects/*/audio/
+huixingzhen/projects/*/*.wav
+shuimo/projects/*/out/
+shuimo/projects/*/frames/
+shuimo/projects/*/audio/
+shuimo/projects/*/*.wav
+
+# jianying 渲染产物
+jianying/template/out/
+jianying/projects/*/work/out/*.mp4
+jianying/projects/*/out/*.mp4
+
+# shouhui 可重新生成的中间产物
+shouhui/projects/*/out/stills/
+shouhui/projects/*/out/check_*.png
+shouhui/projects/*/assets/vid/
+
+# 工作区内部数据和临时文件
+.workbuddy/
+.tmp/
+*.log
+Thumbs.db
+.DS_Store
+
+# peiyin 本地环境与大体积内容（权重/音色/运行时由 scripts/setup.ps1 引导下载，见 peiyin/MIGRATION.md）
+peiyin/GPT-SoVITS/.venv/
+peiyin/GPT-SoVITS/.cache/
+peiyin/GPT-SoVITS/runtime/
+peiyin/GPT-SoVITS/logs/
+peiyin/GPT-SoVITS/voices/
+peiyin/GPT-SoVITS/tts_server.log
+peiyin/GPT-SoVITS/GPT_SoVITS/pretrained_models/
+peiyin/GPT-SoVITS/GPT_SoVITS/text/G2PWModel/
+peiyin/GPT-SoVITS/GPT_SoVITS/text/ja_userdic/
+peiyin/GPT-SoVITS/TEMP/
+
+# chengshi（城市年轮）渲染产物与再生成输出（数据/脚本入库；字体、成片、音轨不入库）
+chengshi/render/out/
+chengshi/template/out/
+chengshi/render/public/fonts/
+chengshi/template/public/
+projects/suzhou/out/
+projects/suzhou/**/*.mp4
+projects/suzhou/**/*.mov
+projects/suzhou/**/*.wav
+projects/suzhou/**/*.m4a
+
+# 本地凭据
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+
+# map 渲染产物与再生成输出（工程代码/贴纸/时间轴入库；音频与成片不入库）
+map/projects/*/out/
+map/projects/*/review/
+map/projects/*/frames/
+map/projects/*/audio/*.wav
+map/projects/*/audio/*.m4a
+map/projects/*/review$n.png
+
+# goldenage/manga/tapestry/pencil/isometric/parable/shadow/blueprint 八组 BB-Video 风格管线
+# 工程内的运行时副本、配音、抽帧与成片都可重新生成，不入库；template 只保留代码/文案/分镜/参数
+goldenage/template/out/
+goldenage/template/audio/
+goldenage/template/review/
+goldenage/template/lib/
+goldenage/projects/*/out/
+goldenage/projects/*/audio/
+goldenage/projects/*/review/
+goldenage/projects/*/lib/
+manga/template/out/
+manga/template/audio/
+manga/template/review/
+manga/template/lib/
+manga/projects/*/out/
+manga/projects/*/audio/
+manga/projects/*/review/
+manga/projects/*/lib/
+tapestry/template/out/
+tapestry/template/audio/
+tapestry/template/review/
+tapestry/template/lib/
+tapestry/projects/*/out/
+tapestry/projects/*/audio/
+tapestry/projects/*/review/
+tapestry/projects/*/lib/
+pencil/template/out/
+pencil/template/audio/
+pencil/template/review/
+pencil/template/lib/
+pencil/projects/*/out/
+pencil/projects/*/audio/
+pencil/projects/*/review/
+pencil/projects/*/lib/
+isometric/template/out/
+isometric/template/audio/
+isometric/template/review/
+isometric/template/lib/
+isometric/projects/*/out/
+isometric/projects/*/audio/
+isometric/projects/*/review/
+isometric/projects/*/lib/
+parable/template/out/
+parable/template/audio/
+parable/template/review/
+parable/template/lib/
+parable/projects/*/out/
+parable/projects/*/audio/
+parable/projects/*/review/
+parable/projects/*/lib/
+goldenage/projects/*/*.wav
+manga/projects/*/*.wav
+tapestry/projects/*/*.wav
+pencil/projects/*/*.wav
+isometric/projects/*/*.wav
+parable/projects/*/*.wav
+shadow/template/out/
+shadow/template/audio/
+shadow/template/review/
+shadow/template/lib/
+shadow/projects/*/out/
+shadow/projects/*/audio/
+shadow/projects/*/review/
+shadow/projects/*/lib/
+shadow/projects/*/*.wav
+blueprint/template/out/
+blueprint/template/audio/
+blueprint/template/review/
+blueprint/template/lib/
+blueprint/projects/*/out/
+blueprint/projects/*/audio/
+blueprint/projects/*/review/
+blueprint/projects/*/lib/
+blueprint/projects/*/*.wav
+
+# laolang（上海美影手绘赛璐璐）工程产物；template/lib/story.js 是项目专属文件，保留入库
+laolang/template/out/
+laolang/template/audio/
+laolang/template/review/
+laolang/projects/*/out/
+laolang/projects/*/audio/
+laolang/projects/*/review/
+laolang/projects/*/lib/
+laolang/projects/*/*.wav
+# 成片与旧交付（单文件 295MB 超 GitHub 上限，可重跑）、审片缩略图不入库
+laolang/out/
+laolang/projects/*/assets/*/_review/
+
+# ditu（立体地图解说）、pingban（平板速写）、caiqian（彩铅科普插画）的工程产物
+# 项目内 lib/（three）、fonts/、glyphs.json 随工程入库，不忽略
+ditu/projects/*/out/
+ditu/projects/*/voice/*.wav
+pingban/projects/*/out/
+pingban/projects/*/voice/*.wav
+caiqian/projects/*/out/
+caiqian/projects/*/voice/*.wav
+caiqian/projects/*/fonts/src/
+
+# shipai（实拍素材口播竖屏短片）工程产物：配音/切段/素材/底片/成片/日志都可重新生成
+# 只保留 project.json、script.txt、timeline.json、materials/*.json
+shipai/projects/*/voice.wav
+shipai/projects/*/audio/
+shipai/projects/*/logs/
+shipai/projects/*/subs/
+shipai/projects/*/materials/*.mp4
+shipai/projects/*/materials/*.mov
+shipai/projects/*/base-*.mp4
+shipai/projects/*/final-*.mp4
+shipai/projects/*/*.log
+
+# lvdong（剪影律动）工程产物：配音/成片/母版/抽查帧/封面/字体都能重新生成
+# 进库的是 project.json、script.txt、score.json、cues.json、treatment.md、index.html、film.js、cast.js、voice/words_full.json
+lvdong/projects/*/voice/*.wav
+lvdong/projects/*/out/
+lvdong/projects/*/stills/
+lvdong/projects/*/poster.jpg
+lvdong/projects/*/*.mp4
+lvdong/assets/fonts/
+
+# tianshu（天书本地大模型出片）：只入库脚本/文档/参数与 work 里的作业单
+# 底图、片段、纹理层、成片、交付包都能重跑出来，且单工程 40 MB 起
+tianshu/projects/_*/
+tianshu/projects/*/plates/
+tianshu/projects/*/post/
+tianshu/projects/*/i2v/
+tianshu/projects/*/anchored/
+tianshu/projects/*/cam/
+tianshu/projects/*/out/
+tianshu/projects/*/publish/
+tianshu/projects/*/logs/
+tianshu/projects/*/source/*.wav
+tianshu/projects/*/work/state_*.json
+tianshu/projects/*/work/texture/
+tianshu/projects/*/work/wf_*.json

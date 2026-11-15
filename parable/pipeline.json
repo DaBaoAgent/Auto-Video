@@ -1,0 +1,78 @@
+{
+  "version": "2026-11-09",
+  "pipeline": "parable",
+  "style": "bb-video/parable",
+  "label": "3D 火柴人寓言",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "logical": "米；默认 box 按画幅分别计算，竖屏优先；elevation 7°，fov 24°"
+  },
+  "duration": {
+    "default": 30,
+    "min": 15,
+    "max": 300
+  },
+  "palette": {
+    "bg": "#000000",
+    "fig": "#F4F4F1",
+    "line": "#0B0B0B",
+    "brick": "#D8CEBD",
+    "brick2": "#CDC1AE",
+    "block": "#D9D6CF",
+    "coin": "#E7B748",
+    "wood": "#B98A5E",
+    "accent": "#E3262B",
+    "text": "#F2F2F0",
+    "muted": "#8C8C88",
+    "reflect": 0.3
+  },
+  "fonts": [
+    "Space Mono 700",
+    "Noto Sans SC 700/900"
+  ],
+  "motion": {
+    "camera": "fixed wide (short form) / slow keyed track (3-min sample)",
+    "elevation_deg": 7,
+    "fov_deg": 24,
+    "overlap_action": true,
+    "cuts": false
+  },
+  "audio": {
+    "bpm": 100,
+    "key": "D minor",
+    "lufs": -16,
+    "true_peak": -1.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "voice_lead_in": 0.7,
+    "tail": 1.2
+  },
+  "render": {
+    "engine": "Chrome DevTools Protocol, frame by frame",
+    "chrome": "CHROME_PATH (Windows: auto-detect Chrome/Edge)",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/",
+    "final": "out/<编号>_<人物>/",
+    "files": [
+      ".mp4",
+      "_封面.png",
+      "_字幕.srt",
+      "_署名.txt"
+    ],
+    "qa": "review/qa.json"
+  },
+  "sample": {
+    "name": "阿努纳奇 · 第一段",
+    "duration": "3 分钟样片 178.3 s / 1280×720 / 30 fps；短寓言 15–45 s",
+    "path": "template/",
+    "media_committed": false
+  }
+}

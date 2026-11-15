@@ -1,0 +1,93 @@
+{
+  "version": "2026-11-15",
+  "pipeline": "shipai",
+  "label": "实拍素材口播竖屏短片（MoneyPrinterTurbo CLI 驱动）",
+  "one_liner": "现成配音切段 → Pixabay 实拍素材按 id 下载 → MoneyPrinterTurbo CLI 出无字幕底片 → 一行式字幕烧录",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "aspect": "9:16",
+    "codec": "h264 + aac"
+  },
+  "engine": {
+    "name": "MoneyPrinterTurbo",
+    "repo": "https://github.com/harry0703/MoneyPrinterTurbo",
+    "version": "1.3.10",
+    "dir": "D:/@kaifa/MoneyPrinterTurbo",
+    "python": ".venv/Scripts/python.exe",
+    "entry": "cli.py",
+    "n_threads": 4,
+    "env": "PYTHONPATH 必须指向 MPT 目录；SHIPAI_MPT 可改路径",
+    "config": "config.toml 只对 API/WebUI 生效；CLI 的 --video-source 默认 pexels，必须显式传 local"
+  },
+  "vo": {
+    "asr": "faster-whisper",
+    "model": "large-v3-turbo",
+    "device": "cpu",
+    "compute_type": "int8",
+    "language": "zh",
+    "align": "口播稿字 ↔ 转写字 编辑距离对齐；漏读/多读自动跳过",
+    "cut": "段首前 0.05 s 起，段尾补 0.30 s，且不越过下一段起点前 0.08 s"
+  },
+  "materials": {
+    "source": "pixabay",
+    "api": "https://pixabay.com/api/videos/",
+    "ua": "必须带浏览器 User-Agent，否则 403",
+    "proxy": "读 SHIPAI_PROXY（如 http://127.0.0.1:15715）",
+    "policy": "先 search 出候选 → 人眼挑 → 按 id download；顺序即拼接顺序",
+    "clip_seconds": 4,
+    "concat": "sequential",
+    "no_random_shuffle": "MPT 默认 random.shuffle，必须 --video-concat-mode sequential"
+  },
+  "captions": {
+    "line": "single",
+    "break_at": "punctuation",
+    "punctuation": "hidden",
+    "font": "MicrosoftYaHeiBold.ttc",
+    "size": 60,
+    "min_size": 44,
+    "max_width": "0.91 × 画面宽",
+    "y_ratio": 0.73,
+    "stroke": 2,
+    "stroke_color": "#000000",
+    "fill": "#FFFFFF",
+    "shadow": { "alpha": 0.15, "offset": 2 },
+    "timing": "clauses 首尾相接，时间来自 timeline.json（真实配音字时间），不按字数均分"
+  },
+  "audio": {
+    "source": "user_voice",
+    "bgm": "none",
+    "sample_rate": 44100,
+    "channels": 1,
+    "note": "自定义音频 + --no-subtitle-enabled 时 MPT 会跳过自己的字幕链，字幕由 captions.py 烧"
+  },
+  "not_packaged": [
+    "WebUI / Streamlit 界面",
+    "API 服务（8080）与 start.bat",
+    "Edge TTS 合成（本管线只吃现成配音）",
+    "LLM 生成口播稿（稿子由人/peiyin 提供）",
+    "Pexels 分支与 pexels key",
+    "MPT 自带字幕链（whisper/edge），字幕另行烧录",
+    "fengmian 封面与发布信息（本次没用）",
+    "BGM 与音效"
+  ],
+  "project_layout": {
+    "root": "projects/<名字>/",
+    "files": [
+      "project.json（片名/段号/关键词/素材 id/拼接参数）",
+      "script.txt（口播稿）",
+      "voice.wav（原配音，不入库）",
+      "audio/seg-NN.wav（切出来的段，不入库）",
+      "timeline.json（段落边界 + 逐句时间）",
+      "materials/（pixabay 素材与 materials.json，不入库）",
+      "base-9x16.mp4（无字幕底片，不入库）",
+      "final-9x16.mp4（成片，不入库）",
+      "logs/base.log（CLI 原始输出，不入库）"
+    ]
+  },
+  "qa": {
+    "probe": "1080×1920 / 有音轨 / 时长≈切段（±1 s）/ 字幕时间轴单调",
+    "manual": "抽帧看字幕位置与描边（0.8 / 3.6 / 10.5 / 13.2 s 四个点）"
+  }
+}

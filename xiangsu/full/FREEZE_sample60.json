@@ -1,0 +1,84 @@
+{
+  "pipeline": "xiangsu2",
+  "project": "001_波斯湾伊甸园 · 第一分钟审核样片",
+  "frozen_at": "2026-10-29",
+  "approved_by": "宝哥（对话中确认「挺好的，固化一下，然后跑全片」）",
+  "note": "第一分钟（0–60.9 s，1827 帧）审核样片冻结。按宝哥要求：白点减速减量、连续动作元素改预烘焙 sprite 表复用、静态元素像素细化、新增整数像素机位微呼吸（仅 t ≥ 10.10 s，避开片头七个海湾镜头）。xiangsu2/FREEZE.json 与 full/FREEZE_full.json 均未覆盖，本条为新增记录。",
+  "spec": {
+    "framebuffer": [640, 360],
+    "upscale": "3x nearest-neighbour",
+    "output": [1920, 1080],
+    "fps": 30,
+    "frames": 1827,
+    "duration_s": 60.9,
+    "video": "h264 high / yuv420p / bt709 tv / crf 14 / preset slow / aq-mode=3",
+    "audio": "aac (~259 kbps) / 48000 Hz / 2ch",
+    "crt": {
+      "scanline": "rgba(0,0,0,0.12), 1px dark line every 3px, generated at output resolution",
+      "vignette": "radial 0 -> 0.48 alpha, 0.38R -> 0.95R",
+      "phosphor": "overlay rgba(120,255,200,0.02)"
+    }
+  },
+  "changes_vs_rev2": {
+    "dust": "100 颗快速微尘（52–98 px/s）→ 40 颗慢速微尘（横向 14–29 px/s，正弦纵向浮动幅度收窄），按落点亮度反向描点，字幕带（y ≥ 304）不落点",
+    "sprite_tables": "连续动作元素全部预烘焙帧表复用：酒馆日冕与横梁（34 帧）、天花板梁、陶罐组、陶罐鱼纹、船、磁石、鱼群（FISH_FRAMES）等，离线画帧后运行时按时间选帧 blit",
+    "static_refinement": "静态元素像素细化：书架书脊分色与书缝、地层剖面陶片/炭屑夹杂、雕像明暗过渡、卡片边框等",
+    "camera_breathing": "整数像素三角波慢漂替代快尘动感：dx = round(2.5·tri(t+0.30, 4.0))，dy = round(2.0·tri(t+1.70, 3.0))，每 0.4 s 必走 1 px，±2~3 px；t < CUTS[6]（10.10 s）的七个海湾镜头不叠加（原带手持抖动+推轨）；字幕与微尘不参与位移",
+    "content_motion": "新增三处内容动效：人鱼潜回后的水面涟漪与气泡（shot08，10.10–16.70 s）、标题卡 3 条游动鱼群且光斑跟随领头鱼（shot10，16.70–19.84 s）、油灯与光晕缓慢摆动（shot11，26.88–31.06 s）"
+  },
+  "sources": {
+    "full/assemble.mjs": "90f4b0adcf8c738107521f6fa3c44a55178561e15f928d1f3ffb6aeae4541245",
+    "full/make_audio.sh": "1914a6488ccf24f80494b5a01faf497d5386475cf357b508cc812637c0ef4943",
+    "full/audio.py": "06fbb53bf0c54dfa533d853629bd6f5acc42452db882e2675d45cf18337b356a",
+    "full/index.html": "7d879a045aa4b9aa31e71ff96f9d6f0829f05f72f73230f337c47b3f331d7320",
+    "full/cues.json": "e05a34aaff77f1476be327e748547550d7d308923ad51587aef321bf961c15e1",
+    "full/parts/00-util.js": "1cac97e7ec8514567c3cceacfc24b86e5926f5ffccf9e44a0c203fa414d1646c",
+    "full/parts/05-spr.js": "725bb10715c5588af3ec538169718d18dc37d9791f55297e1006f44a8ad12dc3",
+    "full/parts/10-shots-1.js": "ec7c44833a36f8058558aa32160475ff1301cfc808d2514554762a9ce47dcd15",
+    "full/parts/20-shots-2.js": "f6c137288550047da530b650e3e578d0b1eea930bbc020703a4dfdfc1a20ed14",
+    "full/parts/30-shots-3.js": "1e42bc48794991d0960f7849510a206e856ca2c6c974da650046bd317d2a559a",
+    "full/parts/40-shots-4.js": "4ce39e63dac1daa911e8f70800f81e0fe9096edb733042f185f0a6a2eb789744",
+    "full/parts/50-shots-5.js": "b49365d9a5ae8ec57851893ab4d6280e8a0b78a16147af55baef9478d1078178",
+    "full/parts/90-tail.js": "02ac503a89d518689c744496f46e28aa84a11dce5d5a1ce51601dd71134f51c9",
+    "demo/film.js (head, 未改)": "0a6d7f5847822e6a336b676f046822fe21f7656ae845ba4007c8f4aee638ce64",
+    "demo/sprites.js (未改)": "ef19041da186ff4bffcda46cc1d64fd63e343187f8a5218b1429ae32cbb4475f",
+    "verify.mjs": "25adc08c914e5e6c389e1ce2ed3cdb3a12f369277b03c40cccdc41389d07305a",
+    "harness/render.mjs (mg-styles-15)": "606ccd06511643e649f6da4b5d057e409c209bf31b1ef69d06977e77947eb127",
+    "built demos/xiangsu2-eden-full/film.js": "6dad591a7edac078c92463f39d24bf715ffc7ce2ce1883f364fedc8ddd526d32"
+  },
+  "audio": {
+    "audio.wav": "0f06c2bdffb3e0d918b6ee4d89b5e42e523345b1d18e324f3f6730e9e536d39f",
+    "reuse": "与 rev2 全片音轨逐字节一致，样片直接复用 full/out/audio.wav；mix = voice + bed*0.20，两遍 loudnorm",
+    "loudness": { "integrated_lufs": -16.02, "true_peak_dbtp": -1.41, "lra_lu": 1.50 }
+  },
+  "deliverable": {
+    "path": "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/样片_第一分钟_1920x1080.mp4",
+    "bytes": 52794270,
+    "sha256": "1d727d50ca57e8260824354b0a493046fd0d7c0ff0cef248f5a1ad0b43c59c5e",
+    "ffprobe": "1920x1080 h264/yuv420p 30fps 1827f 60.900s (~6.93 Mbps); aac 48000 Hz 2ch (~259 kbps)"
+  },
+  "verification": {
+    "loudness": "PASS  I=-16.02 LUFS · TP=-1.41 dBTP · LRA=1.50 LU",
+    "density": {
+      "result": "PASS",
+      "note": "全部 2 s 窗口 ≥1% 动效点；最长无有效变化段 0.37 s（起点 15.40 s，判据 <0.6 s）；静默段合计见表",
+      "windows_ge_1pct": "0–2s 33/60 · 2–4s 32/60 · 4–6s 27/60 · 6–8s 19/60 · 8–10s 44/60 · 10–12s 35/60 · 12–14s 26/60 · 14–16s 27/60 · 16–18s 32/60 · 18–20s 20/60 · 20–22s 13/60 · 22–24s 27/60 · 24–26s 14/60 · 26–28s 13/60 · 28–30s 21/60 · 30–32s 21/60 · 32–34s 16/60 · 34–36s 60/60 · 36–38s 46/60 · 38–40s 17/60 · 40–42s 15/60 · 42–44s 16/60 · 44–46s 25/60 · 46–48s 15/60 · 48–50s 15/60 · 50–52s 24/60 · 52–54s 54/60 · 54–56s 49/60 · 56–58s 29/60 · 58–60s 16/60 · 60–62s 6/26",
+      "longest_static_s": 0.37
+    },
+    "pixel_density": {
+      "result": "PASS",
+      "frames": {
+        "t=2.30": { "inner_col_mad": 0.34, "edge_col_mad": 4.18, "recon_mean": 0.57, "gt12_frac_pct": 0.718 },
+        "t=4.60": { "inner_col_mad": 0.57, "edge_col_mad": 7.98, "recon_mean": 0.92, "gt12_frac_pct": 0.834 },
+        "t=7.30": { "inner_col_mad": 0.94, "edge_col_mad": 10.43, "recon_mean": 1.35, "gt12_frac_pct": 0.896 }
+      }
+    },
+    "spec": {
+      "result": "FAIL (by design)",
+      "explanation": "verify.mjs 的规格卡按 10 s / 300 帧样片口径校验；本片为 60.9 s / 1827 帧审核样片，其余规格（1920×1080 / 30 fps / h264 yuv420p / AAC 48k 2ch）全部符合。"
+    },
+    "grid_spot_checks_busy_shots": {
+      "note": "漂移区浓光晕/抖动场景（t=20.5/33.8/45.2/55.6）的 >12 级指标 1.49%–3.98%，为 x264 对大面积抖动的固有噪声，不是栅格错位：块内列差 0.49–1.37（阈值 2.5），跨块远高于块内。同段关闭漂移的对照渲染 t=0.9/1.3 实测 4.69%（更差），证明与机位微呼吸无关。"
+    }
+  }
+}

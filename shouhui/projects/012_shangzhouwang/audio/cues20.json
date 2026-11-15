@@ -1,0 +1,140 @@
+{
+  "cues": [
+    {
+      "type": "thud",
+      "t": 0.55,
+      "gain": 1.0,
+      "f": 92,
+      "dur": 0.3
+    },
+    {
+      "type": "brush",
+      "t": 0.72,
+      "gain": 0.3,
+      "dur": 1.15,
+      "rate": 0.55
+    },
+    {
+      "type": "brush",
+      "t": 1.85,
+      "gain": 0.3,
+      "dur": 0.8,
+      "rate": 0.62
+    },
+    {
+      "type": "pop",
+      "t": 2.62,
+      "gain": 0.46,
+      "f": 700,
+      "dur": 0.13
+    },
+    {
+      "type": "pop",
+      "t": 2.9,
+      "gain": 0.3,
+      "f": 980,
+      "dur": 0.11
+    },
+    {
+      "type": "brush",
+      "t": 3.1,
+      "gain": 0.22,
+      "dur": 0.34,
+      "rate": 1.1
+    },
+    {
+      "type": "whoosh",
+      "t": 3.6,
+      "gain": 0.55,
+      "dur": 0.26
+    },
+    {
+      "type": "brush",
+      "t": 3.95,
+      "gain": 0.34,
+      "dur": 1.1,
+      "rate": 0.4
+    },
+    {
+      "type": "brush",
+      "t": 5.55,
+      "gain": 0.16,
+      "dur": 1.2,
+      "rate": 0.25
+    },
+    {
+      "type": "pop",
+      "t": 7.86,
+      "gain": 0.42,
+      "f": 180,
+      "dur": 0.16
+    },
+    {
+      "type": "pop",
+      "t": 7.98,
+      "gain": 0.38,
+      "f": 150,
+      "dur": 0.18
+    },
+    {
+      "type": "pop",
+      "t": 8.1,
+      "gain": 0.34,
+      "f": 170,
+      "dur": 0.2
+    },
+    {
+      "type": "brush",
+      "t": 8.65,
+      "gain": 0.3,
+      "dur": 1.4,
+      "rate": 0.7
+    },
+    {
+      "type": "brush",
+      "t": 10.15,
+      "gain": 0.34,
+      "dur": 0.45,
+      "rate": 1.2
+    },
+    {
+      "type": "brush",
+      "t": 11.05,
+      "gain": 0.34,
+      "dur": 0.45,
+      "rate": 1.2
+    },
+    {
+      "type": "whoosh",
+      "t": 12.4,
+      "gain": 0.7,
+      "dur": 0.5
+    },
+    {
+      "type": "crackle",
+      "t": 12.95,
+      "gain": 0.14,
+      "dur": 1.2,
+      "density": 6
+    },
+    {
+      "type": "brush",
+      "t": 16.45,
+      "gain": 0.26,
+      "dur": 1.2,
+      "rate": 0.3
+    },
+    {
+      "type": "whoosh",
+      "t": 17.85,
+      "gain": 0.72,
+      "dur": 0.7
+    },
+    {
+      "type": "flutter",
+      "t": 19.05,
+      "gain": 0.26,
+      "dur": 0.6
+    }
+  ]
+}

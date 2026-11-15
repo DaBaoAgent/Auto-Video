@@ -1,0 +1,91 @@
+{
+  "pipeline": "xiangsu2",
+  "project": "001_波斯湾伊甸园 · 全片",
+  "frozen_at": "2026-10-29 (rev3)",
+  "approved_by": "宝哥（第一分钟审核样片确认后「固化一下，然后跑全片」）",
+  "note": "272 秒全片 rev3：在 rev2 基础上落实宝哥四条要求——白点减速减量、连续动作元素预烘焙 sprite 表复用、静态元素像素细化、整数像素机位微呼吸（替代快尘动感）。rev2 基线与 10 s 样片基线均有独立 FREEZE 记录，本文件为新增条目，未覆盖任何旧哈希。",
+  "spec": {
+    "framebuffer": [640, 360],
+    "upscale": "3x nearest-neighbour",
+    "output": [1920, 1080],
+    "fps": 30,
+    "frames": 8162,
+    "duration_s": 272.05,
+    "video": "h264 high / yuv420p / bt709 tv / crf 14 / preset slow / aq-mode=3",
+    "audio": "aac (~259 kbps) / 48000 Hz / 2ch",
+    "crt": {
+      "scanline": "rgba(0,0,0,0.12), 1px dark line every 3px, generated at output resolution",
+      "vignette": "radial 0 -> 0.48 alpha, 0.38R -> 0.95R",
+      "phosphor": "overlay rgba(120,255,200,0.02)"
+    }
+  },
+  "changes_vs_rev2": {
+    "dust": "100 颗快速微尘（52–98 px/s）→ 40 颗慢速微尘（横向 14–29 px/s），按落点亮度反向描点，字幕带（y ≥ 304）不落点",
+    "sprite_tables": "连续动作元素全部预烘焙帧表复用：酒馆日冕与横梁（34 帧）、天花板梁、陶罐组、陶罐鱼纹、船、磁石、鱼群等，离线画帧后运行时按时间选帧 blit",
+    "static_refinement": "静态元素像素细化：书架书脊分色与书缝、地层剖面陶片/炭屑夹杂、雕像明暗过渡、卡片边框等",
+    "camera_breathing": "整数像素三角波慢漂：dx = round(2.5·tri(t+0.30, 4.0))，dy = round(2.0·tri(t+1.70, 3.0))，每 0.4 s 必走 1 px，±2~3 px；t < CUTS[6]（10.10 s）的七个海湾镜头不叠加；字幕与微尘不参与位移",
+    "content_motion": "人鱼潜水涟漪与气泡（shot08）、标题卡 3 条游动鱼群且光斑跟随领头鱼（shot10）、油灯与光晕缓慢摆动（shot11）",
+    "why_breathing": "快尘减速减量后静置镜头长时间定格，动效密度口径（2 s 内 >1% 且最长静止 <0.6 s）不达标；机位微呼吸只做整数像素位移，不改变构图、不破坏 3× 栅格，是替代快尘的最小改动。"
+  },
+  "sources": {
+    "full/assemble.mjs": "90f4b0adcf8c738107521f6fa3c44a55178561e15f928d1f3ffb6aeae4541245",
+    "full/make_audio.sh": "1914a6488ccf24f80494b5a01faf497d5386475cf357b508cc812637c0ef4943",
+    "full/audio.py": "06fbb53bf0c54dfa533d853629bd6f5acc42452db882e2675d45cf18337b356a",
+    "full/index.html": "7d879a045aa4b9aa31e71ff96f9d6f0829f05f72f73230f337c47b3f331d7320",
+    "full/cues.json": "e05a34aaff77f1476be327e748547550d7d308923ad51587aef321bf961c15e1",
+    "full/verify_full.mjs": "15f22f54e63b39877b33a79f1544345ba2301488ed278c4e2244cd2a087f2770",
+    "full/parts/00-util.js": "1cac97e7ec8514567c3cceacfc24b86e5926f5ffccf9e44a0c203fa414d1646c",
+    "full/parts/05-spr.js": "725bb10715c5588af3ec538169718d18dc37d9791f55297e1006f44a8ad12dc3",
+    "full/parts/10-shots-1.js": "ec7c44833a36f8058558aa32160475ff1301cfc808d2514554762a9ce47dcd15",
+    "full/parts/20-shots-2.js": "f6c137288550047da530b650e3e578d0b1eea930bbc020703a4dfdfc1a20ed14",
+    "full/parts/30-shots-3.js": "1e42bc48794991d0960f7849510a206e856ca2c6c974da650046bd317d2a559a",
+    "full/parts/40-shots-4.js": "4ce39e63dac1daa911e8f70800f81e0fe9096edb733042f185f0a6a2eb789744",
+    "full/parts/50-shots-5.js": "b49365d9a5ae8ec57851893ab4d6280e8a0b78a16147af55baef9478d1078178",
+    "full/parts/90-tail.js": "02ac503a89d518689c744496f46e28aa84a11dce5d5a1ce51601dd71134f51c9",
+    "demo/film.js (head, 未改)": "0a6d7f5847822e6a336b676f046822fe21f7656ae845ba4007c8f4aee638ce64",
+    "demo/sprites.js (未改)": "ef19041da186ff4bffcda46cc1d64fd63e343187f8a5218b1429ae32cbb4475f",
+    "built demos/xiangsu2-eden-full/film.js": "6dad591a7edac078c92463f39d24bf715ffc7ce2ce1883f364fedc8ddd526d32"
+  },
+  "audio": {
+    "audio.wav": "0f06c2bdffb3e0d918b6ee4d89b5e42e523345b1d18e324f3f6730e9e536d39f",
+    "reuse": "与 rev2 逐字节一致（mix = voice + bed*0.20，两遍 loudnorm），全片沿用",
+    "loudness": { "integrated_lufs": -16.02, "true_peak_dbtp": -1.41, "lra_lu": 1.30 }
+  },
+  "deliverable": {
+    "path": "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/全片_波斯湾伊甸园_272秒_1920x1080.mp4",
+    "bytes": 195901830,
+    "sha256": "aaeede5e49c6a2caa724c4f328078f19d0c315d03952486057654bf1062702b5",
+    "ffprobe": "1920x1080 h264/yuv420p 30fps 8162f 272.067s (~5.76 Mbps); aac 48000 Hz 2ch (~259 kbps)",
+    "supersedes": "rev2 母版已备份为 全片_波斯湾伊甸园_272秒_1920x1080_rev2.mp4（136,567,179 B · SHA-256 5325721baa072ec1b3f4e24f776cac68e34e7e7a519aea1746fceb074454e857）"
+  },
+  "verification": {
+    "spec": "PASS  1920×1080 · h264/yuv420p · 30 fps · 8162 帧 · 272.067 s · aac 48000 Hz 2ch",
+    "loudness": "PASS  I=-16.02 LUFS · TP=-1.41 dBTP · LRA=1.30 LU",
+    "density": {
+      "result": "PASS",
+      "note": "每 2 s 窗口均有 >1% 动效点；最长无有效变化段 0.37 s（起点 15.40 s，判据 <0.6 s）。末段 262–264s 平均 0.54% 但仍有 10 帧 >1%，未触发静止段。"
+    },
+    "pixel_density": {
+      "result": "PASS",
+      "criterion": "Y 平面：块内列差 <2.5、跨块更大、Y 还原差 <2.0、>12 级 <1%（RGB 值仅参考，4:2:0 色度抽样固有）",
+      "frames": {
+        "t=2.30": { "inner": 0.34, "edge": 4.18, "y_recon": 0.13, "y_gt12_pct": 0.000, "rgb_recon": 0.57 },
+        "t=45.00": { "inner": 1.10, "edge": 13.89, "y_recon": 0.35, "y_gt12_pct": 0.000, "rgb_recon": 1.56 },
+        "t=77.00": { "inner": 0.87, "edge": 13.04, "y_recon": 0.28, "y_gt12_pct": 0.001, "rgb_recon": 1.25 },
+        "t=120.00": { "inner": 0.57, "edge": 8.35, "y_recon": 0.22, "y_gt12_pct": 0.000, "rgb_recon": 0.84 },
+        "t=175.00": { "inner": 0.86, "edge": 17.75, "y_recon": 0.30, "y_gt12_pct": 0.001, "rgb_recon": 1.14 },
+        "t=220.00": { "inner": 0.95, "edge": 16.87, "y_recon": 0.34, "y_gt12_pct": 0.002, "rgb_recon": 1.38 },
+        "t=267.00": { "inner": 1.39, "edge": 19.73, "y_recon": 0.37, "y_gt12_pct": 0.003, "rgb_recon": 1.75 }
+      }
+    },
+    "conclusion": "PASS 4/4（build_full.sh --no-audio 一键构建，退出码 0）"
+  },
+  "share_copy": {
+    "path": "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/全片_波斯湾伊甸园_272秒_1280x720_分享版_rev3.mp4",
+    "bytes": 28771095,
+    "sha256": "b3795eed080f516d333175564eb82d9640a7b61734adf6b64d89dcd08fbc717f",
+    "ffprobe": "1280x720 h264/yuv420p 30fps 8162f 272.067s; aac 48000 Hz 2ch; ~846 kbps",
+    "encode": "scale=1280:720:flags=neighbor（3× 栅格 3 px → 2 px），libx264 preset slow crf 24 aq-mode=3 bt709 tv，aac 192k，+faststart",
+    "checks": "28,771,095 B < 50 MB；moov 在 mdat 前；SSIM 对 rev3 母版 0.944（对 rev2 0.665），确认派生于 rev3"
+  }
+}

@@ -1,0 +1,3273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赤壁之战 208 — 全 3D 战场重现｜徐艾伦</title>
+<meta name="description" content="以电视特别节目的 3D 运镜与特效重现赤壁之战：九幕时间轴呈现阵型移动、将领、计策发动（连环计、苦肉计、借东风、火攻）、东南风与舰队状态，可自动播映或自由视角互动探索。曹操蓝、孙权红、刘备绿，军旗清楚识别。">
+<meta name="keywords" content="赤壁之战, 三国, 3D, 视觉化, 互动历史, 曹操, 周瑜, 黄盖, 火烧赤壁, Three.js">
+<meta name="author" content="yazelin">
+<meta name="theme-color" content="#0a0d12">
+<link rel="canonical" href="https://yazelin.github.io/battlefield-editor/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="赤壁之战 208 — 全 3D 战场重现">
+<meta property="og:title" content="赤壁之战 208 — 全 3D 战场重现">
+<meta property="og:description" content="九幕时间轴重现赤壁之战：阵型移动、计策发动、东南风与火攻特效，像历史节目自动播映，也能像游戏自由操作镜头。">
+<meta property="og:url" content="https://yazelin.github.io/battlefield-editor/">
+<meta property="og:image" content="https://yazelin.github.io/battlefield-editor/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="火烧赤壁：3D 战场中曹军连环船陷入火海">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="赤壁之战 208 — 全 3D 战场重现">
+<meta name="twitter:description" content="九幕时间轴重现赤壁之战：阵型、计策、东风与火攻，可互动可自动播映。">
+<meta name="twitter:image" content="https://yazelin.github.io/battlefield-editor/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23b3382c'/%3E%3Ctext x='32' y='44' font-size='38' font-family='serif' font-weight='900' fill='%23f3e4cf' text-anchor='middle'%3E赤%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CreativeWork","name":"赤壁之战 208 — 全 3D 战场重现",
+"description":"以 3D 运镜与特效重现赤壁之战的互动式历史视觉化：时间轴、阵型移动、计策发动、火攻与天气特效。",
+"url":"https://yazelin.github.io/battlefield-editor/","inLanguage":"zh-CN",
+"about":{"@type":"Event","name":"赤壁之战","startDate":"0208","location":{"@type":"Place","name":"长江赤壁（今湖北省赤壁市）"}},
+"author":{"@type":"Person","name":"yazelin","url":"https://github.com/yazelin"}}
+</script>
+<style>
+:root{
+  --ink:#dce3dc; --ink2:#f4f1e8; --paper:#292c28; --paper-dim:#59605b;
+  --gold:#927749; --gold-dim:#796e5c; --verm:#a54438;
+  --cao:#3275bb; --sun:#b84845; --liu:#398566;
+  --panel:rgba(249,247,240,.93); --line:rgba(79,72,58,.30);
+  --serif:"Noto Serif SC","Source Han Serif SC","Songti SC",SimSun,serif;
+  --sans:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;
+  /* 用户定稿：微软雅黑加粗，使用本机字体。 */
+  --subtitle-font:"Microsoft YaHei","微软雅黑",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:var(--ink)}
+body{font-family:var(--sans);color:var(--paper);-webkit-font-smoothing:antialiased}
+#stage{position:fixed;inset:0}
+#stage canvas{display:block}
+#labels{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+#labels>div{pointer-events:none}
+
+/* ── film grain + vignette ───────────────────── */
+#vignette{position:fixed;inset:0;pointer-events:none;z-index:5;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+#grain{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:5;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+  animation:grain .6s steps(4) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,1%)}50%{transform:translate(1%,-2%)}75%{transform:translate(-1%,2%)}100%{transform:translate(2%,-1%)}}
+
+/* ── letterbox (cinema mode) ─────────────────── */
+.lbox{position:fixed;left:0;right:0;height:0;background:#000;z-index:6;pointer-events:none;transition:height .9s cubic-bezier(.7,0,.3,1)}
+#lboxT{top:0}#lboxB{bottom:0}
+body.cinema .lbox{height:6.5vh}
+
+/* ── top broadcast bar ───────────────────────── */
+#topbar{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;align-items:flex-start;
+  justify-content:space-between;padding:calc(6.5vh + 10px) 26px 0;transition:padding .9s cubic-bezier(.7,0,.3,1);pointer-events:none}
+body:not(.cinema) #topbar{padding-top:14px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand .seal{width:44px;height:44px;background:var(--verm);color:#f3e4cf;display:flex;align-items:center;justify-content:center;
+  font-family:'Noto Serif SC',serif;font-weight:900;font-size:22px;border-radius:4px;box-shadow:0 2px 14px rgba(179,56,44,.5);letter-spacing:0}
+.brand h1{font-family:'Noto Serif SC',serif;font-weight:900;font-size:24px;letter-spacing:6px;color:var(--paper);text-shadow:0 2px 10px #000}
+.brand .chip{font-size:10.5px;letter-spacing:3px;color:var(--gold);border:1px solid var(--line);padding:3px 9px;border-radius:2px;
+  background:rgba(10,13,18,.6);margin-top:4px;display:inline-block}
+.brand .sub{display:flex;flex-direction:column;gap:5px}
+#eraBox{text-align:right;font-family:'Noto Serif SC',serif}
+#eraBox .era{font-size:17px;font-weight:700;letter-spacing:3px;color:var(--gold)}
+#eraBox .yr{font-size:11px;letter-spacing:2px;color:var(--paper-dim);margin-top:3px}
+#liveDot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--verm);margin-right:7px;
+  animation:blink 1.6s infinite;vertical-align:1px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ── left intel panel ────────────────────────── */
+#intel{position:fixed;left:26px;top:50%;transform:translateY(-52%);width:316px;z-index:9;
+  background:var(--panel);border:1px solid var(--line);border-radius:6px;backdrop-filter:blur(8px);
+  padding:18px 20px;transition:opacity .5s,transform .5s}
+#intel::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;background:linear-gradient(var(--gold),transparent);border-radius:2px}
+#phTag{font-size:10.5px;letter-spacing:4px;color:var(--gold);margin-bottom:6px}
+#phTitle{font-family:'Noto Serif SC',serif;font-weight:900;font-size:30px;letter-spacing:5px;line-height:1.2;margin-bottom:10px}
+#phNarr{font-size:13px;line-height:1.85;color:var(--paper-dim);font-weight:300;margin-bottom:14px;min-height:72px}
+#powers{display:flex;flex-direction:column;gap:11px;border-top:1px dashed var(--line);padding-top:13px}
+.pw .row1{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.pw .nm{font-family:'Noto Serif SC',serif;font-weight:700;font-size:14px;letter-spacing:2px}
+.pw .num{font-size:11px;color:var(--paper-dim);letter-spacing:.5px}
+.pw .bar{height:5px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.pw .bar i{display:block;height:100%;border-radius:3px;transition:width 1.6s cubic-bezier(.6,0,.3,1)}
+.pw .st{font-size:10.5px;color:var(--gold-dim);margin-top:4px;letter-spacing:1px}
+.pw.cao .nm{color:var(--cao)} .pw.cao .bar i{background:linear-gradient(90deg,#1d4488,var(--cao))}
+.pw.sun .nm{color:var(--sun)} .pw.sun .bar i{background:linear-gradient(90deg,#7e1f1f,var(--sun))}
+.pw.liu .nm{color:var(--liu)} .pw.liu .bar i{background:linear-gradient(90deg,#1e5e38,var(--liu))}
+
+/* ── bottom timeline ─────────────────────────── */
+#deck{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(6.5vh + 14px);z-index:10;width:min(880px,92vw);
+  transition:bottom .9s cubic-bezier(.7,0,.3,1)}
+body:not(.cinema) #deck{bottom:16px}
+#tl{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:8px;backdrop-filter:blur(8px);
+  padding:14px 18px 12px}
+#tlTrack{position:relative;height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin:10px 8px 6px}
+#tlFill{position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold));border-radius:2px;width:0%}
+#tlNodes{position:absolute;inset:0}
+.node{position:absolute;top:50%;transform:translate(-50%,-50%);width:13px;height:13px;border-radius:50%;
+  background:var(--ink2);border:2px solid var(--gold-dim);cursor:pointer;pointer-events:auto;transition:.25s}
+.node:hover{border-color:var(--gold);transform:translate(-50%,-50%) scale(1.3)}
+.node.on{background:var(--gold);border-color:var(--gold);box-shadow:0 0 12px var(--gold)}
+.node .tip{position:absolute;bottom:170%;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;
+  letter-spacing:1px;color:var(--paper-dim);opacity:0;transition:.25s;pointer-events:none;
+  background:rgba(0,0,0,.75);padding:4px 8px;border-radius:3px;border:1px solid var(--line)}
+.node:hover .tip,.node.on .tip{opacity:1;color:var(--paper)}
+.node.on .tip{color:var(--gold)}
+#ctrls{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:9px;flex-wrap:wrap}
+#spdWrap{display:inline-flex;align-items:center;gap:4px}
+#narrSpdVal{font-size:10px;color:var(--gold-dim);letter-spacing:1px;min-width:34px}
+.btn{pointer-events:auto;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--paper);
+  font-family:'Noto Sans SC',sans-serif;font-size:12px;letter-spacing:2px;padding:6px 14px;border-radius:4px;cursor:pointer;transition:.2s}
+.btn:hover{background:rgba(201,163,92,.15);border-color:var(--gold)}
+.btn.hot{background:rgba(201,163,92,.2);border-color:var(--gold);color:var(--gold)}
+.btn.mini{padding:6px 10px;font-size:11px}
+
+/* ── right legend / compass ──────────────────── */
+#side{position:fixed;right:26px;top:50%;transform:translateY(-52%);z-index:9;display:flex;flex-direction:column;gap:12px;align-items:flex-end}
+#legend{background:var(--panel);border:1px solid var(--line);border-radius:6px;backdrop-filter:blur(8px);padding:13px 16px;font-size:12px}
+#legend .lg{display:flex;align-items:center;gap:9px;margin:6px 0;letter-spacing:2px}
+#legend .sw{width:22px;height:10px;border-radius:2px}
+#legend .hd{font-size:10px;letter-spacing:3px;color:var(--gold-dim);margin-bottom:3px}
+#compass{width:64px;height:64px;border-radius:50%;background:var(--panel);border:1px solid var(--line);position:relative;backdrop-filter:blur(8px)}
+#needle{position:absolute;inset:0;transition:none}
+#needle::before{content:"北";position:absolute;top:5px;left:50%;transform:translateX(-50%);
+  font-family:'Noto Serif SC',serif;font-size:12px;color:var(--verm);font-weight:700}
+#needle::after{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);
+  border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:12px solid var(--verm)}
+#hint{font-size:10.5px;color:var(--paper-dim);letter-spacing:1px;text-align:right;line-height:1.9;
+  background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:9px 13px;backdrop-filter:blur(8px)}
+
+/* ── unit info card ──────────────────────────── */
+#unitCard{position:fixed;right:26px;bottom:calc(6.5vh + 20px);z-index:11;width:262px;background:var(--panel);
+  border:1px solid var(--gold);border-radius:6px;backdrop-filter:blur(10px);padding:15px 17px;
+  opacity:0;transform:translateY(12px);transition:.35s;pointer-events:none}
+#unitCard.show{opacity:1;transform:none;pointer-events:auto}
+#ucFac{font-size:10px;letter-spacing:3px;margin-bottom:4px}
+#ucName{font-family:'Noto Serif SC',serif;font-weight:900;font-size:21px;letter-spacing:3px;margin-bottom:8px}
+#ucBody{font-size:12px;line-height:1.8;color:var(--paper-dim)}
+#ucBody b{color:var(--paper);font-weight:500}
+#ucClose{position:absolute;top:8px;right:11px;cursor:pointer;color:var(--paper-dim);font-size:14px;pointer-events:auto;z-index:2}
+#ucPortrait{display:none;margin:-15px -17px 10px;position:relative;border-radius:5px 5px 0 0;overflow:hidden;border-bottom:1px solid rgba(201,162,77,.5)}
+#ucPortrait.show{display:block}
+#ucPortrait img{width:100%;display:block}
+
+/* ── 3D labels ───────────────────────────────── */
+.loc{font-family:'Noto Serif SC',serif;color:var(--gold);font-size:15px;font-weight:700;letter-spacing:4px;
+  text-shadow:0 1px 6px #000,0 0 18px rgba(0,0,0,.9);white-space:nowrap}
+.loc::after{content:"";display:block;width:5px;height:5px;border:1px solid var(--gold);transform:rotate(45deg);margin:5px auto 0;opacity:.8}
+.loc.water{color:#9fc6cf;font-size:13px;letter-spacing:8px;opacity:.85}
+.loc.water::after{display:none}
+.loc.big{font-size:18px}
+.uLab{white-space:nowrap;text-align:center}
+.uLab .box{display:inline-block;background:rgba(8,10,14,.78);border:1px solid;border-radius:4px;padding:4px 10px;backdrop-filter:blur(3px)}
+.uLab .t1{font-family:'Noto Serif SC',serif;font-weight:700;font-size:14px;letter-spacing:2px;color:var(--paper)}
+.uLab .t2{font-size:10px;letter-spacing:1px;color:var(--paper-dim);margin-top:1px}
+.uLab .cmd{margin:0 auto 3px;width:40px;height:50px;border-radius:3px;overflow:hidden;border:1px solid rgba(201,162,77,.55);box-shadow:0 1px 6px rgba(0,0,0,.6)}
+.uLab .cmd img{width:100%;height:100%;object-fit:cover;display:block}
+.uLab.cao .box{border-color:rgba(61,125,224,.7)} .uLab.cao .t1{color:#8db4f0}
+.uLab.sun .box{border-color:rgba(216,64,64,.7)} .uLab.sun .t1{color:#f09a93}
+.uLab.liu .box{border-color:rgba(63,174,106,.7)} .uLab.liu .t1{color:#8fd6ae}
+.uLab .cmdCard{margin:0 auto 3px}   /* 嵌入阵营标签：常驻钉在该单位标签卡正上方、随阵移动 */
+.evt{white-space:nowrap;animation:evtIn .7s cubic-bezier(.2,1.2,.3,1)}
+.evt .card{background:rgba(8,10,14,.88);border:1px solid var(--gold);border-radius:4px;padding:7px 13px;text-align:left;
+  box-shadow:0 4px 24px rgba(0,0,0,.6)}
+.evt .tag{display:inline-block;font-size:9px;letter-spacing:2px;padding:1px 6px;border-radius:2px;margin-right:7px;vertical-align:1px}
+.evt .tag.hist{background:rgba(201,163,92,.2);color:var(--gold);border:1px solid var(--gold-dim)}
+.evt .tag.novel{background:rgba(179,56,44,.25);color:#e8917f;border:1px solid #7e3329}
+.evt .tx{font-family:'Noto Serif SC',serif;font-size:14px;font-weight:700;letter-spacing:1.5px;color:var(--paper)}
+.evt::after{content:"";display:block;width:1px;height:26px;background:linear-gradient(var(--gold),transparent);margin:2px auto 0}
+@keyframes evtIn{0%{opacity:0;transform:translateY(-14px) scale(.92)}100%{opacity:1}}
+
+/* ── stratagem card ──────────────────────────── */
+#strat{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;pointer-events:none;
+  opacity:0;display:flex;align-items:center;gap:30px}
+/* 显现/收起由 JS 依 phaseT 驱动（updateStrat），不用 CSS 动画 —— 逐帧步进可复现，且时长与成片帧率无关。 */
+#stratName{writing-mode:vertical-rl;font-family:'Noto Serif SC',serif;font-weight:900;font-size:88px;letter-spacing:14px;
+  color:var(--paper);text-shadow:0 0 40px rgba(201,163,92,.5),0 4px 18px #000;position:relative;padding:18px 6px}
+#stratName::before,#stratName::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(transparent,var(--gold),transparent)}
+#stratName::before{left:-12px}#stratName::after{right:-12px}
+#stratSeal{position:absolute;bottom:-34px;right:-40px;width:62px;height:62px;background:var(--verm);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:#f3e4cf;
+  font-family:'Noto Serif SC',serif;box-shadow:0 4px 20px rgba(179,56,44,.6);transform:rotate(-7deg) scale(0)}
+/* 印章弹入同样由 JS 驱动（updateStrat 给 #stratSeal 设 transform）。 */
+#stratInfo{max-width:330px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--verm);
+  border-radius:4px;padding:16px 20px;backdrop-filter:blur(8px)}
+#stratBy{font-size:11px;letter-spacing:3px;color:var(--gold);margin-bottom:7px}
+#stratDesc{font-size:13px;line-height:1.9;color:var(--paper-dim);font-weight:300}
+
+/* ── 叙事卡（引文／时间线／风玫瑰／信笺／印章）─────────────
+   逐帧由 JS 依 phaseT 与 card.at/life 算出 opacity/transform，不用 CSS 动画、
+   不读时钟，故 ?offline=1 逐帧步进可逐帧复现。slot 决定屏幕落点，
+   落点避开左下的情报栏、右上的主帅栏与底部字幕/时间轴。 */
+#cards{position:fixed;inset:0;z-index:12;pointer-events:none;overflow:hidden}
+.ncard{position:absolute;opacity:0;visibility:hidden;transform:translate(-50%,-50%);will-change:opacity,transform;
+  filter:drop-shadow(0 2px 10px rgba(23,32,30,.12))}
+.ncard.slot-C{left:50%;top:44%}
+.ncard.slot-U{left:50%;top:21%}
+.ncard.slot-L{left:26%;top:33%}
+.ncard.slot-R{left:69%;top:63%}
+.ncard .hd{font-size:11px;letter-spacing:3px;color:#8a6d43;margin-bottom:10px;font-weight:600}
+.ncard.quote{max-width:min(720px,48vw);padding:20px 30px 17px;background:rgba(250,247,239,.95);
+  border:1px solid #a68d66;border-left:4px solid var(--verm);border-radius:5px;
+  box-shadow:0 12px 40px rgba(23,32,30,.24)}
+.ncard.quote .q{font-family:var(--serif);font-weight:700;font-size:clamp(22px,2.15vw,34px);line-height:1.75;
+  letter-spacing:3px;color:#252a25}
+.ncard.quote .q.vert{writing-mode:vertical-rl;max-height:min(340px,32vh);margin:0 auto;line-height:1.55;letter-spacing:8px}
+.ncard.quote .src{margin-top:11px;padding-top:9px;border-top:1px solid rgba(79,72,58,.22);
+  font-size:12px;letter-spacing:2px;color:#80663d;text-align:right}
+.ncard.timeline{width:min(620px,44vw);padding:18px 24px 16px;background:rgba(250,247,239,.95);
+  border:1px solid #a68d66;border-radius:5px;box-shadow:0 12px 40px rgba(23,32,30,.24)}
+.ncard.timeline .rail{position:relative;display:flex;justify-content:space-between;gap:18px;padding-top:26px}
+.ncard.timeline .rail::before{content:"";position:absolute;left:0;right:0;top:11px;height:2px;background:rgba(79,72,58,.2)}
+.ncard.timeline .prog{position:absolute;left:0;top:11px;height:2px;width:0;background:var(--verm);transition:none}
+.ncard.timeline .nd{position:relative;flex:1;text-align:center;opacity:.26}
+.ncard.timeline .nd::before{content:"";position:absolute;left:50%;top:-20px;width:11px;height:11px;margin-left:-5.5px;
+  border-radius:50%;background:#faf7ef;border:2px solid #b09a72}
+.ncard.timeline .nd.on{opacity:1}
+.ncard.timeline .nd.on::before{background:var(--verm);border-color:var(--verm);box-shadow:0 0 10px rgba(165,68,56,.6)}
+.ncard.timeline .yr{display:block;font-size:12px;letter-spacing:2px;color:#a54438;font-weight:700;margin-bottom:3px}
+.ncard.timeline .lb{display:block;font-family:var(--serif);font-size:14px;letter-spacing:1px;color:#3a403a;line-height:1.5}
+.ncard.windrose{width:252px;padding:15px 18px 13px;background:rgba(250,247,239,.95);border:1px solid #a68d66;
+  border-radius:5px;box-shadow:0 12px 40px rgba(23,32,30,.24);text-align:center}
+.ncard.windrose .rose{display:block;width:100%;height:auto}
+.ncard.windrose .tk{stroke:rgba(79,72,58,.5);stroke-width:1.5}
+.ncard.windrose .tk.m{stroke:rgba(79,72,58,.22);stroke-width:1}
+.ncard.windrose .dl{font-size:9.5px;fill:#6d6353;font-family:var(--sans)}
+.ncard.windrose .rr{fill:none;stroke:rgba(79,72,58,.25);stroke-width:1}
+.ncard.windrose .hub{fill:#6d6353}
+.ncard.windrose .needle{fill:var(--verm)}
+.ncard.windrose .cap{margin-top:7px;font-size:11.5px;letter-spacing:1px;color:#5d635b;line-height:1.65}
+.ncard.letter{width:min(430px,30vw);padding:26px 24px 22px;position:relative;
+  background:repeating-linear-gradient(90deg,rgba(120,90,50,.075) 0 1px,transparent 1px 40px),rgba(248,243,229,.97);
+  border:1px solid #b09a72;border-radius:3px;box-shadow:0 14px 44px rgba(23,32,30,.28)}
+.ncard.letter .text{writing-mode:vertical-rl;font-family:var(--serif);font-size:19px;line-height:2.2;
+  letter-spacing:7px;color:#33352e;max-height:min(380px,34vh);margin:0 auto}
+.ncard.letter .sig{margin-top:12px;text-align:right;font-size:11.5px;letter-spacing:2px;color:#7c6640}
+.ncard.letter .seal{position:absolute;right:14px;bottom:12px;width:44px;height:44px;background:var(--verm);
+  border-radius:4px;display:flex;align-items:center;justify-content:center;color:#f3e4cf;
+  font-family:var(--serif);font-weight:900;font-size:20px;transform:rotate(-6deg);
+  box-shadow:0 3px 12px rgba(165,68,56,.45);opacity:.92}
+.ncard.seal{width:224px;text-align:center}
+.ncard.seal .stamp{position:relative;width:150px;height:150px;margin:0 auto;background:var(--verm);border-radius:9px;
+  display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:900;
+  font-size:60px;color:#f5e7d2;letter-spacing:2px;border:4px solid rgba(245,231,210,.5);
+  box-shadow:0 12px 38px rgba(165,68,56,.5)}
+.ncard.seal .ring{position:absolute;inset:-13px;border:2px solid rgba(165,68,56,.6);border-radius:14px;opacity:.6}
+.ncard.seal .cap{margin-top:12px;font-size:12px;letter-spacing:2px;color:#4a5148;font-weight:600;
+  text-shadow:0 1px 3px rgba(255,255,255,.8)}
+
+/* ── intro ───────────────────────────────────── */
+#intro{position:fixed;inset:0;z-index:50;background:radial-gradient(ellipse at 64% 40%,#1a2230 0%,#0a0d12 62%);
+  display:flex;align-items:center;justify-content:center;transition:opacity 1.2s,visibility 1.2s}
+#intro.off{opacity:0;visibility:hidden}
+#intro .blot{position:absolute;width:46vmin;height:46vmin;left:18%;top:24%;border-radius:50%;
+  background:radial-gradient(circle,rgba(179,56,44,.30),transparent 65%);filter:blur(28px)}
+#intro .inner{position:relative;display:flex;gap:7vmin;align-items:center}
+#inTitle{writing-mode:vertical-rl;font-family:'Noto Serif SC',serif;font-weight:900;font-size:11vmin;letter-spacing:1.8vmin;
+  color:var(--paper);text-shadow:0 6px 40px #000;line-height:1}
+#inTitle small{font-size:2vmin;letter-spacing:1vmin;color:var(--gold);font-weight:600;margin-top:3vmin}
+#inMeta{max-width:380px}
+#inMeta .chip{font-size:11px;letter-spacing:4px;color:var(--gold);border:1px solid var(--line);padding:5px 12px;display:inline-block;margin-bottom:18px}
+#inMeta p{font-size:14px;line-height:2.1;color:var(--paper-dim);font-weight:300;margin-bottom:26px}
+#inBtns{display:flex;gap:14px;flex-wrap:wrap}
+.bigbtn{font-family:'Noto Serif SC',serif;font-size:16px;letter-spacing:5px;padding:13px 30px;cursor:pointer;border-radius:4px;transition:.25s}
+#btnAuto{background:var(--verm);border:1px solid #d2604f;color:#f6ead6;box-shadow:0 4px 26px rgba(179,56,44,.45)}
+#btnAuto:hover{transform:translateY(-2px);box-shadow:0 8px 34px rgba(179,56,44,.6)}
+#btnFree{background:transparent;border:1px solid var(--line);color:var(--paper)}
+#btnFree:hover{border-color:var(--gold);color:var(--gold)}
+#inFoot{position:absolute;bottom:4vh;left:0;right:0;text-align:center;font-size:10.5px;letter-spacing:2px;color:#5a5446}
+
+/* ── finale ──────────────────────────────────── */
+#finale{position:fixed;inset:0;z-index:15;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity 2s}
+#finale.show{opacity:1}
+#finale .t{font-family:'Noto Serif SC',serif;font-weight:900;font-size:9vmin;letter-spacing:3vmin;color:var(--paper);
+  text-shadow:0 0 60px rgba(201,163,92,.4),0 6px 30px #000}
+#finale .s{position:absolute;margin-top:16vmin;font-size:13px;letter-spacing:6px;color:var(--gold)}
+
+#loadMsg{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:var(--ink);
+  color:var(--gold);font-size:13px;letter-spacing:4px;transition:opacity .8s,visibility .8s}
+#loadMsg.off{opacity:0;visibility:hidden}
+
+/* ── subtitle & audio ctrls ─────────────────── */
+#subtitle{position:fixed;left:50%;bottom:126px;transform:translateX(-50%);z-index:11;pointer-events:none;
+  max-width:min(72vw,760px);text-align:center;font-family:'Noto Serif SC',serif;font-size:17px;line-height:1.7;
+  letter-spacing:2px;color:var(--paper);text-shadow:0 2px 10px #000,0 0 26px rgba(0,0,0,.85);
+  background:rgba(10,12,16,.42);border-radius:4px;padding:4px 16px;opacity:0;
+  transition:opacity .35s,bottom .9s cubic-bezier(.7,0,.3,1)}
+#subtitle.show{opacity:1}
+body.cinema #subtitle{bottom:calc(6.5vh + 124px)}
+#vol,#bgmVol{width:64px;accent-color:var(--gold-dim);cursor:pointer}
+@media (max-width:900px){#subtitle{font-size:14px;max-width:86vw;bottom:156px}
+  body.cinema #subtitle{bottom:calc(6.5vh + 154px)}}
+
+@media (max-width:900px){
+  #intel{width:250px;left:12px;padding:13px 15px}
+  #phTitle{font-size:22px} #phNarr{font-size:12px;min-height:60px}
+  #side{display:none}
+  .brand h1{font-size:18px;letter-spacing:3px}
+  #stratName{font-size:54px}
+  #strat{flex-direction:column;gap:18px}
+}
+
+@media (max-width:700px){
+  body.cinema .lbox{height:4vh}
+  #topbar,
+  body:not(.cinema) #topbar{
+    padding:calc(env(safe-area-inset-top,0px) + 10px) 12px 0;
+    align-items:center;
+    gap:10px;
+  }
+  .brand{gap:9px;min-width:0}
+  .brand .seal{width:34px;height:34px;font-size:18px;flex:0 0 auto}
+  .brand h1{font-size:18px;letter-spacing:3px;white-space:nowrap}
+  .brand .chip{display:none}
+  #eraBox{flex:0 0 auto}
+  #eraBox .era{font-size:13px;letter-spacing:2px}
+  #eraBox .yr{display:none}
+
+  #intel{
+    left:10px;right:10px;top:calc(env(safe-area-inset-top,0px) + 54px);
+    width:auto;transform:none;padding:10px 13px;max-height:22dvh;overflow:hidden;
+  }
+  #intel::before{top:10px;bottom:10px}
+  #phTag{font-size:10px;letter-spacing:2px;margin-bottom:3px}
+  #phTitle{font-size:20px;letter-spacing:3px;margin-bottom:5px}
+  #phNarr{
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+    overflow:hidden;min-height:0;margin-bottom:0;font-size:12px;line-height:1.65;
+  }
+  #powers{display:none}
+
+  #deck,
+  body:not(.cinema) #deck{
+    width:calc(100vw - 16px);
+    bottom:calc(env(safe-area-inset-bottom,0px) + 8px);
+  }
+  #tl{padding:10px 10px 8px}
+  #tl>div:first-child{display:none!important}
+  #tlTrack{height:4px;margin:6px 11px 8px}
+  .node{width:15px;height:15px}
+  .node .tip{display:none}
+  #ctrls{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:6px;
+    margin-top:8px;
+  }
+  .btn,.btn.mini{
+    width:100%;min-width:0;padding:8px 4px;font-size:10.5px;line-height:1;
+    letter-spacing:1px;white-space:nowrap;
+  }
+  #vol{grid-column:1/-1;width:100%;height:28px}
+
+  #subtitle,
+  body.cinema #subtitle{
+    bottom:calc(env(safe-area-inset-bottom,0px) + 188px);
+    max-width:92vw;font-size:13px;line-height:1.55;letter-spacing:1px;
+    padding:5px 10px;max-height:4.9em;overflow:hidden;
+  }
+  #unitCard{
+    left:10px;right:10px;bottom:calc(env(safe-area-inset-bottom,0px) + 188px);
+    width:auto;padding:13px 15px;
+  }
+
+  .loc{font-size:12px;letter-spacing:2px}
+  .loc.big{font-size:14px}
+  .uLab .box{padding:3px 7px}
+  .uLab .t1{font-size:12px;letter-spacing:1px}
+  .uLab .t2{font-size:9px}
+  .uLab .cmd{width:30px;height:38px;margin-bottom:2px}
+  .evt .card{padding:6px 9px}
+  .evt .tx{font-size:12px;letter-spacing:1px}
+
+  #strat{width:calc(100vw - 28px)}
+  #stratName{font-size:44px;letter-spacing:9px}
+  #stratInfo{max-width:none;width:100%;padding:12px 14px}
+  #stratDesc{font-size:12px;line-height:1.7}
+
+  #intro{align-items:flex-start;justify-content:flex-start;padding:32px 18px 68px;overflow:hidden}
+  #intro .inner{flex-direction:column-reverse;gap:16px;align-items:flex-start;width:100%;max-width:560px}
+  #inMeta{max-width:none}
+  #inMeta .chip{display:none}
+  #inMeta p{
+    display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;
+    overflow:hidden;font-size:13px;line-height:1.75;margin-bottom:18px;
+  }
+  #inBtns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%}
+  #inTitle{
+    writing-mode:horizontal-tb;font-size:42px;letter-spacing:4px;line-height:1.1;
+  }
+  #inTitle small{
+    display:block;font-size:13px;letter-spacing:2px;margin-top:8px;line-height:1.4;
+  }
+  .bigbtn{flex:1 1 136px;padding:12px 14px;font-size:15px;letter-spacing:3px}
+  #inFoot{left:14px;right:14px;font-size:9.5px;line-height:1.7}
+}
+
+@media (max-width:700px) and (max-height:620px){
+  #intel{display:none}
+  #deck,
+  body:not(.cinema) #deck{bottom:calc(env(safe-area-inset-bottom,0px) + 6px)}
+  #tlTrack{display:none}
+  #ctrls{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .btn,.btn.mini{font-size:10px;padding:7px 3px}
+  #bCam{grid-column:span 2}
+  #vol{grid-column:span 3;height:24px}
+  #subtitle,
+  body.cinema #subtitle{bottom:calc(env(safe-area-inset-bottom,0px) + 130px)}
+  #unitCard{bottom:calc(env(safe-area-inset-bottom,0px) + 130px)}
+  #intro{padding:18px 24px;align-items:flex-start;justify-content:flex-start}
+  #intro .inner{gap:12px;max-width:520px}
+  #inTitle{font-size:34px;letter-spacing:3px}
+  #inTitle small{font-size:11px;margin-top:5px}
+  #inMeta p{-webkit-line-clamp:3;font-size:12px;line-height:1.6;margin-bottom:12px}
+  .bigbtn{padding:10px 12px;font-size:14px}
+  #inFoot{display:none}
+}
+/* ── 纪录片界面:单一真实地图风格 ── */
+#vignette{background:radial-gradient(ellipse at center,transparent 55%,rgba(14,25,30,.22) 100%)}
+#grain{opacity:.018}
+body.cinema .lbox{height:3.2vh;background:#17242d}
+#topbar{padding:calc(3.2vh + 14px) 24px 0}
+body:not(.cinema) #topbar{padding:14px 24px 0}
+.brand{gap:10px;align-items:flex-start}
+.brand .seal{width:38px;height:38px;background:#a5483c;box-shadow:0 4px 16px rgba(35,31,25,.2)}
+.brand h1{font-family:var(--serif);font-size:30px;letter-spacing:3px;color:#202723;
+  text-shadow:0 1px 12px rgba(248,246,239,.92),0 1px 3px #f9f6ec}
+.brand .chip{font-family:var(--sans);background:rgba(248,246,239,.88);color:#5c5547;border:1px solid var(--line);
+  font-size:11px;letter-spacing:1.2px;padding:5px 9px;margin-top:2px}
+#eraBox{background:rgba(248,246,239,.84);border:1px solid var(--line);border-radius:4px;padding:8px 11px}
+#eraBox .era{color:#6c5230;font-size:16px;letter-spacing:2px}
+#eraBox .yr{color:#595f59;font-size:11px;letter-spacing:1px}
+#intel,#legend,#unitCard{background:var(--panel);border:1px solid var(--line);
+  box-shadow:0 8px 24px rgba(24,35,36,.16);backdrop-filter:blur(12px)}
+#intel{left:24px;top:calc(3.2vh + 135px);transform:none;width:330px;padding:17px 18px;border-radius:5px}
+#intel::before{background:#a58a5e;top:16px;bottom:16px;width:2px}
+#phTag{font-size:11px;letter-spacing:1.2px;color:#8a6d43;margin-bottom:8px}
+#phTitle{font-family:var(--serif);font-size:29px;letter-spacing:2px;margin-bottom:8px}
+#phNarr{font-size:13px;line-height:1.75;color:#4f5750;font-weight:400;margin-bottom:12px;min-height:0;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#powers{gap:8px;border-top:1px solid var(--line);padding-top:10px}
+.pw .row1{margin-bottom:3px}.pw .nm{font-family:var(--sans);font-size:12px;letter-spacing:.5px}
+.pw .num{font-size:11px;color:#5d665f}.pw .bar{height:4px;background:rgba(38,50,49,.12)}
+.pw .st{display:none}
+#side{right:24px;top:calc(3.2vh + 135px);transform:none;gap:7px}
+#legend{border-radius:5px;padding:10px 12px;font-size:11px;min-width:144px}
+#legend .hd{color:#7e6b4d;letter-spacing:1.5px;font-size:10px;margin-bottom:5px}
+#legend .lg{margin:4px 0;gap:7px;letter-spacing:.5px}
+#legend .sw{width:16px;height:8px;border-radius:2px}
+#compass{width:42px;height:42px;background:rgba(248,246,239,.8);border-color:var(--line)}
+#needle::before{font-size:10px;top:2px}#needle::after{top:16px;border-bottom-width:9px}
+#hint{display:none}
+/* 地图主帅卡：钉在阵营主力部队上方，随军移动（纯展示，不可点） */
+.cmdCard{width:118px;background:rgba(248,246,239,.95);border:1px solid rgba(40,50,45,.32);border-top:3px solid var(--fac-color);
+  border-radius:3px;overflow:hidden;box-shadow:0 3px 12px rgba(15,25,24,.22);text-align:center}
+.cmdCard img{display:block;width:100%;height:118px;object-fit:cover;object-position:center;filter:saturate(.85)}
+.cmdCard .ccMeta{display:flex;align-items:center;justify-content:center;gap:5px;padding:3px 4px 0}
+.cmdCard .ccMeta small{font-size:9px;font-weight:700;color:var(--fac-color)}
+.cmdCard .ccMeta strong{font:700 15px var(--serif);letter-spacing:1px;color:#252922}
+.cmdCard .ccTitle{padding:0 4px 4px;font-size:9px;color:#4b5b5a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.zoom-mid .cmdCard{zoom:.82}
+body.zoom-far .cmdCard{zoom:.66}
+/* 挂了主帅卡的宿主单位：只留这一张主帅卡，避免和本单位标签卡重复出现两个头像/简介 */
+.uLab.hasCmd .box{display:none}
+#unitCard{right:24px;bottom:94px;width:280px;border-radius:5px;padding:13px 15px;z-index:22}
+#ucPortrait{margin:-13px -15px 9px}#ucPortrait img{max-height:220px;object-fit:cover;object-position:top}
+#ucBody{white-space:pre-line;line-height:1.65;color:#4d564f}
+#timeline{position:fixed;z-index:13;bottom:calc(3.2vh + 10px);left:50%;transform:translateX(-50%);
+  width:min(740px,56vw);padding:10px 19px 11px;border:1px solid rgba(215,194,151,.4);border-radius:5px;
+  background:rgba(22,35,42,.86);box-shadow:0 6px 25px rgba(15,26,32,.25);backdrop-filter:blur(10px)}
+body:not(.cinema) #timeline{bottom:12px}
+.timelineMeta{display:flex;justify-content:space-between;gap:8px;color:#d2c5ac;font-size:10px;letter-spacing:.4px}
+#tlMid{color:#f3e8cc}#tlTrack{height:2px;background:rgba(229,217,193,.35);margin:11px 4px 3px}
+#tlFill{background:#d2ae72}.node{width:10px;height:10px;background:#24343b;border:1px solid #c9b38a}
+.node.on{background:#ddbd82;border-color:#f5dbab;box-shadow:0 0 8px #ddbd82}
+.node .tip{bottom:205%;background:rgba(22,35,42,.92);border-color:#796d56;color:#fff}
+#deck{position:fixed;top:50%;right:14px;left:auto;bottom:auto!important;transform:translateY(-50%);
+  width:326px;max-height:88vh;overflow:auto;z-index:30;transition:none}
+#tl{background:rgba(249,247,240,.98);border:1px solid var(--line);border-radius:6px;padding:16px;
+  box-shadow:0 14px 40px rgba(19,31,36,.3)}
+.deckHead{display:flex;justify-content:space-between;align-items:center;font:700 17px var(--serif);color:#2b332e;
+  padding-bottom:11px;border-bottom:1px solid var(--line)}
+#bMin{position:static;width:auto;height:auto;border:1px solid var(--line);background:#ebe8df;color:#4d554f;
+  border-radius:3px;padding:5px 8px;font:12px var(--sans);cursor:pointer}
+#bMin:hover{border-color:#a38b63;background:#f3ead7}
+#ctrls{display:block;margin-top:0}
+.ctrlLabel{font-size:11px;letter-spacing:1.2px;color:#7c6b4b;margin:15px 0 7px}
+.ctrlGroup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.btn,.btn.mini{width:100%;padding:8px 6px;background:#f2efe7;border:1px solid #c7c4b9;color:#344039;
+  font:12px var(--sans);letter-spacing:0;border-radius:3px;white-space:nowrap}
+.btn:hover{background:#e9e2d3;border-color:#9e8b67}.btn.hot{background:#e5d6b9;border-color:#a3844d;color:#3a3222}
+.sliderRow{display:flex;flex-direction:column;gap:5px;font-size:11px;color:#4e584f;padding:5px 3px}
+.sliderRow.wide{grid-column:1/-1}.sliderRow span{float:right}.sliderRow input{width:100%;accent-color:#a68552;cursor:pointer}
+#vol,#bgmVol,#sfxVol,#narrSpd{width:100%;height:17px}
+#deckMini{display:none;position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:31;
+  writing-mode:vertical-rl;letter-spacing:2px;font:12px var(--sans);color:#38433d;cursor:pointer;
+  background:rgba(249,247,240,.94);border:1px solid var(--line);border-right:none;border-radius:5px 0 0 5px;
+  padding:12px 7px;box-shadow:0 3px 12px rgba(20,30,32,.18)}
+#deckMini:hover{background:#fff}
+body.deck-mini #deckMini{display:block}body.deck-mini #deck{display:none}
+#subtitle,body.cinema #subtitle,body.deck-mini #subtitle{bottom:calc(3.2vh + 80px);max-width:76vw;
+  font-family:var(--sans);font-size:clamp(25px,2.5vw,46px);font-weight:800;line-height:1.2;letter-spacing:1px;
+  color:#fff;background:transparent;border:0;padding:0;white-space:nowrap;overflow:visible;
+  -webkit-text-stroke:2px rgba(13,22,28,.95);
+  text-shadow:0 2px 3px #0b171d,0 4px 10px rgba(0,0,0,.75)}
+body:not(.cinema) #subtitle{bottom:76px}
+.uLab .box{background:rgba(248,246,239,.87);border:1px solid rgba(40,50,45,.32);box-shadow:0 2px 8px rgba(15,25,24,.18)}
+.uLab .t1{color:#273b40}.uLab .t2{color:#4b5b5a}.uLab .cmd{border-color:#ad9871}
+body.zoom-far .uLab .cmd,body.zoom-mid .uLab .cmd{display:none}
+body.zoom-far .uLab .t2{display:none}
+body.zoom-far .uLab .box{padding:3px 6px;background:rgba(249,247,241,.8)}
+body.zoom-far .uLab .t1{font-size:11px;letter-spacing:.5px}
+body.zoom-mid .uLab .t1{font-size:12px}
+.loc{color:#2b302b;text-shadow:0 1px 2px #f9f7ec,0 0 5px #f9f7ec}
+.loc.water{color:#173d52;text-shadow:0 1px 2px #d9e5e3}
+.evt .card{background:rgba(250,247,239,.95);border-color:#a68d66;box-shadow:0 4px 18px rgba(23,32,30,.2)}
+.evt .tx{color:#29332e}.evt .tag.hist{color:#75582f}.evt .tag.novel{color:#a24a3c}
+#strat{left:52%;gap:15px}
+#stratName{font-family:var(--serif);font-size:54px;letter-spacing:7px;color:#302d27;text-shadow:none;
+  background:rgba(249,246,237,.94);border:1px solid #a48b62;border-radius:4px;padding:18px 12px;
+  box-shadow:0 7px 24px rgba(27,35,30,.25)}
+#stratName::before,#stratName::after,#stratSeal{display:none}
+#stratInfo{background:rgba(249,246,237,.96);border-color:#a48b62;border-left:3px solid #a48b62;
+  border-radius:4px;box-shadow:0 7px 24px rgba(27,35,30,.2)}
+#stratBy{color:#80663d;font-size:12px;letter-spacing:1px}#stratDesc{color:#41483f;font-size:14px;line-height:1.7;font-weight:400}
+#intro{background:radial-gradient(ellipse at 62% 38%,#e9e8dc 0%,#cdd7d2 75%)}
+#intro .blot{background:radial-gradient(circle,rgba(130,76,54,.17),transparent 65%)}
+#inTitle{color:#2b332d;text-shadow:0 2px 20px rgba(255,255,255,.7)}
+#inMeta p{color:#4a534d;font-weight:400}#inMeta .chip{color:#8a6b42;border-color:#ab9a7b}
+#loadMsg{color:#77613d}#finale .t{color:#f6ebd5;text-shadow:0 5px 22px #061016}
+@media (max-width:1100px){
+  #intel{width:272px;padding:13px}#phTitle{font-size:24px}#phNarr{font-size:12px}
+  #timeline{width:56vw}
+}
+@media (max-width:700px){
+  #topbar,body:not(.cinema) #topbar{padding:10px 10px 0}.brand h1{font-size:20px;letter-spacing:1px}
+  .brand .seal{width:30px;height:30px;font-size:16px}.brand .chip{display:none}
+  #eraBox{padding:5px}#eraBox .era{font-size:11px}#eraBox .yr{display:none}
+  #intel{left:8px;right:8px;top:56px;width:auto;max-height:17vh;padding:8px 11px}
+  #phTitle{font-size:18px;margin-bottom:2px}#phTag{font-size:9px;margin-bottom:2px}
+  #phNarr{font-size:10px;line-height:1.4;margin-bottom:0;-webkit-line-clamp:2}#powers{display:none}
+  #side{display:none}
+  #timeline{width:calc(100vw - 36px);bottom:8px;padding:8px 12px}
+  .timelineMeta{font-size:8px}#tlTrack{margin:8px 3px 2px}
+  #deck{top:auto;right:6px;left:6px;bottom:6px!important;width:auto;max-height:72vh;transform:none}
+  #subtitle,body.cinema #subtitle,body.deck-mini #subtitle{bottom:88px;font-size:clamp(19px,4.6vw,28px);
+    max-width:92vw;-webkit-text-stroke:1.5px rgba(13,22,28,.96)}
+  #unitCard{right:8px;left:8px;bottom:125px;width:auto}
+  #strat{left:50%;gap:10px;width:calc(100vw - 30px)}#stratName{font-size:34px}
+  #stratInfo{max-width:55vw;padding:9px}#stratDesc{font-size:11px}
+}
+/* ── 古地图推演卡片：统一纸色、细线和横向层级 ── */
+#topbar{right:auto;display:block}
+#eraBox{text-align:left;display:inline-block;margin:8px 0 0 48px;padding:5px 9px;background:rgba(248,246,239,.86)}
+#eraBox .era{font-size:12px;letter-spacing:1px}
+#eraBox .yr{display:inline;margin-left:8px;font-size:11px}
+#side{left:26px;right:auto;top:calc(3.2vh + 165px);align-items:flex-start}
+#legend{min-width:112px;padding:8px 10px;background:rgba(248,246,239,.86);box-shadow:0 3px 12px rgba(24,35,36,.12)}
+#legend .hd{display:none}
+#legend .lg{margin:3px 0;font-size:11px;letter-spacing:0}
+#legend .sw{width:13px;height:10px;border-radius:1px}
+#compass{display:none}
+#intel,#strat,#unitCard{font-family:var(--sans)}
+#intel,#stratInfo,#stratName,#unitCard{
+  background:rgba(249,247,240,.96);border:1px solid #b9a783;border-radius:3px;
+  box-shadow:0 6px 24px rgba(18,27,27,.20)}
+#intel{top:auto;left:26px;bottom:calc(3.2vh + 126px);transform:none;width:min(630px,36vw);
+  min-height:122px;display:grid;grid-template-columns:minmax(138px,32%) minmax(0,1fr);align-items:center;
+  gap:14px;padding:15px 18px}
+#intel::before{left:8px;top:13px;bottom:13px;width:2px;background:#a54438}
+.intelHeading{padding:0 10px 0 9px;border-right:1px solid #c7b99d;min-width:0}
+#phTitle{line-height:1.13;letter-spacing:2px;margin:0;color:#252922;
+  overflow:hidden;text-overflow:clip;white-space:normal;font-size:clamp(26px,2vw,37px)}
+#phTag{font-size:11px;line-height:1.45;letter-spacing:.7px;margin:8px 0 0;color:#795935}
+.intelDetail{min-width:0}
+#phNarr{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  font-size:13px;line-height:1.65;letter-spacing:.2px;color:#444b45;margin:0;min-height:0}
+#powers{display:none}
+body.strategy-active #intel{opacity:0;pointer-events:none}
+#strat{top:auto;left:26px;bottom:calc(3.2vh + 126px);transform:none;width:min(630px,36vw);
+  min-height:122px;gap:0;align-items:stretch;z-index:21}
+/* Dock 版同样改由 JS 驱动（updateStrat）。 */
+#stratName{order:0;writing-mode:horizontal-tb;display:flex;align-items:center;justify-content:center;
+  min-width:32%;padding:10px 14px;font-size:clamp(28px,2.5vw,46px);letter-spacing:1px;white-space:nowrap;
+  color:#282b25;border-right:0;border-radius:3px 0 0 3px;box-shadow:none}
+#stratInfo{order:1;flex:1;min-width:0;max-width:none;padding:14px 16px;border-left:1px solid #c7b99d;
+  border-radius:0 3px 3px 0;box-shadow:none}
+#stratBy{font-size:11px;letter-spacing:1px;color:#8a553d;margin-bottom:6px}
+#stratDesc{font-size:13px;line-height:1.65;color:#444b45;font-weight:400;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+body:not(.deck-mini) #side{display:none}
+#unitCard{top:45%;bottom:auto;right:26px;width:390px;min-height:150px;padding:10px 12px;
+  transform:translate(12px,-10%);overflow:hidden}
+#unitCard.show{transform:translate(0,-10%)}
+#unitCard:has(#ucPortrait.show){display:grid;grid-template-columns:126px minmax(0,1fr);
+  grid-template-rows:auto auto 1fr;column-gap:13px;align-content:center}
+#ucPortrait,#ucPortrait.show{grid-column:1;grid-row:1/4;margin:-10px 0 -10px -12px;width:126px;height:174px;
+  border:0;border-right:1px solid #b9a783;border-radius:0;background:#ded8c9}
+#ucPortrait img{width:100%;height:100%;max-height:none;object-fit:cover;object-position:center 24%;filter:saturate(.82)}
+#ucFac{grid-column:2;grid-row:1;font-size:11px;letter-spacing:.4px;font-weight:700;margin:4px 16px 4px 0}
+#ucName{grid-column:2;grid-row:2;font:700 19px var(--serif);letter-spacing:1px;margin:0 14px 4px 0}
+#ucBody{grid-column:2;grid-row:3;font-size:11px;line-height:1.5;color:#50584f;
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+#ucBody b{color:#383e38;font-weight:700}
+#ucClose{top:6px;right:8px;color:#52564e;font-size:13px}
+@media (max-width:1100px){
+  #intel,#strat{width:46vw}
+  #unitCard{width:320px}#unitCard:has(#ucPortrait.show){grid-template-columns:102px minmax(0,1fr)}
+  #ucPortrait,#ucPortrait.show{width:102px;height:152px}
+}
+@media (max-width:700px){
+  #topbar,body:not(.cinema) #topbar{padding:10px 8px 0}
+  #eraBox{display:none}
+  #intel,#strat{left:8px;right:8px;bottom:145px;top:auto;width:auto;min-height:76px;padding:8px 10px;
+    grid-template-columns:minmax(86px,30%) minmax(0,1fr);gap:7px}
+  #intel::before{left:4px;top:7px;bottom:7px}
+  .intelHeading{padding:0 6px 0 3px}
+  #phTitle{font-size:19px;letter-spacing:0}
+  #phTag{font-size:9px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #phNarr{font-size:10px;line-height:1.42;-webkit-line-clamp:3}
+  #stratName{font-size:21px;min-width:30%;padding:6px}
+  #stratInfo{padding:8px}#stratBy{font-size:9px;margin-bottom:3px}#stratDesc{font-size:10px;line-height:1.4}
+  #unitCard{top:auto;bottom:255px;left:8px;right:8px;width:auto;min-height:112px;padding:7px 9px;transform:translateY(10px)}
+  #unitCard.show{transform:none}
+  #unitCard:has(#ucPortrait.show){grid-template-columns:86px minmax(0,1fr);column-gap:9px}
+  #ucPortrait,#ucPortrait.show{width:86px;height:116px;margin:-7px 0 -7px -9px}
+  #ucFac{font-size:9px;margin:0 10px 2px 0}#ucName{font-size:15px;margin-bottom:2px}
+  #ucBody{font-size:10px;line-height:1.35;-webkit-line-clamp:3}
+}
+/* 液态玻璃：静态高光与柔和折射感，避免逐帧滤镜动画影响录屏帧率。 */
+#intel,#legend,#unitCard,#stratName,#stratInfo,#timeline,#tl,
+#eraBox,.brand .chip,.evt .card,.uLab .box,#deckMini{
+  background:linear-gradient(145deg,rgba(255,255,255,.74),rgba(230,238,240,.62) 45%,rgba(246,239,222,.66));
+  border:1px solid rgba(255,255,255,.78);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),inset 0 -1px 0 rgba(147,166,170,.27),
+    0 7px 22px rgba(17,31,39,.18),0 0 0 1px rgba(67,88,98,.17);
+  -webkit-backdrop-filter:blur(12px) saturate(145%);
+  backdrop-filter:blur(12px) saturate(145%);
+}
+#intel,#legend,#unitCard,#stratName,#stratInfo,#timeline,#tl{border-radius:12px}
+#intel,#unitCard,#stratName,#stratInfo,#timeline,#tl{position:fixed}
+#intel,#unitCard,#stratName,#stratInfo,#timeline,#tl{isolation:isolate}
+#intel::after,#legend::after,#unitCard::after,#stratName::after,#stratInfo::after,
+#timeline::after,#tl::after{
+  content:"";position:absolute;inset:1px;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(132deg,rgba(255,255,255,.38) 0%,transparent 28%,transparent 70%,rgba(154,186,194,.12) 100%);
+  z-index:1;
+}
+#intel>* ,#unitCard>:not(#ucClose) ,#stratName>* ,#stratInfo>* ,#tl>*{position:relative;z-index:2}
+#intel{border-left:2px solid rgba(166,72,61,.75)}
+.intelHeading{border-right-color:rgba(78,96,100,.26)}
+#stratName{border-right:1px solid rgba(78,96,100,.26);border-radius:12px 0 0 12px}
+#stratInfo{border-radius:0 12px 12px 0;border-left:0}
+#stratName,#stratInfo{position:relative}
+#unitCard{border-left:2px solid rgba(172,91,72,.65)}
+#ucPortrait,#ucPortrait.show{border-right-color:rgba(99,122,127,.32)}
+#legend{position:relative}
+#legend .hd,#legend .lg,#timeline .timelineMeta,#timeline #tlTrack{position:relative;z-index:2}
+#timeline{border-color:rgba(225,236,238,.38);background:linear-gradient(145deg,rgba(17,34,43,.82),rgba(35,55,61,.78));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.23),0 7px 22px rgba(10,23,29,.24)}
+#timeline .timelineMeta{color:#e2e9e6}
+#tl{position:relative;background:linear-gradient(145deg,rgba(249,251,250,.88),rgba(222,233,233,.82));
+  border-radius:14px}
+#deckMini{border-radius:10px 0 0 10px}
+.evt .card,.uLab .box{background:linear-gradient(145deg,rgba(248,252,251,.78),rgba(221,234,235,.70));
+  color:#263330;border-radius:7px}
+#subtitle,body.cinema #subtitle,body.deck-mini #subtitle{font-family:var(--subtitle-font);
+  font-weight:700;letter-spacing:.5px}
+/* 统一曲面边缘、高光和透光底色；只对整张卡片模糊一次。 */
+#intel,#legend,#unitCard,#tl,#eraBox,.brand .chip,.evt .card,.uLab .box,#deckMini,#strat{
+  background:linear-gradient(120deg,rgba(255,255,255,.70),rgba(241,247,245,.45) 38%,rgba(224,235,235,.54) 72%,rgba(255,249,236,.65));
+  border-color:rgba(255,255,255,.76);
+  box-shadow:inset 0 1.5px 1px rgba(255,255,255,.96),inset 1px 0 1px rgba(255,255,255,.56),
+    inset -1px -1px 2px rgba(99,136,147,.32),0 8px 24px rgba(19,32,40,.16),0 0 0 .5px rgba(34,54,60,.23);
+  -webkit-backdrop-filter:blur(14px) saturate(155%);backdrop-filter:blur(14px) saturate(155%);
+}
+#intel,#unitCard,#legend,#tl,#strat{border-radius:16px}
+#intel::after,#legend::after,#unitCard::after,#tl::after{
+  background:radial-gradient(ellipse at 8% 0%,rgba(255,255,255,.43),transparent 53%),
+    linear-gradient(138deg,transparent 48%,rgba(255,255,255,.07) 49%,transparent 60%);
+}
+#strat{border:1px solid rgba(255,255,255,.76);overflow:hidden}
+#stratName,#stratInfo{background:transparent;box-shadow:none;border-radius:0;
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+#stratName::after,#stratInfo::after{display:none}
+#tl{background:linear-gradient(130deg,rgba(251,253,251,.85),rgba(234,242,240,.74))}
+body.film #phTitle{font-size:clamp(22px,2vw,29px);line-height:1.3;letter-spacing:1px}
+body.film .intelHeading{width:auto}
+@supports not (backdrop-filter:blur(1px)){
+  #intel,#legend,#unitCard,#tl,#strat,.evt .card,.uLab .box{background:rgba(239,245,241,.94)}
+}
+@media (max-width:700px){
+  body.film #phTitle{font-size:18px;letter-spacing:.5px}
+  #tl>div.deckHead:first-child{display:flex!important}
+  #intel,#unitCard,#timeline,#tl{-webkit-backdrop-filter:blur(8px) saturate(130%);
+    backdrop-filter:blur(8px) saturate(130%)}
+}
+/* ════════ 增强包(body.fx,由 battlefield.json meta.fx 或 ?fx=1 开启)════════
+   只在增强包生效,赤壁等既有包不出现下面的规则。 */
+/* 大字无衬线字幕 + 关键词对比色强调(底部居中) */
+body.fx #subtitle,body.fx.cinema #subtitle,body.fx.deck-mini #subtitle{
+  font-family:var(--sans);font-size:clamp(28px,2.4vw,42px);line-height:1.45;letter-spacing:3px;
+  font-weight:700;color:#fff;max-width:min(84vw,1180px);background:none;padding:0;
+  text-shadow:0 4px 16px #05080b,0 0 40px rgba(0,0,0,.92);bottom:calc(3.2vh + 96px)}
+body.fx #subtitle .kw{color:#ffce7a;font-weight:900;
+  text-shadow:0 0 20px rgba(255,150,52,.7),0 4px 16px #05080b}
+/* 常驻侧栏数据战报:兵力条 + 粮草(左下) */
+body.fx #intel{display:flex;flex-direction:column;left:24px;bottom:calc(3.2vh + 44px);top:auto;
+  transform:none;width:min(336px,33vw);min-height:0;gap:9px;padding:13px 16px;align-items:stretch}
+body.fx .intelHeading{border-right:0;padding:0}
+body.fx #intel::before{left:9px;top:12px;bottom:12px}
+body.fx #powers{display:flex;flex-direction:column;gap:8px;border-top:1px dashed var(--line);padding-top:10px}
+body.fx #phNarr{-webkit-line-clamp:2;margin-bottom:2px}
+body.fx #supply{display:block}
+.supHd{font-family:var(--sans);font-size:10px;letter-spacing:3px;color:#8a6d43;margin:9px 0 3px}
+.supRow{display:flex;align-items:center;gap:7px;margin:5px 0;font-family:var(--sans)}
+.supRow .nm{font-size:11px;min-width:26px}
+.supRow .bar{flex:1;height:4px;background:rgba(38,50,49,.12);border-radius:2px;overflow:hidden}
+.supRow .bar i{display:block;height:100%;border-radius:2px}
+.supRow .num{font-size:10px;color:#5d665f;min-width:28px;text-align:right}
+.supRow .note{font-size:10px;color:#8a6d43;min-width:44px;text-align:right}
+/* 品牌角标(圆形 logo 水印,右上) */
+body.fx #brandMark{display:block}
+#brandMark{display:none;position:fixed;right:24px;top:calc(3.2vh + 12px);z-index:14;width:74px;height:74px;
+  pointer-events:none;opacity:.92;filter:drop-shadow(0 3px 10px rgba(0,0,0,.55))}
+#brandMark img{width:100%;height:100%;display:block}
+@media (max-width:700px){#brandMark{width:52px;height:52px;right:12px}}
+/* 片头品牌动画(由引擎时间 T 驱动,离线逐帧可复现) */
+#brandSting{display:none;position:fixed;inset:0;z-index:30;align-items:center;justify-content:center;
+  pointer-events:none;opacity:0;will-change:opacity}
+#brandSting .stScrim{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(6,10,14,.42),rgba(4,7,10,.86))}
+#brandSting .stInner{position:relative;text-align:center;transform:translateY(-2vh)}
+#brandSting #stingLogo{width:172px;height:172px;display:block;margin:0 auto 18px;
+  filter:drop-shadow(0 8px 30px rgba(0,0,0,.7));transform:scale(.88)}
+#brandSting .stName{font-family:var(--serif);font-size:42px;letter-spacing:14px;color:#f6ecd6;
+  text-shadow:0 4px 22px rgba(0,0,0,.85);text-indent:14px}
+#brandSting .stSeries{margin-top:8px;font-family:var(--sans);font-size:15px;letter-spacing:5px;color:#cdbf9e}
+#brandSting .stTitle{margin-top:20px;font-family:var(--serif);font-size:30px;letter-spacing:10px;color:#ffce7a;
+  text-shadow:0 0 26px rgba(255,150,52,.45)}
+</style>
+</head>
+<body class="cinema">
+<div id="loadMsg">载 入 战 场 ⋯</div>
+<div id="stage"></div>
+<div id="labels"></div>
+<div id="vignette"></div><div id="grain"></div>
+<div class="lbox" id="lboxT"></div><div class="lbox" id="lboxB"></div>
+
+<div id="topbar">
+  <div class="brand">
+    <div class="seal" id="brdSeal">赤</div>
+    <div class="sub">
+      <h1 id="brdTitle">赤壁之战</h1>
+      <span class="chip" id="brdTag"><span id="liveDot"></span>徐艾伦・全 3D 战场重现</span>
+    </div>
+  </div>
+  <div id="eraBox"><div class="era" id="eraTxt">建安十三年</div><div class="yr" id="eraYr">公元 208 年・长江赤壁</div></div>
+</div>
+
+<div id="intel">
+  <div class="intelHeading"><div id="phTitle">大军南下</div><div id="phTag">第一幕</div></div>
+  <div class="intelDetail"><div id="phNarr"></div><div id="powers"></div><div id="supply"></div></div>
+</div>
+
+<div id="side">
+  <div id="legend">
+    <div class="hd">兵 力 识 别</div>
+  </div>
+  <div id="compass"><div id="needle"></div></div>
+  <div id="hint">拖曳　旋转视角<br>滚轮　远近缩放<br>右键　平移战场<br>点击部队　查看详情<br>Shift+点　取座标</div>
+</div>
+
+<div id="unitCard">
+  <div id="ucClose">✕</div>
+  <div id="ucPortrait"><img id="ucImg" alt=""></div>
+  <div id="ucFac"></div><div id="ucName"></div><div id="ucBody"></div>
+</div>
+
+<div id="strat">
+  <div id="stratInfo"><div id="stratBy"></div><div id="stratDesc"></div></div>
+  <div id="stratName">连环计<div id="stratSeal">计</div></div>
+</div>
+
+<div id="finale"><div class="t">天下三分</div><div class="s">赤壁一炬・鼎足之势成</div></div>
+
+<div id="timeline" aria-label="战役时间轴">
+  <div class="timelineMeta"><span id="tlStart">建安十三年 秋七月</span><span id="tlMid">战役时间轴</span><span id="tlEnd">建安十四年 春</span></div>
+  <div id="tlTrack"><div id="tlFill"></div><div id="tlNodes"></div></div>
+</div>
+
+<div id="deck" aria-label="播放设置">
+  <div id="tl">
+    <div class="deckHead"><span>播放设置</span><button id="bMin" title="收起设置" aria-label="收起设置">收起 ×</button></div>
+    <div id="ctrls">
+      <div class="ctrlLabel">播放与镜头</div>
+      <div class="ctrlGroup">
+        <button class="btn mini" id="bPrev">◀ 上一幕</button>
+        <button class="btn hot" id="bPlay">暂停</button>
+        <button class="btn mini" id="bNext">下一幕 ▶</button>
+        <button class="btn mini" id="bSpeed">速度 1×</button>
+        <button class="btn" id="bCam">电影运镜中</button>
+        <button class="btn mini" id="bQuality">画质 清晰</button>
+        <button class="btn mini" id="bReplay">重播</button>
+      </div>
+      <div class="ctrlLabel">旁白与字幕</div>
+      <div class="ctrlGroup">
+        <button class="btn mini" id="bNarrTg">旁白 开</button>
+        <button class="btn mini" id="bSubTg">字幕 开</button>
+        <button class="btn mini" id="bVoiceTg">男声</button>
+        <label class="sliderRow" id="spdWrap">旁白语速 <span id="narrSpdVal">1.0×</span><input type="range" id="narrSpd" min="0.5" max="2" step="0.1" value="1"></label>
+      </div>
+      <div class="ctrlLabel">音乐与音效</div>
+      <div class="ctrlGroup">
+        <button class="btn mini" id="bBgm">BGM 默认</button>
+        <button class="btn mini" id="bAutoBgm">自动BGM 关</button>
+        <label class="sliderRow">配乐音量<input type="range" id="bgmVol" min="0" max="100" value="100"></label>
+        <label class="sliderRow">音效音量<input type="range" id="sfxVol" min="0" max="100" value="100"></label>
+        <label class="sliderRow wide">总音量<input type="range" id="vol" min="0" max="100" value="80"></label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button id="deckMini" title="展开播放设置" aria-label="展开播放设置">设置</button>
+
+<div id="subtitle"></div>
+
+<div id="cards"></div>
+
+<div id="brandMark"><img id="brandMarkImg" alt=""></div>
+
+<div id="brandSting"><div class="stScrim"></div><div class="stInner">
+  <img id="stingLogo" alt="">
+  <div class="stName">徐艾伦</div>
+  <div class="stSeries">一年推演 100 部中国 3D 战争史</div>
+  <div class="stTitle">官渡之战</div>
+</div></div>
+
+<div id="intro">
+  <div class="blot"></div>
+  <div class="inner">
+    <div id="inMeta">
+      <span class="chip" id="inTag">徐艾伦・3D 战场重现</span>
+      <p id="inBody">建安十三年冬，曹操挥师二十余万南下，欲一举吞并江东。孙权、刘备结盟，以五万之众迎战于长江赤壁——一场大火，烧出了三分天下。<br><br>本节目以 3D 运镜重现战役全程：阵型调动、计策发动、东风与火攻，尽在眼前。</p>
+      <div id="inBtns">
+        <button class="bigbtn" id="btnAuto">自动播映</button>
+        <button class="bigbtn" id="btnFree">自由探索</button>
+      </div>
+    </div>
+    <div id="inTitle">赤壁之战<small>建安十三年・公元二〇八</small></div>
+  </div>
+  <div id="inFoot">兵力为史学估计・标注「史」者见于正史，标「演义」者出自小说演义</div>
+</div>
+
+<script type="importmap">
+{"imports":{
+  "three":"./node_modules/three/build/three.module.js",
+  "three/addons/":"./node_modules/three/examples/jsm/"
+}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {CSS2DRenderer,CSS2DObject} from 'three/addons/renderers/CSS2DRenderer.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+
+const PKG_URL = new URLSearchParams(location.search).get('pkg') || 'packages/chibi-full/battlefield.json';
+const PKG = await (await fetch(PKG_URL)).json();
+const PKG_BASE = PKG_URL.replace(/[^/]*$/, '');  // dir of the manifest
+const assetUrl = p => PKG_BASE + p;              // 素材路径相对 manifest 目录(package 自足)
+const PKG_ID=PKG_BASE.split('/').filter(Boolean).at(-1)||'default';
+const SETTINGS={
+  get(k){try{return localStorage.getItem(`battlefield.${PKG_ID}.${k}`)??
+    (PKG_ID==='chibi'?localStorage.getItem(`chibi.${k}`):null);}catch{return null;}},
+  set(k,v){try{localStorage.setItem(`battlefield.${PKG_ID}.${k}`,String(v));}catch{}},
+};
+
+/* ════════ meta text (战役文案) ════════ */
+function applyMeta(){
+  const m = PKG.meta; if(!m) return;
+  const setText=(id,v)=>{const el=document.getElementById(id); if(el&&v!=null) el.textContent=v;};
+  const setHtml=(id,v)=>{const el=document.getElementById(id); if(el&&v!=null) el.innerHTML=v;};
+  if(m.docTitle) document.title=m.docTitle;
+  setText('brdSeal', m.seal);
+  setText('brdTitle', m.title);
+  if(m.broadcastTag!=null){const c=document.getElementById('brdTag'); if(c) c.innerHTML='<span id="liveDot"></span>'+m.broadcastTag;}
+  setText('eraTxt', m.era);
+  setText('eraYr', m.eraYear);
+  if(m.finale){
+    const f=document.getElementById('finale');
+    if(f){const t=f.querySelector('.t'),s=f.querySelector('.s');
+      if(t&&m.finale.title!=null) t.textContent=m.finale.title;
+      if(s&&m.finale.subtitle!=null) s.textContent=m.finale.subtitle;}
+  }
+  if(m.timeline){ setText('tlStart',m.timeline.start); setText('tlMid',m.timeline.mid); setText('tlEnd',m.timeline.end); }
+  if(m.intro){
+    setText('inTag', m.intro.tag);
+    setHtml('inBody', m.intro.bodyHtml);
+    const it=document.getElementById('inTitle');
+    if(it&&m.title!=null) it.innerHTML=m.title+'<small>'+(m.subtitle||'')+'</small>';
+    setHtml('inFoot', m.intro.footHtml);
+  }
+}
+applyMeta();
+
+/* ════════ basic helpers ════════ */
+const hash=(x,y)=>{const s=Math.sin(x*127.1+y*311.7)*43758.5453;return s-Math.floor(s);};
+function vnoise(x,y){const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  return hash(xi,yi)*(1-u)*(1-v)+hash(xi+1,yi)*u*(1-v)+hash(xi,yi+1)*(1-u)*v+hash(xi+1,yi+1)*u*v;}
+function fbm(x,y){let a=0,amp=1,f=1,t=0;for(let i=0;i<4;i++){a+=vnoise(x*f,y*f)*amp;t+=amp;amp*=.5;f*=2;}return a/t;}
+const TERRAIN = await (await fetch(PKG_BASE + PKG.data.terrain)).json();
+const UNITS = await (await fetch(PKG_BASE + PKG.data.units)).json();
+function _catmull(p0,p1,p2,p3,t){const t2=t*t,t3=t2*t;
+  const f=(a,b,c,d)=>0.5*((2*b)+(-a+c)*t+(2*a-5*b+4*c-d)*t2+(-a+3*b-3*c+d)*t3);
+  return [f(p0[0],p1[0],p2[0],p3[0]), f(p0[1],p1[1],p2[1],p3[1])];}
+function _densify(ctrl,perSeg){ if(ctrl.length<2) return ctrl.slice();
+  const e=[ctrl[0],...ctrl,ctrl[ctrl.length-1]], out=[];
+  for(let i=1;i<e.length-2;i++) for(let s=0;s<perSeg;s++) out.push(_catmull(e[i-1],e[i],e[i+1],e[i+2],s/perSeg));
+  out.push(e[e.length-2]); return out;}
+for(const r of TERRAIN.rivers) r._dense=_densify(r.centerline,12);
+function riverZAt(x,fallback=0){
+  let best=fallback,score=Infinity;
+  for(const river of TERRAIN.rivers||[])for(const p of river._dense||[]){
+    const s=Math.abs(p[0]-x)*20+Math.abs(p[1]-fallback);
+    if(s<score){score=s;best=p[1];}
+  }
+  return best;
+}
+function _distSeg(px,pz,a,b){const vx=b[0]-a[0],vz=b[1]-a[1];const wx=px-a[0],wz=pz-a[1];
+  const L=vx*vx+vz*vz||1e-9;let t=Math.max(0,Math.min(1,(wx*vx+wz*vz)/L));
+  return Math.hypot(px-(a[0]+t*vx),pz-(a[1]+t*vz));}
+function _distPoly(x,z,pts){let m=Infinity;for(let i=0;i<pts.length-1;i++)m=Math.min(m,_distSeg(x,z,pts[i],pts[i+1]));return m;}
+function terrainHeight(x,z){
+  let carved=null,nearD=Infinity,nearR=null;
+  for(const r of TERRAIN.rivers){const d=_distPoly(x,z,r._dense);
+    if(d<nearD){nearD=d;nearR=r;} if(d<r.halfWidth){const ch=r.depth*(1-d/r.halfWidth);carved=carved===null?ch:Math.min(carved,ch);}}
+  let h; if(carved!==null)h=carved;
+  else{const r=nearR,t=nearD-r.halfWidth,bf=r.bankFbm;
+    h=Math.min(t*r.bankSlope,r.bankCap)+fbm(x*bf.scale+(bf.xOff||0),z*bf.scale)*Math.min(t*(bf.ampRate||0.14),bf.ampCap);}
+  for(const b of TERRAIN.bands){const v=Math.abs(b.axis==='z'?z:x);
+    h+=Math.max(0,v-b.beyond)*b.slope*(b.fbm.base+fbm(x*b.fbm.scale,z*b.fbm.scale+b.fbm.offset));}
+  for(const bm of TERRAIN.bumps){const kx=bm.radius?bm.radius[0]*bm.radius[0]:bm.k[0],kz=bm.radius?bm.radius[1]*bm.radius[1]:bm.k[1];
+    h+=bm.height*Math.exp(-(((x-bm.center[0])**2)/kx+((z-bm.center[1])**2)/kz));}
+  return h;
+}
+function ground(x, z){ return terrainHeight(x, z); }
+const lerp=(a,b,t)=>a+(b-a)*t;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+/* 真实地表色带: 沙岸、草地、丘陵和岩地 */
+const _rampReal=[
+  {maxH:0,c:new THREE.Color(0xa5915f),c2:null,by:null,from:0,span:1},
+  {maxH:1.2,c:new THREE.Color(0xcbb98c),c2:null,by:null,from:0,span:1},
+  {maxH:7,c:new THREE.Color(0xa9b874),c2:new THREE.Color(0x8ea763),by:'fbm',from:0,span:1},
+  {maxH:16,c:new THREE.Color(0x8ea763),c2:new THREE.Color(0x9a9360),by:'ramp',from:7,span:9},
+  {maxH:null,c:new THREE.Color(0x9a9360),c2:new THREE.Color(0xb8ad8a),by:'ramp',from:16,span:14}];
+const _tintRC=new Map();
+const terrainTint=hex=>{let c=_tintRC.get(hex);if(!c){c=new THREE.Color(hex).lerp(new THREE.Color(0xf2e8d0),.32);_tintRC.set(hex,c);}return c;};
+function terrainColor(x,z){
+  const h=terrainHeight(x,z), n=fbm(x*0.05,z*0.05), out=new THREE.Color();
+  const seg=_rampReal.find(s=>s.maxH===null||h<s.maxH)||_rampReal[_rampReal.length-1];
+  out.copy(seg.c);
+  if(seg.c2){const t=seg.by==='fbm'?n:clamp((h-seg.from)/seg.span,0,1);out.lerp(seg.c2,t);}
+  for(const bm of TERRAIN.bumps){if(!bm.tint)continue;const ti=bm.tint;
+    const kx=bm.radius?bm.radius[0]*bm.radius[0]:bm.k[0],kz=bm.radius?bm.radius[1]*bm.radius[1]:bm.k[1];
+    const cf=Math.exp(-(((x-bm.center[0])**2)/kx+((z-bm.center[1])**2)/kz));
+    const th=ti.threshold??0.2,gn=ti.gain??2,mx=ti.max??0.8,mn=ti.minH??0;
+    if(cf>th&&h>mn)out.lerp(terrainTint(ti.color),clamp((cf-th)*gn,0,1)*mx);}
+  for(const rg of TERRAIN.regions){const ti=rg.tint;
+    const kx=rg.radius?rg.radius[0]*rg.radius[0]:rg.k[0],kz=rg.radius?rg.radius[1]*rg.radius[1]:rg.k[1];
+    const mf=Math.exp(-(((x-rg.center[0])**2)/kx+((z-rg.center[1])**2)/kz));
+    const th=ti.threshold??0.2,gn=ti.gain??2,mx=ti.max??0.8,mn=ti.minH??0,mH=ti.maxH??Infinity;
+    if(mf>th&&h>mn&&h<mH)out.lerp(terrainTint(ti.color),clamp((mf-th)*gn,0,1)*mx);}
+  return out;
+}
+const smooth=t=>t*t*(3-2*t);
+const V3=(x,y,z)=>new THREE.Vector3(x,y,z);
+
+const FACT_RAW = await (await fetch(PKG_BASE + PKG.data.factions)).json();
+const FAC = (() => {
+  const raw = FACT_RAW;
+  const out = {};
+  for (const [k, v] of Object.entries(raw)) {
+    out[k] = { name: v.name, flag: v.flag, css: v.css, hex: v.col, darkHex: v.dark,
+               light: v.light || v.col, panel: v.panel || v.name, legend: v.legend || v.name,
+               col: parseInt(v.col.slice(1), 16), dark: parseInt(v.dark.slice(1), 16) };
+  }
+  return out;
+})();
+
+/* 单位标签的阵营配色由 factions.json 动态产生 .uLab.<css> 规则(取代写死 cao/sun/liu) */
+(function buildFactionCSS(){
+  const a7 = h => h + 'b3';   // #RRGGBB → 0.7 alpha
+  const css = Object.values(FAC).map(f =>
+    `.uLab.${f.css} .box{border-color:${a7(f.hex)}} .uLab.${f.css} .t1{color:${f.light}}`).join('\n');
+  const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+})();
+
+/* 战力面板 + 图例由 factions.json 产生(支持任意阵营数) */
+(function buildPanels(){
+  const pw = document.getElementById('powers'); pw.innerHTML = '';
+  const lg = document.getElementById('legend');
+  for (const fac of Object.keys(FAC)) {
+    const f = FAC[fac];
+    const row = document.createElement('div'); row.className = 'pw';
+    row.innerHTML =
+      `<div class="row1"><span class="nm" style="color:${f.hex}">${f.panel}</span><span class="num" id="n_${fac}"></span></div>`
+      + `<div class="bar"><i id="b_${fac}" style="background:linear-gradient(90deg,${f.darkHex},${f.hex})"></i></div>`
+      + `<div class="st" id="s_${fac}"></div>`;
+    pw.appendChild(row);
+    const l = document.createElement('div'); l.className = 'lg';
+    l.innerHTML = `<span class="sw" style="background:${f.hex}"></span>${f.legend}`;
+    lg.appendChild(l);
+  }
+})();
+
+/* ════════ renderer / scene ════════ */
+const manualCapture=new URLSearchParams(location.search).get('offline')==='1';
+const stage=document.getElementById('stage');
+const QS=new URLSearchParams(location.search);
+const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});
+// 成片走超采样:SS=1.5/2 时 canvas 实际按 1.5/2 倍像素渲染,再交给合成器缩回 CSS 尺寸
+// (逐幕截图仍是 1920×1080,CSS2D 覆盖层也是 1×,所以 render-film.mjs 的规格断言不受影响)。
+const SS=clamp(Number(QS.get('ss'))||1,.7,2);
+renderer.setPixelRatio(Math.min(devicePixelRatio,SS));
+renderer.setSize(innerWidth,innerHeight);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.1;
+renderer.shadowMap.enabled=QS.get('shadow')!=='0';
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+stage.appendChild(renderer.domElement);
+const labelRenderer=new CSS2DRenderer({element:document.getElementById('labels')});
+labelRenderer.setSize(innerWidth,innerHeight);
+
+const scene=new THREE.Scene();
+scene.fog=new THREE.FogExp2(0x2a3442,0.0018);
+const camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,1,3000);
+camera.position.set(-420,260,320);
+const controls=new OrbitControls(camera,renderer.domElement);
+controls.enableDamping=true;controls.dampingFactor=.07;
+controls.maxPolarAngle=Math.PI*0.49;controls.minDistance=20;controls.maxDistance=900;
+controls.enabled=false;
+
+const hemi=new THREE.HemisphereLight(0xbcc8d8,0x2a2620,0.85);scene.add(hemi);
+const sun=new THREE.DirectionalLight(0xfff1d6,1.6);sun.position.set(-200,300,150);scene.add(sun);
+const fireLight=new THREE.PointLight(0xff7a26,0,420,1.6);fireLight.position.set(-42,18,-11);scene.add(fireLight);
+
+/* ════════ 视觉增强层(开关式:?fx=1 或 battlefield.json meta.fx===true)════════
+   仅增强包启用,赤壁等既有包完全不受影响:EffectComposer(RenderPass→泛光→暖沙尘调色→OutputPass)。
+   离线逐帧录制不追求实时帧率,把预算花在光影与后处理(核显路线:美术+后处理,不堆光追)。
+   RenderPass 写入 HalfFloat 离屏目标时 three 自动关闭材质内色调映射,交由 OutputPass 统一做 ACES+sRGB,避免二次映射。 */
+const FX=QS.get('fx')==='1'||PKG.meta?.fx===true;
+const FXBlur=FX&&(QS.get('fx-blur')==='1'||PKG.meta?.fxBlur===true);   // 运动残影(默认关:静态镜会拖影)
+const FXDof=FX&&(QS.get('fx-dof')==='1'||PKG.meta?.fxDof===true);      // 景深(默认关:粒子/精灵易出边)
+let composer=null,gradePass=null,dofPass=null;
+if(FX){
+  const {EffectComposer}=await import('three/addons/postprocessing/EffectComposer.js');
+  const {RenderPass}=await import('three/addons/postprocessing/RenderPass.js');
+  const {ShaderPass}=await import('three/addons/postprocessing/ShaderPass.js');
+  const {UnrealBloomPass}=await import('three/addons/postprocessing/UnrealBloomPass.js');
+  const {OutputPass}=await import('three/addons/postprocessing/OutputPass.js');
+  // 首级目标带 MSAA(HalfFloat+4x):直出几何的锯齿在进泛光前就抹掉(核显路线下的廉价抗锯齿)。
+  let fxRT=null;try{fxRT=new THREE.WebGLRenderTarget(innerWidth,innerHeight,{type:THREE.HalfFloatType,samples:4});}catch(e){fxRT=null;}
+  composer=new EffectComposer(renderer,fxRT||undefined);
+  composer.setPixelRatio(renderer.getPixelRatio());
+  composer.setSize(innerWidth,innerHeight);
+  composer.addPass(new RenderPass(scene,camera));
+  if(FXBlur){const {AfterimagePass}=await import('three/addons/postprocessing/AfterimagePass.js');
+    const a=new AfterimagePass(0.72);a.uniforms.damp.value=0.72;composer.addPass(a);}
+  if(FXDof){const {BokehPass}=await import('three/addons/postprocessing/BokehPass.js');
+    dofPass=new BokehPass(scene,camera,{focus:140,aperture:0.00002,maxblur:0.006,width:innerWidth,height:innerHeight});composer.addPass(dofPass);}
+  composer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),0.42,0.55,0.68));
+  gradePass=new ShaderPass({
+    uniforms:{tDiffuse:{value:null},uTime:{value:0}},
+    vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+    fragmentShader:[
+      'uniform sampler2D tDiffuse;uniform float uTime;varying vec2 vUv;',
+      'void main(){',
+      '  vec4 c=texture2D(tDiffuse,vUv);',
+      '  vec3 col=max(c.rgb,0.0);',
+      '  float l=dot(col,vec3(0.2126,0.7152,0.0722));',
+      // 暖黄沙尘·历史厚重:高光偏暖、阴影微冷,轻微去饱和 → 胶片沙土感
+      '  col*=mix(vec3(0.96,0.99,1.05),vec3(1.06,1.0,0.90),smoothstep(0.0,0.6,l));',
+      '  col=mix(col,vec3(dot(col,vec3(0.2126,0.7152,0.0722))),0.055);',
+      // 细腻胶片颗粒(帧间随 uTime 变化,离线逐帧不重复)
+      '  float g=fract(sin(dot(vUv+uTime,vec2(12.9898,78.233)))*43758.5453);',
+      '  col+=(g-0.5)*0.006;',
+      '  gl_FragColor=vec4(col,c.a);',
+      '}'].join('\n'),
+  });
+  composer.addPass(gradePass);
+  composer.addPass(new OutputPass());
+}
+const BRAND=FX&&PKG.meta?.brand?PKG.meta.brand:null;
+if(FX){
+  document.body.classList.add('fx');
+  if(BRAND&&BRAND.logo)for(const id of ['brandMarkImg','stingLogo']){const e=document.getElementById(id);if(e)e.src=assetUrl(BRAND.logo);}
+}
+const stingEl=(BRAND&&BRAND.intro!==false)?document.getElementById('brandSting'):null;
+const STING_DUR=2.6;
+
+/* 日照阴影:一次性给「有光照材质」的网格开投影,地面接收。粒子/线/天穹(ShaderMaterial)自动跳过。
+   正交阴影相机罩住整张地图(W*1.5=1020 × H*1.5=690),2048 图 → 约 0.6 世界单位/像素。 */
+function enableShadows(){
+  renderer.shadowMap.enabled=QS.get('shadow')!=='0';
+  if(!renderer.shadowMap.enabled)return;
+  sun.castShadow=true;
+  const sc=sun.shadow.camera;
+  sc.left=-660;sc.right=660;sc.top=560;sc.bottom=-560;sc.near=1;sc.far=1800;sc.updateProjectionMatrix();
+  sun.shadow.mapSize.set(2048,2048);
+  sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.8;
+  const lit=o=>o.material&&/Lambert|Phong|Standard|Physical/.test(o.material.type);
+  scene.traverse(o=>{
+    if(!o.isMesh)return;
+    if(o===terrainMesh){o.receiveShadow=true;return;}
+    if(lit(o)){o.castShadow=true;o.receiveShadow=true;}
+  });
+}
+
+/* sky dome */
+const skyU={top:{value:new THREE.Color(0x39506e)},bot:{value:new THREE.Color(0x8a8f8a)}};
+scene.add(new THREE.Mesh(new THREE.SphereGeometry(1400,24,12),
+  new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:skyU,
+    vertexShader:`varying vec3 vP;void main(){vP=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+    fragmentShader:`uniform vec3 top,bot;varying vec3 vP;
+      void main(){float h=clamp(normalize(vP).y*1.6+.25,0.,1.);gl_FragColor=vec4(mix(bot,top,pow(h,.8)),1.);}`})));
+
+/* 本地生成的无缝材质，共享小贴图，适合 Iris Xe；无需下载外部素材。 */
+function surfaceTexture(kind){
+  const cv=document.createElement('canvas');cv.width=cv.height=512;
+  const ctx=cv.getContext('2d'),image=ctx.createImageData(512,512);
+  for(let y=0;y<512;y++)for(let x=0;x<512;x++){
+    const grain=hash(x,y),wave=Math.sin(x*.055+Math.sin(y*.045)*2),i=(y*512+x)*4;
+    let v=kind==='wood'?180+wave*20+grain*22:kind==='cloth'?218+grain*22-((x%5===0||y%5===0)?10:0):185+grain*45;
+    if(kind==='stone'&&(y%64<3||(x+(Math.floor(y/64)%2)*64)%128<3))v-=45;
+    if(kind==='roof'&&(y%48<4||x%24<3))v-=55;
+    image.data[i]=image.data[i+1]=image.data[i+2]=v;image.data[i+3]=255;
+  }
+  ctx.putImageData(image,0,0);
+  const tex=new THREE.CanvasTexture(cv);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;
+  tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());
+  return tex;
+}
+const surfaceMaps={ground:surfaceTexture('ground'),wood:surfaceTexture('wood'),
+  cloth:surfaceTexture('cloth'),stone:surfaceTexture('stone'),roof:surfaceTexture('roof')};
+surfaceMaps.ground.repeat.set(90,64);
+const surfaceMat=(color,kind,roughness=.85)=>new THREE.MeshStandardMaterial({color,map:surfaceMaps[kind],
+  bumpMap:surfaceMaps[kind],bumpScale:kind==='ground'?.19:.055,roughness,metalness:0});
+
+/* ════════ terrain ════════ */
+let terrainMesh=null;
+function buildTerrain(){
+  const {W,H,segX:sx,segZ:sz}=TERRAIN.world;
+  const geo=new THREE.PlaneGeometry(W*1.5,H*1.5,Math.round(sx*1.5),Math.round(sz*1.5));geo.rotateX(-Math.PI/2);
+  const pos=geo.attributes.position,col=[];
+  for(let i=0;i<pos.count;i++){
+    const x=pos.getX(i),z=pos.getZ(i);
+    pos.setY(i, terrainHeight(x,z));
+    const c=terrainColor(x,z); col.push(c.r,c.g,c.b);
+  }
+  geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+  geo.computeVertexNormals();
+  if(terrainMesh){ terrainMesh.geometry.dispose(); terrainMesh.geometry=geo; }
+  else { const mat=surfaceMat(0xffffff,'ground');mat.vertexColors=true;
+    terrainMesh=new THREE.Mesh(geo,mat);scene.add(terrainMesh); }
+}
+buildTerrain();
+/* water */
+const BASE_WATER_Y=0.05;
+const waterU={uT:{value:0},uGlow:{value:0},uDeep:{value:new THREE.Color(0x24526b)},uLit:{value:new THREE.Color(0x77a8b7)},
+  uFloodY:{value:BASE_WATER_Y}, uBaseY:{value:BASE_WATER_Y},
+  uReg:{value:new THREE.Vector4(0,0,1e4,1e4)}};   // 洪水区域(椭圆 cx,cz,rx,rz);默认超大半径=全域,旧 flood 不带 region 即全域上涨(向后相容)
+let waterMesh=null, floodAnim=null;   // flood fx 抬升水面用
+// 区域洪水:水面只在 uReg 椭圆内隆到 uFloodY,外面维持 uBaseY(边缘平滑收)。JS 镜像同一条公式,给船浮/量测用。
+function waterYAt(x,z){ const r=waterU.uReg.value, fy=waterU.uFloodY.value, by=waterU.uBaseY.value;
+  const dx=(x-r.x)/r.z, dz=(z-r.y)/r.w, L=Math.hypot(dx,dz);
+  const t=Math.min(1,Math.max(0,(L-0.75)/0.25)), s=t*t*(3-2*t);   // 同 shader smoothstep(.75,1.)
+  return by+(fy-by)*(1-s); }
+{
+  const m=new THREE.ShaderMaterial({transparent:true,uniforms:waterU,
+    vertexShader:`uniform float uFloodY,uBaseY;uniform vec4 uReg;varying vec2 vUv;varying vec3 vW;
+      void main(){vUv=uv;vec4 w=modelMatrix*vec4(position,1.);
+        vec2 d=(w.xz-uReg.xy)/uReg.zw;float m=1.-smoothstep(.75,1.,length(d));   // 区域内=1,边缘收到0
+        w.y=uBaseY+(uFloodY-uBaseY)*m;vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}`,
+    fragmentShader:`uniform float uT,uGlow;uniform vec3 uDeep,uLit;varying vec2 vUv;varying vec3 vW;
+      void main(){
+        vec2 p=vW.xz*.075;
+        float a=.48+.22*sin(p.x*1.5+p.y*.38+uT*.52)
+                    +.14*sin(p.y*2.1-p.x*.24-uT*.74)
+                    +.055*sin((p.x+p.y)*4.8+uT*1.35);
+        a=clamp(a,0.,1.);
+        float glint=(sin(p.x*3.1+p.y*2.4-uT*.8)+sin(p.y*5.2-p.x*1.3+uT*1.2))*.012;
+        vec3 eye=normalize(cameraPosition-vW);
+        vec3 normal=normalize(vec3(-.08*cos(p.x*1.5+p.y*.38+uT*.52),1.,-.055*cos(p.y*2.1-uT*.74)));
+        float fresnel=pow(1.-max(dot(eye,normal),0.),3.);
+        vec3 c=mix(uDeep,uLit,a*.36)+vec3(glint);
+        c=mix(c,vec3(.52,.65,.70),fresnel*.42);
+        float spec=pow(max(dot(reflect(normalize(vec3(.45,-1.,-.3)),normal),eye),0.),64.);
+        c+=vec3(.85,.83,.72)*spec*.22;
+        c+=uGlow*vec3(.55,.18,.03)*pow(a,2.2);
+        gl_FragColor=vec4(c,.92);
+      }`});
+  const W=TERRAIN.world.W*1.5, H=TERRAIN.world.H*1.5;   // 延展到镜头外，避免远景出现矩形沙盘边缘
+  const w=new THREE.Mesh(new THREE.PlaneGeometry(W,H,Math.round(W/8),Math.round(H/8)),m);
+  w.rotation.x=-Math.PI/2;w.position.y=0;scene.add(w);   // 水位改由 shader 算(uFloodY+区域),position.y 不再当水位
+  waterMesh=w;
+}
+
+/* A few instanced trunk and leaf shapes read as trees at tactical camera distance. */
+const regStyle=(m,_oldColor,real)=>{m.color.setHex(real);return m;};
+{
+  const trunks=new THREE.InstancedMesh(new THREE.CylinderGeometry(.24,.42,4.2,6),
+    new THREE.MeshLambertMaterial({color:0x695a43}),240);
+  const crownGeo=new THREE.SphereGeometry(1.8,12,9);
+  const cp=crownGeo.attributes.position;
+  for(let i=0;i<cp.count;i++){const x=cp.getX(i),y=cp.getY(i),z=cp.getZ(i);
+    const s=.86+hash(Math.round(x*20),Math.round((y+z)*20))*.26;cp.setXYZ(i,x*s,y*s,z*s);}
+  crownGeo.computeVertexNormals();
+  const crowns=new THREE.InstancedMesh(crownGeo,new THREE.MeshLambertMaterial({color:0xffffff}),720);
+  const M=new THREE.Matrix4();let count=0,crownCount=0;
+  const colors=[0x587f4b,0x6e8951,0x81935a,0x927d4d,0x54754c].map(c=>new THREE.Color(c));
+  for(let i=0;i<2200&&count<240;i++){
+    const x=(hash(i,3)-.5)*640,z=(hash(i,7)-.5)*430,h=ground(x,z);
+    if(h>4&&h<26&&hash(i,11)>.55){
+      const s=.72+hash(i,13)*.65;
+      M.makeScale(s,s,s).setPosition(x,h+2.1*s,z);trunks.setMatrixAt(count++,M);
+      for(let k=0;k<3;k++){
+        const dx=(k===0?0:k===1?-1.1:1.1)*s;
+        const dz=(k===0 ? 0 : k===1 ? .6 : -.55)*s;
+        const size=(k===0?1.3:.85)*s;
+        M.makeScale(size,size*.76,size).setPosition(x+dx,h+(k===0?5.6:4.7)*s,z+dz);
+        crowns.setMatrixAt(crownCount,M);
+        crowns.setColorAt(crownCount,colors[Math.floor(hash(i,k+19)*colors.length)]);
+        crownCount++;
+      }
+    }
+  }
+  trunks.count=count;crowns.count=crownCount;
+  trunks.instanceMatrix.needsUpdate=true;crowns.instanceMatrix.needsUpdate=true;
+  if(crowns.instanceColor)crowns.instanceColor.needsUpdate=true;
+  scene.add(trunks,crowns);
+}
+
+/* 草丛与岸边碎石以实例绘制，不增加单株 draw call。 */
+{
+  const blades=[];
+  for(let k=0;k<4;k++){
+    const g=new THREE.BufferGeometry();
+    g.setAttribute('position',new THREE.Float32BufferAttribute([-.12,0,0,.12,0,0,-.065,.5,.03,.065,.5,.03,.12,.9,.08],3));
+    g.setAttribute('uv',new THREE.Float32BufferAttribute([0,0,1,0,0,.5,1,.5,.5,1],2));
+    g.setIndex([0,1,2,1,3,2,2,3,4]);g.computeVertexNormals();g.rotateY(k*Math.PI/2);blades.push(g);
+  }
+  const grassGeo=mergeGeometries(blades,false);blades.forEach(g=>g.dispose());
+  const grass=new THREE.InstancedMesh(grassGeo,new THREE.MeshLambertMaterial({color:0x69824c,side:THREE.DoubleSide}),1000);
+  const rocks=new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1,0),surfaceMat(0x827e70,'stone'),180);
+  const M=new THREE.Matrix4();let ng=0,nr=0;
+  for(let i=0;i<3500;i++){
+    const x=(hash(i,71)-.5)*TERRAIN.world.W,z=(hash(i,73)-.5)*TERRAIN.world.H,h=ground(x,z);
+    if(h>1.4&&h<17&&ng<1000){const s=.6+hash(i,74);M.makeRotationY(hash(i,75)*6.28).scale(V3(s,s,s)).setPosition(x,h,z);grass.setMatrixAt(ng++,M);}
+    if(h>.8&&h<3.2&&nr<180){const s=.35+hash(i,79)*1.1;M.makeScale(s,s*.5,s*.8).setPosition(x,h,z);rocks.setMatrixAt(nr++,M);}
+  }
+  grass.count=ng;rocks.count=nr;grass.instanceMatrix.needsUpdate=true;rocks.instanceMatrix.needsUpdate=true;
+  scene.add(grass,rocks);
+}
+
+/* ════════ flags (canvas texture) ════════ */
+const flagCanvases=[];
+function flagTexture(fac){
+  const cv=document.createElement('canvas');cv.width=256;cv.height=176;
+  const tex=new THREE.CanvasTexture(cv);tex.colorSpace=THREE.SRGBColorSpace;
+  const draw=()=>{
+    const c=cv.getContext('2d');
+    const g=c.createLinearGradient(0,0,256,176);
+    const base=FAC[fac].hex;
+    g.addColorStop(0,base);g.addColorStop(1,'#'+new THREE.Color(FAC[fac].dark).getHexString());
+    c.fillStyle=g;c.fillRect(0,0,256,176);
+    c.strokeStyle='rgba(232,220,195,.9)';c.lineWidth=10;c.strokeRect(7,7,242,162);
+    c.strokeStyle='rgba(0,0,0,.25)';c.lineWidth=3;c.strokeRect(17,17,222,142);
+    c.font='900 108px "Noto Serif SC",serif';c.textAlign='center';c.textBaseline='middle';
+    c.shadowColor='rgba(0,0,0,.55)';c.shadowBlur=10;c.shadowOffsetY=4;
+    c.fillStyle='#f3ead8';c.fillText(FAC[fac].flag,128,96);
+    tex.needsUpdate=true;
+  };
+  draw();flagCanvases.push(draw);
+  return tex;
+}
+const flagTex={};
+for(const fac of Object.keys(FAC))flagTex[fac]=flagTexture(fac);
+document.fonts.ready.then(()=>flagCanvases.forEach(f=>f()));
+
+const wavingFlags=[];   // {mesh, base(Float32Array), amp, seed}
+function makeBanner(fac,big=false){
+  const grp=new THREE.Group();
+  const hPole=big?10:8;
+  const pole=new THREE.Mesh(new THREE.CylinderGeometry(.16,.22,hPole,5),new THREE.MeshLambertMaterial({color:0x2b2117}));
+  pole.position.y=hPole/2;grp.add(pole);
+  const fw=big?5.4:3.8,fh=fw*.66;
+  const g=new THREE.PlaneGeometry(fw,fh,14,8);g.translate(fw/2,0,0);
+  const f=new THREE.Mesh(g,new THREE.MeshLambertMaterial({map:flagTex[fac],side:THREE.DoubleSide}));
+  f.position.y=hPole-fh/2-.3;grp.add(f);
+  wavingFlags.push({mesh:f,base:g.attributes.position.array.slice(),amp:1,seed:Math.random()*9,w:fw});
+  return grp;
+}
+let flagWind=1;   // global wind multiplier
+
+/* ════════ ships ════════ */
+function makeHullGeometry(){
+  const stations=[[-3.7,.85,1.55,.55],[-2.8,1.3,1.72,.35],[2.6,1.3,1.72,.35],[4.1,.25,2.12,1.06]];
+  const vertices=[],indices=[];
+  for(const [x,w,top,bottom] of stations){
+    vertices.push(x,top,-w,x,top,w,x,bottom,-w*.66,x,bottom,w*.66);
+  }
+  for(let i=0;i<stations.length-1;i++){
+    const a=i*4,b=(i+1)*4;
+    const faces=[[a,a+2,b+2,b],[a+1,b+1,b+3,a+3],[a+2,a+3,b+3,b+2]];
+    for(const [v0,v1,v2,v3] of faces)indices.push(v0,v1,v2,v0,v2,v3);
+  }
+  indices.push(0,1,3,0,3,2);
+  const end=(stations.length-1)*4;indices.push(end,end+2,end+3,end,end+3,end+1);
+  const geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));
+  geo.setIndex(indices);geo.computeVertexNormals();return geo;
+}
+const HULL_GEO=makeHullGeometry();
+function makeShip(fac,opts={}){
+  const{big=false,fireShip=false}=opts;
+  const grp=new THREE.Group();
+  const wood=surfaceMat(fireShip?0x6b4a2c:0x8a6138,'wood');wood.side=THREE.DoubleSide;wood.name='shipWood';
+  const hull=new THREE.Mesh(HULL_GEO,wood);grp.add(hull);
+  const deck=new THREE.Mesh(new THREE.BoxGeometry(6.4,.13,2.24),
+    surfaceMat(0xb18b5d,'wood'));deck.position.set(-.25,1.75,0);grp.add(deck);
+  const trimMat=new THREE.MeshLambertMaterial({color:FAC[fac].col});
+  for(const z of [-1.29,1.29]){
+    const trim=new THREE.Mesh(new THREE.BoxGeometry(6.4,.18,.16),trimMat);
+    trim.position.set(-.25,1.91,z);grp.add(trim);
+  }
+  const castle=new THREE.Mesh(new THREE.BoxGeometry(1.7,1.3,1.85),wood);castle.position.set(-2.15,2.47,0);grp.add(castle);
+  const oarPoints=[];
+  for(const x of [-2.1,-1.2,-.3,.6,1.5,2.4])for(const side of [-1,1]){
+    oarPoints.push(x,1.35,side*1.28,x+.45,.18,side*2.8);
+  }
+  const oarGeo=new THREE.BufferGeometry();oarGeo.setAttribute('position',new THREE.Float32BufferAttribute(oarPoints,3));
+  const oars=new THREE.LineSegments(oarGeo,new THREE.LineBasicMaterial({color:0x654c32}));grp.add(oars);
+  grp.userData.oars=oars;
+  const mast=new THREE.Mesh(new THREE.CylinderGeometry(.12,.16,7.5,5),wood);mast.position.set(.6,5.2,0);grp.add(mast);
+  const sailMat=surfaceMat(0xf2e9cd,'cloth');sailMat.side=THREE.DoubleSide;sailMat.name='shipSail';
+  sailMat.userData.burn={value:0};
+  sailMat.onBeforeCompile=shader=>{
+    shader.uniforms.uBurn=sailMat.userData.burn;
+    shader.fragmentShader='uniform float uBurn;\n'+shader.fragmentShader;
+    shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',`#include <map_fragment>
+      float tear=sin(vMapUv.x*31.+sin(vMapUv.y*17.)*2.)*sin(vMapUv.y*27.+vMapUv.x*9.);
+      if(uBurn>.15 && tear>1.-uBurn*.85)discard;
+      diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.28,.20,.12),uBurn*.72);`);
+  };
+  const sailGeo=new THREE.PlaneGeometry(4.4,4.6,10,8);
+  const sp=sailGeo.attributes.position;
+  for(let i=0;i<sp.count;i++)sp.setZ(i,Math.sin((sp.getX(i)/4.4+.5)*Math.PI)*.55);
+  sailGeo.computeVertexNormals();
+  const sail=new THREE.Mesh(sailGeo,sailMat);
+  sail.position.set(.6,5.2,0);grp.add(sail);
+  const rig=[];
+  for(const y of [3.0,3.75,4.5,5.25,6,6.75,7.45])rig.push(-1.6,y,.08,2.8,y,.08);
+  rig.push(.6,8.9,0,-3.1,1.9,0,.6,8.9,0,3.6,1.9,0);
+  const rigGeo=new THREE.BufferGeometry();rigGeo.setAttribute('position',new THREE.Float32BufferAttribute(rig,3));
+  grp.add(new THREE.LineSegments(rigGeo,new THREE.LineBasicMaterial({color:0x71634b,transparent:true,opacity:.65})));
+  if(fireShip){
+    const strawMat=new THREE.MeshLambertMaterial({color:0xd8b264});strawMat.name='shipStraw';
+    const straw=new THREE.Mesh(new THREE.BoxGeometry(4.4,1,2.2),strawMat);
+    straw.position.set(1.2,2,0);grp.add(straw);
+  }
+  // small mast flag
+  const fg=new THREE.PlaneGeometry(2.6,1.7,8,4);fg.translate(1.3,0,0);
+  const fm=new THREE.Mesh(fg,new THREE.MeshLambertMaterial({map:flagTex[fac],side:THREE.DoubleSide}));
+  fm.position.set(.6,9.2,0);grp.add(fm);
+  wavingFlags.push({mesh:fm,base:fg.attributes.position.array.slice(),amp:.5,seed:Math.random()*9,w:2.6});
+  if(big)grp.scale.setScalar(1.4);
+  grp.userData.sail=sailMat;
+  return grp;
+}
+
+/* ════════ GPU fire & smoke ════════ */
+function makeParticles(o){
+  const N=o.n,pos=new Float32Array(N*3),seed=new Float32Array(N);
+  for(let i=0;i<N;i++){pos[i*3]=(Math.random()-.5);pos[i*3+1]=0;pos[i*3+2]=(Math.random()-.5);seed[i]=Math.random();}
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  g.setAttribute('aSeed',new THREE.BufferAttribute(seed,1));
+  const u={uT:{value:0},uI:{value:0},uS:{value:o.scale}};
+  const m=new THREE.ShaderMaterial({transparent:true,depthWrite:false,
+    blending:o.fire?THREE.AdditiveBlending:THREE.NormalBlending,uniforms:u,
+    vertexShader:`attribute float aSeed;uniform float uT,uI,uS;varying float vL;varying float vS;
+      void main(){
+        float life=fract(aSeed*7.31+uT*${o.fire?'.55':'.28'});vL=life;vS=aSeed;
+        float ang=aSeed*40.+uT*1.5+life*4.;
+        float r=(${o.fire?'1.6':'2.6'}+life*${o.fire?'2.':'5.'})*uS;
+        vec3 p=position*uS*3.;
+        p.x+=cos(ang)*r*.35;p.z+=sin(ang)*r*.35;
+        p.y+=life*${o.fire?'11.':'24.'}*uS;
+        ${o.fire?'':'p.x-=life*9.*uS;p.z-=life*6.*uS;'}
+        vec4 mv=modelViewMatrix*vec4(p,1.);
+        float sz=uS*(${o.fire?'(1.-life*.7)*9.':'(.45+life)*13.'})*uI;
+        gl_PointSize=sz*(220./-mv.z);
+        gl_Position=projectionMatrix*mv;
+      }`,
+    fragmentShader:o.fire?
+      `varying float vL;varying float vS;uniform float uI;
+       void main(){
+         vec2 d=gl_PointCoord-.5;float a=1.-smoothstep(.08,.5,length(d));if(a<.01)discard;
+         vec3 c=mix(vec3(1.,.85,.35),vec3(1.,.3,.05),vL);
+         c=mix(c,vec3(.35,.04,.01),smoothstep(.6,1.,vL));
+         gl_FragColor=vec4(c,a*(1.-vL)*uI);
+       }`:
+      `varying float vL;uniform float uI;
+       void main(){
+         vec2 d=gl_PointCoord-.5;float a=1.-smoothstep(.12,.5,length(d));if(a<.01)discard;
+         gl_FragColor=vec4(vec3(.16,.15,.14),a*(1.-vL)*.4*uI);
+       }`});
+  const pts=new THREE.Points(g,m);pts.frustumCulled=false;
+  return {obj:pts,u};
+}
+/* 火光假辉光:一张径向渐变贴图做加色 billboard,比整套 Bloom 后期便宜一个数量级,
+   火攻幕的「半边天烧红」观感基本靠它。亮度跟着发射强度 e.cur 走。 */
+const glowTex=(()=>{
+  const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d');
+  const g=x.createRadialGradient(64,64,3,64,64,64);
+  g.addColorStop(0,'rgba(255,240,205,0.95)');g.addColorStop(.32,'rgba(255,152,58,0.52)');
+  g.addColorStop(.7,'rgba(255,96,24,0.16)');g.addColorStop(1,'rgba(255,80,16,0)');
+  x.fillStyle=g;x.fillRect(0,0,128,128);
+  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t;
+})();
+const emitters=[];  // {fire,smoke,glow,target,cur,smokeOnly,seed}
+function attachFire(parent,scale,yOff=1.5){
+  const fire=makeParticles({n:90,fire:true,scale}),smoke=makeParticles({n:50,fire:false,scale});
+  fire.obj.position.y=yOff;smoke.obj.position.y=yOff+2;
+  parent.add(fire.obj,smoke.obj);
+  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex,transparent:true,opacity:0,
+    blending:THREE.AdditiveBlending,depthWrite:false}));
+  glow.scale.setScalar(scale*26);glow.position.y=yOff+scale*4;parent.add(glow);
+  const e={fire,smoke,glow,glowScale:scale*26,target:0,cur:0,smokeOnly:false,seed:emitters.length*1.7+1};
+  emitters.push(e);return e;
+}
+
+/* ════════ wind streaks ════════ */
+const WIND_N=240;
+let windTarget=0,windCur=0;
+const windGeo=new THREE.BufferGeometry();
+const windPos=new Float32Array(WIND_N*6);
+const windDat=[];
+for(let i=0;i<WIND_N;i++){windDat.push({x:(Math.random()-.5)*600,y:3+Math.random()*45,z:(Math.random()-.5)*400,v:26+Math.random()*30});}
+windGeo.setAttribute('position',new THREE.BufferAttribute(windPos,3));
+const windMat=new THREE.LineBasicMaterial({color:0x9fd8d8,transparent:true,opacity:0,blending:THREE.AdditiveBlending});
+const windLines=new THREE.LineSegments(windGeo,windMat);windLines.frustumCulled=false;scene.add(windLines);
+const WDIR=V3(-0.78,0,-0.63).normalize();    // 东南风 → 吹向西北
+
+/* ════════ rain 大雨/霖雨(set.rain 控制,0..1;落下的雨丝)════════ */
+const RAIN_N=700;
+let rainTarget=0,rainCur=0;
+const RAIN_SLANT=2.4;                         // 风吹的斜度
+const rainGeo=new THREE.BufferGeometry();
+const rainPos=new Float32Array(RAIN_N*6);
+const rainDat=[];
+for(let i=0;i<RAIN_N;i++)rainDat.push({x:(Math.random()-.5)*660,y:Math.random()*95,z:(Math.random()-.5)*480,v:120+Math.random()*95});
+rainGeo.setAttribute('position',new THREE.BufferAttribute(rainPos,3));
+const rainMat=new THREE.LineBasicMaterial({color:0xbcc8d6,transparent:true,opacity:0});
+const rainLines=new THREE.LineSegments(rainGeo,rainMat);rainLines.frustumCulled=false;scene.add(rainLines);
+
+/* ════════ arrows (volleys) ════════ */
+function arrowPool(fire){
+  const g=new THREE.ConeGeometry(.22,3.2,4);g.rotateX(Math.PI/2);
+  const m=fire?new THREE.MeshBasicMaterial({color:0xffae4f}):new THREE.MeshBasicMaterial({color:0xd8d2c0});
+  const im=new THREE.InstancedMesh(g,m,160);im.count=0;im.frustumCulled=false;scene.add(im);return im;
+}
+const poolA=arrowPool(false),poolF=arrowPool(true);
+const volleys=[];   // {from,to,n,start,dur,fire,seeds}
+function fireVolley(from,to,n,fire){
+  if(typeof Sfx!=='undefined')Sfx.play('whoosh',{v:Math.min(.25+n*.006,.6)});
+  volleys.push({from:V3(from[0],3,from[1]),to:V3(to[0],2,to[1]),n,start:T,dur:2.6,fire,
+    seeds:Array.from({length:n},()=>Math.random())});
+}
+const _m4=new THREE.Matrix4(),_q=new THREE.Quaternion(),_v1=V3(),_v2=V3(),_v3=V3(),_up=V3(0,1,0);
+function updateVolleys(){
+  let ka=0,kf=0;
+  for(let vi=volleys.length-1;vi>=0;vi--){
+    const v=volleys[vi];const age=T-v.start;
+    if(age>v.dur+1){volleys.splice(vi,1);continue;}
+    const dist=v.from.distanceTo(v.to);
+    for(let i=0;i<v.n;i++){
+      const s=v.seeds[i];const t=clamp((age-s*.8)/(v.dur*.7),0,1);
+      if(t<=0||t>=1)continue;
+      _v1.lerpVectors(v.from,v.to,t);
+      _v1.x+=(s-.5)*26;_v1.z+=(hash(i,vi+1)-.5)*26;
+      _v1.y+=Math.sin(t*Math.PI)*dist*.16;
+      const dt2=.02;const t2=clamp(t+dt2,0,1);
+      _v2.lerpVectors(v.from,v.to,t2);_v2.x+=(s-.5)*26;_v2.z+=(hash(i,vi+1)-.5)*26;
+      _v2.y+=Math.sin(t2*Math.PI)*dist*.16;
+      _v3.subVectors(_v2,_v1).normalize();
+      _q.setFromUnitVectors(V3(0,0,1),_v3);
+      _m4.makeRotationFromQuaternion(_q).setPosition(_v1);
+      if(v.fire){if(kf<160)poolF.setMatrixAt(kf++,_m4);}
+      else{if(ka<160)poolA.setMatrixAt(ka++,_m4);}
+    }
+  }
+  poolA.count=ka;poolA.instanceMatrix.needsUpdate=true;
+  poolF.count=kf;poolF.instanceMatrix.needsUpdate=true;
+}
+
+/* ════════ 一次性特效:水花／水柱／灰烬／碎片 ════════
+   环形缓冲的 CPU 粒子(≤520),位置每帧由 JS 积分。触发时的随机数用计数器 PRNG
+   —— 不读 Math.random(),所以 ?offline=1 逐帧步进同一帧两次渲染结果一致。 */
+const FX_N=520;
+const fxDat=[];for(let i=0;i<FX_N;i++)fxDat.push({t0:-1});
+const fxPos=new Float32Array(FX_N*3),fxCol=new Float32Array(FX_N*3),
+      fxSize=new Float32Array(FX_N),fxAlp=new Float32Array(FX_N);
+const fxGeo=new THREE.BufferGeometry();
+fxGeo.setAttribute('position',new THREE.BufferAttribute(fxPos,3));
+fxGeo.setAttribute('aCol',new THREE.BufferAttribute(fxCol,3));
+fxGeo.setAttribute('aSize',new THREE.BufferAttribute(fxSize,1));
+fxGeo.setAttribute('aAlpha',new THREE.BufferAttribute(fxAlp,1));
+const fxMat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,
+  vertexShader:`attribute vec3 aCol;attribute float aSize,aAlpha;varying vec3 vC;varying float vA;
+    void main(){vC=aCol;vA=aAlpha;vec4 mv=modelViewMatrix*vec4(position,1.);
+      gl_PointSize=aSize*(320./-mv.z);gl_Position=projectionMatrix*mv;}`,
+  fragmentShader:`varying vec3 vC;varying float vA;
+    void main(){vec2 d=gl_PointCoord-.5;float a=1.-smoothstep(.12,.5,length(d));if(a<.02)discard;
+      gl_FragColor=vec4(vC,a*vA);}`});
+const fxPoints=new THREE.Points(fxGeo,fxMat);fxPoints.frustumCulled=false;scene.add(fxPoints);
+let fxCursor=0,fxSeq=1;
+function fxPrng(seed){let s=seed>>>0;return()=>{s=(Math.imul(s,1664525)+1013904223)>>>0;return s/4294967296;};}
+// 各类型的重力(负=受水下坠,正=上浮)、每帧阻尼、基色、点径、是否加色
+const FX_KIND={
+  splash:{grav:-42,drag:.55,col:[.80,.88,.94],size:1.0,add:false},   // 水花:溅起后落下
+  spray: {grav:-60,drag:.5, col:[.88,.93,.97],size:.8, add:false},   // 水柱:更高更急
+  embers:{grav:7,  drag:.9,  col:[1,.6,.16],   size:.5, add:true},   // 灰烬:上浮的火星
+  debris:{grav:-34,drag:.7,  col:[.44,.33,.2], size:.75,add:false},   // 碎片:木屑
+};
+function emitFx(kind,x,y,z,n,o={}){
+  const K=FX_KIND[kind]||FX_KIND.splash,rnd=fxPrng(0x9e3779b1^(fxSeq++*2654435761));
+  const spd=o.speed||8,up=o.up||1,nn=Math.min(n|0,180);
+  for(let i=0;i<nn;i++){
+    const p=fxDat[fxCursor],idx=fxCursor;fxCursor=(fxCursor+1)%FX_N;
+    const ang=rnd()*Math.PI*2,el=(.3+rnd()*.95)*up,sp=spd*(.4+rnd()*.85);
+    p.t0=T;p.life=(o.life||1)*(1.3+rnd()*2.2);
+    p.ox=x+(rnd()-.5)*2;p.oy=y+(rnd()-.5)*1.2;p.oz=z+(rnd()-.5)*2;
+    p.vx=Math.cos(ang)*sp*(1-el*.35);p.vz=Math.sin(ang)*sp*(1-el*.35);
+    p.vy=sp*el*(kind==='embers'?1.1:(kind==='spray'?1.8:1.5));
+    p.grav=K.grav;p.drag=K.drag;p.add=K.add;
+    const v=(o.vary===undefined?.22:o.vary)*(rnd()-.5)*2;
+    p.r=clamp(K.col[0]+v,0,1);p.g=clamp(K.col[1]+v,0,1);p.b=clamp(K.col[2]+v,0,1);
+    p.size=K.size*(.5+rnd()*1.1);
+    fxSize[idx]=p.size;fxPos[idx*3]=p.ox;fxPos[idx*3+1]=p.oy;fxPos[idx*3+2]=p.oz;
+    fxCol[idx*3]=p.r;fxCol[idx*3+1]=p.g;fxCol[idx*3+2]=p.b;fxAlp[idx]=0;
+  }
+  fxGeo.attributes.position.needsUpdate=true;fxGeo.attributes.aCol.needsUpdate=true;
+}
+function updateFx(dt){
+  let any=false;
+  for(let i=0;i<FX_N;i++){
+    const p=fxDat[i];
+    if(p.t0<0)continue;
+    const age=T-p.t0;
+    if(age>=p.life){if(fxAlp[i]!==0){fxAlp[i]=0;any=true;}p.t0=-1;continue;}
+    any=true;
+    const d=Math.pow(p.drag,dt*60);
+    p.vx*=d;p.vz*=d;p.vy=p.vy*d+p.grav*dt;
+    p.ox+=p.vx*dt;p.oy+=p.vy*dt;p.oz+=p.vz*dt;
+    if(p.grav<0&&p.oy<.2){p.oy=.2;p.vy*=-.25;p.vx*=.5;p.vz*=.5;}   // 落地弹一下
+    const k=1-age/p.life;
+    fxPos[i*3]=p.ox;fxPos[i*3+1]=p.oy;fxPos[i*3+2]=p.oz;
+    fxSize[i]=p.size*(.55+k*.8);fxAlp[i]=Math.pow(k,.7)*(p.add?k:1);
+  }
+  if(any){fxGeo.attributes.position.needsUpdate=true;
+    fxGeo.attributes.aSize.needsUpdate=true;fxGeo.attributes.aAlpha.needsUpdate=true;}
+}
+
+/* ════════ march arrows ════════ */
+const chevCv=document.createElement('canvas');chevCv.width=64;chevCv.height=32;
+{const c=chevCv.getContext('2d');c.fillStyle='#fff';
+ c.beginPath();c.moveTo(8,4);c.lineTo(34,16);c.lineTo(8,28);c.lineTo(20,16);c.closePath();c.fill();}
+const chevTex=new THREE.CanvasTexture(chevCv);chevTex.wrapS=THREE.RepeatWrapping;
+const marchGroup=new THREE.Group();scene.add(marchGroup);
+const marchMats=[];
+function clearMarch(){marchGroup.clear();marchMats.length=0;}
+function addMarch(pts,fac){
+  const col=FAC[fac]?FAC[fac].col:0xcccccc;   // 未知阵营退中性色,不 throw
+  const v3s=pts.map(p=>V3(p[0],Math.max(ground(p[0],p[1]),0)+2.2,p[1]));
+  const curve=new THREE.CatmullRomCurve3(v3s);
+  const len=curve.getLength();
+  const tex=chevTex.clone();tex.needsUpdate=true;tex.wrapS=THREE.RepeatWrapping;tex.repeat.set(len/10,1);
+  const mat=new THREE.MeshBasicMaterial({map:tex,transparent:true,opacity:.8,color:col,
+    depthWrite:false,side:THREE.DoubleSide});
+  marchMats.push(mat);
+  const tube=new THREE.Mesh(new THREE.TubeGeometry(curve,40,1.1,5,false),mat);
+  marchGroup.add(tube);
+  const tip=new THREE.Mesh(new THREE.ConeGeometry(2.6,6,6),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.85}));
+  const end=curve.getPoint(1),tan=curve.getTangent(1);
+  tip.position.copy(end);tip.quaternion.setFromUnitVectors(V3(0,1,0),tan);
+  marchGroup.add(tip);
+}
+
+/* ════════ cities & camps ════════ */
+function makeCity(x, z) {
+  const g = new THREE.Group(); const h = ground(x, z);
+  const wallMat=surfaceMat(0x9b9280,'stone');
+  const stoneMat=surfaceMat(0x827a6d,'stone');
+  const roofMat=surfaceMat(0x555653,'roof');
+  const R = 11, WH = 5;                                  // 半边长、墙高
+  const seg = (w, d, px, pz) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, WH, d), wallMat); m.position.set(px, WH / 2, pz); g.add(m); };
+  seg(2 * R, 1.6, 0, -R);                                // 北墙
+  seg(R-2.5,1.6,-(R+2.5)/2,R);seg(R-2.5,1.6,(R+2.5)/2,R);
+  seg(1.6,2*R,-R,0);seg(1.6,2*R,R,0);
+  const gate = new THREE.Mesh(new THREE.BoxGeometry(5, 2.2, 1.6), stoneMat); gate.position.set(0, WH - 1.1, R); g.add(gate);
+  for (const [sx, sz] of [[-R, -R], [R, -R], [-R, R], [R, R]]) {
+    const t = new THREE.Mesh(new THREE.BoxGeometry(3.2, WH + 2.5, 3.2), stoneMat); t.position.set(sx, (WH + 2.5) / 2, sz); g.add(t);
+    const tr = new THREE.Mesh(new THREE.ConeGeometry(2.6, 1.8, 4), roofMat); tr.position.set(sx, WH + 2.5 + 0.9, sz); tr.rotation.y = Math.PI / 4; g.add(tr);
+  }
+  const keep = new THREE.Mesh(new THREE.BoxGeometry(6, 5, 6), regStyle(new THREE.MeshLambertMaterial({ color: 0x666069 }),0x666069,0xa79d8f));
+  keep.position.y = WH + 2.5; g.add(keep);
+  const roof = new THREE.Mesh(new THREE.ConeGeometry(5.2, 3, 4), roofMat);
+  roof.position.y = WH + 2.5 + 4; roof.rotation.y = Math.PI / 4; g.add(roof);
+  const merlon=new THREE.InstancedMesh(new THREE.BoxGeometry(1,.85,1.5),wallMat,44);
+  const M=new THREE.Matrix4();let idx=0;
+  for(let i=-10;i<=10;i+=2)for(const side of [-1,1]){
+    M.makeTranslation(i,WH+.4,side*R);merlon.setMatrixAt(idx++,M);
+    M.makeRotationY(Math.PI/2).setPosition(side*R,WH+.4,i);merlon.setMatrixAt(idx++,M);
+  }
+  merlon.instanceMatrix.needsUpdate=true;g.add(merlon);
+  const houses=new THREE.InstancedMesh(new THREE.BoxGeometry(3,2.3,2.8),wallMat,6);
+  const houseRoofs=new THREE.InstancedMesh(new THREE.ConeGeometry(2.5,1.3,4),roofMat,6);
+  for(let i=0;i<6;i++){const px=(i%3-1)*5.2,pz=i<3?-6:5;
+    M.makeTranslation(px,1.15,pz);houses.setMatrixAt(i,M);
+    M.makeRotationY(Math.PI/4).setPosition(px,2.95,pz);houseRoofs.setMatrixAt(i,M);}
+  houses.instanceMatrix.needsUpdate=true;houseRoofs.instanceMatrix.needsUpdate=true;g.add(houses,houseRoofs);
+  g.position.set(x, h, z); scene.add(g); return g;
+}
+function makePass(x, z) {
+  const g = new THREE.Group(); const h = ground(x, z);
+  const stoneMat = regStyle(new THREE.MeshLambertMaterial({ color: 0x595158 }),0x595158,0xa39a8e);
+  const roofMat = regStyle(new THREE.MeshLambertMaterial({ color: 0x3f2a2a }),0x3f2a2a,0x7c5244);
+  for (const sx of [-7, 7]) {
+    const tower = new THREE.Mesh(new THREE.BoxGeometry(5, 9, 6), stoneMat); tower.position.set(sx, 4.5, 0); g.add(tower);
+    const tr = new THREE.Mesh(new THREE.ConeGeometry(4, 2.4, 4), roofMat); tr.position.set(sx, 9 + 1.2, 0); tr.rotation.y = Math.PI / 4; g.add(tr);
+  }
+  const lintel = new THREE.Mesh(new THREE.BoxGeometry(9, 2.4, 4), stoneMat); lintel.position.set(0, 8, 0); g.add(lintel);
+  const arch = new THREE.Mesh(new THREE.TorusGeometry(4.5, 0.6, 8, 24, Math.PI), roofMat);
+  arch.position.set(0, 1.5, 0); g.add(arch);
+  g.position.set(x, h, z); scene.add(g); return g;
+}
+function makeFerry(x, z, rot = 0) {            // 渡口/码头:栈桥 + 泊舟,由岸(z>0)伸向水(z<0);rot 转向水侧
+  const g = new THREE.Group(); const h = Math.max(ground(x, z), 0);
+  const plank = new THREE.MeshLambertMaterial({ color: 0x6b4f31 });
+  const post = new THREE.MeshLambertMaterial({ color: 0x4a3826 });
+  const deck = new THREE.Mesh(new THREE.BoxGeometry(5, 0.6, 9), plank); deck.position.set(0, 1.3, -1); g.add(deck);
+  for (const [px, pz] of [[-2, 2], [2, 2], [-2, -4], [2, -4]]) {
+    const p = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.45, 4, 5), post); p.position.set(px, -0.3, pz); g.add(p);
+  }
+  for (const px of [-2.6, 2.6]) { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.4, 3.2, 5), post); m.position.set(px, 1.6, -5.5); g.add(m); }
+  const hull = new THREE.Mesh(new THREE.BoxGeometry(5, 1.1, 1.9), post); hull.position.set(0, 0.95, -8); g.add(hull);
+  const bow = new THREE.Mesh(new THREE.ConeGeometry(0.95, 2.2, 4), post); bow.rotation.z = -Math.PI / 2; bow.rotation.x = Math.PI / 4; bow.position.set(3.5, 0.95, -8); g.add(bow);
+  const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.14, 5, 5), post); mast.position.set(-0.6, 3.3, -8); g.add(mast);
+  g.rotation.y = rot; g.position.set(x, h, z); scene.add(g); return g;
+}
+function makeCamp(fac,x,z){
+  const g=new THREE.Group();const h=Math.max(ground(x,z),.5);
+  const tm=surfaceMat(0xc7ba96,'cloth');
+  for(let i=0;i<8;i++){
+    const t=new THREE.Mesh(new THREE.ConeGeometry(2.4,3,4),tm);t.rotation.y=Math.PI/4;
+    const a=i/8*Math.PI*2;
+    const tx=Math.cos(a)*9+(hash(i,2)-.5)*4, tz=Math.sin(a)*7+(hash(i,5)-.5)*4;
+    t.position.set(tx, 1.5 + (Math.max(ground(x+tx,z+tz),.5) - h), tz);  // 每顶贴所在地形高
+    g.add(t);
+  }
+  const stakes=new THREE.InstancedMesh(new THREE.CylinderGeometry(.18,.3,3.4,5),surfaceMat(0x716049,'wood'),80);
+  const M=new THREE.Matrix4();
+  for(let i=0;i<80;i++){const a=i/80*Math.PI*2,px=Math.cos(a)*13,pz=Math.sin(a)*11;
+    M.makeTranslation(px,1.7+Math.max(ground(x+px,z+pz),.5)-h,pz);stakes.setMatrixAt(i,M);}
+  stakes.instanceMatrix.needsUpdate=true;g.add(stakes);
+  g.add(makeBanner(fac,true));
+  g.position.set(x,h,z);g.visible=false;scene.add(g);
+  return g;
+}
+
+/* ════════ unit classes ════════ */
+const clickables=[];
+class Unit{
+  constructor(id,fac,kind){
+    this.id=id;this.fac=fac;this.kind=kind;
+    this.group=new THREE.Group();scene.add(this.group);
+    this.path=null;this.t0=0;this.dur=0;this.face=0;this.combat=false;
+    const hit=new THREE.Mesh(new THREE.SphereGeometry(13,8,6),
+      new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));
+    hit.position.y=6;hit.userData.unit=this;this.group.add(hit);clickables.push(hit);
+  }
+  setLabel(name,gens,cmdr){
+    const d=document.createElement('div');d.className='uLab '+FAC[this.fac].css;
+    d.innerHTML=`<div class="box">${cmdr?`<div class="cmd"><img src="${assetUrl(cmdr.img)}" alt=""></div>`:''}<div class="t1">${name}</div><div class="t2">${gens}</div></div>`;
+    this.labelEl=d;
+    this.label=new CSS2DObject(d);this.label.position.set(0,this.kind==='fleet'?15:19,0);
+    this.group.add(this.label);
+  }
+  /* 阵营主帅卡：把大主帅卡嵌在本单位标签卡（.uLab）正上方；同一张卡可在本阵营内换宿主
+     （水师在台上就钉水师，陆战幕水师隐藏时改钉陆军主力「常显」），由 refreshCmdCards 调度。 */
+  anchorCommanderCard(el){
+    el.parentNode&&el.parentNode.removeChild(el);
+    this.labelEl.insertBefore(el, this.labelEl.firstChild);
+    this.cmdCardEl=el;this.labelEl.classList.add('hasCmd');
+    const y0=this.kind==='fleet'?15:19;
+    this.label.position.set(_cmdNear?CMD_NEAR[0]:0,_cmdNear?CMD_NEAR[1]:y0,0);
+  }
+  place(x,z,inst=true){
+    this.group.position.set(x,this.kind==='fleet'?0:Math.max(ground(x,z),0),z);
+    this.path=null;
+  }
+  moveTo(pts,dur){
+    const from=[this.group.position.x,this.group.position.z];
+    const all=[from,...pts];
+    this.path=new THREE.CatmullRomCurve3(all.map(p=>V3(p[0],0,p[1])));
+    this.t0=T;this.dur=dur;
+  }
+  setVisible(v){this.group.visible=v;if(this.label)this.label.visible=v;}
+  easeHeading(target){let d=target-this.group.rotation.y;d=Math.atan2(Math.sin(d),Math.cos(d));this.group.rotation.y+=d*.06;}
+  update(){
+    if(this.combat&&!this.path){
+      const cur=this.group.rotation.y;
+      const d0=Math.abs(Math.atan2(Math.sin(cur),Math.cos(cur)));
+      const dP=Math.abs(Math.atan2(Math.sin(cur-Math.PI),Math.cos(cur-Math.PI)));
+      this.easeHeading(d0<=dP?0:Math.PI);   // 交战侧身:靠最近的 {0,π},不转 180
+    }
+    if(this.path){
+      const t=clamp((T-this.t0)/this.dur,0,1);
+      const p=this.path.getPoint(smooth(t));
+      const tan=this.path.getTangent(clamp(smooth(t),0.01,0.99));
+      this.group.position.x=p.x;this.group.position.z=p.z;
+      if(this.kind!=='fleet')this.group.position.y=Math.max(ground(p.x,p.z),0);
+      if(tan.lengthSq()>0.0001){
+        const target=this.kind==='fleet'?Math.atan2(-tan.z,tan.x):Math.atan2(tan.x,tan.z); // 船首+X 对齐行进
+        this.easeHeading(target);
+      }
+      if(t>=1)this.path=null;
+    }
+  }
+}
+
+const soldierGeometries=new Map();
+function soldierGeometry(fac,cavalry=false){
+  const cacheKey=fac+(cavalry?':cavalry':':infantry');
+  if(soldierGeometries.has(cacheKey))return soldierGeometries.get(cacheKey);
+  const parts=[];
+  const add=(geo,color)=>{
+    const c=new THREE.Color(color),a=new Float32Array(geo.attributes.position.count*3);
+    for(let i=0;i<a.length;i+=3){a[i]=c.r;a[i+1]=c.g;a[i+2]=c.b;}
+    geo.setAttribute('color',new THREE.BufferAttribute(a,3));parts.push(geo);
+  };
+  const piece=(geo,x,y,z,color)=>{geo.translate(x,y,z);add(geo,color);};
+  piece(new THREE.CylinderGeometry(.29,.4,.9,7),0,1.25,0,0x51514c);
+  piece(new THREE.SphereGeometry(.22,7,5),0,1.9,0,0xb9a181);
+  piece(new THREE.ConeGeometry(.28,.34,7),0,2.16,0,0x484b49);
+  for(const x of [-.18,.18])piece(new THREE.CylinderGeometry(.1,.13,.65,5),x,.43,0,0x493f37);
+  for(const x of [-.42,.42])piece(new THREE.CylinderGeometry(.09,.11,.74,5),x,1.31,0,0x675b49);
+  const shield=new THREE.CylinderGeometry(.35,.35,.11,8);shield.rotateX(Math.PI/2);
+  piece(shield,-.43,1.21,.43,FAC[fac].col);
+  piece(new THREE.CylinderGeometry(.033,.038,2.65,5),.44,1.65,.32,0x645947);
+  piece(new THREE.ConeGeometry(.12,.36,5),.44,3.12,.32,0xb4b4a8);
+  if(cavalry){
+    parts.forEach(g=>g.translate(0,1.2,0));
+    const coat=[0x604832,0x796045,0x4b4038][Math.abs(FAC[fac].col)%3];
+    const body=new THREE.SphereGeometry(1,9,6);body.scale(.42,.48,.95);piece(body,0,1.35,0,coat);
+    const neck=new THREE.CylinderGeometry(.21,.32,.8,7);neck.rotateX(-.5);piece(neck,0,1.85,.63,coat);
+    const head=new THREE.BoxGeometry(.34,.36,.65);piece(head,0,2.13,1,coat);
+    for(const x of [-.29,.29])for(const z of [-.64,.57])piece(new THREE.CylinderGeometry(.075,.11,.95,5),x,.59,z,coat);
+    piece(new THREE.BoxGeometry(.68,.11,.48),0,1.81,-.1,0x342d27);
+    const tail=new THREE.CylinderGeometry(.07,.12,.74,5);tail.rotateX(-.7);piece(tail,0,1.19,-1.01,0x28231e);
+  }
+  const geo=mergeGeometries(parts,false);
+  parts.forEach(g=>g.dispose());
+  soldierGeometries.set(cacheKey,geo);
+  return geo;
+}
+class Army extends Unit{
+  constructor(id,fac,n,cavalry=false){
+    super(id,fac,'army');
+    this.motion={uTime:{value:0},uMarch:{value:0},uCombat:{value:0}};
+    const mat=new THREE.MeshLambertMaterial({color:0xffffff,vertexColors:true});
+    mat.onBeforeCompile=shader=>{
+      Object.assign(shader.uniforms,this.motion);
+      shader.vertexShader='uniform float uTime,uMarch,uCombat;\n'+shader.vertexShader;
+      shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>',`#include <begin_vertex>
+        float seed=instanceMatrix[3].x*.67+instanceMatrix[3].z*.83;
+        float gait=sin(uTime*8.+seed+sign(position.x)*1.57);
+        if(position.y<.8){transformed.z+=gait*.22*uMarch;transformed.y+=max(0.,gait)*.09*uMarch;}
+        transformed.z+=sin(uTime*5.+seed)*max(0.,position.y-1.2)*.09*uCombat;`);
+    };
+    const im=new THREE.InstancedMesh(soldierGeometry(fac,cavalry),mat,n);
+    this.instanced=im;
+    this.positions=[];
+    const cols=Math.ceil(Math.sqrt(n*1.7)),M=new THREE.Matrix4();
+    for(let i=0;i<n;i++){
+      const r=Math.floor(i/cols),c=i%cols;
+      const x=(c-cols/2)*1.7+(hash(i,1)-.5)*.5,z=r*1.8+(hash(i,4)-.5)*.5;
+      this.positions.push([x,z]);M.setPosition(x,0,z);
+      im.setMatrixAt(i,M);
+    }
+    this.group.add(im);
+    this.group.add(makeBanner(fac,true));
+  }
+  update(dt){
+    super.update(dt);
+    this.motion.uTime.value=T;this.motion.uMarch.value=this.path?1:0;this.motion.uCombat.value=this.combat?1:0;
+  }
+  // 外部模型只替换造型；骨骼动作需要单独的低开销渲染路径。
+  setModel(url,scale){ loadGLB(url).then(g=>{ const ge=glbGeometry(g,scale||1); if(ge){
+    this.instanced.geometry=ge;
+    this.instanced.material=new THREE.MeshLambertMaterial({color:FAC[this.fac].col});
+  } }).catch(e=>console.warn('单位模型加载失败:',url,e)); }
+}
+
+class Fleet extends Unit{
+  constructor(id,fac,n,opts={}){
+    super(id,fac,'fleet');
+    this.ships=[];
+    const cols=Math.ceil(Math.sqrt(n*1.5));
+    for(let i=0;i<n;i++){
+      const ship=makeShip(fac,{big:i===0,fireShip:opts.fireShip});
+      if(!opts.fireShip){
+        const crew=new THREE.InstancedMesh(soldierGeometry(fac),new THREE.MeshLambertMaterial({vertexColors:true}),6);
+        const matrix=new THREE.Matrix4();
+        for(let k=0;k<6;k++){matrix.makeScale(.55,.55,.55).setPosition(-.8+(k%3)*1.05,1.83,k<3?-.58:.58);crew.setMatrixAt(k,matrix);}
+        crew.instanceMatrix.needsUpdate=true;ship.add(crew);ship.userData.crew=crew;
+      }
+      const r=Math.floor(i/cols),c=i%cols;
+      const loose=[(c-(cols-1)/2)*17+(hash(i,2)-.5)*5,(r-(Math.ceil(n/cols)-1)/2)*13+(hash(i,6)-.5)*4];
+      const tight=[loose[0]*.55,loose[1]*.55];
+      const s={mesh:ship,loose,tight,cur:[...loose],seed:Math.random()*9,
+        fire:null,burn:0,burnDelay:hash(i,9)*4,sunk:false,sinkY:0,tilt:0};
+      ship.position.set(loose[0],0,loose[1]);
+      this.group.add(ship);this.ships.push(s);
+    }
+    if(opts.fireShip)this.ships.forEach(s=>{s.burnDelay=hash(s.seed*7,3)*1.2;});
+    this.formation='loose';this.state='normal';
+  }
+  // 换船造型:每艘船 mesh 换成 glb clone(保留位置/倾覆/沉没;glb 无 .sail → 燃烧不变帆色,可接受)
+  setModel(url,scale){ loadGLB(url).then(g=>{ const sc=scale||1;
+    for(const s of this.ships){ const m=g.scene.clone(true); m.scale.set(sc,sc,sc);
+      m.position.copy(s.mesh.position); m.rotation.copy(s.mesh.rotation);
+      this.group.remove(s.mesh); this.group.add(m); s.mesh=m; }
+  }).catch(e=>console.warn('水师模型加载失败:',url,e)); }
+  setFormation(f){this.formation=f;}
+  setState(st,inst=false){
+    this.state=st;this.stateT=T;
+    if(st==='burn'){
+      this.ships.forEach(s=>{if(!s.fire)s.fire=attachFire(s.mesh,1,2);});
+    }
+    if(st==='wreck'){
+      this.ships.forEach((s,i)=>{
+        if(!s.fire)s.fire=attachFire(s.mesh,1,2);
+        s.fire.smokeOnly=true;s.fire.target=Math.max(s.fire.target,.9);
+        if(s.mesh.userData.sail){s.mesh.userData.sail.userData.burn.value=1;s.mesh.userData.sail.userData.wrecked=true;}
+        if(i%3!==0){s.sunk=true;}
+      });
+    }
+    if(inst&&st==='burn')this.ships.forEach(s=>{s.burn=1;if(s.fire)s.fire.target=1;});
+  }
+  update(dt){
+    super.update();
+    for(const s of this.ships){
+      // formation lerp
+      const tgt=this.formation==='tight'?s.tight:s.loose;
+      s.cur[0]=lerp(s.cur[0],tgt[0],dt*.8);s.cur[1]=lerp(s.cur[1],tgt[1],dt*.8);
+      // burn ramp
+      if(this.state==='burn'&&s.burn<1){
+        if(T-this.stateT>s.burnDelay){s.burn=Math.min(1,s.burn+dt*.5);if(s.fire)s.fire.target=s.burn;}
+      }
+      if(s.fire&&s.fire.smokeOnly){s.fire.target=Math.max(0,s.fire.target-dt*.2);}
+      if(s.burn>0&&s.mesh.userData.sail)s.mesh.userData.sail.userData.burn.value=s.burn;
+      if(s.mesh.userData.crew)s.mesh.userData.crew.visible=s.burn<.45;
+      if(s.mesh.userData.oars)s.mesh.userData.oars.rotation.y=this.path&&!s.sunk?Math.sin(T*2.5+s.seed)*.12:0;
+      // sink
+      if(s.sunk&&s.sinkY>-2.6){s.sinkY-=dt*.5;s.tilt=Math.min(s.tilt+dt*.12,.5);}
+      const bob=s.sunk?0:Math.sin(T*1.3+s.seed)*0.18;
+      const wl=waterYAt(s.cur[0],s.cur[1]);   // 跟着(可能区域性的)水面浮
+      s.mesh.position.set(s.cur[0],wl+bob+s.sinkY,s.cur[1]);
+      s.mesh.rotation.z=s.sunk?s.tilt:Math.sin(T*1.1+s.seed*2)*.03;
+    }
+  }
+}
+
+/* chains between cao ships */
+let chainLines=null,chainsOn=false;
+function buildChains(fleet){
+  if(chainLines)scene.remove(chainLines);
+  const pts=[];
+  const sh=fleet.ships;
+  const cols=Math.ceil(Math.sqrt(sh.length*1.5));
+  for(let i=0;i<sh.length;i++){
+    if(i%cols<cols-1&&i+1<sh.length){pts.push(i,i+1);}
+    if(i+cols<sh.length){pts.push(i,i+cols);}
+  }
+  chainLines={pairs:pts,geo:new THREE.BufferGeometry(),fleet};
+  chainLines.geo.setAttribute('position',new THREE.BufferAttribute(new Float32Array(pts.length*3),3));
+  const l=new THREE.LineSegments(chainLines.geo,new THREE.LineBasicMaterial({color:0x14110d}));
+  l.frustumCulled=false;chainLines.obj=l;scene.add(l);
+}
+function updateChains(){
+  if(!chainLines||!chainsOn){if(chainLines)chainLines.obj.visible=false;return;}
+  chainLines.obj.visible=true;
+  const a=chainLines.geo.attributes.position.array;
+  const f=chainLines.fleet;const wp=f.group.position;const rot=f.group.rotation.y;
+  const cos=Math.cos(rot),sin=Math.sin(rot);
+  chainLines.pairs.forEach((idx,k)=>{
+    const s=f.ships[idx];
+    const x=s.cur[0]*cos+s.cur[1]*sin,z=-s.cur[0]*sin+s.cur[1]*cos;
+    a[k*3]=wp.x+x;a[k*3+1]=1.1+s.sinkY;a[k*3+2]=wp.z+z;
+  });
+  chainLines.geo.attributes.position.needsUpdate=true;
+}
+
+/* ════════ locations ════════ */
+function locLabel(txt,x,z,cls=''){
+  const d=document.createElement('div');d.className='loc '+cls;d.textContent=txt;
+  const o=new CSS2DObject(d);o.position.set(x,Math.max(ground(x,z),0)+(cls.includes('water')?2:10),z);
+  scene.add(o);return o;
+}
+/* ════════ 可替换模型(glTF;物件不指定 model 就用内建造型,完全向后相容)════════ */
+const _glbCache=new Map();
+function loadGLB(url){ if(!_glbCache.has(url)) _glbCache.set(url, new Promise((res,rej)=>new GLTFLoader().load(url,res,undefined,rej))); return _glbCache.get(url); }
+// 结构:glb 加载后藏掉内建造型、把模型挂进(已定位好的)group;火源等之后才挂,捕捉当下 children 不会动到它
+function applyStructModel(group,url,scale,yOff){
+  const builtIn=group.children.filter(c=>!c.userData.isModel);   // 内建造型(排除先前挂过的模型)
+  loadGLB(url).then(g=>{
+    group.children.filter(c=>c.userData.isModel).forEach(c=>group.remove(c));   // 替换已加载的模型
+    builtIn.forEach(c=>c.visible=false);
+    const m=g.scene.clone(true), s=scale||1; m.scale.set(s,s,s); if(yOff)m.position.y=yOff; m.userData.isModel=true; group.add(m);
+  }).catch(e=>console.warn('结构模型加载失败:',url,e));
+}
+// 单位:glb 各 mesh 几何合成一个(套世界矩阵、只留 position/normal),缩放后给 InstancedMesh 当「每兵造型」
+function glbGeometry(g,scale){
+  const geos=[]; g.scene.updateMatrixWorld(true);
+  g.scene.traverse(o=>{ if(o.isMesh){ const ge=o.geometry.clone(); ge.applyMatrix4(o.matrixWorld);
+    for(const a of Object.keys(ge.attributes)) if(a!=='position'&&a!=='normal') ge.deleteAttribute(a);
+    if(!ge.attributes.normal) ge.computeVertexNormals(); geos.push(ge); } });
+  if(!geos.length) return null;
+  const geo = geos.length>1 ? mergeGeometries(geos,false) : geos[0];
+  if(scale&&scale!==1) geo.scale(scale,scale,scale);
+  return geo;
+}
+
+/* ════════ structures catalog(资料驱动) ════════ */
+const STRUCT_BUILDERS = {
+  city: s => makeCity(s.x, s.z),
+  camp: s => makeCamp(s.faction, s.x, s.z),
+  pass: s => makePass(s.x, s.z),          // makePass 由 Task 4 新增
+  ferry: s => makeFerry(s.x, s.z, s.rot || 0),   // 渡口/码头(s.rot 转向水侧,默认朝 -z/北)
+};
+const STRUCT = {};                         // id -> THREE.Group
+const STRUCT_DATA = await (await fetch(PKG_BASE + PKG.data.structures)).json();
+for (const s of STRUCT_DATA.structures) {
+  if (s.type === 'marker') {
+    const z = s.followRiver ? riverZAt(s.x,s.z||0) : s.z;
+    locLabel(s.label, s.x, z, s.labelClass || '');
+    continue;
+  }
+  const build = STRUCT_BUILDERS[s.type];
+  if (!build) { console.warn('未知结构 type:', s.type, s); continue; }
+  let g;
+  try { g = build(s); } catch (e) { console.warn('结构建构失败,跳过:', s, e); continue; }
+  if (s.id) STRUCT[s.id] = g;
+  if (s.model) applyStructModel(g, assetUrl(s.model), s.modelScale, s.modelY);   // 指定 model 就用 glTF 盖掉内建造型
+  if (s.label) locLabel(s.label, (s.labelPos ? s.labelPos[0] : s.x), (s.labelPos ? s.labelPos[1] : s.z), s.labelClass || '');
+}
+// 火源 emitter:对宣告 fire 的结构附加(资料驱动,取代写死的 campWulinFire)
+const fireEmitters = {};   // structId -> emitter
+for (const s of STRUCT_DATA.structures) {
+  if (s.fire && STRUCT[s.id]) fireEmitters[s.id] = attachFire(STRUCT[s.id], s.fire.scale, s.fire.yOff);
+}
+
+/* ════════ units ════════ */
+const U={};
+for(const u of UNITS.units){
+  U[u.id] = u.kind==='army' ? new Army(u.id,u.faction,u.n,u.gait==='cav') : new Fleet(u.id,u.faction,u.n, u.fireShip?{fireShip:true}:{});
+  U[u.id].setLabel(u.name, u.generals, u.commander);   // 卡片直显主帅像
+  if(u.commander)U[u.id].commander=u.commander;   // 主帅卡片数据
+  if(u.model && U[u.id].setModel) U[u.id].setModel(assetUrl(u.model), u.modelScale);   // 指定 model 就换造型(目前支持 army;fleet 之后)
+}
+// 连环:对宣告 chainable 的舰队建锁链(无则跳过)
+for(const u of UNITS.units){ if(u.chainable && U[u.id]) buildChains(U[u.id]); }
+
+// 阵营主帅卡:每阵营一张常驻主帅卡,嵌在该阵营某单位的标签卡(.uLab)正上方、随阵移动。
+// 宿主优先 units.json 的 flagship(如 曹军水师 / 周瑜水师);该单位不在台上时自动改钉本阵营
+// 当前在台的主力单位(如陆战幕的曹操军),保证「常显」。主帅头像/名号取该阵营主帅单位(兵力最多者)。
+// 取代原先右上角「本幕双方主帅」的两张卡;显示跟随单位可见性,不参与点击。
+const cmdCmdr={}, cmdCands={};
+for(const u of UNITS.units){
+  if(u.commander){ const cur=cmdCmdr[u.faction]; if(!cur || (u.n||0)>(cur.n||0)) cmdCmdr[u.faction]=u; }
+  (cmdCands[u.faction]=cmdCands[u.faction]||[]).push(u);
+}
+const cmdCards={};   // fac -> {el, cmdr, cands:[unit…], hostId}
+/* 近景(zoom-near)时主帅卡改锚到旗杆一侧,避免悬在阵形正上方被顶出画外;
+   远景/中景仍钉在阵形正上方(同赤壁)。CMD_NEAR = [本地 x 偏移, 本地 y]。 */
+let _cmdNear=null; const CMD_NEAR=[-1.6,8.6];
+function makeCmdCard(fac,cmdr){
+  const d=document.createElement('div');d.className='cmdCard '+FAC[fac].css;
+  d.style.setProperty('--fac-color',FAC[fac].hex);
+  d.innerHTML=`<img src="${assetUrl(cmdr.card||cmdr.img)}" alt="${cmdr.name}">`
+    +`<div class="ccMeta"><small>${FAC[fac].name}</small><strong>${cmdr.name}</strong></div>`
+    +(cmdr.title?`<div class="ccTitle">${cmdr.title}</div>`:'');
+  return d;
+}
+function anchorCmdCard(fac,host){
+  const c=cmdCards[fac];if(!c||!U[host.id])return;
+  const prev=U[c.hostId];
+  if(prev&&prev!==U[host.id]){   // 换宿主:旧宿主还原自己的标签卡与锚点
+    prev.cmdCardEl=null;prev.labelEl.classList.remove('hasCmd');
+    prev.label.position.set(0,prev.kind==='fleet'?15:19,0);
+  }
+  U[host.id].anchorCommanderCard(c.el);c.hostId=host.id;
+}
+function refreshCmdCards(){
+  for(const fac in cmdCards){
+    const c=cmdCards[fac];
+    // 永远选优先级最高的在台单位:旗舰(水师)在台上就钉水师,隐藏时才退到在台主力(如陆军)。
+    const wish=c.cands.find(u=>U[u.id]&&U[u.id].group.visible)||c.cands[0];
+    if(wish&&wish.id!==c.hostId)anchorCmdCard(fac,wish);
+  }
+}
+for(const fac of Object.keys(cmdCmdr)){
+  const cands=cmdCands[fac].slice().sort((a,b)=>(b.flagship?1:0)-(a.flagship?1:0)||(b.n||0)-(a.n||0));
+  cmdCards[fac]={el:makeCmdCard(fac,cmdCmdr[fac].commander),cmdr:cmdCmdr[fac],cands,hostId:null};
+  anchorCmdCard(fac,cands[0]);
+}
+
+// 单位详情由 units.json info 提供
+const UNIT_INFO={};
+for(const u of UNITS.units) if(u.info) UNIT_INFO[u.id]=u.info;
+const UNIT_DATA_BY_ID=new Map(UNITS.units.map(u=>[u.id,u]));
+function openUnitCard(u){
+  if(!u)return;
+  const info=UNIT_INFO[u.id]||['',''];
+  const cmd=u.commander||null;
+  const card=document.getElementById('unitCard');
+  const portrait=document.getElementById('ucPortrait');
+  portrait.classList.toggle('show',!!cmd);
+  if(cmd){
+    document.getElementById('ucImg').src=assetUrl(cmd.img);
+  }
+  document.getElementById('ucFac').textContent=FAC[u.fac].name+(info[0]?'・'+info[0]:'');
+  document.getElementById('ucFac').style.color=FAC[u.fac].hex;
+  document.getElementById('ucName').textContent=u.labelEl.querySelector('.t1').textContent;
+  const body=document.getElementById('ucBody');
+  const bold=document.createElement('b');bold.textContent='将领';
+  body.replaceChildren(bold,document.createTextNode('　'+u.labelEl.querySelector('.t2').textContent+(info[1]?'\n'+info[1]:'')));
+  card.classList.add('show');
+  try{autoBgmChar(u.id);}catch(e){}
+}
+
+/* initial placement(由 units.json start 驱动) */
+function initPlace(){
+  for(const u of UNITS.units){
+    const st=u.start||{};
+    U[u.id].place(st.x||0, st.z||0);
+    U[u.id].setVisible(!!st.visible);
+    if(st.formation && U[u.id].setFormation) U[u.id].setFormation(st.formation);
+  }
+  for(const s of STRUCT_DATA.structures){ if(s.type==='camp' && s.id && STRUCT[s.id]) STRUCT[s.id].visible=false; }
+  chainsOn=false;
+}
+
+/* ════════ environments ════════ */
+const ENV={
+  day:    {top:0x8eabc0,bot:0xd4d8cd,fog:0xb9c8ca,fd:.0009,sc:0xffefd6,si:1.85,amb:1.02,glow:0,wd:0x24526b,wl:0x77a8b7},
+  dust:   {top:0xa89a78,bot:0xd9cca6,fog:0xc6b997,fd:.0014,sc:0xffe0b0,si:1.72,amb:1.0,glow:0,wd:0x3d4a44,wl:0x93a184},
+  cold:   {top:0x829cae,bot:0xc3cac6,fog:0xa8b6bb,fd:.0012,sc:0xece7db,si:1.45,amb:.9,glow:0,wd:0x294c62,wl:0x7196a3},
+  dusk:   {top:0x6d788a,bot:0xc1a488,fog:0xa4a29d,fd:.0014,sc:0xffc28e,si:1.25,amb:.73,glow:0,wd:0x29465a,wl:0x897b72},
+  night:  {top:0x182638,bot:0x455365,fog:0x344352,fd:.0018,sc:0xb8c8df,si:.52,amb:.5,glow:0,wd:0x142a39,wl:0x345366},
+  inferno:{top:0x241c25,bot:0x754b3e,fog:0x4a3837,fd:.002,sc:0xc7a49b,si:.58,amb:.56,glow:1,wd:0x1d2b33,wl:0x64453e},
+  dawn:   {top:0x8398a6,bot:0xd7b99a,fog:0xbac1bd,fd:.0012,sc:0xffd9b5,si:1.2,amb:.79,glow:.12,wd:0x2e5568,wl:0x8f9f9f},
+};
+const envCur={top:new THREE.Color(ENV.day.top),bot:new THREE.Color(ENV.day.bot),fog:new THREE.Color(ENV.day.fog),
+  fd:ENV.day.fd,sc:new THREE.Color(ENV.day.sc),si:ENV.day.si,amb:ENV.day.amb,glow:0};
+let envTgt=ENV.day;
+function applyEnv(){
+  const k=.025;
+  envCur.top.lerp(new THREE.Color(envTgt.top),k);envCur.bot.lerp(new THREE.Color(envTgt.bot),k);
+  envCur.fog.lerp(new THREE.Color(envTgt.fog),k);envCur.sc.lerp(new THREE.Color(envTgt.sc),k);
+  envCur.fd=lerp(envCur.fd,envTgt.fd,k);envCur.si=lerp(envCur.si,envTgt.si,k);
+  envCur.amb=lerp(envCur.amb,envTgt.amb,k);envCur.glow=lerp(envCur.glow,envTgt.glow,k);
+  skyU.top.value.copy(envCur.top);skyU.bot.value.copy(envCur.bot);
+  scene.fog.color.copy(envCur.fog);scene.fog.density=envCur.fd;
+  sun.color.copy(envCur.sc);sun.intensity=envCur.si;hemi.intensity=envCur.amb;
+  waterU.uGlow.value=envCur.glow;
+  fireLight.intensity=envCur.glow*(34+Math.sin(T*9)*7+Math.sin(T*23)*4);
+  waterU.uDeep.value.lerp(new THREE.Color(envTgt.wd),k);
+  waterU.uLit.value.lerp(new THREE.Color(envTgt.wl),k);
+}
+
+/* ════════ phases data ════════ */
+const SCENE=await (await fetch(PKG_BASE + PKG.data.scene)).json();
+const PHASES=SCENE.acts;
+document.body.classList.toggle('film',PHASES.length>20||PKG.meta?.film===true);
+const AUDIO = await (await fetch(PKG_BASE + PKG.data.audio)).json();
+
+/* ════════ audio engine ════════ */
+const AudioEngine=(()=>{
+  let ctx=null,master,music,sfx,narr,unlocked=false,musicVol=1,ducked=false,sfxVol=1;
+  function unlock(){
+    if(unlocked)return;unlocked=true;
+    ctx=new (window.AudioContext||window.webkitAudioContext)();
+    master=ctx.createGain();master.gain.value=.8;master.connect(ctx.destination);
+    music=ctx.createGain();sfx=ctx.createGain();narr=ctx.createGain();
+    const comp=ctx.createDynamicsCompressor();
+    comp.threshold.value=-14;comp.ratio.value=6;comp.knee.value=8;
+    sfx.connect(comp);comp.connect(master);
+    [music,narr].forEach(g=>g.connect(master));
+    music.gain.value=.5*musicVol;sfx.gain.value=.9*sfxVol;narr.gain.value=1.0;/* BGM .5（可调）*/
+    if(ctx.state==='suspended')ctx.resume();
+    if(typeof Music!=='undefined')Music.init();
+    if(typeof Narration!=='undefined')Narration.init();
+    if(typeof Sfx!=='undefined')Sfx.init();
+  }
+  function applyMusicGain(){
+    if(!ctx)return;
+    const t=ctx.currentTime;
+    music.gain.cancelScheduledValues(t);
+    music.gain.setValueAtTime(music.gain.value,t);
+    music.gain.linearRampToValueAtTime((ducked?.2:.5)*musicVol,t+.5);
+  }
+  function setMusicVol(v){musicVol=Math.max(0,Math.min(1,v));applyMusicGain();}
+  function setSfxVol(v){sfxVol=Math.max(0,Math.min(1,v));
+    if(!ctx)return;const t=ctx.currentTime;
+    sfx.gain.cancelScheduledValues(t);sfx.gain.setValueAtTime(sfx.gain.value,t);
+    sfx.gain.linearRampToValueAtTime((ducked?.45:.9)*sfxVol,t+.3);}
+  function duck(on){
+    if(!ctx)return;ducked=on;const t=ctx.currentTime;
+    music.gain.cancelScheduledValues(t);
+    music.gain.setValueAtTime(music.gain.value,t);
+    music.gain.linearRampToValueAtTime((on?.2:.5)*musicVol,t+.6);/* 旁白时 duck .2（×BGM 音量）*/
+    sfx.gain.cancelScheduledValues(t);
+    sfx.gain.setValueAtTime(sfx.gain.value,t);
+    sfx.gain.linearRampToValueAtTime((on?.45:.9)*sfxVol,t+.6);
+  }
+  function setVolume(v){if(master)master.gain.value=v;}
+  function setPaused(p){
+    if(!ctx)return;
+    if(p)ctx.suspend();else ctx.resume();
+  }
+  return {unlock,duck,setVolume,setMusicVol,setSfxVol,setPaused,
+    get ctx(){return ctx},get musicBus(){return music},
+    get sfxBus(){return sfx},get narrBus(){return narr},get master(){return master}};
+})();
+const Music=(()=>{
+  // 每幕音源:{file:'...'} 或 {synth:'cueName'}(找不到合适 CC0 时退合成,T8 提供)
+  const SRC=AUDIO.music.scenes.map(file=>({file}));
+  const buffers={};let cur=null,curIdx=-1,inited=false,overrideToken=0;
+  function init(){inited=true;}
+  let ovr=null,lastScene=0;
+  async function startOvr(){
+    if(!inited)return;curIdx=-3;
+    const token=++overrideToken,url=ovr;
+    const buf=await loadBuf(url);if(curIdx!==-3||token!==overrideToken||ovr!==url)return;
+    if(!buf){crossfadeTo(null);return;}
+    const s=AudioEngine.ctx.createBufferSource();
+    s.buffer=buf;s.loop=true;
+    const g=AudioEngine.ctx.createGain();
+    s.connect(g);g.connect(AudioEngine.musicBus);
+    s.start();crossfadeTo({src:s,gain:g});
+  }
+  function setOverride(url){
+    ovr=url||null;
+    if(!inited)return;
+    if(ovr){curIdx=-9;startOvr();}
+    else{curIdx=-9;crossfadeTo(null);play(lastScene);}
+  }
+  async function loadBuf(url){
+    if(buffers[url]!==undefined)return buffers[url];
+    try{
+      const r=await fetch(url);
+      if(!r.ok)throw 0;
+      buffers[url]=await AudioEngine.ctx.decodeAudioData(await r.arrayBuffer());
+    }catch(e){buffers[url]=null;console.warn('music missing:',url);}
+    return buffers[url];
+  }
+  function crossfadeTo(node){
+    const t=AudioEngine.ctx.currentTime;
+    if(cur){
+      cur.gain.gain.cancelScheduledValues(t);
+      cur.gain.gain.setValueAtTime(cur.gain.gain.value,t);
+      cur.gain.gain.linearRampToValueAtTime(0,t+1.5);
+      const old=cur;setTimeout(()=>{try{old.src.stop();}catch(e){}},1700);
+    }
+    cur=node;
+    if(node){
+      node.gain.gain.setValueAtTime(0,t);
+      node.gain.gain.linearRampToValueAtTime(1,t+1.5);
+    }
+  }
+  async function playTheme(){           // 开场主题曲:终幕「天下三分」loop
+    if(!inited||curIdx!==-1)return;
+    if(!AUDIO.music.theme)return;       // 无主题曲(精简音频包)
+    curIdx=-2;
+    const buf=await loadBuf(assetUrl(AUDIO.music.theme));
+    if(curIdx!==-2||!buf)return;
+    const s=AudioEngine.ctx.createBufferSource();
+    s.buffer=buf;s.loop=true;
+    const g=AudioEngine.ctx.createGain();
+    s.connect(g);g.connect(AudioEngine.musicBus);
+    s.start();
+    crossfadeTo({src:s,gain:g});
+  }
+  async function play(i){
+    if(manualCapture)return;
+    if(!inited)return;lastScene=i;
+    if(ovr){if(curIdx!==-3)startOvr();return;}
+    if(i===curIdx)return;curIdx=i;
+    const src=SRC[i];
+    if(!src){crossfadeTo(null);return;}   // 该幕无音乐(精简音频包)
+    if(src.file){
+      const buf=await loadBuf(assetUrl(src.file));
+      if(curIdx!==i)return;            // 等待解码期间又跳幕
+      if(!buf){crossfadeTo(null);return;}
+      const s=AudioEngine.ctx.createBufferSource();
+      s.buffer=buf;s.loop=true;
+      const g=AudioEngine.ctx.createGain();
+      s.connect(g);g.connect(AudioEngine.musicBus);
+      s.start();
+      crossfadeTo({src:s,gain:g});
+    }else if(src.synth&&typeof Sfx!=='undefined'&&Sfx.musicCue){
+      crossfadeTo(Sfx.musicCue(src.synth));
+    }
+  }
+  return {init,play,playTheme,SRC,setOverride};
+})();
+
+const Narration=(()=>{
+  let el=null,cues=null,voice=AUDIO.narration.default,enabled=true,subOn=true,curScene=-1,narrRate=1;
+  const narrUrl=(voice,n)=>assetUrl(AUDIO.narration.pathPattern.replace('{voice}',voice).replace('{n}',n));
+  const subEl=()=>document.getElementById('subtitle');
+  if(AUDIO.narration.cues)fetch(assetUrl(AUDIO.narration.cues)).then(r=>r.json()).then(j=>{cues=j;}).catch(()=>{});
+  function init(){
+    el=new Audio();el.preload='auto';el.crossOrigin='anonymous';
+    const node=AudioEngine.ctx.createMediaElementSource(el);
+    node.connect(AudioEngine.narrBus);
+    el.addEventListener('play',()=>AudioEngine.duck(true));
+    el.addEventListener('ended',()=>{AudioEngine.duck(false);hideSub();});
+    el.addEventListener('timeupdate',tick);
+  }
+  function hideSub(){subEl().classList.remove('show');}
+  let subCurrent='';
+  function subtitleSegments(raw){
+    const parts=[];
+    for(const clause of String(raw||'').split(/[，。；：！？…—、,.!?;:\n]/u)){
+      const chars=Array.from(clause.replace(/[\p{P}\p{S}\s]/gu,''));
+      for(let i=0;i<chars.length;i+=15)parts.push(chars.slice(i,i+15).join(''));
+    }
+    return parts;
+  }
+  let curKws=[];
+  const escHtml=s=>String(s).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+  // 关键词对比色强调(仅增强包 body.fx):命中本幕 keywords 的片段包一层 .kw
+  function subHtml(t){
+    const safe=escHtml(t);
+    if(!document.body.classList.contains('fx')||!curKws.length)return safe;
+    let out=safe;
+    for(const k of curKws){const e=escHtml(k);if(e&&out.includes(e))out=out.split(e).join(`<em class="kw">${e}</em>`);}
+    return out;
+  }
+  function setSubText(t){
+    if(!t){hideSub();return;}
+    const e=subEl();
+    if(t!==subCurrent){e.innerHTML=subHtml(t);subCurrent=t;}
+    e.classList.add('show');
+  }
+  function subRefresh(){if(subCurrent)setSubText(subCurrent);}
+  function showTimedSubtitle(lines,t,endFallback){
+    curKws=PHASES[curScene]?.keywords||[];
+    if(!lines?.length){hideSub();return;}
+    let idx=-1;
+    for(let i=0;i<lines.length;i++){if(t>=lines[i].t)idx=i;else break;}
+    if(idx<0){hideSub();return;}
+    const start=lines[idx].t;
+    const end=lines[idx+1]?.t??endFallback;
+    const parts=subtitleSegments(lines[idx].text);
+    if(!parts.length){hideSub();return;}
+    const total=parts.reduce((n,s)=>n+Array.from(s).length,0);
+    const progress=Math.max(0,Math.min(.999,(t-start)/Math.max(.2,end-start)))*total;
+    let count=0;
+    for(const part of parts){count+=Array.from(part).length;if(progress<count){setSubText(part);return;}}
+    setSubText(parts.at(-1));
+  }
+  function tick(){
+    if(!subOn||!cues||curScene<0){hideSub();return;}
+    const sc=cues[String(curScene+1)];if(!sc)return;
+    const lines=sc[voice]?.lines;
+    showTimedSubtitle(lines,el.currentTime,Number.isFinite(el.duration)?el.duration:PHASES[curScene]?.dur||0);
+  }
+  function play(i){
+    curScene=i;
+    if(!el||!voice)return;   // 无旁白音轨(精简音频包)
+    hideSub();
+    el.src=narrUrl(voice, i+1);
+    el.playbackRate=narrRate;
+    try{el.preservesPitch=true;}catch(e){}
+    if(enabled&&!manualCapture)el.play().catch(()=>{});
+    else AudioEngine.duck(false);
+  }
+  function stop(){if(el){el.pause();el.removeAttribute('src');el.load();}hideSub();AudioEngine.duck(false);}
+  function setPaused(p){
+    if(!el)return;
+    if(p)el.pause();
+    else if(enabled&&el.src&&!el.ended)el.play().catch(()=>{});
+  }
+  function setRate(r){narrRate=Math.max(.5,Math.min(2,+r||1));if(el)el.playbackRate=narrRate;}
+  function toggle(){
+    enabled=!enabled;
+    if(!enabled){el&&el.pause();hideSub();AudioEngine.duck(false);}
+    else if(el&&el.src&&!el.ended)el.play().catch(()=>{});
+    return enabled;
+  }
+  function toggleSub(){subOn=!subOn;if(!subOn)hideSub();return subOn;}
+  function switchVoice(){
+    const vs=AUDIO.narration.voices;
+    if(!vs||vs.length<2)return voice;
+    voice=vs[(vs.indexOf(voice)+1)%vs.length];
+    if(el&&enabled&&curScene>=0&&!el.ended&&!el.paused){
+      const t=el.currentTime;
+      el.src=narrUrl(voice, curScene+1);
+      el.currentTime=t;el.playbackRate=narrRate;el.play().catch(()=>{});
+    }
+    return voice;
+  }
+  // 切换钮标签由资料提供(取代写死 yunjhe→男声/女声)
+  function voiceLabel(v){const m=AUDIO.narration.voiceLabels||{};const k=v||voice;return m[k]||k;}
+  // 场景计时器驱动字幕:无语音音轨时的 fallback(有语音则交给 audio 的 timeupdate→tick)
+  function subTick(t){
+    if(el&&voice&&el.src&&!el.paused&&!el.ended)return;   // 语音正在播,不抢
+    if(!subOn||!cues||curScene<0)return;
+    const sc=cues[String(curScene+1)];if(!sc)return;
+    const vk=(sc[voice]&&sc[voice].lines)?voice:Object.keys(sc).find(k=>sc[k]&&sc[k].lines);
+    const track=vk&&sc[vk];if(!track||!track.lines)return;
+    showTimedSubtitle(track.lines,t,PHASES[curScene]?.dur||t+2);
+  }
+  // 旁白是否还在进行(含 src 已设、还没开始播的加载空档):给智慧换幕判断「讲完了没」。关闭/无音轨/加载失败都算「不忙」(不挡换幕)。
+  function busy(){ return !manualCapture&&enabled && !!el && !!voice && !!el.src && !el.ended && !el.error; }
+  return {init,play,stop,setPaused,setRate,toggle,toggleSub,switchVoice,voiceLabel,subTick,busy,subRefresh};
+})();
+
+const Sfx=(()=>{
+  let inited=false,noiseBuf=null;
+  const fileBufs={};
+  let wind=null,river=null,fireN=null,crackleTimer=0;
+
+  function makeNoise(ctx){
+    const b=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate);
+    const d=b.getChannelData(0);
+    let brown=0;
+    for(let i=0;i<d.length;i++){brown=(brown+(Math.random()*2-1)*.02)*.985;d[i]=Math.random()*2-1+brown*3;}
+    return b;
+  }
+  function noiseSrc(ctx,buf){const s=ctx.createBufferSource();s.buffer=buf||noiseBuf;s.loop=true;return s;}
+
+  /* ── one-shot builders:fn(ctx,dest,t0,o)→使用既定包络,放完自断 ── */
+  const BUILD={
+    drum(ctx,dest,t0,o={}){
+      const v=o.v??.8;
+      const osc=ctx.createOscillator(),g=ctx.createGain();
+      osc.frequency.setValueAtTime(58,t0);osc.frequency.exponentialRampToValueAtTime(36,t0+.28);
+      g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.001,t0+.55);
+      osc.connect(g);g.connect(dest);osc.start(t0);osc.stop(t0+.6);
+      const n=noiseSrc(ctx,o.noise),f=ctx.createBiquadFilter(),ng=ctx.createGain();
+      f.type='lowpass';f.frequency.value=300;
+      ng.gain.setValueAtTime(v*.5,t0);ng.gain.exponentialRampToValueAtTime(.001,t0+.2);
+      n.connect(f);f.connect(ng);ng.connect(dest);n.start(t0);n.stop(t0+.25);
+    },
+    hoof(ctx,dest,t0,o={}){
+      const v=o.v??.25;
+      for(const dt of [0,.09]){
+        const n=noiseSrc(ctx,o.noise),f=ctx.createBiquadFilter(),g=ctx.createGain();
+        f.type='bandpass';f.frequency.value=620+Math.random()*160;f.Q.value=2.2;
+        g.gain.setValueAtTime(v,t0+dt);g.gain.exponentialRampToValueAtTime(.001,t0+dt+.07);
+        n.connect(f);f.connect(g);g.connect(dest);n.start(t0+dt);n.stop(t0+dt+.09);
+      }
+    },
+    step(ctx,dest,t0,o={}){
+      const v=o.v??.3;
+      const n=noiseSrc(ctx,o.noise),f=ctx.createBiquadFilter(),g=ctx.createGain();
+      f.type='lowpass';f.frequency.value=240;
+      g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.001,t0+.13);
+      n.connect(f);f.connect(g);g.connect(dest);n.start(t0);n.stop(t0+.15);
+    },
+    whoosh(ctx,dest,t0,o={}){
+      const v=o.v??.5;
+      const n=noiseSrc(ctx,o.noise),f=ctx.createBiquadFilter(),g=ctx.createGain();
+      f.type='bandpass';f.Q.value=1.4;
+      f.frequency.setValueAtTime(900,t0);f.frequency.exponentialRampToValueAtTime(3200,t0+.45);
+      g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(v,t0+.12);
+      g.gain.exponentialRampToValueAtTime(.001,t0+.55);
+      n.connect(f);f.connect(g);g.connect(dest);n.start(t0);n.stop(t0+.6);
+    },
+    clash(ctx,dest,t0,o={}){
+      const v=o.v??.3,fc=o.fc??2800;
+      const car=ctx.createOscillator(),mod=ctx.createOscillator(),mg=ctx.createGain(),g=ctx.createGain();
+      car.frequency.value=fc;mod.frequency.value=420;mg.gain.value=fc*.7;
+      mod.connect(mg);mg.connect(car.frequency);
+      g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.001,t0+(o.dec??.16));
+      car.connect(g);g.connect(dest);
+      car.start(t0);car.stop(t0+.3);mod.start(t0);mod.stop(t0+.3);
+      const n=noiseSrc(ctx,o.noise),f=ctx.createBiquadFilter(),ng=ctx.createGain();
+      f.type='highpass';f.frequency.value=3500;
+      ng.gain.setValueAtTime(v*.6,t0);ng.gain.exponentialRampToValueAtTime(.001,t0+.1);
+      n.connect(f);f.connect(ng);ng.connect(dest);n.start(t0);n.stop(t0+.12);
+    },
+    chain(ctx,dest,t0,o={}){
+      for(let k=0;k<3;k++)BUILD.clash(ctx,dest,t0+k*.17+Math.random()*.05,{v:.22,fc:1500+Math.random()*500,dec:.4,noise:o.noise});
+    },
+    boom(ctx,dest,t0,o={}){
+      const v=(o.v??.9)*.7;
+      const osc=ctx.createOscillator(),g=ctx.createGain();
+      osc.frequency.setValueAtTime(44,t0);osc.frequency.exponentialRampToValueAtTime(26,t0+1.1);
+      g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.001,t0+1.3);
+      osc.connect(g);g.connect(dest);osc.start(t0);osc.stop(t0+1.4);
+      const n=noiseSrc(ctx,o.noise),f=ctx.createBiquadFilter(),ng=ctx.createGain();
+      f.type='lowpass';f.frequency.setValueAtTime(900,t0);f.frequency.exponentialRampToValueAtTime(140,t0+.9);
+      ng.gain.setValueAtTime(v*.8,t0);ng.gain.exponentialRampToValueAtTime(.001,t0+1.0);
+      n.connect(f);f.connect(ng);ng.connect(dest);n.start(t0);n.stop(t0+1.1);
+      for(let k=0;k<6;k++){
+        const dt=.3+Math.random()*.8;
+        const cn=noiseSrc(ctx,o.noise),cf=ctx.createBiquadFilter(),cg=ctx.createGain();
+        cf.type='highpass';cf.frequency.value=1800;
+        cg.gain.setValueAtTime(v*.12,t0+dt);cg.gain.exponentialRampToValueAtTime(.001,t0+dt+.06);
+        cn.connect(cf);cf.connect(cg);cg.connect(dest);cn.start(t0+dt);cn.stop(t0+dt+.08);
+      }
+    },
+    chime(ctx,dest,t0,o={}){
+      const v=o.v??.34;
+      [1318.5,1760,2637].forEach((fq,k)=>{
+        const osc=ctx.createOscillator(),g=ctx.createGain();
+        osc.frequency.value=fq;
+        const tt=t0+k*.14;
+        g.gain.setValueAtTime(.0001,tt);g.gain.exponentialRampToValueAtTime(v*(1-k*.22),tt+.02);
+        g.gain.exponentialRampToValueAtTime(.001,tt+1.6);
+        osc.connect(g);g.connect(dest);osc.start(tt);osc.stop(tt+1.7);
+      });
+      const n=noiseSrc(ctx,o.noise),f=ctx.createBiquadFilter(),g=ctx.createGain();
+      f.type='bandpass';f.Q.value=1;
+      f.frequency.setValueAtTime(1200,t0);f.frequency.exponentialRampToValueAtTime(5200,t0+.5);
+      g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(v*.4,t0+.18);
+      g.gain.exponentialRampToValueAtTime(.001,t0+.6);
+      n.connect(f);f.connect(g);g.connect(dest);n.start(t0);n.stop(t0+.65);
+    },
+    crowd(ctx,dest,t0,o={}){      // battlecry 真档缺时的合成备援:远方人浪
+      const v=o.v??.5;
+      const n=noiseSrc(ctx,o.noise),f=ctx.createBiquadFilter(),g=ctx.createGain();
+      f.type='bandpass';f.frequency.value=480;f.Q.value=.8;
+      g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(v,t0+.8);
+      g.gain.setValueAtTime(v,t0+2.2);g.gain.exponentialRampToValueAtTime(.001,t0+3.6);
+      const lfo=ctx.createOscillator(),lg=ctx.createGain();
+      lfo.frequency.value=6.3;lg.gain.value=v*.35;
+      lfo.connect(lg);lg.connect(g.gain);lfo.start(t0);lfo.stop(t0+3.6);
+      n.connect(f);f.connect(g);g.connect(dest);n.start(t0);n.stop(t0+3.7);
+    },
+  };
+
+  function init(){
+    if(inited)return;inited=true;
+    const ctx=AudioEngine.ctx;
+    noiseBuf=makeNoise(ctx);
+    // 环境层:风 / 江水 / 火
+    const mk=(type,fq,q)=>{
+      const s=noiseSrc(ctx),f=ctx.createBiquadFilter(),g=ctx.createGain();
+      f.type=type;f.frequency.value=fq;if(q)f.Q.value=q;
+      g.gain.value=0;s.connect(f);f.connect(g);g.connect(AudioEngine.sfxBus);s.start();
+      return {g,f};
+    };
+    wind=mk('bandpass',620,.45);
+    river=mk('lowpass',190);
+    fireN=mk('lowpass',460);
+    const lfo=ctx.createOscillator(),lg=ctx.createGain();
+    lfo.frequency.value=.07;lg.gain.value=.035;
+    lfo.connect(lg);lg.connect(river.g.gain);lfo.start();
+  }
+  function play(name,opts={}){
+    if(!inited)return;
+    BUILD[name](AudioEngine.ctx,AudioEngine.sfxBus,AudioEngine.ctx.currentTime+.01,opts);
+  }
+  const activeFiles=[];
+  async function playFile(name,v=0.8){
+    if(!inited)return;
+    const ctx=AudioEngine.ctx,url=assetUrl(`${AUDIO.sfx.dir}/${name}.mp3`);
+    if(fileBufs[url]===undefined){
+      try{const r=await fetch(url);if(!r.ok)throw 0;
+        fileBufs[url]=await ctx.decodeAudioData(await r.arrayBuffer());}
+      catch(e){fileBufs[url]=null;}
+    }
+    if(!fileBufs[url]){if(name==='battlecry')play('crowd',{v});return;}
+    const s=ctx.createBufferSource(),g=ctx.createGain();
+    s.buffer=fileBufs[url];g.gain.value=v;
+    s.connect(g);g.connect(AudioEngine.sfxBus);
+    s.start();
+    { const t0=ctx.currentTime;   // 触发点只播 2 秒: 1.6s 起淡出, 2.0s 收
+      g.gain.setValueAtTime(v,t0+1.6);
+      g.gain.linearRampToValueAtTime(.0001,t0+2.0);
+      try{s.stop(t0+2.05);}catch(e){} }
+    const rec={s,g};activeFiles.push(rec);
+    s.onended=()=>{const k=activeFiles.indexOf(rec);if(k>=0)activeFiles.splice(k,1);};
+  }
+  function sword(v=.5){     // 真实刀剑录音,4 变体随机
+    playFile('sword'+(1+Math.floor(Math.random()*4)),v*(0.8+Math.random()*.4));
+  }
+  function stopFiles(){     // 跨幕长音(呐喊/铁索)淡出收掉
+    const ctx=AudioEngine.ctx;if(!ctx)return;
+    for(const r of activeFiles){
+      const t=ctx.currentTime;
+      r.g.gain.cancelScheduledValues(t);
+      r.g.gain.setValueAtTime(r.g.gain.value,t);
+      r.g.gain.linearRampToValueAtTime(0,t+.5);
+      try{r.s.stop(t+.55);}catch(e){}
+    }
+    activeFiles.length=0;
+  }
+  /* 行军/马蹄:登记 dur 秒的节奏回圈(只有陆军;舰队移动交给江水/风,不配脚步) */
+  const LAND_UNITS={};
+  for(const u of UNITS.units) if(u.kind==='army') LAND_UNITS[u.id]=u.gait||'foot';
+  const marches=[];
+  const loopBufs={};
+  async function loopFile(name){
+    const ctx=AudioEngine.ctx,url=assetUrl(`${AUDIO.sfx.dir}/${name}.mp3`);
+    if(loopBufs[url]===undefined){
+      try{const r=await fetch(url);if(!r.ok)throw 0;loopBufs[url]=await ctx.decodeAudioData(await r.arrayBuffer());}
+      catch(e){loopBufs[url]=null;}
+    }
+    return loopBufs[url];
+  }
+  function stopMarchFile(m){
+    if(!m.rec)return;
+    const ctx=AudioEngine.ctx,t=ctx.currentTime;
+    try{m.rec.g.gain.cancelScheduledValues(t);m.rec.g.gain.setValueAtTime(m.rec.g.gain.value,t);
+      m.rec.g.gain.linearRampToValueAtTime(.0001,t+.6);m.rec.s.stop(t+.65);}catch(e){}
+    m.rec=null;
+  }
+  function march(id,dur){
+    if(!inited||!LAND_UNITS[id])return;
+    const cav=LAND_UNITS[id]==='cav';
+    const m={until:performance.now()/1000+Math.min(dur,14),cav,next:0,rec:null,loading:true};
+    marches.push(m);
+    loopFile(cav?'cav-march':'inf-march').then(buf=>{
+      if(!buf){m.loading=false;return;}
+      if(marches.indexOf(m)<0)return;
+      const ctx=AudioEngine.ctx,s=ctx.createBufferSource(),g=ctx.createGain();
+      s.buffer=buf;s.loop=true;g.gain.value=.0001;
+      s.connect(g);g.connect(AudioEngine.sfxBus);s.start();
+      const t=ctx.currentTime;
+      g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(cav?.34:.30,t+.8);
+      m.rec={s,g};m.loading=false;
+    });
+  }
+  function frame(windAmt,fireAmt,dt){
+    if(!inited)return;
+    wind.g.gain.value=.03+windAmt*.2;
+    river.g.gain.value=.09;
+    fireN.g.gain.value=fireAmt*.5;
+    const now=performance.now()/1000;
+    // 火场哔剥
+    if(fireAmt>.12){
+      crackleTimer-=dt;
+      if(crackleTimer<=0){
+        crackleTimer=.07+Math.random()*.3/fireAmt;
+        const ctx=AudioEngine.ctx,n=noiseSrc(ctx),f=ctx.createBiquadFilter(),g=ctx.createGain();
+        const t0=ctx.currentTime;
+        f.type='highpass';f.frequency.value=2000+Math.random()*2500;
+        g.gain.setValueAtTime(fireAmt*(.06+Math.random()*.1),t0);
+        g.gain.exponentialRampToValueAtTime(.001,t0+.04);
+        n.connect(f);f.connect(g);g.connect(AudioEngine.sfxBus);n.start(t0);n.stop(t0+.05);
+      }
+    }
+    // 行军:真人录音循环 + 合成脚步点缀(录音缺失时兜底)
+    for(let i=marches.length-1;i>=0;i--){
+      const m=marches[i];
+      if(now>m.until){stopMarchFile(m);marches.splice(i,1);continue;}
+      if(now>=m.next){
+        m.next=now+(m.cav?.24:.46)+Math.random()*.04;
+        const fb=(!m.rec&&m.loading===false);
+        play(m.cav?'hoof':'step',{v:fb?(m.cav?.16:.14):.045});
+      }
+    }
+  }
+  /* 每幕事件音效 cue(0-based 幕序),挂进 phase engine 的 pending */
+  /* 宣告式音效事件词汇(AUDIO.cues)→ dispatchAudioCue,等价于原 AUDIO_CUES 闭包 */
+  function dispatchAudioCue(e){
+    switch(e.type){
+      case 'synth': play(e.inst,{v:e.v}); break;
+      case 'sfx':   playFile(e.name,e.v); break;
+      case 'sword': sword(e.v); break;
+      case 'burst': for(let k=0;k<e.n;k++)setTimeout(()=>play(e.inst,{v:e.v}),k*e.interval*1000); break;
+    }
+  }
+  /* 场景化音效铺底(AUDIO.sfxPlan 的 {bed:1}):整幕循环,切幕淡出。 */
+  const beds=[];
+  function startBed(name,v,fi){
+    if(!inited)return;
+    loopFile(name).then(buf=>{
+      if(!buf)return;
+      const ctx=AudioEngine.ctx,s=ctx.createBufferSource(),g=ctx.createGain();
+      s.buffer=buf;s.loop=true;g.gain.value=.0001;
+      s.connect(g);g.connect(AudioEngine.sfxBus);s.start();
+      const t=ctx.currentTime;g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(v,t+(fi||.8));
+      beds.push({s,g});
+    });
+  }
+  function stopBeds(fo){
+    const ctx=AudioEngine.ctx;if(!ctx)return;const d=fo||1;
+    for(const b of beds){const t=ctx.currentTime;
+      try{b.g.gain.cancelScheduledValues(t);b.g.gain.setValueAtTime(b.g.gain.value,t);
+        b.g.gain.linearRampToValueAtTime(.0001,t+d);b.s.stop(t+d+.05);}catch(e){}}
+    beds.length=0;
+  }
+  /* 幕内音效编排(AUDIO.sfxPlan[幕])一次性条目落点 = 幕内秒数(与成片混音同一份数据)。 */
+  function planCues(i){return (AUDIO.sfxPlan||{})[i]||(AUDIO.sfxPlan||{})[String(i)]||[];}
+  function onScene(i){
+    if(!inited)return;
+    marches.forEach(stopMarchFile);
+    marches.length=0;
+    stopFiles();
+    stopBeds();
+    (AUDIO.cues[i]||[]).forEach(e=>pending.push({at:e.at,fn:()=>dispatchAudioCue(e)}));
+    for(const c of planCues(i)){
+      if(c.bed)startBed(c.f,c.v??.3,c.fi);
+      else pending.push({at:c.t||0,fn:()=>playFile(c.f,c.v??.4)});
+    }
+    pending.sort((a,b)=>a.at-b.at);
+  }
+  /* OfflineAudioContext 渲染测试:回报每个 one-shot 的 RMS/peak */
+  async function _test(){
+    const out={};
+    for(const name of Object.keys(BUILD)){
+      const ctx=new OfflineAudioContext(1,44100*2,44100);
+      const nb=makeNoise(ctx);
+      BUILD[name](ctx,ctx.destination,.05,{noise:nb});
+      const buf=await ctx.startRendering();
+      const d=buf.getChannelData(0);
+      let sum=0,peak=0;
+      for(let i=0;i<d.length;i++){sum+=d[i]*d[i];peak=Math.max(peak,Math.abs(d[i]));}
+      out[name]={rms:Math.sqrt(sum/d.length).toFixed(4),peak:peak.toFixed(3)};
+    }
+    return out;
+  }
+  return {init,play,playFile,march,frame,onScene,_test};
+})();
+
+window.__audio={engine:AudioEngine,music:Music,narr:Narration,sfx:Sfx};   // debug/验证用
+window.__units=U;   // 验证/调试:战场单位
+window.__project=(x,y,z)=>{const v=new THREE.Vector3(x,y,z).project(camera);return{x:(v.x/2+.5)*innerWidth,y:(-v.y/2+.5)*innerHeight};};   // 验证:世界坐标→屏幕坐标
+let inspect=false;   // 查看模式:固定相机(给作者俯视检查摆位 / headless 验证用)
+window.__cam=(p,l)=>{inspect=true;setCinema(false);camera.position.set(p[0],p[1],p[2]);camera.lookAt(l[0],l[1],l[2]);};
+window.__topdown=()=>window.__cam([0,640,40],[0,0,40]);   // 正上方俯视整张地图
+
+/* ════════ phase engine ════════ */
+let T=0,phase=-1,phaseT=0,playing=true,speed=1,cinema=true,ended=false;
+let stillT=0;                          // 本幕「静止」(旁白完+无动作+无洪水+无待触发事件)已持续秒数
+const STILL_HOLD=1.8, MIN_ACT=2.5;     // 静止满 STILL_HOLD 秒就提早换幕(但每幕至少跑 MIN_ACT 秒、且不超过 dur;hold 幕不提早)
+let shotIdx=0,shotT=0;
+const evtObjs=[];
+function clearEvents(){evtObjs.forEach(o=>{o.removeFromParent();o.element.remove();});evtObjs.length=0;}
+function spawnEvent(e){
+  const d=document.createElement('div');d.className='evt';
+  d.innerHTML=`<div class="card"><span class="tag ${e.tag==='史'?'hist':'novel'}">${e.tag}</span><span class="tx">${e.t}</span></div>`;
+  const o=new CSS2DObject(d);
+  o.position.set(e.x,Math.max(ground(e.x,e.z),0)+16,e.z);
+  scene.add(o);evtObjs.push(o);
+}
+// 同幕多张事件卡若投影到相近屏幕位置会叠住、看不到后面那几句 → 每帧把重叠的往下推开。
+// 在 CSS2D 定位后追加 translateY(整张 .evt 连卡带连接线一起移);CSS2D 每帧会重设 transform,故每帧重算。
+function declutterEvents(){
+  if(evtObjs.length<2)return;
+  const els=evtObjs.map(o=>o.element).filter(el=>el.offsetParent!==null);
+  if(els.length<2)return;
+  const base=els.map(el=>el.getBoundingClientRect());
+  const order=els.map((_,i)=>i).sort((a,b)=>base[a].top-base[b].top);
+  const placed=[];
+  for(const i of order){
+    let top=base[i].top;const h=base[i].height,L=base[i].left,R=base[i].right;
+    for(let pass=0;pass<=placed.length;pass++){let moved=false;
+      for(const p of placed)if(L<p.R&&R>p.L&&top<p.bottom+5&&top+h>p.top){top=p.bottom+5;moved=true;}
+      if(!moved)break;}
+    const dy=top-base[i].top;if(dy>0)els[i].style.transform+=' translateY('+Math.round(dy)+'px)';
+    placed.push({L,R,top,bottom:top+h});
+  }
+}
+const STRAT_LIFE=7.5;            // 辨析大卡亮相时长(秒,成片时间,非墙上时钟)
+let stratOn=-1;                  // 触发时的 phaseT;由 updateStrat 逐帧推进
+function showStrat(s){
+  const el=document.getElementById('strat');
+  document.getElementById('stratName').childNodes[0].nodeValue=s.name;
+  document.getElementById('stratSeal').textContent=s.tag==='史'?'史':'计';
+  document.getElementById('stratBy').textContent=(s.tag==='演义'?'演义・':'史载・')+s.by;
+  document.getElementById('stratDesc').textContent=s.desc;
+  el.classList.add('show');document.body.classList.add('strategy-active');
+  stratOn=phaseT;   // pending 触发的此刻 phaseT≈该幕 at
+  // 辨析大卡不再放「当当当」提示音(宝哥 2026-10-15 反馈:一个当当当的音效不要)
+}
+function clearStrat(){
+  const el=document.getElementById('strat');if(!el)return;
+  el.classList.remove('show');el.style.opacity='';el.style.transform='';
+  document.body.classList.remove('strategy-active');stratOn=-1;
+}
+/* 辨析大卡的显隐只由 phaseT 决定(不用 CSS 动画/时钟),逐帧步进可复现、时长与成片帧率无关。 */
+function updateStrat(){
+  const el=document.getElementById('strat');
+  if(stratOn<0)return;
+  const p=clamp((phaseT-stratOn)/STRAT_LIFE,0,1),IN=.06,OUT=.86;
+  el.style.opacity=(p<IN?smooth(p/IN):p>OUT?1-smooth((p-OUT)/(1-OUT)):1).toFixed(3);
+  el.style.transform='translateY('+((1-smooth(clamp(p/IN,0,1)))*10).toFixed(1)+'px)';
+  const sl=document.getElementById('stratSeal');
+  if(sl)sl.style.transform='rotate(-7deg) scale('+smooth(clamp((p-.10)/.10,0,1)).toFixed(2)+')';
+  if(p>=1)clearStrat();
+}
+
+/* ════════ 叙事卡：引文／时间线／风玫瑰／信笺／印章 ════════
+   卡片在 gotoPhase 时一次性建好（隐藏），此后每帧由 updateCards(phaseT) 纯函数驱动：
+   opacity/transform/节点点亮/指针角度都只由 (phaseT - at)/life 决定 —— 不用 CSS 动画、
+   不读时钟，所以 ?offline=1 逐帧步进能逐帧复现（实测同一帧两次渲染像素一致）。 */
+const cardsHost=document.getElementById('cards');
+const liveCards=[];
+function clearCards(){liveCards.length=0;if(cardsHost)cardsHost.textContent='';}
+const CARD_DIRS=['北','东北','东','东南','南','西南','西','西北'];
+function windRoseSVG(){
+  let ticks='',labels='';
+  for(let i=0;i<8;i++){
+    const a=(i*45-90)*Math.PI/180,ca=Math.cos(a),sa=Math.sin(a),major=i%2===0;
+    const r0=major?50:54;
+    ticks+=`<line class="tk${major?'':' m'}" x1="${(70+ca*r0).toFixed(1)}" y1="${(70+sa*r0).toFixed(1)}" x2="${(70+ca*62).toFixed(1)}" y2="${(70+sa*62).toFixed(1)}"/>`;
+    labels+=`<text class="dl" x="${(70+ca*74).toFixed(1)}" y="${(70+sa*74+3).toFixed(1)}" text-anchor="middle">${CARD_DIRS[i]}</text>`;
+  }
+  return `<svg class="rose" viewBox="-26 -26 192 192">${ticks}${labels}
+    <circle class="rr" cx="70" cy="70" r="43"/><circle class="hub" cx="70" cy="70" r="4.5"/>
+    <g class="needle" transform="rotate(0 70 70)"><polygon points="70,22 77,70 70,63 63,70"/></g></svg>`;
+}
+function cardMarkup(c){
+  switch(c.kind){
+    case 'quote': return `<div class="q${c.vert?' vert':''}">${c.text}</div>`+(c.src?`<div class="src">${c.src}</div>`:'');
+    case 'timeline': return `<div class="hd">${c.title||'时间线'}</div><div class="rail"><span class="prog"></span>`
+      +(c.items||[]).map(it=>`<div class="nd">${it[0]?`<span class="yr">${it[0]}</span>`:''}<span class="lb">${it[1]}</span></div>`).join('')+`</div>`;
+    case 'windrose': return `<div class="hd">${c.title||'风向'}</div>${windRoseSVG()}`+(c.caption?`<div class="cap">${c.caption}</div>`:'');
+    case 'letter': return (c.text?`<div class="text">${c.text}</div>`:'')+(c.sig?`<div class="sig">${c.sig}</div>`:'')
+      +`<div class="seal">${c.seal||'印'}</div>`;
+    case 'seal': return `<div class="stamp"><div class="ring"></div>${c.text||'史'}</div>`+(c.caption?`<div class="cap">${c.caption}</div>`:'');
+    default: return '';
+  }
+}
+function spawnCard(c){
+  const el=document.createElement('div');
+  el.className='ncard '+c.kind+' slot-'+((c.slot||'C')+'')[0];
+  el.innerHTML=cardMarkup(c);
+  cardsHost.appendChild(el);
+  liveCards.push({...c,el,prog:el.querySelector('.prog'),needle:el.querySelector('.needle'),
+    ring:el.querySelector('.ring'),nodes:Array.prototype.slice.call(el.querySelectorAll('.nd'))});
+}
+function updateCards(t){
+  if(!liveCards.length)return;
+  const act=PHASES[phase];
+  for(const c of liveCards){
+    const life=c.life>0?c.life:Math.max(.6,(act?act.dur:c.at+1)-c.at);
+    const local=t-c.at,alive=local>=0&&local<life;
+    if(!alive){ if(c.el.style.visibility!=='hidden'){c.el.style.visibility='hidden';c.el.style.opacity='0';} continue; }
+    const p=clamp(local/life,0,1),IN=.16,OUT=.86;
+    c.el.style.visibility='visible';
+    c.el.style.opacity=(p<IN?smooth(p/IN):p>OUT?1-smooth((p-OUT)/(1-OUT)):1).toFixed(3);
+    const e=smooth(clamp(p/IN,0,1));
+    if(c.kind==='seal'){
+      const st=smooth(clamp(p/.12,0,1));
+      c.el.style.transform=`translate(-50%,-50%) scale(${(2.7-1.7*st).toFixed(3)}) rotate(${(-6-3*(1-st)).toFixed(2)}deg)`;
+      if(c.ring){const rp=clamp((p-.06)/.16,0,1);c.ring.style.transform='scale('+(1+rp*.55).toFixed(3)+')';
+        c.ring.style.opacity=(.6*(1-rp)).toFixed(2);}
+    }else{
+      c.el.style.transform=`translate(-50%,-50%) translateY(${((1-e)*-22).toFixed(1)}px) scale(${(.94+.06*e).toFixed(3)})`;
+      if(c.kind==='timeline'){
+        const n=c.nodes.length||1,sp=clamp((p-.14)/.62,0,1);
+        if(c.prog)c.prog.style.width=(sp*100).toFixed(1)+'%';
+        for(let i=0;i<n;i++)c.nodes[i].classList.toggle('on',sp>=(i+1)/n-1e-6);
+      }else if(c.kind==='windrose'&&c.needle){
+        const sp=smooth(clamp((p-.10)/.45,0,1)),a0=-30,a1=(c.bearing==null?135:c.bearing);
+        c.needle.setAttribute('transform','rotate('+(a0+(a1-a0)*sp).toFixed(1)+' 70 70)');
+      }
+    }
+  }
+}
+let pending=[];
+
+function applySet(s,inst){
+  if(!s)return;
+  for(const id in s){
+    const d=s[id];
+    if(id==='chains'){chainsOn=d;continue;}
+    if(id==='wind'){windTarget=d?1:0;continue;}
+    if(id==='rain'){rainTarget=(typeof d==='number')?d:(d?1:0);continue;}
+    // 结构(城/营/隘):可见性 + 火源 fire/smoke 控制
+    if(STRUCT[id]){
+      if(d&&typeof d==='object'){
+        if(d.visible!==undefined)STRUCT[id].visible=d.visible;
+        const fe=fireEmitters[id];
+        if(fe){
+          if(d.fire!==undefined)fe.target=d.fire;
+          if(d.smoke!==undefined){fe.smokeOnly=true;fe.target=Math.max(fe.target,d.smoke);}
+        }
+      }
+      continue;
+    }
+    const u=U[id];if(!u)continue;
+    if(d.state!==undefined)u.setState(d.state,inst);
+    if(d.visible!==undefined)u.setVisible(d.visible);
+    if(d.formation)u.setFormation&&u.setFormation(d.formation);
+    if(d.path&&d.path.length){
+      if(inst){const last=d.path[d.path.length-1];u.place(last[0],last[1]);}
+      else{u.moveTo(d.path,d.dur||8);Sfx.march(id,d.dur||8);}
+      u.setVisible(true);
+    }
+  }
+}
+function dispatchFx(e){
+  switch(e.type){
+    case 'volley': fireVolley(e.from,e.to,e.n,e.fire); break;
+    case 'ignite': if(U[e.unit])U[e.unit].setState('burn'); if(e.shake)shake(e.shake); break;
+    case 'shake':  shake(e.mag); break;
+    case 'campFire': { const fe=fireEmitters[e.camp]; if(fe)fe.target=1; break; }
+    // 一次性粒子(水花／水柱／灰烬／碎片):from=[x,z] 为爆发点;n 粒数、speed 初速、unit 用单位当前位置
+    case 'splash': case 'spray': case 'debris':
+    case 'embers': {
+      const K=e.type,x=e.from?e.from[0]:0,z=e.from?e.from[1]:0;
+      if(e.unit&&U[e.unit]){const q=U[e.unit].group.position;emitFx(K,q.x,q.y+2.5,q.z,e.n||60,{speed:e.speed,up:e.up,life:e.life,vary:e.vary});}
+      else emitFx(K,x,(e.y!==undefined?e.y:(K==='embers'?3:1.5)),z,e.n||60,{speed:e.speed,up:e.up,life:e.life,vary:e.vary});
+      break;
+    }
+    case 'flood': floodAnim={from:waterU.uFloodY.value,to:e.to,start:T,dur:e.dur||6};
+      if(e.region){ if(e.from){ floodAnim.reg0=[e.from[0],e.from[1],12,12]; floodAnim.reg1=e.region.slice(); waterU.uReg.value.set(e.from[0],e.from[1],12,12); }   // 带 from=决堤口:region 从小水洼长成全区(水锋推进)
+        else waterU.uReg.value.set(e.region[0],e.region[1],e.region[2],e.region[3]); } break;
+  }
+}
+function gotoPhase(i,viaScrub=false){
+  ended=false;document.getElementById('finale').classList.remove('show');
+  clearEvents();clearMarch();clearCards();clearStrat();
+  const act=PHASES[i];
+  if(viaScrub||i<=phase||act.reset){      // rebuild from scratch
+    // reset world
+    emitters.forEach(e=>{e.target=0;e.cur=0;e.smokeOnly=false;});
+    for(const id in U){
+      const u=U[id];if(!u.ships)continue;
+      u.ships.forEach(s=>{s.burn=0;s.sunk=false;s.sinkY=0;s.tilt=0;if(s.fire){s.fire.target=0;s.fire.smokeOnly=false;}
+        if(s.mesh.userData.sail)s.mesh.userData.sail.userData.burn.value=0;});
+      u.state='normal';if(u.setFormation)u.setFormation('loose');
+    }
+    windTarget=0;rainTarget=0;chainsOn=false;
+    initPlace();
+    if(act.reset){(act.baseline||[]).forEach(s=>applySet(s,true));}
+    else for(let k=0;k<i;k++){applySet(PHASES[k].set,true);applySet(PHASES[k].scrubSet,true);}
+    // water level: 从基准起,把先前各幕的 flood fx 直接跳到位(scrub 才正确)
+    floodAnim=null;waterU.uFloodY.value=BASE_WATER_Y;waterU.uReg.value.set(0,0,1e4,1e4);
+    if(!act.reset)for(let k=0;k<i;k++)for(const e of (PHASES[k].fx||[]))if(e.type==='flood'){if(e.region)waterU.uReg.value.set(e.region[0],e.region[1],e.region[2],e.region[3]);waterU.uFloodY.value=e.to;}
+  }
+  phase=i;phaseT=0;shotIdx=0;shotT=0;stillT=0;
+  for(const id in U)U[id].combat=false;
+  const p=PHASES[i];
+  (p.combat||[]).forEach(id=>{if(U[id])U[id].combat=true;});   // 该幕参战舰队(broadside)
+  envTgt=ENV[p.env]||ENV.day;   // 未知 env 安全退回 day(避免 applyEnv 每帧 throw)
+  flagWind=p.set&&p.set.wind?2.6:1;
+  applySet(p.set,false);
+  if(p.march)p.march.forEach(m=>addMarch(m.pts,m.fac));
+  pending=[];
+  (p.cards||[]).forEach(c=>spawnCard(c));
+  (p.events||[]).forEach(e=>pending.push({at:e.at,fn:()=>spawnEvent(e)}));
+  (p.fx||[]).forEach(e=>pending.push({at:e.at,fn:()=>dispatchFx(e)}));
+  if(p.strat)pending.push({at:p.strat.at,fn:()=>showStrat(p.strat)});
+  if(p.finale)pending.push({at:p.finale,fn:()=>document.getElementById('finale').classList.add('show')});
+  pending.sort((a,b)=>a.at-b.at);
+  // UI
+  document.getElementById('phTag').textContent=p.key+'・'+(p.sourceKind||p.era);
+  document.getElementById('phTitle').textContent=p.title;
+  document.getElementById('phNarr').textContent=p.summary||p.narr||'';
+  document.getElementById('eraTxt').textContent=p.era;
+  const pw=p.power;
+  for(const fac in pw){
+    const n=document.getElementById('n_'+fac);if(!n)continue;
+    n.textContent=pw[fac][0];
+    document.getElementById('b_'+fac).style.width=pw[fac][1]+'%';
+    document.getElementById('s_'+fac).textContent='状态　'+pw[fac][2];
+  }
+  // 常驻侧栏数据战报:粮草(仅增强包,scene.acts 里给了 supply 才显示)
+  const supEl=document.getElementById('supply');
+  if(supEl){
+    if(FX&&Array.isArray(p.supply)&&p.supply.length){
+      supEl.innerHTML='<div class="supHd">粮　草</div>'+p.supply.map(s=>{
+        const f=FAC[s.fac]||{};
+        return `<div class="supRow"><span class="nm" style="color:${f.hex||'#888'}">${s.label}</span>`
+          +`<span class="bar"><i style="width:${clamp(s.pct,0,100)}%;background:linear-gradient(90deg,${f.darkHex||'#555'},${f.hex||'#999'})"></i></span>`
+          +`<span class="num">${s.pct}%</span><span class="note">${s.note||''}</span></div>`;
+      }).join('');
+      supEl.style.display='block';
+    }else supEl.style.display='none';
+  }
+  document.querySelectorAll('.node').forEach((n,k)=>n.classList.toggle('on',k===i));
+  try{autoBgmScene(i);}catch(e){}
+Music.play(i);
+  Narration.play(i);
+  if(typeof Sfx!=='undefined')Sfx.onScene(i);
+}
+
+/* ════════ camera director ════════ */
+let shakeAmp=0;
+function shake(a){shakeAmp=Math.max(shakeAmp,a);}
+const camPos=V3(),camLook=V3(0,0,0);
+/* 镜头语言:给现有 line/orbit/follow「加字段」而非加新 kind。
+   ease 缓动曲线、look2 注视点插值(横移扫过战场)、fov 推近(48→fov)、roll 侧倾(度)。 */
+const EASE={linear:u=>u,smooth,in:u=>u*u,out:u=>1-(1-u)*(1-u),
+  inout:u=>u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2,snap:u=>u<1?0:1};
+const _lk=V3();
+function director(dt){
+  const p=PHASES[phase];if(!p)return;
+  let shots=p.shots,idx=shotIdx,st=shotT;
+  let s=shots[Math.min(idx,shots.length-1)];
+  if(st>s.dur&&idx<shots.length-1){shotIdx=++idx;shotT=st=0;s=shots[idx];}
+  const u=clamp(st/s.dur,0,1),e=(EASE[s.ease]||smooth)(u);
+  if(s.kind==='line'){
+    camPos.set(lerp(s.a[0],s.b[0],e),lerp(s.a[1],s.b[1],e),lerp(s.a[2],s.b[2],e));
+    camLook.set(s.look[0],s.look[1],s.look[2]);
+    if(s.look2)camLook.lerp(_lk.set(s.look2[0],s.look2[1],s.look2[2]),e);
+  }else if(s.kind==='orbit'){
+    const a=lerp(s.a0,s.a1,e);
+    camPos.set(s.c[0]+Math.cos(a)*s.r,lerp(s.h,s.h2!==undefined?s.h2:s.h,e),s.c[2]+Math.sin(a)*s.r);
+    camLook.set(s.c[0],s.c[1],s.c[2]);
+    if(s.look2)camLook.lerp(_lk.set(s.look2[0],s.look2[1],s.look2[2]),e);
+  }else if(s.kind==='follow'){
+    const t=U[s.unit].group.position;
+    camPos.set(t.x+s.off[0],t.y+s.off[1],t.z+s.off[2]);
+    camLook.lerp(_v1.set(t.x,t.y+3,t.z),.08);
+    if(shotT<.1)camLook.set(t.x,t.y+3,t.z);
+  }
+  camera.position.lerp(camPos,shotT<.15?1:.06);
+  if(shakeAmp>0.01){
+    camera.position.x+=(Math.random()-.5)*shakeAmp;
+    camera.position.y+=(Math.random()-.5)*shakeAmp;
+    shakeAmp*=.93;
+  }
+  camera.lookAt(camLook);
+  // FOV 推近:纯函数(48→s.fov),切镜即回到 48,不依赖上一帧 → 逐帧步进可复现。
+  const fov=lerp(48,Number.isFinite(s.fov)?s.fov:48,e);
+  if(Math.abs(fov-camera.fov)>1e-4){camera.fov=fov;camera.updateProjectionMatrix();}
+  if(s.roll)camera.rotateZ(s.roll*Math.PI/180*e);   // 侧倾(度):lookAt 之后局部再转
+}
+
+/* ════════ UI wiring ════════ */
+const nodesEl=document.getElementById('tlNodes');
+let durTotal=PHASES.reduce((a,p)=>a+p.dur,0),acc=0;
+PHASES.forEach((p,i)=>{
+  const n=document.createElement('div');n.className='node';
+  if(PHASES.length>20){n.style.width='5px';n.style.height='5px';}
+  n.style.left=((acc+p.dur/2)/durTotal*100)+'%';acc+=p.dur;
+  n.innerHTML=`<div class="tip">${p.key}　${p.title}</div>`;
+  n.onclick=()=>{gotoPhase(i,true);if(!playing)togglePlay();};
+  nodesEl.appendChild(n);
+});
+function tlProgress(){
+  let done=0;for(let i=0;i<phase;i++)done+=PHASES[i].dur;
+  done+=Math.min(phaseT,PHASES[phase]?.dur||0);
+  document.getElementById('tlFill').style.width=(done/durTotal*100)+'%';
+}
+const bPlay=document.getElementById('bPlay');
+function togglePlay(){
+  playing=!playing;bPlay.textContent=playing?'暂停':'播放';bPlay.classList.toggle('hot',playing);
+  Narration.setPaused(!playing);AudioEngine.setPaused(!playing);
+}
+bPlay.onclick=togglePlay;
+document.getElementById('bPrev').onclick=()=>gotoPhase(Math.max(0,phase-1),true);
+document.getElementById('bNext').onclick=()=>gotoPhase(Math.min(PHASES.length-1,phase+1),true);
+const speeds=[1,2,0.5];let spIdx=0;
+document.getElementById('bSpeed').onclick=e=>{spIdx=(spIdx+1)%3;speed=speeds[spIdx];e.target.textContent='速度 '+speed+'×';};   // 场景速度(旁白语速已独立滑轨)
+document.getElementById('vol').oninput=e=>AudioEngine.setVolume(e.target.value/100);
+/* 音效音量(记忆) */
+(function(){const el=document.getElementById('sfxVol');if(!el)return;
+  const sv=SETTINGS.get('sfxvol');if(sv!==null)el.value=sv;
+  AudioEngine.setSfxVol((+el.value||0)/100);
+  el.oninput=e=>{AudioEngine.setSfxVol(e.target.value/100);SETTINGS.set('sfxvol',e.target.value);};})();
+/* 旁白语速 0.5–2.0 步进 0.1(记忆) */
+(function(){const el=document.getElementById('narrSpd'),v=document.getElementById('narrSpdVal');if(!el)return;
+  const sv=SETTINGS.get('narrspd');if(sv!==null)el.value=sv;
+  const ap=x=>{Narration.setRate(x);if(v)v.textContent=(+x).toFixed(1)+'×';};
+  ap(el.value);
+  el.oninput=e=>{ap(e.target.value);SETTINGS.set('narrspd',e.target.value);};})();
+
+/* 控制栏缩小到右侧栏 / 点右侧栏恢复 */
+document.getElementById('bMin').onclick=()=>{document.body.classList.add('deck-mini');try{Narration.subRefresh();}catch(e){}};
+document.getElementById('deckMini').onclick=()=>{document.body.classList.remove('deck-mini');try{Narration.subRefresh();}catch(e){}};
+document.getElementById('bNarrTg').onclick=e=>{
+  if(typeof Narration==='undefined')return;
+  e.target.textContent='旁白 '+(Narration.toggle()?'开':'关');};
+document.getElementById('bSubTg').onclick=e=>{
+  if(typeof Narration==='undefined')return;
+  e.target.textContent='字幕 '+(Narration.toggleSub()?'开':'关');};
+document.getElementById('bVoiceTg').onclick=e=>{
+  if(typeof Narration==='undefined')return;
+  e.target.textContent=Narration.voiceLabel(Narration.switchVoice());};
+(function initVoiceBtn(){
+  const b=document.getElementById('bVoiceTg');if(!b||typeof Narration==='undefined')return;
+  const vs=AUDIO.narration.voices||[];
+  if(vs.length<2){b.style.display='none';return;}   // 少于两个配音就隐藏切换钮
+  b.textContent=Narration.voiceLabel(AUDIO.narration.default);
+})();
+/* ── BGM 选择 + BGM 音量(本地记忆) ── */
+const BGMS=(AUDIO.music&&AUDIO.music.bgm)||[];
+let bgmIdx=0;
+function applyBgm(){
+  const b=document.getElementById('bBgm');
+  if(bgmIdx===0){b.textContent='BGM 默认';Music.setOverride(null);SETTINGS.set('bgm','');}
+  else{const g=BGMS[bgmIdx-1];b.textContent='BGM '+g.label;Music.setOverride(assetUrl(g.file));SETTINGS.set('bgm',g.id);}
+}
+(function initBgm(){
+  const b=document.getElementById('bBgm');if(!b)return;
+  if(!BGMS.length)b.textContent='BGM 按幕';
+  const saved=SETTINGS.get('bgm')||'';
+  const k=BGMS.findIndex(g=>g.id===saved);
+  bgmIdx=(k>=0)?k+1:0;
+  try{applyBgm();}catch(e){}
+  const vEl=document.getElementById('bgmVol');
+  if(vEl){
+    const sv=SETTINGS.get('bgmvol');if(sv!==null)vEl.value=sv;
+    try{AudioEngine.setMusicVol((+vEl.value||0)/100);}catch(e){}
+    vEl.oninput=e=>{try{AudioEngine.setMusicVol(e.target.value/100);}catch(err){}SETTINGS.set('bgmvol',e.target.value);};
+  }
+})();
+document.getElementById('bBgm').onclick=()=>{if(autoBgm){setAutoBgm(false);return;}bgmIdx=(bgmIdx+1)%(BGMS.length+1);applyBgm();};
+/* 自动配乐采用当前战役按幕曲目；优先有来源记录的音乐，不自动选影视 OST。 */
+let autoBgm=false,autoBgmLast='';
+const bAuto=document.getElementById('bAutoBgm');
+function autoBgmScene(i){
+  if(!autoBgm)return;
+  const file=AUDIO.music.scenes[i];
+  if(!file){Music.setOverride(null);return;}
+  if(file!==autoBgmLast){autoBgmLast=file;Music.setOverride(assetUrl(file));}
+  const b=document.getElementById('bBgm');
+  if(b)b.textContent='BGM · '+(AUDIO.music.sceneLabels?.[i]||PHASES[i]?.title||'战役配乐');
+}
+function autoBgmChar(){ /* 人物卡不打断口播当前段落的配乐。 */ }
+function setAutoBgm(v){
+  autoBgm=!!v;SETTINGS.set('autobgm',autoBgm?'1':'');
+  if(bAuto){bAuto.textContent='自动BGM '+(autoBgm?'开':'关');bAuto.classList.toggle('hot',autoBgm);}
+  const b=document.getElementById('bBgm');if(b)b.style.opacity=autoBgm?'.65':'';
+  if(autoBgm)autoBgmScene(Math.max(0,phase));
+  else{autoBgmLast='';applyBgm();}
+}
+if(bAuto){
+  if(SETTINGS.get('autobgm')==='1'||(SETTINGS.get('autobgm')===null&&AUDIO.music.autoDefault))setAutoBgm(true);
+  bAuto.onclick=()=>setAutoBgm(!autoBgm);
+}
+/* ── 录制模式(?record=1): 暴露引擎句柄(供外部录制脚本) ── */
+try{
+  if(new URLSearchParams(location.search).get('record')==='1'){
+    window.__eng={AudioEngine,Narration,Music,setCinema,setRenderScale,goTo:(i)=>gotoPhase(i,true),step:(dt)=>loop(dt),
+      state:()=>({phase,phaseT,playing,ended,total:PHASES.length,render:renderer.info.render})};
+  }
+}catch(e){}
+const bCam=document.getElementById('bCam');
+function setRenderScale(value){
+  const scale=clamp(Number(value)||1,.7,2);renderer.setPixelRatio(Math.min(devicePixelRatio,scale));
+  renderer.setSize(innerWidth,innerHeight);SETTINGS.set('renderScale',String(scale));
+  if(composer){composer.setPixelRatio(renderer.getPixelRatio());composer.setSize(innerWidth,innerHeight);}
+  document.getElementById('bQuality').textContent=scale<1?'画质 流畅':'画质 清晰';
+}
+document.getElementById('bQuality').onclick=()=>setRenderScale(renderer.getPixelRatio()<1?1:.85);
+if(SETTINGS.get('renderScale'))setRenderScale(SETTINGS.get('renderScale'));
+function setCinema(v){
+  cinema=v;controls.enabled=!v;document.body.classList.toggle('cinema',v);
+  bCam.textContent=v?'电影运镜中':'回到电影运镜';bCam.classList.toggle('hot',v);
+  if(!v){controls.target.copy(camLook);controls.update();}
+}
+bCam.onclick=()=>setCinema(!cinema);
+renderer.domElement.addEventListener('pointerdown',()=>{if(cinema)setCinema(false);});
+document.getElementById('bReplay').onclick=()=>{gotoPhase(0,true);if(!playing)togglePlay();setCinema(true);};
+
+/* unit click */
+const ray=new THREE.Raycaster();const mouse=new THREE.Vector2();
+let downXY=null;
+renderer.domElement.addEventListener('pointerdown',e=>{downXY=[e.clientX,e.clientY];});
+renderer.domElement.addEventListener('pointerup',e=>{
+  if(!downXY)return;
+  if(Math.hypot(e.clientX-downXY[0],e.clientY-downXY[1])>6){downXY=null;return;}
+  mouse.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight)*2+1);
+  ray.setFromCamera(mouse,camera);
+  const hits=ray.intersectObjects(clickables.filter(c=>c.parent.visible),false);
+  if(hits.length){
+    const u=hits[0].object.userData.unit;
+    openUnitCard(u);
+  }else document.getElementById('unitCard').classList.remove('show');
+  downXY=null;
+});
+document.getElementById('ucClose').onclick=()=>document.getElementById('unitCard').classList.remove('show');
+
+/* intro */
+function start(auto){
+  AudioEngine.unlock();
+  document.getElementById('intro').classList.add('off');
+  setCinema(auto);
+  gotoPhase(0,true);
+  playing=true;bPlay.textContent='暂停';
+}
+document.getElementById('btnAuto').onclick=()=>start(true);
+document.getElementById('btnFree').onclick=()=>start(false);
+/* 开场主题曲:autoplay 限制下,第一次互动即奏「天下三分」 */
+const themeOnce=()=>{
+  document.removeEventListener('pointerdown',themeOnce);
+  document.removeEventListener('keydown',themeOnce);
+  AudioEngine.unlock();Music.playTheme();
+};
+document.addEventListener('pointerdown',themeOnce);
+document.addEventListener('keydown',themeOnce);
+
+/* ════════ main loop ════════ */
+enableShadows();
+initPlace();
+const clock=new THREE.Clock();
+let started=false;
+function loop(step){
+  if(manualCapture&&step===undefined)return;
+  if(!manualCapture)requestAnimationFrame(loop);
+  const rdt=manualCapture?clamp(Number(step)||0,0,.06):Math.min(clock.getDelta(),.06);
+  const dt=rdt*speed;
+  T+=dt;
+  if(phase>=0&&playing&&!ended){
+    phaseT+=dt;
+    while(pending.length&&phaseT>=pending[0].at){pending.shift().fn();}
+    if(typeof Narration!=='undefined')Narration.subTick(phaseT);   // 无语音时用场景计时器跑字幕
+    if(cinema)shotT+=dt;
+    // 智慧换幕:旁白播完 + 无单位在走 + 无洪水在涨 + 无待触发事件 = 静止;持续静止 STILL_HOLD 秒就提早切。
+    // 环境效果(雨/火/水面流动)与相机运镜不算「动」;dur 当上限不会更晚;hold 幕不提早。
+    const active = (typeof Narration!=='undefined'&&Narration.busy&&Narration.busy())
+                || Object.values(U).some(u=>u.path) || !!floodAnim || pending.length>0;
+    stillT = active ? 0 : stillT+dt;
+    const _p=PHASES[phase];
+    if(!manualCapture&&((phaseT>=_p.dur&&!Narration.busy()) || (!_p.hold && phaseT>=MIN_ACT && stillT>=STILL_HOLD))){
+      if(phase<PHASES.length-1)gotoPhase(phase+1);
+      else{ended=true;}
+    }
+    tlProgress();
+  }
+  updateCards(phaseT);   // 卡片与暂停/步进无关：始终依当前 phaseT 落在正确帧
+  updateStrat();         // 辨析大卡同样依 phaseT 显隐
+  refreshCmdCards();     // 阵营主帅卡：宿主单位被隐藏时改钉本阵营在台主力，保持常显
+  // env
+  applyEnv();
+  // flags
+  for(const f of wavingFlags){
+    if(!f.mesh.visible)continue;
+    const p=f.mesh.geometry.attributes.position;
+    for(let i=0;i<p.count;i++){
+      const bx=f.base[i*3],r=bx/f.w;
+      p.array[i*3+2]=Math.sin(r*5+T*(2.5+flagWind)+f.seed)*0.42*r*f.amp*(0.7+flagWind*.45);
+    }
+    p.needsUpdate=true;
+  }
+  // units
+  for(const id in U)U[id].update(dt);
+  updateChains();
+  // emitters
+  let fireMax=0;
+  for(const e of emitters){
+    e.cur=lerp(e.cur,e.smokeOnly?0:e.target,dt*1.2);
+    e.fire.u.uT.value=T;e.fire.u.uI.value=e.cur;
+    e.smoke.u.uT.value=T;e.smoke.u.uI.value=e.smokeOnly?Math.max(e.target*.7,.0):Math.min(e.cur*1.2,1);
+    if(e.smokeOnly)e.smoke.u.uI.value=Math.max(e.smoke.u.uI.value,e.target*.8);
+    if(!e.smokeOnly&&e.cur>fireMax)fireMax=e.cur;
+    // 假辉光:强火时亮起,微微脉动(各发射器相位不同)
+    const g=e.smokeOnly?0:e.cur;
+    e.glow.material.opacity=Math.min(1,g*.6)*(0.86+0.14*Math.sin(T*6.5+e.seed));
+    e.glow.scale.setScalar(e.glowScale*(0.9+0.25*g));
+  }
+  Sfx.frame(windCur,fireMax,rdt);
+  // wind
+  windCur=lerp(windCur,windTarget,dt*.8);
+  windMat.opacity=windCur*.5;
+  if(windCur>0.02){
+    for(let i=0;i<WIND_N;i++){
+      const w=windDat[i];
+      w.x+=WDIR.x*w.v*rdt;w.z+=WDIR.z*w.v*rdt;
+      if(w.x<-320||w.z<-230){w.x=160+Math.random()*220;w.z=120+Math.random()*140;}
+      const L=6+w.v*.18;
+      windPos[i*6]=w.x;windPos[i*6+1]=w.y;windPos[i*6+2]=w.z;
+      windPos[i*6+3]=w.x-WDIR.x*L;windPos[i*6+4]=w.y;windPos[i*6+5]=w.z-WDIR.z*L;
+    }
+    windGeo.attributes.position.needsUpdate=true;
+  }
+  // rain
+  rainCur=lerp(rainCur,rainTarget,dt*1.1);
+  rainMat.opacity=rainCur*0.42;
+  if(rainCur>0.02){
+    for(let i=0;i<RAIN_N;i++){
+      const r=rainDat[i];
+      r.y-=r.v*rdt; r.x+=RAIN_SLANT*rdt*7;
+      if(r.y<0){r.y=72+Math.random()*28;r.x=(Math.random()-.5)*660;r.z=(Math.random()-.5)*480;}
+      const len=5+r.v*0.03;
+      rainPos[i*6]=r.x;rainPos[i*6+1]=r.y;rainPos[i*6+2]=r.z;
+      rainPos[i*6+3]=r.x-RAIN_SLANT;rainPos[i*6+4]=r.y-len;rainPos[i*6+5]=r.z;
+    }
+    rainGeo.attributes.position.needsUpdate=true;
+  }
+  // volleys
+  updateVolleys();
+  // 一次性特效(水花/灰烬/碎片)
+  updateFx(dt);
+  // water
+  waterU.uT.value=T;
+  if(floodAnim){const p=Math.min(1,(T-floodAnim.start)/floodAnim.dur);
+    waterU.uFloodY.value=floodAnim.from+(floodAnim.to-floodAnim.from)*p;
+    if(floodAnim.reg0){const a=floodAnim.reg0,b=floodAnim.reg1,pf=Math.min(1,p*1.6);   // 招1:水锋(范围)比水位快,先漫到城、水位在后面才涨上来
+      waterU.uReg.value.set(a[0]+(b[0]-a[0])*pf,a[1]+(b[1]-a[1])*pf,a[2]+(b[2]-a[2])*pf,a[3]+(b[3]-a[3])*pf);}
+    if(p>=1)floodAnim=null;}
+  // march arrow chevrons
+  marchMats.forEach(m=>{m.map.offset.x-=rdt*.6;});
+  // camera
+  if(cinema&&phase>=0)director(dt);
+  else if(!inspect)controls.update();
+  // compass
+  _v1.set(0,0,-1).applyQuaternion(camera.quaternion);
+  document.getElementById('needle').style.transform='rotate('+Math.atan2(_v1.x,-_v1.z)+'rad)';
+  const viewDistance=camera.position.distanceTo(cinema?camLook:controls.target);
+  const zoomClass=viewDistance>220?'zoom-far':viewDistance>115?'zoom-mid':'zoom-near';
+  if(!document.body.classList.contains(zoomClass)){
+    document.body.classList.remove('zoom-far','zoom-mid','zoom-near');
+    document.body.classList.add(zoomClass);
+  }
+  const near=zoomClass==='zoom-near';
+  if(near!==_cmdNear){   // 近景:主帅卡贴旗杆一侧;其余:钉在阵形正上方
+    _cmdNear=near;
+    for(const k in U){const u=U[k];if(!u.cmdCardEl)continue;
+      u.label.position.set(near?CMD_NEAR[0]:0,near?CMD_NEAR[1]:(u.kind==='fleet'?15:19),0);}
+  }
+  if(stingEl){
+    if(T<STING_DUR){
+      const p=T/STING_DUR;
+      const inP=smooth(Math.min(1,p/0.32)),outP=smooth(clamp((p-0.80)/0.20,0,1));
+      if(stingEl.style.display!=='flex')stingEl.style.display='flex';
+      stingEl.style.opacity=String(Math.min(1,inP)*(1-outP));
+      const lg=document.getElementById('stingLogo');if(lg)lg.style.transform='scale('+(0.88+0.12*inP)+')';
+    }else if(stingEl.style.display!=='none')stingEl.style.display='none';
+  }
+  if(composer){
+    if(gradePass)gradePass.uniforms.uTime.value=T;
+    if(dofPass)dofPass.uniforms.focus.value=camera.position.distanceTo(cinema?camLook:controls.target);
+    composer.render();
+  }else renderer.render(scene,camera);
+  labelRenderer.render(scene,camera);
+  declutterEvents();
+  if(!started){started=true;document.getElementById('loadMsg').classList.add('off');}
+}
+addEventListener('resize',()=>{
+  camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);labelRenderer.setSize(innerWidth,innerHeight);
+  if(composer){composer.setPixelRatio(renderer.getPixelRatio());composer.setSize(innerWidth,innerHeight);}
+});
+loop(0);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="加雷萨村">
+<title>加雷萨村 · 雪山环抱的南向山谷 · 漫画版场景</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 谷地 -->
+  <path d="M20 300 Q200 272 380 300 L380 378 L20 378 Z" fill="#7FA5A6"/>
+  <path d="M20 300 Q200 272 380 300 L380 316 Q200 290 20 316 Z" fill="#B9D2D1" stroke="none"/>
+  <!-- 南向山谷两侧雪山 -->
+  <path d="M20 300 L36 150 L104 236 L160 122 L216 244 L264 160 L330 250 L380 190 L380 300 Z" fill="#E3D9BE"/>
+  <path d="M36 150 L104 236 L72 248 L44 214 Z" fill="#FBF7EE"/>
+  <path d="M160 122 L216 244 L176 250 L150 196 Z" fill="#FBF7EE"/>
+  <path d="M264 160 L330 250 L296 252 Z" fill="#FBF7EE"/>
+  <path d="M20 300 L36 150 M160 122 L216 244 M264 160 L330 250" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <!-- 村庄木屋（三栋） -->
+  <g>
+    <!-- 左屋 -->
+    <path d="M84 300 L84 250 L132 250 L132 300 Z" fill="#B07D46"/>
+    <path d="M72 252 L108 214 L144 252 Z" fill="#8E2A18"/>
+    <path d="M96 300 L96 272 L116 272 L116 300 Z" fill="#4A3A22"/>
+    <path d="M88 266 L100 266 L100 276 L88 276 Z" fill="#E3BE79"/>
+    <!-- 中屋 -->
+    <path d="M164 302 L164 242 L228 242 L228 302 Z" fill="#C8934A"/>
+    <path d="M150 244 L196 198 L242 244 Z" fill="#6E4A24"/>
+    <path d="M180 302 L180 268 L210 268 L210 302 Z" fill="#4A3A22"/>
+    <path d="M170 256 L182 256 L182 268 L170 268 Z" fill="#E3BE79"/>
+    <path d="M208 256 L220 256 L220 268 L208 268 Z" fill="#E3BE79"/>
+    <!-- 右屋 -->
+    <path d="M256 300 L256 256 L304 256 L304 300 Z" fill="#B07D46"/>
+    <path d="M244 258 L280 224 L316 258 Z" fill="#8E2A18"/>
+    <path d="M270 300 L270 278 L288 278 L288 300 Z" fill="#4A3A22"/>
+  </g>
+  <!-- 经幡杆与经幡 -->
+  <path d="M148 240 L148 170" fill="none" stroke="#6E4A24" stroke-width="4"/>
+  <path d="M148 174 L206 186 M148 186 L204 200 M148 198 L200 214" fill="none" stroke="#C23B22" stroke-width="5"/>
+  <path d="M148 210 L196 226" fill="none" stroke="#34506E" stroke-width="5"/>
+  <g fill="#C8934A" stroke="none">
+    <path d="M172 180 L180 178 L184 186 L176 188 Z"/>
+    <path d="M170 194 L178 192 L182 200 L174 202 Z"/>
+  </g>
+  <!-- 田垄 -->
+  <path d="M40 330 Q120 318 200 330 Q280 342 360 328" fill="none" stroke="#45696B" stroke-width="4"/>
+  <path d="M56 350 Q136 338 216 350 Q296 362 344 350" fill="none" stroke="#45696B" stroke-width="3"/>
+  <!-- 暖流箭头（从南面谷口涌入） -->
+  <g fill="none" stroke="#C8934A" stroke-width="4">
+    <path d="M200 378 Q198 348 200 326"/>
+    <path d="M188 336 L200 322 L212 336"/>
+  </g>
+  <!-- 雪线云雾 -->
+  <g fill="none" stroke="#FBF7EE" stroke-width="6" opacity="0.85">
+    <path d="M56 262 Q90 250 124 262 M244 272 Q280 260 316 272"/>
+  </g>
+</g>
+</svg>

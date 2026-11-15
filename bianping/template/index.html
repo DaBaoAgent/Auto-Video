@@ -1,0 +1,31 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>扁平尺度漫游</title>
+<style>
+@font-face{font-family:Jost;src:url(fonts/Jost.ttf) format('truetype');font-weight:100 900;}
+@font-face{font-family:NotoSC;src:url(fonts/NotoSansSC-Bold-sub.woff2) format('woff2');font-weight:700;}
+html,body{margin:0;background:#1D2052;overflow:hidden}
+svg{display:block}
+text{font-family:Jost,NotoSC,sans-serif}
+</style></head>
+<body>
+<svg id="s" width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"></svg>
+<script src="flat.js"></script>
+<script src="heroes.js"></script>
+<script src="orbi.js"></script>
+<script src="film.js"></script>
+<script>
+const DUR = 35.7;
+window.DUR = DUR;
+window.render = function(t){
+  svg = document.getElementById('s'); svg.innerHTML=''; uid=0;
+  defs = el('defs');
+  film(t);
+};
+Promise.all([
+  document.fonts.load('700 40px Jost'),
+  document.fonts.load('500 40px Jost'),
+  document.fonts.load('700 40px NotoSC','黑洞')
+]).then(()=>{ window.render(0); window.READY = true; });
+</script>
+</body></html>

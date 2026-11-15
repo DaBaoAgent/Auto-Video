@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>玄奘 · 榆林窟第2窟 · blueprint</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/saira-condensed@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/saira-condensed@5/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/saira-stencil-one@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/500.css">
+<style>html,body{margin:0;background:#0B2B55}#stage{position:relative;overflow:hidden}</style>
+<script src="assets/manifest.js"></script>
+<script src="timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/blueprint.js"></script>
+</head><body><div id="stage"></div><script>
+// 玄奘 · 榆林窟第2窟 · blueprint engineering drawing, narrated (explainer, first 10 s of the 018 narration).
+// One sheet: SECTION A–A (cave cutaway, the door swings open) on the left, ELEVATION B (the mural) on the right;
+// the camera pushes into ELEVATION B when the narration reaches the mural. The red pencil appears once: round the gold ring.
+const { M, E } = PROMO;
+PROMO.compose({
+  bpm: 96, offset: 0, grain: false, tail: 1.2, cover: 10.2,
+  theme: { bg: '#0B2B55', fg: '#F2F8FF', ink: '#F2F8FF', muted: '#9CC3E8', accent: '#FF5D4D', paper: '#123F77', fonts: { display: '"Saira Stencil One", "Noto Sans SC", sans-serif', sans: '"Saira Condensed", "Noto Sans SC", sans-serif' } },
+  captions: { max: 18, font: '"Noto Sans SC", sans-serif', weight: 500, bg: 'rgba(8,30,62,.84)' },
+  build: (F) => {
+    const T = F.T, s = T.start, e = T.end, w = T.word, B = PROMO.blueprint(F);
+    const S = B.sheet({ a: 0, w: 5760, h: 3240, x: 600, y: 400 });
+    B.frame({ at: 0.05 });
+    B.block({ title: '榆林窟 第2窟', no: 'BP-018', scale: '示意', sheet: '1/1', date: '1953', by: '考古队', at: 0.18 });
+    // the mural gets its own sheet: the exposure lamp sweeps it in at l2 (a new subject = a new sheet)
+    const S2 = B.sheet({ a: 4.0, w: 5760, h: 3240, x: 600, y: 400, enter: 'expose', dur: 1.1 });
+
+    const VA = B.view(S, { x: 0, y: 0, scale: 1 });
+    const VB = B.view(S2, { x: -2650, y: 0, scale: 1 });
+
+    // camera: frame the section and lean in through l1; the mural sheet arrives already framed and eases back a touch for the last two lines
+    const fitA = S.fit({ x: 180, y: 700, w: 2020, h: 1240 }, 0.05, 0.16);
+    const fitB = S2.fit({ x: 120, y: 800, w: 1900, h: 1190 }, 0.05, 0.16);
+    S.cam([
+      { at: 0, ...fitA },
+      { at: 2.4, x: 1050, y: 1370, zoom: 0.82, dur: 1.6 },
+    ]);
+    S2.cam([
+      { at: 4.0, ...fitB },
+      { at: 9.2, x: fitB.x, y: fitB.y, zoom: fitB.zoom * 0.94, dur: 1.1 },
+    ]);
+
+    // ===== l1 · 一九五三年，甘肃敦煌的榆林窟，考古队推开第二号窟的门 =====
+    const t1 = s('l1');
+    B.title(VA, { x: 250, y: 900, text: 'SECTION A–A', sub: '洞窟剖面 · 甘肃敦煌', size: 56, align: 'left', at: 0.28 });
+
+    const rock = [[250, 1900], [250, 1050], [420, 980], [700, 1020], [820, 1010], [1840, 1010], [1840, 1900]];
+    B.poly(VA, { pts: rock, close: true, kind: 'visible', at: t1 + 0.22, dur: 1.35, cons: true, pen: true });
+    B.hatch(VA, { pts: rock, angle: 45, gap: 10, at: t1 + 0.95, dur: 1.25 });
+
+    const cave = [[900, 1750], [900, 1330], [960, 1210], [1120, 1150], [1440, 1150], [1600, 1210], [1660, 1330], [1660, 1490], [1840, 1490], [1840, 1750], [1660, 1750]];
+    B.poly(VA, { pts: cave, close: true, kind: 'cons', at: t1 + 1.28, dur: 0.7, fill: '#123F77' });
+    B.poly(VA, { pts: cave, close: true, kind: 'visible', at: t1 + 1.36, dur: 1.15, pen: true });
+    B.line(VA, { a: [900, 1750], b: [1660, 1750], kind: 'thin', at: t1 + 2.25, dur: 0.3, pen: false });
+
+    // the door: one leaf on a hinge at the outer wall, swung open on the word 推开
+    const G = B.group(VA, { pivot: [1840, 1750] });
+    B.rect(G, { x: 1832, y: 1490, w: 16, h: 260, kind: 'thick', at: t1 + 1.82, dur: 0.55, fill: '#123F77' });
+    B.circle(G, { x: 1840, y: 1750, r: 8, kind: 'visible', at: t1 + 2.05, dur: 0.25, pen: false });
+    const tOpen = w('l1', '推');
+    G.to({ at: tOpen + 1.0, rot: 78, dur: 0.95, sfx: false });
+    F.sfx(tOpen + 0.05, 'slide', 0.55, { dur: 0.95 });
+    B.arc(VA, { x: 1840, y: 1750, r: 245, a0: -90, a1: 78, kind: 'centre', at: t1 + 2.12, dur: 0.7, pen: false });
+
+    B.leader(VA, { from: [700, 1250], to: [470, 1110], n: 1, text: '崖体 ROCK', size: 30, at: 3.1 });
+    B.leader(VA, { from: [1180, 1420], to: [1070, 1050], n: 2, text: '窟室 CAVE', size: 30, at: 3.35 });
+    B.leader(VA, { from: [1840, 1560], on: G, to: [1960, 1200], n: 3, text: '门 DOOR', size: 30, at: 3.55 });
+
+    // ===== l2 · 壁画上画着一个和尚，一匹瘦马，还有一个猴脸徒弟，腰里别着金箍 =====
+    // the sheet arrives already printed with its title and frame (drawn before the sheet's a: no pen, no sound)
+    B.title(VB, { x: 3000, y: 920, text: 'ELEVATION B', sub: '壁画立面', size: 66, align: 'left', at: 3.62 });
+    B.rect(VB, { x: 3000, y: 1040, w: 1350, h: 830, kind: 'visible', at: 3.66, dur: 0.75, cons: true, fill: 'rgba(205,232,255,.05)' });
+    B.line(VB, { a: [3000, 1810], b: [4350, 1810], kind: 'thin', at: 3.8, dur: 0.4, pen: false });
+
+    // 和尚
+    const tMonk = w('l2', '和');
+    B.circle(VB, { x: 3220, y: 1235, r: 60, kind: 'visible', at: tMonk, dur: 0.55, pen: true });
+    B.path(VB, { d: 'M 3140 1325 C 3100 1500 3070 1650 3060 1785 L 3380 1785 C 3370 1650 3340 1500 3300 1325', kind: 'visible', at: tMonk + 0.25, dur: 1.0, pen: true });
+    B.line(VB, { a: [3195, 1292], b: [3190, 1330], kind: 'thin', at: tMonk + 0.3, dur: 0.2, pen: false });
+    B.line(VB, { a: [3245, 1292], b: [3250, 1330], kind: 'thin', at: tMonk + 0.33, dur: 0.2, pen: false });
+    B.path(VB, { d: 'M 3160 1335 L 3220 1440 L 3280 1335', kind: 'thin', at: tMonk + 0.45, dur: 0.5 });
+    B.line(VB, { a: [3080, 1560], b: [3360, 1560], kind: 'thin', at: tMonk + 0.55, dur: 0.4, pen: false });
+    B.path(VB, { d: 'M 3160 1600 L 3145 1780', kind: 'thin', at: tMonk + 0.65, dur: 0.4 });
+    B.path(VB, { d: 'M 3280 1600 L 3295 1780', kind: 'thin', at: tMonk + 0.7, dur: 0.4 });
+    B.path(VB, { d: 'M 3220 1435 L 3242 1472 L 3220 1508 L 3198 1472 Z', kind: 'thin', at: tMonk + 0.78, dur: 0.45 });
+
+    // 瘦马 (line drawing: back, belly, neck, head, four thin legs, tail)
+    const tHorse = w('l2', '瘦');
+    B.path(VB, { d: 'M 3810 1318 C 3830 1370 3895 1415 3980 1428 C 4070 1442 4128 1475 4142 1540', kind: 'visible', at: tHorse + 0.02, dur: 1.0, pen: true });
+    B.path(VB, { d: 'M 3762 1518 C 3805 1556 3880 1608 3975 1620 C 4042 1630 4102 1602 4132 1562', kind: 'visible', at: tHorse + 0.16, dur: 0.95, pen: true });
+    B.path(VB, { d: 'M 3762 1518 C 3748 1470 3758 1420 3788 1375 C 3800 1355 3808 1335 3810 1318', kind: 'visible', at: tHorse + 0.28, dur: 0.8, pen: true });
+    B.path(VB, { d: 'M 3810 1318 C 3790 1302 3762 1300 3740 1318 C 3722 1332 3712 1345 3708 1360 L 3722 1370 C 3746 1362 3770 1352 3792 1338', kind: 'visible', at: tHorse + 0.4, dur: 0.8, pen: true });
+    B.path(VB, { d: 'M 3812 1315 L 3820 1282 L 3834 1308', kind: 'visible', at: tHorse + 0.52, dur: 0.3 });
+    B.line(VB, { a: [3798, 1558], b: [3790, 1675], kind: 'visible', at: tHorse + 0.58, dur: 0.35 });
+    B.line(VB, { a: [3790, 1675], b: [3780, 1780], kind: 'visible', at: tHorse + 0.62, dur: 0.3 });
+    B.line(VB, { a: [3836, 1588], b: [3842, 1695], kind: 'visible', at: tHorse + 0.66, dur: 0.35 });
+    B.line(VB, { a: [3842, 1695], b: [3840, 1780], kind: 'visible', at: tHorse + 0.7, dur: 0.3 });
+    B.line(VB, { a: [4092, 1600], b: [4086, 1690], kind: 'visible', at: tHorse + 0.74, dur: 0.35 });
+    B.line(VB, { a: [4086, 1690], b: [4078, 1780], kind: 'visible', at: tHorse + 0.78, dur: 0.3 });
+    B.line(VB, { a: [4140, 1558], b: [4150, 1680], kind: 'visible', at: tHorse + 0.82, dur: 0.35 });
+    B.line(VB, { a: [4150, 1680], b: [4154, 1780], kind: 'visible', at: tHorse + 0.86, dur: 0.3 });
+    B.path(VB, { d: 'M 4142 1500 C 4164 1548 4168 1618 4154 1682', kind: 'visible', at: tHorse + 0.9, dur: 0.4 });
+    B.path(VB, { d: 'M 3788 1382 C 3806 1398 3828 1408 3848 1412', kind: 'thin', at: tHorse + 0.94, dur: 0.35 });
+    B.circle(VB, { x: 3782, y: 1348, r: 5, kind: 'thin', at: tHorse + 0.98, dur: 0.2, pen: false });
+
+    // 猴脸徒弟
+    const tApe = w('l2', '猴');
+    B.circle(VB, { x: 4200, y: 1310, r: 52, kind: 'visible', at: tApe + 0.04, dur: 0.5, pen: true });
+    B.path(VB, { d: 'M 4200 1252 C 4158 1252 4148 1292 4154 1322 C 4160 1356 4182 1370 4200 1380 C 4218 1370 4240 1356 4246 1322 C 4252 1292 4242 1252 4200 1252 Z', kind: 'thin', at: tApe + 0.24, dur: 0.6 });
+    B.circle(VB, { x: 4152, y: 1278, r: 14, kind: 'thin', at: tApe + 0.3, dur: 0.3 });
+    B.circle(VB, { x: 4248, y: 1278, r: 14, kind: 'thin', at: tApe + 0.33, dur: 0.3 });
+    B.circle(VB, { x: 4186, y: 1302, r: 4, kind: 'thick', at: tApe + 0.5, dur: 0.15, pen: false });
+    B.circle(VB, { x: 4214, y: 1302, r: 4, kind: 'thick', at: tApe + 0.53, dur: 0.15, pen: false });
+    B.path(VB, { d: 'M 4188 1332 Q 4200 1342 4212 1332', kind: 'thin', at: tApe + 0.56, dur: 0.2 });
+    B.path(VB, { d: 'M 4150 1382 L 4140 1740 L 4260 1740 L 4250 1382', kind: 'visible', at: tApe + 0.34, dur: 0.9, pen: true });
+    B.line(VB, { a: [4142, 1540], b: [4258, 1540], kind: 'thin', at: tApe + 0.44, dur: 0.35, pen: false });
+    B.path(VB, { d: 'M 4150 1425 L 4122 1548', kind: 'visible', at: tApe + 0.49, dur: 0.35 });
+    B.path(VB, { d: 'M 4250 1425 L 4274 1502 L 4258 1522', kind: 'visible', at: tApe + 0.54, dur: 0.35 });
+    B.line(VB, { a: [4160, 1740], b: [4156, 1780], kind: 'visible', at: tApe + 0.59, dur: 0.2 });
+    B.line(VB, { a: [4240, 1740], b: [4244, 1780], kind: 'visible', at: tApe + 0.63, dur: 0.2 });
+
+    // 金箍
+    B.circle(VB, { x: 4262, y: 1490, r: 30, kind: 'thick', at: 7.4, dur: 0.5, pen: true });
+    B.line(VB, { a: [4262, 1520], b: [4252, 1540], kind: 'thin', at: 7.55, dur: 0.25 });
+
+    // leaders
+    B.leader(VB, { from: [3110, 1450], to: [3020, 1170], n: 1, text: '和尚 MONK', size: 28, at: 5.55 });
+    B.leader(VB, { from: [3860, 1450], to: [3870, 1895], n: 2, text: '瘦马 HORSE', size: 28, at: 6.55 });
+    B.leader(VB, { from: [4240, 1400], to: [4380, 1280], n: 3, text: '猴脸徒弟 DISCIPLE', size: 28, at: 7.15 });
+    B.leader(VB, { from: [4290, 1500], to: [4380, 1640], n: 4, text: '金箍 GOLD RING', size: 28, at: 8.05 });
+    B.label(VB, { x: 3010, y: 1900, text: '示意 NTS', size: 22, color: 'mute', at: 3.9 });
+
+    // the one red mark of the film
+    B.pencil(VB, { kind: 'ring', x: 4262, y: 1490, r: 62, ry: 52, at: 8.15, dur: 0.6, gain: 0.55 });
+
+    // ===== l3 · 考古队愣了 (a beat of stillness) =====
+    // ===== l4 · 这不就是唐僧和孙悟空吗 =====
+    B.leader(VB, { from: [3220, 1180], to: [3260, 1085], n: 5, text: '唐僧?', size: 30, at: w('l4', '唐') });
+    B.leader(VB, { from: [4200, 1250], to: [4290, 1090], n: 6, text: '孙悟空?', size: 30, at: w('l4', '孙') });
+
+    F.section(0, 1, { name: 'hook' });
+  },
+});
+</script></body></html>

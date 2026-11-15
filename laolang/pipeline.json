@@ -1,0 +1,142 @@
+{
+  "version": "2026-11-11",
+  "pipeline": "laolang",
+  "style": "bb-video/laolang",
+  "label": "上海美影手绘赛璐璐（老狼请客式）",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "logical": "4:3 片门 960×720 居中，左右留黑；人物设计空间 600×1000，地面 y=975"
+  },
+  "duration": {
+    "default": 62,
+    "min": 8,
+    "max": 300
+  },
+  "palette": {
+    "teal_0": "#1d403f",
+    "teal_1": "#2c5450",
+    "teal_2": "#3f6b60",
+    "teal_3": "#5d7f6d",
+    "olive_0": "#5f682b",
+    "olive_1": "#7f8840",
+    "ochre_0": "#8f6633",
+    "ochre_1": "#b98a49",
+    "ochre_2": "#d3aa63",
+    "cream_0": "#efe3c4",
+    "cream_1": "#e2d0a8",
+    "rust_0": "#a34c32",
+    "rust_1": "#c06a45",
+    "ink": "#2a211a",
+    "vermilion": "#b23a2b",
+    "gold": "#d8a53f",
+    "wall": "#2c5450"
+  },
+  "fonts": [
+    "Ma Shan Zheng（标题毛笔）",
+    "Noto Serif SC（正文）",
+    "KaiTi / STKaiti",
+    "SimSun（本机回退）"
+  ],
+  "motion": {
+    "drawings": 30,
+    "boil": 0.04,
+    "gate_weave": false,
+    "grain": "static",
+    "lamp_flicker": 0.008,
+    "dust": "static paperize only, no per-frame specks",
+    "person_scale": "0.24–0.26 (full body)",
+    "head_y_720": "360–430",
+    "foot_margin_720": "100–160 px",
+    "shots": 19,
+    "camera": "one different move per shot: push / pull / pan / follow / rise; no hand-held, no whip",
+    "transitions": "cut; veil or iris only to close",
+    "vignette": "radial rgba(4,14,13,.10) @0.55 → rgba(2,9,9,.62) edge + rgba(12,34,32,.07) teal wash"
+  },
+  "shots": {
+    "min_seconds": 2.0,
+    "max_seconds": 4.0,
+    "cut_rule": "cut only on a narration clause start / word onset (±0.35 s) or inside a silence gap >= 0.12 s",
+    "frame_tolerance": "1 frame @ 30 fps",
+    "check": "python scripts/laolang.py shots projects/<project>/sample.html --video out/video-16x9.mp4",
+    "note": "applies to new projects from 2026-11-10; the frozen 玄奘 60 s sample predates this rule"
+  },
+  "sync": {
+    "captions_source": "timeline.lines[].words[] via EV.captionSegments(max 18); never divide by character count",
+    "caption_start_tolerance": 0.30,
+    "audio_lag_ms_max": 40,
+    "line_onset_median_max": 0.30,
+    "line_onset_outlier_share_max": 0.20,
+    "asr_model": "small",
+    "asr_text_ratio_min": 0.65,
+    "ocr": "Dabao-OCR @ 127.0.0.1:18224, Windows absolute paths only",
+    "check": "python scripts/laolang.py sync projects/<project> --html sample.html --video out/video-16x9.mp4 --ocr",
+    "report": "review/sync_qa.json (full sync); review/sync_qa_<cmd>.json (standalone shots/captions/audio/ocr)"
+  },
+  "audio": {
+    "bpm": 84,
+    "key": "G major",
+    "lufs": -16,
+    "true_peak": -1.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "bgm": false,
+    "voice": "reuse the user's 配音.wav: cut + 48 kHz stereo only, no re-record, no voice change; DP-align to a word-level timeline",
+    "sfx_events": [
+      "step",
+      "door",
+      "doorStop",
+      "dust",
+      "wind",
+      "room",
+      "drip",
+      "flame",
+      "whoosh",
+      "glint",
+      "stamp"
+    ],
+    "sfx_notes": "26 cue points in the 60 s sample; light effects drop out under the voice"
+  },
+  "render": {
+    "engine": "Chrome DevTools Protocol, frame by frame",
+    "chrome": "CHROME_PATH (Windows: auto-detect Chrome/Edge)",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "segment_render": "--from/--to (the 60 s sample used 5 segments: 0–15.55, 15.55–33.1, 33.1–47.04, 47.04–55.44, 55.44–62.2)",
+    "fonts": "local fallback; the stable page has no CDN font links"
+  },
+  "delivery": {
+    "root": "D:/@kaifa/Auto-Video/laolang/out/",
+    "dir": "<三位序号> <片名>/",
+    "seq": "max existing + 1, never reuse",
+    "laolang_owns": "move the film and create the delivery subdirectory only",
+    "fengmian": "D:/@kaifa/fengmian (build / covers / gate)",
+    "files": [
+      "<片名>_全片.mp4",
+      "封面-4比3.png (2048x1536)",
+      "封面-3比4.png (1536x2048)",
+      "发布信息.txt (2 lines: title <=25 chars with digits + 4 tags)"
+    ],
+    "source_dir": "源文件/ (cover prompts, meta, srt, credits, old cuts, reports)",
+    "archive": "out/@已发/<序号> <片名>/",
+    "qa": "review/qa.json",
+    "doc": "references/delivery.md",
+    "project_config": "delivery.json (cover_main 6 chars, cover_sub 8 chars, publish_title, tags, style, scene43, scene34)"
+  },
+  "frozen": {
+    "toon_cast": "toon-cast/",
+    "stable_snapshot": "toon-cast/archive/v20261110_stable/",
+    "page_sha256": "a797cbb10ed829182618dc2bc03dfe5447d51180ee42493b4de307063a3b38f0",
+    "toon_sha256": "ccba10e20eb3b8e26116f005d806436a10a4f5d6a03f2770f24dfce5b22be594",
+    "rule": "any change to proportions / hair / face / arm structure needs a new character sheet and user approval first"
+  },
+  "sample": {
+    "name": "玄奘 · 60 秒样片（统一景别 · 稳定版）",
+    "duration": "62.200 s / 1920×1080 / 30 fps / 1866 frames",
+    "path": "template/",
+    "media_committed": false
+  }
+}

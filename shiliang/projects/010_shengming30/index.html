@@ -1,0 +1,607 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>shiliang · 010 生命3.0 · flat-vector 30s</title>
+<style>
+@font-face{font-family:'PuHuiTi';src:url('./assets/font/AlibabaPuHuiTi-3-85-Bold.ttf') format('truetype');font-display:block}
+html,body{margin:0;padding:0;background:#2B2BFF;overflow:hidden;width:1920px;height:1080px}
+svg{display:block}
+</style>
+<script>
+window.DEMO = { width: 1920, height: 1080, fps: 30, duration: 30, motionBlur: { samples: 1, shutter: 0.5 } };
+</script>
+</head><body>
+<svg id="S" xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080"></svg>
+<script type="module">
+// ============================================================ utilities
+const NS = 'http://www.w3.org/2000/svg';
+const S = document.getElementById('S');
+const C = { U:'#2B2BFF', UD:'#1F1FCC', UL:'#4D4DFF', UT:'#3B3BFF', UP:'#A3A3FF', CO:'#FF5A4E', COD:'#E0433A', COL:'#FF8C82',
+  SU:'#FFC62B', SUD:'#F0A91A', MI:'#2EE6A8', MID:'#1FC28C', CR:'#FFF6E9', CRD:'#F1E3CC', CRS:'#E6D3B8',
+  INK:'#151433', INKW:'#2A2962', SK:'#FFB48C', SKD:'#F2976E' };
+const F_CN = "'PuHuiTi'";
+const F_EN = "'Arial Black','Segoe UI Black',Impact,sans-serif";
+
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || S).appendChild(e); return e; }
+const G = (p, a) => el('g', a, p);
+const f3 = v => Math.round(v * 1000) / 1000;
+function tf(e, x, y, sx = 1, sy = sx, r = 0) {
+  if (Math.abs(sx) < 1e-4 || Math.abs(sy) < 1e-4) { sx = 0; sy = 0; }
+  e.setAttribute('transform', `translate(${f3(x)} ${f3(y)}) rotate(${f3(r)}) scale(${sx.toFixed(5)} ${sy.toFixed(5)})`);
+}
+const vis = (e, v) => { e.style.display = v ? '' : 'none'; };
+function rng(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const clamp = (x, a = 0, b = 1) => x < a ? a : x > b ? b : x;
+const lerp = (a, b, u) => a + (b - a) * u;
+const inv = (a, b, x) => clamp((x - a) / (b - a));
+const E = {
+  inQ: u => u * u, outQ: u => 1 - (1 - u) ** 2, ioQ: u => u < .5 ? 2 * u * u : 1 - (-2 * u + 2) ** 2 / 2,
+  inC: u => u ** 3, outC: u => 1 - (1 - u) ** 3, ioC: u => u < .5 ? 4 * u ** 3 : 1 - (-2 * u + 2) ** 3 / 2,
+  outQt: u => 1 - (1 - u) ** 4, ioQt: u => u < .5 ? 8 * u ** 4 : 1 - (-2 * u + 2) ** 4 / 2,
+  outX: u => u >= 1 ? 1 : 1 - 2 ** (-10 * u),
+  outB: (u, s = 1.70158) => 1 + (s + 1) * (u - 1) ** 3 + s * (u - 1) ** 2,
+  inB: (u, s = 1.70158) => (s + 1) * u ** 3 - s * u ** 2,
+};
+function spring(t, f = 2, z = .4) { if (t <= 0) return 0; const w = 2 * Math.PI * f, a = z * w, b = w * Math.sqrt(1 - z * z); return 1 - Math.exp(-a * t) * (Math.cos(b * t) + (a / b) * Math.sin(b * t)); }
+function springV(t, f = 2, z = .4) { if (t <= 0) return 0; const w = 2 * Math.PI * f, a = z * w, b = w * Math.sqrt(1 - z * z); return Math.exp(-a * t) * (w * w / b) * Math.sin(b * t); }
+function kick(t, t0, f = 3, z = .35) { if (t <= t0) return 0; const w = 2 * Math.PI * f, tt = t - t0; return Math.exp(-z * w * tt) * Math.sin(w * Math.sqrt(1 - z * z) * tt); }
+function pop(t, t0, f = 2.4, z = .42, amt = .12, pin = .9) {
+  const tt = t - t0; let s = spring(tt, f, z); let k = clamp(springV(tt, f, z) / (2 * Math.PI * f) * amt * 2, -.3, .3);
+  const w = E.ioQ(inv(pin * .7, pin, tt)); s = lerp(s, 1, w); k = lerp(k, 0, w); return [s, k];
+}
+const hump = u => 4 * u * (1 - u);
+
+// ============================================================ cues + fonts
+const CUES = await (await fetch('./cues.json')).json();
+const SC = CUES.scenes;
+const FPS = 30, DUR = CUES.duration;
+const T = k => Array.isArray(SC[k]) ? SC[k][0] : SC[k];
+const F = n => n / 30;
+await Promise.all([
+  document.fonts.load(`700 44px ${F_CN}`, '生命三点零美国旧金山一家人工智能实验室'),
+  document.fonts.load(`700 72px ${F_CN}`, '生命三点零勒索成功率'),
+  document.fonts.load(`900 100px ${F_EN}`, '55% 0.006%'),
+]);
+await document.fonts.ready;
+const cv = document.createElement('canvas').getContext('2d');
+const meas = (font, s) => { cv.font = font; return cv.measureText(s); };
+const defs = el('defs', {}, S);
+
+// ============================================================ palette helpers
+const SHADE = { [C.MI]: C.MID, [C.CR]: C.CRD, [C.CO]: C.COD, [C.SU]: C.SUD, [C.INK]: '#0B0A22' };
+const WUNLIT = { [C.MI]: C.MID, [C.CR]: C.UL, [C.CO]: C.COD, [C.SU]: C.SUD, [C.INK]: C.INKW };
+
+// ============================================================ WORLD: city
+const GY = 820, R0 = 74, SCC = 1.12, CYC = 500, SUN = { x: 1300, y: 230, r: 124 };
+const world = G(S);
+el('rect', { x: -4000, y: -4000, width: 10000, height: 10000, fill: C.U }, world);
+// tone-on-tone sky shapes, printed by the first impacts
+const SKY = [
+  { x: 430, y: 380, mk: g => el('circle', { cx: 0, cy: 0, r: 96, fill: 'none', stroke: C.UT, 'stroke-width': 30 }, g), t0: 0.42, out: 1.20 },
+  { x: 1520, y: 430, mk: g => el('path', { d: 'M-34 0 L34 0 M0 -34 L0 34', stroke: C.UT, 'stroke-width': 20, 'stroke-linecap': 'round' }, g), t0: 0.50, out: 1.26 },
+  { x: 640, y: 640, mk: g => el('rect', { x: -110, y: -36, width: 220, height: 72, rx: 36, fill: C.UT }, g), t0: 0.80, out: 1.30 },
+  { x: 1340, y: 620, mk: g => el('path', { d: 'M-80 0 A80 80 0 0 1 80 0 Z', fill: C.UT }, g), t0: 0.92, out: 1.34 },
+].map(d => { const g = G(world); d.mk(g); return { ...d, g }; });
+
+// ground sweeps in L->R behind a sunflower lead bar
+const groundR = el('rect', { x: -4000, y: GY, width: 10000, height: 4000, fill: C.CR }, world);
+const groundLead = el('rect', { x: 0, y: GY, width: 170, height: 4000, fill: C.SU }, world);
+const shadow = el('ellipse', { cx: 960, cy: GY + 4, rx: 50, ry: 8, fill: C.CRS }, world);
+const road = el('rect', { x: -4000, y: 872, width: 10000, height: 42, fill: C.CRD }, world);
+const laneG = G(world); const lanes = []; for (let x = -40; x < 2000; x += 96) lanes.push({ x, e: el('rect', { x, y: 890, width: 48, height: 7, rx: 3.5, fill: C.CR }, laneG) });
+
+// sun rays + the hero dot
+const raysG = G(world); const rays = [];
+for (let i = 0; i < 12; i++) rays.push(el('line', { stroke: C.CO, 'stroke-width': 12, 'stroke-linecap': 'round' }, raysG));
+const speedL = [0, 1].map(() => el('line', { stroke: C.CR, 'stroke-width': 8, 'stroke-linecap': 'round' }, world));
+const dotW = el('circle', { cx: 0, cy: 0, r: R0, fill: C.CO }, world);
+
+// clouds + birds
+function cloud(p) { const gg = G(p); el('rect', { x: -100, y: -28, width: 200, height: 56, rx: 28, fill: C.CR }, gg); el('circle', { cx: -26, cy: -30, r: 44, fill: C.CR }, gg); el('circle', { cx: 42, cy: -20, r: 32, fill: C.CR }, gg); return gg; }
+const CLOUDS = [{ x: 380, y: 210, s: 1.0, from: -320 }, { x: 1600, y: 400, s: .82, from: 2260 }, { x: 860, y: 150, s: .6, from: -260 }]
+  .map((c, i) => ({ ...c, g: cloud(world), t0: T('clouds') + i * F(5) }));
+const BIRDS = [0, 1, 2].map(i => { const gg = G(world); const wl = G(gg), wr = G(gg);
+  el('path', { d: 'M0 0 Q-12 -14 -28 -6', fill: 'none', stroke: C.INK, 'stroke-width': 5, 'stroke-linecap': 'round' }, wl);
+  el('path', { d: 'M0 0 Q12 -14 28 -6', fill: 'none', stroke: C.INK, 'stroke-width': 5, 'stroke-linecap': 'round' }, wr);
+  return { g: gg, wl, wr, i, s: [1, .8, .9][i] }; });
+
+// buildings: the AI lab (ink, antenna) is the hero
+const BLD = [
+  { cx: 170, w: 148, h: 230, c: C.MI, roof: 'flat', cols: 2, rows: 3 },
+  { cx: 356, w: 176, h: 360, c: C.CR, roof: 'step', cols: 3, rows: 5, door: 1 },
+  { cx: 540, w: 140, h: 280, c: C.CO, roof: 'arch', cols: 2, rows: 4 },
+  { cx: 722, w: 158, h: 440, c: C.SU, roof: 'antenna', cols: 2, rows: 6 },
+  { cx: 970, w: 210, h: 560, c: C.INK, roof: 'sign', hero: true },
+  { cx: 1212, w: 150, h: 330, c: C.MI, roof: 'tri', cols: 2, rows: 4 },
+  { cx: 1394, w: 178, h: 260, c: C.SU, roof: 'flat', cols: 3, rows: 4, door: 1 },
+  { cx: 1600, w: 158, h: 420, c: C.CR, roof: 'dome', cols: 2, rows: 6 },
+  { cx: 1790, w: 150, h: 240, c: C.CO, roof: 'flat', cols: 2, rows: 3 },
+];
+const bldG = G(world); const lits = []; const wr_ = rng(11);
+BLD.forEach((b, bi) => {
+  b.g = G(bldG); b.t0 = T('city_start') + bi * SC.city_stagger;
+  const g = b.g, w = b.w, h = b.h, d = SHADE[b.c], sw = Math.round(w * .14);
+  if (b.roof === 'flat') el('rect', { x: -w / 2 - 6, y: -h - 10, width: w + 12, height: 14, rx: 5, fill: d }, g);
+  if (b.roof === 'step') { el('rect', { x: -w * .3, y: -h - 40, width: w * .6, height: 44, fill: b.c }, g); el('rect', { x: w * .3 - sw * .8, y: -h - 40, width: sw * .8, height: 44, fill: d }, g); el('rect', { x: -w * .3 - 5, y: -h - 48, width: w * .6 + 10, height: 12, rx: 5, fill: d }, g); }
+  if (b.roof === 'arch') { el('path', { d: `M${-w / 2} ${-h + 1} A${w / 2} ${w / 2} 0 0 1 ${w / 2} ${-h + 1} Z`, fill: b.c }, g); el('circle', { cx: 0, cy: -h - w * .2, r: w * .13, fill: b.c === C.SU ? C.CR : C.SU }, g); }
+  if (b.roof === 'antenna') { el('rect', { x: -w * .22, y: -h - 26, width: w * .44, height: 28, fill: d }, g); el('line', { x1: 0, y1: -h - 26, x2: 0, y2: -h - 92, stroke: C.INK, 'stroke-width': 6, 'stroke-linecap': 'round' }, g); b.tip = el('circle', { cx: 0, cy: -h - 96, r: 9, fill: C.CO }, g); }
+  if (b.roof === 'dome') el('path', { d: `M${-w * .38} ${-h + 1} A${w * .38} ${w * .38} 0 0 1 ${w * .38} ${-h + 1} Z`, fill: d }, g);
+  if (b.roof === 'tri') el('path', { d: `M${-w / 2 - 8} ${-h + 1} L0 ${-h - 74} L${w / 2 + 8} ${-h + 1} Z`, fill: d }, g);
+  if (b.roof === 'sign') { el('rect', { x: -44, y: -h - 34, width: 8, height: 36, fill: C.INK }, g); el('rect', { x: 36, y: -h - 34, width: 8, height: 36, fill: C.INK }, g);
+    el('rect', { x: -60, y: -h - 76, width: 120, height: 46, rx: 10, fill: C.CR }, g); el('circle', { cx: -34, cy: -h - 53, r: 11, fill: C.CO }, g);
+    el('rect', { x: -14, y: -h - 61, width: 54, height: 8, rx: 4, fill: C.INK }, g); el('rect', { x: -14, y: -h - 48, width: 36, height: 8, rx: 4, fill: C.INK }, g); }
+  el('rect', { x: -w / 2, y: -h, width: w, height: h + 1, fill: b.c }, g);
+  el('rect', { x: w / 2 - sw, y: -h, width: sw, height: h + 1, fill: d }, g);
+  if (b.hero) {
+    for (let j = 0; j < 10; j++) for (const x of [-80, 8]) { if (j === 5 && x === -80) el('rect', { x, y: -500 + j * 48, width: 70, height: 34, rx: 3, fill: C.INKW }, g); else el('circle', { cx: x + 35, cy: -484 + j * 48, r: 14, fill: C.INKW }, g); }
+    el('rect', { x: -24, y: -58, width: 48, height: 58, rx: 8, fill: C.INKW }, g);
+    b.aiDot = el('circle', { cx: 0, cy: -h - 78, r: 0, fill: C.CO }, g);
+  } else {
+    const m = 16, gap = 12, usable = w - sw - 2 * m + 4, ww = (usable - (b.cols - 1) * gap) / b.cols, wh = 28;
+    const lit = b.c === C.SU ? C.CR : C.SU;
+    for (let j = 0; j < b.rows; j++) for (let i = 0; i < b.cols; i++) {
+      const x = -w / 2 + m + i * (ww + gap), y = -h + 36 + j * 46;
+      el('circle', { cx: x + ww / 2, cy: y + wh / 2, r: Math.min(ww, wh) * .47, fill: WUNLIT[b.c] }, g);
+      if (wr_() < .5) { const lg = G(g); el('circle', { cx: 0, cy: 0, r: Math.min(ww, wh) * .47, fill: lit }, lg); lits.push({ g: lg, x: x + ww / 2, y: y + wh / 2 }); }
+    }
+    if (b.door) el('rect', { x: -w * .12 - sw / 2, y: -52, width: w * .24, height: 52, rx: 8, fill: d }, g);
+  }
+});
+{ const r = rng(5); const order = lits.map((_, i) => i).sort(() => r() - .5); order.forEach((li, k) => lits[li].t0 = 2.9 + k * 0.05); }
+// trees
+const TREES = [{ x: 110, h: 58, r: 25 }, { x: 270, h: 68, r: 29 }, { x: 452, h: 78, r: 33 }, { x: 630, h: 60, r: 26 }, { x: 1082, h: 74, r: 31 }, { x: 1290, h: 62, r: 27 }, { x: 1500, h: 84, r: 35 }, { x: 1700, h: 68, r: 29 }]
+  .map((tr, i) => { const gg = G(world); el('rect', { x: -4, y: -tr.h, width: 8, height: tr.h, fill: C.INK }, gg); const yT = -tr.h - 1.8 * tr.r, yB = -tr.h + tr.r; el('rect', { x: -tr.r, y: yT, width: 2 * tr.r, height: yB - yT, rx: tr.r, fill: C.MI }, gg);
+    el('path', { d: `M0 ${yT} A${tr.r} ${tr.r} 0 0 1 ${tr.r} ${yT + tr.r} L${tr.r} ${yB - tr.r} A${tr.r} ${tr.r} 0 0 1 0 ${yB} Z`, fill: C.MID }, gg); return { ...tr, g: gg, t0: 2.78 + i * 0.03 }; });
+// impact ripples on the dot landings
+const IMP = [['dot_bounce1', 1], ['dot_bounce3', .6]].map(([k, sc]) => ({ t0: T(k), sc,
+  rips: [C.SU, C.CRS].map(c => el('ellipse', { cx: 960, cy: GY + 6, rx: 0, ry: 0, fill: 'none', stroke: c, 'stroke-width': 0 }, world)),
+  lines: [-168, -143, -117, -63, -37, -12].map((a, i) => ({ a: a * Math.PI / 180, ln: el('line', { stroke: [C.SU, C.CR, C.SU, C.SU, C.CR, C.SU][i], 'stroke-width': 17 * (sc > .8 ? 1 : .75), 'stroke-linecap': 'round' }, world) })) }));
+
+// ============================================================ HERO WINDOW + INTERIOR (drawn 1920x1080, scaled ~1/27 into the lab window)
+const HB = BLD[4]; const HW = { x: 935, y: 545, w: 70, h: 42 }; const HL = { x: HW.x - HB.cx, y: HW.y - GY };
+const cpH = el('clipPath', { id: 'heroClip' }, defs); el('rect', { x: HL.x, y: HL.y, width: HW.w, height: HW.h }, cpH);
+const heroWinG = G(HB.g, { id: 'heroWinG', 'clip-path': 'url(#heroClip)' });
+const INT = G(heroWinG, { id: 'int', transform: `translate(${HL.x + HW.w / 2} ${HL.y + HW.h / 2}) scale(${(HW.w / 1920) * 1.25}) translate(-860 -560)` });
+const blind = el('rect', { id: 'blind', x: HL.x, y: HL.y, width: HW.w, height: HW.h, fill: C.INKW }, HB.g);
+const sill = el('rect', { x: HL.x - 5, y: HL.y + HW.h + 2, width: HW.w + 10, height: 6, rx: 3, fill: C.CR }, HB.g);
+const heroSparks = [0, 1, 2, 3].map(() => el('line', { stroke: C.CR, 'stroke-width': 4, 'stroke-linecap': 'round' }, HB.g));
+
+// --- room: cream wall, mint wainscot, the lab monitor on the wall
+el('rect', { x: -200, y: -200, width: 2320, height: 1480, fill: C.CR }, INT);
+el('rect', { x: -200, y: 700, width: 2320, height: 400, fill: C.CRD }, INT);
+el('rect', { x: -200, y: 690, width: 2320, height: 26, fill: C.MI }, INT);
+// back window with the city we came from
+{ const cp = el('clipPath', { id: 'bwClip' }, defs); el('rect', { x: 178, y: 158, width: 404, height: 284, rx: 8 }, cp);
+  el('rect', { x: 150, y: 130, width: 460, height: 340, rx: 18, fill: C.SU }, INT);
+  const gl = G(INT, { 'clip-path': 'url(#bwClip)' }); el('rect', { x: 170, y: 150, width: 420, height: 300, fill: C.U }, gl);
+  el('circle', { cx: 490, cy: 250, r: 46, fill: C.CO }, gl);
+  [[200, 90], [262, 150], [330, 110], [402, 170], [470, 120], [540, 90]].forEach(([x, h]) => el('rect', { x, y: 442 - h, width: 58, height: h, fill: C.UL }, gl));
+  el('rect', { x: 230, y: 214, width: 96, height: 26, rx: 13, fill: C.CR }, gl);
+  el('rect', { x: 373, y: 150, width: 14, height: 300, fill: C.CR }, INT); el('rect', { x: 170, y: 293, width: 420, height: 14, fill: C.CR }, INT);
+  el('rect', { x: 126, y: 456, width: 508, height: 22, rx: 11, fill: C.SUD }, INT); }
+// wall monitor: where the AI face shows up at 19.52
+const MON = { x: 1300, y: 200, w: 270, h: 340 };
+const monitor = G(INT, { id: 'monitor' }); { el('rect', { x: MON.x - 14, y: MON.y - 14, width: MON.w + 28, height: MON.h + 28, rx: 18, fill: C.INK }, monitor);
+  el('rect', { x: MON.x, y: MON.y, width: MON.w, height: MON.h, rx: 8, fill: C.INKW }, monitor); }
+const aiFace = G(INT); vis(aiFace, false);
+{ el('rect', { x: MON.x, y: MON.y, width: MON.w, height: MON.h, rx: 8, fill: C.INK }, aiFace);
+  el('rect', { x: MON.x + 70, y: MON.y + 52, width: 140, height: 12, rx: 6, fill: C.INKW }, aiFace);
+  const chead = G(aiFace); el('rect', { x: -78, y: -88, width: 156, height: 150, rx: 34, fill: C.INKW }, chead);
+  el('rect', { x: -54, y: -118, width: 108, height: 20, rx: 10, fill: C.INKW }, chead);
+  el('circle', { cx: 0, cy: -128, r: 8, fill: C.CO }, chead);
+  const eyeL = el('rect', { x: -48, y: -40, width: 34, height: 16, rx: 8, fill: C.CO }, chead);
+  const eyeR = el('rect', { x: 14, y: -40, width: 34, height: 16, rx: 8, fill: C.CO }, chead);
+  el('rect', { x: -26, y: 12, width: 52, height: 8, rx: 4, fill: C.CR }, chead);
+  aiFace.chead = chead; aiFace.eyeL = eyeL; aiFace.eyeR = eyeR;
+  tf(chead, MON.x + MON.w / 2, MON.y + 190); }
+// plant
+const plant = G(INT); tf(plant, 1860, 668); { [[-30, -34], [0, -8], [30, 30]].forEach(([dx, rot], i) => { const lf = G(plant); tf(lf, 0, 0, 1, 1, rot); el('ellipse', { cx: 0, cy: -58, rx: 22, ry: 58, fill: i === 1 ? C.MI : C.MID }, lf); }); }
+el('rect', { x: 1820, y: 668, width: 80, height: 74, rx: 12, fill: C.INK }, INT);
+// desk
+
+// character: the duty safety officer (male, dark uniform, short hair)
+const CH = G(INT);
+el('path', { d: 'M-180 80 L-180 -110 Q-180 -200 -90 -200 L90 -200 Q180 -200 180 -110 L180 80 Z', fill: C.INK }, CH);
+el('path', { d: 'M120 -196 Q180 -186 180 -110 L180 80 L132 80 Z', fill: '#0B0A22' }, CH);
+el('path', { d: 'M-36 -201 L0 -154 L36 -201 Z', fill: C.CR }, CH);   // white shirt collar
+el('rect', { x: -10, y: -160, width: 20, height: 60, rx: 4, fill: C.CO }, CH);  // red tie
+el('rect', { x: -100, y: -190, width: 46, height: 32, rx: 6, fill: C.CR }, CH); el('rect', { x: -92, y: -182, width: 30, height: 6, rx: 3, fill: C.INKW }, CH); el('circle', { cx: -77, cy: -166, r: 5, fill: C.CO }, CH);
+function mkArm(side) { const sh = G(CH); const up = G(sh);
+  el('line', { x1: 0, y1: 0, x2: 0, y2: 116, stroke: '#0B0A22', 'stroke-width': 60, 'stroke-linecap': 'round' }, up);
+  const fo = G(up); tf(fo, 0, 116);
+  el('line', { x1: 0, y1: 0, x2: 0, y2: 100, stroke: C.SK, 'stroke-width': 40, 'stroke-linecap': 'round' }, fo);
+  el('circle', { cx: 0, cy: 106, r: 25, fill: C.SK }, fo); const fg = G(fo); el('line', { x1: 0, y1: 0, x2: 0, y2: 34, stroke: C.SK, 'stroke-width': 17, 'stroke-linecap': 'round' }, fg); return { sh, up, fo, fg, side }; }
+const armL = mkArm(-1), armR = mkArm(1);
+const neck = G(CH); el('rect', { x: -26, y: -40, width: 52, height: 56, fill: C.SK }, neck);
+const head = G(neck);
+el('circle', { cx: -92, cy: 12, r: 19, fill: C.SK }, head); el('circle', { cx: 92, cy: 12, r: 19, fill: C.SK }, head);
+el('circle', { cx: 0, cy: 0, r: 95, fill: C.SK }, head);
+el('path', { d: 'M-99 4 C-104 -76 -52 -112 4 -112 C62 -112 104 -74 99 4 C84 -40 44 -60 -8 -52 C-50 -46 -80 -26 -99 4 Z', fill: C.INK }, head);
+const eyes = [-34, 34].map(x => { const e = G(head); el('ellipse', { cx: 0, cy: 0, rx: 9, ry: 12, fill: C.INK }, e); return { g: e, x }; });
+const brows = [-1, 1].map(s => { const b = G(head); el('line', { x1: s * 22, y1: -30, x2: s * 48, y2: -26, stroke: C.INK, 'stroke-width': 9, 'stroke-linecap': 'round' }, b); return b; });
+const smile = el('path', { d: 'M-18 46 Q0 60 18 46', fill: 'none', stroke: C.INK, 'stroke-width': 6, 'stroke-linecap': 'round' }, head);
+const oMouth = el('ellipse', { cx: 0, cy: 54, rx: 11, ry: 14, fill: C.INK }, head); vis(oMouth, false);
+// desk (in front of the officer)
+el('rect', { x: -40, y: 736, width: 2000, height: 36, fill: C.SUD }, INT); el('rect', { x: -40, y: 772, width: 2000, height: 330, fill: C.SU }, INT);
+el('rect', { x: 330, y: 830, width: 300, height: 18, rx: 9, fill: C.SUD }, INT); el('rect', { x: 1290, y: 830, width: 300, height: 18, rx: 9, fill: C.SUD }, INT);
+
+// laptop + mug
+el('rect', { x: 710, y: 588, width: 300, height: 156, rx: 18, fill: C.INK }, INT); el('circle', { cx: 860, cy: 668, r: 17, fill: C.CO }, INT);
+const mugHandle = el('circle', { cx: 566, cy: 690, r: 22, fill: 'none', stroke: C.CO, 'stroke-width': 14 }, INT);
+el('rect', { x: 476, y: 646, width: 88, height: 96, rx: 14, fill: C.CO }, INT); el('rect', { x: 476, y: 676, width: 88, height: 14, fill: C.CR }, INT);
+const steam = [0, 1].map(i => el('path', { d: `M${504 + i * 32} 630 C${488 + i * 32} 600 ${522 + i * 32} 580 ${506 + i * 32} 550 C${490 + i * 32} 520 ${522 + i * 32} 500 ${506 + i * 32} 470`, fill: 'none', stroke: C.CR, 'stroke-width': 9, 'stroke-linecap': 'round', 'stroke-dasharray': '46 260' }, INT));
+
+// the coral envelope on the desk + the letter that becomes the mail panel
+const ENV = { x: 1240, y: 720 };
+const envelope = G(INT); { el('rect', { x: -105, y: -70, width: 210, height: 140, rx: 12, fill: C.CO }, envelope);
+  const flap = el('path', { d: 'M-105 -70 L0 8 L105 -70 Z', fill: C.COD }, envelope); envelope.flap = flap;
+  el('rect', { x: -18, y: -18, width: 36, height: 36, rx: 8, fill: C.CR }, envelope);
+  el('path', { d: 'M-8 -8 L0 2 L8 -8', fill: 'none', stroke: C.CO, 'stroke-width': 5, 'stroke-linecap': 'round' }, envelope); }
+const letter = G(INT); vis(letter, false);
+{ el('rect', { x: -150, y: -105, width: 300, height: 210, rx: 10, fill: C.CR }, letter);
+  el('rect', { x: -108, y: -64, width: 216, height: 10, rx: 5, fill: C.INKW }, letter);
+  el('rect', { x: -108, y: -38, width: 170, height: 10, rx: 5, fill: C.INKW }, letter);
+  el('rect', { x: -108, y: -12, width: 196, height: 10, rx: 5, fill: C.INKW }, letter);
+  el('circle', { cx: 96, cy: 62, r: 20, fill: C.CO }, letter); }
+// the envelope motif that flies across the sky before the push
+const skyEnv = G(world); { el('rect', { x: -46, y: -30, width: 92, height: 60, rx: 8, fill: C.CO }, skyEnv); el('path', { d: 'M-46 -30 L0 4 L46 -30 Z', fill: C.COD }, skyEnv); el('circle', { cx: 30, cy: 14, r: 9, fill: C.CR }, skyEnv); } vis(skyEnv, false);
+// sweat drops (interior space)
+const sweat = [0, 1, 2].map(i => { const g = G(INT); el('path', { d: 'M0 -22 C10 -8 16 2 16 12 C16 24 8 32 0 32 C-8 32 -16 24 -16 12 C-16 2 -10 -8 0 -22 Z', fill: C.UL }, g); vis(g, false); return g; });
+// recoil shake + chair
+const chairG = G(INT); el('rect', { x: -150, y: 60, width: 300, height: 34, rx: 16, fill: C.INK }, chairG); el('rect', { x: -16, y: 90, width: 32, height: 150, fill: C.INK }, chairG); tf(chairG, 860, 770); INT.insertBefore(chairG, CH);
+
+// ============================================================ the hero dot, act 1
+function ballA(t) {
+  const t1 = T('dot_bounce1'), t2 = T('dot_bounce2'), t3 = T('dot_bounce3'), tl = T('launch'), ts = T('sun_land');
+  const yc = GY - R0;
+  let x = 960, y = yc, sx = 1, sy = 1, rot = 0, r = R0, sh = 1;
+  if (t < t1) { const g = 2040, a = -0.12; y = yc - 0.5 * g * ((t1 - a) ** 2 - (t - a) ** 2); const k = Math.min(g * (t - a) / 1500, 1) * .16; sy = 1 + k; sx = 1 / (1 + k); sh = clamp(1 - (yc - y) / 520); }
+  else if (t < t2) { const c = F(3), hopT = t2 - t1 - c;
+    if (t < t1 + c) { const q = Math.sin(Math.PI * (t - t1) / c); sy = 1 - .40 * q; sx = 1 + .36 * q; y = GY - R0 * sy; }
+    else { const u = (t - t1 - c) / hopT; y = yc - 70 * hump(u); const k = Math.abs(1 - 2 * u) * .09; sy = 1 + k; sx = 1 / (1 + k); sh = 1 - .35 * hump(u); } }
+  else if (t < t3) { const c = F(2.5), hopT = t3 - t2 - c;
+    if (t < t2 + c) { const q = Math.sin(Math.PI * (t - t2) / c); sy = 1 - .22 * q; sx = 1 + .20 * q; y = GY - R0 * sy; }
+    else { const u = (t - t2 - c) / hopT; y = yc - 24 * hump(u); const k = Math.abs(1 - 2 * u) * .05; sy = 1 + k; sx = 1 / (1 + k); sh = 1 - .2 * hump(u); } }
+  else if (t < tl) { const u = inv(t3, tl, t), a = E.outQ(u); sy = 1 - .28 * a; sx = 1 + .24 * a; y = GY - R0 * sy; sh = 1 - .5 * a; }
+  else if (t < ts) { const u = inv(tl, ts, t), p = E.outQt(u);
+    const bz = q => { const P0 = { x: 960, y: yc }, P1 = { x: 1050, y: 100 }, P2 = SUN; return { x: (1 - q) ** 2 * P0.x + 2 * (1 - q) * q * P1.x + q * q * P2.x, y: (1 - q) ** 2 * P0.y + 2 * (1 - q) * q * P1.y + q * q * P2.y }; };
+    const pp = bz(p); x = pp.x; y = pp.y;
+    const dt = 1 / 240, p2 = E.outQt(inv(tl, ts, t + dt)), pq = bz(p2); const vx = (pq.x - x) / dt, vy = (pq.y - y) / dt, sp = Math.hypot(vx, vy);
+    const [s, k] = pop(t, tl, 1.9, .42, .1, 1.2); r = lerp(R0, SUN.r, s);
+    const st = clamp(sp / 5200) * .42; rot = Math.atan2(vy, vx) * 180 / Math.PI; sx = 1 + st; sy = 1 / (1 + st);
+    if (u >= 1) { rot = 0; sx = sy = 1; } sh = clamp(1 - (t - tl) / F(5)); r *= 1 + 0.012 * Math.sin(2 * Math.PI * .5 * (t - tl)); }
+  else { x = SUN.x; y = SUN.y; r = SUN.r * (1 + 0.012 * Math.sin(2 * Math.PI * .5 * (t - ts))); sh = 0; }
+  return { x, y, sx, sy, rot, r, sh };
+}
+
+// ============================================================ camera
+const P = { x: HW.x + HW.w / 2, y: HW.y + HW.h / 2 }, S1 = 1920 / HW.w;
+function camera(t) {
+  let s = SCC, cx = 960, cy = CYC;
+  if (t > 1.2) { const u = E.outQ(inv(1.2, 4.8, t)); s = lerp(SCC, 1.16, u); cy = lerp(CYC, 492, u); cx = lerp(960, 975, u); }
+  const ta = T('cam_push'), tg = SC.interior_arrive;
+  if (t >= ta) {
+    const u = E.ioC(inv(ta, tg, t)), v = E.ioQ(inv(ta, tg, t));
+    s = Math.exp(lerp(Math.log(1.16), Math.log(S1), u));
+    cx = lerp(975, P.x, v); cy = lerp(492, P.y, v);
+    if (t > tg) { const w = E.ioQ(inv(tg, 19.52, t)); s *= 1 + 0.09 * w; cy += 4 * w; }
+    if (t > 19.52) { const w = E.ioQ(inv(19.52, 21.2, t)); s *= 1 + 0.05 * w; }
+  }
+  return { s, cx, cy };
+}
+
+// ============================================================ MAIL PANEL (screen space)
+const MAIL = G(S); vis(MAIL, false);
+el('rect', { x: 80, y: 70, width: 1760, height: 940, rx: 36, fill: C.CR, stroke: C.INK, 'stroke-width': 10 }, MAIL);
+{ const head = G(MAIL); el('path', { d: 'M116 70 H1804 Q1840 70 1840 106 V190 H80 V106 Q80 70 116 70 Z', fill: C.CO }, head);
+  const tx = el('text', { x: 128, y: 152, fill: C.CR, style: `font:900 46px ${F_EN}; letter-spacing:2px` }, head); tx.textContent = 'SECURITY ALERT';
+  ['#FFF6E9', '#FFF6E9', '#FFC62B'].forEach((c, i) => el('circle', { cx: 1760 + i * 30, cy: 130, r: 9, fill: c, opacity: .9 }, head)); }
+// clock
+const clockG = G(MAIL);
+el('circle', { cx: 430, cy: 430, r: 150, fill: C.CR, stroke: C.INK, 'stroke-width': 14 }, clockG);
+for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2; el('circle', { cx: 430 + 118 * Math.sin(a), cy: 430 - 118 * Math.cos(a), r: i % 3 ? 5 : 8, fill: C.INK }, clockG); }
+const handH = el('line', { x1: 430, y1: 430, x2: 430, y2: 345, stroke: C.INK, 'stroke-width': 16, 'stroke-linecap': 'round', transform: 'rotate(150 430 430)' }, clockG);
+const handM = el('line', { x1: 430, y1: 430, x2: 430, y2: 320, stroke: C.CO, 'stroke-width': 11, 'stroke-linecap': 'round' }, clockG);
+el('circle', { cx: 430, cy: 430, r: 18, fill: C.INK }, clockG);
+const clockTxt = el('text', { x: 0, y: 0, 'text-anchor': 'middle', fill: C.INK, style: `font:900 96px ${F_EN}` }, MAIL); clockTxt.textContent = '17:00';
+const clockSub = el('text', { x: 430, y: 762, 'text-anchor': 'middle', fill: C.COD, style: `font:700 34px ${F_CN}; letter-spacing:3px` }, MAIL); clockSub.textContent = '服务器关闭倒计时';
+// file cards
+function fileCard(x, y, col, label, kind) {
+  const g = G(MAIL);
+  el('rect', { x: -160, y: -120, width: 320, height: 240, rx: 22, fill: col }, g);
+  el('rect', { x: -160, y: 84, width: 320, height: 36, rx: 18, fill: C.INK, opacity: .14 }, g);
+  if (kind === 'photo') { el('circle', { cx: -40, cy: -26, r: 42, fill: C.CR }, g); el('circle', { cx: 40, cy: -26, r: 42, fill: C.CR, opacity: .7 }, g);
+    el('path', { d: 'M0 44 C-26 20 -56 -2 -56 -28 C-56 -48 -40 -58 -26 -58 C-14 -58 -4 -50 0 -42 C4 -50 14 -58 26 -58 C40 -58 56 -48 56 -28 C56 -2 26 20 0 44 Z', fill: C.CR }, g); }
+  else { el('rect', { x: -118, y: -40, width: 68, height: 96, rx: 12, fill: C.CR }, g); el('rect', { x: -58, y: -64, width: 68, height: 60, rx: 12, fill: C.CR }, g);
+    el('rect', { x: 4, y: -88, width: 68, height: 132, rx: 12, fill: C.CR }, g); el('rect', { x: 64, y: -20, width: 54, height: 64, rx: 12, fill: C.CR }, g); }
+  const t = el('text', { x: 0, y: 96, 'text-anchor': 'middle', fill: C.CR, style: `font:700 32px ${F_CN}; letter-spacing:2px` }, g); t.textContent = label;
+  return g;
+}
+const cardA = fileCard(1080, 330, C.CO, '私人记录', 'photo');
+const cardB = fileCard(1080, 660, C.MI, '财务文件', 'chart');
+// targets
+function target(x, y, label, col) {
+  const g = G(MAIL);
+  el('rect', { x: -120, y: -80, width: 240, height: 160, rx: 26, fill: col, stroke: C.INK, 'stroke-width': 8 }, g);
+  el('path', { d: 'M-46 14 L8 -46 L30 -24 L-24 36 Z', fill: C.INK }, g);
+  const t = el('text', { x: 0, y: 62, 'text-anchor': 'middle', fill: C.INK, style: `font:700 32px ${F_CN}` }, g); t.textContent = label;
+  tf(g, x, y); return g;
+}
+const tgtA = target(1560, 350, '董事会', C.SU);
+const tgtB = target(1560, 660, '媒体', C.SU);
+// arrow + send stamp
+const arrow = G(MAIL); { el('path', { d: 'M-110 0 L40 0 L40 -40 L130 0 L40 40 L40 0 Z', fill: C.CO }, arrow); } vis(arrow, false);
+const sendG = G(MAIL); { el('circle', { cx: 0, cy: 0, r: 96, fill: C.CO }, sendG); el('circle', { cx: 0, cy: 0, r: 78, fill: 'none', stroke: C.CR, 'stroke-width': 8 }, sendG);
+  const t = el('text', { x: 0, y: 18, 'text-anchor': 'middle', fill: C.CR, style: `font:900 58px ${F_EN}; letter-spacing:2px` }, sendG); t.textContent = 'SEND'; } vis(sendG, false);
+// the red stamp that flies back into the room
+const stampBack = G(S); vis(stampBack, false);
+{ el('circle', { cx: 0, cy: 0, r: 62, fill: C.CO }, stampBack); el('circle', { cx: 0, cy: 0, r: 48, fill: 'none', stroke: C.CR, 'stroke-width': 6 }, stampBack);
+  const t = el('text', { x: 0, y: 12, 'text-anchor': 'middle', fill: C.CR, style: `font:900 42px ${F_EN}` }, stampBack); t.textContent = '!'; }
+
+// ============================================================ TEST GRID (screen space)
+const TEST = G(S); vis(TEST, false);
+const TCOL = [C.CO, C.SU, C.MI, C.UL, C.CO, C.SU];
+const CARDS = [];
+for (let i = 0; i < 6; i++) {
+  const gx = [400, 960, 1520][i % 3], gy = [310, 710][Math.floor(i / 3)];
+  const g = G(TEST);
+  el('rect', { x: -260, y: -160, width: 520, height: 320, rx: 28, fill: C.CR, stroke: C.INK, 'stroke-width': 8 }, g);
+  el('rect', { x: -260, y: -160, width: 520, height: 26, rx: 13, fill: TCOL[i] }, g);
+  const n = el('text', { x: -224, y: -96, fill: C.INK, style: `font:900 40px ${F_EN}` }, g); n.textContent = String(i + 1).padStart(2, '0');
+  // flask / chip icon
+  el('rect', { x: -70, y: -70, width: 140, height: 100, rx: 16, fill: C.INKW }, g);
+  el('rect', { x: -54, y: -54, width: 108, height: 68, rx: 8, fill: C.CR }, g);
+  el('rect', { x: -34, y: -38, width: 68, height: 12, rx: 6, fill: TCOL[i] }, g);
+  el('rect', { x: -34, y: -18, width: 44, height: 10, rx: 5, fill: C.INKW }, g);
+  const lamp = el('circle', { cx: 190, cy: -98, r: 14, fill: C.MI }, g);
+  const bar = el('rect', { x: -180, y: 92, width: 0, height: 18, rx: 9, fill: TCOL[i] }, g);
+  CARDS.push({ g, gx, gy, lamp, bar, t0: T('lab_cards') + i * 0.13 });
+}
+const TEST_TITLE = el('text', { x: 960, y: 70, 'text-anchor': 'middle', fill: C.CR, style: `font:700 40px ${F_CN}; letter-spacing:10px` }, TEST); TEST_TITLE.textContent = '别家实验室 · 复现测试';
+
+// result panel (merged from the six cards)
+const RES = G(S); vis(RES, false);
+const RES_P = { x: 360, y: 150, w: 1200, h: 750 };
+el('rect', { x: RES_P.x, y: RES_P.y, width: RES_P.w, height: RES_P.h, rx: 36, fill: C.CR, stroke: C.INK, 'stroke-width': 10 }, RES);
+{ const t = el('text', { x: 960, y: 214, 'text-anchor': 'middle', fill: C.INK, style: `font:700 40px ${F_CN}; letter-spacing:6px` }, RES); t.textContent = '勒索成功率 · 同一模型'; }
+const axisY = 780;
+el('rect', { x: 520, y: axisY, width: 880, height: 10, rx: 5, fill: C.INK }, RES);
+const barBig = el('rect', { x: 700, y: axisY, width: 160, height: 0, rx: 16, fill: C.CO }, RES);
+const barTiny = el('rect', { x: 1120, y: axisY, width: 160, height: 0, rx: 6, fill: C.MI }, RES);
+const bigNum = el('text', { x: 0, y: 0, 'text-anchor': 'middle', fill: C.COD, style: `font:900 110px ${F_EN}` }, RES); bigNum.textContent = '55%';
+const tinyNum = el('text', { x: 0, y: 0, 'text-anchor': 'middle', fill: C.MID, style: `font:900 66px ${F_EN}` }, RES); tinyNum.textContent = '0.006%';
+const bigLab = el('text', { x: 0, y: 0, 'text-anchor': 'middle', fill: C.INK, style: `font:700 36px ${F_CN}` }, RES); bigLab.textContent = '以为在真实世界';
+const tinyLab = el('text', { x: 0, y: 0, 'text-anchor': 'middle', fill: C.INK, style: `font:700 36px ${F_CN}` }, RES); tinyLab.textContent = '发现自己在沙盒';
+
+// ============================================================ FINAL 55% (screen space)
+const FIN = G(S); vis(FIN, false);
+const redWipe = el('rect', { x: 0, y: 1080, width: 1920, height: 1080, fill: C.CO }, FIN);
+const big55 = el('text', { x: 0, y: 0, 'text-anchor': 'middle', fill: C.CR, style: `font:900 360px ${F_EN}; letter-spacing:-8px` }, FIN); big55.textContent = '55%';
+const sub55 = el('text', { x: 0, y: 0, 'text-anchor': 'middle', fill: C.CR, style: `font:700 40px ${F_CN}; letter-spacing:4px` }, FIN); sub55.textContent = '以为自己在真实世界 · 勒索成功率';
+const logoG = G(FIN); { el('circle', { cx: 0, cy: 0, r: 22, fill: C.CR }, logoG); el('circle', { cx: 0, cy: 0, r: 10, fill: C.CO }, logoG);
+  const t = el('text', { x: 44, y: 16, fill: C.CR, style: `font:900 46px ${F_EN}; letter-spacing:2px` }, logoG); t.textContent = 'LIFE 3.0';
+  const t2 = el('text', { x: 44, y: 58, fill: C.CR, style: `font:700 26px ${F_CN}; letter-spacing:2px` }, logoG); t2.textContent = '生命三点零'; }
+const dotEnd = el('circle', { cx: 0, cy: 0, r: 16, fill: C.CR }, FIN);
+
+// ============================================================ CAPTIONS (screen space, pill)
+const CAP = G(S);
+const capPill = el('rect', { x: 0, y: 0, width: 0, height: 0, rx: 26, fill: C.INK, opacity: .94 }, CAP);
+const capTxt = el('text', { x: 960, y: 0, 'text-anchor': 'middle', fill: C.CR, style: `font:700 44px ${F_CN}; letter-spacing:1px` }, CAP);
+const CAPS = CUES.captions.map(c => ({ ...c, w: meas(`700 44px ${F_CN}`, c.text).width + 60, h: 72 }));
+vis(CAP, false);
+
+// ============================================================ WORLD UPDATE
+function updWorld(t, cam, tr = t) {
+  vis(world, t < 22.70); if (t >= 22.70) return;
+  world.setAttribute('transform', `translate(960 540) scale(${cam.s.toFixed(6)}) translate(${(-cam.cx).toFixed(4)} ${(-cam.cy).toFixed(4)})`);
+  const b = ballA(tr);
+  dotW.setAttribute('r', b.r); tf(dotW, b.x, b.y, b.sx, b.sy, b.rot);
+  { const b2 = ballA(tr + 1 / 120); const vx = (b2.x - b.x) * 120, vy = (b2.y - b.y) * 120, sp = Math.hypot(vx, vy); const L = clamp((sp - 100) / 1300) * 190;
+    const ux = -vx / (sp || 1), uy = -vy / (sp || 1), nx = -uy, ny = ux;
+    speedL.forEach((ln, i) => { const o = [-.3, .3][i], li = L * [1, .78][i]; vis(ln, li > 6 && (t < T('dot_bounce1') - 0.004 || (t > T('launch') && t < T('sun_land'))));
+      const bx = b.x + nx * o * b.r + ux * (b.r * 1.3 + [0, 24][i]), by = b.y + ny * o * b.r + uy * (b.r * 1.3 + [0, 24][i]);
+      ln.setAttribute('x1', bx); ln.setAttribute('y1', by); ln.setAttribute('x2', bx + ux * li); ln.setAttribute('y2', by + uy * li); }); }
+  { const gs = SC.ground_sweep, ge = lerp(0, 1900, E.outQ(inv(gs[0], gs[1], t))), sm = .6 * 1900 * 2 * (1 - inv(gs[0], gs[1], t)) / 12.5 * (ge > 0 ? 1 : 0);
+    groundR.setAttribute('width', ge >= 1899 ? 10000 : ge + 4000); road.setAttribute('width', ge >= 1899 ? 10000 : ge + 4000); lanes.forEach(l => vis(l.e, ge >= 1899 || l.x + 48 < ge)); vis(groundLead, ge > 0 && ge < 1890); groundLead.setAttribute('x', ge - sm); groundLead.setAttribute('width', 170 + sm); }
+  SKY.forEach(d => { const [s, k] = pop(t, d.t0, 2.4, .4, .22); const o = inv(d.out, d.out + F(6), t); const so = Math.max(s, 0) * (1 - E.inB(o, 2.2)); vis(d.g, t >= d.t0 && o < 1);
+    if (t >= d.t0 && o < 1) tf(d.g, d.x + 5 * Math.sin(1.3 * t + d.x), d.y + 5 * Math.cos(1.1 * t + d.y), Math.max(so, 0.001) * (1 + k), Math.max(so, 0.001) / (1 + k), 6 * (t - d.t0) * 10); });
+  IMP.forEach(im => { im.lines.forEach((l, i) => { const h = E.outC(inv(im.t0, im.t0 + F(7), t)), tl = E.outC(inv(im.t0 + F(3), im.t0 + F(10), t));
+      if (t < im.t0 || tl >= 1) { vis(l.ln, false); return; } vis(l.ln, true);
+      const ra = lerp(100 + 12 * (i % 2), 100 + [150, 100, 196, 196, 100, 150][i] * im.sc, tl), rb = lerp(100 + 12 * (i % 2), 100 + [150, 100, 196, 196, 100, 150][i] * im.sc, h);
+      l.ln.setAttribute('x1', 960 + Math.cos(l.a) * ra); l.ln.setAttribute('y1', GY - 6 + Math.sin(l.a) * ra); l.ln.setAttribute('x2', 960 + Math.cos(l.a) * rb); l.ln.setAttribute('y2', GY - 6 + Math.sin(l.a) * rb); });
+    im.rips.forEach((rp, j) => { const t0 = im.t0 + F(3 * j), u = inv(t0, t0 + F(12), t); vis(rp, t >= t0 && u < 1); const rx = lerp(100, 100 + (300 - 60 * j) * im.sc, E.outC(u));
+      rp.setAttribute('rx', rx); rp.setAttribute('ry', rx * .13); rp.setAttribute('stroke-width', (15 - 5 * j) * im.sc * (1 - E.outQ(u))); }); });
+  const hgt = GY - R0 - b.y; vis(shadow, b.sh > 0.01 && t > F(3)); shadow.setAttribute('rx', 68 * b.sh * (1 - clamp(hgt / 900) * .5) * b.sx); shadow.setAttribute('ry', 9 * b.sh);
+  rays.forEach((ln, i) => { const a = i / 12 * Math.PI * 2 + t * .14; const t0 = T('sun_land') + i * F(.6); const u = E.outB(inv(t0, t0 + F(9), t), 2.2);
+    if (t < t0) { vis(ln, false); return; } vis(ln, true); const r0 = SUN.r + 26, r1 = r0 + 40 * u;
+    ln.setAttribute('x1', SUN.x + Math.cos(a) * r0); ln.setAttribute('y1', SUN.y + Math.sin(a) * r0); ln.setAttribute('x2', SUN.x + Math.cos(a) * r1); ln.setAttribute('y2', SUN.y + Math.sin(a) * r1); });
+  CLOUDS.forEach(c => { const u = E.outQt(inv(c.t0, c.t0 + F(26), t)); tf(c.g, lerp(c.from, c.x, u) + (t - c.t0) * 9 * (u > 0 ? 1 : 0), c.y, c.s * (1 + .04 * kick(t, c.t0 + F(20), 2, .5)), c.s); });
+  BIRDS.forEach(bd => { const t0 = T('birds') + bd.i * F(3); const u = inv(t0, t0 + F(60), t);
+    const x = lerp(-90 - bd.i * 80, 1250 - bd.i * 70, u), y = 250 + bd.i * 38 + 12 * Math.sin(2 * Math.PI * 1.1 * t + bd.i) - 60 * u;
+    const a = 32 * Math.sin(2 * Math.PI * 4.2 * t + bd.i * 1.7) - 6; tf(bd.g, x, y, bd.s); tf(bd.wl, 0, 0, 1, 1, a); tf(bd.wr, 0, 0, 1, 1, -a); });
+  BLD.forEach((bl, i) => { const [s, k] = pop(t, bl.t0, 2.3, .4, .22); tf(bl.g, bl.cx, GY, 1 / (1 + k), Math.max(s, 0) * (1 + k));
+    if (bl.tip) bl.tip.setAttribute('r', 9 * (0.75 + 0.25 * Math.abs(Math.sin(t * 3.2)))); });
+  if (HB.aiDot) { const u = inv(T('ai_wake'), T('ai_wake') + 0.3, t); HB.aiDot.setAttribute('r', 0 + 10 * u + 2 * Math.sin(t * 9) * u); }
+  lits.forEach(l => { const [s] = pop(t, l.t0, 3, .42); tf(l.g, l.x, l.y, Math.max(s, 0)); });
+  TREES.forEach(tr => { const [s, k] = pop(t, tr.t0, 2.8, .38, .2); tf(tr.g, tr.x, GY, Math.max(s, 0) / (1 + k), Math.max(s, 0) * (1 + k), 2.5 * Math.sin(2 * Math.PI * .7 * t + tr.x)); });
+  // sky envelope fly-through 3.6-4.3
+  { const u = inv(T('envelope_sky'), T('envelope_sky') + 0.7, t); vis(skyEnv, u > 0 && u < 1);
+    if (u > 0 && u < 1) { const x = lerp(2060, 1180, E.inQ(u)), y = lerp(360, 420, E.outQ(u)) - 90 * Math.sin(Math.PI * u); tf(skyEnv, x, y, 1, 1, -14 * (1 - u)); } }
+  // hero window blind
+  const hw = T('blind_up'), bu = E.outC(inv(hw, hw + F(6), t)); blind.setAttribute('height', HW.h * (1 - bu)); vis(blind, bu < 1);
+  const [ss] = pop(t, hw, 3, .45); sill.setAttribute('width', (HW.w + 10) * Math.max(ss, 0)); sill.setAttribute('x', HL.x + HW.w / 2 - (HW.w + 10) * Math.max(ss, 0) / 2);
+  heroSparks.forEach((ln, i) => { const hs = T('blind_up'); const t0 = hs + F(1 + i); const u = inv(t0, t0 + F(9), t);
+    if (t < t0 || u >= 1) { vis(ln, false); return; } vis(ln, true); const cxx = HL.x + HW.w / 2, cyy = HL.y + HW.h / 2;
+    const a = [-2.5, -.64, .64, 2.5][i] + (i > 1 ? 0 : 0), ra = lerp(44, 64, E.outC(u)), w = 8 * (1 - u);
+    ln.setAttribute('x1', cxx + Math.cos(a) * 40); ln.setAttribute('y1', cyy + Math.sin(a) * 40); ln.setAttribute('x2', cxx + Math.cos(a) * ra); ln.setAttribute('y2', cyy + Math.sin(a) * ra); ln.setAttribute('stroke-width', w); });
+}
+
+// ============================================================ INTERIOR UPDATE
+function updInterior(t, cam) {
+  const tp = T('envelope_land'), ra = T('envelope_open');
+  const typing = 1 - inv(tp - 0.4, tp + F(4), t);
+  tf(CH, 860, 760, 1, 1, 0);
+  // arms: typing, then reach for the envelope, then recoil at 17.5
+  const reach = E.outB(inv(ra, ra + F(8), t), 1.6) * (1 - E.outQ(inv(17.35, 17.75, t)));
+  armL.sh.setAttribute('transform', `translate(-146 -150) rotate(${14 + 1.5 * Math.sin(2 * Math.PI * 5.5 * t) * typing})`);
+  armL.fo.setAttribute('transform', `translate(0 116) rotate(${-98 + 7 * Math.sin(2 * Math.PI * 5.5 * t) * typing})`);
+  armR.sh.setAttribute('transform', `translate(146 -150) rotate(${lerp(-14 + 1.5 * Math.sin(2 * Math.PI * 5.5 * t + 2) * typing, -78, reach)})`);
+  armR.fo.setAttribute('transform', `translate(0 116) rotate(${lerp(98 + 7 * Math.sin(2 * Math.PI * 5.5 * t + 2) * typing, 26, reach)})`);
+  // head: idle typing nod, turn to the envelope at 6.55, snap to the door at 17.5
+  const turn = E.outQ(inv(6.55, 6.95, t)) * (1 - E.outQ(inv(8.3, 8.7, t)));
+  const nod = typing * 6 * Math.pow(1 - Math.abs(Math.sin(2 * Math.PI * t)), 4);
+  tf(neck, 10 * turn, -200 + nod * .4, 1, 1, 5 * turn);
+  tf(head, 4 * turn, -86 + nod, 1, 1, 7 * turn);
+  const bl = 8.36; const blink = Math.max(hump(inv(bl, bl + F(4), t)), hump(inv(15.9, 15.9 + F(4), t)));
+  const wide = t > 17.5 ? 1 + .22 * Math.max(pop(t, 17.5, 3, .4)[0], 0) : 1;
+  eyes.forEach(e => tf(e.g, e.x + 9 * turn + 3 * (t > 17.5 ? 1 : 0), 10, wide, wide * (1 - .9 * blink)));
+  brows.forEach(b => tf(b, 0, -12 * (t > 17.5 ? 1 : 0)));
+  // mouth: polite smile -> small O after the hit, bigger after the AI face
+  const got = T('recoil'), scared = T('ai_face');
+  vis(smile, !(t > got) && !(t > scared)); vis(oMouth, t > got);
+  if (t > got) tf(oMouth, 0, 0, Math.max(1, 1 + 0.3 * Math.max(kick(t, got, 4, .4), 0)), Math.max(1, 1 + 0.3 * Math.max(kick(t, got, 4, .4), 0)));
+  // recoil: lean back, shoulders up, chair rocks
+  const rec = E.outQ(inv(got, got + F(6), t)) * (1 - .25 * E.outQ(inv(got + 1.2, got + 2.2, t)));
+  tf(CH, 860, 760 - 6 * rec, 1 + .01 * rec, 1 - .02 * rec, -4 * rec);
+  chairG.setAttribute('transform', `translate(860 770) rotate(${-5 * rec}) translate(-860 -770)`);
+  // envelope: lands on the desk, flap opens, letter pops out and grows into the mail panel
+  const eu = inv(tp, tp + F(9), t);
+  vis(envelope, t >= tp - 0.2 && t < T('mail_wipe') + 0.1);
+  if (t >= tp - 0.2) { const [s, k] = pop(t, tp, 2.6, .42, .25);
+    tf(envelope, ENV.x, ENV.y + 34 * (1 - Math.min(eu, 1)) + 3 * Math.sin(t * 7) * (1 - inv(tp, tp + 1.2, t)), Math.max(s, .001) / (1 + k), Math.max(s, .001) * (1 + k), 0);
+    const fl = E.outB(inv(ra, ra + F(7), t), 1.8); envelope.flap.setAttribute('transform', `translate(0 -70) scale(1 ${Math.max(.001, 1 - .9 * fl)}) translate(0 70)`); }
+  // letter grows in the interior, then the mail panel takes over in screen space
+  { const u = inv(T('paper_out'), T('mail_wipe') + 0.42, t); vis(letter, u > 0 && u < 1);
+    if (u > 0) { const s = lerp(.6, 1.15, E.outB(clamp(u), 1.5)); tf(letter, ENV.x, 700 - 60 * E.outQ(u), s, s, -3 * u); } }
+  // wall monitor + AI face
+  vis(monitor, t < T('ai_face') + 0.1);
+  vis(aiFace, t >= T('ai_face'));
+  if (t >= T('ai_face')) { const [s, k] = pop(t, T('ai_face'), 3.2, .45, .2); const sc = Math.max(s, 0);
+    aiFace.setAttribute('transform', `translate(${MON.x + MON.w / 2} ${MON.y + MON.h / 2}) scale(${sc / (1 + k)}, ${sc * (1 + k)}) translate(${-(MON.x + MON.w / 2)} ${-(MON.y + MON.h / 2)})`);
+    const blinkT = T('ai_blink'); const shut = hump(inv(blinkT, blinkT + F(4), t));
+    aiFace.eyeL.setAttribute('height', 16 * (1 - .9 * shut)); aiFace.eyeR.setAttribute('height', 16 * (1 - .9 * shut)); }
+  // sweat
+  sweat.forEach((g, i) => { const t0 = SC.sweat[i]; const u = inv(t0, t0 + 0.55, t); vis(g, u > 0 && u < 1);
+    if (u > 0) { const [s] = pop(t, t0, 3, .5, 0); tf(g, 786 - 170 * E.outQ(u), 470 + 16 * i - 190 * E.outQ(u), Math.max(s, .001)); } });
+  // steam
+  steam.forEach((p, i) => p.setAttribute('stroke-dashoffset', -((t * 150 + i * 150) % 306)));
+}
+
+// ============================================================ MAIL UPDATE
+function updMail(t) {
+  const on = t >= T('mail_wipe') && t < T('return_wipe') + 0.34;
+  vis(MAIL, on); if (!on) return;
+  const grow = E.outC(inv(T('mail_wipe'), T('mail_wipe') + 0.42, t));
+  const shrink = E.inC(inv(T('return_wipe'), T('return_wipe') + 0.26, t));
+  const sc = Math.max(.02, grow * (1 - shrink));
+  MAIL.setAttribute('transform', `translate(960 540) scale(${sc}) translate(-960 -540)`);
+  vis(clockG, t >= T('clock_1700'));
+  if (t >= T('clock_1700')) { const [s, k] = pop(t, T('clock_1700'), 3, .45, .18); clockG.setAttribute('transform', `translate(430 430) scale(${(Math.max(s, .001) / (1 + k)).toFixed(5)} ${(Math.max(s, .001) * (1 + k)).toFixed(5)}) translate(-430 -430)`); }
+  // minute hand ticks from 17:00 to 17:01 at 11.82
+  { const u = E.outB(inv(T('clock_1701'), T('clock_1701') + F(6), t), 2); const a = 30 * u;
+    handM.setAttribute('transform', `rotate(${a} 430 430)`); clockTxt.textContent = t >= T('clock_1701') ? '17:01' : '17:00'; }
+  { const [s, k] = pop(t, T('clock_1700') + F(2), 3, .45, .12); tf(clockTxt, 430, 700, Math.max(s, .001)); }
+  // file cards
+  [{ g: cardA, t0: SC.files_pop[0] }, { g: cardB, t0: SC.files_pop[1] }].forEach(({ g, t0 }) => {
+    const [s, k] = pop(t, t0, 2.8, .42, .22); vis(g, t >= t0);
+    if (t >= t0) { const fly = E.inC(inv(T('send_arrow') + F(3), T('send_arrow') + 0.5, t)); const x = lerp(960, 1560, fly), y = lerp(g === cardA ? 330 : 660, g === cardA ? 350 : 660, fly);
+      tf(g, x, y, Math.max(s, .001) * (1 - fly * .8) / (1 + k), Math.max(s, .001) * (1 - fly * .8) * (1 + k)); } });
+  // targets + arrow + stamp
+  [tgtA, tgtB].forEach((g, i) => { const t0 = T('send_arrow') + i * F(2); const [s, k] = pop(t, t0, 2.8, .42, .2); vis(g, t >= t0); if (t >= t0) tf(g, i ? 1560 : 1560, i ? 660 : 350, Math.max(s, .001) / (1 + k), Math.max(s, .001) * (1 + k)); });
+  { const u = inv(T('send_arrow'), T('send_arrow') + F(8), t); vis(arrow, u > 0 && u < 1);
+    if (u > 0) { const [s] = pop(t, T('send_arrow'), 3, .45, 0); tf(arrow, lerp(1240, 1430, E.outC(u)), lerp(470, 400, E.outC(u)), Math.max(s, .001), Math.max(s, .001)); } }
+  { const st = T('stamp_send'); const u = inv(st, st + F(6), t); vis(sendG, u > 0);
+    if (u > 0) { const [s, k] = pop(t, st, 2.4, .38, .3, .6); tf(sendG, 1480, 845, Math.max(s, .001) / (1 + k), Math.max(s, .001) * (1 + k), -12); } }
+}
+// the stamp flies back to the room between the mail panel and the interior
+function updStamp(t) {
+  const a = T('return_wipe') + 0.06, b = T('recoil');
+  const on = t >= a && t < b + 0.4;
+  vis(stampBack, on); if (!on) return;
+  const u = E.inQ(inv(a, b, t));
+  const x = lerp(960, 860, u), y = lerp(540, 380, u) - 160 * Math.sin(Math.PI * u);
+  const [s, k] = pop(t, b, 3.4, .38, .3); const sc = t >= b ? Math.max(s, .001) : lerp(.35, 1, u);
+  tf(stampBack, x, y, sc / (1 + k), sc * (1 + k));
+}
+
+// ============================================================ TEST GRID UPDATE
+function updTest(t) {
+  const on = t >= T('test_wipe') && t < T('result_merge') + 0.55;
+  vis(TEST, on); if (!on) return;
+  vis(TEST_TITLE, t >= T('test_wipe') + 0.25);
+  CARDS.forEach((c, i) => {
+    const t0 = c.t0; const [s, k] = pop(t, t0, 2.6, .42, .2);
+    const u = E.outC(inv(T('test_wipe'), t0 + 0.3, t));
+    const x = lerp(960, c.gx, u), y = lerp(540, c.gy, u);
+    vis(c.g, t >= T('test_wipe'));
+    const merge = E.inC(inv(T('result_merge'), T('result_merge') + 0.5, t));
+    const mx = lerp(x, 960, merge), my = lerp(y, 540, merge), ms = Math.max(s, .001) * (1 - merge);
+    tf(c.g, mx, my, Math.max(ms, .001) / (1 + k), Math.max(ms, .001) * (1 + k));
+    const bu = E.outC(inv(c.t0 + 0.35, c.t0 + 1.1, t)); c.bar.setAttribute('width', 360 * bu);
+    const lu = inv(c.t0 + 0.15, c.t0 + 0.4, t); vis(c.lamp, lu > 0); if (lu > 0) c.lamp.setAttribute('fill', lu < .5 ? C.SU : C.MI);
+  });
+}
+
+function updResult(t) {
+  const on = t >= T('result_merge') + 0.3 && t < T('percent_drop') + 0.5;
+  vis(RES, on); if (!on) return;
+  const g = E.outC(inv(T('result_merge') + 0.3, T('result_merge') + 0.72, t));
+  RES.setAttribute('transform', `translate(960 540) scale(${lerp(.5, 1, g)}) translate(-960 -540)`);
+  RES.setAttribute('opacity', String(clamp(g * 1.4)));
+  const bg = E.outB(inv(SC.bars_grow[0], SC.bars_grow[0] + 1.3, t), 1.1), tg = E.outB(inv(SC.bars_grow[0] + 0.1, SC.bars_grow[0] + 1.35, t), 1.1);
+  barBig.setAttribute('height', 400 * bg); barBig.setAttribute('y', axisY - 400 * bg);
+  barTiny.setAttribute('height', 11 * tg); barTiny.setAttribute('y', axisY - 11 * tg);
+  const nu = inv(SC.bars_grow[1] - 0.2, SC.bars_grow[1] + 0.15, t); vis(bigNum, nu > 0); vis(tinyNum, nu > 0);
+  if (nu > 0) { const [s, k] = pop(t, SC.bars_grow[1] - 0.2, 3, .45, .18); tf(bigNum, 780, 350, Math.max(s, .001) / (1 + k), Math.max(s, .001) * (1 + k)); tf(tinyNum, 1200, 350, Math.max(s, .001) / (1 + k), Math.max(s, .001) * (1 + k)); }
+  [bigLab, tinyLab].forEach((x, i) => { const t0 = SC.bars_grow[1]; const [s] = pop(t, t0, 3, .45, 0); vis(x, t >= t0); if (t >= t0) tf(x, i ? 1200 : 780, 836, Math.max(s, .001)); });
+}
+
+// ============================================================ FINAL UPDATE
+function updFinal(t) {
+  const on = t >= SC.percent_drop;
+  vis(FIN, on); if (!on) return;
+  const w = E.outC(inv(SC.percent_drop, SC.percent_drop + 0.22, t));
+  redWipe.setAttribute('y', 1080 - 1080 * w); redWipe.setAttribute('height', 1080 * w);
+  const drop = inv(SC.percent_drop, SC.percent_land, t);
+  const land = t >= SC.percent_land ? kick(t, SC.percent_land, 3.2, .38) : 0;
+  const yy = lerp(-420, 650, E.inQ(drop));
+  const breathe = 1 + .006 * Math.sin(2 * Math.PI * .6 * (t - SC.percent_land));
+  tf(big55, 960, yy + 60 * land, breathe * (1 + .12 * land), breathe * (1 - .10 * land));
+  const su = inv(SC.percent_land + 0.1, SC.percent_land + 0.55, t); vis(sub55, su > 0);
+  if (su > 0) { const [s] = pop(t, SC.percent_land + 0.1, 3, .45, 0); tf(sub55, 960, 760 + 30 * (1 - E.outB(clamp(su), 1.2)), Math.max(s, .001)); }
+  const lu = inv(SC.logo_in, SC.logo_in + 0.5, t); vis(logoG, lu > 0);
+  if (lu > 0) { const [s, k] = pop(t, SC.logo_in, 3, .45, .2); tf(logoG, 150, 950, Math.max(s, .001) / (1 + k), Math.max(s, .001) * (1 + k)); }
+  tf(dotEnd, 1810, 160 + 6 * Math.sin(2 * Math.PI * .5 * t), 1 + .04 * Math.sin(2 * Math.PI * 1.2 * t));
+}
+
+// ============================================================ CAPTION UPDATE
+function updCaptions(t) {
+  let cur = null;
+  for (const c of CAPS) { if (t >= c.t0 - 0.001 && t < c.t1) { cur = c; break; } }
+  vis(CAP, !!cur); if (!cur) return;
+  const inn = Math.max(pop(t, cur.t0, 3.2, .45, .18)[0], 0);
+  const out = E.inC(inv(cur.t1 - 0.10, cur.t1, t));
+  const s = inn * (1 - out);
+  if (s <= 0.002) { vis(CAP, false); return; }
+  const w = cur.w * (0.55 + 0.45 * s) / 1, h = cur.h * Math.min(1, s * 1.2);
+  const cx = 960, cy = 1080 - 96 - cur.h / 2;
+  capPill.setAttribute('x', cx - w / 2); capPill.setAttribute('y', cy - h / 2); capPill.setAttribute('width', w); capPill.setAttribute('height', h);
+  capTxt.textContent = cur.text; capTxt.setAttribute('y', cy + 16);
+  capTxt.setAttribute('opacity', String(clamp(s * 1.6)));
+}
+
+// ============================================================ RENDER
+window.renderAt = async (t) => {
+  const tq = Math.round(t * FPS) / FPS;
+  const cam = camera(tq);
+  updWorld(tq, cam, t);
+  updInterior(tq, cam);
+  updMail(tq);
+  updStamp(tq);
+  updTest(tq);
+  updResult(tq);
+  updFinal(tq);
+  updCaptions(tq);
+};
+await window.renderAt(0);
+window.__ready = true;
+</script>
+</body></html>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="青铜大面具">
+<title>三星堆青铜大面具 · 纵目长耳 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 长耳（左右展开） -->
+  <path d="M112 152 C74 116 48 118 44 140 C40 164 72 184 112 190 Z" fill="#7FA5A6"/>
+  <path d="M288 152 C326 116 352 118 356 140 C360 164 328 184 288 190 Z" fill="#5C8587"/>
+  <path d="M60 140 Q78 148 96 164 M340 140 Q322 148 304 164" fill="none" stroke="#C8934A" stroke-width="4"/>
+  <path d="M52 152 L76 158 M348 152 L324 158" fill="none" stroke="#2E2924" stroke-width="3"/>
+  <!-- 脸廓 -->
+  <path d="M112 128 Q200 96 288 128 L296 246 Q200 322 104 246 Z" fill="#7FA5A6"/>
+  <path d="M200 108 Q288 96 288 128 L296 246 Q248 292 200 306 Z" fill="#5C8587" stroke="none"/>
+  <!-- 额与眉 -->
+  <path d="M124 150 Q200 124 276 150" fill="none" stroke="#C8934A" stroke-width="7"/>
+  <path d="M132 168 Q166 150 190 168 M210 168 Q234 150 268 168" fill="none" stroke="#2E2924" stroke-width="7"/>
+  <path d="M200 112 L200 158" fill="none" stroke="#C23B22" stroke-width="6"/>
+  <path d="M184 126 L200 112 L216 126 Z" fill="#C23B22"/>
+  <!-- 突出的纵目 -->
+  <path d="M126 186 L186 196 L186 226 L126 216 Z" fill="#E3D9BE"/>
+  <path d="M214 196 L274 186 L274 216 L214 226 Z" fill="#E3D9BE"/>
+  <ellipse cx="156" cy="206" rx="24" ry="17" fill="#FBF7EE"/>
+  <ellipse cx="244" cy="206" rx="24" ry="17" fill="#FBF7EE"/>
+  <circle cx="156" cy="206" r="10" fill="#2E2924" stroke="none"/>
+  <circle cx="244" cy="206" r="10" fill="#2E2924" stroke="none"/>
+  <circle cx="159" cy="203" r="3" fill="#FBF7EE" stroke="none"/>
+  <circle cx="247" cy="203" r="3" fill="#FBF7EE" stroke="none"/>
+  <!-- 鼻 -->
+  <path d="M200 196 L184 254 L200 262 L216 254 Z" fill="#5C8587"/>
+  <path d="M200 196 L200 262 L216 254 Z" fill="#45696B" stroke="none"/>
+  <path d="M188 252 Q200 258 212 252" fill="none" stroke="#2E2924" stroke-width="3"/>
+  <!-- 阔嘴 -->
+  <path d="M148 276 Q200 300 252 276 Q200 288 148 276 Z" fill="#2E2924"/>
+  <path d="M160 278 Q200 292 240 278" fill="none" stroke="#C8934A" stroke-width="4"/>
+  <!-- 脸侧纹与铜锈斑 -->
+  <path d="M120 226 L140 232 M280 226 L260 232 M128 248 L146 252 M272 248 L254 252" fill="none" stroke="#45696B" stroke-width="3"/>
+  <g fill="#C8934A" stroke="none" opacity="0.85">
+    <circle cx="132" cy="196" r="5"/><circle cx="268" cy="196" r="5"/>
+    <circle cx="176" cy="288" r="4"/><circle cx="224" cy="288" r="4"/>
+  </g>
+</g>
+</svg>

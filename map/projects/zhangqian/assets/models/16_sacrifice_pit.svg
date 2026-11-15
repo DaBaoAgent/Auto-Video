@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="三星堆祭祀坑">
+<title>三星堆祭祀坑 · 漫画版微缩地形</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 地块侧面 -->
+  <path d="M44 300 Q200 332 356 300 L348 336 Q200 368 52 336 Z" fill="#8E6B3E"/>
+  <!-- 顶面 -->
+  <path d="M44 300 Q70 262 150 258 L280 258 Q340 262 356 300 Q200 332 44 300 Z" fill="#C8934A"/>
+  <path d="M60 288 Q200 316 340 288" fill="none" stroke="#B07D46" stroke-width="3"/>
+  <!-- 坑口（梯形） -->
+  <path d="M118 262 L282 262 L262 316 L138 316 Z" fill="#6E4A24"/>
+  <path d="M132 270 L268 270 L252 308 L148 308 Z" fill="#3E2C1C"/>
+  <!-- 坑内：象牙 -->
+  <path d="M150 302 C148 274 158 252 178 244 C166 262 162 282 166 302 Z" fill="#F5F1E6"/>
+  <path d="M178 244 C166 262 162 282 166 302 L158 302 C154 280 160 258 178 244 Z" fill="#D8CDB0" stroke="none"/>
+  <path d="M242 302 C246 276 238 254 220 246 C230 264 232 282 228 302 Z" fill="#F5F1E6"/>
+  <!-- 坑内：青铜面具一角 -->
+  <path d="M188 300 L188 276 Q200 266 212 276 L212 300 Z" fill="#7FA5A6"/>
+  <path d="M200 276 Q212 266 212 276 L212 300 L200 300 Z" fill="#5C8587" stroke="none"/>
+  <path d="M190 284 L176 280 M210 284 L224 280" fill="none" stroke="#7FA5A6" stroke-width="4"/>
+  <circle cx="194" cy="288" r="4" fill="#2E2924" stroke="none"/>
+  <circle cx="206" cy="288" r="4" fill="#2E2924" stroke="none"/>
+  <!-- 坑内：海贝 -->
+  <g fill="#FBF7EE" stroke="#B9A176" stroke-width="2.5">
+    <ellipse cx="156" cy="298" rx="9" ry="6"/><ellipse cx="244" cy="296" rx="9" ry="6"/>
+    <ellipse cx="200" cy="304" rx="8" ry="5"/>
+  </g>
+  <!-- 坑沿器物与土层线 -->
+  <path d="M118 262 L282 262" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <path d="M96 278 L110 282 M290 278 L304 282 M84 300 L100 304 M300 300 L316 304" fill="none" stroke="#8E6B3E" stroke-width="3"/>
+  <!-- 前缘墨线 -->
+  <path d="M44 300 Q200 332 356 300" fill="none" stroke="#2E2924" stroke-width="4"/>
+</g>
+</svg>

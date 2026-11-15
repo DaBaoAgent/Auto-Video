@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="汉使探路队">
+<title>汉使探路队 · 分好几路同时探路 · 漫画版立绘</title>
+<defs>
+<g id="scout" stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M222 140 L252 148 L248 204 L224 196 Z" fill="#B9A96B"/>
+  <path d="M228 162 L248 168 M227 182 L247 188" fill="none" stroke="#8E7A3E" stroke-width="3"/>
+  <path d="M180 224 L168 294 L154 316 L172 322 L190 292 L200 224 Z" fill="#B07D46"/>
+  <path d="M220 224 L232 292 L246 312 L228 320 L212 290 L200 224 Z" fill="#8E6B3E"/>
+  <path d="M150 310 L174 316 L172 328 L146 322 Z M226 314 L250 308 L252 320 L228 326 Z" fill="#6E4A24"/>
+  <path d="M178 136 L222 136 L232 224 L168 224 Z" fill="#34506E"/>
+  <path d="M200 136 L222 136 L232 224 L200 224 Z" fill="#2A4360" stroke="none"/>
+  <path d="M178 136 L200 162 L222 136" fill="#FBF7EE"/>
+  <path d="M178 136 L200 162 L222 136" fill="none" stroke="#C23B22" stroke-width="6"/>
+  <path d="M170 202 Q200 210 230 202" fill="none" stroke="#B07D46" stroke-width="7"/>
+  <path d="M178 146 L150 176 L160 188 L188 162 Z" fill="#34506E"/>
+  <ellipse cx="154" cy="180" rx="10" ry="11" fill="#E8C39A"/>
+  <path d="M150 176 L142 104" fill="none" stroke="#2E2924" stroke-width="7"/>
+  <path d="M142 104 L166 110 L142 122 Z" fill="#C23B22"/>
+  <ellipse cx="200" cy="110" rx="22" ry="26" fill="#E8C39A"/>
+  <path d="M200 84 A22 26 0 0 1 200 136 Z" fill="#C99B71" stroke="none"/>
+  <path d="M176 96 Q200 74 224 96 L222 108 Q200 92 178 108 Z" fill="#FBF7EE"/>
+  <path d="M188 108 L196 107 M204 107 L212 108" fill="none" stroke-width="3"/>
+  <path d="M192 122 Q200 126 208 122" fill="none" stroke-width="2.5"/>
+</g>
+</defs>
+<g>
+  <path d="M200 348 Q138 306 74 272 M200 348 Q200 292 200 246 M200 348 Q262 306 326 272" fill="none" stroke="#C23B22" stroke-width="4" stroke-dasharray="9 9" stroke-linecap="round"/>
+  <use href="#scout" transform="translate(-50.5 112.9) scale(0.62)"/>
+  <use href="#scout" transform="translate(59.5 82.9) scale(0.62)"/>
+  <use href="#scout" transform="translate(169.5 112.9) scale(0.62)"/>
+</g>
+</svg>

@@ -1,0 +1,15 @@
+{
+ "shots": [
+  {"shot_id": "S001", "para": 1, "start": 0.0, "end": 4.28, "dur": 4.28, "narration": "", "sentences": [1]},
+  {"shot_id": "S002", "para": 1, "start": 4.28, "end": 10.6, "dur": 6.32, "narration": "", "sentences": [2]},
+  {"shot_id": "S003", "para": 2, "start": 10.6, "end": 17.32, "dur": 6.72, "narration": "", "sentences": [3]},
+  {"shot_id": "S004", "para": 2, "start": 17.32, "end": 19.54, "dur": 2.22, "narration": "", "sentences": [4]},
+  {"shot_id": "S005", "para": 3, "start": 19.54, "end": 30.3, "dur": 10.76, "narration": "", "sentences": [5]},
+  {"shot_id": "S006", "para": 3, "start": 30.3, "end": 40.66, "dur": 10.36, "narration": "", "sentences": [6]}
+ ],
+ "meta": {
+  "n_shots": 6,
+  "total": 40.66,
+  "_note": "时码来自 026 前 10 镜的实际运镜时长（取自 cam_jobs_01_10.json）；旁白留空是因为原分镜表未入库"
+ }
+}

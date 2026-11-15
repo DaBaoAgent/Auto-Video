@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>shuimo · 013 羽人 · 水墨 30 秒样片</title>
+<style>
+  @font-face { font-family: 'LongCang'; src: url('./assets/font/LongCang-Regular.ttf') format('truetype'); }
+  @font-face { font-family: 'KaiTi'; src: url('./assets/font/KaiTi.ttf') format('truetype'); }
+  html, body { margin: 0; padding: 0; background: #efe7d6; overflow: hidden; }
+  canvas { display: block; width: 1920px; height: 1080px; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script type="module">
+  import { init, render, W, H, FPS, DURATION, setCaptions } from './js/scene.js';
+  window.DEMO = { width: W, height: H, fps: FPS, duration: DURATION };
+  (async () => {
+    const cues = await (await fetch('./cues.json')).json();
+    setCaptions(cues.captions || []);
+    await init(document.getElementById('c'), window.devicePixelRatio || 1);
+    window.renderAt = (t) => { render(t); };
+    render(0);
+    window.__ready = true;
+  })().catch((e) => { console.error('init failed', e && e.stack || e); });
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+{
+  "version": "2026-11-15",
+  "pipeline": "caiqian",
+  "style": "colored-pencil/science-illustration",
+  "canvas": { "width": 1920, "height": 1080, "fps": 24 },
+  "duration": { "default": 27.1, "min": 8, "max": 120 },
+  "paper": {
+    "base": "#F8F4EA",
+    "tooth": "程序化纸齿（哈希噪声），post 阶段与颜料阈值合成",
+    "supersample": "SS=2（3840×2160 后处理）→ 2×2 box downsample 回 1920×1080"
+  },
+  "pencil": {
+    "layers": ["outline", "hatch", "color", "wobble"],
+    "g_buffer": ["albedo + id", "light + depth + normal", "hatch direction", "anchor + reveal time"],
+    "hatch_angle": "0.62 + id × 0.11（每个材质一个排线角，避免同向带来的塑料感）",
+    "boil": "一张画每 2 帧换一次，3 张循环（24 fps → 12 次/秒）",
+    "anchor": "所有排线与纸齿在固定参考相机的投影坐标里算，相机只能在同镜内平移 —— 笔画黏在物体上，只有轮廓抖",
+    "reveal": "每个表面一个 arev，四层按 arev 逐笔建立（剖面从上往下、鱼从轮廓到上色）"
+  },
+  "palette": {
+    "paper": "#F8F4EA",
+    "ink": "#2B2620",
+    "sediment_lit": "#4D443E",
+    "sediment_top": "#6F5E4C",
+    "sediment_sub": "#A88C66",
+    "sediment_wea": "#B7A17F",
+    "sediment_bed": "#6B6866",
+    "water": "#8C9BA6",
+    "far_ridge": "#5C6E78",
+    "cod_back": "#6E6A52",
+    "cod_belly": "#C9C6A8",
+    "cod_fin": "#4B5240",
+    "roe": "#E0A94E",
+    "coral": "#C4623F"
+  },
+  "typography": {
+    "font": "LXGWWenKai-subset.ttf（霞鹜文楷，OFL，按片内用字子集）",
+    "label_en": "30 px, letter-spacing +0.04em, 白底小卡 + 手描边",
+    "label_zh": "31 px（size × 1.05）",
+    "subtitle_zh": "40 px",
+    "subtitle_en": "29 px（0.72 alpha）",
+    "subtitle_chip": "左下 (92, H−174)，宽 max(wz,we)+52，高 112，wipe 0.28 s"
+  },
+  "camera": {
+    "type": "镜头内平移 + 段落切镜（SHOTS）；显示比例固定，靠沉降与推近讲体量",
+    "shots": "S1 剖面横移 → S2 鱼入画 → S3–S8 局部（背鳍/臀鳍/金枪鱼对比）→ S9–S12 鱼群与嘴 → S14–S17 产卵/长大/两米长"
+  },
+  "render": {
+    "engine": "playwright-core chromium-headless-shell，逐帧 JPEG pipe 给 ffmpeg",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf": 18,
+    "preset": "medium",
+    "fps_real": "6–10 fps（1920×1080，SS=2 后处理，单 worker）"
+  },
+  "audio": {
+    "lufs": -14,
+    "true_peak": -1.5,
+    "limiter": "alimiter -1.5 dBFS",
+    "premaster": "acompressor threshold=-18dB ratio=3 attack=5 release=60 → volume 补到 −14 LUFS",
+    "sample_rate": 48000,
+    "channels": 2,
+    "grain": 1
+  },
+  "delivery": {
+    "sample": "projects/<编号_名>/out/",
+    "final": "projects/<编号_名>/out/<名>.mp4",
+    "files": ["<名>.mp4", "<名>.srt", "glyphs.json"],
+    "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
+  },
+  "credits": [
+    "ENGINE: three.js (MIT)",
+    "FONT: LXGW WenKai v1.245.1 (SIL OFL 1.1), subset per film",
+    "TECHNIQUE: layered G-buffer + hatching post pass, 本仓库自研"
+  ]
+}

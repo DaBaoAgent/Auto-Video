@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="古代商旅背夫">
+<title>古代商旅 · 蜀地前往印度的背夫 · 漫画版立绘</title>
+<!-- 与 01–07 同风格：厚墨线、平涂分面、atlas 色板、透明底、400x400 -->
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 行路竹杖 -->
+  <path d="M112 168 L88 346" fill="none" stroke="#2E2924" stroke-width="11"/>
+  <path d="M112 168 L88 346" fill="none" stroke="#B9A96B" stroke-width="6"/>
+  <path d="M104 232 L110 234 M98 282 L104 284" fill="none" stroke="#8E7A3E" stroke-width="3"/>
+  <!-- 背篓与篓中露出的布卷 -->
+  <path d="M234 146 L296 158 L288 234 L240 224 Z" fill="#B9A96B"/>
+  <path d="M240 168 L292 178 M238 190 L290 200 M238 212 L288 222" fill="none" stroke="#8E7A3E" stroke-width="3"/>
+  <path d="M246 148 Q250 124 268 126 Q284 128 282 152 Z" fill="#FBF7EE"/>
+  <path d="M250 142 Q266 134 280 148" fill="none" stroke="#C23B22" stroke-width="4"/>
+  <path d="M228 150 L262 226" fill="none" stroke="#C23B22" stroke-width="7"/>
+  <!-- 双腿：前腿迈出、后腿蹬地 -->
+  <path d="M216 226 L240 288 L258 326 L238 336 L220 296 L198 238 Z" fill="#8E6B3E"/>
+  <path d="M178 226 L152 288 L130 320 L110 310 L138 280 L158 224 Z" fill="#B07D46"/>
+  <path d="M104 306 Q122 306 134 322 L128 334 L98 322 Z" fill="#6E4A24"/>
+  <path d="M236 328 Q254 322 266 330 L262 342 L232 340 Z" fill="#6E4A24"/>
+  <!-- 短褐与交领 -->
+  <path d="M168 142 L230 142 L242 232 L156 232 Z" fill="#3B5A78"/>
+  <path d="M200 142 L230 142 L242 232 L200 232 Z" fill="#2A4360" stroke="none"/>
+  <path d="M168 142 L200 176 L230 142" fill="#FBF7EE"/>
+  <path d="M168 142 L200 176 L230 142" fill="none" stroke="#C23B22" stroke-width="6"/>
+  <!-- 腰带 -->
+  <path d="M158 206 Q200 216 240 206 L240 222 Q200 232 158 222 Z" fill="#B07D46"/>
+  <!-- 前臂握杖、后臂扶绳 -->
+  <path d="M168 154 L132 178 L116 172 L110 190 L136 198 L176 176 Z" fill="#3B5A78"/>
+  <ellipse cx="112" cy="180" rx="11" ry="12" fill="#E8C39A"/>
+  <path d="M228 156 L250 172 L242 186 L222 174 Z" fill="#2A4360"/>
+  <!-- 头（朝左） -->
+  <ellipse cx="192" cy="112" rx="27" ry="31" fill="#E8C39A"/>
+  <path d="M192 81 A27 31 0 0 1 192 143 Z" fill="#C99B71" stroke="none"/>
+  <path d="M166 103 L182 101" fill="none" stroke-width="4"/>
+  <ellipse cx="175" cy="112" rx="4" ry="5" fill="#2E2924" stroke="none"/>
+  <path d="M166 118 L161 126 L170 128" fill="none" stroke-width="3"/>
+  <path d="M170 134 Q178 138 186 134" fill="none" stroke-width="3"/>
+  <!-- 斗笠与系带 -->
+  <path d="M126 92 Q192 38 258 92 Q192 112 126 92 Z" fill="#C8934A"/>
+  <path d="M192 48 Q226 60 258 92 Q224 104 192 104 Z" fill="#9A6B31" stroke="none"/>
+  <path d="M150 92 Q192 78 234 92" fill="none" stroke="#8E6B3E" stroke-width="3"/>
+  <path d="M164 96 L178 132 M222 96 L210 132" fill="none" stroke="#C23B22" stroke-width="4"/>
+</g>
+</svg>

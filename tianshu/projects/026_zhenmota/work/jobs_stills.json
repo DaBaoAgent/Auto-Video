@@ -1,0 +1,40 @@
+{
+ "jobs": [
+  {
+   "id": "S001",
+   "seed": 12001,
+   "prompt": "Hand-painted 1983 Shanghai Animation Film Studio cel animation, traditional Chinese ink-and-colour scenery, flat opaque gouache colour areas, thin near-black ink contour (#080808), hard-edged shadow only, visible paper grain, slightly faded aged print, muted dusty film colours, 4:3 academy frame with rounded corners. Composition: A five-tier stone pagoda stands on a rocky hillside above a jade-green lake, layered grey-green mountain ranges behind it, the sky split into two horizontal bands of pale cream and pale teal. Palette: #bfc694 #a7b873 #464a3d #bcc38f #b6c181 #b1bb7f #777f64 #b9c191. No gradient shading, no airbrush, no photographic lighting, no 3D volume, no depth of field, no volumetric light, no specular highlight, no ink wash bleed, no watercolour wash, no paper-cut silhouette, no text, no subtitle.",
+   "negative": "3D render, realistic, photorealistic, detailed texture, photographic, bokeh, lens flare, anime style, hdri, ambient occlusion, subtitle, lettering, chinese calligraphy text, watermark, signature, logo, border, frame, matting, paper margin, white border, text overlay, duplicate subject, extra pagoda, extra figure, crowd"
+  },
+  {
+   "id": "S002",
+   "seed": 12002,
+   "prompt": "Hand-painted 1983 Shanghai Animation Film Studio cel animation, traditional Chinese ink-and-colour scenery, flat opaque gouache colour areas, thin near-black ink contour (#080808), hard-edged shadow only, visible paper grain, slightly faded aged print, muted dusty film colours, 4:3 academy frame with rounded corners. Composition: A broken stone pagoda tilts on a riverbank, a pile of fallen bricks below it, a long band of ochre dust hanging in the air, pale green sky. Palette: #bfc694 #a7b873 #464a3d #bcc38f #b6c181 #b1bb7f #777f64 #b9c191. No gradient shading, no airbrush, no photographic lighting, no 3D volume, no depth of field, no volumetric light, no specular highlight, no ink wash bleed, no watercolour wash, no paper-cut silhouette, no text, no subtitle.",
+   "negative": "3D render, realistic, photorealistic, detailed texture, photographic, bokeh, lens flare, anime style, hdri, ambient occlusion, subtitle, lettering, chinese calligraphy text, watermark, signature, logo, border, frame, matting, paper margin, white border, text overlay, duplicate subject, extra pagoda, extra figure, crowd"
+  },
+  {
+   "id": "S003",
+   "seed": 12003,
+   "prompt": "Hand-painted 1983 Shanghai Animation Film Studio cel animation, traditional Chinese ink-and-colour scenery, flat opaque gouache colour areas, thin near-black ink contour (#080808), hard-edged shadow only, visible paper grain, slightly faded aged print, muted dusty film colours, 4:3 academy frame with rounded corners. Composition: Three men in long scholar robes stand with their backs to us against a plain pale lilac wall, their silhouettes nearly black, no window. Palette: #bba991 #c0ae91 #bfbba2 #7e868c #b4ae9d #aca9a1 #b8b19c #9d9c93. No gradient shading, no airbrush, no photographic lighting, no 3D volume, no depth of field, no volumetric light, no specular highlight, no ink wash bleed, no watercolour wash, no paper-cut silhouette, no text, no subtitle.",
+   "negative": "3D render, realistic, photorealistic, detailed texture, photographic, bokeh, lens flare, anime style, hdri, ambient occlusion, subtitle, lettering, chinese calligraphy text, watermark, signature, logo, border, frame, matting, paper margin, white border, text overlay, duplicate subject, extra pagoda, extra figure, crowd"
+  },
+  {
+   "id": "S004",
+   "seed": 12004,
+   "prompt": "Hand-painted 1983 Shanghai Animation Film Studio cel animation, traditional Chinese ink-and-colour scenery, flat opaque gouache colour areas, thin near-black ink contour (#080808), hard-edged shadow only, visible paper grain, slightly faded aged print, muted dusty film colours, 4:3 academy frame with rounded corners. Composition: A narrow stone staircase descends into a brick vaulted underground chamber, flat pale grey walls, a small hanging lamp on the right, a dark doorway at the bottom. Palette: #b4a78f #a69c99 #9fa59c #b0ac94 #8d9ca5 #71777b #b7b999 #8b8f93. No gradient shading, no airbrush, no photographic lighting, no 3D volume, no depth of field, no volumetric light, no specular highlight, no ink wash bleed, no watercolour wash, no paper-cut silhouette, no text, no subtitle.",
+   "negative": "3D render, realistic, photorealistic, detailed texture, photographic, bokeh, lens flare, anime style, hdri, ambient occlusion, subtitle, lettering, chinese calligraphy text, watermark, signature, logo, border, frame, matting, paper margin, white border, text overlay, duplicate subject, extra pagoda, extra figure, crowd"
+  },
+  {
+   "id": "S005",
+   "seed": 12005,
+   "prompt": "Hand-painted 1983 Shanghai Animation Film Studio cel animation, traditional Chinese ink-and-colour scenery, flat opaque gouache colour areas, thin near-black ink contour (#080808), hard-edged shadow only, visible paper grain, slightly faded aged print, muted dusty film colours, 4:3 academy frame with rounded corners. Composition: An extreme close-up of a large flat stone slab, one long pale crack running diagonally across it, cold white light glowing faintly from inside the crack. Palette: #b4a78f #a69c99 #9fa59c #b0ac94 #8d9ca5 #71777b #b7b999 #8b8f93. No gradient shading, no airbrush, no photographic lighting, no 3D volume, no depth of field, no volumetric light, no specular highlight, no ink wash bleed, no watercolour wash, no paper-cut silhouette, no text, no subtitle.",
+   "negative": "3D render, realistic, photorealistic, detailed texture, photographic, bokeh, lens flare, anime style, hdri, ambient occlusion, subtitle, lettering, chinese calligraphy text, watermark, signature, logo, border, frame, matting, paper margin, white border, text overlay, duplicate subject, extra pagoda, extra figure, crowd"
+  },
+  {
+   "id": "S006",
+   "seed": 12006,
+   "prompt": "Hand-painted 1983 Shanghai Animation Film Studio cel animation, traditional Chinese ink-and-colour scenery, flat opaque gouache colour areas, thin near-black ink contour (#080808), hard-edged shadow only, visible paper grain, slightly faded aged print, muted dusty film colours, 4:3 academy frame with rounded corners. Composition: A square iron chest with brass corner fittings stands on the brick floor of an underground chamber, a few bronze coins scattered around it, flat pale yellow-grey palette. Palette: #b4a78f #a69c99 #9fa59c #b0ac94 #8d9ca5 #71777b #b7b999 #8b8f93. No gradient shading, no airbrush, no photographic lighting, no 3D volume, no depth of field, no volumetric light, no specular highlight, no ink wash bleed, no watercolour wash, no paper-cut silhouette, no text, no subtitle.",
+   "negative": "3D render, realistic, photorealistic, detailed texture, photographic, bokeh, lens flare, anime style, hdri, ambient occlusion, subtitle, lettering, chinese calligraphy text, watermark, signature, logo, border, frame, matting, paper margin, white border, text overlay, duplicate subject, extra pagoda, extra figure, crowd"
+  }
+ ]
+}

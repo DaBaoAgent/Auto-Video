@@ -1,0 +1,86 @@
+{
+  "_note": "chengshi 现行规格（苏州实例，2026-11-03 清理后固化）。渲染工程目录原名 template_v2，后改名 sz，2026-11-04 归一到 chengshi 名下、统一叫 render/（管线对外只叫 chengshi）。镜头细节以 render/src/camera.ts 的 CHAPTER_SHOTS 为准；改机位先渲 still 复验。",
+  "version": "2.0",
+  "locked_at": "2026-11-03",
+  "reference_episode": "projects/suzhou",
+  "reference_film": "苏州《城长》160.7s / 4821 帧 / 30fps / 1920×1080 审片；4K 母版同模板",
+
+  "canvas": {
+    "master": [3840, 2160],
+    "review": [1920, 1080],
+    "fps": 30,
+    "aspect": "16:9"
+  },
+  "duration": {"seconds": 160.7, "frames": 4821},
+
+  "camera": {
+    "type": "PerspectiveCamera",
+    "route": "全片一条连续螺旋外扩航线，11 章 ShotSpec + 片尾定格，无章节硬切",
+    "near": 500,
+    "far": 260000,
+    "fov": "每镜 34–40°，见 camera.ts",
+    "shot_table": "render/src/camera.ts → CHAPTER_SHOTS"
+  },
+
+  "buildings": {
+    "geometry": "BoxGeometry(1,1,1) 底面对齐 y=0",
+    "instancing": "InstancedMesh，单 draw call",
+    "height_rule": "height 原值；否则 building:levels × 3.2 + 1.5；否则 9m",
+    "height_clamp_m": [2, 600],
+    "min_area_m2": 10,
+    "max_side_m": 900
+  },
+
+  "growth": {
+    "model": "按 rings.json 的 growth=[起,止] 区间把该圈建筑确定性铺开；中环外读 film.data.growth_outside",
+    "appear_seconds": 0.55,
+    "easing": "smoothstep",
+    "determinism": "tAtYear() 从 timeline 反推，不依赖帧游标"
+  },
+
+  "rings": {
+    "geometry": "CatmullRom 闭合曲线 → TubeGeometry",
+    "animation": "按年份出现；末章全亮"
+  },
+
+  "scene": {
+    "layers": [
+      "Esri 卫星底图",
+      "SRTM 地形",
+      "白模楼体",
+      "道路线",
+      "水面 / 河道",
+      "绿地 / 树",
+      "年轮环",
+      "时间轴 / 字幕 / 地标 / 片尾卡"
+    ],
+    "post": "静态噪点 + 暗角 + 上下渐变，无逐帧抖动"
+  },
+
+  "data": {
+    "sources": {
+      "osm": "Overpass API；全挂时退回 api.openstreetmap.org 0.01° 瓦片",
+      "satellite": "Esri World Imagery z16，pad 0.08°",
+      "terrain": "AWS Terrain Tiles / SRTM 30m z13，pad 0.08°"
+    },
+    "layers": ["buildings", "roads", "water", "landuse"],
+    "license": "© OpenStreetMap contributors (ODbL)；Esri / Maxar / Earthstar；NASA / USGS"
+  },
+
+  "audio": {
+    "voice": "GPT-SoVITS 逐句 → projects/<slug>/work/audio/vo/NN.wav",
+    "bgm": "film.audio.music",
+    "mix": "loudnorm I=-15 LUFS / TP -1.8；口播侧链闪避 BGM + 环境声",
+    "limit": "render_cut 出片前把真峰值限到 film.audio.loudness.tp（-1.5）"
+  },
+
+  "delivery": {
+    "review": "1920×1080 H.264 crf20 / AAC 256k",
+    "master": "Chengshi 3840×2160，需 --allow-4k",
+    "out_dir": "out/<三位编号>_<题目>/"
+  },
+
+  "performance": {
+    "measured": "2026-11-03 清理后 30 帧验证片段正常；全片耗时取决于 concurrency（2–6）"
+  }
+}

@@ -1,0 +1,58 @@
+{
+ "jobs": [
+  {
+   "id": "S001",
+   "image": "plates/S001.png",
+   "target_val": 66.3,
+   "target_sat": 24.6,
+   "seed": 12001,
+   "target_source": "explicit"
+  },
+  {
+   "id": "S002",
+   "image": "plates/S002.png",
+   "target_val": 66.3,
+   "target_sat": 24.6,
+   "seed": 12002,
+   "target_source": "explicit"
+  },
+  {
+   "id": "S003",
+   "image": "plates/S003.png",
+   "target_val": 66.5,
+   "target_sat": 15.7,
+   "seed": 12003,
+   "target_source": "explicit"
+  },
+  {
+   "id": "S004",
+   "image": "plates/S004.png",
+   "target_val": 64.7,
+   "target_sat": 13.9,
+   "seed": 12004,
+   "target_source": "explicit"
+  },
+  {
+   "id": "S005",
+   "image": "plates/S005.png",
+   "target_val": 64.7,
+   "target_sat": 13.9,
+   "seed": 12005,
+   "target_source": "explicit"
+  },
+  {
+   "id": "S006",
+   "image": "plates/S006.png",
+   "target_val": 64.7,
+   "target_sat": 13.9,
+   "seed": 12006,
+   "target_source": "explicit",
+   "warm": [
+    1.055,
+    1.045,
+    0.945
+   ],
+   "extra_gamma": 0.94
+  }
+ ]
+}

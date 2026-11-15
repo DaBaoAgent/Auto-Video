@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="都江堰与玉垒山">
+<title>都江堰 · 鱼嘴分水与玉垒山 · 漫画版场景</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 玉垒山 -->
+  <path d="M232 320 L288 150 L336 214 L376 132 L400 200 L400 340 L232 340 Z" fill="#7FA5A6"/>
+  <path d="M288 150 L336 214 L306 226 L282 190 Z" fill="#B9D2D1"/>
+  <path d="M376 132 L400 200 L382 210 Z" fill="#B9D2D1"/>
+  <path d="M232 320 L288 150 M376 132 L400 200" fill="none" stroke="#45696B" stroke-width="3"/>
+  <!-- 岷江水面 -->
+  <path d="M0 300 Q100 282 200 300 Q300 318 400 300 L400 400 L0 400 Z" fill="#7FA5A6"/>
+  <g fill="none" stroke="#B9D2D1" stroke-width="4">
+    <path d="M20 326 Q100 312 180 326 Q260 340 340 324"/>
+    <path d="M10 356 Q90 342 170 356 Q250 370 330 354"/>
+  </g>
+  <!-- 鱼嘴分水堤 -->
+  <path d="M116 302 L180 268 L244 302 L180 338 Z" fill="#C9C4B6"/>
+  <path d="M116 302 L180 268 L244 302 L180 338 Z" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <path d="M180 268 L180 338 M148 286 L212 286" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <!-- 分水后的内江 / 外江 -->
+  <path d="M180 338 Q150 356 120 372 M180 338 Q214 356 246 370" fill="none" stroke="#34506E" stroke-width="7"/>
+  <path d="M180 338 Q150 356 120 372 M180 338 Q214 356 246 370" fill="none" stroke="#B9D2D1" stroke-width="3"/>
+  <!-- 飞沙堰（斜坝） -->
+  <path d="M244 300 L286 286 L298 302 L252 318 Z" fill="#E3D9BE"/>
+  <path d="M244 300 L286 286 L298 302 L252 318 Z" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <!-- 竹笼与卵石 -->
+  <g fill="#B9A96B">
+    <ellipse cx="132" cy="300" rx="18" ry="10"/>
+    <ellipse cx="152" cy="312" rx="16" ry="9"/>
+    <ellipse cx="224" cy="312" rx="16" ry="9"/>
+  </g>
+  <g fill="none" stroke="#8E7A3E" stroke-width="2">
+    <path d="M118 296 L146 304 M138 306 L166 316 M210 306 L238 316"/>
+  </g>
+  <!-- 水花 -->
+  <g fill="#FBF7EE" stroke="none" opacity="0.9">
+    <circle cx="180" cy="344" r="5"/><circle cx="164" cy="352" r="4"/><circle cx="198" cy="352" r="4"/>
+  </g>
+  <!-- 山间云雾 -->
+  <g fill="none" stroke="#FBF7EE" stroke-width="7" opacity="0.85">
+    <path d="M250 200 Q290 188 330 200 M260 250 Q300 238 340 250"/>
+  </g>
+</g>
+</svg>

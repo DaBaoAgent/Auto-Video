@@ -1,0 +1,51 @@
+{
+  "version": "2026-11-15",
+  "pipeline": "bianping",
+  "style": "lemo-opuscar/flat-space-explainer",
+  "label": "扁平尺度漫游（Scale Zoom Explainer）",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 24,
+    "logical": "16:9 full bleed, SVG viewBox 0 0 1920 1080"
+  },
+  "duration": { "default": 36, "min": 10, "max": 600 },
+  "palette": {
+    "night": "#1D2052", "n2": "#252A63", "n3": "#30367C",
+    "mist": "#9298D4", "blue": "#4D7CFE", "blueD": "#3A5FD9",
+    "mint": "#3FD8AE", "mintD": "#22B38C",
+    "coral": "#FF6B5E", "coralD": "#E14B45",
+    "sun": "#FFC84A", "sunD": "#F2A12F",
+    "cream": "#FFF4E2", "creamD": "#F0DCC0"
+  },
+  "fonts": ["Jost (latin, variable 100-900)", "Noto Sans SC Bold subset (CJK)"],
+  "motion": {
+    "engine": "SVG code-driven, t is a pure function",
+    "renderer": "lemo-opuscar core/render/video.mjs",
+    "workers": 3,
+    "transitions": "circle wipe at scene cuts",
+    "orbi": "eye-character guide bottom-left; blink every ~3s, jump on surprises"
+  },
+  "shots": {
+    "rule": "cuts land on ASR word boundaries / pauses >= 0.12s",
+    "asr_model": "faster-whisper small (CPU int8)",
+    "asr_input": "convert to 16kHz mono wav before numpy feed"
+  },
+  "audio": {
+    "voice": "reuse user's 配音.wav",
+    "bgm_engine": "lemo-opuscar core/audio/pluck.py",
+    "sfx_engine": "lemo-opuscar core/audio/sfx.py",
+    "voice_volume": 1.0,
+    "music_volume": 0.35,
+    "sample_rate": 48000
+  },
+  "render": {
+    "lib_root": "D:/@kaifa/lemo-opuscar",
+    "cmd": "cd D:/@kaifa/lemo-opuscar; node core/render/video.mjs <film_dir> --fps 24 --workers 3 --out <output.mp4>"
+  },
+  "qa": [
+    "subtitles must match ASR transcription word-for-word",
+    "scene cuts must align with ASR sentence boundaries",
+    "no AI-generated images; all visuals are code-drawn SVG"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "version": "2026-11-09",
+  "pipeline": "manga",
+  "style": "bb-video/manga",
+  "label": "日漫 · 漫画分镜",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "logical": "页高 1000 单位；横屏跨页 1500×1000，竖屏单页 700×1000"
+  },
+  "duration": {
+    "default": 30,
+    "min": 8,
+    "max": 300
+  },
+  "palette": {
+    "paper": "#ffffff",
+    "ink": "#141414",
+    "bg": "#16161a",
+    "spot": "#e0442a",
+    "tone": "ink 0.15–0.45 dot coverage"
+  },
+  "fonts": [
+    "Dela Gothic One",
+    "ZCOOL QingKe HuangYou",
+    "Noto Sans SC 700/900",
+    "Noto Serif SC 600"
+  ],
+  "motion": {
+    "reading": "right-to-left",
+    "punch_in": "0.15s expo-out",
+    "flash": "2–4 frames",
+    "one_splash": true
+  },
+  "audio": {
+    "bpm": 140,
+    "key": "E minor",
+    "lufs": -16,
+    "true_peak": -1.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "voice_lead_in": 0.7,
+    "tail": 1.2
+  },
+  "render": {
+    "engine": "Chrome DevTools Protocol, frame by frame",
+    "chrome": "CHROME_PATH (Windows: auto-detect Chrome/Edge)",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/",
+    "final": "out/<编号>_<人物>/",
+    "files": [
+      ".mp4",
+      "_封面.png",
+      "_字幕.srt",
+      "_署名.txt"
+    ],
+    "qa": "review/qa.json"
+  },
+  "sample": {
+    "name": "阿努纳奇 · 第一段",
+    "duration": "30.4 s / 1920×1080 / 30 fps",
+    "path": "template/",
+    "media_committed": false
+  }
+}

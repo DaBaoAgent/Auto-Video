@@ -1,0 +1,17 @@
+{
+  "name": "piying-video-pipeline",
+  "version": "1.0.0",
+  "description": "皮影剪影卡片风历史神话视频管线",
+  "main": "index.js",
+  "scripts": {
+    "test": "node render/piying/health_check.js",
+    "qc": "node render/piying/qc_full_yandi.js",
+    "audit": "node render/piying/audit_yandi.js full"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright-core": "^1.64.1"
+  }
+}

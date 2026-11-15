@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="洗衣机">
+<title>洗衣机 · 三十公斤 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 机身 -->
+  <path d="M96 84 L304 84 Q320 84 320 100 L320 348 Q320 364 304 364 L96 364 Q80 364 80 348 L80 100 Q80 84 96 84 Z" fill="#FBF7EE"/>
+  <path d="M200 84 L304 84 Q320 84 320 100 L320 348 Q320 364 304 364 L200 364 Z" fill="#E3D9BE" stroke="none"/>
+  <!-- 顶部控制面板 -->
+  <path d="M80 84 L320 84 L320 146 L80 146 Z" fill="#E9E2D0"/>
+  <path d="M80 146 L320 146" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <circle cx="120" cy="114" r="15" fill="#7FA5A6"/>
+  <circle cx="120" cy="114" r="7" fill="#34506E"/>
+  <path d="M120 114 L120 101" fill="none" stroke="#FBF7EE" stroke-width="3"/>
+  <g fill="#B9B3A2" stroke="none">
+    <rect x="156" y="104" width="10" height="20" rx="3"/>
+    <rect x="174" y="104" width="10" height="20" rx="3"/>
+    <rect x="192" y="104" width="10" height="20" rx="3"/>
+  </g>
+  <rect x="240" y="102" width="56" height="24" rx="5" fill="#34506E"/>
+  <path d="M250 114 L256 110 L262 118 L268 110 L274 118 L280 110" fill="none" stroke="#7FA5A6" stroke-width="2.5"/>
+  <!-- 舱门 -->
+  <circle cx="200" cy="252" r="82" fill="#E3D9BE"/>
+  <circle cx="200" cy="252" r="68" fill="#7FA5A6"/>
+  <circle cx="200" cy="252" r="54" fill="#34506E"/>
+  <circle cx="200" cy="252" r="36" fill="#B9D2D1"/>
+  <path d="M170 232 Q158 250 166 270" fill="none" stroke="#FBF7EE" stroke-width="6"/>
+  <path d="M228 278 Q242 262 236 244" fill="none" stroke="#FBF7EE" stroke-width="4" opacity="0.8"/>
+  <circle cx="200" cy="252" r="68" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <circle cx="200" cy="252" r="82" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <!-- 底部脚 -->
+  <path d="M104 364 L128 364 L128 376 L100 376 Z" fill="#6E6A60"/>
+  <path d="M272 364 L296 364 L300 376 L272 376 Z" fill="#6E6A60"/>
+  <!-- 水滴与气泡 -->
+  <g fill="#7FA5A6" stroke="none" opacity="0.9">
+    <circle cx="82" cy="196" r="6"/><circle cx="66" cy="214" r="4"/><circle cx="78" cy="230" r="3"/>
+  </g>
+  <!-- 重量标记（无文字，用捆带表现 30kg） -->
+  <path d="M104 300 L104 340 M296 300 L296 340" fill="none" stroke="#C8934A" stroke-width="5"/>
+  <path d="M104 300 Q200 312 296 300" fill="none" stroke="#C8934A" stroke-width="4"/>
+</g>
+</svg>

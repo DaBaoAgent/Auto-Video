@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="汉军士兵">
+<title>汉军士兵 · 南下进军小队 · 漫画版立绘</title>
+<defs>
+<g id="soldier" stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 戈 -->
+  <path d="M268 88 L246 338" fill="none" stroke="#2E2924" stroke-width="8"/>
+  <path d="M268 88 L246 338" fill="none" stroke="#B9A96B" stroke-width="5"/>
+  <path d="M268 88 L292 82 L290 96 L268 100 Z" fill="#7FA5A6"/>
+  <path d="M264 116 L286 116" fill="none" stroke="#C23B22" stroke-width="4"/>
+  <path d="M178 232 L168 296 L156 326 L178 332 L192 296 L200 234 Z" fill="#34506E"/>
+  <path d="M218 232 L230 296 L242 324 L220 332 L208 296 L200 234 Z" fill="#2A4360"/>
+  <path d="M152 324 L180 328 L180 340 L150 338 Z M218 326 L246 322 L246 336 L218 340 Z" fill="#2E2924"/>
+  <!-- 札甲 -->
+  <path d="M168 136 L232 136 L240 236 L160 236 Z" fill="#34506E"/>
+  <path d="M200 136 L232 136 L240 236 L200 236 Z" fill="#2A4360" stroke="none"/>
+  <path d="M164 158 L236 158 M162 178 L238 178 M160 198 L240 198 M160 218 L240 218" fill="none" stroke="#7FA5A6" stroke-width="3"/>
+  <path d="M168 136 L200 158 L232 136" fill="#FBF7EE"/>
+  <path d="M168 136 L200 158 L232 136" fill="none" stroke="#C23B22" stroke-width="5"/>
+  <path d="M164 226 Q200 234 236 226" fill="none" stroke="#B07D46" stroke-width="8"/>
+  <!-- 持戈手臂 -->
+  <path d="M230 146 L262 172 L252 186 L222 162 Z" fill="#34506E"/>
+  <ellipse cx="258" cy="178" rx="10" ry="11" fill="#E8C39A"/>
+  <!-- 头盔 -->
+  <ellipse cx="200" cy="108" rx="25" ry="28" fill="#E8C39A"/>
+  <path d="M200 80 A25 28 0 0 1 200 136 Z" fill="#C99B71" stroke="none"/>
+  <path d="M172 100 Q200 66 228 100 L224 108 Q200 84 176 108 Z" fill="#34506E"/>
+  <path d="M200 66 L200 40" fill="none" stroke="#C23B22" stroke-width="7"/>
+  <path d="M200 40 Q216 34 222 44 Q210 50 200 48 Z" fill="#C23B22"/>
+  <path d="M186 108 L196 106 M204 106 L214 108" fill="none" stroke-width="3.5"/>
+  <path d="M190 122 Q200 126 210 122" fill="none" stroke-width="2.5"/>
+</g>
+</defs>
+<g>
+  <!-- 朱红军旗（无文字，用日轮纹） -->
+  <path d="M92 74 L92 330" fill="none" stroke="#2E2924" stroke-width="8"/>
+  <path d="M92 74 L92 330" fill="none" stroke="#B9A96B" stroke-width="4"/>
+  <path d="M94 80 L160 88 L152 150 L94 142 Z" fill="#C23B22"/>
+  <circle cx="122" cy="114" r="14" fill="#E3BE79" stroke="#8E2A18" stroke-width="3"/>
+  <path d="M94 142 L152 150" fill="none" stroke="#8E2A18" stroke-width="3"/>
+  <use href="#soldier" transform="translate(-6 26) scale(0.82)"/>
+  <use href="#soldier" transform="translate(112 46) scale(0.72)"/>
+</g>
+</svg>

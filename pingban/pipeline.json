@@ -1,0 +1,77 @@
+{
+  "version": "2026-11-15",
+  "pipeline": "pingban",
+  "style": "tablet-sketch/scroll",
+  "canvas": { "width": 1920, "height": 1080, "fps": 24 },
+  "duration": { "default": 39.4, "min": 8, "max": 120 },
+  "world": {
+    "x0": -120, "y0": -90, "dw": 2160, "dh": 1260,
+    "scale": 2.0,
+    "grid": "六格 620×400 两行三列：G1(60,240) G2(750,240) G3(1440,240) G4(60,720) G5(750,720) G6(1440,720)",
+    "rule": "每格一条贯通基线；格内元素一律写格坐标，禁止跨格叠画"
+  },
+  "camera": {
+    "z_in_figure": "2.24–2.40（视野约 800–860×450，即 1.3 格宽）",
+    "z_full_page": "0.74–0.78",
+    "move_duration": 0.62,
+    "follow": "镜头跟笔尖：cam(t) 取当前正在画的那个元素的笔位",
+    "guard": "z 下限必须保证视野不越过相邻格边界（G2 出格线在 x≈1440，相机 x 不得 > 1022）"
+  },
+  "palette": {
+    "paper": "#F3EADB",
+    "graphite": "#43362E",
+    "light": "#A8998A",
+    "coral": "#DC6A4C",
+    "mustard": "#F1C04F",
+    "red": "#C9402F",
+    "clay": "#B4876A",
+    "straw": "#DFC79B",
+    "water": "#8FB3B0",
+    "mud": "#A08A63"
+  },
+  "stroke": {
+    "pen": "0.55 步长点阵 + 压力扰动 + 纸纹阈值取整",
+    "blob": "dx/dy 偏移色块 + boustrophedon 上色 + stop/holes/cuts/replace",
+    "layers": ["light", "graph", "coral"],
+    "grain": "paper × colour × 铅笔三层 grain 阈值合成",
+    "pen_speed": "手工感 = 每笔画 0.12–0.40 s，逐字/逐段出；不写缓动曲线，写「笔画队列」"
+  },
+  "typography": {
+    "title_zh": "LongCang-sub 92 px",
+    "title_en": "Caveat-Bold 18 px 副行",
+    "label_zh": "LongCang-sub 44–56 px",
+    "label_en": "Caveat-Medium 26 px",
+    "subtitle_zh": "NotoSerifSC-500-sub 33 px",
+    "subtitle_en": "Caveat-Medium 29 px",
+    "subtitle_chip": "高 106，淡入 0.22 / 揭开 eo(fin) 左→右 / 淡出 0.18，阴影 rgba(120,100,80,.5) 偏移 9 px"
+  },
+  "render": {
+    "engine": "playwright-core chromium-headless-shell, 逐帧 JPEG pipe 给 ffmpeg",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf": 18,
+    "preset": "medium",
+    "fps_real": "13–16 fps（1920×1080，单 worker，2D canvas 全量重绘）"
+  },
+  "audio": {
+    "lufs": -14,
+    "true_peak": -1.5,
+    "limiter": "4× 过采样, -1.6 dBFS",
+    "premaster": "acompressor threshold=-18dB ratio=3 attack=5 release=60 → loudnorm I=-14 TP=-1.2",
+    "sample_rate": 48000,
+    "channels": 2,
+    "voice_lead_in": 0.09,
+    "tail": 0.7,
+    "grain": 1
+  },
+  "delivery": {
+    "sample": "projects/<编号_名>/out/",
+    "final": "projects/<编号_名>/out/<名>_sketch.mp4",
+    "files": ["<名>_sketch.mp4", "voice/cues.json"],
+    "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
+  },
+  "credits": [
+    "FONTS: Caveat (SIL OFL 1.1), Long Cang (SIL OFL 1.1), Noto Serif SC (SIL OFL 1.1)",
+    "ENGINE: 自研 2D canvas 手写引擎（无第三方依赖），本仓库 MIT"
+  ]
+}

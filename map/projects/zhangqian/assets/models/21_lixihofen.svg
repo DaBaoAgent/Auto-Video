@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="李希霍芬">
+<title>李希霍芬 · 十九世纪德国地理学家 · 漫画版立绘</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 手杖 -->
+  <path d="M266 200 L286 370" fill="none" stroke="#2E2924" stroke-width="9"/>
+  <path d="M266 200 L286 370" fill="none" stroke="#B9A96B" stroke-width="5"/>
+  <!-- 双腿与皮靴 -->
+  <path d="M176 238 L166 320 L158 366 L182 368 L192 316 L204 240 Z" fill="#34506E"/>
+  <path d="M218 238 L236 316 L250 360 L274 354 L258 306 L246 236 Z" fill="#2A4360"/>
+  <path d="M148 358 Q164 352 184 362 L186 378 L144 378 Z" fill="#6E4A24"/>
+  <path d="M246 352 Q264 346 282 356 L284 378 L242 378 Z" fill="#6E4A24"/>
+  <path d="M156 340 L184 344 M246 336 L274 330" fill="none" stroke="#7A5A36" stroke-width="3"/>
+  <!-- 西装外套 -->
+  <path d="M162 132 L238 132 L252 242 L148 242 Z" fill="#3B5A78"/>
+  <path d="M200 132 L238 132 L252 242 L200 242 Z" fill="#2A4360" stroke="none"/>
+  <!-- 马甲与领结 -->
+  <path d="M176 136 L200 168 L224 136 L232 240 L168 240 Z" fill="#C8934A"/>
+  <path d="M200 168 L200 240 M184 184 L216 184" fill="none" stroke="#9A6B31" stroke-width="3"/>
+  <path d="M200 134 L186 148 L200 158 L214 148 Z" fill="#C23B22"/>
+  <path d="M200 158 L192 172 L200 166 L208 172 Z" fill="#8E2A18"/>
+  <!-- 左臂提地图筒 -->
+  <path d="M168 144 L136 190 L146 204 L180 166 Z" fill="#34506E"/>
+  <ellipse cx="138" cy="202" rx="13" ry="12" fill="#E8C39A"/>
+  <g transform="rotate(-18 124 258)">
+    <rect x="100" y="216" width="48" height="86" rx="8" fill="#F2E2BE"/>
+    <ellipse cx="124" cy="216" rx="24" ry="9" fill="#E9D9B4"/>
+    <ellipse cx="124" cy="302" rx="24" ry="9" fill="#E9D9B4"/>
+    <path d="M108 232 L108 288 M140 232 L140 288" fill="none" stroke="#C4AC80" stroke-width="2"/>
+  </g>
+  <path d="M120 218 Q128 198 140 202" fill="none" stroke="#8E6B3E" stroke-width="4"/>
+  <!-- 右臂扶杖 -->
+  <path d="M236 144 L272 186 L262 200 L226 166 Z" fill="#2A4360"/>
+  <ellipse cx="266" cy="198" rx="12" ry="12" fill="#E8C39A"/>
+  <!-- 头与高颧骨 -->
+  <ellipse cx="202" cy="102" rx="26" ry="30" fill="#E8C39A"/>
+  <path d="M202 72 A26 30 0 0 0 202 132 Z" fill="#C99B71" stroke="none"/>
+  <path d="M178 94 L190 93 M214 93 L226 94" fill="none" stroke-width="4"/>
+  <ellipse cx="186" cy="102" rx="3.5" ry="4.5" fill="#2E2924" stroke="none"/>
+  <ellipse cx="220" cy="102" rx="3.5" ry="4.5" fill="#2E2924" stroke="none"/>
+  <path d="M186 116 Q196 120 204 118 M210 118 Q218 120 224 116" fill="none" stroke-width="3"/>
+  <path d="M182 88 Q188 80 198 80 M210 80 Q220 80 226 88" fill="none" stroke="#8E7A55" stroke-width="4"/>
+  <!-- 络腮胡 -->
+  <path d="M178 108 Q180 136 202 138 Q226 136 228 108 Q222 126 202 128 Q184 126 178 108 Z" fill="#8E7A55"/>
+  <!-- 宽檐探险帽 -->
+  <path d="M150 82 Q202 44 254 82 Q202 100 150 82 Z" fill="#B07D46"/>
+  <path d="M166 78 Q202 54 238 78 Q202 88 166 78 Z" fill="#9A6B31"/>
+  <path d="M164 68 Q202 30 240 68 L232 76 Q202 52 172 76 Z" fill="#C8934A"/>
+  <path d="M164 70 Q202 60 240 70" fill="none" stroke="#2E2924" stroke-width="8"/>
+  <!-- 上衣口袋与怀表链 -->
+  <path d="M170 196 L190 196 L190 210 L170 210 Z" fill="none" stroke="#2A4360" stroke-width="3"/>
+  <path d="M212 206 Q226 218 240 206" fill="none" stroke="#C8934A" stroke-width="3"/>
+  <circle cx="226" cy="222" r="6" fill="#C8934A"/>
+</g>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="筑路解放军战士">
+<title>解放军筑路战士 · 钢钎与铁锤 · 漫画版立绘</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 脚下雪坡 -->
+  <path d="M44 352 Q136 326 214 344 Q298 362 366 340 L366 378 L44 378 Z" fill="#FBF7EE"/>
+  <path d="M44 352 Q136 326 214 344 Q298 362 366 340" fill="none" stroke="#B9B3A2" stroke-width="3"/>
+  <!-- 双腿：绑腿棉裤 -->
+  <path d="M174 236 L166 296 L158 346 L182 350 L192 302 L206 238 Z" fill="#3B5A78"/>
+  <path d="M222 236 L240 294 L254 342 L278 336 L262 290 L252 234 Z" fill="#2A4360"/>
+  <path d="M154 330 L184 334 M182 300 L166 304 M254 326 L284 320 M238 288 L256 284" fill="none" stroke="#E3D9BE" stroke-width="4"/>
+  <path d="M148 342 Q168 336 186 348 L186 364 L144 360 Z" fill="#6E4A24"/>
+  <path d="M250 332 Q270 326 286 338 L286 356 L248 352 Z" fill="#6E4A24"/>
+  <!-- 棉军衣 -->
+  <path d="M164 128 L236 128 L250 242 L150 242 Z" fill="#3B5A78"/>
+  <path d="M200 128 L236 128 L250 242 L200 242 Z" fill="#2A4360" stroke="none"/>
+  <path d="M164 128 L200 164 L236 128" fill="none" stroke="#E3D9BE" stroke-width="4"/>
+  <!-- 棉衣绗缝线 -->
+  <path d="M156 158 Q200 168 244 158 M152 184 Q200 194 248 184 M150 212 Q200 222 250 212" fill="none" stroke="#2A4360" stroke-width="2.5"/>
+  <!-- 腰带与水壶 -->
+  <path d="M152 226 Q200 238 248 226 L248 242 Q200 254 152 242 Z" fill="#6E4A24"/>
+  <rect x="238" y="234" width="24" height="30" rx="7" fill="#7FA5A6"/>
+  <path d="M246 234 L246 226 Q250 220 254 226 L254 234" fill="none" stroke="#2E2924" stroke-width="3"/>
+  <!-- 左臂扶钎 -->
+  <path d="M168 140 L132 192 L146 204 L180 158 Z" fill="#3B5A78"/>
+  <ellipse cx="136" cy="200" rx="12" ry="13" fill="#E8C39A"/>
+  <path d="M136 200 L122 330" fill="none" stroke="#8E8A7C" stroke-width="8"/>
+  <path d="M136 200 L122 330" fill="none" stroke="#C9C4B6" stroke-width="4"/>
+  <path d="M114 318 L130 322" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <!-- 右臂抡锤 -->
+  <path d="M236 140 L272 112 L284 130 L248 160 Z" fill="#2A4360"/>
+  <ellipse cx="278" cy="122" rx="12" ry="12" fill="#E8C39A"/>
+  <path d="M278 122 L306 82" fill="none" stroke="#8E6B3E" stroke-width="11"/>
+  <rect x="296" y="60" width="44" height="30" rx="4" transform="rotate(32 318 75)" fill="#6E6A60"/>
+  <path d="M306 70 L330 86" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <!-- 头：护耳棉帽 -->
+  <ellipse cx="200" cy="102" rx="26" ry="29" fill="#E8C39A"/>
+  <path d="M200 73 A26 29 0 0 1 200 131 Z" fill="#C99B71" stroke="none"/>
+  <path d="M182 92 L192 91 M208 91 L220 92" fill="none" stroke-width="4"/>
+  <ellipse cx="186" cy="102" rx="3.5" ry="4.5" fill="#2E2924" stroke="none"/>
+  <ellipse cx="216" cy="102" rx="3.5" ry="4.5" fill="#2E2924" stroke="none"/>
+  <path d="M188 114 Q200 120 214 114" fill="none" stroke-width="3"/>
+  <path d="M168 92 Q168 52 200 50 Q234 52 234 92 Q218 78 200 78 Q182 78 168 92 Z" fill="#2A4360"/>
+  <path d="M164 88 Q152 108 160 128 L180 120 Q172 104 178 90 Z" fill="#2A4360"/>
+  <path d="M236 88 Q248 108 240 128 L220 120 Q228 104 222 90 Z" fill="#3B5A78"/>
+  <path d="M176 70 Q200 60 226 70" fill="none" stroke="#C23B22" stroke-width="5"/>
+  <circle cx="200" cy="62" r="7" fill="#C23B22"/>
+  <!-- 风雪线 -->
+  <g stroke="#7FA5A6" stroke-width="3" opacity="0.8">
+    <path d="M60 92 L96 80 M70 120 L102 110 M286 66 L322 54 M296 94 L330 84"/>
+  </g>
+</g>
+</svg>

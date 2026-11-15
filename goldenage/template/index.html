@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>阿努纳奇 · 第一段 · 美式黄金卡通</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/lilita-one@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zcool-kuaile@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/700.css">
+<style>html,body{margin:0;background:#0e1c5c}#stage{position:relative;overflow:hidden}</style>
+<script src="assets/manifest.js"></script>
+<script src="timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/goldenage.js"></script>
+</head><body><div id="stage"></div><script>
+// 阿努纳奇 · 第一段 · 美式黄金卡通：1978 年一本书说地球是外星金矿 → 神用基因造人 → 书卖疯 → 学界骂翻 → 四十年后人类真的拿起剪刀 → 剪刀是细菌的。
+// 时间全部来自旁白（T.start / T.end / T.word）。事实与屏幕文字见 brief.md。
+const { M } = PROMO;
+PROMO.compose({
+  bpm: 112, offset: 0, grain: false, chapters: false, tail: 1.1,
+  theme: { bg: '#0e1c5c', fg: '#fdf7e4', ink: '#fdf7e4', muted: '#c9c0da', accent: '#ffc93c', paper: '#0e1c5c', fonts: { display: '"Lilita One", "ZCOOL KuaiLe", sans-serif', serif: '"Lilita One", "ZCOOL KuaiLe", sans-serif', sans: '"Lilita One", "ZCOOL KuaiLe", "Noto Sans SC", sans-serif' } },
+  build: (F) => {
+    const T = F.T, s = T.start, e = T.end;
+    const G = PROMO.goldenage(F, { seed: 'anu78' }), W = G.W, H = G.H;
+    const {
+      camPush, pop, skyline, drawTower, towerTop, moon, wk, wp, shk, hit, E, dec, dust, debris, hitLines,
+      F: fill, L: stroke, pEll, pRR, pLine, text, seed, push, tr, rot, scl, TAU, PI,
+      seg, sm, eIn, eOut, K, hash, star, burst,
+    } = G.lib;
+    const GOLD = G.colors.gold, CREAM = '#fdf7e4', INK = '#1a111d';
+    const a1 = 0, a2 = s('l2'), a3 = s('l3'), a4 = s('l4'), a5 = s('l5'), a6 = s('l6'), a7 = s('l7'), a8 = s('l8'), fin = F.duration;
+
+    /* ---------- little props ---------- */
+    function bookShape(x, y, w_, h_, ang, sq, sy, cover = '#b03a2e') {
+      push(); tr(x, y); rot(ang || 0); scl(sq || 1, sy || 1);
+      fill(pRR(-w_ / 2, -h_ / 2, w_, h_, 12), cover);
+      fill(pRR(-w_ / 2 + 9, -h_ / 2 + 12, w_ - 18, h_ - 24, 8), '#f3e6c4');
+      stroke(pLine(-w_ / 2 + 18, -h_ / 2 + 34, w_ / 2 - 18, -h_ / 2 + 34, 4), 2.2, 'rgba(26,17,29,.35)');
+      stroke(pLine(-w_ / 2 + 18, -h_ / 2 + 52, w_ / 2 - 46, -h_ / 2 + 52, 4), 2.2, 'rgba(26,17,29,.25)');
+      fill(pRR(-w_ / 2 + 2, -h_ / 2 + 6, 16, h_ - 12, 5), '#7d2419');
+      pop();
+    }
+    function bookOpen(x, y, w_, h_, ang) {
+      push(); tr(x, y); rot(ang || 0);
+      fill([-w_ * 1.02, 0, -w_ * .04, -h_ * .16, -w_ * .04, h_ * .84, -w_ * 1.02, h_], '#d9cdb0');
+      fill([w_ * 1.02, 0, w_ * .04, -h_ * .16, w_ * .04, h_ * .84, w_ * 1.02, h_], '#efe6cc');
+      fill([-w_ * .04, -h_ * .16, w_ * .04, -h_ * .16, w_ * .04, h_ * .84, -w_ * .04, h_ * .84], '#c9bda1');
+      stroke(pLine(-w_ * .9, h_ * .2, -w_ * .12, h_ * .1, 4), 2, 'rgba(26,17,29,.22)');
+      stroke(pLine(w_ * .9, h_ * .2, w_ * .12, h_ * .1, 4), 2, 'rgba(26,17,29,.22)');
+      pop();
+    }
+    function globeGold(x, y, r, t, glow) {
+      if (glow) { const g = G.ctx.createRadialGradient(x, y, r * .2, x, y, r * 2.4); g.addColorStop(0, 'rgba(255,215,102,.55)'); g.addColorStop(1, 'rgba(255,215,102,0)'); G.ctx.fillStyle = g; G.ctx.beginPath(); G.ctx.arc(x, y, r * 2.4, 0, TAU); G.ctx.fill(); }
+      fill(pEll(x, y, r, r), '#d9a12c');
+      fill(pEll(x - r * .25, y - r * .2, r * .62, r * .5, 0, TAU, 14, -.3), '#ffd766');
+      seed(7);
+      for (let i = 0; i < 5; i++) fill(pEll(x - r * .6 + hash(i) * r * 1.2, y - r * .55 + hash(i * 2.1) * r * 1.1, r * (.12 + hash(i * 3) * .1), r * (.08 + hash(i * 5) * .07), .4, TAU, 8), '#c9821f');
+      star(x + r * .55, y - r * .45, r * .16, t * .6, '#fff0a6', 1.4);
+    }
+    function vat(x, base, w_, h_, t, shake, glow) {
+      const top = base - h_;
+      push(); tr(shake ? Math.sin(t * 40) * 4 : 0, 0);
+      stroke([x - w_ * .3, base, x - w_ * .3, base - 28], 10, INK);
+      stroke([x + w_ * .3, base, x + w_ * .3, base - 28], 10, INK);
+      fill(pRR(x - w_ / 2, top, w_, h_ - 26, 26), '#6c7f8f');
+      fill(pRR(x - w_ / 2 + 8, top + 8, w_ - 16, h_ - 44, 20), '#8fa3b2');
+      const cy = top + h_ * .48, R = Math.min(w_ * .28, h_ * .3);
+      fill(pEll(x, cy, R + 12, R + 12), '#3a4b5a');
+      G.lib.SC(pEll(x, cy, R, R), '#152a3a', () => {
+        for (let k = 0; k < 2; k++) {
+          const pts = [];
+          for (let i = 0; i <= 24; i++) { const u = i / 24, yy = cy - R * .85 + u * R * 1.7; pts.push(x + Math.sin(u * PI * 3.2 + t * 2.4 + k * PI) * R * .42, yy); }
+          stroke(pts, 7, k ? '#ffd766' : '#f0603a');
+          for (let i = 0; i <= 12; i++) { const u = i / 12, yy = cy - R * .85 + u * R * 1.7, xx = Math.sin(u * PI * 3.2 + t * 2.4) * R * .42; stroke(pLine(x - xx, yy, x + xx, yy, 3), 2.4, 'rgba(253,247,228,.55)'); }
+        }
+      });
+      stroke(pEll(x, cy, R + 12, R + 12), 3.4, INK);
+      seed(11); for (let i = 0; i < 8; i++) { const a = i / 8 * TAU; fill(pEll(x + Math.cos(a) * (R + 18), cy + Math.sin(a) * (R + 18), 3.4, 3.4), '#2b3a47'); }
+      fill(pRR(x - w_ * .3, top - 18, w_ * .6, 20, 6), '#4f6272');
+      stroke([x + w_ * .26, top - 8, x + w_ * .26, top - 52, x + w_ * .12, top - 60], 11, '#4f6272');
+      stroke([x - w_ * .26, top - 8, x - w_ * .26, top - 46], 9, '#4f6272');
+      pop();
+    }
+    function apeShape(x, y, s_, t) {
+      push(); tr(x, y); scl(s_);
+      fill(pEll(0, -150, 34, 38), '#3a2b24');
+      fill(pEll(-22, -152, 10, 13), '#5b463a');
+      fill(pEll(22, -152, 10, 13), '#5b463a');
+      fill(pEll(0, -138, 21, 15), '#6b5344');
+      fill(pEll(-9, -168, 4, 4), INK); fill(pEll(9, -168, 4, 4), INK);
+      fill(pEll(0, -74, 40, 54), '#3a2b24');
+      stroke([-20, -30, -34, 26], 15, '#3a2b24'); stroke([20, -30, 34, 26], 15, '#3a2b24');
+      stroke([-38, -84, -66, -40 - Math.sin(t * 2) * 6], 13, '#3a2b24');
+      stroke([38, -84, 66, -40], 13, '#3a2b24');
+      pop();
+    }
+    function bacterium(x, y, r, t, wave) {
+      seed(5);
+      for (let i = 0; i < 12; i++) {
+        const a = i / 12 * TAU + Math.sin(t * 3 + i) * .12;
+        stroke(pLine(x + Math.cos(a) * r * 1.02, y + Math.sin(a) * r * .82, x + Math.cos(a) * r * 1.32, y + Math.sin(a) * r * 1.06), 4, '#c94f2e');
+      }
+      fill(pEll(x, y, r * 1.02, r * .82, -.12, TAU, 20), '#7fa34a');
+      fill(pEll(x - r * .12, y - r * .16, r * .7, r * .5, -.12, TAU, 16), '#a6c268');
+      fill(pEll(x - r * .28, y - r * .1, r * .16, r * .18), CREAM); fill(pEll(x + r * .22, y - r * .12, r * .16, r * .18), CREAM);
+      fill(pEll(x - r * .26, y - r * .08, r * .08, r * .1), INK); fill(pEll(x + r * .24, y - r * .1, r * .08, r * .1), INK);
+      stroke(pEll(x, y + r * .14, r * .26, r * .14, .1, PI - .1, 8), 3.4, INK);
+      if (wave) stroke([x + r * .9, y, x + r * 1.25, y - r * .35 - Math.sin(t * 8) * r * .12], 5, '#7fa34a');
+    }
+    function scissors(x, y, s_, ang, open, glow) {
+      push(); tr(x, y); rot(ang); scl(s_);
+      const o = open * .34;
+      for (const sg of [-1, 1]) {
+        push(); rot(sg * o);
+        fill([sg * 6, -8, sg * 320, -30, sg * 320, -6, sg * 12, 10], '#1a1d24');
+        fill([sg * 6, -8, sg * 320, -30, sg * 300, -18, sg * 10, 2], glow ? '#e8eef8' : '#aab4c4');
+        stroke(pEll(sg * -34, 26, 34, 30), 16, '#1a1d24');
+        pop();
+      }
+      fill(pEll(0, 0, 18, 18), '#f0c14a');
+      fill(pEll(0, 0, 8, 8), '#7d5a12');
+      pop();
+    }
+    function tablet(x, y, w_, h_, crack) {
+      push(); tr(x, y);
+      fill(pRR(-w_ / 2, -h_ / 2, w_, h_, 16), '#c9a878');
+      fill(pRR(-w_ / 2 + 10, -h_ / 2 + 10, w_ - 20, h_ - 20, 10), '#d8bd91');
+      seed(22);
+      for (let r = 0; r < 4; r++) for (let c = 0; c < 7; c++) {
+        const X = -w_ / 2 + 34 + c * (w_ - 68) / 6.4, Y = -h_ / 2 + 42 + r * (h_ - 84) / 3.6;
+        stroke([X - 11, Y - 5, X + 11, Y - 3], 4.4, '#8d6b40');
+        stroke([X - 9, Y + 5, X + 8, Y + 3], 3.2, '#8d6b40');
+      }
+      if (crack > 0) {
+        const pts = [[-w_ * .1, -h_ / 2], [-w_ * .04, -h_ * .2], [-w_ * .14, 0], [-w_ * .05, h_ * .22], [-w_ * .02, h_ / 2]];
+        stroke(pts, 3 + crack * 5, INK, { taper: .3 });
+        stroke([[-w_ * .14, 0], [-w_ * .34, h_ * .12], [-w_ * .4, h_ * .06]], 2 + crack * 3, INK);
+      }
+      pop();
+    }
+
+    /* ================= 1 · 1978，一本从天而降的书 ================= */
+    G.shot(0, a2, (u, t) => {
+      const hitAt = 1.55, sh = shk(t, t > hitAt ? 15 * dec(t - hitAt, 3.2) : 0, 6);
+      camPush(640, 400, 1.02 + seg(u, 4.4, 6) * .05, 0, sh[0], sh[1]);
+      skyline(640, 400, t, { far: 690, mid: 930 });
+      const d = { sq: hit(t, hitAt, .6), sk: 1.15, bul: t > hitAt ? .2 * E(t - hitAt, 2.2, 3) : 0, rattle: t > hitAt ? dec(t - hitAt, 1.5) : 0 };
+      drawTower('hotel', 640, 1080, 1.3, d);
+      const top = towerTop('hotel', 640, 1080, 1.3, d);
+      const roofY = top[1];
+      const fall = K(u, [[0, -360], [.85, -360, sm], [hitAt, roofY - 40, eIn]]);
+      const flat = u >= hitAt && u < hitAt + .18;
+      if (u < hitAt + .02) {
+        if (!flat) bookShape(640, fall, 230, 168, Math.sin(u * 2) * .08, 1, 1);
+        else bookShape(640, roofY - 30, 230, 168, 0, 1.5, .34);
+      } else {
+        bookOpen(640, roofY - 20, 196, 118, 0);
+        const rise = eOut(seg(u, hitAt + .55, hitAt + 1.5));
+        const gy = roofY - 92 - rise * 92;
+        if (rise > 0) globeGold(640, gy, 66, t, true);
+        if (rise > .55) {
+          star(560, gy - 94, 14, t * 1.4, '#fff0a6', 2);
+          star(724, gy - 40, 11, -t * 1.1, '#fff0a6', 2);
+        }
+      }
+      if (t < hitAt) { seed(31); if (u > .3) for (let i = 0; i < 4; i++) { const q = (u - .3 + i * .2) % .8; stroke(pLine(640 + (hash(i) - .5) * 16, fall - 60 + q * 40, 640 + (hash(i) - .5) * 16, fall - 30 + q * 40, 2), 2.2, 'rgba(253,247,228,.45)'); } }
+      if (u >= hitAt) { dust(t, t, 640, roofY - 20, 9, 13, 150, .9); debris(t, t, 640, roofY - 20, 7, 14, 220, 900, ['#c9a878', '#8d6b40', '#f3e6c4']); }
+      const wx = 390, bp = wp({ lean: t < hitAt ? .1 : -.06, rax: t < hitAt ? 92 : 58, ray: t < hitAt ? -30 : -76, rab: 26, rhk: 2, lhk: 2, eo: 1, mo: t > hitAt ? .7 : .1, mw: t > hitAt ? 12 : 4, sm: t > hitAt ? 8 : 1, brow: .7, lx: .4, ly: -.2 });
+      if (u < hitAt + .3 || u > hitAt + .9) wk(wx, roofY - 6, .62, bp, 1, 1);
+      pop();
+    }, { cut: true });
+    G.bonk(1.55, .9);
+    G.write('1978', { x: 246, y: 126, size: 92, at: 0.45, until: a2, color: GOLD, pop: true });
+    G.write('地球＝金矿', { x: 250, y: 236, size: 34, at: 2.7, until: a2, color: CREAM, pop: true });
+
+    /* ================= 2 · 神的基因 × 猿 ================= */
+    G.shot(a2, a3, (u, t) => {
+      const popAt = 4.55;
+      const sh = shk(t, u > 3.0 ? 6 * dec(u - 3.0, 2.2) : 0, 4);
+      camPush(640, 392, 1.0, 0, sh[0], sh[1]);
+      skyline(640, 392, t, { far: 730, mid: 980 });
+      moon(1042, 168, 96, { eo: 0, sm: 10, mo: .25, mw: 18, lx: -.4, ly: .4, glow: .9, roll: Math.sin(t * .9) * .03 });
+      const beam = .55 + Math.sin(t * 6) * .12;
+      stroke([1042, 258, 1000, 300, 880, 360], 18 + beam * 8, 'rgba(255,215,102,.5)', { taper: .6 });
+      stroke([1042, 258, 1000, 300, 880, 360], 7, 'rgba(255,240,166,.9)', { taper: .6 });
+      apeShape(318, 700, .92, t);
+      vat(640, 700, 330, 300, t, u > 2.2, false);
+      seed(41);
+      for (let i = 0; i < 9; i++) {
+        const q = (u * .5 + i * .19) % 1;
+        const bx = 640 + (hash(i) - .5) * 130, by = 520 - q * 170;
+        if (q < .9) fill(pEll(bx, by, 4 + hash(i * 3) * 7, 4 + hash(i * 3) * 7), 'rgba(255,215,102,.55)');
+      }
+      if (u > popAt) {
+        const q = eOut(seg(u, popAt, popAt + .6)), wy = 452 - q * 120 + (u > popAt + .6 ? (u - popAt - .6) * 40 : 0);
+        wk(640, wy + 60, .74, wp({ lean: -.1, rax: 118, ray: -62, rab: 14, rhk: 1, lax: 118, lay: -62, lab: 14, lhk: 1, eo: 1, mo: .5, mw: 8, sm: 6, brow: .8, tilt: .08 }), 1, 1);
+      }
+      if (u > popAt) { const q = seg(u, popAt, popAt + .4); burst(640, 446, 40 + q * 40, 10, t, 'rgba(255,240,166,' + (1 - q) + ')', 3); }
+      pop();
+    }, { cut: true });
+    G.bonk(9.35, .55);
+    G.write('神', { x: 1042, y: 30, size: 34, at: a2 + .5, until: a3, color: GOLD });
+    G.write('猿', { x: 318, y: 480, size: 42, at: a2 + .7, until: a3, color: CREAM });
+    G.write('基因混一混', { x: 640, y: 118, size: 36, at: a2 + 2.4, until: a3, color: GOLD });
+
+    /* ================= 3 · 人 ================= */
+    G.shot(a3, a4, (u, t) => {
+      camPush(640, 420, 1.18 + u * .03, 0, 0, 0);
+      skyline(640, 420, t, { far: 760, mid: 1100 });
+      fill(pEll(640, 706, 190, 26), 'rgba(8,8,26,.45)');
+      const wob = Math.sin(t * 2.2) * .03;
+      wk(640, 700, 1.02, wp({ lean: -.02, rax: 52, ray: 26, rab: 18, rhk: 2, lax: 52, lay: 26, lab: -18, lhk: 2, eo: 1, mo: .18, mw: 6, sm: 1, brow: .2, tilt: .04 + wob, lx: .1, ly: .1, hsx: 1.02 }), 1, 1);
+      star(880, 250, 12, t * 1.2, 'rgba(255,240,166,.7)', 2);
+      pop();
+    }, { cut: true });
+    G.write('人', { x: 1000, y: 300, size: 120, at: a3 + .25, until: a4, color: GOLD, pop: true });
+
+    /* ================= 4 · 几百万册 ================= */
+    G.shot(a4, a5, (u, t) => {
+      camPush(700, 430, 1.0 - seg(u, 0, 3.9) * .06, 0, 0, 0);
+      skyline(700, 430, t, { far: 720, mid: 980 });
+      fill(pEll(640, 742, 360, 34), 'rgba(8,8,26,.4)');
+      const n = 13, x0 = 700, base = 720;
+      for (let i = 0; i < n; i++) {
+        const at = .1 + i * .16;
+        if (u < at) continue;
+        const q = eOut(seg(u, at, at + .35));
+        const yy = base - i * 40 - (1 - q) * 120;
+        const tilt = Math.sin(i * 2.1) * .05;
+        bookShape(x0 + Math.sin(i * 1.7) * 10, yy, 220, 44, tilt, 1, 1, i % 3 ? '#8e2f24' : '#b03a2e');
+      }
+      if (u > 2.4) { const q = eOut(seg(u, 2.4, 2.9)); text('20+', 300, 300 - q * 10, 150, { col: '#ffc93c', layers: [[12, INK, 6, 7], [6, '#f0603a', 0, 0], [2, '#fff0a6', -3, -4]] }); }
+      if (u > 2.6) wk(330, 740, .78, wp({ lean: -.08, rax: 120, ray: -74, rab: 18, rhk: 1, lax: 70, lay: 10, eo: 1, mo: .5, mw: 9, sm: 8, brow: .6 }), 1, 1);
+      pop();
+    }, { cut: true });
+    G.write('几百万册', { x: 300, y: 400, size: 38, at: a4 + 2.7, until: a5, color: CREAM, pop: true });
+
+    /* ================= 5 · 学界：伪学术 ================= */
+    G.shot(a5, a6, (u, t) => {
+      const hitAt = 1.85, sh = shk(t, t > hitAt ? 18 * dec(t - hitAt, 3.0) : 0, 6);
+      camPush(640, 400, 1.06, 0, sh[0], sh[1]);
+      skyline(640, 400, t, { far: 750, mid: 1050 });
+      const stampY = K(u, [[0, -300], [1.2, -300, sm], [hitAt, 300, eIn]]);
+      tablet(640, 430, 470, 330, u > hitAt ? 1 : 0);
+      if (u < hitAt) {
+        stroke([640, stampY - 54, 640, stampY - 122], 26, '#4a2f28');
+        fill(pRR(640 - 46, stampY - 148, 92, 30, 9), '#3a221c');
+        fill(pRR(640 - 150, stampY - 60, 300, 120, 10), '#4a2f28');
+        fill(pRR(640 - 138, stampY - 48, 276, 96, 6), '#6b4437');
+        stroke(pLine(640 - 120, stampY + 8, 640 + 120, stampY + 8, 4), 3, '#3a221c');
+      } else {
+        const q = seg(u, hitAt, hitAt + .5);
+        if (q < 1) burst(640, 340, 120 + q * 100, 14, .2, 'rgba(240,96,58,' + (1 - q) * .5 + ')', 3);
+        seed(61); for (let i = 0; i < 10; i++) { const a = i / 10 * TAU; fill(pEll(640 + Math.cos(a) * (180 + hash(i) * 60), 340 + Math.sin(a) * (60 + hash(i * 2) * 70), 9, 7), 'rgba(240,96,58,.8)'); }
+      }
+      bookShape(640, 660, 230, 60, 0, 1.35, .42, '#7d2419');
+      pop();
+    }, { cut: true });
+    G.bonk(17.36 + 1.85, 1.0);
+    G.write('伪学术', { x: 640, y: 430, size: 96, at: a5 + 1.9, until: a6, color: '#f0603a', pop: true, tilt: -.05 });
+    G.write('翻译，错了', { x: 640, y: 540, size: 40, at: a5 + 2.9, until: a6, color: CREAM, pop: true });
+    G.iris(a6 - .35, { out: true, x: 640, y: 380 });
+    G.iris(a7 + .02, { out: false, x: 640, y: 420, dur: .6 });
+
+    /* ================= 6 · 最讽刺的，在后面 ================= */
+    G.pause(a6, a6 + 1.15, { energy: 1, name: 'hush' });
+    G.shot(a6, a7, (u, t) => {
+      camPush(640, 400, 1.0, 0, 0, 0);
+      fill([0, 0, W, 0, W, H, 0, H], '#05070f');
+      tablet(640, 470, 470, 330, 1);
+      bookShape(640, 690, 230, 56, 0, 1.35, .42, '#4a1a14');
+      const q = seg(u, .2, 1.0);
+      if (q > 0) { push(); tr(640, 90 + q * 30); rot(-.08); fill([-120, 0, 120, -12, 120, 4, -120, 16], 'rgba(210,225,245,' + q + ')'); pop(); }
+      star(870, 140, 16 * q, t, '#e8eef8', 2);
+      pop();
+    }, { cut: true });
+
+    /* ================= 7 · 四十年后，剪刀落下 ================= */
+    G.shot(a7, a8, (u, t) => {
+      const fallAt = 1.0, cutAt = 2.3;
+      const sh = shk(t, t > cutAt ? 22 * dec(t - cutAt, 3.4) : 0, 8);
+      camPush(640, 420, 1.02 + seg(u, 2.6, 3.2) * .12, 0, sh[0], sh[1]);
+      skyline(640, 420, t, { far: 740, mid: 1000 });
+      const sy = K(u, [[0, -520], [fallAt, -520, sm], [cutAt - .25, 300, eIn]]);
+      const open = u < cutAt - .35 ? 1.0 : u < cutAt ? 1.0 - .62 * seg(u, cutAt - .35, cutAt) : .38;
+      if (u < cutAt) tablet(640, 470, 470, 330, u > cutAt - .3 ? .3 : 0);
+      else {
+        const q = eOut(seg(u, cutAt, cutAt + 1.2));
+        push(); tr(640 - 60 - q * 90, 470 + q * 120); rot(-q * .22); tablet(0, 0, 470, 330, 1); pop();
+        push(); tr(640 + 60 + q * 90, 470 + q * 120); rot(q * .22); tablet(0, 0, 470, 330, 1); pop();
+      }
+      scissors(640, sy, .58, -PI / 2 + .1, open, true);
+      if (u >= cutAt) {
+        hitLines(640, 470, 260, t);
+        const q = seg(u, cutAt, cutAt + .5);
+        if (q < 1) burst(640, 470, 160 + q * 120, 16, .3, 'rgba(255,240,166,' + (1 - q) * .6 + ')', 4);
+      }
+      moon(1060, 200, 74, { eo: 1.25, eo2: 1.25, mo: .8, mw: 20, sm: -2, brow: .9, tilt: -.1 });
+      pop();
+    }, { cut: true });
+    G.bonk(a7 + 2.3, 1.1);
+    G.write('40 年', { x: 250, y: 200, size: 54, at: a7 + .2, until: a8, color: GOLD, pop: true });
+
+    /* ================= 8 · 剪刀是细菌的 ================= */
+    G.shot(a8, fin, (u, t) => {
+      camPush(640, 450, 1.12 + seg(u, 0, 2.4) * .16, 0, 0, 0);
+      fill([0, 0, W, 0, W, H, 0, H], '#05070f');
+      skyline(640, 430, t, { far: 900, mid: 1300 });
+      scissors(620, 560, 1.08, .12, 1.15, true);
+      bacterium(620, 524, 52, t, u > .8);
+      if (u > 1.0) star(712, 456, 10, t * 1.6, '#fff0a6', 2);
+      pop();
+    }, { cut: true });
+    G.write('细菌', { x: 300, y: 196, size: 78, at: a8 + .55, until: fin, color: '#a6c268', pop: true });
+    G.iris(fin - .55, { out: true, x: 600, y: 400, dur: .5 });
+
+    T.lines.filter((l) => !l.silence).forEach((l) => F.info('diagram', l.start, Math.min(l.end + 0.2, F.duration), { group: l.id }));
+    F.section(0, 1, { name: 'hook' });
+    F.section(a2, 2, { name: 'myth' });
+    F.section(a5, 2, { name: 'turn' });
+    F.section(a7, 3, { name: 'scissors', hit: true });
+    F.section(a8, 2, { name: 'reveal', hit: true });
+    F.coverAt(a3 + .5);
+  },
+});
+</script></body></html>

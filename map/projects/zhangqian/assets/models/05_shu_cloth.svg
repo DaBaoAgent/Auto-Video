@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="蜀布">
+<title>蜀地织布 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 布身：半卷半展的斜置布匹 -->
+  <path d="M252 172 C212 184 158 208 104 240 Q90 248 96 264 L106 296 Q110 308 122 302 C176 276 228 248 268 216 Z" fill="#F2E2BE"/>
+  <path d="M252 172 C212 184 158 208 104 240 Q90 248 96 264 L106 296 Q110 308 122 302" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <!-- 布面暗部与褶皱 -->
+  <path d="M252 172 C228 182 196 196 166 212 L150 288 C176 276 214 256 268 216 Z" fill="#DCC79C" stroke="none"/>
+  <path d="M166 212 Q160 254 150 288 M206 194 Q200 236 190 270" fill="none" stroke="#B9A176" stroke-width="3"/>
+  <path d="M124 246 Q118 274 122 300" fill="none" stroke="#B9A176" stroke-width="3"/>
+  <!-- 织纹：细密平行短线 -->
+  <g fill="none" stroke="#C4AC80" stroke-width="1.6" stroke-linecap="round">
+    <path d="M140 234 L176 216 M138 244 L174 226 M136 254 L172 236 M134 264 L170 246 M132 274 L168 256"/>
+    <path d="M186 216 L222 198 M184 226 L220 208 M182 236 L218 218 M180 246 L216 228 M178 256 L214 238"/>
+    <path d="M228 196 L252 184 M226 206 L250 194 M224 216 L248 204"/>
+  </g>
+  <!-- 朱红 / 靛蓝条纹边 -->
+  <path d="M250 180 C212 192 158 216 106 248" fill="none" stroke="#C23B22" stroke-width="8"/>
+  <path d="M252 192 C214 204 160 228 108 260" fill="none" stroke="#34506E" stroke-width="5"/>
+  <path d="M252 204 C216 216 164 240 112 272" fill="none" stroke="#C23B22" stroke-width="3"/>
+  <!-- 下缘毛边 -->
+  <g fill="none" stroke="#8E7A55" stroke-width="2.5">
+    <path d="M106 296 L102 306 M116 292 L114 304 M128 286 L126 298 M140 280 L139 292 M152 274 L151 286"/>
+  </g>
+  <!-- 卷筒 -->
+  <g transform="rotate(-24 282 138)">
+    <rect x="240" y="108" width="88" height="60" rx="8" fill="#E9D9B4"/>
+    <path d="M252 108 L252 168 M272 108 L272 168 M300 108 L300 168" fill="none" stroke="#C4AC80" stroke-width="2"/>
+    <ellipse cx="240" cy="138" rx="15" ry="30" fill="#FBF7EE"/>
+    <ellipse cx="240" cy="138" rx="9" ry="20" fill="#C8934A"/>
+    <path d="M240 122 Q248 138 240 154 Q234 138 240 122 Z" fill="#8E7A3E" stroke-width="2.5"/>
+    <ellipse cx="328" cy="138" rx="8" ry="30" fill="#DCC79C"/>
+  </g>
+  <!-- 卷筒阴影与高光 -->
+  <path d="M262 176 Q282 186 302 176" fill="none" stroke="#B9A176" stroke-width="3"/>
+</g>
+</svg>

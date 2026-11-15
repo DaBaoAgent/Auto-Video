@@ -1,0 +1,40 @@
+{
+ "jobs": [
+  {
+   "id": "S001",
+   "image": "post/S001.png",
+   "seed": 12001,
+   "prompt": "Hand-painted flat cel animation, 1983 Shanghai Animation Film Studio style. A five-tier stone pagoda stands on a rocky hillside above a jade-green lake, layered grey-green mountain ranges behind it, the sky split into two horizontal bands of pale cream and pale teal. Thin near-black ink contour, flat colour blocks, no gradient shading, visible paper grain. Slow mist drifts across the lake, gentle ripples move on the water surface. The camera holds perfectly still. Keep the drawing on the model sheet unchanged."
+  },
+  {
+   "id": "S002",
+   "image": "post/S002.png",
+   "seed": 12002,
+   "prompt": "Hand-painted flat cel animation, 1983 Shanghai Animation Film Studio style. A broken stone pagoda tilts on a riverbank, a pile of fallen bricks below it, a long band of ochre dust hanging in the air, pale green sky. Thin near-black ink contour, flat colour blocks, no gradient shading, visible paper grain. Fine dust drifts slowly sideways through the air, the brick pile and the pagoda stay completely still. The camera holds perfectly still. Keep the drawing on the model sheet unchanged."
+  },
+  {
+   "id": "S003",
+   "image": "post/S003.png",
+   "seed": 12003,
+   "prompt": "Hand-painted flat cel animation, 1983 Shanghai Animation Film Studio style. Three men in long scholar robes stand with their backs to us against a plain pale lilac wall, their silhouettes nearly black, no window. Thin near-black ink contour, flat colour blocks, no gradient shading, visible paper grain. Fine dust motes drift slowly in the window light, the figures stay completely still. The camera holds perfectly still. Keep the drawing on the model sheet unchanged."
+  },
+  {
+   "id": "S004",
+   "image": "post/S004.png",
+   "seed": 12004,
+   "prompt": "Hand-painted flat cel animation, 1983 Shanghai Animation Film Studio style. A narrow stone staircase descends into a brick vaulted underground chamber, flat pale grey walls, a small hanging lamp on the right, a dark doorway at the bottom. Thin near-black ink contour, flat colour blocks, no gradient shading, visible paper grain. The lamp flame flickers very slightly, thin dust drifts down the stairs. The camera holds perfectly still. Keep the drawing on the model sheet unchanged."
+  },
+  {
+   "id": "S005",
+   "image": "post/S005.png",
+   "seed": 12005,
+   "prompt": "Hand-painted flat cel animation, 1983 Shanghai Animation Film Studio style. An extreme close-up of a large flat stone slab, one long pale crack running diagonally across it, cold white light glowing faintly from inside the crack. Thin near-black ink contour, flat colour blocks, no gradient shading, visible paper grain. The white glow in the crack breathes very slowly, a thin thread of dust drifts across the stone. The camera holds perfectly still. Keep the drawing on the model sheet unchanged."
+  },
+  {
+   "id": "S006",
+   "image": "post/S006.png",
+   "seed": 12006,
+   "prompt": "Hand-painted flat cel animation, 1983 Shanghai Animation Film Studio style. A square iron chest with brass corner fittings stands on the brick floor of an underground chamber, a few bronze coins scattered around it, flat pale yellow-grey palette. Thin near-black ink contour, flat colour blocks, no gradient shading, visible paper grain. A little dust drifts slowly near the floor, the chest and the coins stay completely still. The camera holds perfectly still. Keep the drawing on the model sheet unchanged."
+  }
+ ]
+}

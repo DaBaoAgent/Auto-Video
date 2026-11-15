@@ -1,0 +1,76 @@
+{
+  "version": "2026-11-09",
+  "pipeline": "pencil",
+  "style": "bb-video/pencil",
+  "label": "铅笔手绘动画",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "logical": "1 单位 = 1080 高画面 zoom 1 下的 1 px；竖屏 1080 宽"
+  },
+  "duration": {
+    "default": 30,
+    "min": 8,
+    "max": 300
+  },
+  "palette": {
+    "paper": "#eee8db",
+    "lead": "#2c2a27",
+    "soft": "#5d5952",
+    "blue": "#6f9cc6",
+    "shade": "#4a4741",
+    "haze": "#3f3a48",
+    "accent": "#d8902e"
+  },
+  "fonts": [
+    "LXGW WenKai (霞鹜文楷)",
+    "Noto Sans SC"
+  ],
+  "motion": {
+    "twos": true,
+    "drawings_per_second": 15,
+    "boil": true,
+    "transitions": [
+      "morph",
+      "travel"
+    ],
+    "cuts": false
+  },
+  "audio": {
+    "bpm": 90,
+    "key": "D major",
+    "lufs": -16,
+    "true_peak": -1.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "voice_lead_in": 0.7,
+    "tail": 1.2
+  },
+  "render": {
+    "engine": "Chrome DevTools Protocol, frame by frame",
+    "chrome": "CHROME_PATH (Windows: auto-detect Chrome/Edge)",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/",
+    "final": "out/<编号>_<人物>/",
+    "files": [
+      ".mp4",
+      "_封面.png",
+      "_字幕.srt",
+      "_署名.txt"
+    ],
+    "qa": "review/qa.json"
+  },
+  "sample": {
+    "name": "阿努纳奇 · 第一段",
+    "duration": "30.4 s / 1920×1080 / 30 fps",
+    "path": "template/",
+    "media_committed": false
+  }
+}

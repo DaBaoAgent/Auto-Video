@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="雪崩">
+<title>雪崩 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 雪山背景 -->
+  <path d="M20 300 L104 128 L152 214 L206 108 L290 258 L330 190 L392 300 L392 372 L20 372 Z" fill="#B9D2D1"/>
+  <path d="M104 128 L152 214 L118 240 L80 210 Z" fill="#FBF7EE"/>
+  <path d="M206 108 L290 258 L230 270 L196 196 Z" fill="#FBF7EE"/>
+  <path d="M330 190 L392 300 L342 300 Z" fill="#FBF7EE"/>
+  <path d="M20 300 L104 128 M206 108 L290 258" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <!-- 雪崩主流 -->
+  <path d="M154 206 Q128 236 158 264 Q118 282 156 312 Q110 330 144 356 Q190 372 234 356 Q270 340 254 312 Q290 288 262 266 Q286 240 252 220 Q232 200 206 210 Q180 190 154 206 Z" fill="#FBF7EE"/>
+  <path d="M154 206 Q128 236 158 264 Q118 282 156 312 Q110 330 144 356 Q190 372 234 356 Q270 340 254 312 Q290 288 262 266 Q286 240 252 220 Q232 200 206 210 Q180 190 154 206 Z" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <!-- 雪团与内部暗面 -->
+  <g fill="#E3D9BE" stroke="none">
+    <path d="M150 240 Q180 224 206 240 Q224 256 208 272 Q178 288 156 270 Z"/>
+    <path d="M164 296 Q196 278 228 296 Q246 312 226 328 Q194 342 168 324 Z"/>
+    <path d="M130 330 Q158 318 182 332 Q196 344 180 356 Q152 366 132 352 Z"/>
+  </g>
+  <g fill="none" stroke="#B9B3A2" stroke-width="3">
+    <path d="M160 232 Q184 220 204 232 M172 286 Q198 272 222 288 M142 336 Q160 328 176 338"/>
+  </g>
+  <!-- 被裹挟的碎石与断木 -->
+  <g fill="#6E6A60">
+    <path d="M244 250 L260 242 L268 256 L252 264 Z"/>
+    <path d="M138 282 L152 274 L160 288 L146 296 Z"/>
+    <path d="M210 336 L226 328 L234 342 L218 350 Z"/>
+  </g>
+  <path d="M272 320 L320 344" fill="none" stroke="#6E4A24" stroke-width="8"/>
+  <path d="M286 312 L282 330 M302 322 L298 340" fill="none" stroke="#8E6B3E" stroke-width="4"/>
+  <!-- 扬起的雪雾 -->
+  <g fill="none" stroke="#FBF7EE" stroke-width="8" opacity="0.9">
+    <path d="M100 250 Q64 238 36 252 M120 294 Q78 286 52 302 M96 344 Q60 338 34 352"/>
+  </g>
+  <g fill="#FBF7EE" stroke="none" opacity="0.9">
+    <circle cx="72" cy="264" r="7"/><circle cx="50" cy="286" r="5"/><circle cx="84" cy="316" r="6"/>
+  </g>
+  <!-- 落石轨迹 -->
+  <g fill="none" stroke="#8E8A7C" stroke-width="3" stroke-dasharray="6 6">
+    <path d="M244 214 Q274 196 300 206 M232 236 Q268 222 292 236"/>
+  </g>
+</g>
+</svg>

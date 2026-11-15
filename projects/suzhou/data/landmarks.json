@@ -1,0 +1,17 @@
+[
+  {"id": "huqiu", "name": "虎丘云岩寺塔", "en": "Yunyan Pagoda, Tiger Hill", "lon": 120.576354, "lat": 31.337992, "height": 47.7, "type": "pagoda", "era": "959", "chapter": 5, "source": "OSM 206069300", "note": "七层八面，向西北倾斜约 2.5°"},
+  {"id": "beisi", "name": "北寺塔", "en": "North Temple Pagoda", "lon": 120.615413, "lat": 31.324527, "height": 76.0, "type": "pagoda", "era": "1163", "chapter": 5, "source": "OSM 206076447", "note": "报恩寺塔，九层，古城最高古塔"},
+  {"id": "ruiguang", "name": "瑞光塔", "en": "Ruiguang Pagoda", "lon": 120.614437, "lat": 31.291333, "height": 43.2, "type": "pagoda", "era": "1004", "chapter": 5, "source": "OSM 608471429", "note": "七层八面，盘门内"},
+  {"id": "panmen", "name": "盘门水陆城门", "en": "Panmen Gate", "lon": 120.611945, "lat": 31.289543, "height": 11.0, "type": "gate", "era": "-514", "chapter": 1, "source": "OSM 685088107", "note": "水门陆门并列，现存城楼为元明清遗构；吴门桥在外"},
+  {"id": "shantang", "name": "山塘街·通贵桥", "en": "Shantang Street", "lon": 120.592021, "lat": 31.324859, "height": 8.0, "type": "street", "era": "825", "chapter": 4, "source": "OSM 161416533", "note": "七里山塘，河街并行，通贵桥为明代石拱桥"},
+  {"id": "pingjiang", "name": "平江路水巷", "en": "Pingjiang Road", "lon": 120.629095, "lat": 31.318116, "height": 8.0, "type": "street", "era": "1229", "chapter": 5, "source": "OSM 平江路", "note": "一河一街，宋《平江图》街巷格局"},
+  {"id": "hanshan", "name": "寒山寺·枫桥", "en": "Hanshan Temple & Maple Bridge", "lon": 120.566700, "lat": 31.307400, "height": 15.0, "type": "temple", "era": "502", "chapter": 4, "source": "估算（OSM 缺名称）", "note": "枫桥夜泊；寺与桥隔河相望"},
+  {"id": "zhuozheng", "name": "拙政园", "en": "Humble Administrator's Garden", "lon": 120.624461, "lat": 31.326041, "height": 9.0, "type": "garden", "era": "1509", "chapter": 6, "source": "OSM 468359738", "note": "水面占三分之一，亭榭沿水布置"},
+  {"id": "museum", "name": "苏州博物馆", "en": "Suzhou Museum", "lon": 120.626600, "lat": 31.324500, "height": 20.0, "type": "museum", "era": "2006", "chapter": 10, "source": "估算", "note": "贝聿铭设计，粉墙黛瓦几何化"},
+  {"id": "baodai", "name": "宝带桥", "en": "Baodai Bridge", "lon": 120.649850, "lat": 31.257774, "height": 7.0, "type": "bridge", "era": "816", "chapter": 4, "source": "OSM 460257370", "note": "53 孔石拱桥，澹台湖口"},
+  {"id": "orient", "name": "东方之门", "en": "Gate of the Orient", "lon": 120.673600, "lat": 31.318700, "height": 301.8, "type": "tower", "era": "2015", "chapter": 9, "source": "估算", "note": "双塔门形，金鸡湖西岸"},
+  {"id": "ifs", "name": "苏州国金中心", "en": "Suzhou IFS", "lon": 120.716400, "lat": 31.313900, "height": 450.0, "type": "tower", "era": "2019", "chapter": 10, "source": "估算", "note": "湖东第一高楼，95 层"},
+  {"id": "suzhoucenter", "name": "苏州中心", "en": "Suzhou Center", "lon": 120.673431, "lat": 31.316359, "height": 221.6, "type": "tower", "era": "2017", "chapter": 9, "source": "OSM 462717390", "note": "七塔楼连体，湖西门户"},
+  {"id": "culture", "name": "苏州文化艺术中心", "en": "Suzhou Culture & Arts Centre", "lon": 120.697845, "lat": 31.323324, "height": 40.0, "type": "hall", "era": "2007", "chapter": 9, "source": "OSM 462720282", "note": "金鸡湖北岸，曲面屋顶"},
+  {"id": "shangzhen", "name": "穹窿山上真观", "en": "Shangzhen Temple, Qionglong Hill", "lon": 120.423300, "lat": 31.273600, "height": 18.0, "type": "temple", "era": "1179", "chapter": 0, "source": "估算", "note": "苏州最高峰，山顶道观"}
+]

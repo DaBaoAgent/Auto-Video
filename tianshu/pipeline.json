@@ -1,0 +1,128 @@
+{
+  "version": "2026-11-15",
+  "pipeline": "tianshu",
+  "style": "1983 Shanghai Animation Film Studio hand-drawn cel animation (天书奇谭 lineage), 4:3 academy frame",
+  "cost": "全程本地：Qwen-Image 2.1 Q4 出定帧 + Wan2.2 TI2V-5B Q4 出动态，两项都跑在 ComfyUI 里，无任何云端 API，单次成本 0 元",
+
+  "canvas": {
+    "ratio": "4:3",
+    "plate": "1024x768",
+    "i2v_std": "960x720",
+    "i2v_big": "1152x864",
+    "master": "960x720",
+    "fps": 24,
+    "read_fps": 12.5,
+    "read_note": "成片按 24fps 出，需要「一拍二」台阶感时再用 ffmpeg 降到 12.5 张/秒；不要用 60fps 的丝滑感"
+  },
+
+  "ratios": {
+    "4:3":  {"plate": "1024x768", "i2v_std": "960x720",  "i2v_big": "1152x864"},
+    "16:9": {"plate": "1024x576", "i2v_std": "960x544",  "i2v_big": "1152x640"},
+    "9:16": {"plate": "768x1024", "i2v_std": "704x1280", "i2v_big": "864x1152"}
+  },
+
+  "paths": {
+    "comfy_root": "D:/@kaifa/ComfyUI",
+    "comfy_inner": "ComfyUI",
+    "comfy_server": "http://127.0.0.1:8188",
+    "film_frames": "D:/@kaifa/@/天书奇谭/抽帧/参考帧_init",
+    "publish_root": "D:/@kaifa/PeiYin/weijie/出稿",
+    "python_candidates": [
+      "D:/@kaifa/ComfyUI/python_embeded/python.exe",
+      "D:/@kaifa/OpenMontage/.venv/Scripts/python.exe",
+      "python"
+    ]
+  },
+
+  "models": {
+    "qwen": {
+      "unet": "qwen-image-2.1-Q4_K_M.gguf",
+      "clip": "qwen3vl_8b_w4a8.safetensors",
+      "clip_type": "qwen_image",
+      "vae": "qwen_image_2.1_vae_bf16.safetensors"
+    },
+    "wan": {
+      "unet": "Wan2.2-TI2V-5B-Q4_K_M.gguf",
+      "clip": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "vae": "wan2.2_vae.safetensors"
+    }
+  },
+
+  "stills": {
+    "size": "1024x768",
+    "steps": 25,
+    "cfg": 1.5,
+    "cfg_floor": 1.2,
+    "shift": 3.1,
+    "sampler": "euler",
+    "scheduler": "simple",
+    "resolution": 0,
+    "seconds_per_plate": 120,
+    "note": "cfg 1.0 禁用：guidance-distilled 下负词分支被跳过，参考图里的雾/锯齿石柱会被照抄进画面"
+  },
+
+  "post": {
+    "lvl": 0.94,
+    "contrast": 0.94,
+    "black_scale": 0.94,
+    "black_lift": 7.0,
+    "sat_cap_lo": 0.75,
+    "sat_cap_hi": 1.85,
+    "gamma_lo": 0.55,
+    "gamma_hi": 1.85,
+    "grain_sigma": 2.4,
+    "paper_sigma": 0.8,
+    "warm_r": [1.006, 0.008],
+    "warm_b": 0.988,
+    "ref_size": "852x480",
+    "tex_frames": 24,
+    "note": "饱和锚定必须放在处理链最后；颗粒/纸纹取自原片残差，不用随机噪声"
+  },
+
+  "i2v": {
+    "length": 121,
+    "fps": 24,
+    "steps": 20,
+    "cfg": 5.0,
+    "shift": 8.0,
+    "sampler": "uni_pc",
+    "scheduler": "simple",
+    "anchor_strength": 0.85,
+    "seconds_std_record": 275,
+    "seconds_std_measured_12gb": 2320,
+    "seconds_big": 510,
+    "tier_note": "大运镜（横移 0.14 / 长镜）用 big，纯漂移用 std；母版按 std 出，后期裁切有 20% 余量",
+    "vram_note": "12 GB 卡上 960×720/121 帧会把显存挤满（实测 11.5/12.3 GB、功耗仅 66 W、176 s/步、单条约 39 分钟）；24 GB 卡才有 026 记录里的 275 s。显存不够时把单镜 length 降到 81（3.4 s），长镜靠 cam 重定时放慢"
+  },
+
+  "cam": {
+    "fps": 24,
+    "moves": {
+      "pan_right":   {"amount": 0.14, "zoom": 0.00,  "rise": 0.00},
+      "pan_left":    {"amount": 0.14, "zoom": 0.00,  "rise": 0.00},
+      "tilt_up":     {"amount": 0.00, "zoom": 0.00,  "rise": 0.08},
+      "tilt_down":   {"amount": 0.00, "zoom": 0.00,  "rise": -0.08},
+      "push_in":     {"amount": 0.00, "zoom": 0.08,  "rise": 0.00},
+      "pull_out":    {"amount": 0.00, "zoom": -0.08, "rise": 0.00},
+      "orbit_right": {"amount": 0.10, "zoom": 0.045, "rise": 0.025},
+      "orbit_left":  {"amount": 0.10, "zoom": 0.045, "rise": 0.025},
+      "drift":       {"amount": 0.030, "zoom": 0.012, "rise": 0.012},
+      "hold":        {"amount": 0.00, "zoom": 0.00,  "rise": 0.00}
+    },
+    "ease": "cosine",
+    "note": "运镜一律后期做；I2V 只给氛围动态，不给相机。禁止自动天空视差（skyline 会把塔切成两半）"
+  },
+
+  "audio": {
+    "lufs": -14,
+    "true_peak": -1.5,
+    "aac_trim_db": -0.2,
+    "sample_rate": 48000
+  },
+
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/<编号>_<选题>_tianshu<N>秒.mp4",
+    "final": "出稿/<编号>_<选题>/<编号>_<选题>_tianshu成片.mp4",
+    "sidecar": ["同名.srt", "同名_poster.jpg", "同名_说明.md"]
+  }
+}

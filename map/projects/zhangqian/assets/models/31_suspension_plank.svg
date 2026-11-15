@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="悬空栈道">
+<title>悬空栈道 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 崖壁 -->
+  <path d="M0 40 L96 24 L132 88 L116 176 L140 262 L112 344 L130 400 L0 400 Z" fill="#B9B3A2"/>
+  <path d="M96 24 L132 88 L116 176 L140 262 L112 344 L130 400" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <path d="M30 70 L82 60 M24 120 L88 110 M34 190 L96 180 M28 250 L100 242 M38 318 L104 310" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <!-- 插入崖壁的木梁 -->
+  <g fill="#8E6B3E">
+    <path d="M118 96 L210 112 L210 128 L116 116 Z"/>
+    <path d="M120 156 L228 178 L228 194 L118 176 Z"/>
+    <path d="M122 216 L244 244 L244 260 L120 236 Z"/>
+    <path d="M118 276 L258 310 L258 326 L116 296 Z"/>
+  </g>
+  <!-- 木板路面 -->
+  <path d="M140 112 L268 136 L268 168 L136 144 Z" fill="#B07D46"/>
+  <path d="M142 172 L286 200 L286 232 L138 204 Z" fill="#C8934A"/>
+  <path d="M136 232 L300 264 L300 296 L132 264 Z" fill="#B07D46"/>
+  <path d="M128 292 L312 328 L312 360 L124 324 Z" fill="#C8934A"/>
+  <g fill="none" stroke="#8E6B3E" stroke-width="2.5">
+    <path d="M158 118 L158 150 M180 122 L180 154 M202 126 L202 158 M224 130 L224 162 M246 134 L246 166"/>
+    <path d="M158 180 L158 212 M184 184 L184 216 M210 188 L210 220 M236 192 L236 224 M262 196 L262 228"/>
+    <path d="M154 242 L154 274 M184 246 L184 278 M214 250 L214 282 M244 254 L244 286 M274 258 L274 290"/>
+    <path d="M150 304 L150 336 M186 308 L186 340 M222 312 L222 344 M258 316 L258 348 M294 320 L294 352"/>
+  </g>
+  <!-- 栏杆立柱与绳索 -->
+  <g fill="#6E4A24">
+    <rect x="148" y="76" width="10" height="46" rx="3"/>
+    <rect x="176" y="82" width="10" height="46" rx="3"/>
+    <rect x="204" y="88" width="10" height="46" rx="3"/>
+    <rect x="232" y="94" width="10" height="46" rx="3"/>
+  </g>
+  <path d="M153 80 Q200 96 240 96 M153 104 Q200 120 240 120" fill="none" stroke="#B9A96B" stroke-width="4"/>
+  <!-- 支撑斜木 -->
+  <path d="M190 128 L152 196 M208 194 L170 266 M226 262 L190 336" fill="none" stroke="#8E6B3E" stroke-width="7"/>
+  <!-- 云雾 -->
+  <g stroke="#FBF7EE" stroke-width="8" opacity="0.85">
+    <path d="M270 228 Q310 210 356 226 M286 252 Q330 236 376 250 M262 344 Q310 326 360 342"/>
+  </g>
+</g>
+</svg>

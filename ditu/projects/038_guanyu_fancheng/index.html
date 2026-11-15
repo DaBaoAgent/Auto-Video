@@ -1,0 +1,606 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>3D Map Explainer · 关羽水淹七军</title>
+<script type="importmap">{"imports":{"three":"./lib/three.module.js","three/addons/":"./lib/addons/"}}</script>
+<style>
+@font-face{font-family:NotoSC;src:url(fonts/NotoSansSC-500-sub.woff2) format('woff2');font-weight:500}
+@font-face{font-family:NotoSC;src:url(fonts/NotoSansSC-700-sub.woff2) format('woff2');font-weight:700}
+@font-face{font-family:Barlow;src:url(fonts/BarlowCondensed-Regular.ttf) format('truetype');font-weight:400}
+@font-face{font-family:Barlow;src:url(fonts/BarlowCondensed-Medium.woff2) format('woff2');font-weight:500}
+@font-face{font-family:Barlow;src:url(fonts/BarlowCondensed-SemiBold.woff2) format('woff2');font-weight:600}
+html,body{margin:0;background:#05080c;overflow:hidden}
+canvas{position:absolute;left:0;top:0;width:1920px;height:1080px}
+</style></head>
+<body>
+<script type="module">
+// 关羽水淹七军 (樊城, 219 AD), 39.4 s — the fourth paragraph of the 038 narration.
+//   S1 0.0–6.2 locate · S2 6.2–9.6 Cao Ren holds Fancheng · S3 9.6–12.2 Yu Jin's seven armies from the north
+//   S4 12.2–18.2 Pang De's oath, the camp on the low ground · S5 18.2–21.2 the height comparison
+//   S6 21.2–28.0 rain, the Han rises · S7 28.0–31.4 the river fleet arrives · S8 31.4–36.2 arrows, surrender, last stand
+//   S9 36.2–39.4 thirty thousand taken whole
+// ?t0=&t1= cuts a range out of the timeline.
+import * as THREE from 'three';
+import { makePost } from './post.js';
+import { clamp, lerp, seg, ss, eo, eio, ei, track } from './lib/lib.js';
+
+const Wd = 1920, Ht = 1080, Q = new URLSearchParams(location.search);
+const FULL = 39.4;
+const T0 = +(Q.get('t0') || 0), T1 = Q.has('t1') ? +Q.get('t1') : FULL;
+
+// ---------- data ----------
+const J = u => fetch(u).then(r => r.json()), B = u => fetch(u).then(r => r.arrayBuffer());
+const [meta, wmeta, hraw, wraw, CUES] = await Promise.all([J('assets/meta.json'), J('assets/wide_meta.json'), B('assets/height.bin'), B('assets/wide_height.bin'), J('voice/cues.json')]);
+const hbuf = new Float32Array(hraw), wbuf = new Float32Array(wraw);
+const EX = 5.0;                                    // vertical exaggeration (stated on screen)
+const { GW, GH, km_px, width_km: WK, height_km: HK } = meta;
+const [MX0, MY0] = meta.merc;
+const RIVER = meta.river;
+const D2R = Math.PI / 180;
+
+function merc(lon, lat) { const n = 2 ** meta.z * 256; return [(lon + 180) / 360 * n, (1 - Math.asinh(Math.tan(lat * D2R)) / Math.PI) / 2 * n]; }
+function xz(lon, lat) { const [mx, my] = merc(lon, lat); return [(mx - MX0) * km_px - WK / 2, (my - MY0) * km_px - HK / 2]; }
+const [WX0, WZ0] = xz(wmeta.bbox[0], wmeta.bbox[3]), [WX1, WZ1] = xz(wmeta.bbox[2], wmeta.bbox[1]);
+function bil(buf, w, h, gx, gz) {
+  const x0 = Math.max(0, Math.min(w - 2, Math.floor(gx))), z0 = Math.max(0, Math.min(h - 2, Math.floor(gz)));
+  const fx = clamp(gx - x0), fz = clamp(gz - z0);
+  const a = buf[z0 * w + x0], b = buf[z0 * w + x0 + 1], c = buf[(z0 + 1) * w + x0], d = buf[(z0 + 1) * w + x0 + 1];
+  return (a * (1 - fx) + b * fx) * (1 - fz) + (c * (1 - fx) + d * fx) * fz;
+}
+function hAt(X, Z) {
+  if (Math.abs(X) < WK / 2 && Math.abs(Z) < HK / 2) return bil(hbuf, GW, GH, (X + WK / 2) / WK * (GW - 1), (Z + HK / 2) / HK * (GH - 1));
+  return bil(wbuf, wmeta.GW, wmeta.GH, (X - WX0) / (WX1 - WX0) * (wmeta.GW - 1), (Z - WZ0) / (WZ1 - WZ0) * (wmeta.GH - 1));
+}
+const yOf = h => Math.max(h, 0) / 1000 * EX;
+function geo(lon, lat, lift = 0) { const [X, Z] = xz(lon, lat); return new THREE.Vector3(X, yOf(hAt(X, Z)) + lift, Z); }
+
+// the flood: the Han sits at 59.4 m, the camp ground at 66.7 m, the cities at 69.7 / 73.5 m.
+// +7.6 m drowns the camp and leaves both city walls dry — the historical "平地水数丈".
+const WATER_M = meta.water_m;                      // 59.4
+// Measured ground: river 59.4 m, camp 66.7–68.7, Fancheng 69.7, Xiangyang 73.5, wall tops ~80.
+// +10.4 m floods the camp field, leaves Fancheng's wall foot barely dry ("城不没者数板") and Xiangyang untouched.
+const FLOOD_M = 10.4;
+const floodM = t => FLOOD_M * eio(seg(t, 21.4, 25.4));
+const waterY = t => (WATER_M + floodM(t)) / 1000 * EX + .0035;
+
+// ---------- renderer ----------
+const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true });
+renderer.setPixelRatio(2); renderer.setSize(Wd, Ht);
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.18;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const HAZE = new THREE.Color(0x171b1c);
+scene.background = HAZE.clone();
+scene.fog = new THREE.Fog(HAZE, 300, 900);
+
+const tl = new THREE.TextureLoader();
+const load = u => new Promise((r, e) => tl.load(u, r, undefined, e));
+const [albedo, waterTex, shadowTex, walbedo, wwaterTex, wshadowTex] = await Promise.all(
+  ['assets/albedo.jpg', 'assets/water.png', 'assets/shadow.png', 'assets/wide_albedo.jpg', 'assets/wide_water.png', 'assets/wide_shadow.png'].map(load));
+for (const t of [albedo, walbedo]) { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 16; }
+for (const t of [shadowTex, wshadowTex]) t.anisotropy = 8;
+
+function roughFrom(tex) {
+  const c = document.createElement('canvas'); c.width = tex.image.width; c.height = tex.image.height;
+  const g2 = c.getContext('2d'); g2.drawImage(tex.image, 0, 0); const id = g2.getImageData(0, 0, c.width, c.height);
+  for (let i = 0; i < id.data.length; i += 4) { const w = id.data[i] / 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = 245 * (1 - w) + 165 * w; }
+  g2.putImageData(id, 0, 0); return new THREE.CanvasTexture(c);
+}
+const LIGHT_CHUNK = THREE.ShaderChunk.lights_fragment_begin.replaceAll('RE_Direct( directLight,', 'directLight.color *= mix( 1.0, texture2D( tShadow, vMapUv ).r, 0.88 );\n\t\tRE_Direct( directLight,');
+function terrainMat(map, water, shadow, clipRect) {
+  const m = new THREE.MeshStandardMaterial({ map, roughnessMap: roughFrom(water), roughness: 1, metalness: 0 });
+  m.onBeforeCompile = sh => {
+    Object.assign(sh.uniforms, { tShadow: { value: shadow }, clipR: { value: clipRect || new THREE.Vector4(1, 1, -1, -1) } });
+    sh.vertexShader = 'varying vec3 vWp;\n' + sh.vertexShader.replace('#include <project_vertex>', '#include <project_vertex>\n vWp = (modelMatrix * vec4(transformed, 1.0)).xyz;');
+    sh.fragmentShader = 'uniform sampler2D tShadow; uniform vec4 clipR; varying vec3 vWp;\n' + sh.fragmentShader
+      .replace('void main() {', 'void main() {\n if (vWp.x > clipR.x && vWp.x < clipR.z && vWp.z > clipR.y && vWp.z < clipR.w) discard;')
+      .replace('#include <lights_fragment_begin>', LIGHT_CHUNK);
+  };
+  return m;
+}
+function terrainMesh(w, h, gw, gh, buf, mat) {
+  const g = new THREE.PlaneGeometry(w, h, gw - 1, gh - 1); g.rotateX(-Math.PI / 2);
+  const p = g.attributes.position; for (let i = 0; i < p.count; i++) p.setY(i, yOf(buf[i]));
+  g.computeVertexNormals(); return new THREE.Mesh(g, mat);
+}
+scene.add(terrainMesh(WK, HK, GW, GH, hbuf, terrainMat(albedo, waterTex, shadowTex)));
+{
+  const inset = 1.5, clip = new THREE.Vector4(-WK / 2 + inset, -HK / 2 + inset, WK / 2 - inset, HK / 2 - inset);
+  const wm = terrainMesh(WX1 - WX0, WZ1 - WZ0, wmeta.GW, wmeta.GH, wbuf, terrainMat(walbedo, wwaterTex, wshadowTex, clip));
+  wm.position.set((WX0 + WX1) / 2, -.03, (WZ0 + WZ1) / 2); scene.add(wm);
+}
+// the ground beyond the data: a dark plain in the same tone, so nothing ends in mid-air
+{
+  const far = new THREE.Mesh(new THREE.PlaneGeometry(300, 300), new THREE.MeshBasicMaterial({ color: 0x14181a, fog: true, toneMapped: false }));
+  far.rotation.x = -Math.PI / 2; far.position.y = -0.5; scene.add(far);
+}
+
+// ---------- the water: one sheet at the river's own level, raised for the flood ----------
+// depth-tested but not depth-writing, so anything standing above the sheet still cuts it,
+// and anything standing below is drawn submerged.
+const waterU = {
+  uT: { value: 0 }, uMud: { value: 0 }, uAlpha: { value: .93 }, uLevel: { value: WATER_M },
+  uColA: { value: new THREE.Color(0.010, 0.030, 0.033) }, uColB: { value: new THREE.Color(0.048, 0.120, 0.112) },
+  uFog: { value: HAZE.clone() }, uFogNear: { value: 300 }, uFogFar: { value: 900 },
+  hTex: { value: null }, uSpan: { value: new THREE.Vector2(WK, HK) },
+};
+// the ground height, as a texture: the sheet is only drawn where the ground is below the water line,
+// so a raised water line floods exactly the low ground and leaves the city walls dry — no mask to hand-paint.
+{
+  const ht = new THREE.DataTexture(new Float32Array(hraw), GW, GH, THREE.RedFormat, THREE.FloatType);
+  ht.minFilter = ht.magFilter = THREE.LinearFilter; ht.wrapS = ht.wrapT = THREE.ClampToEdgeWrapping;
+  ht.needsUpdate = true; waterU.hTex.value = ht;
+}
+const waterMat = new THREE.ShaderMaterial({
+  uniforms: waterU, transparent: true, depthWrite: false, side: THREE.DoubleSide,
+  vertexShader: `varying vec3 vW;
+    void main(){ vW = (modelMatrix * vec4(position,1.)).xyz; gl_Position = projectionMatrix * viewMatrix * vec4(vW,1.); }`,
+  fragmentShader: `uniform float uT, uMud, uAlpha, uLevel, uFogNear, uFogFar; uniform vec3 uColA, uColB, uFog;
+    uniform sampler2D hTex; uniform vec2 uSpan; varying vec3 vW;
+    void main(){
+      vec2 uv = vec2((vW.x + uSpan.x*.5)/uSpan.x, (uSpan.y*.5 - vW.z)/uSpan.y);
+      float inside = step(0., uv.x)*step(uv.x, 1.)*step(0., uv.y)*step(uv.y, 1.);
+      float gh = texture2D(hTex, clamp(uv, 0., 1.)).r;
+      float wet = inside * (1. - smoothstep(uLevel - .18, uLevel + .30, gh));
+      if (wet <= .02) discard;
+      float w1 = sin(vW.x*3.4 + uT*.30) * sin(vW.z*2.6 - uT*.22);
+      float w2 = sin((vW.x - vW.z)*7.5 + uT*.55);
+      float n = .5 + .5*(.72*w1 + .28*w2);
+      vec3 c = mix(uColA, uColB, n);
+      c = mix(c, vec3(.075,.070,.042), uMud*.62);
+      float shallow = 1. - smoothstep(.02, .55, uLevel - gh);
+      c = mix(c, vec3(.20,.185,.13), shallow*.16);
+      float sh = pow(max(0., n - .66)/.34, 2.4);
+      c += sh*vec3(.24,.26,.235)*(1. - uMud*.6);
+      float d = length(cameraPosition - vW);
+      c = mix(c, uFog, clamp((d - uFogNear)/(uFogFar - uFogNear), 0., 1.));
+      gl_FragColor = vec4(c, uAlpha*(.90 + .08*n)*(.30 + .70*wet));
+    }`,
+});
+const water = new THREE.Mesh(new THREE.PlaneGeometry(260, 260), waterMat);
+water.rotation.x = -Math.PI / 2; water.position.y = waterY(0); water.renderOrder = 1; scene.add(water);
+
+const sun = new THREE.DirectionalLight(0xffe0b4, 3.0);
+sun.position.set(-150, 62, -70); sun.target.position.set(0, 0, 0);
+scene.add(sun, sun.target);
+const hemi = new THREE.HemisphereLight(0x9fb0b8, 0x4a3626, 0.62); scene.add(hemi);
+
+// ---------- ribbons: city walls, river edges ----------
+const camera = new THREE.PerspectiveCamera(28, Wd / Ht, 2, 900);
+const PIXK = 2 * Math.tan(THREE.MathUtils.degToRad(14)) / Ht;
+const RIB_V = `attribute float aSide; attribute vec3 aNorm; attribute float aAlong;
+  uniform float wW, pxW, pixK; varying float vSide, vAlong; varying vec3 vW;
+  void main(){ vec4 wp = modelMatrix * vec4(position, 1.); float pw = length(cameraPosition - wp.xyz) * pixK;
+    float hw = max(wW * .5, pxW * .5 * pw); wp.xyz += aNorm * aSide * hw; vSide = aSide; vAlong = aAlong; vW = wp.xyz;
+    gl_Position = projectionMatrix * viewMatrix * wp; }`;
+const RIB_F = `varying float vSide, vAlong; varying vec3 vW; uniform vec3 col; uniform float k, inten, revA, revB, soft, head, headAmt, dash, duty,
+  flowSp, flowLen, flowAmt, flowPh, base, wakeLen, wakeAmt, L, endFade, normalA;
+  void main(){
+    float d = vSide; float g = exp(-d * d * k);
+    float vis = smoothstep(revA - soft, revA, vAlong) * (1. - smoothstep(revB, revB + soft, vAlong));
+    if (vis <= 0.) discard;
+    float e = smoothstep(0., endFade, vAlong) * smoothstep(L, L - endFade, vAlong);
+    float a = base;
+    if (dash > 0.) a *= step(fract(vAlong / dash), duty);
+    if (flowAmt > 0.) { float f = fract((vAlong - flowPh) / flowSp); a += flowAmt * smoothstep(1. - flowLen / flowSp, 1., f) * smoothstep(1., .985, f); }
+    a += headAmt * exp(-pow((vAlong - head) / (2.5 * max(1., soft / 2.)), 2.));
+    if (normalA > 0.) { gl_FragColor = vec4(col, normalA * g * vis * e * inten); return; }
+    gl_FragColor = vec4(col * g * a * inten * vis * e, 1.); }`;
+function ribbon(pts, o, sc = scene) {
+  const pos = [], side = [], nrm = [], al = [], idx = []; let L = 0;
+  for (let i = 0; i < pts.length; i++) {
+    const a = pts[Math.max(0, i - 1)], b = pts[Math.min(pts.length - 1, i + 1)];
+    const t = new THREE.Vector3().subVectors(b, a); const u = new THREE.Vector3(0, 1, 0);
+    const n = new THREE.Vector3().crossVectors(t, u).normalize();
+    if (i) L += pts[i].distanceTo(pts[i - 1]);
+    const p = pts[i];
+    for (const s of [1, -1]) { pos.push(p.x, p.y, p.z); side.push(s); nrm.push(n.x, n.y, n.z); al.push(L); }
+    if (i) { const q = 2 * i; idx.push(q - 2, q - 1, q, q - 1, q + 1, q); }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('aSide', new THREE.Float32BufferAttribute(side, 1));
+  g.setAttribute('aNorm', new THREE.Float32BufferAttribute(nrm, 3)); g.setAttribute('aAlong', new THREE.Float32BufferAttribute(al, 1)); g.setIndex(idx);
+  const U = { col: new THREE.Color(o.col ?? 0xffa63d), k: o.k ?? 3, inten: 0, wW: o.wW ?? 0, pxW: o.pxW ?? 2, pixK: PIXK, revA: 0, revB: 1e9, soft: o.soft ?? 2,
+    head: -1e6, headAmt: 0, dash: o.dash ?? 0, duty: o.duty ?? .55, flowSp: o.flowSp ?? 30, flowLen: o.flowLen ?? 6, flowAmt: o.flowAmt ?? 0, flowPh: 0,
+    base: o.base ?? 1, wakeLen: o.wakeLen ?? 12, wakeAmt: o.wakeAmt ?? 0, L, endFade: o.endFade ?? .01, normalA: o.normalA ?? 0 };
+  const uniforms = {}; for (const k in U) uniforms[k] = { value: U[k] };
+  const m = new THREE.Mesh(g, new THREE.ShaderMaterial({ uniforms, vertexShader: RIB_V, fragmentShader: RIB_F, side: THREE.DoubleSide, transparent: true, depthWrite: false,
+    blending: (o.normalA ?? 0) > 0 ? THREE.NormalBlending : THREE.AdditiveBlending, toneMapped: false }));
+  m.renderOrder = o.order ?? 2; m.frustumCulled = false; sc.add(m);
+  m.L = L; m.u = uniforms; return m;
+}
+const smooth = (pts, n) => new THREE.CatmullRomCurve3(pts, false, 'centripetal').getSpacedPoints(n);
+function arc(pts) { const s = [0]; for (let i = 1; i < pts.length; i++) s.push(s[i - 1] + pts[i].distanceTo(pts[i - 1])); return s; }
+function along(pts, S, s) {
+  s = clamp(s, 0, S[S.length - 1]); let lo = 0, hi = S.length - 1;
+  while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (S[mid] <= s) lo = mid; else hi = mid; }
+  const f = (s - S[lo]) / ((S[hi] - S[lo]) || 1), p = pts[lo].clone().lerp(pts[hi], f);
+  return { p, dir: new THREE.Vector3().subVectors(pts[hi], pts[lo]).normalize() };
+}
+const rv = (r, a) => { for (const k in a) r.u[k].value = a[k]; };
+
+const AMB = 0xffc36b, AMB2 = 0xffdda6, BONE = 0xf2e8d6, RED = 0xff7a5c, PALE = 0xd9e4e8;
+// the river centre line, snapped onto the water in tools/prep_river.py
+const rivLL = RIVER;
+const rivPts = smooth(rivLL.map(([a, b]) => { const [X, Z] = xz(a, b); return new THREE.Vector3(X, .02, Z); }), 320);
+const rivS = arc(rivPts);
+function onRiver(s, y) { const q = along(rivPts, rivS, s); return { p: new THREE.Vector3(q.p.x, y, q.p.z), dir: q.dir }; }
+
+// city walls, as rings (drawn once the name appears)
+function wallRing(lon, lat, r, t0) {
+  const [CX, CZ] = xz(lon, lat); const pts = [];
+  for (let i = 0; i <= 90; i++) { const a = i / 90 * Math.PI * 2; pts.push(new THREE.Vector3(CX + r * Math.cos(a), yOf(Math.max(hAt(CX + r * Math.cos(a), CZ + r * Math.sin(a)), WATER_M + FLOOD_M + 1.2)) + .01, CZ + r * Math.sin(a))); }
+  const g = ribbon(pts.slice(0, 90), { pxW: 8, k: 2.4, base: .15, col: PALE, order: 4, soft: 7 });
+  const c = ribbon(pts.slice(0, 90), { pxW: 1.3, k: 1.2, base: .78, col: BONE, order: 5, soft: 5 });
+  return { glow: g, core: c, t0 };
+}
+const FANC = { lon: 112.135, lat: 32.047 }, XIANG = { lon: 112.143, lat: 32.024 };
+const walls = [wallRing(FANC.lon, FANC.lat, .9, 1.6), wallRing(XIANG.lon, XIANG.lat, 1.0, 2.8)];
+
+// ---------- the camp north of Fancheng: tents, supply carts, weapons, men ----------
+function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const rnd = mulberry32(1120);
+const CAMPC = [[112.129, 32.077], [112.139, 32.084], [112.150, 32.076], [112.134, 32.067], [112.147, 32.067]];
+const campKm = CAMPC.map(([a, b]) => xz(a, b));
+function scatter(n, R) { const out = []; for (let i = 0; i < n; i++) { const c = campKm[Math.floor(rnd() * campKm.length)]; const a = rnd() * 6.283, r = Math.sqrt(rnd()) * R; out.push([c[0] + Math.cos(a) * r, c[1] + Math.sin(a) * r]); } return out; }
+const MAT = {
+  tent: new THREE.MeshStandardMaterial({ color: 0xe8dcc2, roughness: .85, metalness: 0, emissive: 0x241a10, emissiveIntensity: .55 }),
+  cart: new THREE.MeshStandardMaterial({ color: 0xc8a878, roughness: .8, metalness: 0, emissive: 0x1d1409, emissiveIntensity: .5 }),
+  steel: new THREE.MeshStandardMaterial({ color: 0xd8dde0, roughness: .5, metalness: .3, emissive: 0x14181a, emissiveIntensity: .5 }),
+  man: new THREE.MeshStandardMaterial({ color: 0xbfae94, roughness: .9, metalness: 0, emissive: 0x1b1409, emissiveIntensity: .5 }),
+  hull: new THREE.MeshStandardMaterial({ color: 0x7a5433, roughness: .7, metalness: .1, emissive: 0x120c06, emissiveIntensity: .5 }),
+  sail: new THREE.MeshStandardMaterial({ color: 0xfbf5e6, roughness: .9, metalness: 0, emissive: 0xfff4e0, emissiveIntensity: .42, side: THREE.DoubleSide }),
+};
+function place(geo, mat, list, lift, rotSeed) {
+  const im = new THREE.InstancedMesh(geo, mat, list.length); const M = new THREE.Matrix4(), P = new THREE.Vector3(), Qt = new THREE.Quaternion(), S = new THREE.Vector3(1, 1, 1);
+  list.forEach(([X, Z], i) => {
+    P.set(X, yOf(hAt(X, Z)) + lift, Z);
+    Qt.setFromAxisAngle(new THREE.Vector3(0, 1, 0), rotSeed ? (i * 2.399) : 0);
+    M.compose(P, Qt, S); im.setMatrixAt(i, M);
+  });
+  im.instanceMatrix.needsUpdate = true; im.frustumCulled = false; scene.add(im); return im;
+}
+const tents = place(new THREE.ConeGeometry(.042, .052, 4, 1).rotateY(Math.PI / 4), MAT.tent, scatter(46, 1.05), .026, true);
+const carts = place(new THREE.BoxGeometry(.050, .023, .031), MAT.cart, scatter(9, 1.25), .012, true);
+const men = place(new THREE.SphereGeometry(.0085, 6, 5), MAT.man, scatter(72, 1.3), .0085, false);
+const armsGeo = new THREE.CylinderGeometry(.0016, .0016, .075, 4).rotateZ(.36);
+const arms = place(armsGeo, MAT.steel, scatter(30, 1.2), .036, true);
+
+// ---------- the fleet: five boats riding the river down from the north-west ----------
+function makeBoat(scale) {
+  const g = new THREE.Group();
+  const hull = new THREE.Mesh(new THREE.BoxGeometry(.014, .006, .058), MAT.hull);
+  const bow = new THREE.Mesh(new THREE.ConeGeometry(.007, .020, 4), MAT.hull);
+  bow.rotation.x = Math.PI / 2; bow.position.z = -.039;
+  const stern = new THREE.Mesh(new THREE.ConeGeometry(.006, .014, 4), MAT.hull);
+  stern.rotation.x = -Math.PI / 2; stern.position.z = .036;
+  const mast = new THREE.Mesh(new THREE.CylinderGeometry(.0007, .0007, .030, 5), MAT.hull);
+  mast.position.y = .017;
+  const sail = new THREE.Mesh(new THREE.PlaneGeometry(.020, .015), MAT.sail);
+  sail.position.set(0, .022, -.002); sail.rotation.y = Math.PI / 2;
+  const wash = new THREE.Mesh(new THREE.CircleGeometry(.034, 12), new THREE.MeshBasicMaterial({ color: 0xdfeee6, transparent: true, opacity: .15, depthWrite: false, toneMapped: false })); wash.rotation.x = -Math.PI / 2; wash.position.y = .004; wash.renderOrder = 5;
+  g.add(hull, bow, stern, mast, sail, wash); g.traverse(o => { if (o.isMesh) { o.renderOrder = 6; o.material.transparent = true; o.material.depthWrite = false; } }); g.scale.setScalar(scale);
+  return g;
+}
+const boats = [];
+for (let i = 0; i < 5; i++) { const b = makeBoat(1 - i * .06); scene.add(b); boats.push({ g: b, off: i * .052 }); }
+const wakes = boats.map(() => ribbon(rivPts.slice(0, 320).map(p => new THREE.Vector3(p.x, (WATER_M + 7) / 1000 * EX + .016, p.z)), { pxW: 7, k: 4, base: .5, col: 0xbfe6d8, normalA: .45, order: 3 }));
+
+// a white flag over Yu Jin's lines, and a red mark where Pang De stands
+const flagMat = new THREE.MeshStandardMaterial({ color: 0xf6f2e8, roughness: .9, emissive: 0x3a3730, emissiveIntensity: .6, side: THREE.DoubleSide, transparent: true, opacity: 0 });
+const flag = new THREE.Mesh(new THREE.PlaneGeometry(.05, .032), flagMat);
+{ const [X, Z] = xz(112.139, 32.080); flag.position.set(X, yOf(hAt(X, Z)) + .085, Z); scene.add(flag); }
+
+// ---------- map camera ----------
+const CAM = track([
+  [0.00, [Math.log(84), 62, 0, 112.136, 32.030, .40]],
+  [3.00, [Math.log(44), 58, -7, 112.138, 32.036, .40]],
+  [6.20, [Math.log(26), 50, 7, 112.137, 32.047, .42]],
+  [9.40, [Math.log(19), 46, -14, 112.110, 32.090, .42]],
+  [12.20, [Math.log(13), 40, 8, 112.139, 32.079, .42]],
+  [15.60, [Math.log(12), 34, 4, 112.140, 32.076, .42]],
+  [18.30, [Math.log(11), 30, 0, 112.140, 32.070, .42]],
+  [21.30, [Math.log(10.5), 30, -3, 112.138, 32.066, .42]],
+  [24.80, [Math.log(10), 28, -1, 112.141, 32.060, .42]],
+  [28.20, [Math.log(9.5), 26, 6, 112.150, 32.044, .42]],
+  [31.50, [Math.log(8.5), 22, 12, 112.158, 32.028, .42]],
+  [34.00, [Math.log(8.0), 20, 16, 112.162, 32.024, .42]],
+  [36.20, [Math.log(10), 32, 8, 112.152, 32.040, .42]],
+  [39.40, [Math.log(26), 50, 2, 112.140, 32.046, .42]],
+]);
+let FOGK = 1;
+function mapCam(t) {
+  const [ld, pd, yd, lo, la, ty] = CAM(clamp(t, 0, FULL));
+  const [X, Z] = xz(lo, la), d = Math.exp(ld), p = pd * D2R, y = yd * D2R;
+  return { d, cam: new THREE.Vector3(X + Math.sin(y) * Math.cos(p) * d, ty + Math.sin(p) * d, Z + Math.cos(y) * Math.cos(p) * d), tgt: new THREE.Vector3(X, ty, Z) };
+}
+function setCamera(t) {
+  const { d, cam, tgt } = mapCam(t);
+  camera.position.copy(cam); camera.near = Math.max(.05, d * .05); camera.far = d * 8 + 900;
+  camera.lookAt(tgt); camera.updateProjectionMatrix(); camera.updateMatrixWorld();
+  scene.fog.near = d * .55 * FOGK; scene.fog.far = d * 1.9 * FOGK + 8;
+  waterU.uFogNear.value = scene.fog.near; waterU.uFogFar.value = scene.fog.far;
+  return d;
+}
+
+// ---------- post ----------
+const post = makePost(renderer, scene, camera, Wd, Ht, { ssaa: 2, ao: false });
+post.dof.maxCoc = 5; post.bloom.strength = .5; post.bloom.radius = .55; post.bloom.threshold = .96;
+const VU = post.vig.uniforms; VU.amt.value = .44; VU.warm.value = .22; VU.sat.value = .9; VU.contrast.value = .13;
+
+// ---------- overlay ----------
+const ov = document.createElement('canvas'); ov.width = Wd * 2; ov.height = Ht * 2; ov.style.width = Wd + 'px'; ov.style.height = Ht + 'px'; document.body.appendChild(ov);
+const g = ov.getContext('2d');
+await Promise.all(['400 20px Barlow', '500 20px Barlow', '600 20px Barlow', '500 20px NotoSC', '700 20px NotoSC'].map(f => document.fonts.load(f, '关羽水淹七军樊城襄阳汉江')));
+const groundPt = (lo, la, lift = .02) => { const [X, Z] = xz(lo, la); return new THREE.Vector3(X, yOf(hAt(X, Z)) + lift, Z); };
+const scr = v => { const p = v.clone().project(camera); return [(p.x + 1) / 2 * Wd, (1 - p.y) / 2 * Ht, p.z]; };
+const C = { land: '#2b2119', sea: '#bcdbe6', light: '#f6eee0', amber: '#ffc36b', amberSoft: 'rgba(255,214,150,.94)', pale: '#dfe8ea', dim: 'rgba(236,228,212,.68)', red: '#ff8a6a' };
+let TX = [];
+function txt(s, x, y, o) {
+  g.save(); g.font = `${o.w || 500} ${o.size}px ${o.f || 'Barlow'}`; g.letterSpacing = (o.sp || 0) + 'px';
+  g.textAlign = o.align || 'center'; g.textBaseline = o.base || 'middle'; g.globalAlpha = clamp(o.a ?? 1); g.fillStyle = o.col || C.light;
+  g.fillText(s, x, y); const w = g.measureText(s).width;
+  const x0 = o.align === 'left' ? x : o.align === 'right' ? x - w : x - w / 2;
+  if ((o.a ?? 1) > .5 && !o.nobox) TX.push({ id: o.id || s, text: s, x0, y0: y - o.size * .6, x1: x0 + w, y1: y + o.size * .6 });
+  g.restore(); return w;
+}
+const tw = (s, size, w = 500, sp = 0, f = 'Barlow') => { g.save(); g.font = `${w} ${size}px ${f}`; g.letterSpacing = sp + 'px'; const r = g.measureText(s).width; g.restore(); return r; };
+function line(pts, col, w = 1.4, a = 1, dash = null) { g.save(); g.globalAlpha = a; g.strokeStyle = col; g.lineWidth = w; if (dash) g.setLineDash(dash); g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.stroke(); g.restore(); }
+function dot(x, y, r, col, a = 1) { g.save(); g.globalAlpha = a; g.fillStyle = col; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.restore(); }
+function plate(x, y, w, h, a) {
+  g.save(); const gr = g.createLinearGradient(x - 20, 0, x + w, 0);
+  gr.addColorStop(0, 'rgba(7,10,12,0)'); gr.addColorStop(.22, 'rgba(7,10,12,.62)'); gr.addColorStop(1, 'rgba(7,10,12,.62)');
+  g.globalAlpha = a; g.fillStyle = gr; g.fillRect(x - 20, y, w + 20, h); g.restore();
+}
+const BOTTOM_SAFE = 210;
+
+// ---------- labels: Chinese over English, a short leader to the thing it names ----------
+const LB = [
+  [FANC.lon, FANC.lat + .010, '樊城', 'FANCHENG', 1.5, 39.4, 'city', -1],
+  [XIANG.lon, XIANG.lat - .012, '襄阳', 'XIANGYANG', 2.8, 39.4, 'city', 1],
+  [112.128, 32.004, '汉江', 'HAN RIVER', 2.2, 39.4, 'river', -1],
+  [112.139, 32.062, '曹仁守城', 'CAO REN HOLDS THE WALL', 6.3, 12.2, 'note', 1],
+  [112.100, 32.098, '于禁 · 七军', 'YU JIN · SEVEN ARMIES', 9.5, 21.0, 'army', 1],
+  [112.152, 32.090, '扎营', 'ENCAMPED NORTH OF FANCHENG', 12.4, 39.4, 'note', 1],
+  [112.122, 32.082, '营帐', 'TENTS', 13.0, 39.4, 'small', -1],
+  [112.156, 32.070, '粮车', 'SUPPLY CARTS', 13.6, 39.4, 'small', 1],
+  [112.126, 32.066, '兵器', 'WEAPONS', 16.0, 39.4, 'small', -1],
+  [112.148, 32.030, '水军', 'RIVER FLEET', 28.4, 39.4, 'army', 1],
+  [112.163, 32.016, '船', 'BOATS HUG THE WATER', 31.4, 39.4, 'small', 1],
+];
+function labStyle(kind) {
+  if (kind === 'city') return { zh: 27, en: 13, col: C.light, w: 700 };
+  if (kind === 'river') return { zh: 28, en: 12, col: C.sea, w: 500 };
+  if (kind === 'army') return { zh: 25, en: 12, col: C.amberSoft, w: 700 };
+  if (kind === 'note') return { zh: 22, en: 11, col: C.pale, w: 500 };
+  return { zh: 18, en: 10, col: C.pale, w: 500 };
+}
+function mapLabels(t) {
+  const items = [];
+  for (const [lo, la, zh, en, a0, a1, kind, dir] of LB) {
+    let a = ss(seg(t, a0, a0 + .7)) * (1 - ss(seg(t, a1 - .6, a1))); if (a <= .01) continue;
+    const st = labStyle(kind), [x, y, z] = scr(groundPt(lo, la, .06)); if (z > 1) continue;
+    if (x < -200 || x > Wd + 200 || y < -100 || y > Ht + 100) continue;
+    items.push({ x, y, a, zh, en, kind, dir, st });
+  }
+  items.sort((p, q) => q.a - p.a);
+  // a name never sits on another name (and never on the header, the height shelf or the subtitles)
+  const done = [[0, 0, 760, 420], [Wd - 460, 640, Wd, Ht - 120], [0, Ht - 190, Wd, Ht]];
+  for (const it of items) {
+    const st = it.st, wzh = tw(it.zh, st.zh, st.w, 4, 'NotoSC'), wen = tw(it.en, st.en, 600, 3);
+    const wmax = Math.max(wzh, wen); const x0 = it.x - wmax / 2;
+    const m = Math.min(x0 - 30, Wd - 30 - (x0 + wmax), it.y - 30, Ht - BOTTOM_SAFE - it.y);
+    const a = it.a * ss(seg(m, 0, 44)); if (a <= .01) continue;
+    let ly = it.y + (it.dir > 0 ? 30 : -30);
+    const hit = r => done.some(p => r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]);
+    for (let k = 0; k < 5; k++) { if (!hit([x0 - 8, ly - 44, x0 + wmax + 8, ly + 24])) break; ly += (it.dir > 0 ? 1 : -1) * (st.zh * .8 + 14); }
+    done.push([x0 - 8, ly - 44, x0 + wmax + 8, ly + 24]);
+    if (it.kind !== 'river') line([[it.x, it.y + (it.dir > 0 ? -4 : 4)], [it.x, ly + (it.dir > 0 ? -6 : 6)]], 'rgba(240,232,216,.55)', 1, a * .9);
+    txt(it.zh, it.x, ly, { size: st.zh, w: st.w, sp: 4, f: 'NotoSC', col: st.col, a, id: 'L' + it.zh + it.a });
+    txt(it.en, it.x + 1, ly + (it.dir > 0 ? -22 : 22), { size: st.en, w: 600, sp: 3, col: it.kind === 'army' || it.kind === 'city' ? C.dim : 'rgba(223,232,234,.72)', a: a * .92, id: 'E' + it.en + it.a });
+  }
+}
+
+// ---------- the shelf on the right: ground against water against wall ----------
+function heightBar(t) {
+  const a = ss(seg(t, 17.6, 18.6)) * (1 - ss(seg(t, 22.6, 23.4))); if (a <= .05) return;
+  const X = Wd - 300, W0 = 210, Y0 = 700, H = 156;   // 156 px for 26 m (58 to 84)
+  const k = H / 26, base = 58;
+  const yy = v => Y0 - (v - base) * k;
+  plate(X - 34, Y0 - H - 74, W0 + 60, H + 116, a * .92);
+  txt('同一时间 · 三个高度', X - 18, Y0 - H - 56, { size: 15, w: 600, sp: 2, f: 'NotoSC', align: 'left', col: C.light, a });
+  txt('GROUND / WATER / WALL', X - 18, Y0 - H - 36, { size: 10.5, w: 500, sp: 1.6, align: 'left', col: C.dim, a });
+  const fh = floodM(t);
+  const rows = [
+    ['樊城墙顶', 80, C.pale, 1],
+    ['营地地面', 66.7, C.amberSoft, 1.2],
+    ['汉水水面', WATER_M + fh, C.sea, 1.2],
+  ];
+  line([[X - 10, yy(58)], [X - 10, yy(84)]], 'rgba(240,232,216,.32)', 1, a);
+  for (const [name, v, col, wd] of rows) {
+    const y = yy(v);
+    line([[X, y], [X + W0, y]], col, wd, a);
+    txt(name, X, y - 14, { size: 13, w: 500, sp: 2, f: 'NotoSC', align: 'left', col: col, a });
+    txt(v.toFixed(1) + ' m', X + W0, y - 14, { size: 12, w: 600, sp: 2, align: 'right', col: col, a: a * .9 });
+  }
+  // the bracket that says how much it rose
+  if (fh > .4) {
+    const y0 = yy(WATER_M), y1 = yy(WATER_M + fh);
+    line([[X + W0 + 26, y0], [X + W0 + 26, y1]], C.amber, 2, a);
+    txt('+' + fh.toFixed(1), X + W0 + 34, (y0 + y1) / 2, { size: 15, w: 600, sp: 1, align: 'left', col: C.amber, a });
+  }
+}
+
+// ---------- rain: screen-space pencil-grey streaks, fixed per drop so nothing flickers ----------
+const DROPS = Array.from({ length: 220 }, (_, i) => { const r = mulberry32(900 + i); return [r(), r(), .55 + r() * .75, 12 + r() * 22]; });
+function rain(t) {
+  const amt = ss(seg(t, 20.9, 22.4)) * (1 - ss(seg(t, 29.4, 32.6)) * .7); if (amt <= .02) return;
+  const n = Math.floor(DROPS.length * amt), tilt = .16, sp = 1500;
+  g.save(); g.lineWidth = 1.1; g.strokeStyle = 'rgba(206,222,232,.34)';
+  for (let i = 0; i < n; i++) {
+    const [a, b, spd, len] = DROPS[i];
+    const x = (a * Wd + t * 44) % (Wd + 120) - 60;
+    const y = (b * Ht + t * sp * spd) % (Ht + 130) - 60;
+    g.globalAlpha = .55 * amt * (i % 7 === 0 ? .5 : 1);
+    g.beginPath(); g.moveTo(x, y); g.lineTo(x + len * tilt, y + len); g.stroke();
+  }
+  g.restore();
+  // a few heavier streaks to read as a downpour, not a drizzle
+  if (amt > .5) {
+    g.save(); g.lineWidth = 2.2; g.strokeStyle = 'rgba(222,236,244,.34)';
+    for (let i = 0; i < 18; i++) {
+      const [a, b] = DROPS[i * 3];
+      const x = (a * Wd + t * 22) % Wd, y = (b * Ht + t * 820) % Ht, l = 46 + (i % 4) * 12;
+      g.globalAlpha = .4 * (amt - .5) * 2; g.beginPath(); g.moveTo(x, y); g.lineTo(x + l * .2, y + l); g.stroke();
+    }
+    g.restore();
+  }
+}
+
+// ---------- arrows from the boats ----------
+function arrows(t) {
+  const a = ss(seg(t, 31.5, 32.0)) * (1 - ss(seg(t, 33.7, 34.2))); if (a <= .02) return;
+  const [bx, by] = scr(boats[0].g.position.clone());
+  const [cx, cy] = scr(groundPt(112.139, 32.070, .10));
+  g.save(); g.strokeStyle = 'rgba(255,214,150,.9)'; g.lineWidth = 1.6;
+  for (let i = 0; i < 14; i++) {
+    const ph = ((t * 1.5 + i * .21) % 1);
+    const sx = bx + (i % 7 - 3) * 16, sy = by - 8;
+    const ex = cx + ((i % 5) - 2) * 18, ey = cy - 26;
+    const x = lerp(sx, ex, ph), y = lerp(sy, ey, ph) + Math.sin(ph * 3.14) * 22;
+    g.globalAlpha = a * Math.min(1, ph * 3);
+    g.beginPath(); g.moveTo(x, y); g.lineTo(x + (ex - sx) * .045, y + (ey - sy) * .045 + 2); g.stroke();
+    dot(x, y, 1.4, 'rgba(255,236,200,.9)', a * Math.min(1, ph * 3));
+  }
+  g.restore();
+}
+// Pang De's red mark, put out
+function pangDe(t) {
+  const a = ss(seg(t, 16.2, 16.9)) * (1 - ss(seg(t, 35.0, 35.9))); if (a <= .02) return;
+  const [x, y] = scr(groundPt(112.146, 32.081)); if (x < 0 || x > Wd) return;
+  dot(x, y, 5, C.red, a * .9); dot(x, y, 2, '#fff2e2', a);
+  const d = ss(seg(t, 35.2, 35.9));
+  if (d > 0) { line([[x - 8, y - 8], [x + 8, y + 8]], C.red, 2, d); line([[x + 8, y - 8], [x - 8, y + 8]], C.red, 2, d); }
+  txt('庞德', x + 14, y - 4, { size: 20, w: 700, sp: 3, f: 'NotoSC', align: 'left', col: C.red, a });
+  txt('PANG DE', x + 15, y + 14, { size: 10, w: 600, sp: 2, align: 'left', col: 'rgba(255,170,140,.9)', a: a * .85 });
+}
+
+// ---------- plates ----------
+function title(t) {
+  const a = ss(seg(t, .35, 1.1)) * (1 - ss(seg(t, 3.2, 3.9))); if (a <= .02) return;
+  const X = 96, Y = 300, e = eo(seg(t, .5, 1.4));
+  txt('建安二十四年 · 公元二一九年 · 七月', X + 1, Y - 44, { size: 15, w: 600, sp: 3, f: 'NotoSC', align: 'left', col: C.amberSoft, a });
+  txt('水淹七军', X - 2, Y + 2, { size: 58, w: 700, sp: 8, f: 'NotoSC', align: 'left', col: C.light, a });
+  txt('THE FLOOD THAT TOOK SEVEN ARMIES', X + 1, Y + 52, { size: 16, w: 600, sp: 3.5, align: 'left', col: 'rgba(232,224,208,.9)', a });
+  line([[X, Y + 78], [X + 420 * e, Y + 78]], 'rgba(246,238,224,.35)', 1, a);
+}
+function armyPlate(t) {
+  const a = ss(seg(t, 9.6, 10.3)) * (1 - ss(seg(t, 12.0, 12.6))); if (a <= .02) return;
+  const X = 118, Y = 240;
+  txt('于禁 · 七军', X, Y, { size: 15, w: 600, sp: 3, f: 'NotoSC', align: 'left', col: C.amberSoft, a });
+  txt('30,000', X - 3, Y + 56, { size: 66, w: 600, sp: 2, align: 'left', col: C.light, a });
+  txt('七军三万人 · 自北来援', X + 1, Y + 104, { size: 17, w: 500, sp: 2, f: 'NotoSC', align: 'left', col: 'rgba(236,228,212,.9)', a });
+}
+function oathPlate(t) {
+  const a = ss(seg(t, 12.2, 13.0)) * (1 - ss(seg(t, 17.4, 18.1))); if (a <= .02) return;
+  const X = 118, Y = 300;
+  plate(X - 30, Y - 56, 560, 150, a * .9);
+  txt('庞德 · 出征前', X, Y - 30, { size: 14, w: 600, sp: 3, f: 'NotoSC', align: 'left', col: C.amberSoft, a });
+  txt('「今年我不杀关羽，', X, Y + 12, { size: 34, w: 500, sp: 2, f: 'NotoSC', align: 'left', col: C.light, a });
+  txt('关羽就得杀我。」', X + 12, Y + 58, { size: 34, w: 500, sp: 2, f: 'NotoSC', align: 'left', col: C.light, a });
+  txt('PANG DE, BEFORE HE LEFT', X + 1, Y + 96, { size: 12, w: 600, sp: 3, align: 'left', col: C.dim, a: a * .85 });
+}
+function floodPlate(t) {
+  const a = ss(seg(t, 23.0, 23.8)) * (1 - ss(seg(t, 28.4, 29.2))); if (a <= .02) return;
+  const X = Wd - 470, Y = 236;
+  txt('汉水暴涨', X, Y, { size: 17, w: 700, sp: 4, f: 'NotoSC', align: 'left', col: C.sea, a });
+  txt('+' + floodM(t).toFixed(1) + ' m', X - 2, Y + 56, { size: 58, w: 600, sp: 2, align: 'left', col: C.light, a });
+  txt('八月连雨 · 平地水数丈', X + 1, Y + 100, { size: 15, w: 500, sp: 2, f: 'NotoSC', align: 'left', col: 'rgba(200,222,232,.9)', a });
+}
+function takenPlate(t) {
+  const a = ss(seg(t, 36.4, 37.1)); if (a <= .02) return;
+  const X = 96, Y = 268, e = eo(seg(t, 36.5, 37.4));
+  txt('三万曹军', X, Y, { size: 20, w: 600, sp: 4, f: 'NotoSC', align: 'left', col: C.amberSoft, a });
+  txt('成建制归关羽', X - 2, Y + 58, { size: 52, w: 700, sp: 6, f: 'NotoSC', align: 'left', col: C.light, a });
+  txt('THIRTY THOUSAND TAKEN WHOLE', X + 1, Y + 104, { size: 15, w: 600, sp: 3, align: 'left', col: 'rgba(232,224,208,.9)', a });
+  line([[X, Y + 126], [X + 400 * e, Y + 126]], 'rgba(246,238,224,.35)', 1, a);
+}
+
+// ---------- subtitles: the narration line, bottom left ----------
+function subtitles(t) {
+  const c = CUES.find(c => t >= c.t0 - .12 && t < c.t1 + .12);
+  g.save(); const gr = g.createLinearGradient(0, Ht - 250, 0, Ht); gr.addColorStop(0, 'rgba(6,10,12,0)'); gr.addColorStop(1, 'rgba(6,10,12,.58)');
+  g.fillStyle = gr; g.fillRect(0, Ht - 250, Wd, 250); g.restore();
+  if (!c) return;
+  const a = ss(seg(t, c.t0 - .12, c.t0 + .06)) * (1 - ss(seg(t, c.t1 - .06, c.t1 + .12)));
+  const X = 96, Y = Ht - 96;
+  g.save(); g.globalAlpha = a; g.fillStyle = C.amber; g.fillRect(X - 22, Y - 24, 3, 46); g.restore();
+  txt(c.zh, X, Y, { size: 37, w: 500, sp: 1.2, f: 'NotoSC', align: 'left', col: C.light, a, id: 'sub', nobox: true });
+}
+function credits(t) {
+  const a = ss(seg(t, .6, 1.4));
+  txt('ELEVATION AWS TERRAIN TILES · IMAGERY SENTINEL-2 CLOUDLESS 2016 BY EOX (CC BY 4.0) · VERTICAL ×5 · CITIES AND CAMP SCHEMATIC',
+    Wd - 40, Ht - 26, { size: 11, w: 500, sp: 1.1, align: 'right', col: 'rgba(240,232,216,.5)', base: 'alphabetic', a, id: 'credits', nobox: true });
+}
+
+// ---------- the frame ----------
+const EVF = [{ t: .4, type: 'title' }, { t: 6.3, type: 'fancheng' }, { t: 9.6, type: 'army' }, { t: 12.4, type: 'camp' },
+  { t: 21.4, type: 'flood' }, { t: 28.4, type: 'fleet' }, { t: 31.5, type: 'arrows' }, { t: 33.4, type: 'surrender' }, { t: 36.4, type: 'taken' }];
+function frame(t) {
+  TX = [];
+  FOGK = 1 + ss(seg(t, 21.0, 23.0)) * .45;
+  const dist = setCamera(t);
+  g.setTransform(2, 0, 0, 2, 0, 0); g.clearRect(0, 0, Wd, Ht);
+
+  // water, rain, light
+  const fh = floodM(t);
+  water.position.y = waterY(t);
+  waterU.uT.value = t; waterU.uMud.value = clamp(fh / FLOOD_M) * .9; waterU.uLevel.value = WATER_M + fh;
+  const rainy = ss(seg(t, 20.9, 22.2));
+  sun.intensity = 3.0 - rainy * 1.3; sun.color.setRGB(1, .86 + .04 * (1 - rainy), .7 + .12 * (1 - rainy));
+  hemi.intensity = .62 + rainy * .12;
+
+  // city walls appear with their names
+  for (const w of walls) { const k = eio(seg(t, w.t0, w.t0 + 1.4)); rv(w.glow, { revB: k * w.glow.L, inten: ss(seg(t, w.t0, w.t0 + .4)) }); rv(w.core, { revB: k * w.core.L, inten: ss(seg(t, w.t0, w.t0 + .4)) * .8, head: k * w.core.L, headAmt: .9 }); }
+
+  // the camp rises with the armies, and is taken at the end
+  const ck = ss(seg(t, 11.0, 12.6));
+  for (const o of [tents, carts, men, arms]) o.scale.setScalar(.001 + ck);
+  const take = ss(seg(t, 36.2, 37.3));
+  MAT.tent.color.setRGB(.91 - .24 * take, .86 - .18 * take, .76 - .30 * take);
+  MAT.tent.emissiveIntensity = .55 + take * .35;
+
+  // boats run down from the north-west
+  const bp = ss(seg(t, 27.4, 36.4));
+  const vis = ss(seg(t, 27.0, 28.4));
+  for (let i = 0; i < boats.length; i++) {
+    const b = boats[i];
+    const s = (.10 + bp * .62 + b.off) * rivS[rivS.length - 1];
+    const q = onRiver(s, waterY(t) + .026);
+    b.g.position.copy(q.p); b.g.rotation.y = Math.atan2(q.dir.x, q.dir.z);
+    b.g.visible = vis > .02; b.g.scale.setScalar(3.4 * (1 - i * .06) * (i % 2 ? .82 : 1));
+    const w = wakes[i];
+    const s0 = clamp(s - .05 * rivS[rivS.length - 1], 0, rivS[rivS.length - 1]);
+    rv(w, { revA: 0, revB: s0 * (w.L / rivS[rivS.length - 1]), inten: vis * .7 * (1 - i * .12) });
+  }
+  flagMat.opacity = ss(seg(t, 33.4, 34.2)) * (1 - ss(seg(t, 36.6, 37.4)));
+  flag.visible = flagMat.opacity > .02;
+
+  post.dof.focus = dist; post.dof.aper = dist * 2.2;
+  VU.fade.value = 1;
+  post.composer.render();
+
+  rain(t);
+  mapLabels(t); heightBar(t); pangDe(t); arrows(t);
+  title(t); armyPlate(t); oathPlate(t); floodPlate(t); takenPlate(t);
+  if (!Q.has('nosubs')) subtitles(t);
+  credits(t);
+}
+
+window.DUR = T1 - T0;
+window.render = t => frame(t + T0);
+window.TEXTS = t => { window.render(t); return TX.map(o => ({ ...o })); };
+window.EV = EVF.map(e => ({ ...e, t: e.t - T0 })).filter(e => e.t >= 0 && e.t <= T1 - T0);
+window.render(0);
+window.READY = true;
+</script>
+</body></html>

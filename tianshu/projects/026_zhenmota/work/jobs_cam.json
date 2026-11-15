@@ -1,0 +1,52 @@
+{
+ "jobs": [
+  {
+   "id": "S001",
+   "src": "anchored/S001.mp4",
+   "fallback": "post/S001.png",
+   "dur": 4.28,
+   "move": "pan_right",
+   "amount": 0.14
+  },
+  {
+   "id": "S002",
+   "src": "anchored/S002.mp4",
+   "fallback": "post/S002.png",
+   "dur": 6.32,
+   "move": "push_in",
+   "zoom": 0.09
+  },
+  {
+   "id": "S003",
+   "src": "anchored/S003.mp4",
+   "fallback": "post/S003.png",
+   "dur": 6.72,
+   "move": "drift",
+   "amount": 0.025
+  },
+  {
+   "id": "S004",
+   "src": "anchored/S004.mp4",
+   "fallback": "post/S004.png",
+   "dur": 2.22,
+   "move": "tilt_down",
+   "rise": 0.08
+  },
+  {
+   "id": "S005",
+   "src": "anchored/S005.mp4",
+   "fallback": "post/S005.png",
+   "dur": 10.76,
+   "move": "push_in",
+   "zoom": 0.06
+  },
+  {
+   "id": "S006",
+   "src": "anchored/S006.mp4",
+   "fallback": "post/S006.png",
+   "dur": 10.36,
+   "move": "orbit_right",
+   "amount": 0.08
+  }
+ ]
+}

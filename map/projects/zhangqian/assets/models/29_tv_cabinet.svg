@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="电视与大衣柜">
+<title>老电视与大衣柜 · 吉格背回来的家电家具 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 衣柜 -->
+  <rect x="196" y="54" width="156" height="306" rx="6" fill="#B07D46"/>
+  <path d="M274 54 L274 360" fill="none" stroke="#8E6B3E" stroke-width="4"/>
+  <rect x="206" y="66" width="58" height="130" rx="3" fill="#C8934A"/>
+  <rect x="284" y="66" width="58" height="130" rx="3" fill="#C8934A"/>
+  <rect x="206" y="206" width="58" height="140" rx="3" fill="#C8934A"/>
+  <rect x="284" y="206" width="58" height="140" rx="3" fill="#C8934A"/>
+  <circle cx="262" cy="128" r="5" fill="#4A3A22"/>
+  <circle cx="286" cy="128" r="5" fill="#4A3A22"/>
+  <circle cx="262" cy="276" r="5" fill="#4A3A22"/>
+  <circle cx="286" cy="276" r="5" fill="#4A3A22"/>
+  <path d="M206 66 L264 66 M284 66 L342 66" fill="none" stroke="#E3D9BE" stroke-width="3"/>
+  <!-- 老式 CRT 电视，放在木柜上 -->
+  <path d="M42 176 L170 176 L170 302 L42 302 Z" fill="#E9E2D0"/>
+  <path d="M42 176 L170 176 L170 302 L42 302 Z" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <path d="M52 188 L136 188 L136 274 L52 274 Z" fill="#34506E"/>
+  <path d="M56 192 L96 192 L56 232 Z" fill="#7FA5A6" opacity="0.7"/>
+  <path d="M62 250 Q86 236 108 252" fill="none" stroke="#7FA5A6" stroke-width="4"/>
+  <g fill="#2E2924" stroke="none">
+    <circle cx="152" cy="204" r="7"/><circle cx="152" cy="228" r="7"/>
+    <rect x="145" y="246" width="18" height="6" rx="3"/>
+    <rect x="145" y="258" width="18" height="6" rx="3"/>
+  </g>
+  <!-- 天线 -->
+  <path d="M92 176 L70 138 M108 176 L130 138" fill="none" stroke="#6E6A60" stroke-width="4"/>
+  <circle cx="92" cy="176" r="4" fill="#2E2924"/>
+  <!-- 电视柜 -->
+  <rect x="36" y="302" width="146" height="58" rx="4" fill="#9A6B31"/>
+  <path d="M36 320 L182 320" fill="none" stroke="#8E6B3E" stroke-width="3"/>
+  <circle cx="78" cy="336" r="5" fill="#4A3A22"/>
+  <circle cx="140" cy="336" r="5" fill="#4A3A22"/>
+  <!-- 地面 -->
+  <path d="M30 374 Q200 362 366 374" fill="none" stroke="#B9A176" stroke-width="4"/>
+</g>
+</svg>

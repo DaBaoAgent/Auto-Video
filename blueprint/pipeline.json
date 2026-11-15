@@ -1,0 +1,77 @@
+{
+  "version": "2026-11-09",
+  "pipeline": "blueprint",
+  "style": "bb-video/blueprint",
+  "label": "蓝图工程图",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "logical": "sheet 坐标 1080p design px；view 局部坐标 × scale"
+  },
+  "duration": {
+    "default": 30,
+    "min": 8,
+    "max": 300
+  },
+  "palette": {
+    "ground": "#123F77",
+    "bg": "#0B2B55",
+    "line": "#EEF6FF",
+    "lettering": "#F2F8FF",
+    "muted": "#9CC3E8",
+    "accent": "#FF5D4D",
+    "paper": "#123F77",
+    "cyan": "#CDE8FF",
+    "whiteprint_paper": "#EBEDE5",
+    "whiteprint_line": "#22398A"
+  },
+  "fonts": [
+    "Saira Condensed 500/600",
+    "Saira Stencil One",
+    "Noto Sans SC 400/500"
+  ],
+  "motion": {
+    "drafting": "construction → final line → annotation",
+    "sheets": "expose | slide | cut",
+    "camera": "push in / pull out on a sheet",
+    "mechanisms": "true tooth counts/module/centre distance"
+  },
+  "audio": {
+    "bpm": 96,
+    "key": "D minor",
+    "lufs": -16,
+    "true_peak": -1.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "voice_lead_in": 0.0,
+    "tail": 1.2,
+    "builtin_score": true
+  },
+  "render": {
+    "engine": "Chrome DevTools Protocol, frame by frame",
+    "chrome": "CHROME_PATH (Windows: auto-detect Chrome/Edge)",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/",
+    "final": "out/<编号>_<人物>/",
+    "files": [
+      ".mp4",
+      "_封面.png",
+      "_字幕.srt",
+      "_署名.txt"
+    ],
+    "qa": "review/qa.json"
+  },
+  "sample": {
+    "name": "玄奘 · 榆林窟第2窟 · 前 10 秒",
+    "duration": "12.1 s / 1920×1080 / 30 fps",
+    "path": "template/",
+    "media_committed": false
+  }
+}

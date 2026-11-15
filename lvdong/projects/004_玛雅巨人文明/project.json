@@ -1,0 +1,20 @@
+{
+ "name": "004_玛雅巨人文明",
+ "title": "被托管过的文明 · 第一大段",
+ "slug": "lvdong_004_maya",
+ "style": "silhouette-rhythm",
+ "lib": "D:\\@kaifa\\lemo-opuscar",
+ "canvas": { "w": 1920, "h": 1080, "fps": 30 },
+ "duration": 58.0,
+ "bpm": 90,
+ "section_end": 53.40,
+ "voice": "voice/source_full.wav",
+ "script": "script.txt",
+ "paras": 3,
+ "drop": ["和现代科学测出来的只差十七分二十八秒。"],
+ "cues": { "want": 16, "hard": 20, "min_hold": 1.6, "tail": 0.45 },
+ "labels": "17′28″雏形成熟玛雅文",
+ "poster_at": 23.2,
+ "fonts": ["NotoSansSC.ttf", "Anton-Regular.ttf"],
+ "note": "旁白取自《玛雅巨人文明》原片配音.wav 0–54.30 s；原配音缺「只差十七分二十八秒」一句（RMS 检测证实），字幕严格跟音频，该句只在画面上做字。"
+}

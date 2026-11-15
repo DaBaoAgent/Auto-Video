@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;background:#000;}</style></head>
+<body>
+<canvas id="cv" width="1920" height="1080"></canvas>
+<script src="yandi_full_sb.js"></script>
+<script>
+// ================= 炎帝全片渲染页（密度规则版 + bg10 图片底层）=================
+// 规则：文字面积≤30% ｜ 每2秒新动效点 ｜ 同屏≥5运动元素 ｜ 人物居中 ｜ 手机可读
+const W=1920,H=1080;
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const SB=window.SB;
+const COL={bg:'#0E1518',bgA:'#162125',gold:'#E8B84B',goldD:'#9A7524',jade:'#4E9E8A',jadeD:'#173B34',cream:'#F3EAD3',red:'#D9534F',redD:'#8E2F2C',earth:'#8A5A3B',earthD:'#4A2E1D',white:'#FFFFFF',grey:'#7A8288',ink:'#0A0F11'};
+
+// ---------- 资产（炎帝像素Q版 v1，全部1254正方形RGBA） ----------
+const PROJECT_ROOT=new URL('../../',location.href);
+const AB=new URL('output/007_炎帝/素材_像素Q版_v1/',PROJECT_ROOT).href;
+const ASSETS={
+ 'yandi-front':AB+'人物/炎帝_正面.png','yandi-side':AB+'人物/炎帝_侧面.png','yandi-back':AB+'人物/炎帝_背面.png',
+ 'farmer':AB+'人物/部落农夫.png','herbw':AB+'人物/采药妇.png',
+ 'rice':AB+'道具/五谷_稻穗.png','shu':AB+'道具/五谷_黍穗.png','ji':AB+'道具/五谷_稷穗.png','mai':AB+'道具/五谷_麦穗.png','shu2':AB+'道具/五谷_大豆.png',
+ 'herb':AB+'道具/常用药草.png','tea':AB+'道具/解毒茶枝.png','basket':AB+'道具/采药竹篮.png',
+ 'leisi':AB+'道具/木制耒耜.png','stone':AB+'道具/医用砭石.png','pot':AB+'道具/储粮陶罐.png','axe':AB+'道具/原始石斧.png',
+};
+// 精致逼真版素材（ImageGen 生成，品红底抠图 RGBA 1024²）
+const AR=new URL('output/007_炎帝/素材_精致逼真_v1/成品图/',PROJECT_ROOT).href;
+const REAL={ 'rice2':AR+'米饭.png','baicai':AR+'白菜.png','luobo':AR+'萝卜.png','zhurou':AR+'猪肉.png','yeren':AR+'神农架野人.png','daoshi':AR+'修仙道士.png' };
+for(const k in REAL)ASSETS[k]=REAL[k];
+const BGIMG=new URL('output/006_女娲/bg10_layeredpeaks.png',PROJECT_ROOT).href;
+const IMGS={};let loaded=0;const need=Object.keys(ASSETS).length+1;
+function fileUrl(p){return /^file:/.test(p)?p:'file:///'+p.split('/').map(encodeURIComponent).join('/');}
+for(const k in ASSETS){const im=new Image();im.onload=()=>{loaded++;};im.onerror=()=>{loaded++;};im.src=fileUrl(ASSETS[k]);IMGS[k]=im;}
+const bgIm=new Image();bgIm.onload=()=>{loaded++;};bgIm.onerror=()=>{loaded++;};bgIm.src=fileUrl(BGIMG);
+function img(k){return (IMGS[k]&&IMGS[k].complete&&IMGS[k].naturalWidth)?IMGS[k]:null;}
+function sprite(k,x,y,h,o){o=o||{};const im=img(k);if(!im)return;ctx.save();
+  ctx.globalAlpha=o.alpha==null?1:o.alpha;ctx.translate(x,y);if(o.rot)ctx.rotate(o.rot);
+  if(o.flip)ctx.scale(-1,1);const s=o.scale||1;ctx.scale(s,s);
+  if(o.filter&&ctx.filter!==undefined)ctx.filter=o.filter;
+  ctx.imageSmoothingEnabled=false;ctx.drawImage(im,-h/2,-h/2,h,h);ctx.restore();}
+
+// ---------- QC 仪表 ----------
+const QC={moving:new Set(),acts:[],textRects:[]};
+function mv(id){QC.moving.add(id);}
+function act(id){QC.acts.push(id);}
+function tRect(x,y,w,h){QC.textRects.push([x,y,w,h]);}
+function clamp(v,a,b){return v<a?a:v>b?b:v}
+function eob(t){const c=1.70158;const x=t-1;return 1+(c+1)*x*x*x+c*x*x}
+function eoe(t){return t>=1?1:1-Math.pow(2,-10*t)}
+function eio(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function rnd(seed){const x=Math.sin(seed*127.1+311.7)*43758.5453;return x-Math.floor(x)}
+
+// ---------- 背景四层（bg10 图片底层 + 三层动态） ----------
+let theme={r:232,g:184,b:75,a:0.10}; // A暖金 → B玉绿
+// bg10 运镜：横移与推拉交替，缓慢正弦（半周期13-26s），zoom 基线 1.09 保证平移不出界
+function camAt(t){
+  const panX=Math.sin(t*Math.PI/26)*42;                    // 左右横移全周期52s
+  const panY=Math.sin(t*Math.PI/47+1.2)*14;                // 纵向微漂
+  const zoom=1.09+Math.cos(t*Math.PI/19)*0.03;             // 推拉全周期38s（与横移错拍交替）
+  return {panX,panY,zoom};
+}
+function bgBase(t){ // 层1：bg10 aspect-fill 居中裁切 + 缓慢运镜
+  if(bgIm.complete&&bgIm.naturalWidth){
+    const ir=bgIm.naturalWidth/bgIm.naturalHeight,rr=W/H;
+    let sw,sh,sx,sy;
+    if(ir>rr){sh=bgIm.naturalHeight;sw=sh*rr;sx=(bgIm.naturalWidth-sw)/2;sy=0;}
+    else{sw=bgIm.naturalWidth;sh=sw/rr;sx=0;sy=(bgIm.naturalHeight-sh)/2;}
+    const c=camAt(t),m=(c.zoom-1)/2;
+    const ox=clamp(c.panX,-W*m,W*m),oy=clamp(c.panY,-H*m,H*m);
+    ctx.save();ctx.translate(W/2+ox,H/2+oy);ctx.scale(c.zoom,c.zoom);ctx.translate(-W/2,-H/2);
+    ctx.drawImage(bgIm,sx,sy,sw,sh,0,0,W,H);ctx.restore();
+    mv('bg-cam');
+  }else{ctx.fillStyle=COL.bg;ctx.fillRect(0,0,W,H);}
+}
+function bgParticles(t){ // 层2：微动氛围
+  ctx.fillStyle='rgba(255,255,255,0.05)';
+  for(let i=0;i<44;i++){const px=(rnd(i)*W+t*(14+rnd(i+7)*26))%W;const py=(rnd(i+3)*H+t*(8+rnd(i+11)*18))%H;
+    const s=1+rnd(i+5)*2.4;ctx.fillRect(px,py,s,s);}
+  mv('bg-particles');
+}
+function bgTheme(t){ // 层3：主题色脉冲
+  const pulse=0.75+0.25*Math.sin(t*0.8);
+  ctx.fillStyle='rgba('+theme.r+','+theme.g+','+theme.b+','+(theme.a*pulse).toFixed(3)+')';
+  ctx.fillRect(0,0,W,H);
+  mv('bg-theme');
+}
+function bgStage(t,stage){ // 层4：动态舞台（近景山脊+地面，避让924px字幕线）
+  const sp=stage==='b'?1:0.55;
+  for(let L=0;L<2;L++){
+    const amp=36+L*24,yb=H*(L===0?0.80:0.90),spd=(L===0?9:22)*sp;
+    ctx.fillStyle=L===0?'rgba(23,59,52,0.45)':'rgba(10,15,17,0.85)';
+    ctx.beginPath();ctx.moveTo(0,H);
+    for(let x=0;x<=W;x+=24){const y=yb+Math.sin((x+t*spd)*0.0016+L*2.1)*amp+Math.sin((x+t*spd*0.6)*0.004+L)*amp*0.35;ctx.lineTo(x,y);}
+    ctx.lineTo(W,H);ctx.closePath();ctx.fill();
+  }
+  if(stage==='b'){ // 田垄地面（B段）
+    ctx.fillStyle='rgba(74,46,29,0.45)';ctx.fillRect(0,H-150,W,150);
+    ctx.strokeStyle='rgba(138,90,59,0.4)';ctx.lineWidth=5;
+    for(let i=0;i<5;i++){const yy=H-140+i*24;ctx.beginPath();
+      for(let x=0;x<=W;x+=32){ctx.lineTo(x,yy+Math.sin(x*0.01+t*(2+i*0.4)+i)*4);}ctx.stroke();}
+    mv('furrows');
+  }
+  mv('bg-stage');
+}
+
+// ---------- 文字 ----------
+function bigText(text,x,y,size,color,outline,rot,scale,align){
+  ctx.save();ctx.translate(x,y);if(rot)ctx.rotate(rot);if(scale)ctx.scale(scale,scale);
+  ctx.font='900 '+size+'px "Microsoft YaHei"';ctx.textAlign=align||'center';ctx.textBaseline='middle';
+  const tw=ctx.measureText(text).width;
+  const ax=align==='left'?0:(align==='right'?-tw/2:0);
+  if(outline){ctx.lineWidth=size*0.12;ctx.strokeStyle=outline;ctx.lineJoin='round';ctx.strokeText(text,ax,0);}
+  ctx.fillStyle=color;ctx.fillText(text,ax,0);ctx.restore();
+  tRect(x-(align==='left'?0:tw/2)-size*0.1,y-size*0.62,tw+size*0.2,size*1.24);
+}
+// ---------- 字幕（炎帝样式：底部条 + 关键词金色高亮） ----------
+const ACC_KEYS=['炎帝','神农氏','神农','尝百草','七十二','茶','中药','野人','道士','神话','四件事','种地','种子','五谷','能吃','发现'];
+function subBar(text){
+  ctx.save();
+  ctx.font='900 64px "Microsoft YaHei"';
+  const tw=ctx.measureText(text).width;
+  const bx=W/2-tw/2-38,by=H-156,bw=tw+76,bh=100;
+  ctx.fillStyle='rgba(0,0,0,0.62)';ctx.fillRect(bx,by,bw,bh);
+  ctx.fillStyle=COL.gold;ctx.fillRect(bx,by,7,bh);
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.lineWidth=9;ctx.strokeStyle='#000';
+  const acc=ACC_KEYS.find(k=>text.includes(k));
+  let x=W/2-tw/2;
+  for(const chr of text){
+    const w=ctx.measureText(chr).width;
+    const inAcc=acc&&acc.includes(chr);
+    ctx.strokeText(chr,x+w/2,by+bh/2+3);
+    ctx.fillStyle=inAcc?COL.gold:'#fff';
+    ctx.fillText(chr,x+w/2,by+bh/2+3);
+    x+=w;
+  }
+  ctx.restore();
+  tRect(bx,by,bw,bh);
+}
+function card(x,y,w,h,o){o=o||{};ctx.save();
+  if(o.alpha!=null)ctx.globalAlpha=o.alpha;ctx.translate(x,y);if(o.rot)ctx.rotate(o.rot);const s=o.scale||1;ctx.scale(s,s);
+  ctx.fillStyle=o.fill||'rgba(255,255,255,0.055)';ctx.beginPath();ctx.roundRect(-w/2,-h/2,w,h,o.r||24);ctx.fill();
+  if(o.stroke){ctx.strokeStyle=o.stroke;ctx.lineWidth=o.lw||3;ctx.beginPath();ctx.roundRect(-w/2,-h/2,w,h,o.r||24);ctx.stroke();}
+  ctx.restore();}
+function chip(x,y,text,color,t0,t,size){const p=eob(clamp((t-t0)/0.35,0,1));if(p<=0)return;
+  ctx.save();ctx.font='900 '+(size||52)+'px "Microsoft YaHei"';const tw=ctx.measureText(text).width;
+  card(x,y,tw+56,size+34,{stroke:color,lw:3,scale:p,fill:'rgba(255,255,255,0.07)'});
+  bigText(text,x,y,size||52,color,null,0,p);mv('chip-'+text+t0);ctx.restore();}
+function glow(x,y,r,color,a){ctx.save();const g=ctx.createRadialGradient(x,y,0,x,y,r);
+  g.addColorStop(0,color.replace('A',a.toFixed(3)));g.addColorStop(1,color.replace('A','0'));
+  ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);ctx.restore();}
+
+// ---------- 剪影 ----------
+function glowRim(x,y,r,t){ // 剪影背后的金色逆光
+  const pr=r*(1+0.03*Math.sin(t*2.2));
+  ctx.save();const g=ctx.createRadialGradient(x,y,pr*0.2,x,y,pr);
+  g.addColorStop(0,'rgba(232,184,75,0.34)');g.addColorStop(1,'rgba(232,184,75,0)');
+  ctx.fillStyle=g;ctx.fillRect(x-pr,y-pr,pr*2,pr*2);ctx.restore();mv('rim'+(x|0));
+}
+function silSprite(k,x,y,h,t,ph,o){o=o||{};glowRim(x,y+h*0.25,h*0.75,t);
+  sprite(k,x,y+Math.sin(t*1.4+(ph||0))*6,h,Object.assign({filter:'brightness(0.12)',alpha:0.96},o));mv('sil-'+k+ph);}
+// 食物小图标（代码平涂，≥60px）
+function foodIcon(kind,x,y,s,t,ph){
+  ctx.save();ctx.translate(x,y+Math.sin(t*1.8+ph)*7);ctx.scale(s,s);
+  if(kind==='rice'){ctx.fillStyle='#F3EAD3';ctx.beginPath();ctx.arc(0,10,26,0,7);ctx.fill();
+    ctx.fillStyle='#8A5A3B';ctx.beginPath();ctx.arc(0,14,26,0,Math.PI);ctx.fill();
+    for(let i=0;i<3;i++){ctx.strokeStyle='rgba(255,255,255,'+(0.55-i*0.14)+')';ctx.lineWidth=5;ctx.lineCap='round';
+      ctx.beginPath();ctx.moveTo(-12+i*12,-14);ctx.quadraticCurveTo(-12+i*12+Math.sin(t*4+i)*8,-34,-8+i*12,-52);ctx.stroke();}}
+  else if(kind==='veg'){ctx.fillStyle='#4E9E8A';ctx.beginPath();ctx.ellipse(0,0,18,40,0,0,7);ctx.fill();
+    ctx.strokeStyle='#4E9E8A';ctx.lineWidth=7;for(let i=-1;i<2;i++){ctx.beginPath();ctx.ellipse(i*16,6,9,30,i*0.5,0,7);ctx.stroke();}}
+  else if(kind==='radish'){ctx.fillStyle='#D9534F';ctx.beginPath();ctx.moveTo(0,-30);ctx.quadraticCurveTo(24,-8,16,26);ctx.quadraticCurveTo(0,42,-16,26);ctx.quadraticCurveTo(-24,-8,0,-30);ctx.fill();
+    ctx.strokeStyle='#4E9E8A';ctx.lineWidth=6;for(let i=-1;i<2;i++){ctx.beginPath();ctx.moveTo(0,-26);ctx.quadraticCurveTo(i*14,-46,i*20,-58);ctx.stroke();}}
+  else if(kind==='meat'){ctx.fillStyle='#8E2F2C';ctx.beginPath();ctx.ellipse(0,4,30,20,-0.3,0,7);ctx.fill();
+    ctx.fillStyle='#F3EAD3';ctx.beginPath();ctx.arc(24,-12,9,0,7);ctx.fill();
+    ctx.strokeStyle='#F3EAD3';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(18,-16);ctx.lineTo(8,-6);ctx.stroke();}
+  ctx.restore();mv('food-'+kind+ph);
+}
+function sprout(x,y,s,p,t){ // 发芽生长（p:0-1）
+  if(p<=0)return;ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+  const st=p<0.45?p/0.45:1,lf=clamp((p-0.45)/0.55,0,1);
+  ctx.strokeStyle='#4E9E8A';ctx.lineWidth=9;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-110*st);ctx.stroke();
+  for(const d of[-1,1]){ctx.beginPath();ctx.moveTo(0,-70*st);
+    ctx.quadraticCurveTo(d*40*lf,-90*st,d*62*lf,(-96-Math.sin(t*2.4)*4)*st*lf);ctx.stroke();}
+  ctx.fillStyle='#6FC4AD';ctx.beginPath();ctx.ellipse(0,-116*st,16*lf,10*lf,0,0,7);ctx.fill();
+  ctx.restore();mv('sprout'+(x|0));
+}
+
+// ---------- 转场（温和） ----------
+function dip(t,cut){const dt=t-cut;if(dt>=0&&dt<0.3){const a=Math.sin(Math.PI*dt/0.3);ctx.fillStyle=COL.bg;ctx.globalAlpha=a;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;}}
+function veil(t,cut,color){const dt=t-cut;if(dt>=0&&dt<0.32){const a=Math.sin(Math.PI*dt/0.32)*0.30;ctx.fillStyle=color;ctx.globalAlpha=a;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;}}
+function softFlash(t,cut,color){const dt=t-cut;if(dt>=0&&dt<0.2){const a=Math.sin(Math.PI*dt/0.2)*0.28;ctx.fillStyle=color;ctx.globalAlpha=a;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;}}
+function softWipe(t,cut,color){const dt=t-cut;if(dt>=0&&dt<0.32){const p=eio(dt/0.32);ctx.fillStyle=color;ctx.globalAlpha=0.5;ctx.fillRect(-140+p*(W+280),0,140,H);ctx.globalAlpha=1;}}
+function softIris(t,cut){const dt=t-cut;if(dt>=0&&dt<0.36){const p=eoe(dt/0.36);const r=Math.max(1,1150*p);
+  ctx.fillStyle=COL.bg;ctx.beginPath();ctx.rect(0,0,W,H);ctx.arc(W/2,H/2,r,0,7);ctx.fill('evenodd');}}
+const TRANS_KINDS=['dip','veil','softFlash','softWipe','softIris'];
+const TRANS={};let kidx=0;
+for(const sc of SB.scenes){if(sc.s<=0)continue;
+  if(sc.type==='sil-seed'||sc.type==='sil-plant')TRANS[sc.s.toFixed(3)]=['softIris',null];
+  else{const r=TRANS_KINDS[kidx%TRANS_KINDS.length];TRANS[sc.s.toFixed(3)]=[r,COL.gold];kidx++;}}
+TRANS[SB.gap.s.toFixed(3)]=['softIris',null];
+
+// ---------- 场景 ----------
+function sceneByT(t){for(const s of SB.scenes){if(t>=s.s&&t<s.e)return s;}return SB.scenes[SB.scenes.length-1];}
+function subAt(t){for(const s of SB.subs){if(t>=s[0]&&t<s[1])return s[2];}return '';}
+
+// S1 食物四卡（精致逼真版：米饭/白菜/萝卜/猪肉实拍风素材）
+function scFoodHook(sc,t,tl){
+  const defs=[['一碗米饭','rice2',420],['白菜','baicai',786],['萝卜','luobo',1153],['猪肉','zhurou',1520]];
+  for(let i=0;i<4;i++){
+    const p=eob(clamp((tl-0.15-i*0.5)/0.4,0,1));if(p<=0)continue;
+    const bob=Math.sin(t*1.6+i*1.7)*8;
+    card(defs[i][2],520,320,420,{stroke:COL.gold,scale:p,fill:'rgba(232,184,75,0.07)'});
+    sprite(defs[i][1],defs[i][2],470+bob,240,{alpha:0.99});
+    bigText(defs[i][0],defs[i][2],672,64,COL.cream,null,0,p);
+    mv('fh-card'+i);
+  }
+  sprite('rice',960,210,190,{alpha:0.92,rot:Math.sin(t*1.1)*0.12});mv('rice-top');
+  mv('foodhook');
+}
+// S2 茶+中药
+function scFoodMore(sc,t,tl){
+  // 顶部保留前四样小图（精致素材弱化）
+  const kinds=['rice2','baicai','luobo','zhurou'];
+  for(let i=0;i<4;i++){sprite(kinds[i],330+i*140,140,86,{alpha:0.9});mv('fm-mini'+i);}
+  const defs=[['茶','tea',560,COL.jade],['中药','herb',1360,COL.gold]];
+  for(let i=0;i<2;i++){
+    const p=eob(clamp((tl-0.15-i*0.7)/0.4,0,1));if(p<=0)continue;
+    const bob=Math.sin(t*1.5+i*2)*9;
+    card(defs[i][2],540,400,440,{stroke:defs[i][3],scale:p,fill:'rgba(255,255,255,0.06)'});
+    sprite(defs[i][1],defs[i][2],480+bob,250,{alpha:0.98});
+    bigText(defs[i][0],defs[i][2],760,72,i===1?COL.gold:COL.jade,null,0,p);
+    mv('fm-card'+i);
+  }
+  mv('foodmore');
+}
+// S3 大问号
+function scQuestion(sc,t,tl){
+  const wob=Math.sin(t*3)*0.05;
+  bigText('?',960,430,320,COL.red,COL.gold,wob,eob(clamp(tl/0.4,0,1)));mv('qmark');
+  const kinds=['rice2','baicai','luobo','zhurou','tea','herb'];
+  for(let i=0;i<6;i++){const a=t*0.8+i*1.05,r=430+Math.sin(t*1.2+i)*26;
+    sprite(kinds[i],960+Math.cos(a)*r,430+Math.sin(a)*r*0.62,120,{alpha:0.95,rot:Math.sin(t*1.5+i)*0.08});mv('q-orbit'+i);}
+  mv('question');
+}
+// S4 排除野人/道士（精致逼真版素材）
+function scExclude(sc,t,tl){
+  const defs=[['神农架的野人','yeren',560],['修仙的道士','daoshi',1360]];
+  for(let i=0;i<2;i++){
+    const p=eob(clamp((tl-0.1-i*0.55)/0.4,0,1));if(p<=0)continue;
+    card(defs[i][2],500,460,460,{stroke:COL.grey,scale:p});
+    sprite(defs[i][1],defs[i][2],430+bobY(t,i),360,{alpha:0.97});
+    bigText(defs[i][0],defs[i][2],690,64,COL.cream,null,0,p);
+    const cp=clamp((tl-0.9-i*0.85)/0.25,0,1);
+    if(cp>0){ctx.save();ctx.translate(defs[i][2],460);ctx.strokeStyle=COL.red;ctx.lineWidth=16;ctx.lineCap='round';
+      ctx.beginPath();ctx.moveTo(-120,-120);ctx.lineTo(-120+240*cp,120);ctx.stroke();
+      if(cp>0.6){const q=(cp-0.6)/0.4;ctx.beginPath();ctx.moveTo(120,-120);ctx.lineTo(120-240*q,120);ctx.stroke();}
+      ctx.restore();mv('cross'+i);}
+    mv('ex-card'+i);
+  }
+  mv('exclude');
+}
+function bobY(t,i){return Math.sin(t*1.4+i*2)*6;}
+// S5 炎帝登场
+function scHeroReveal(sc,t,tl){
+  const ry=clamp(tl/0.9,0,1),yy=H-130-(H-130-520)*eob(ry);
+  glow(960,yy,340,'rgba(232,184,75,A)',0.30);
+  sprite('yandi-front',960,yy,470,{alpha:clamp(tl*1.5,0,1)});mv('hero');
+  const p2=eob(clamp((tl-0.9)/0.4,0,1));
+  if(p2>0){card(960,150,560,190,{stroke:COL.gold,scale:p2,fill:'rgba(232,184,75,0.12)'});
+    bigText('炎帝',960,150,130,COL.gold,COL.bg,0,p2);mv('namecard');}
+  const c1=clamp((tl-2.2)/0.35,0,1),c2=clamp((tl-3.0)/0.35,0,1);
+  if(c1>0)chip(640,900,'神农氏',COL.jade,tl-2.2,t,60);
+  if(c2>0)chip(1300,900,'七千多年前',COL.gold,tl-3.0,t,60);
+  // 光环扩散
+  const ring=clamp(tl/1.2,0,1);
+  ctx.save();ctx.strokeStyle='rgba(232,184,75,'+(0.5*(1-ring)).toFixed(3)+')';ctx.lineWidth=8;
+  ctx.beginPath();ctx.arc(960,yy,120+ring*420,0,7);ctx.stroke();ctx.restore();mv('ring');
+  mv('hero-reveal');
+}
+// S6 尝百草剪影
+function scCaobaiSil(sc,t,tl){
+  glowRim(760,620,300,t);
+  sprite('yandi-side',760,600,430,{filter:'brightness(0.12)',alpha:0.97,rot:Math.sin(t*1.3)*0.02});mv('sil-yandi');
+  // 采药竹篮+药草（暗金调）
+  sprite('basket',1250,760,220,{alpha:0.9,rot:Math.sin(t*1.7)*0.05});mv('basket');
+  sprite('herb',1470,560,170,{alpha:0.85,rot:Math.sin(t*2+1)*0.1});mv('herb1');
+  // 草丛剪影
+  ctx.fillStyle='rgba(10,15,17,0.9)';
+  for(let i=0;i<9;i++){const gx=90+i*230;ctx.beginPath();
+    ctx.moveTo(gx-30,H-150);ctx.quadraticCurveTo(gx+Math.sin(t*1.5+i)*12,H-320-i*30,gx+20,H-150);ctx.fill();}
+  mv('grass');
+  // 飘出的尝味符号
+  for(let i=0;i<3;i++){const p=clamp((tl-0.6-i*0.5)/0.4,0,1);if(p<=0)continue;
+    ctx.save();ctx.globalAlpha=p*(1-clamp((tl-0.6-i*0.5-0.4)/0.5,0,1));
+    ctx.translate(1000+i*130,380-((tl*40+i*30)%120));ctx.fillStyle=COL.gold;
+    ctx.beginPath();ctx.arc(0,0,9,0,7);ctx.fill();ctx.restore();mv('taste-bit'+i);}
+  mv('caobai-sil');
+}
+// S7 七十二毒+茶
+function scPoison72(sc,t,tl){
+  glowRim(560,580,280,t);
+  sprite('yandi-front',560,560,420,{filter:'brightness(0.12)',alpha:0.97,rot:Math.sin(t*1.2)*0.03});mv('sil-yandi2');
+  // 大数字 72
+  const p1=eob(clamp((tl-0.25)/0.4,0,1));
+  bigText('72',1150,330,230,COL.red,COL.bg,Math.sin(t*1.8)*0.03,p1);mv('n72');
+  bigText('种毒',1370,390,86,COL.cream,null,0,p1);
+  // 毒草变灰
+  for(let i=0;i<3;i++){const pp=clamp((tl-0.5-i*0.35)/0.3,0,1);if(pp<=0)continue;
+    const gx=1000+i*180,gy=560;
+    sprite('herb',gx,gy,150,{alpha:0.9,rot:Math.sin(t*3+i)*0.08});mv('herb-p'+i);
+    if(pp>0.5){ctx.save();ctx.globalAlpha=0.55;ctx.fillStyle='#0A0F11';
+      ctx.beginPath();ctx.arc(gx,gy,80,0,7);ctx.fill();ctx.restore();mv('herb-x'+i);}}
+  // 茶解毒
+  const p2=eob(clamp((tl-1.85)/0.4,0,1));
+  if(p2>0){card(1300,800,620,180,{stroke:COL.jade,scale:p2,fill:'rgba(78,158,138,0.14)'});
+    sprite('tea',1090,800,150,{alpha:0.98,scale:p2});
+    bigText('全靠茶解毒',1400,800,68,COL.jade,null,0,p2);mv('tea-card');}
+  mv('poison72');
+}
+// S8 听着像神话是吧？
+function scMyth(sc,t,tl){
+  const p=eob(clamp(tl/0.4,0,1));
+  bigText('听着像神话',960,470,150,COL.gold,COL.bg,0,p);mv('myth-word');
+  bigText('是吧？',960,650,110,COL.cream,null,0,eob(clamp((tl-0.3)/0.4,0,1)));
+  bigText('?',1450,380,180,COL.red,COL.gold,Math.sin(t*5)*0.06,eob(clamp((tl-0.5)/0.35,0,1)));mv('myth-q');
+  mv('myth');
+}
+// S9 比你想象的要大得多
+function scBigger(sc,t,tl){
+  const p=eob(clamp(tl/0.45,0,1));
+  bigText('他干的事',960,330,110,COL.cream,null,0,p);mv('big1');
+  bigText('比你想象的要大得多',960,540,150,COL.gold,COL.bg,0,eob(clamp((tl-0.35)/0.45,0,1)));mv('big2');
+  const u=clamp((tl-0.9)/0.6,0,1)*700;
+  ctx.fillStyle=COL.red;ctx.fillRect(960-u/2,680,u,12);mv('underline');
+  // 四领域小徽章环绕
+  const kinds=[['basket',COL.gold],['leisi',COL.jade],['stone',COL.red],['pot',COL.gold]];
+  for(let i=0;i<4;i++){const pp=clamp((tl-1.2-i*0.35)/0.35,0,1);if(pp<=0)continue;
+    const a=t*0.7+i*1.57,r=440+Math.sin(t*1.4+i)*20;
+    const bx=960+Math.cos(a)*r,by=560+Math.sin(a)*r*0.5;
+    card(bx,by,150,150,{stroke:kinds[i][1],scale:pp,r:20,fill:'rgba(255,255,255,0.05)'});
+    sprite(kinds[i][0],bx,by,110,{alpha:0.95});mv('badge-'+i);}
+  mv('bigger');
+}
+// S10 四件事卡片
+function scFourCards(sc,t,tl){
+  sprite('yandi-front',960,250,240,{alpha:0.95});mv('yandi-top');
+  const defs=[['尝百草','basket',400],['种地','leisi',786],['医药','stone',1153],['市场','pot',1520]];
+  const tps=[0.05,1.25,2.86,3.95];
+  for(let i=0;i<4;i++){
+    const p=eob(clamp((tl-tps[i])/0.4,0,1));if(p<=0)continue;
+    const bob=Math.sin(t*1.6+i*1.6)*7;
+    card(defs[i][2],600,340,330,{stroke:i%2?COL.jade:COL.gold,scale:p,fill:'rgba(255,255,255,0.06)'});
+    sprite(defs[i][1],defs[i][2],530+bob,190,{alpha:0.98});
+    bigText(defs[i][0],defs[i][2],730,68,COL.white,null,0,p);
+    mv('fc-card'+i);
+  }
+  mv('fourcards');
+}
+// S11 一个人 干了四件事
+function scFourBig(sc,t,tl){
+  const p=eob(clamp(tl/0.4,0,1));
+  bigText('一个人',960,420,130,COL.cream,null,0,p);mv('one');
+  bigText('干了四件事',960,610,150,COL.gold,COL.bg,0,eob(clamp((tl-0.3)/0.4,0,1)));mv('four');
+  const u=clamp((tl-0.6)/0.5,0,1)*760;
+  ctx.fillStyle=COL.red;ctx.fillRect(960-u/2,740,u,12);mv('underline2');
+  // 四卡缩小悬停
+  const defs=['basket','leisi','stone','pot'];
+  for(let i=0;i<4;i++){const bx=660+i*200;
+    card(bx,890,150,150,{stroke:COL.gold,scale:clamp((tl-0.2)/0.35,0,1),r:20,fill:'rgba(232,184,75,0.10)'});
+    sprite(defs[i],bx,890,110,{alpha:0.95,rot:Math.sin(t*2+i)*0.06});mv('mini-'+i);}
+  mv('fourbig');
+}
+// 接点：金粒子流
+function scJunction(sc,t,tl){
+  ctx.fillStyle='#0A0F11';ctx.fillRect(0,0,W,H);
+  for(let i=0;i<7;i++){const px=(tl*260+i*300)%2200-140,py=180+i*130+Math.sin(t*2+i)*24;
+    ctx.fillStyle='rgba(232,184,75,'+(0.25+0.2*Math.sin(t*3+i)).toFixed(2)+')';
+    ctx.fillRect(px,py,60+Math.sin(t*4+i)*20,4);mv('jp'+i);}
+  mv('junction');
+}
+// S12 剪影：种子落地观察
+function scSilSeed(sc,t,tl){
+  glowRim(700,610,300,t);
+  sprite('yandi-side',700,590,440,{filter:'brightness(0.12)',alpha:0.97,rot:Math.sin(t*1.2)*0.03});mv('sil-seedfig');
+  // 手撒种子
+  for(let i=0;i<9;i++){
+    const st=(tl*0.9+i*0.13)%1;
+    const sx=700+st*420+((i*53)%60)-30,sy=560+st*st*300;
+    ctx.fillStyle='rgba(243,234,211,'+(0.9-st*0.5).toFixed(2)+')';
+    ctx.beginPath();ctx.arc(sx,sy,7,0,7);ctx.fill();mv('seed'+i);}
+  // 发芽
+  sprout(1240,H-170,1.6,clamp((tl-2.6)/1.0,0,1),t);
+  sprout(1420,H-160,1.2,clamp((tl-3.1)/0.8,0,1),t+1);
+  mv('sil-seed');
+}
+// S13 五谷五卡
+function scFiveGrain(sc,t,tl){
+  const defs=[['稻','rice'],['黍','shu'],['稷','ji'],['麦','mai'],['菽','shu2']];
+  const xs=[400,680,960,1240,1520];
+  for(let i=0;i<5;i++){
+    const p=eob(clamp((tl-0.12-i*0.12)/0.3,0,1));if(p<=0)continue;
+    const bob=Math.sin(t*1.7+i*1.3)*8;
+    card(xs[i],500,250,440,{stroke:i%2?COL.jade:COL.gold,scale:p,fill:'rgba(255,255,255,0.06)'});
+    sprite(defs[i][1],xs[i],440+bob,190,{alpha:0.98});
+    bigText(defs[i][0],xs[i],662,84,COL.white,null,0,p);
+    mv('grain'+i);
+  }
+  bigText('五谷',960,150,110,COL.gold,COL.bg,0,eob(clamp(tl/0.4,0,1)));mv('grain-title');
+  mv('fivegrain');
+}
+// S14 试吃三问
+function scTaste(sc,t,tl){
+  glow(960,540,360,'rgba(232,184,75,A)',0.26);
+  sprite('yandi-front',960,540,450,{alpha:0.97,rot:Math.sin(t*1.1)*0.02});mv('taste-hero');
+  const defs=[['种子',640,COL.gold],['果实',960,COL.jade],['根',1280,COL.red]];
+  for(let i=0;i<3;i++){
+    const p=eob(clamp((tl-0.2-i*0.5)/0.35,0,1));if(p<=0)continue;
+    card(defs[i][1],860,300,190,{stroke:defs[i][2],scale:p,fill:'rgba(255,255,255,0.07)'});
+    bigText(defs[i][0],defs[i][1],860,68,COL.white,null,0,p);
+    bigText('?',defs[i][1],690,90,COL.red,COL.gold,Math.sin(t*4+i)*0.08,p);mv('tq-'+i);
+  }
+  mv('taste');
+}
+// S15 剪影：大面积种植
+function scSilPlant(sc,t,tl){
+  // 部落农夫剪影×2 + 耒耜
+  glowRim(520,600,280,t);
+  sprite('farmer',520,580,430,{filter:'brightness(0.12)',alpha:0.97,rot:Math.sin(t*1.6)*0.04});mv('sil-farmer1');
+  glowRim(920,620,260,t);
+  sprite('leisi',920,600,360,{filter:'brightness(0.12)',alpha:0.95,rot:-0.25+Math.sin(t*1.6)*0.09});mv('sil-leisi');
+  glowRim(1290,610,260,t);
+  sprite('farmer',1290,590,400,{filter:'brightness(0.12)',alpha:0.95,flip:true,rot:Math.sin(t*1.6+1.2)*0.04});mv('sil-farmer2');
+  // 撒种粒子
+  for(let i=0;i<8;i++){
+    const st=(tl*0.8+i*0.14)%1;
+    const sx=300+i*180+Math.sin(st*6+i)*30,sy=420+st*st*430;
+    ctx.fillStyle='rgba(243,234,211,'+(0.85-st*0.5).toFixed(2)+')';
+    ctx.beginPath();ctx.arc(sx,sy,6,0,7);ctx.fill();mv('sow'+i);}
+  // 田垄（bgStage b 已有）+ 生长小芽
+  for(let i=0;i<3;i++)sprout(400+i*560,H-160,1.0+i*0.15,clamp((tl-1.2-i*0.5)/0.9,0,1),t+i);
+  mv('sil-plant');
+}
+
+// ---------- 主渲染 ----------
+function render(t){
+  QC.moving.clear();QC.acts=[];QC.textRects=[];
+  ctx.setTransform(1,0,0,1,0,0);
+  const inGap=t>=SB.gap.s&&t<SB.gap.e;
+  const sc=inGap?{s:SB.gap.s,e:SB.gap.e,type:'junction'}:sceneByT(t);
+  const tl=t-sc.s;
+  // 主题色：A暖金（钩子）→ B玉绿（种地），接点处过渡
+  const k=clamp((t-(SB.gap.s-0.5))/1.1,0,1);
+  theme.r=232+(78-232)*k;theme.g=184+(158-184)*k;theme.b=75+(138-75)*k;theme.a=0.10+0.05*k;
+  bgBase(t);bgParticles(t);bgTheme(t);
+  bgStage(t,t>SB.gap.e?'b':'a');
+  try{
+    ctx.save();
+    const name=sc.type;
+    if(name==='foodhook')scFoodHook(sc,t,tl);
+    else if(name==='foodmore')scFoodMore(sc,t,tl);
+    else if(name==='question')scQuestion(sc,t,tl);
+    else if(name==='exclude')scExclude(sc,t,tl);
+    else if(name==='hero-reveal')scHeroReveal(sc,t,tl);
+    else if(name==='caobai-sil')scCaobaiSil(sc,t,tl);
+    else if(name==='poison72')scPoison72(sc,t,tl);
+    else if(name==='myth')scMyth(sc,t,tl);
+    else if(name==='bigger')scBigger(sc,t,tl);
+    else if(name==='fourcards')scFourCards(sc,t,tl);
+    else if(name==='fourbig')scFourBig(sc,t,tl);
+    else if(name==='junction')scJunction(sc,t,tl);
+    else if(name==='sil-seed')scSilSeed(sc,t,tl);
+    else if(name==='fivegrain')scFiveGrain(sc,t,tl);
+    else if(name==='taste')scTaste(sc,t,tl);
+    else if(name==='sil-plant')scSilPlant(sc,t,tl);
+    ctx.restore();
+  }catch(e){window.__err=(window.__err||[]);if(window.__err.length<20)window.__err.push(t.toFixed(2)+': '+String(e));ctx.restore();}
+  // 转场
+  for(const kk in TRANS){const c=+kk;const dt=t-c;if(dt<0||dt>0.4)continue;
+    const ty=TRANS[kk][0],col=TRANS[kk][1];
+    if(ty==='dip')dip(t,c);else if(ty==='veil')veil(t,c,col);else if(ty==='softFlash')softFlash(t,c,col);
+    else if(ty==='softWipe')softWipe(t,c,col);else if(ty==='softIris')softIris(t,c);}
+  // 字幕
+  const sub=inGap?'':subAt(t);
+  if(sub)subBar(sub);
+  // 水印+进度
+  ctx.save();ctx.font='500 32px "Microsoft YaHei"';ctx.fillStyle='rgba(255,255,255,0.4)';
+  ctx.textAlign='right';ctx.textBaseline='top';ctx.fillText('@徐艾伦',W-44,34);ctx.restore();
+  const pr=clamp(t/SB.total,0,1);
+  ctx.fillStyle='rgba(255,255,255,0.12)';ctx.fillRect(0,H-6,W,6);
+  ctx.fillStyle=COL.gold;ctx.fillRect(0,H-6,W*pr,6);mv('progress');
+  // 淡出
+  if(t>SB.total-0.5){ctx.fillStyle='#000';ctx.globalAlpha=(t-(SB.total-0.5))/0.5;ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;}
+  QC.moving.add('watermark');QC.acts.push('scene:'+sc.type);
+  if(sc.s>0)QC.acts.push('cut:'+sc.type);
+}
+window.__ready=function(){return loaded>=need;};
+window.renderFrame=function(i){render(i/30);return {t:i/30,moving:[...QC.moving],acts:QC.acts,textRects:QC.textRects};};
+render(0);
+</script></body></html>

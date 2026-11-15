@@ -1,0 +1,224 @@
+{
+ "ticks": [
+  {
+   "year": -1250,
+   "label": "前1250",
+   "x": 0.02
+  },
+  {
+   "year": -514,
+   "label": "前514",
+   "x": 0.14
+  },
+  {
+   "year": -221,
+   "label": "前221",
+   "x": 0.23
+  },
+  {
+   "year": 589,
+   "label": "589",
+   "x": 0.36
+  },
+  {
+   "year": 1229,
+   "label": "1229",
+   "x": 0.55
+  },
+  {
+   "year": 1896,
+   "label": "1896",
+   "x": 0.71
+  },
+  {
+   "year": 1994,
+   "label": "1994",
+   "x": 0.82
+  },
+  {
+   "year": 2026,
+   "label": "2026",
+   "x": 0.96
+  }
+ ],
+ "eras": [
+  {
+   "t0": 0,
+   "t1": 12,
+   "year": -1250,
+   "yearLabel": "前1250",
+   "chapter": "0",
+   "chapterName": "序 · 江南",
+   "chapterEn": "Prelude · Jiangnan",
+   "camera": {
+    "x": 0,
+    "z": 0,
+    "dist": 26000,
+    "pitch": 50,
+    "yaw": 0
+   }
+  },
+  {
+   "t0": 12,
+   "t1": 30,
+   "year": -514,
+   "yearLabel": "前514",
+   "chapter": "1",
+   "chapterName": "阖闾城",
+   "chapterEn": "The City of Helü",
+   "ring": "helv",
+   "camera": {
+    "x": -3200,
+    "z": 0,
+    "dist": 4600,
+    "pitch": 45,
+    "yaw": 0
+   }
+  },
+  {
+   "t0": 30,
+   "t1": 44,
+   "year": -221,
+   "yearLabel": "前221",
+   "chapter": "2",
+   "chapterName": "会稽郡",
+   "chapterEn": "Kuaiji Commandery",
+   "camera": {
+    "x": -3200,
+    "z": 0,
+    "dist": 4700,
+    "pitch": 45,
+    "yaw": 0
+   }
+  },
+  {
+   "t0": 44,
+   "t1": 58,
+   "year": 589,
+   "yearLabel": "589",
+   "chapter": "3",
+   "chapterName": "苏州",
+   "chapterEn": "The Name Suzhou",
+   "camera": {
+    "x": -3200,
+    "z": 0,
+    "dist": 4900,
+    "pitch": 45,
+    "yaw": 0
+   }
+  },
+  {
+   "t0": 58,
+   "t1": 74,
+   "year": 825,
+   "yearLabel": "825",
+   "chapter": "4",
+   "chapterName": "山塘",
+   "chapterEn": "Shantang Canal",
+   "camera": {
+    "x": -3400,
+    "z": -300,
+    "dist": 4400,
+    "pitch": 43,
+    "yaw": 0
+   }
+  },
+  {
+   "t0": 74,
+   "t1": 94,
+   "year": 1229,
+   "yearLabel": "1229",
+   "chapter": "5",
+   "chapterName": "平江府",
+   "chapterEn": "Pingjiang Prefecture",
+   "camera": {
+    "x": -3200,
+    "z": 0,
+    "dist": 4700,
+    "pitch": 46,
+    "yaw": 0
+   }
+  },
+  {
+   "t0": 94,
+   "t1": 110,
+   "year": 1368,
+   "yearLabel": "1368",
+   "chapter": "6",
+   "chapterName": "苏州府",
+   "chapterEn": "Suzhou Prefecture",
+   "camera": {
+    "x": -3200,
+    "z": 0,
+    "dist": 5100,
+    "pitch": 46,
+    "yaw": 0
+   }
+  },
+  {
+   "t0": 110,
+   "t1": 124,
+   "year": 1750,
+   "yearLabel": "1750",
+   "chapter": "7",
+   "chapterName": "姑苏",
+   "chapterEn": "Gusu",
+   "camera": {
+    "x": -3200,
+    "z": 0,
+    "dist": 5800,
+    "pitch": 47,
+    "yaw": 0
+   }
+  },
+  {
+   "t0": 124,
+   "t1": 136,
+   "year": 1896,
+   "yearLabel": "1896",
+   "chapter": "8",
+   "chapterName": "开埠",
+   "chapterEn": "The Port Opens",
+   "camera": {
+    "x": -3100,
+    "z": 100,
+    "dist": 7200,
+    "pitch": 45,
+    "yaw": 0
+   }
+  },
+  {
+   "t0": 136,
+   "t1": 143,
+   "year": 1994,
+   "yearLabel": "1994",
+   "chapter": "9",
+   "chapterName": "园区",
+   "chapterEn": "The Industrial Park",
+   "camera": {
+    "x": -300,
+    "z": -350,
+    "dist": 10500,
+    "pitch": 32,
+    "yaw": 0
+   }
+  },
+  {
+   "t0": 143,
+   "t1": 156,
+   "year": 2026,
+   "yearLabel": "2026",
+   "chapter": "10",
+   "chapterName": "年轮",
+   "chapterEn": "Rings of the City",
+   "camera": {
+    "x": 0,
+    "z": 0,
+    "dist": 16000,
+    "pitch": 46,
+    "yaw": 0
+   }
+  }
+ ],
+ "total_seconds": 160.7
+}

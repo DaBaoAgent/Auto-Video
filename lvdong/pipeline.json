@@ -1,0 +1,96 @@
+{
+ "version": "2026-11-15",
+ "pipeline": "lvdong",
+ "style": "silhouette-rhythm",
+ "label": "剪影律动（Silhouette Rhythm）",
+ "one_liner": "纯黑剪影站在落日前面，每一拍换一个姿势；关键一拍全身冻结，只有天空还在走。",
+ "canvas": {
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "motion": "全 on-ones；姿势在 ~0.13 s 内带一点回弹落位，然后静止到下一拍",
+  "k": "所有像素量按 K = H/1080 缩放"
+ },
+ "duration": {
+  "default": 58,
+  "min": 20,
+  "max": 300,
+  "grid": "90 BPM，一拍 0.6667 s，一小节 2.6667 s；段界取拍界"
+ },
+ "palette": {
+  "ink": "#05020A",
+  "cream": "#FFF6DC",
+  "gold": "#FFB347",
+  "coral": "#FC4D2B",
+  "magenta": "#E0245C",
+  "violet_0": "#380A52",
+  "violet_1": "#1A083D",
+  "rule": "天空只走暖色；剪影永远是同一块近黑；奶油色只给太阳、字幕、标签"
+ },
+ "camera": {
+  "projection": "水平针孔，机位浮在平水面",
+  "f": [4.9, 6.6],
+  "hor": [0.58, 0.62],
+  "ch": [0.80, 0.95],
+  "rules": ["一镜之内地平线不动、不歪", "日轮在世界里的位置不动", "换场只用黑幕擦/匹配剪/甩镜/直切冻结"]
+ },
+ "fonts": [
+  "NotoSansSC.ttf（字幕 46 px SCBold、标签 34 px、OFL、不入库）",
+  "Anton-Regular.ttf（画面大字 96 px、OFL、不入库）"
+ ],
+ "captions": {
+  "size_px": 46,
+  "color": "#FFF6DC",
+  "anchor": "118*K, H-92*K（左下）",
+  "line_chars": [11, 16],
+  "hard_max": 20,
+  "min_hold": 1.6,
+  "tail": 0.45,
+  "rule": "贴句读切；不断数字、不以的/了/是/就/和开头；行与行相接不留缝",
+  "nosub": "film.js 的 NOSUB 检测 ?subs=0，封面帧用 still --q \"subs=0\""
+ },
+ "audio": {
+  "loudness": "-14 LUFS",
+  "true_peak": -1.5,
+  "rate": 44100,
+  "mixer": "scripts/sound.py 读 score.json",
+  "palette": ["kalimba", "marimba", "bass", "wood", "shaker", "clap", "chime", "logdrum", "pad", "splash", "thump", "drip", "sweep", "wind"],
+  "rule": "旁白只切不重录；音乐在转点前一刀切掉（silences）；冻结只留一声与尾音",
+  "stems": ["stem_voice.wav", "stem_music.wav", "stem_foley.wav"]
+ },
+ "engine": {
+  "renderer": "lemo-opuscar core/render/{still,video}.mjs",
+  "shader": "lemo-opuscar styles/silhouette-rhythm/demo/sky.js",
+  "lib": "$LVDONG_LIB（默认 D:\\@kaifa\\lemo-opuscar）",
+  "staging": "工程被复制到 $LVDONG_LIB/films/<slug>/ 后渲染（字体随之落位）",
+  "not_packaged": "不复制 core/ 与 styles/ 源码"
+ },
+ "project_layout": {
+  "index.html": "三层 canvas + @font-face(fonts/) + sky.js/cast.js/film.js",
+  "cast.js": "演员表（人/巨人/帽子/碑/仓库/金字塔/草棚/工具），从 template 起手",
+  "film.js": "整条时间轴：DUR、B、SEC 段表、type()、window.render",
+  "score.json": "谱：bpm/duration/chords/bass/shaker/clap/melodies/bursts/hits/silences/bed/foley/levels",
+  "cues.json": "字幕（out/cues.json 生成物的入库对照）",
+  "treatment.md": "结构方案与拍点表",
+  "voice/": "source_full.wav（不入库）+ words_full.json（入库，供复现字幕）"
+ },
+ "qa": {
+  "check": "python scripts/lvdong.py check <project>",
+  "duration": "±1 帧（58.000 s）",
+  "lufs_window": 0.6,
+  "cps_max": 8.0,
+  "min_hold": 1.2,
+  "stills": ["0", "每个段界", "53.5 冻结", "57.9 末帧"],
+  "accept": "脚下有地、人不出画、剪影不并团、字幕不进日轮、碑孔透光、响度 −14.0±0.2 LUFS"
+ },
+ "first_project": {
+  "path": "projects/004_玛雅巨人文明",
+  "duration": 58.0,
+  "segments": 12,
+  "shots": 15,
+  "cues": 19,
+  "bpm": 90,
+  "lufs": -14.0,
+  "note": "口播稿第 1–3 段；原配音缺「只差十七分二十八秒」一句，该句只做画面字"
+ }
+}

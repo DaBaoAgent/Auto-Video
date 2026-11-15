@@ -1,0 +1,58 @@
+{
+  "version": "2026-10-30",
+  "pipeline": "shuimo",
+  "style": "kalpa-shan/ink-wash",
+  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
+  "duration": { "default": 30, "min": 10, "max": 60 },
+  "palette": {
+    "paper_top": "#f3eddf",
+    "paper_mid": "#efe7d6",
+    "paper_low": "#e7dcc6",
+    "ink_light": "rgba(28,22,19,0.12)",
+    "ink_mid": "rgba(28,22,19,0.38)",
+    "ink_deep": "#1c1613",
+    "cinnabar": "#a63428",
+    "jade": "#a8c0ab",
+    "ivory": "#e9ddc3",
+    "ice_blue": "#8fb4bc",
+    "river_core": "#e8fafc",
+    "gold": "#b88c42"
+  },
+  "scenes": ["site", "objects", "coast", "ice", "cut", "pit", "chambers"],
+  "camera": {
+    "type": "2D pan/zoom on pre-rasterised SVG layers",
+    "base_scale": 0.8,
+    "zoom_range": "1.0–1.15",
+    "pan_range": "layer-space 1200±120 / 675±80"
+  },
+  "layers": [
+    "宣纸：底色渐变 + 纸纤维 + 纸齿 + 暗角",
+    "生成式 SVG 山水：远/中/近山脊、江海、冰原、雾带、日轮",
+    "动态墨层：人物、黑匣、四物证、航线、手电、刻度、七室平面",
+    "屏幕空间题记：竖排地名/年月/印章/松枝前景",
+    "字幕：KaiTi 46px + 常驻纸色渐变衬底"
+  ],
+  "render": {
+    "format": "jpeg",
+    "jpeg_quality": 94,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "edge": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe",
+    "seconds_per_frame": 0.05
+  },
+  "audio": {
+    "bpm": 72,
+    "key": "D 羽调（D 小调五声）",
+    "score_gain": 0.52,
+    "lufs": -14,
+    "true_peak": -1.5,
+    "aac_trim_db": -0.2,
+    "sample_rate": 48000,
+    "instruments": ["Karplus-Strong 拨弦", "低频 drone", "木鱼", "鼓", "落印", "水滴", "毛笔擦纸", "铃"]
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/shuimo <集号>_水墨<N>秒样片.mp4",
+    "final": "out/<编号>_<人物>/",
+    "final_rules": "references/publish.md"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "004_玛雅巨人文明",
+  "title": "玛雅巨人文明·第一大段",
+  "paragraph": 1,
+  "voice": "voice.wav",
+  "script": "script.txt",
+  "terms": "mayan ruins|jungle temple|mayan pyramid",
+  "ids": [
+    "35423",
+    "144043",
+    "144042",
+    "22200",
+    "281134"
+  ],
+  "clip_seconds": 4,
+  "concat": "sequential",
+  "note": "",
+  "task_id": "3e271167-b125-45d7-b71a-7604a66ce7e9"
+}

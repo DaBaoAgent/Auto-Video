@@ -1,0 +1,92 @@
+{
+  "version": "2026-11-09",
+  "pipeline": "goldenage",
+  "style": "bb-video/goldenage",
+  "label": "美式黄金卡通",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "logical": "短边 720；16:9 = 1280×720"
+  },
+  "duration": {
+    "default": 30,
+    "min": 8,
+    "max": 300
+  },
+  "palette": {
+    "bg": "#0e1c5c",
+    "night": [
+      "#060a2c",
+      "#0e1c5c",
+      "#1b3a8c",
+      "#3a5aa8"
+    ],
+    "ink": "#1a111d",
+    "cream": "#fdf7e4",
+    "gold": "#ffc93c",
+    "red": "#f0603a",
+    "windows": [
+      "#ffd766",
+      "#ffbe45",
+      "#fff0a6",
+      "#f79a35"
+    ],
+    "moon": [
+      "#f8cf5c",
+      "#ffeb9e",
+      "#d9942e"
+    ]
+  },
+  "fonts": [
+    "Lilita One",
+    "ZCOOL KuaiLe",
+    "Noto Sans SC 700"
+  ],
+  "motion": {
+    "drawings_per_second": 15,
+    "fps": 30,
+    "boil": true,
+    "transitions": [
+      "cut",
+      "iris"
+    ],
+    "cartoon_physics": true
+  },
+  "audio": {
+    "bpm": 112,
+    "key": "F major",
+    "lufs": -16,
+    "true_peak": -1.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "voice_lead_in": 0.7,
+    "tail": 1.2
+  },
+  "render": {
+    "engine": "Chrome DevTools Protocol, frame by frame",
+    "chrome": "CHROME_PATH (Windows: auto-detect Chrome/Edge)",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 18,
+    "preset": "slow",
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/",
+    "final": "out/<编号>_<人物>/",
+    "files": [
+      ".mp4",
+      "_封面.png",
+      "_字幕.srt",
+      "_署名.txt"
+    ],
+    "qa": "review/qa.json"
+  },
+  "sample": {
+    "name": "阿努纳奇 · 第一段",
+    "duration": "30.3 s / 1920×1080 / 30 fps",
+    "path": "template/",
+    "media_committed": false
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "version": "2026-10-30",
+  "pipeline": "xuni",
+  "style": "mg-styles-15/10-synthwave",
+  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
+  "duration": { "default": 30, "min": 10, "max": 60 },
+  "palette": {
+    "sky_top": "#030008",
+    "sky_deep": "#1a0332",
+    "horizon": "#4a0d44",
+    "ground": "#04000a",
+    "magenta": "#FF2E88",
+    "cyan": "#21E6FF",
+    "yellow": "#FFD34D",
+    "acid": "#B6FF3C",
+    "chrome": ["#a9c9e2", "#5f82a8", "#c9e2f5", "#3d5a7e", "#e6f4ff", "#3d5a7e", "#6a4cae", "#a3c4dc", "#4a6a8c"]
+  },
+  "camera": {
+    "fov": 50,
+    "shift": 45,
+    "horizon_px": 585,
+    "grid_spacing": 8,
+    "grid_scroll_units_per_s": 36
+  },
+  "post": {
+    "bloom_strength": 0.40,
+    "bloom_radius": 0.52,
+    "bloom_threshold": 0.84,
+    "vhs_scanline_pct": 0.12,
+    "vhs_rgb_split_px": 1.2,
+    "vhs_vignette": 0.62,
+    "mask_open": [1.05, 1.65],
+    "tape_stop": 29.40,
+    "crt_off": [29.55, 29.93]
+  },
+  "audio": {
+    "bpm": 100,
+    "beat0": 1.10,
+    "score_gain": 0.45,
+    "lufs": -14,
+    "true_peak": -1.5,
+    "aac_trim_db": -0.2,
+    "sample_rate": 48000
+  },
+  "render": {
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 21,
+    "crf_master": 16,
+    "preset": "slow",
+    "edge": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/<集号>_合成波<N>秒样片.mp4",
+    "final": "out/<编号>_<人物>/",
+    "final_rules": "references/publish.md"
+  }
+}

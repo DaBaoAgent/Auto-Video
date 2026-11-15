@@ -1,0 +1,467 @@
+{
+  "version": "pipeline-2026-10-30",
+  "date": "2026-10-30",
+  "pipeline": "xiangsu",
+  "former_name": "xiangsu2",
+  "status": "current",
+  "purpose": "《001 波斯湾伊甸园》全片管线（1920×1080 成片 / 640×360 像素密度）改名封装为 xiangsu 并固化。本文件是现行身份：目录、环境变量、生成落点、逐文件 SHA-256、复现证据与交付基线。",
+  "identity": {
+    "framebuffer": "640×360 索引色帧缓冲：所有造型 / 抖动 / 描边逐像素决定",
+    "upscale": "×3 整数最近邻（imageSmoothingEnabled = false）→ 1920×1080",
+    "crt": "输出分辨率上做 CRT：rgba(0,0,0,0.12) 扫描线每 3 px 一条 + 径向暗角 + 磷光 rgba(120,255,200,0.02)",
+    "encode": "x264 CRF 14 · preset slow · high · aq-mode=3 · yuv420p · bt709 tv",
+    "audio": "AAC 48 kHz 双声道；两遍 loudnorm I=-16 / TP=-1.5 / LRA=11",
+    "duration": "272.05 s / 8162 帧 / 58 镜 / 195 条字幕",
+    "cover": "make_covers.mjs 复用 assembled film.js 的可配副本（coverfilm.js），t=42.4，叠深色标题区 + STXingkai 金色标题"
+  },
+  "rename": {
+    "date": "2026-10-29",
+    "request": "宝哥：把这条管线改名封装成 xiangsu 并固化。",
+    "decision": "新线接管 xiangsu 这个名字；workbuddy 旧像素线文档存档，代码只读、不覆盖、不调用。",
+    "steps": [
+      "render/xiangsu2/ 整体并入 render/xiangsu/（旧目录已删除，工作区路径只保留一个）",
+      "旧 workbuddy 文档存档为 render/xiangsu/README_workbuddy_2026-10-28.md（9,129 B，内容一字未改）",
+      "新 README.md 由本管线接管，追加「改名与封装（2026-10-29）」章节",
+      "demos/xiangsu2-eden/ 改名 demos/xiangsu-eden/（19 文件 / 9,538,247 B，字节不变）",
+      "生成目录改为 demos/xiangsu-eden-full/、demos/xiangsu-cover/（避开 workbuddy 占用的 demos/xiangsu/）",
+      "环境变量统一 XIANGSU_*；旧名 XIANGSU2_* 在脚本里保留 fallback",
+      "demo/film.js 与全部历史 FREEZE*.json 内容未改（历史基线哈希继续有效；文内 xiangsu2 为当时记录）"
+    ],
+    "historical_note": "workbuddy 2026-10-29 改名为 youxi 的是 20-pixel 跑酷线（原 rinoku20），不是这条像素线；demos/xiangsu/ 是旧像素线遗留代码，本管线不引用。"
+  },
+  "scope": {
+    "workspace": "D:/@kaifa/yandi/yandi-video/render/xiangsu/",
+    "render_repo": "D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15/",
+    "delivery": "D:/@kaifa/yandi/out/3 波斯湾伊甸园/",
+    "source_assets": "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/（口播稿 / 配音.wav / 词级转写）",
+    "cleanup_record": "full/FREEZE_pipeline_2026-10-29_cleanup.json（status=superseded，写于改名前，文内 xiangsu2 为旧名）"
+  },
+  "env": [
+    {
+      "name": "XIANGSU_REPO",
+      "default": "D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15",
+      "old": "XIANGSU2_REPO"
+    },
+    {
+      "name": "XIANGSU_PROJ",
+      "default": "",
+      "old": "XIANGSU2_PROJ",
+      "required_in": "full/build_full.sh",
+      "note": "新片必填；成片落盘目录"
+    },
+    {
+      "name": "XIANGSU_WORKERS",
+      "default": "4",
+      "old": ""
+    },
+    {
+      "name": "XIANGSU_PY",
+      "default": "D:/@kaifa/openviking/.venv/Scripts/python.exe",
+      "old": "XIANGSU2_PY"
+    },
+    {
+      "name": "XIANGSU_VOICE",
+      "default": "",
+      "old": "XIANGSU2_VOICE",
+      "required_in": "full/make_audio.sh",
+      "note": "必填；build_full 缺省取 $XIANGSU_PROJ/配音.wav 并校验存在"
+    },
+    {
+      "name": "XIANGSU_COVER_OUT",
+      "default": "",
+      "old": "XIANGSU2_COVER_OUT",
+      "required_in": "full/make_covers.mjs --final",
+      "note": "新片必填；封面交付目录"
+    },
+    {
+      "name": "MG_CHROME",
+      "default": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+      "old": ""
+    },
+    {
+      "name": "XIANGSU_FILM",
+      "default": "",
+      "old": "",
+      "required_in": "full/build_full.sh",
+      "note": "新片必填；片名，用于输出文件名与封面标题兜底"
+    },
+    {
+      "name": "XIANGSU_DUR",
+      "default": "",
+      "old": "",
+      "required_in": "full/build_full.sh",
+      "note": "新片必填；秒数，须与 full/cues.json duration 一致"
+    },
+    {
+      "name": "XIANGSU_COVER_TITLE",
+      "default": "",
+      "old": "",
+      "required_in": "full/make_covers.mjs --final",
+      "note": "封面标题；未设时用 XIANGSU_FILM"
+    }
+  ],
+  "demo_targets": {
+    "sample_10s": "demos/xiangsu-eden/（19 文件 / 9,538,247 B；源在 demo/，build.sh 同步）",
+    "full": "demos/xiangsu-eden-full/（assemble.mjs 生成；渲染中间件落这里）",
+    "cover": "demos/xiangsu-cover/（make_covers.mjs 生成；coverfilm.js + sprites.js + cues.json + index.html）"
+  },
+  "reproduction": {
+    "date": "2026-10-29",
+    "after_rename": true,
+    "assemble": {
+      "command": "cd D:/@kaifa/yandi/yandi-video/render/xiangsu && node full/assemble.mjs",
+      "parts": 8,
+      "shot_functions": 51,
+      "missing": "无",
+      "outputs": {
+        "demos/xiangsu-eden-full/film.js": {
+          "bytes": 267123,
+          "sha256": "6dad591a7edac078c92463f39d24bf715ffc7ce2ce1883f364fedc8ddd526d32"
+        },
+        "demos/xiangsu-eden-full/sprites.js": {
+          "bytes": 24326,
+          "sha256": "ef19041da186ff4bffcda46cc1d64fd63e343187f8a5218b1429ae32cbb4475f"
+        },
+        "demos/xiangsu-eden-full/cues.json": {
+          "bytes": 30176,
+          "sha256": "e05a34aaff77f1476be327e748547550d7d308923ad51587aef321bf961c15e1"
+        },
+        "demos/xiangsu-eden-full/index.html": {
+          "bytes": 2270,
+          "sha256": "7d879a045aa4b9aa31e71ff96f9d6f0829f05f72f73230f337c47b3f331d7320"
+        }
+      }
+    },
+    "covers": {
+      "command": "XIANGSU_COVER_OUT=<临时目录> XIANGSU_COVER_TITLE=波斯湾伊甸园 node full/make_covers.mjs --final",
+      "coverfilm": {
+        "bytes": 267381,
+        "sha256": "3612fc106eebbeec89dd5db519e462099e2ae1e4697cd07ec3eee31cf12a3581"
+      },
+      "cover_4x3": {
+        "size": "1440×1080",
+        "bytes": 381980,
+        "sha256": "5505ba972d17acd1c18960d7cb6c2b14193db70c50706c95a51eecab6cffa8b0",
+        "match_delivery": true
+      },
+      "cover_3x4": {
+        "size": "1080×1440",
+        "bytes": 256906,
+        "sha256": "4fa267e2233bf2a175f7ad521973cd3894e906c4061fd759bad94d1779db605d",
+        "match_delivery": true
+      },
+      "font_check": {
+        "loaded": true,
+        "xingkai": {
+          "sig": 292300553,
+          "ink": 2656
+        },
+        "yahei": {
+          "sig": 442124685,
+          "ink": 4003
+        }
+      },
+      "known_jitter": "首次重跑 cover_4x3 有 1 个像素（463,89）绿通道差 1/255，重跑即逐字节一致：Chrome 对标题区渐变的浮点并列值光栅化偶发 1 LSB，不影响验收口径（校验走分辨率/字体签名/交付哈希重跑）。"
+    },
+    "cleanup_after": "复现产物（demos/xiangsu-eden-full/、demos/xiangsu-cover/、临时封面目录）每次跑完即删，工作区回到本文件 files 清单的干净状态。"
+  },
+  "delivery_baseline": {
+    "dir": "D:/@kaifa/yandi/out/3 波斯湾伊甸园/",
+    "files": 11,
+    "bytes": 200242158,
+    "top_level": [
+      "波斯湾伊甸园_全片.mp4",
+      "cover_4x3.png",
+      "cover_3x4.png",
+      "发布信息.txt",
+      "源文件/"
+    ],
+    "key_hashes": {
+      "波斯湾伊甸园_全片.mp4": {
+        "bytes": 195824510,
+        "sha256": "910d81c5fb70c9a250925d8b79e9d0b7b9a2953f3aa83c14ea847e3f5e808922"
+      },
+      "cover_4x3.png": {
+        "bytes": 381980,
+        "sha256": "5505ba972d17acd1c18960d7cb6c2b14193db70c50706c95a51eecab6cffa8b0"
+      },
+      "cover_3x4.png": {
+        "bytes": 256906,
+        "sha256": "4fa267e2233bf2a175f7ad521973cd3894e906c4061fd759bad94d1779db605d"
+      },
+      "发布信息.txt": {
+        "bytes": 676,
+        "sha256": "6386b67779f72b88187ff021ab01098ed9074ed5701509fb1ede5e8894c10e11"
+      }
+    }
+  },
+  "protected_baseline": {
+    "demos/xiangsu/": {
+      "files": 391,
+      "bytes": 45266405,
+      "note": "workbuddy 旧像素线代码，只读"
+    },
+    "demos/xiangsu-bay/": {
+      "files": 46,
+      "bytes": 12466302,
+      "note": "workbuddy 旧线海域场景，只读"
+    },
+    "demos/xiangsu-eden/": {
+      "files": 19,
+      "bytes": 9538247,
+      "note": "本管线 10 s 样片（改名自 xiangsu2-eden，字节不变）"
+    },
+    "README_workbuddy_2026-10-28.md": {
+      "bytes": 9129,
+      "sha256": "db23e2fbcb97edb431cfa28c937f92a72ea74a3cdf4f1e87da5b0c26b2c411fc",
+      "note": "旧文档存档，内容一字未改"
+    }
+  },
+  "next_video": [
+    "export XIANGSU_PROJ=... / XIANGSU_FILM=... / XIANGSU_DUR=... / XIANGSU_VOICE=... / XIANGSU_COVER_OUT=... / XIANGSU_COVER_TITLE=...（片级必填，缺省报错）",
+    "cd D:/@kaifa/yandi/yandi-video/render/xiangsu/full",
+    "node assemble.mjs（改过源码或 parts 后必跑）",
+    "bash build_full.sh（音轨 → 渲染 → 验收；full/out/audio.wav 缺失会自动重建）",
+    "node make_covers.mjs --final --t43 <秒> --t34 <秒>（裁切/取帧默认值仍是 001 的，按新片改）",
+    "每条片跑完删掉 demos/xiangsu-eden-full/、demos/xiangsu-cover/ 与本目录 full/out/，保持干净管线"
+  ],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 198,
+      "sha256": "4ca5ac1b0a380b672e9300822a866425f8ac09bc4c42ce96371ed7ec3e2c5c48"
+    },
+    {
+      "path": "build_cues.mjs",
+      "bytes": 13881,
+      "sha256": "f59b12b6d0c3671bb9548609adc05dbd0b4d2f5dc71f6ad250e936cf36783248"
+    },
+    {
+      "path": "build.sh",
+      "bytes": 1569,
+      "sha256": "438591dd604c2fa3442c909310ea1a3ac6c68f35376a6712e73b65293ad147ec"
+    },
+    {
+      "path": "demo/audio.py",
+      "bytes": 12088,
+      "sha256": "7a88275a85e6715350b4df0ddba0c63c9594044a00915e7a8e9c2b799ecc2c2f"
+    },
+    {
+      "path": "demo/cues.json",
+      "bytes": 1064,
+      "sha256": "568fd78aa9de32446c888f0361d8d6f2bdc185385599695d57fbe7bc2b661882"
+    },
+    {
+      "path": "demo/film.js",
+      "bytes": 101082,
+      "sha256": "0a6d7f5847822e6a336b676f046822fe21f7656ae845ba4007c8f4aee638ce64"
+    },
+    {
+      "path": "demo/index.html",
+      "bytes": 812,
+      "sha256": "825a72cff674b9d5b9273a66e027b7057ca5b5ce87f327d96f65f51f10d1e2ba"
+    },
+    {
+      "path": "demo/sprites.js",
+      "bytes": 24326,
+      "sha256": "ef19041da186ff4bffcda46cc1d64fd63e343187f8a5218b1429ae32cbb4475f"
+    },
+    {
+      "path": "FREEZE.json",
+      "bytes": 3368,
+      "sha256": "816ccdf0be1147934c534847abbd71a0affb9273ac2598e45ad9dc5999632ffb"
+    },
+    {
+      "path": "full/assemble.mjs",
+      "bytes": 2412,
+      "sha256": "974ebd906b5ab5283361a8860a8a69ddbdc0148b64647e04cc09717413eec385"
+    },
+    {
+      "path": "full/audio.py",
+      "bytes": 12481,
+      "sha256": "972e4055befb7a1cfec60f9a60aed4ee68494df7af3f0c09dbb9405aa28dc622"
+    },
+    {
+      "path": "full/beats.json",
+      "bytes": 4384,
+      "sha256": "4485cf1e3396d4898309cea2076cc7ed2d050512832b63ed1b67ffbde3b65782"
+    },
+    {
+      "path": "full/build_full.sh",
+      "bytes": 2856,
+      "sha256": "fce3dee43fbf51539f175a326d657ecad6bfa4aa20840666ce79fbb78c64cb6b"
+    },
+    {
+      "path": "full/cues.json",
+      "bytes": 30176,
+      "sha256": "e05a34aaff77f1476be327e748547550d7d308923ad51587aef321bf961c15e1"
+    },
+    {
+      "path": "full/cues.sentences.json",
+      "bytes": 10242,
+      "sha256": "54539eedf79b151bec5092ff6b780eddc9b56b27d6106bc2ef387f2c91e4ea30"
+    },
+    {
+      "path": "full/FREEZE_full_rev3.json",
+      "bytes": 7040,
+      "sha256": "0afb5fd096ddf914d0aa4ed41ccab4fc7a5d4412b0746f274c8e0162d01c6fae"
+    },
+    {
+      "path": "full/FREEZE_full_rev4.json",
+      "bytes": 8305,
+      "sha256": "8f1436f30a838706ace2bbe5cceb40ff04b292cf383e2251ad72399297a82a60"
+    },
+    {
+      "path": "full/FREEZE_full.json",
+      "bytes": 7629,
+      "sha256": "6f9a8a20238018bd59324904ba68de362bb1c76951c0a0c64c0d2eeb83d8667f"
+    },
+    {
+      "path": "full/FREEZE_pipeline_2026-10-29_cleanup.json",
+      "bytes": 12613,
+      "sha256": "c0af131d1c270d6f44887c3cbebb630cd2228d50130596c1f03c1a86629e0d9a"
+    },
+    {
+      "path": "full/FREEZE_sample60.json",
+      "bytes": 6716,
+      "sha256": "1eb0390933806926637128ad502aca19c51400fef94706ae4182158fc18cc3c6"
+    },
+    {
+      "path": "full/index.html",
+      "bytes": 2270,
+      "sha256": "7d879a045aa4b9aa31e71ff96f9d6f0829f05f72f73230f337c47b3f331d7320"
+    },
+    {
+      "path": "full/make_audio.sh",
+      "bytes": 1696,
+      "sha256": "bb16538189fc8bc21868d9377a23d57d974687da10291f7a7ae43bec78f70dd8"
+    },
+    {
+      "path": "full/make_covers.mjs",
+      "bytes": 12671,
+      "sha256": "77ac0d4dee46f07e9c47245132327784cf63c402b066a66d810ae8bb8a586221"
+    },
+    {
+      "path": "full/parts/00-util.js",
+      "bytes": 24999,
+      "sha256": "1cac97e7ec8514567c3cceacfc24b86e5926f5ffccf9e44a0c203fa414d1646c"
+    },
+    {
+      "path": "full/parts/05-spr.js",
+      "bytes": 38585,
+      "sha256": "725bb10715c5588af3ec538169718d18dc37d9791f55297e1006f44a8ad12dc3"
+    },
+    {
+      "path": "full/parts/10-shots-1.js",
+      "bytes": 24225,
+      "sha256": "ec7c44833a36f8058558aa32160475ff1301cfc808d2514554762a9ce47dcd15"
+    },
+    {
+      "path": "full/parts/20-shots-2.js",
+      "bytes": 19343,
+      "sha256": "f6c137288550047da530b650e3e578d0b1eea930bbc020703a4dfdfc1a20ed14"
+    },
+    {
+      "path": "full/parts/30-shots-3.js",
+      "bytes": 16910,
+      "sha256": "1e42bc48794991d0960f7849510a206e856ca2c6c974da650046bd317d2a559a"
+    },
+    {
+      "path": "full/parts/40-shots-4.js",
+      "bytes": 17731,
+      "sha256": "4ce39e63dac1daa911e8f70800f81e0fe9096edb733042f185f0a6a2eb789744"
+    },
+    {
+      "path": "full/parts/50-shots-5.js",
+      "bytes": 20940,
+      "sha256": "b49365d9a5ae8ec57851893ab4d6280e8a0b78a16147af55baef9478d1078178"
+    },
+    {
+      "path": "full/parts/90-tail.js",
+      "bytes": 7859,
+      "sha256": "02ac503a89d518689c744496f46e28aa84a11dce5d5a1ce51601dd71134f51c9"
+    },
+    {
+      "path": "full/send_film_mail.py",
+      "bytes": 2281,
+      "sha256": "62c3a4a151d8cacb679e3a83aafd84f22d7eeb8fa472f07589146b67e5bd9d3e"
+    },
+    {
+      "path": "full/sfx_cues.json",
+      "bytes": 6548,
+      "sha256": "47d339f15ae88457aaf5875de05e939794917892b286c35a623ef4cc5d96d234"
+    },
+    {
+      "path": "full/sfx_prep.py",
+      "bytes": 4925,
+      "sha256": "2839a55eeef6eb764eebdb7578222fe779358488813a1b5cb1d5edc87fd64caf"
+    },
+    {
+      "path": "full/tools/ascii.mjs",
+      "bytes": 2551,
+      "sha256": "08324a3dba198ecf49fc2e57e2118a15aef879a8e2d9837b4e6373be043d49b0"
+    },
+    {
+      "path": "full/tools/grid.mjs",
+      "bytes": 1246,
+      "sha256": "f1858fcad01ddc9fa37f76ea72c4931c45e682cdfafb370442b723e5061a1f1d"
+    },
+    {
+      "path": "full/verify_full.mjs",
+      "bytes": 8039,
+      "sha256": "267a23b19ddd824019a1703a2a2c87aba8bf70153ab38e1c944c36c00849182b"
+    },
+    {
+      "path": "make_audio.sh",
+      "bytes": 1469,
+      "sha256": "603a0349d63501d90073571dc006a8ddb4f8f0dc8a1a5a8b95614922a2e570c4"
+    },
+    {
+      "path": "README_workbuddy_2026-10-28.md",
+      "bytes": 9129,
+      "sha256": "db23e2fbcb97edb431cfa28c937f92a72ea74a3cdf4f1e87da5b0c26b2c411fc"
+    },
+    {
+      "path": "README.md",
+      "bytes": 25066,
+      "sha256": "05762fecae65187d62fac52e1529613784dff3444b1af0c88a0e32541c9b1515"
+    },
+    {
+      "path": "verify.mjs",
+      "bytes": 6641,
+      "sha256": "29405084adb91daba8dd850e92c778aa0b5b459b13c20f5f1097b92b5b21a294"
+    }
+  ],
+  "amendments": [
+    {
+      "date": "2026-10-30",
+      "by": "Claude Code（宝哥确认）",
+      "reason": "下一个视频开跑前收口：片级参数不再有 001 默认值，缺参数直接报错；verify 自动带上 --duration；封面标题参数化。",
+      "changed": [
+        "README.md",
+        "full/build_full.sh",
+        "full/make_audio.sh",
+        "full/audio.py",
+        "full/make_covers.mjs"
+      ],
+      "behavior": [
+        "build_full.sh：XIANGSU_PROJ / XIANGSU_FILM / XIANGSU_DUR 必填；XIANGSU_VOICE 缺省取 $XIANGSU_PROJ/配音.wav 并校验存在；verify_full 收到 --duration。",
+        "make_audio.sh / full/audio.py：XIANGSU_VOICE 必填并校验存在。",
+        "make_covers.mjs --final：XIANGSU_COVER_OUT、XIANGSU_COVER_TITLE（或 XIANGSU_FILM）必填；标题字与竖排分列由标题推导。"
+      ],
+      "unchanged": [
+        "demo/ 全部文件",
+        "full/parts/ 全部文件",
+        "full/cues.json 等数据",
+        "历史 FREEZE_*.json",
+        "build.sh（10 s 样片）与其默认值"
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "date": "2026-10-30",
+      "note": "新增 .gitattributes（* -text）：仓库 core.autocrlf=true，防止检出时 LF→CRLF 破坏冻结哈希。"
+    }
+  ]
+}

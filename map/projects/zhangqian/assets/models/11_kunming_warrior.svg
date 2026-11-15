@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="昆明夷武士">
+<title>昆明夷 · 拦路部落武士 · 漫画版立绘</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 长矛 -->
+  <path d="M304 70 L276 340" fill="none" stroke="#2E2924" stroke-width="9"/>
+  <path d="M304 70 L276 340" fill="none" stroke="#B9A96B" stroke-width="5"/>
+  <path d="M304 70 L296 46 L316 62 Z" fill="#7FA5A6"/>
+  <!-- 双腿 -->
+  <path d="M178 252 L166 310 L152 340 L174 346 L190 310 L200 254 Z" fill="#C99B71"/>
+  <path d="M218 252 L232 310 L246 338 L224 346 L210 310 L200 254 Z" fill="#B98A5E"/>
+  <path d="M148 338 Q164 334 176 342 L176 352 L146 350 Z M222 340 Q238 334 250 338 L250 350 L222 352 Z" fill="#6E4A24"/>
+  <!-- 躯干 -->
+  <path d="M170 138 L230 138 L240 238 L160 238 Z" fill="#C99B71"/>
+  <path d="M200 138 L230 138 L240 238 L200 238 Z" fill="#B98A5E" stroke="none"/>
+  <path d="M176 168 L224 168 M174 188 L226 188 M172 208 L228 208" fill="none" stroke="#8E6B3E" stroke-width="3"/>
+  <!-- 兽皮短裙 -->
+  <path d="M158 232 L242 232 L246 274 L232 268 L222 278 L210 268 L198 280 L186 268 L174 278 L164 268 L154 274 Z" fill="#B07D46"/>
+  <path d="M158 246 L242 246" fill="none" stroke="#8E6B3E" stroke-width="4"/>
+  <!-- 持矛的手臂 -->
+  <path d="M228 148 L272 176 L282 162 L238 132 Z" fill="#C99B71"/>
+  <ellipse cx="280" cy="170" rx="11" ry="12" fill="#C99B71"/>
+  <!-- 圆盾（左） -->
+  <path d="M170 146 L126 166 L118 176 L160 202 Z" fill="#B98A5E"/>
+  <circle cx="96" cy="206" r="56" fill="#8E6B3E"/>
+  <circle cx="96" cy="206" r="42" fill="none" stroke="#C23B22" stroke-width="7"/>
+  <circle cx="96" cy="206" r="24" fill="#C8934A"/>
+  <circle cx="96" cy="206" r="10" fill="#C23B22" stroke="none"/>
+  <path d="M96 150 L96 172 M96 240 L96 262 M40 206 L62 206 M130 206 L152 206" fill="none" stroke="#C8934A" stroke-width="4"/>
+  <!-- 头与羽冠 -->
+  <ellipse cx="200" cy="104" rx="27" ry="30" fill="#C99B71"/>
+  <path d="M200 74 A27 30 0 0 1 200 134 Z" fill="#B98A5E" stroke="none"/>
+  <path d="M176 78 Q200 58 224 78 L222 88 Q200 74 178 88 Z" fill="#6E4A24"/>
+  <path d="M182 74 L172 40 L192 68 Z" fill="#C23B22"/>
+  <path d="M200 68 L200 30 L214 68 Z" fill="#7FA5A6"/>
+  <path d="M218 74 L230 42 L228 80 Z" fill="#C8934A"/>
+  <path d="M186 102 L196 100 M204 100 L214 102" fill="none" stroke-width="4"/>
+  <ellipse cx="190" cy="110" rx="3.5" ry="4" fill="#2E2924" stroke="none"/>
+  <ellipse cx="210" cy="110" rx="3.5" ry="4" fill="#2E2924" stroke="none"/>
+  <path d="M192 124 Q200 128 208 124" fill="none" stroke-width="3"/>
+</g>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="背回来的货物">
+<title>背回来的货物 · 奶粉、自行车、电视、洗衣机 · 漫画版道具组</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 洗衣机（左后） -->
+  <rect x="42" y="196" width="94" height="118" rx="8" fill="#FBF7EE"/>
+  <rect x="50" y="204" width="78" height="22" rx="4" fill="#E3D9BE"/>
+  <circle cx="89" cy="272" r="26" fill="#7FA5A6"/>
+  <circle cx="89" cy="272" r="16" fill="#34506E"/>
+  <circle cx="89" cy="272" r="8" fill="#B9D2D1"/>
+  <!-- 电视（左前） -->
+  <rect x="30" y="314" width="104" height="52" rx="6" fill="#E9E2D0"/>
+  <rect x="38" y="322" width="74" height="36" rx="3" fill="#34506E"/>
+  <path d="M46 326 L68 326 L46 344 Z" fill="#7FA5A6" opacity="0.7"/>
+  <circle cx="122" cy="330" r="5" fill="#2E2924"/>
+  <circle cx="122" cy="346" r="5" fill="#2E2924"/>
+  <path d="M64 314 L52 296 M72 314 L84 296" fill="none" stroke="#6E6A60" stroke-width="3"/>
+  <!-- 奶粉罐（中） -->
+  <rect x="156" y="300" width="46" height="66" rx="8" fill="#C8934A"/>
+  <ellipse cx="179" cy="300" rx="23" ry="8" fill="#E3BE79"/>
+  <path d="M164 322 L194 322 M164 342 L194 342" fill="none" stroke="#8E6B3E" stroke-width="3"/>
+  <path d="M170 312 Q179 306 188 312" fill="none" stroke="#FBF7EE" stroke-width="4"/>
+  <!-- 自行车（右后，简化轮圈） -->
+  <circle cx="292" cy="330" r="42" fill="none" stroke="#2E2924" stroke-width="8"/>
+  <circle cx="292" cy="330" r="30" fill="none" stroke="#B9B3A2" stroke-width="3"/>
+  <circle cx="292" cy="330" r="6" fill="#2E2924"/>
+  <path d="M292 330 L320 286 L342 330 M310 300 L326 300" fill="none" stroke="#C23B22" stroke-width="5"/>
+  <circle cx="342" cy="330" r="26" fill="none" stroke="#2E2924" stroke-width="6"/>
+  <circle cx="342" cy="330" r="18" fill="none" stroke="#B9B3A2" stroke-width="3"/>
+  <path d="M332 286 L352 286 L342 300" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <!-- 丝绸卷（右前） -->
+  <g transform="rotate(-18 300 236)">
+    <rect x="252" y="210" width="96" height="52" rx="12" fill="#C23B22"/>
+    <ellipse cx="252" cy="236" rx="14" ry="26" fill="#E9D9B4"/>
+    <ellipse cx="348" cy="236" rx="10" ry="26" fill="#8E2A18"/>
+    <path d="M270 216 L270 256 M292 214 L292 258 M314 214 L314 258" fill="none" stroke="#E3BE79" stroke-width="3"/>
+  </g>
+  <!-- 衣柜（后中，简化） -->
+  <rect x="146" y="150" width="120" height="146" rx="6" fill="#B07D46"/>
+  <path d="M206 150 L206 296" fill="none" stroke="#8E6B3E" stroke-width="4"/>
+  <circle cx="196" cy="222" r="5" fill="#4A3A22"/>
+  <circle cx="216" cy="222" r="5" fill="#4A3A22"/>
+  <rect x="154" y="160" width="44" height="56" rx="3" fill="#C8934A"/>
+  <rect x="214" y="160" width="44" height="56" rx="3" fill="#C8934A"/>
+  <!-- 堆叠的纸箱 -->
+  <rect x="110" y="126" width="40" height="34" rx="3" fill="#DCC79C"/>
+  <path d="M110 140 L150 140 M130 126 L130 160" fill="none" stroke="#B9A176" stroke-width="2.5"/>
+  <!-- 地面 -->
+  <path d="M10 382 Q200 370 390 382" fill="none" stroke="#B9A176" stroke-width="4"/>
+</g>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="匈奴骑兵">
+<title>匈奴骑兵队 · 5 骑并排 · 漫画版立绘（汉代草原马，无马镫）</title>
+<!-- 单骑定义一次，<use> 复用 5 次：5 骑造型完全一致，整组体量与 01 张骞单人相当 -->
+<defs>
+<g id="rider" stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 马尾（后层） -->
+  <path d="M120 198 C92 204 74 230 78 262 C90 246 102 244 116 250 Z" fill="#6E4A24"/>
+  <!-- 远侧两条腿 -->
+  <path d="M232 262 L226 298 L230 336 L250 336 L246 298 L250 262 Z" fill="#6E4A24"/>
+  <path d="M164 262 L156 296 L162 336 L182 336 L176 296 L186 262 Z" fill="#6E4A24"/>
+  <!-- 马身 -->
+  <path d="M118 214 C112 192 128 178 152 180 L232 182 C258 180 276 194 280 216 L278 248 C274 264 256 270 234 268 L142 268 C120 266 110 248 118 214 Z" fill="#9A6B31"/>
+  <path d="M118 240 C150 252 240 254 278 244 L278 248 C274 264 256 270 234 268 L142 268 C128 267 118 258 118 240 Z" fill="#7A5226" stroke="none"/>
+  <!-- 马颈与头 -->
+  <path d="M248 190 C262 164 278 146 296 134 L316 142 C302 162 290 188 280 210 Z" fill="#9A6B31"/>
+  <path d="M296 134 L320 128 Q336 132 334 150 L320 166 L296 158 Z" fill="#A9763C"/>
+  <path d="M300 134 L298 118 L310 130 Z" fill="#9A6B31"/>
+  <path d="M320 150 Q326 146 332 150" fill="none" stroke-width="3"/>
+  <circle cx="310" cy="142" r="3.5" fill="#2E2924" stroke="none"/>
+  <!-- 鬃毛 -->
+  <path d="M252 186 L246 170 L260 176 L256 158 L270 166 L268 148 L282 156 L280 140 L294 148 L284 132" fill="#6E4A24"/>
+  <!-- 近侧两条腿 -->
+  <path d="M252 260 L258 298 L250 336 L272 336 L268 298 L272 260 Z" fill="#9A6B31"/>
+  <path d="M140 260 L132 296 L140 336 L162 336 L156 296 L164 260 Z" fill="#9A6B31"/>
+  <!-- 蹄 -->
+  <g fill="#2E2924" stroke="none">
+    <rect x="248" y="330" width="26" height="10" rx="3"/><rect x="228" y="330" width="24" height="10" rx="3"/>
+    <rect x="138" y="330" width="26" height="10" rx="3"/><rect x="160" y="330" width="24" height="10" rx="3"/>
+  </g>
+  <!-- 鞍毯与鞍 -->
+  <path d="M180 180 L246 180 L254 214 L174 214 Z" fill="#C23B22"/>
+  <path d="M180 200 L252 200" fill="none" stroke="#E3BE79" stroke-width="4"/>
+  <path d="M190 178 Q214 168 240 180 L238 190 L192 190 Z" fill="#6E4A24"/>
+  <!-- 缰绳 -->
+  <path d="M330 154 Q290 168 244 150" fill="none" stroke="#6E4A24" stroke-width="3"/>
+  <!-- 骑手：腿与靴 -->
+  <path d="M196 176 L188 224 L200 252 L218 248 L212 216 L220 180 Z" fill="#7A5226"/>
+  <path d="M198 248 L222 246 L224 258 L196 260 Z" fill="#2E2924" stroke="none"/>
+  <!-- 箭袋与箭羽（背后） -->
+  <path d="M172 112 L152 168 L176 176 L190 120 Z" fill="#8E6B3E"/>
+  <path d="M166 110 L158 82 M176 108 L172 78 M184 108 L188 80" fill="none" stroke="#C23B22" stroke-width="3"/>
+  <!-- 皮甲躯干 -->
+  <path d="M186 108 L226 106 L240 172 L182 174 Z" fill="#8E6B3E"/>
+  <path d="M212 108 L226 106 L240 172 L212 174 Z" fill="#6E4A24" stroke="none"/>
+  <path d="M184 128 L236 126 M182 146 L238 144 M182 162 L240 160" fill="none" stroke="#5E4122" stroke-width="3"/>
+  <path d="M186 108 L206 140 L226 106" fill="#C8934A"/>
+  <!-- 腰带 -->
+  <path d="M182 168 Q210 178 240 168" fill="none" stroke="#C23B22" stroke-width="8"/>
+  <!-- 手臂与持弓的手 -->
+  <path d="M226 118 L252 140 L262 130 L236 106 Z" fill="#8E6B3E"/>
+  <ellipse cx="260" cy="136" rx="11" ry="12" fill="#D9A87C"/>
+  <!-- 复合弓与弓弦 -->
+  <path d="M276 86 Q298 132 274 184" fill="none" stroke="#2E2924" stroke-width="9"/>
+  <path d="M276 86 Q298 132 274 184" fill="none" stroke="#C8934A" stroke-width="5"/>
+  <path d="M276 86 Q284 134 274 184" fill="none" stroke="#FBF7EE" stroke-width="2.5"/>
+  <!-- 头与尖顶皮帽 -->
+  <ellipse cx="204" cy="86" rx="25" ry="29" fill="#D9A87C"/>
+  <path d="M204 57 A25 29 0 0 1 204 115 Z" fill="#B98A5E" stroke="none"/>
+  <path d="M178 74 L204 34 L230 74 Z" fill="#9A6B31"/>
+  <path d="M176 74 Q204 64 232 74 L230 82 Q204 72 178 82 Z" fill="#6E4A24"/>
+  <path d="M204 34 L204 26" fill="none" stroke="#C23B22" stroke-width="5"/>
+  <!-- 五官：风沙眯眼 -->
+  <path d="M188 88 L200 90 M210 90 L222 88" fill="none" stroke-width="4"/>
+  <path d="M190 96 L200 97 M210 97 L220 96" fill="none" stroke-width="3"/>
+  <path d="M204 94 L200 104 L208 104" fill="none" stroke-width="2.5"/>
+  <path d="M196 110 Q204 114 212 110" fill="none" stroke-width="3"/>
+</g>
+</defs>
+
+<!-- 5 骑并排：同一造型缩放 0.44，沿斜线略微上扬形成队列；从远（右）到近（左）绘制 -->
+<g>
+  <use href="#rider" transform="translate(237.2 98.56) scale(0.44)"/>
+  <use href="#rider" transform="translate(175.2 108.56) scale(0.44)"/>
+  <use href="#rider" transform="translate(113.2 118.56) scale(0.44)"/>
+  <use href="#rider" transform="translate(51.2 128.56) scale(0.44)"/>
+  <use href="#rider" transform="translate(-10.8 138.56) scale(0.44)"/>
+</g>
+<!-- 马蹄扬尘 -->
+<g fill="none" stroke="#B9A176" stroke-width="3" stroke-linecap="round" opacity="0.85">
+  <path d="M56 296 Q79 288 102 296 M118 286 Q141 278 164 286 M180 276 Q203 268 226 276 M242 266 Q265 258 288 266 M304 256 Q327 248 350 256"/>
+</g>
+</svg>

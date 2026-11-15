@@ -1,0 +1,44 @@
+{
+  "name": "赤壁之战 208 完整口播版",
+  "era": "东汉建安十三年(208)",
+  "description": "长江赤壁的火攻决战——孙刘联军以火攻破曹操水师",
+  "engine": "battlefield-editor",
+  "data": {
+    "factions": "factions.json",
+    "terrain": "terrain.json",
+    "structures": "structures.json",
+    "scene": "scene.json",
+    "audio": "audio.json",
+    "units": "units.json"
+  },
+  "pending": [],
+  "meta": {
+    "tags": [
+      "三国",
+      "火攻",
+      "水战",
+      "以寡击众"
+    ],
+    "title": "赤壁之战",
+    "subtitle": "建安十三年・公元二〇八",
+    "docTitle": "赤壁之战 208 — 全 3D 战场重现｜徐艾伦",
+    "seal": "赤",
+    "broadcastTag": "徐艾伦・全 3D 战场重现",
+    "era": "建安十三年",
+    "eraYear": "公元 208 年・长江赤壁",
+    "intro": {
+      "tag": "徐艾伦・3D 战场重现",
+      "bodyHtml": "完整版共 46 幕，按已定稿口播逐段推进。史载与演义分别说明。",
+      "footHtml": "anna 配音按定稿与实测音长对齐；史载、演义与文化解读分别说明。"
+    },
+    "finale": {
+      "title": "天下三分",
+      "subtitle": "赤壁一炬・鼎足之势成"
+    },
+    "timeline": {
+      "start": "序·开场",
+      "mid": "完整口播时间轴",
+      "end": "卷五·余韵"
+    }
+  }
+}

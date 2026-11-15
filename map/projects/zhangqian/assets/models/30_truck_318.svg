@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="川藏公路卡车">
+<title>川藏公路卡车 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 公路 -->
+  <path d="M12 330 Q200 306 388 330 L388 366 Q200 344 12 366 Z" fill="#9E9A8C"/>
+  <path d="M12 348 Q200 326 388 348" fill="none" stroke="#FBF7EE" stroke-width="5" stroke-dasharray="22 18"/>
+  <!-- 车厢货物 -->
+  <path d="M72 178 L246 178 L258 292 L64 292 Z" fill="#5C8587"/>
+  <path d="M72 178 L246 178 L258 292 L64 292 Z" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <path d="M64 214 L252 214 M68 252 L256 252" fill="none" stroke="#45696B" stroke-width="3"/>
+  <path d="M96 178 L96 292 M160 178 L160 292 M222 178 L222 292" fill="none" stroke="#45696B" stroke-width="3"/>
+  <!-- 篷布与捆绳 -->
+  <path d="M72 178 Q156 148 246 178" fill="#7FA5A6"/>
+  <path d="M84 178 L108 292 M156 160 L156 292 M228 168 L236 292" fill="none" stroke="#C8934A" stroke-width="3"/>
+  <!-- 驾驶室 -->
+  <path d="M252 204 L324 204 Q344 204 352 228 L356 292 L252 292 Z" fill="#34506E"/>
+  <path d="M262 216 L320 216 Q332 216 338 232 L340 254 L262 254 Z" fill="#B9D2D1"/>
+  <path d="M300 216 L300 254 M262 254 L340 254" fill="none" stroke="#2E2924" stroke-width="3"/>
+  <path d="M330 266 L344 266" fill="none" stroke="#E3D9BE" stroke-width="4"/>
+  <!-- 车轮 -->
+  <circle cx="118" cy="306" r="34" fill="#2E2924"/>
+  <circle cx="118" cy="306" r="19" fill="#B9B3A2"/>
+  <circle cx="118" cy="306" r="8" fill="#6E6A60"/>
+  <circle cx="228" cy="306" r="34" fill="#2E2924"/>
+  <circle cx="228" cy="306" r="19" fill="#B9B3A2"/>
+  <circle cx="228" cy="306" r="8" fill="#6E6A60"/>
+  <circle cx="318" cy="306" r="34" fill="#2E2924"/>
+  <circle cx="318" cy="306" r="19" fill="#B9B3A2"/>
+  <circle cx="318" cy="306" r="8" fill="#6E6A60"/>
+  <!-- 挡泥板 -->
+  <path d="M72 288 Q118 264 164 288 M282 288 Q318 264 354 288" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <!-- 车灯与排气管 -->
+  <circle cx="350" cy="274" r="7" fill="#E3BE79"/>
+  <path d="M246 262 L246 232 L256 232" fill="none" stroke="#2E2924" stroke-width="4"/>
+  <!-- 尾气与山风 -->
+  <g stroke="#B9B3A2" stroke-width="4" opacity="0.8">
+    <path d="M58 264 Q34 252 20 264 M56 280 Q30 274 14 286"/>
+  </g>
+</g>
+</svg>

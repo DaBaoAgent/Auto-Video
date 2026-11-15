@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="金子">
+<title>金子 · 粪金牛撒下的金块 · 漫画版道具</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 陶碗 -->
+  <path d="M92 232 Q200 268 308 232 L292 306 Q200 338 108 306 Z" fill="#B07D46"/>
+  <path d="M92 232 Q200 268 308 232 Q200 296 92 232 Z" fill="#C8934A"/>
+  <path d="M108 306 Q200 338 292 306" fill="none" stroke="#8E6B3E" stroke-width="4"/>
+  <path d="M124 272 Q200 292 276 272" fill="none" stroke="#8E6B3E" stroke-width="3"/>
+  <!-- 金锭：后排 -->
+  <path d="M132 214 L168 176 L226 176 L246 214 Z" fill="#E3BE79"/>
+  <path d="M168 176 L226 176 L246 214 L200 214 Z" fill="#C8934A" stroke="none"/>
+  <path d="M168 176 L200 196 L226 176" fill="none" stroke="#8E6B3E" stroke-width="3"/>
+  <!-- 金锭：中排左 -->
+  <path d="M96 236 L124 202 L168 202 L184 236 Z" fill="#E3BE79"/>
+  <path d="M124 202 L168 202 L184 236 L144 236 Z" fill="#C8934A" stroke="none"/>
+  <!-- 金锭：中排右 -->
+  <path d="M222 238 L246 198 L292 198 L306 238 Z" fill="#E3BE79"/>
+  <path d="M246 198 L292 198 L306 238 L268 238 Z" fill="#C8934A" stroke="none"/>
+  <!-- 金块（不规则） -->
+  <path d="M170 232 L196 208 L226 216 L232 244 L200 252 Z" fill="#E3BE79"/>
+  <path d="M196 208 L226 216 L232 244 L200 252 Z" fill="#C8934A" stroke="none"/>
+  <!-- 高光 -->
+  <path d="M138 208 L162 184 M230 232 L252 204 M178 228 L196 214" fill="none" stroke="#FBF7EE" stroke-width="4"/>
+  <!-- 碎金粒 -->
+  <g fill="#E3BE79" stroke="#8E6B3E" stroke-width="2.5">
+    <circle cx="74" cy="256" r="8"/><circle cx="328" cy="260" r="9"/>
+    <circle cx="106" cy="286" r="6"/><circle cx="300" cy="290" r="6"/>
+    <circle cx="200" cy="118" r="7"/><circle cx="236" cy="142" r="5"/>
+    <circle cx="160" cy="136" r="5"/><circle cx="272" cy="112" r="4"/>
+  </g>
+  <!-- 光芒短线 -->
+  <g fill="none" stroke="#C23B22" stroke-width="3.5" stroke-linecap="round">
+    <path d="M200 92 L200 78 M156 100 L146 88 M244 100 L254 88 M118 160 L104 154 M282 160 L296 154"/>
+  </g>
+</g>
+</svg>

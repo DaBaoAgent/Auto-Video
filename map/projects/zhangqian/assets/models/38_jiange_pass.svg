@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="剑门关">
+<title>剑门关 · 两崖对峙与崖壁栈道 · 漫画版场景</title>
+<g stroke="#2E2924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- 左崖 -->
+  <path d="M20 400 L20 60 L102 44 L142 140 L128 240 L148 330 L124 400 Z" fill="#B9B3A2"/>
+  <path d="M20 60 L102 44 L142 140 L128 240 L148 330 L124 400" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <path d="M42 90 L112 80 M34 150 L128 138 M40 220 L132 208 M44 292 L138 280" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <!-- 右崖 -->
+  <path d="M380 400 L380 60 L298 44 L258 140 L272 240 L252 330 L276 400 Z" fill="#9E9A8C"/>
+  <path d="M380 60 L298 44 L258 140 L272 240 L252 330 L276 400" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <path d="M358 90 L288 80 M366 150 L272 138 M360 220 L268 208 M356 292 L262 280" fill="none" stroke="#8E8A7C" stroke-width="3"/>
+  <!-- 关楼 -->
+  <path d="M140 400 L140 300 L260 300 L260 400 Z" fill="#8E2A18"/>
+  <path d="M128 304 L200 250 L272 304 Z" fill="#4A3A22"/>
+  <path d="M128 304 L200 250 L272 304" fill="none" stroke="#2E2924" stroke-width="5"/>
+  <path d="M152 314 L248 314" fill="none" stroke="#C8934A" stroke-width="5"/>
+  <path d="M200 250 L200 208" fill="none" stroke="#6E4A24" stroke-width="5"/>
+  <path d="M200 210 L248 226 L200 242 Z" fill="#C23B22"/>
+  <path d="M168 400 L168 334 L196 334 L196 400 Z" fill="#2E2924"/>
+  <path d="M204 400 L204 334 L232 334 L232 400 Z" fill="#2E2924"/>
+  <path d="M156 322 L244 322 M156 350 L244 350 M156 378 L244 378" fill="none" stroke="#6E2013" stroke-width="3"/>
+  <!-- 崖壁栈道（左崖） -->
+  <g fill="#B07D46">
+    <path d="M106 180 L150 192 L150 206 L104 194 Z"/>
+    <path d="M110 236 L158 250 L158 264 L108 250 Z"/>
+    <path d="M118 292 L164 308 L164 322 L116 306 Z"/>
+  </g>
+  <path d="M150 186 L150 200 M158 244 L158 258 M164 302 L164 316" fill="none" stroke="#8E6B3E" stroke-width="6"/>
+  <path d="M104 176 L152 190 M108 232 L160 248 M116 288 L166 306" fill="none" stroke="#B9A96B" stroke-width="3"/>
+  <!-- 云雾与松树 -->
+  <g fill="none" stroke="#FBF7EE" stroke-width="7" opacity="0.9">
+    <path d="M0 260 Q30 248 60 260 M340 270 Q370 258 400 270 M20 350 Q50 338 80 350"/>
+  </g>
+  <path d="M52 140 L64 114 L76 140 Z" fill="#45696B"/>
+  <path d="M336 156 L348 130 L360 156 Z" fill="#45696B"/>
+</g>
+</svg>

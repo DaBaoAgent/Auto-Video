@@ -1,0 +1,635 @@
+{
+  "music": {
+    "scenes": [
+      "assets/music/scene3.mp3",
+      "assets/music/scene4.mp3",
+      "assets/music/scene3.mp3",
+      "assets/music/scene5.mp3",
+      "assets/music/scene2.mp3",
+      "assets/music/scene3.mp3",
+      "assets/music/scene4.mp3",
+      "assets/music/scene4.mp3",
+      "assets/music/scene3.mp3",
+      "assets/music/scene2.mp3",
+      "assets/music/scene2.mp3",
+      "assets/music/scene5.mp3",
+      "assets/music/scene8.mp3",
+      "assets/music/scene5.mp3",
+      "assets/music/scene2.mp3",
+      "assets/music/scene4.mp3",
+      "assets/music/scene4.mp3",
+      "assets/music/scene1.mp3",
+      "assets/music/scene2.mp3",
+      "assets/music/scene2.mp3",
+      "assets/music/scene4.mp3",
+      "assets/music/scene2.mp3",
+      "assets/music/scene4.mp3",
+      "assets/music/scene6.mp3",
+      "assets/music/scene6.mp3",
+      "assets/music/scene3.mp3",
+      "assets/music/scene4.mp3",
+      "assets/music/scene5.mp3",
+      "assets/music/scene5.mp3",
+      "assets/music/scene4.mp3",
+      "assets/music/scene6.mp3",
+      "assets/music/scene7.mp3",
+      "assets/music/scene7.mp3",
+      "assets/music/scene8.mp3",
+      "assets/music/scene8.mp3",
+      "assets/music/scene5.mp3",
+      "assets/music/scene8.mp3",
+      "assets/music/scene9.mp3",
+      "assets/music/scene8.mp3",
+      "assets/music/scene9.mp3",
+      "assets/music/scene2.mp3",
+      "assets/music/scene5.mp3",
+      "assets/music/scene9.mp3",
+      "assets/music/scene2.mp3",
+      "assets/music/scene9.mp3",
+      "assets/music/scene9.mp3"
+    ],
+    "sceneLabels": [
+      "大战一触即发",
+      "三个名场面，正史都没影",
+      "真相比小说更精彩",
+      "两个关子",
+      "系列第一仗",
+      "家底与结局",
+      "兵力账：会猎信",
+      "周瑜算的那笔账",
+      "五万对二十几万",
+      "主角账：谁在指挥",
+      "草船借箭：主角是孙权",
+      "借东风：登坛查无此事",
+      "华容道：没这出",
+      "苦肉计：没挨军棍",
+      "周瑜的气量",
+      "从头捋：玄武池练兵",
+      "荆州易主",
+      "长坂坡：三百里",
+      "退保夏口",
+      "诸葛亮摊牌",
+      "会猎信·东吴震恐",
+      "鲁肃掏心窝",
+      "周瑜夜归·四条底细",
+      "拔刀斫案",
+      "定盘子·逆江而上",
+      "两军相遇·初战",
+      "捆成一垛柴火",
+      "黄盖献计",
+      "诈降信",
+      "火船准备",
+      "东南风起",
+      "点火：火烧赤壁",
+      "主力压上·黄盖坠江",
+      "败走华容道",
+      "输在疾病",
+      "风的真相",
+      "信的后续",
+      "战后洗牌",
+      "别小看曹操",
+      "周瑜之死",
+      "曲有误，周郎顾",
+      "铜雀台：冤枉他了",
+      "文化的分量",
+      "文武两个赤壁",
+      "两千年的热度·赢在哪",
+      "收尾"
+    ],
+    "theme": "assets/music/scene9.mp3",
+    "bgm": [],
+    "autoDefault": true
+  },
+  "narration": {
+    "voices": [
+      "anna"
+    ],
+    "default": "anna",
+    "voiceLabels": {
+      "anna": "anna"
+    },
+    "pathPattern": "assets/narration/{voice}/scene{n}.mp3",
+    "cues": "narration/cues.json"
+  },
+  "sfx": {
+    "dir": "assets/sfx",
+    "files": [
+      "battlecry",
+      "chains",
+      "sword1",
+      "sword2",
+      "sword3",
+      "sword4",
+      "inf-march",
+      "cav-march",
+      "inf-melee",
+      "cav-charge",
+      "duel",
+      "clash",
+      "oars",
+      "creak",
+      "fire-big",
+      "fire-crack",
+      "waves",
+      "flood",
+      "war-drum",
+      "war-horn",
+      "gallop2"
+    ]
+  },
+  "cues": {
+    "17": [
+      {
+        "at": 0.6,
+        "type": "sfx",
+        "name": "war-horn",
+        "v": 0.5
+      },
+      {
+        "at": 10,
+        "type": "synth",
+        "inst": "drum",
+        "v": 0.5
+      },
+      {
+        "at": 10.2,
+        "type": "sfx",
+        "name": "war-drum",
+        "v": 0.5
+      },
+      {
+        "at": 18,
+        "type": "synth",
+        "inst": "drum",
+        "v": 0.55
+      },
+      {
+        "at": 18.2,
+        "type": "sfx",
+        "name": "war-drum",
+        "v": 0.6
+      },
+      {
+        "at": 25,
+        "type": "synth",
+        "inst": "drum",
+        "v": 0.42
+      }
+    ],
+    "24": [
+      {
+        "at": 2,
+        "type": "sfx",
+        "name": "waves",
+        "v": 0.3
+      },
+      {
+        "at": 12,
+        "type": "sfx",
+        "name": "creak",
+        "v": 0.3
+      },
+      {
+        "at": 18,
+        "type": "sfx",
+        "name": "oars",
+        "v": 0.4
+      },
+      {
+        "at": 24,
+        "type": "synth",
+        "inst": "drum",
+        "v": 0.4
+      },
+      {
+        "at": 24.2,
+        "type": "sfx",
+        "name": "war-drum",
+        "v": 0.4
+      }
+    ],
+    "25": [
+      {
+        "at": 2,
+        "type": "sfx",
+        "name": "waves",
+        "v": 0.32
+      },
+      {
+        "at": 6,
+        "type": "sfx",
+        "name": "oars",
+        "v": 0.45
+      },
+      {
+        "at": 8,
+        "type": "synth",
+        "inst": "drum",
+        "v": 0.55
+      },
+      {
+        "at": 8.2,
+        "type": "sfx",
+        "name": "war-drum",
+        "v": 0.5
+      },
+      {
+        "at": 8.5,
+        "type": "sfx",
+        "name": "inf-melee",
+        "v": 0.5
+      },
+      {
+        "at": 9,
+        "type": "sfx",
+        "name": "battlecry",
+        "v": 0.5
+      },
+      {
+        "at": 10.5,
+        "type": "sword",
+        "v": 0.45
+      },
+      {
+        "at": 11.5,
+        "type": "sfx",
+        "name": "duel",
+        "v": 0.4
+      },
+      {
+        "at": 12,
+        "type": "sword",
+        "v": 0.4
+      },
+      {
+        "at": 13.5,
+        "type": "sfx",
+        "name": "clash",
+        "v": 0.4
+      },
+      {
+        "at": 15,
+        "type": "sword",
+        "v": 0.35
+      }
+    ],
+    "30": [
+      {
+        "at": 2,
+        "type": "sfx",
+        "name": "waves",
+        "v": 0.35
+      },
+      {
+        "at": 9,
+        "type": "sfx",
+        "name": "creak",
+        "v": 0.3
+      },
+      {
+        "at": 13,
+        "type": "synth",
+        "inst": "drum",
+        "v": 0.45
+      },
+      {
+        "at": 13.2,
+        "type": "sfx",
+        "name": "war-drum",
+        "v": 0.4
+      },
+      {
+        "at": 20,
+        "type": "synth",
+        "inst": "boom",
+        "v": 0.5
+      }
+    ],
+    "31": [
+      {
+        "at": 5.5,
+        "type": "sfx",
+        "name": "fire-big",
+        "v": 0.65
+      },
+      {
+        "at": 8,
+        "type": "sfx",
+        "name": "fire-crack",
+        "v": 0.5
+      },
+      {
+        "at": 10,
+        "type": "synth",
+        "inst": "boom",
+        "v": 1
+      },
+      {
+        "at": 10.1,
+        "type": "sfx",
+        "name": "battlecry",
+        "v": 0.8
+      },
+      {
+        "at": 10.2,
+        "type": "sfx",
+        "name": "inf-melee",
+        "v": 0.55
+      },
+      {
+        "at": 11,
+        "type": "sfx",
+        "name": "cav-charge",
+        "v": 0.5
+      },
+      {
+        "at": 11,
+        "type": "synth",
+        "inst": "drum",
+        "v": 0.7
+      },
+      {
+        "at": 11.5,
+        "type": "sfx",
+        "name": "war-drum",
+        "v": 0.6
+      },
+      {
+        "at": 12,
+        "type": "sword",
+        "v": 0.5
+      },
+      {
+        "at": 13,
+        "type": "sfx",
+        "name": "duel",
+        "v": 0.45
+      },
+      {
+        "at": 14,
+        "type": "sword",
+        "v": 0.42
+      },
+      {
+        "at": 14.5,
+        "type": "sfx",
+        "name": "clash",
+        "v": 0.45
+      },
+      {
+        "at": 16,
+        "type": "sword",
+        "v": 0.45
+      },
+      {
+        "at": 18,
+        "type": "sfx",
+        "name": "fire-crack",
+        "v": 0.6
+      },
+      {
+        "at": 18.5,
+        "type": "sword",
+        "v": 0.38
+      },
+      {
+        "at": 21,
+        "type": "sword",
+        "v": 0.45
+      },
+      {
+        "at": 22,
+        "type": "synth",
+        "inst": "boom",
+        "v": 0.8
+      },
+      {
+        "at": 23.5,
+        "type": "sfx",
+        "name": "fire-big",
+        "v": 0.55
+      },
+      {
+        "at": 25,
+        "type": "burst",
+        "inst": "drum",
+        "n": 6,
+        "interval": 0.4,
+        "v": 0.7
+      },
+      {
+        "at": 25.2,
+        "type": "sfx",
+        "name": "battlecry",
+        "v": 0.5
+      },
+      {
+        "at": 28,
+        "type": "sfx",
+        "name": "war-drum",
+        "v": 0.5
+      }
+    ],
+    "32": [
+      {
+        "at": 5.5,
+        "type": "sfx",
+        "name": "fire-big",
+        "v": 0.65
+      },
+      {
+        "at": 8,
+        "type": "sfx",
+        "name": "fire-crack",
+        "v": 0.5
+      },
+      {
+        "at": 10,
+        "type": "synth",
+        "inst": "boom",
+        "v": 1
+      },
+      {
+        "at": 10.1,
+        "type": "sfx",
+        "name": "battlecry",
+        "v": 0.8
+      },
+      {
+        "at": 10.2,
+        "type": "sfx",
+        "name": "inf-melee",
+        "v": 0.55
+      },
+      {
+        "at": 11,
+        "type": "sfx",
+        "name": "cav-charge",
+        "v": 0.5
+      },
+      {
+        "at": 11,
+        "type": "synth",
+        "inst": "drum",
+        "v": 0.7
+      },
+      {
+        "at": 11.5,
+        "type": "sfx",
+        "name": "war-drum",
+        "v": 0.6
+      },
+      {
+        "at": 12,
+        "type": "sword",
+        "v": 0.5
+      },
+      {
+        "at": 13,
+        "type": "sfx",
+        "name": "duel",
+        "v": 0.45
+      },
+      {
+        "at": 14,
+        "type": "sword",
+        "v": 0.42
+      },
+      {
+        "at": 14.5,
+        "type": "sfx",
+        "name": "clash",
+        "v": 0.45
+      },
+      {
+        "at": 16,
+        "type": "sword",
+        "v": 0.45
+      },
+      {
+        "at": 18,
+        "type": "sfx",
+        "name": "fire-crack",
+        "v": 0.6
+      },
+      {
+        "at": 18.5,
+        "type": "sword",
+        "v": 0.38
+      },
+      {
+        "at": 21,
+        "type": "sword",
+        "v": 0.45
+      },
+      {
+        "at": 22,
+        "type": "synth",
+        "inst": "boom",
+        "v": 0.8
+      },
+      {
+        "at": 23.5,
+        "type": "sfx",
+        "name": "fire-big",
+        "v": 0.55
+      },
+      {
+        "at": 25,
+        "type": "burst",
+        "inst": "drum",
+        "n": 6,
+        "interval": 0.4,
+        "v": 0.7
+      },
+      {
+        "at": 25.2,
+        "type": "sfx",
+        "name": "battlecry",
+        "v": 0.5
+      },
+      {
+        "at": 28,
+        "type": "sfx",
+        "name": "war-drum",
+        "v": 0.5
+      }
+    ],
+    "33": [
+      {
+        "at": 1,
+        "type": "sfx",
+        "name": "inf-melee",
+        "v": 0.3
+      },
+      {
+        "at": 3,
+        "type": "sfx",
+        "name": "waves",
+        "v": 0.28
+      },
+      {
+        "at": 8,
+        "type": "sfx",
+        "name": "gallop2",
+        "v": 0.4
+      },
+      {
+        "at": 9,
+        "type": "sfx",
+        "name": "chains",
+        "v": 0.3
+      },
+      {
+        "at": 9.2,
+        "type": "sfx",
+        "name": "creak",
+        "v": 0.3
+      },
+      {
+        "at": 14,
+        "type": "synth",
+        "inst": "drum",
+        "v": 0.4
+      },
+      {
+        "at": 20,
+        "type": "sfx",
+        "name": "war-horn",
+        "v": 0.35
+      }
+    ],
+    "37": [
+      {
+        "at": 2,
+        "type": "sfx",
+        "name": "waves",
+        "v": 0.4
+      },
+      {
+        "at": 7,
+        "type": "sfx",
+        "name": "oars",
+        "v": 0.3
+      },
+      {
+        "at": 12,
+        "type": "sfx",
+        "name": "war-drum",
+        "v": 0.35
+      },
+      {
+        "at": 19,
+        "type": "sfx",
+        "name": "war-horn",
+        "v": 0.45
+      },
+      {
+        "at": 22,
+        "type": "synth",
+        "inst": "chime",
+        "v": 0.35
+      }
+    ]
+  }
+}

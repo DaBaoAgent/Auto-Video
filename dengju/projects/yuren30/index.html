@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>dengju · 013 羽人 · 等距 2.5D 30s</title>
+<style>
+@font-face{font-family:'PuHuiTi';src:url('./assets/font/AlibabaPuHuiTi-3-85-Bold.ttf') format('truetype');font-display:block}
+html,body{margin:0;padding:0;background:#DAD3F7;overflow:hidden;width:1920px;height:1080px}
+#c{position:absolute;left:0;top:0;width:1920px;height:1080px;display:block}
+#ui{position:absolute;left:0;top:0;width:1920px;height:1080px;pointer-events:none;overflow:hidden}
+#meta{position:absolute;left:0;top:0;width:1920px;height:1080px;pointer-events:none;overflow:hidden;font-family:'PuHuiTi',sans-serif}
+.ep{position:absolute;left:56px;top:44px;font-size:24px;letter-spacing:.16em;color:#3A3570;opacity:.82}
+.ep b{font-weight:700;color:#2C2960}
+.meta-r{position:absolute;right:56px;top:44px;font-size:18px;letter-spacing:.18em;color:#6B64B8;opacity:.8}
+#capveil{position:absolute;left:0;bottom:0;width:1920px;height:320px;background:linear-gradient(to top,rgba(251,250,255,.88) 0%,rgba(251,250,255,.72) 34%,rgba(251,250,255,.34) 68%,rgba(251,250,255,0) 100%)}
+#caption{position:absolute;left:0;right:0;bottom:58px;height:78px;display:flex;align-items:center;justify-content:center}
+#caption .txt{font-family:'PuHuiTi',sans-serif;font-weight:700;font-size:54px;line-height:1.1;letter-spacing:.035em;color:#2C2960;text-shadow:0 1px 0 rgba(255,255,255,.55);white-space:nowrap}
+#caption .dot{width:10px;height:10px;border-radius:50%;background:#FF8E74;margin:0 28px 2px 0;opacity:.9}
+/* iso callout cards */
+.tag{position:absolute;left:0;top:0;width:0;height:0;display:none}
+.tag .lead{position:absolute;left:0;top:0;width:1px;height:1px;overflow:visible}
+.tag .ring{position:absolute;left:0;top:0;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;border:3px solid var(--ac);box-sizing:border-box;transform-origin:50% 50%}
+.tag .pin{position:absolute;left:0;top:0;width:13px;height:13px;margin:-6.5px 0 0 -6.5px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 3px rgba(255,255,255,.95);transform-origin:50% 50%}
+.tag .card{position:absolute;left:0;top:0;width:300px;height:132px;transform-origin:0 0}
+.tag .face{position:absolute;left:0;top:0;width:300px;height:132px;border-radius:14px;background:rgba(255,255,255,.975);box-shadow:0 0 0 1.5px rgba(44,41,96,.08),0 9px 0 -4px rgba(44,41,96,.12);overflow:hidden;transform-origin:50% 50%}
+.tag .bar{position:absolute;left:0;top:0;width:9px;height:132px;background:var(--ac)}
+.tag .lab{position:absolute;left:26px;top:17px;font:700 27px/1 'PuHuiTi',sans-serif;color:#2C2960;letter-spacing:.04em;white-space:nowrap}
+.tag .en{position:absolute;left:27px;top:50px;font:700 16px/1 'PuHuiTi',sans-serif;color:#6B64B8;letter-spacing:.14em;white-space:nowrap}
+.tag .val{position:absolute;left:26px;top:82px;font:700 27px/1 'PuHuiTi',sans-serif;color:#2C2960;letter-spacing:.02em;white-space:nowrap}
+.tag .val i{font-style:normal;color:var(--ac)}
+</style>
+<script type="importmap">{"imports":{
+  "three":"/node_modules/three/build/three.module.js",
+  "three/addons/":"/node_modules/three/examples/jsm/"
+}}</script>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<div id="ui">
+  <div id="capveil"></div>
+  <div id="meta"><div class="ep"><b>013</b> · 羽人</div><div class="meta-r">ISOMETRIC 2.5D · 30s</div></div>
+  <div id="caption"><div class="dot"></div><div class="txt"></div></div>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import { Accumulator } from './js/render.js';
+import * as A from './js/anim.js';
+import { buildWorld } from './js/world.js';
+
+const W = 1920, H = 1080, FPS = 30;
+const Q = new URLSearchParams(location.search);
+const SPP = Math.max(1, Math.min(8, +(Q.get('spp') || 4)));
+const CUES = await (await fetch('./cues.json')).json();
+const SC = CUES.scenes;
+window.DEMO = { width: W, height: H, fps: FPS, duration: CUES.duration, motionBlur: { samples: 1, shutter: 0.5 } };
+
+// ---------------------------------------------------------------- renderer
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, preserveDrawingBuffer: true, alpha: false, powerPreference: 'high-performance' });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H, false);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;
+renderer.shadowMap.autoUpdate = false;
+const glx = renderer.getContext();
+
+// ---------------------------------------------------------------- world
+const world = await buildWorld(renderer, CUES);
+const { scene, camera, update } = world;
+
+// ---------------------------------------------------------------- iso callout tags
+const SSR = {
+  right: 'rotate(-30deg) skewX(-30deg) scaleY(0.86602)',
+  left: 'rotate(30deg) skewX(30deg) scaleY(0.86602)',
+  top: 'rotate(-30deg) skewX(30deg) scaleY(0.86602)',
+};
+const tagRoot = document.getElementById('ui');
+const tagDefs = [
+  { key: 'hill', label: '象岗山', en: 'XIANG GANG HILL', val: '50 m → <i>30 m</i>', color: '#4CC795', a: world.anchors.hill, t0: 1.02, t1: 3.42, dx: -180, dy: -150, face: 'left' },
+  { key: 'ivory', label: '非洲象牙', en: 'IVORY · AFRICA', val: '象岗山出土', color: '#D9A48F', a: world.anchors.ivory, t0: 3.68, t1: 8.62, dx: -260, dy: -120, face: 'left' },
+  { key: 'persia', label: '波斯药盒', en: 'SILVER BOX · PERSIA', val: '锤鍱凸瓣纹', color: '#8CA6D9', a: world.anchors.persia, t0: 4.98, t1: 8.62, dx: 260, dy: -120, face: 'right' },
+  { key: 'mineral', label: '五色药石', en: 'FIVE MINERALS', val: '约 <i>2 kg</i>', color: '#B79BE8', a: world.anchors.mineral, t0: 5.80, t1: 8.62, dx: -260, dy: 120, face: 'left' },
+  { key: 'jade', label: '丝缕玉衣', en: 'SILK-THREAD JADE', val: '形制完备', color: '#5FBF9A', a: world.anchors.jade, t0: 6.82, t1: 8.62, dx: 260, dy: 120, face: 'right' },
+  { key: 'ice', label: '冰下古河道', en: 'SUBGLACIAL RIVER', val: '封存 <i>34 Ma</i>', color: '#5EC8E8', a: world.anchors.ice, t0: 10.05, t1: 13.10, dx: 260, dy: -140, face: 'right' },
+  { key: 'days', label: '四十三天', en: '43 DAYS', val: '七间石室 · 重见天日', color: '#FF8E74', a: new THREE.Vector3(-3.4, 0.6, 3.4), t0: 24.42, t1: 25.32, dx: 220, dy: -170, face: 'right' },
+  { key: 'chambers', label: '七间石室', en: 'SEVEN CHAMBERS', val: '前朝后寝', color: '#C98D78', a: world.anchors.chambers, t0: 26.05, t1: 28.55, dx: -260, dy: -150, face: 'left' },
+  { key: 'relics', label: '一万多件文物', en: '10,000+ RELICS', val: '金玉铜铁', color: '#D9A83F', a: world.anchors.relics, t0: 26.55, t1: 28.55, dx: 260, dy: -120, face: 'right' },
+  { key: 'retainers', label: '十五个殉人', en: '15 RETAINERS', val: '地下朝廷', color: '#A88BD8', a: world.anchors.retainers, t0: 27.30, t1: 28.55, dx: 330, dy: 110, face: 'right' },
+];
+const tags = tagDefs.map((d) => {
+  const el = document.createElement('div');
+  el.className = 'tag'; el.style.setProperty('--ac', d.color);
+  el.innerHTML = `<svg class="lead"><polyline fill="none" stroke="rgba(44,41,96,0.55)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="ring"></div><div class="pin"></div>
+    <div class="card"><div class="face"><div class="bar"></div>
+      <div class="lab">${d.label}</div><div class="en">${d.en}</div><div class="val">${d.val}</div>
+    </div></div>`;
+  tagRoot.appendChild(el);
+  return { d, el, ln: el.querySelector('polyline'), ring: el.querySelector('.ring'), pin: el.querySelector('.pin'), card: el.querySelector('.card'), face: el.querySelector('.face') };
+});
+const V = new THREE.Vector3();
+const toPx = (p) => { V.copy(p).project(camera); return [(V.x * 0.5 + 0.5) * W, (1 - (V.y * 0.5 + 0.5)) * H]; };
+const CARDW = 240, CARDH = 132 * 0.8, S = 0.8;
+function updateTags(T) {
+  for (const t of tags) {
+    const d = t.d;
+    const tau = T - d.t0;
+    const out = A.easeInCubic(A.inv(d.t1, d.t1 + 0.22, T));
+    const vis = T >= d.t0 - 0.22 && out < 0.999;
+    t.el.style.display = vis ? 'block' : 'none';
+    if (!vis) continue;
+    const [ax0, ay0] = toPx(d.a);
+    let cx = ax0 + d.dx, cy = ay0 + d.dy;
+    cx = Math.max(CARDW / 2 + 20, Math.min(W - CARDW / 2 - 20, cx));
+    cy = Math.max(125 + CARDH / 2, Math.min(872 - CARDH / 2, cy));
+    const lx = cx - ax0, ly = cy - ay0;
+    const u = Math.max(0, Math.min(1.1, A.spring(tau, 18, 0.55, 6))) * (1 - out);
+    t.el.style.transform = `translate(${ax0.toFixed(2)}px,${ay0.toFixed(2)}px)`;
+    t.ln.setAttribute('points', `0,0 0,-16 ${lx.toFixed(2)},${(ly - 16).toFixed(2)}`);
+    const rp = (((tau + 0.22) * 1.15) % 1 + 1) % 1;
+    t.ring.style.transform = `scale(${(0.5 + rp * 1.5).toFixed(3)})`;
+    t.ring.style.opacity = ((1 - rp) * 0.9 * (1 - out)).toFixed(3);
+    t.pin.style.transform = `scale(${Math.max(0.001, A.spring(tau + 0.1, 22, 0.5, 9) * (1 - out)).toFixed(3)})`;
+    t.card.style.transform = `translate(${lx.toFixed(2)}px,${ly.toFixed(2)}px) scale(${S}) ${SSR[d.face]} translate(-150px,-66px)`;
+    t.face.style.transform = `scaleX(${Math.max(0.0001, u).toFixed(4)})`;
+    t.card.style.opacity = u > 0.002 ? '1' : '0';
+  }
+}
+
+// ---------------------------------------------------------------- captions
+const capTxt = document.querySelector('#caption .txt');
+let lastCap = null;
+function updateCaption(T) {
+  const c = CUES.captions.find((x) => T >= x.t0 && T < x.t1);
+  const s = c ? c.text : '';
+  if (s !== lastCap) { capTxt.textContent = s; lastCap = s; }
+}
+
+// ---------------------------------------------------------------- frame
+const acc = new Accumulator(renderer, W, H);
+window.renderAt = async (t) => {
+  acc.frame(scene, camera, SPP, (i, n, sub) => {
+    const ts = Math.max(0, t + (sub.frac - 0.5) * 0.5 / FPS);
+    update(ts, sub);
+  }, t);
+  update(t, { u: 0, v: 0 });
+  updateTags(t);
+  updateCaption(t);
+  glx.finish();
+};
+
+// warm-up / compile
+update(1.2, { u: 0, v: 0 });
+renderer.compile(scene, camera);
+await window.renderAt(6.9);
+await window.renderAt(29.7);
+window.__ready = true;
+</script>
+</body>
+</html>

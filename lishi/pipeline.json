@@ -1,0 +1,117 @@
+{
+  "_note": "lishi 管线定版参数（E3《朱元璋·碽妃疑案》2026-10-27 定稿）。改任何一个都要重跑全片并复验 QA。",
+  "version": "1.0",
+  "locked_at": "2026-10-27",
+  "reference_episode": "projects/zhuyuanzhang",
+
+  "route": "纯代码：SVG 卡片 + AI 静帧底图 + 代码运镜 + 代码影调；零 AI 视频",
+  "art": "绢本重彩（深靛 + 朱砂 + 泥金），朱砂是唯一高饱和色锚点",
+  "palette_source": "look.tsx 的 ink() / gold() / paperRgba()，不引入新色相",
+
+  "canvas": {"width": 1920, "height": 1080, "fps": 30, "aspect": "16:9"},
+
+  "shot": {
+    "min": 2.0,
+    "max": 4.0,
+    "avg": 2.73,
+    "count": 53,
+    "framing": "绝对时码铺排：每镜 from = 该组首句开口帧，frames = 下一镜 from − 本镜 from；末镜止于总帧数。句间静音并入前一镜，不留空隙。",
+    "grouping": "每镜的从句数写在 storyboard.json 的 count，锁死镜数。不要按时长攒镜。"
+  },
+
+  "camera": {
+    "bg_pan_px": [22, 38],
+    "bg_push": [1.04, 1.11],
+    "alternate": "横移方向逐镜反转；推拉三镜一换（1.10→1.04 / 1.04→1.11）",
+    "handheld": {"amplitude": 0.006, "wave": "双频正弦漂移"},
+    "note": "幅度压在察觉不到的量级，切镜时能看出镜头在动；不要让同一张底图连续三镜同向"
+  },
+
+  "figure": {
+    "mode": "剪影与背影",
+    "ai_bg_rule": "AI 底图里的人物一律背影或侧影，脸不出现；prompt 必须写 NOT a photograph"
+  },
+
+  "caption": {
+    "mode": "句级全量烧入",
+    "max_chars": 14,
+    "size": 60,
+    "offset": 112,
+    "fade_in_frames": 5,
+    "fade_in_note": "0→5 帧（0.17s）。3→14 帧的 0.37s 延迟会被看成「字幕慢半拍」",
+    "break_after": "的了是在和与就都也里上中后前时着过",
+    "break_note": "拆长句时优先断在这些字之后；缺了方位词会出现「里清 | 楚楚写着」这种硬切",
+    "veil": {
+      "component": "CaptionVeil",
+      "height": 400,
+      "opacity": [0.74, 0.34],
+      "note": "必须常驻全片。画进 Caption 内部会让字幕空隙处的底部亮度跳 30 灰阶"
+    }
+  },
+
+  "typography": {
+    "title": "楷体（KAI.ttf）",
+    "caption": "思源宋（NotoSerifSC.ttf）",
+    "rule": "标题楷、字幕宋；靠字重与字距拉开层次"
+  },
+
+  "backgrounds": {
+    "count": 19,
+    "source": "内置图像生成，单张 5–10 credits",
+    "prompt_locked": "Traditional Chinese silk painting in the style of a Ming dynasty hanging scroll, NOT a photograph, NOT a 3D render, NOT photorealism",
+    "prompt_extra": "central third empty pale silk / no text, no letters, no calligraphy, no border",
+    "post": "delogo 去水印 → 镜像补边到 16:9（scale 1620x1080 + 左右各镜像 150px）→ curves 把纸白推到纯白",
+    "post_note": "纸白不归一，multiply 会把整张压脏；底图必须放进 Paper() 内部",
+    "opacity": {"normal": 0.55, "crowded": 0.44},
+    "crowded_examples": ["b06_court_bow", "b15_court_row"]
+  },
+
+  "ornament": {
+    "frame": [58, 50, 1862, 946],
+    "rail_rule_x": [250, 1666],
+    "ghost_alpha": [0.085, 0.07, 0.06, 0.05],
+    "parts": "版框 + 边栏竖排影字 + 竖排纪年 + 角章 + 22 颗漂浮墨点",
+    "warning": "右侧纪年在 x=1796，是给居中的巨字卡设计的；大字靠右的卡要关掉 year/place"
+  },
+
+  "oldfilm": {
+    "scratch": 3,
+    "dust": 22,
+    "warm": 1,
+    "vignette": 0.4,
+    "forbidden": ["逐帧亮度抖动", "片门闪白", "粒子每帧重抽", "纸纹逐帧位移", "衬底随字幕开关"],
+    "budget": "帧间亮度差 P99 < 1 灰阶；> 3 灰阶的跳变 0 处（切镜帧除外）"
+  },
+
+  "audio": {
+    "sfx_count": 40,
+    "sfx_kinds": 10,
+    "key_shots": 19,
+    "density": "每镜 2 点上限，只挂关键镜",
+    "gens": ["open", "name", "turn", "map", "sign"],
+    "gains_db": {"seal": -9.0, "stone": -12.5, "whoosh": -15.5, "whoosh_low": -18.0, "paper_turn": -11.5},
+    "risers": [11, 44],
+    "bgm": {
+      "offset_db": 12.9,
+      "duck_db": 4.4,
+      "note": "BGM 增益 = 人声 RMS + 12.9dB（人声 -21.4 时即 -8.5dB）；固定值在不同录音电平下会失衡"
+    },
+    "voice_normalize": {"target_rms_db": -21.4, "peak_ceiling_db": -1.5},
+    "loudness": {"lufs": -16.3, "true_peak_db": -1.5}
+  },
+
+  "cover": {
+    "ratios": {"3x4": [1080, 1440], "4x3": [1440, 1080]},
+    "title_render": "Remotion 叠字（真字体），不用 AI 写字：生僻字必崩",
+    "seal": "封面专用印章用暗色投影，不用成片 Seal 的纸色描边（深底会变白圈）",
+    "provider": "Cover 必须包 LookProvider，否则 --lk-cin 未定义，印章变成无底白字"
+  },
+
+  "delivery": {
+    "master": "1920x1080 / 30fps / H.264 crf18 / AAC 192k",
+    "review": "crf28 / AAC 128k（需要时从母版一条命令压，不进交付目录）",
+    "out_dir": "out/<三位编号>_<人物>/",
+    "files": ["<片名>.mp4", "src_3x4.png", "src_4x3.png", "发布信息.md"],
+    "note": "一集只放四个文件，封面平铺不建子目录；审核版、字幕.srt、封面底图/原图都留在工程里"
+  }
+}

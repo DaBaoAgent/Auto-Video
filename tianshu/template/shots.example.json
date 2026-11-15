@@ -1,0 +1,4 @@
+{
+ "_doc": "work/shots.json 的字段说明。真正建工程时用 `tianshu.py new`，会复制一份空表进来。",
+ "shots": []
+}

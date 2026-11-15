@@ -1,0 +1,63 @@
+{
+  "version": "2026-10-30",
+  "pipeline": "xianshiqi",
+  "style": "mg-styles-15/22-hud",
+  "canvas": { "width": 1920, "height": 1080, "fps": 30 },
+  "duration": { "default": 30, "min": 10, "max": 60 },
+  "palette": {
+    "bg_deep": "#010508",
+    "bg_mid": "#03161d",
+    "cyan": "#00E5FF",
+    "cyan_soft": "#6BF3FF",
+    "orange": "#FF6A00",
+    "white": "#DDF7FF",
+    "green": "#47FFB2"
+  },
+  "typography": {
+    "mono": "Consolas",
+    "cn": "AlibabaPuHuiTi-3-85-Bold",
+    "caption_px": 54,
+    "hud_label_px": 14,
+    "hud_value_px": 24
+  },
+  "layers": [
+    "静态六边形网格背景（CanvasTexture，不逐帧变化）",
+    "Three.js 线框全息球（内球 30x20 / 外球 16x10 / 8 条经线 / 2 条纬线 / 170 粒子）",
+    "Canvas FUI 覆盖层（环/雷达/数据列/事件面板/锁定框）",
+    "后处理：sanitize → UnrealBloom → HUD pass（色差/扫描线/暗角/glitch/fade）",
+    "OSD：字幕 + 常驻衬底（bloom 之后，保持清晰）"
+  ],
+  "post": {
+    "bloom_strength": 0.52,
+    "bloom_radius": 0.62,
+    "bloom_threshold": 0.80,
+    "rgb_split_px": 0.8,
+    "scanline_darken": 0.90,
+    "vignette": 0.58,
+    "glitch_frames": 3,
+    "end_fade": [29.30, 30.00],
+    "end_dim": 0.62
+  },
+  "audio": {
+    "bpm": 96,
+    "beat0": 0.55,
+    "score_gain": 0.42,
+    "lufs": -14,
+    "true_peak": -1.5,
+    "aac_trim_db": -0.2,
+    "sample_rate": 48000
+  },
+  "render": {
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf_delivery": 21,
+    "crf_master": 16,
+    "preset": "slow",
+    "edge": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+  },
+  "delivery": {
+    "sample": "出稿/<编号>_<选题>/<集号>_赛博HUD<N>秒样片.mp4",
+    "final": "out/<编号>_<人物>/",
+    "final_rules": "references/publish.md"
+  }
+}

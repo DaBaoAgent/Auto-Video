@@ -1,0 +1,80 @@
+{
+  "version": "2026-11-15",
+  "pipeline": "ditu",
+  "style": "satellite-3d-map/explainer",
+  "canvas": { "width": 1920, "height": 1080, "fps": 24 },
+  "duration": { "default": 39.4, "min": 8, "max": 120 },
+  "terrain": {
+    "source": "AWS Terrain Tiles terrarium z11 (S3) + EOX s2cloudless 3857 (CC BY 4.0)",
+    "network_km": 260,
+    "km_per_px": 0.0324,
+    "albedo": { "w": 1092, "h": 756 },
+    "wide": { "w": 582, "h": 408 },
+    "height_bin": "little-endian uint16 grid, hmin 33.7 m, hmax 439.3 m",
+    "water_m": 59.39,
+    "flood_m": 10.4,
+    "flood_curve": "10.4 × eio(seg(t, 21.4, 25.4))",
+    "vertical_exaggeration": 5,
+    "labels": "groundPt(lon, lat, lift) 贴地 + 两遍碰撞避让"
+  },
+  "camera": {
+    "type": "one continuous move; 84 km → 26 km altitude",
+    "fog_near": "dist × 0.55",
+    "fog_far": "dist × 1.9 + 8",
+    "easing": "eio",
+    "micro_drift": true
+  },
+  "palette": {
+    "void": "#05080C",
+    "ink": "#0B1117",
+    "water": "#5C7F86",
+    "water_deep": "#3D5A62",
+    "flood": "#6E8E8C",
+    "label": "#F4F1EA",
+    "label_dim": "#9AA3A8",
+    "accent": "#E2603C",
+    "accent_soft": "#B8492C",
+    "rain": "#C9D6DA",
+    "plate": "#0E1418"
+  },
+  "typography": {
+    "title_zh": "NotoSansSC-700-sub 92 px",
+    "title_en": "Barlow Condensed 500 26 px, letter-spacing 0.22em",
+    "label_zh": "NotoSansSC-500-sub 30 px",
+    "label_en": "Barlow Condensed 400 17 px, uppercase",
+    "subtitle_zh": "NotoSansSC-500-sub 40 px, 下三分之一, 左侧 4 px 橙竖线",
+    "subtitle_en": "Barlow Condensed 400 20 px"
+  },
+  "render": {
+    "engine": "playwright-core chromium-headless-shell, 逐帧 JPEG pipe 给 ffmpeg",
+    "format": "jpeg",
+    "jpeg_quality": 92,
+    "crf": 18,
+    "preset": "medium",
+    "fps_real": "18–22 fps（1920×1080，单 worker）",
+    "gpu": "WebGL 必须真 GPU；虚拟机要 LEMO_ANGLE=swiftshader（慢 6×）"
+  },
+  "audio": {
+    "lufs": -14,
+    "true_peak": -1.5,
+    "limiter": "4× 过采样, -1.6 dBFS",
+    "premaster": "acompressor threshold=-18dB ratio=3 attack=5 release=60 → loudnorm I=-14 TP=-1.2",
+    "sample_rate": 48000,
+    "channels": 2,
+    "voice_lead_in": 0.09,
+    "tail": 0.7,
+    "grain": 2
+  },
+  "delivery": {
+    "sample": "projects/<编号_名>/out/",
+    "final": "projects/<编号_名>/out/<名>_map.mp4",
+    "files": ["<名>_map.mp4", "voice/cues.json", "FACTS.md"],
+    "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
+  },
+  "credits": [
+    "ELEVATION: AWS Terrain Tiles (terrarium) — public",
+    "IMAGERY: Sentinel-2 cloudless 2016 by EOX (CC BY 4.0)",
+    "FONTS: Barlow, Noto Sans SC (SIL OFL 1.1)",
+    "ENGINE: three.js (MIT)"
+  ]
+}

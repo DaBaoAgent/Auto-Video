@@ -1,0 +1,1232 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>会飞的中国人 · 20 秒样片</title>
+<style>html,body{margin:0;background:#0b0a08}#stage{position:relative;overflow:hidden}</style>
+<script src="sample_timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/goldenage.js"></script>
+<script src="lib/laolang.js"></script>
+<script src="lib/toon.js"></script>
+<script src="lib/act.js"></script>
+<script src="lao_cast_022.js"></script>
+</head><body><div id="stage"></div><script>
+// 022《会飞的中国人》· 第一幕 20 秒样片（0–20.12 s）
+// 场景：上海沈家巷酒馆——驴友进门、倒酒、讲澳洲土著的传说、朋友听愣、拍桌认亲。
+// 分镜按真实口播节拍切，每镜 2–4 秒；时间轴由全片配音转写重建（review/asr_*.json）。
+// 绘景、片门、颗粒沿用 laolang；人物用 08_人物设定 审核通过的 CAST022。
+// 屏幕文字只用 brief.md 表里的「上海沈家巷」。
+
+const { M } = PROMO;
+
+PROMO.compose({
+  bpm: 84, offset: 0, grain: false, tail: 0,
+  theme: { bg: '#14110d', fg: '#efe3c4', ink: '#efe3c4', muted: '#b7a98a', accent: '#b23a2b', paper: '#14110d', fonts: { display: '"Ma Shan Zheng", "KaiTi", serif', serif: '"Noto Serif SC", "SimSun", serif', sans: '"Noto Sans SC", "Microsoft YaHei", sans-serif' } },
+  captions: { max: 18, font: '"Noto Serif SC", "SimSun", serif', weight: 500 },
+  build: (F) => {
+    const G = PROMO.laolang(F, { seed: 'pd-022-sample', boil: 0.045, drawings: 30, captions: { max: 18, size: 37 } });
+    const L = G.lib, W = G.W, H = G.H, ACT = window.ACT, CAST = window.CAST022;
+    const { camPush, pop, clamp, lerp, K } = L;
+    const TAU = Math.PI * 2;
+
+    // ---------- palette ----------
+    const INK = '#241726', INK2 = '#2a211a';
+    const CREAM = '#efe3c4', CREAM2 = '#e2d0a8', CREAM3 = '#d5c092';
+    const TEAL0 = '#1d403f', TEAL1 = '#2c5450', TEAL2 = '#3f6b60', TEAL3 = '#5d7f6d';
+    const OLIVE1 = '#5f682b', OLIVE2 = '#7f8840';
+    const OCHRE0 = '#6b4a2f', OCHRE1 = '#8f6633', OCHRE2 = '#b98a49', OCHRE3 = '#d3aa63';
+    const RUST = '#a34c32', RUST2 = '#c06a45', GOLD = '#d8a53f', GOLD2 = '#f0cf7a';
+
+    const hex2 = (h) => {
+      h = String(h);
+      if (h[0] === '#') { const n = h.slice(1); return [parseInt(n.slice(0, 2), 16), parseInt(n.slice(2, 4), 16), parseInt(n.slice(4, 6), 16)]; }
+      const m = h.match(/(\d+)\D+(\d+)\D+(\d+)/);
+      return m ? [+m[1], +m[2], +m[3]] : [0, 0, 0];
+    };
+    const mix2 = (a, b, u) => { const A = hex2(a), B = hex2(b); return `rgb(${Math.round(A[0] + (B[0] - A[0]) * u)},${Math.round(A[1] + (B[1] - A[1]) * u)},${Math.round(A[2] + (B[2] - A[2]) * u)})`; };
+    const rgba = (h, a) => { const [r, g, b] = hex2(h); return `rgba(${r},${g},${b},${a})`; };
+
+    // ---------- drawing helpers (flat arrays, like the laolang plates) ----------
+    const inkFill = (pts, col) => L.F(pts, col);
+    const inkShape = (pts, fill, w = 2.4, col = INK) => L.S(pts, fill, w, col);
+    const inkLine = (pts, w = 2.2, col = INK, o) => L.L(pts, w, col, o);
+    const inkOutline = (pts, w = 2.2, col = INK) => L.L(pts, w, col, { closed: true });
+    const inkEll = (cx, cy, rx, ry, fill, w = 2.2, col = INK) => {
+      const p = L.pEll(cx, cy, rx, ry, 0, TAU, 36);
+      if (fill) L.F(p, fill);
+      if (w > 0) L.L(p, w, col, { closed: true });
+    };
+    const gradY = (y0, y1, c0, c1, steps = 26) => {
+      for (let i = 0; i < steps; i++) {
+        const ya = y0 + (y1 - y0) * i / steps, yb = y0 + (y1 - y0) * (i + 1) / steps + 0.5;
+        inkFill([0, ya, W, ya, W, yb, 0, yb], mix2(c0, c1, (i + 0.5) / steps));
+      }
+    };
+    const glow = (cx, cy, r0, r1, rgb, a, steps = 12) => {
+      for (let i = steps; i >= 1; i--) {
+        const t = i / steps, r = r0 + (r1 - r0) * t;
+        inkFill(L.pEll(cx, cy, r, r, 0, TAU, 32), `rgba(${rgb},${(a * (1 - t) + 0.004).toFixed(3)})`);
+      }
+    };
+    const motes = (t, n = 14, x0 = 80, x1 = 880, y0 = 140, y1 = 640, rgb = '245,222,168', amax = 0.12) => {
+      for (let i = 0; i < n; i++) {
+        const px = x0 + ((i * 137 + t * (3 + (i % 5) * 1.2)) % (x1 - x0));
+        const py = y1 - ((i * 83 + t * (4 + (i % 4) * 1.7)) % (y1 - y0));
+        const a = 0.03 + (i % 4) * (amax / 4) + 0.012 * Math.sin(t * 1.3 + i);
+        inkFill(L.pEll(px, py, 1 + (i % 3) * 0.5, 1 + (i % 2) * 0.45, 0, TAU, 6), `rgba(${rgb},${Math.max(0.02, a)})`);
+      }
+    };
+    const WIN = (t, at, dur) => ACT.windowAt(t, at, dur);
+    const SMOOTH = (a, b, u) => { const q = clamp((u - a) / Math.max(1e-5, b - a), 0, 1); return q * q * (3 - 2 * q); };
+
+    // ---------- cast ----------
+    const actorSide = (id, x, gy, s, opts, dir = 1, sx = 1) => {
+      const c = CAST.draw(id, opts, true);
+      L.push(); L.tr(x, gy); L.scl(dir * sx, 1);
+      L.xfDraw(c, -300 * s, -975 * s, 600 * s, 1000 * s);
+      L.pop();
+    };
+    const actorFront = (id, x, gy, s, opts, sx = 1) => {
+      const c = CAST.draw(id, opts, false);
+      L.push(); L.tr(x, gy); L.scl(sx, 1);
+      L.xfDraw(c, -300 * s, -975 * s, 600 * s, 1000 * s);
+      L.pop();
+    };
+
+    // ---------- time ----------
+    // real narration beats (rebuilt from the voiceover's word timings)
+    const B_OUT = 2.98;      // 说起澳大利亚土著部落…
+    const B_FLY = 5.82;      // 说九十年前…
+    const B_ROAD = 8.08;     // 骑车从悉尼到墨尔本…
+    const B_AIR = 10.10;     // 比开飞机来接他的人还快…
+    const B_BACK = 12.22;    // 朋友听愣了…
+    const B_ASK2 = 15.36;    // 是不是姓潘？
+    const B_SLAMSHOT = 17.42;// 朋友一拍桌子…
+    const B_ASK = B_BACK;    // 朋友听愣了…
+    const B_QUOTE = 13.0;    // 说，你等等…
+    const B_AGREE = 16.47;   // 驴友说对呀
+    const SLAM = 17.94, SLAM_B = 18.14;   // 朋友一拍桌子
+    // the picture holds for two tenths of a second at the slam: every action after it runs on shifted time
+    const taOf = (t) => (t < SLAM ? t : t < SLAM_B ? SLAM : t - 0.2);
+    const w04 = ACT.walkCurve({ t0: 0.22, t1: 2.30, x0: -90, x1: 330, L0: 88, phEnd: 0.12 });
+    const X04 = 330, X05 = 620, GY04 = 705, GY05 = 718, S04 = 0.52;
+
+    /* ============================================================
+       1 · 沈家巷酒馆
+       ============================================================ */
+    const WALL_BLOBS = [[110, 300, 84, 52, .045], [300, 200, 120, 64, .04], [640, 270, 150, 80, .035], [820, 410, 110, 60, .04], [430, 430, 90, 44, .035]];
+    const TABLE_GRAIN = [[196, 560, 300, 558], [330, 574, 470, 572], [520, 554, 700, 551], [640, 582, 840, 579], [240, 584, 360, 582]];
+
+    function drawDoor(ta) {
+      // a shikumen door at the left edge: stone frame, a lane at night
+      inkShape([2, 148, 184, 140, 194, 714, -6, 722], '#7a6a4e', 3.5);
+      inkShape([30, 178, 154, 172, 162, 698, 18, 704], '#0f2022', 0);
+      inkFill([34, 500, 158, 496, 162, 696, 22, 700], '#14292a');
+      inkFill([34, 178, 154, 172, 150, 250, 38, 256], 'rgba(6,14,15,.55)');
+      inkEll(92, 300, 46, 128, 'rgba(120,150,140,.07)', 0);
+      // street lamp out in the lane
+      inkEll(104, 312, 9, 12, 'rgba(248,214,146,.85)', 0);
+      glow(104, 312, 8, 46, '248,214,146', 0.18, 8);
+      inkLine([104, 326, 104, 436], 4, '#2a211a');
+      // stone lintel and sill
+      inkShape([-2, 140, 186, 132, 190, 158, 0, 166], '#9a8a68', 3);
+      inkShape([6, 690, 172, 684, 176, 712, 0, 716], '#9a8a68', 3);
+      inkLine([16, 160, 176, 152], 1.8, 'rgba(239,227,196,.28)');
+      // cold night spilling on the threshold
+      inkFill([20, 690, 170, 684, 178, 720, 10, 720], 'rgba(93,127,109,.16)');
+    }
+
+    function drawWindow(ta) {
+      const x0 = 712, y0 = 150, x1 = 910, y1 = 348;
+      inkShape([x0 - 12, y0 - 12, x1 + 12, y0 - 14, x1 + 14, y1 + 12, x0 - 14, y1 + 10], '#4a3524', 3);
+      inkShape([x0, y0, x1, y0, x1, y1, x0, y1], '#163633', 0);
+      // the lane outside: tiled roofs and a pale moon
+      inkFill([x0, y1 - 44, x0 + 70, y1 - 74, x1 - 34, y1 - 54, x1, y1 - 70, x1, y1, x0, y1], '#122a28');
+      inkEll(854, 202, 17, 17, CREAM, 0);
+      glow(854, 202, 9, 38, '239,227,196', 0.10, 8);
+      // lattice
+      for (let i = 1; i < 3; i++) {
+        inkLine([x0 + (x1 - x0) * i / 3, y0, x0 + (x1 - x0) * i / 3, y1], 5, '#6b4a2f');
+        inkLine([x0, y0 + (y1 - y0) * i / 3, x1, y0 + (y1 - y0) * i / 3], 5, '#6b4a2f');
+      }
+      // a paper patch and the warm room reflected on the glass
+      inkShape([x0 + 14, y1 - 94, x0 + 54, y1 - 100, x0 + 58, y1 - 58, x0 + 18, y1 - 54], 'rgba(239,227,196,.16)', 0);
+      inkEll(792, 248, 54, 62, 'rgba(248,214,146,.05)', 0);
+      inkShape([x0 - 18, y1 + 8, x1 + 18, y1 + 8, x1 + 20, y1 + 22, x0 - 20, y1 + 22], '#6b4a2f', 2.6);
+    }
+
+    function drawHangings(ta) {
+      // strung chilli and garlic on the ceiling beam, short enough to clear the wanderer's cap as he walks under
+      const sw = Math.sin(ta * 0.7) * 1.5;
+      inkLine([234, 118, 226 + sw, 184, 238 + sw, 280], 1.6, '#5a4632');
+      for (let i = 0; i < 4; i++) inkEll(224 + sw + (i % 2) * 6, 186 + i * 20, 7, 14, RUST, 2, 'rgba(94,40,28,.95)');
+      inkEll(264 + sw, 184, 9, 10, CREAM, 2);
+      for (let i = 0; i < 3; i++) inkEll(264 + sw + (i % 2) * 5, 212 + i * 20, 11, 13, CREAM, 2);
+    }
+
+    function drawLamp(ta) {
+      const sw = Math.sin(ta * 0.9) * 2.2, lx = 500 + sw, ly = 138;
+      inkLine([500, 0, lx, ly], 2.2, INK2);
+      inkShape([lx - 42, ly, lx + 42, ly, lx + 27, ly + 44, lx - 27, ly + 44], RUST, 3.2);
+      inkLine([lx - 42, ly, lx + 42, ly], 3, '#8a3a2c');
+      inkEll(lx, ly + 30, 32, 7, 'rgba(240,207,122,.18)', 0);
+      const fl = 0.86 + 0.10 * Math.sin(ta * 7.3) + 0.04 * Math.sin(ta * 13.1);
+      glow(lx, ly + 54, 7, 74, '248,214,146', 0.17 * fl, 10);
+      inkEll(lx, ly + 54, 7, 9, GOLD2, 0);
+      glow(lx, ly + 64, 40, 236, '248,214,146', 0.05 * fl, 10);
+      inkLine([lx, ly + 44, lx + 1, ly + 52], 1.6, '#8a3a2c');
+      inkEll(lx, ly + 56, 3, 6, 'rgba(248,214,146,.8)', 0);
+    }
+
+    function draw04(ta) {
+      const w = w04(ta);
+      const moving = w.stop < 0.96;
+      const mode = moving ? 'march' : 'stand';
+      const expr = ta < 2.35 ? (ta > 1.15 ? 'curious' : 'neutral')
+        : ta < 18.45 ? (ta >= B_AGREE && ta < 18.45 ? 'smile' : 'neutral')
+        : 'shock';
+      const lean = 3 * WIN(ta, 2.35, 0.35) - 4 * WIN(ta, B_QUOTE + 0.2, 0.3)
+        + 4 * WIN(ta, B_AGREE + 0.05, 0.35) - 7 * ACT.pulse(ta, 18.5, 0.5);
+      const o = { mode, expr, phase: w.ph, blink: ACT.blinkOf(4, ta, 3.3), light: -2.1, seed: 4 };
+      if (!moving) o.actPose = { lean };
+      if (w.x < 185) inkEll(w.x, 700, 34, 6, 'rgba(20,14,10,.30)', 0);
+      actorSide(4, w.x, GY04, S04, o, 1);
+    }
+
+    function draw05(ta) {
+      const lean = 7 * WIN(ta, B_QUOTE, 0.35) + 5 * WIN(ta, B_ASK2, 0.3) - 5 * WIN(ta, 18.5, 0.4);
+      const expr = ta < B_ASK ? 'neutral'
+        : ta < B_QUOTE ? 'dazed'
+        : ta < 17.5 ? 'curious'
+        : ta < SLAM + 0.2 ? 'effort' : 'smile';
+      const o = { mode: 'stand', expr, blink: ACT.blinkOf(5, ta, 2.9), light: -2.1, seed: 5, actPose: { lean } };
+      actorSide(5, X05, GY05, S04, o, -1);
+    }
+
+    function drawTable() {
+      inkEll(512, 712, 382, 22, 'rgba(20,14,10,.32)', 0);
+      // top: a shallow 3/4 plane, back edge high enough to hide hanging hands
+      inkShape([176, 536, 844, 532, 876, 596, 150, 600], OCHRE1, 4.2);
+      inkLine([182, 556, 848, 552], 1.6, 'rgba(42,33,26,.38)');
+      inkLine([174, 576, 858, 572], 1.6, 'rgba(42,33,26,.38)');
+      for (const [a, b, c, d] of TABLE_GRAIN) inkLine([a, b, c, d], 1.3, 'rgba(107,74,47,.55)', { taper: .45 });
+      inkLine([182, 538, 840, 534], 2.2, 'rgba(226,208,168,.30)');
+      // apron
+      inkShape([150, 600, 876, 596, 888, 716, 138, 720], OCHRE0, 4.2);
+      for (const x of [198, 378, 558, 738]) {
+        inkOutline([x, 622, x + 118, 620, x + 120, 684, x + 2, 686], 3, 'rgba(42,33,26,.72)');
+        inkLine([x + 16, 634, x + 104, 632], 2, 'rgba(163,76,50,.50)');
+      }
+      for (let i = 0; i < 9; i++) inkLine([160 + i * 82, 604, 154 + i * 82, 714], 1.2, 'rgba(74,50,32,.40)');
+      inkLine([138, 718, 888, 714], 2.2, 'rgba(226,208,168,.20)');
+    }
+
+    function drawBowl(x, y, sc = 1, dy = 0) {
+      const yy = y + dy;
+      inkShape([x - 34 * sc, yy, x - 26 * sc, yy + 24 * sc, x + 26 * sc, yy + 24 * sc, x + 34 * sc, yy], CREAM, 2.6);
+      inkEll(x, yy, 34 * sc, 8.5 * sc, CREAM2, 0);
+      inkEll(x, yy, 27 * sc, 5.5 * sc, RUST, 0);
+      inkEll(x - 8 * sc, yy - 1, 7 * sc, 1.6 * sc, 'rgba(240,207,122,.55)', 0);
+      inkLine([x - 11 * sc, yy + 25 * sc, x + 11 * sc, yy + 25 * sc], 4 * sc, '#c9b98a');
+    }
+
+    function drawJug(x, y, rot) {
+      L.push(); L.tr(x, y); L.rot(rot);
+      // a round-bellied wine ewer: collar, belly, spout, loop handle
+      inkShape([-24, -18, -12, -26, 12, -26, 24, -18, 30, 2, 24, 20, 10, 26, -10, 26, -24, 20, -30, 2], OCHRE2, 3.2);
+      inkShape([-15, -32, 15, -32, 19, -23, -19, -23], OCHRE1, 2.8);
+      inkShape([-30, -4, -46, -10, -52, 4, -32, 10], OCHRE2, 2.8);
+      inkLine([25, -12, 42, -2, 40, 16, 24, 20], 6, OCHRE1, { cap: true });
+      inkLine([33, -6, 38, 2, 37, 12, 30, 15], 2, 'rgba(74,50,32,.55)');
+      inkLine([-13, -18, -9, 12], 3, 'rgba(240,207,122,.42)', { taper: .6 });
+      inkEll(2, 20, 16, 4, 'rgba(74,50,32,.28)', 0);
+      inkEll(-1, -25, 12, 3.5, 'rgba(120,52,36,.85)', 0);
+      L.pop();
+    }
+
+    function drawPourArm(ta) {
+      // the wanderer (04, at x≈330) lifts the ewer and pours for his friend
+      const k = WIN(ta, 2.36, 0.28) * (1 - WIN(ta, 2.86, 0.12));   // 1 = lifted to pour
+      const jx = lerp(470, 452, k), jy = lerp(548, 474, k), jr = lerp(-0.05, -0.62, k);
+      const cs = Math.cos(jr), sn = Math.sin(jr);
+      const gripL = [22, 20];
+      const hx = jx + gripL[0] * cs - gripL[1] * sn, hy = jy + gripL[0] * sn + gripL[1] * cs;
+      const wx = hx - 12, wy = hy - 3;
+      const ex = lerp(394, 404, k), ey = lerp(512, 492, k);
+      const av = clamp((k - 0.12) / 0.18, 0, 1);
+      drawJug(jx, jy, jr);
+      if (av > 0.02) {
+        // the near arm crosses in front of the ewer, so its hand stays visible on the jug's near edge
+        inkLine([344, 438, ex, ey], 14, `rgba(63,107,96,${av})`, { cap: true, taper: .1 });
+        inkLine([ex, ey, wx, wy], 11, `rgba(63,107,96,${av})`, { cap: true, taper: .12 });
+        inkLine([348, 431, ex - 2, ey - 6, wx - 2, wy - 4], 4, `rgba(226,208,168,${0.15 * av})`, { taper: .6 });
+        inkLine([wx + 4, wy - 6, wx - 4, wy + 6], 13, `rgba(47,79,71,${av})`, { cap: true });
+        inkLine([wx + 4, wy - 6, wx - 4, wy + 6], 1.6, `rgba(20,30,26,${0.5 * av})`);
+        // the hand round the ewer's near side: a small cartoon hand, not a mitt
+        inkEll(hx, hy, 6.2, 6.8, `rgba(214,171,122,${av})`, 0);
+        L.L(L.pEll(hx, hy, 6.2, 6.8, 0, TAU, 24), 1.5, `rgba(36,23,38,${av})`, { closed: true });
+        for (let i = 0; i < 3; i++) inkLine([hx - 4 + i * 3.4, hy - 5, hx - 3 + i * 3.4, hy + 4], 1.7, `rgba(214,171,122,${av})`, { cap: true });
+        inkLine([hx - 5, hy + 5, hx + 5, hy + 4], 1.2, `rgba(90,60,40,${0.55 * av})`);
+      }
+      // the wine: from the real spout tip down into the cup
+      const a = SMOOTH(2.56, 2.66, ta) * (1 - SMOOTH(2.80, 2.92, ta));
+      if (a > 0.02) {
+        const tx = jx - 52 * cs - 4 * sn, ty = jy - 52 * sn + 4 * cs;
+        const sx2 = tx + Math.sin(ta * 18) * 1.1;
+        inkLine([tx, ty + 3, sx2 - 1, (ty + 566) / 2, sx2, 566], 3, `rgba(230,201,141,${0.8 * a})`, { taper: .3 });
+        inkEll(sx2, 566, 6, 3.5, `rgba(240,207,122,${0.45 * a})`, 0);
+        for (let i = 0; i < 2; i++) inkEll(sx2 + (i - 0.5) * 9, 544 + i * 10, 1.6, 2.2, `rgba(240,207,122,${0.5 * a})`, 0);
+      }
+    }
+
+    function drawSlamArm(ta) {
+      const u = WIN(ta, 17.50, 0.10) * (1 - WIN(ta, SLAM + 0.52, 0.16));
+      if (u < 0.02) return;
+      // the friend's near arm: fist on the table, a short lift, then down (05 at x≈620, facing left)
+      const lift = SMOOTH(17.52, 17.79, ta) * (1 - SMOOTH(17.82, SLAM, ta));
+      const sx = 638, sy = 478;
+      const ex = lerp(606, 620, lift), ey = lerp(512, 496, lift);
+      const hx = lerp(574, 664, lift), hy = lerp(540, 470, lift);
+      // the fist's shadow on the table keeps it anchored when it is down
+      const down = 1 - lift;
+      if (down > 0.05) inkEll(hx + 6, hy + 8, 17, 5.5, `rgba(36,23,38,${0.20 * down})`, 0);
+      inkLine([sx, sy, ex, ey], 21, INK, { cap: true, taper: .08 });
+      inkLine([sx, sy, ex, ey], 17, '#6d7f75', { cap: true, taper: .08 });
+      inkLine([ex, ey, hx, hy], 18, INK, { cap: true, taper: .12 });
+      inkLine([ex, ey, hx, hy], 14, '#6d7f75', { cap: true, taper: .12 });
+      inkLine([sx - 2, sy - 5, ex - 3, ey - 6, hx - 2, hy - 5], 4, 'rgba(226,208,168,.22)', { taper: .6 });
+      // cuff and fist, one size up so the punch reads at this camera
+      inkLine([hx + 9, hy - 8, hx - 7, hy + 8], 19, '#2f3a32', { cap: true });
+      inkEll(hx, hy, 13.5, 11.5, '#d6ab7a', 2.6);
+      for (let i = 0; i < 3; i++) inkEll(hx - 9 + i * 7.4, hy - 5, 4.8, 5.8, '#d6ab7a', 1.9);
+      inkLine([hx - 13, hy + 4, hx + 12, hy + 3], 1.9, 'rgba(90,60,40,.55)');
+      inkLine([hx - 7, hy - 8, hx - 7, hy + 6], 1.2, 'rgba(90,60,40,.35)');
+      // the hit: a wide ink ring on the table plane, spikes and dust, no bright fan
+      const d = ta - SLAM;
+      if (d >= 0 && d < 0.6) {
+        const a = 1 - d / 0.6;
+        inkEll(hx - 2, hy + 8, 46 + d * 78, 15 + d * 22, null, 2.6, `rgba(36,23,38,${0.50 * a})`);
+        inkEll(hx - 2, hy + 8, 24 + d * 52, 8 + d * 15, null, 1.6, `rgba(226,208,168,${0.30 * a})`);
+        for (let i = 0; i < 14; i++) {
+          const an = -Math.PI * 1.02 + i * 0.155, r0 = 18 + d * 52, r1 = r0 + 20 + 13 * (i % 2);
+          inkLine([hx + Math.cos(an) * r0, hy + Math.sin(an) * r0 * 0.5, hx + Math.cos(an) * r1, hy + Math.sin(an) * r1 * 0.5], i % 2 ? 2.2 : 4, `rgba(36,23,38,${0.9 * a})`, { taper: .6 });
+        }
+        inkLine([hx - 86, hy + 9, hx + 44, hy + 5], 3, `rgba(36,23,38,${0.62 * a})`, { taper: .5 });
+        for (let i = 0; i < 8; i++) inkEll(hx - 62 + i * 18, hy + 12 + (i % 2) * 5 - d * 13, 2.7, 1.9, `rgba(36,23,38,${0.5 * a})`, 0);
+      }
+      // a short wind-up streak while the fist is coming down
+      const wu = (ta > 17.80 && ta < SLAM) ? (ta - 17.80) / (SLAM - 17.80) : 0;
+      if (wu > 0.05) inkLine([hx + 4, hy - 26 * wu, hx + 8, hy - 8], 2.2, `rgba(239,227,196,${0.26 * wu})`, { taper: .5 });
+    }
+
+    function tavernScene(t, ta) {
+      gradY(0, 700, '#3d2c21', '#7a5730', 28);
+      for (const [x, y, rx, ry, a] of WALL_BLOBS) inkEll(x, y, rx, ry, `rgba(226,208,168,${a})`, 0);
+      // beams and floor
+      inkFill([0, 60, 960, 52, 960, 108, 0, 118], '#4a3524');
+      inkLine([0, 60, 960, 52], 3, INK);
+      inkLine([0, 104, 960, 96], 2, INK2);
+      for (let i = 0; i < 8; i++) inkLine([i * 140 + 18, 74, i * 140 + 96, 72], 2, 'rgba(226,208,168,.12)', { taper: .5 });
+      inkFill([0, 690, 960, 690, 960, 720, 0, 720], '#33241a');
+      for (let i = 0; i < 7; i++) inkLine([0, 700 + i * 4, 960, 698 + i * 4], 1.2, 'rgba(20,14,10,.28)');
+      drawDoor(ta);
+      drawWindow(ta);
+      drawHangings(ta);
+      drawLamp(ta);
+      draw04(ta);
+      draw05(ta);
+      drawTable();
+      // props on the table
+      const bd = ta >= SLAM ? Math.max(0, ta - SLAM) : 0;
+      const jump = bd < 0.55 ? -16 * Math.exp(-6.2 * bd) * Math.abs(Math.sin(14 * bd)) : 0;
+      drawBowl(438, 566, 1, jump);
+      drawBowl(730, 562, 0.92, jump * 0.8);
+      inkEll(612, 575, 46, 12, CREAM2, 2.4);
+      for (let i = 0; i < 9; i++) inkEll(578 + (i * 29) % 68, 566 + (i * 17) % 16 + jump * 0.3, 5, 3.5, OCHRE2, 1.4);
+      drawPourArm(ta);
+      drawSlamArm(ta);
+      glow(500, 210, 20, 190, '248,214,146', 0.05, 10);
+      glow(470, 566, 60, 238, '248,214,146', 0.06, 10);
+      motes(ta, 14, 60, 900, 120, 640, '245,222,168', 0.13);
+    }
+
+    /* ============================================================
+       2 · 后厨记忆
+       ============================================================ */
+    function drawKitchenWindow(ta) {
+      const x0 = 110, y0 = 142, x1 = 330, y1 = 376;
+      inkShape([x0 - 12, y0 - 12, x1 + 12, y0 - 14, x1 + 14, y1 + 12, x0 - 14, y1 + 10], '#4a3524', 3);
+      inkShape([x0, y0, x1, y0, x1, y1, x0, y1], '#efe3c4', 0);
+      gradY(y0, y1, '#e6c98d', '#b98a49', 18);
+      inkFill([x0, y1 - 64, x0 + 60, y1 - 96, x0 + 130, y1 - 70, x1 - 30, y1 - 104, x1, y1 - 82, x1, y1, x0, y1], '#5f682b');
+      inkFill([x0, y1 - 30, x1, y1 - 40, x1, y1, x0, y1], '#7f8840');
+      inkEll(286, 196, 24, 24, 'rgba(255,245,210,.55)', 0);
+      glow(286, 196, 16, 60, '248,214,146', 0.10, 8);
+      inkLine([x0 + 110, y0, x0 + 110, y1], 7, '#6b4a2f');
+      inkLine([x0, y0 + 78, x1, y0 + 74], 7, '#6b4a2f');
+      inkShape([x0 - 16, y1 + 6, x1 + 16, y1 + 6, x1 + 18, y1 + 22, x0 - 18, y1 + 22], '#6b4a2f', 2.6);
+      // the sun's shaft across the room
+      inkFill([330, 190, 560, 520, 470, 540, 240, 240], 'rgba(239,227,196,.06)');
+    }
+
+    function drawUtensils(ta) {
+      const sw = Math.sin(ta * 0.8) * 1.2;
+      // a beam with hooks, so nothing hangs in mid-air
+      inkFill([790, 320, 952, 316, 954, 332, 788, 336], '#4a3524');
+      inkLine([790, 320, 952, 316], 2, INK);
+      for (const hx of [812, 846, 892, 930]) inkLine([hx, 330, hx, 344], 2, '#2a211a');
+      // wire from the roof beam
+      inkLine([880, 70, 872 + sw, 150, 884 + sw, 318], 2, '#4a3524');
+      // iron pan hung on a hook
+      inkLine([812, 344, 812, 260], 2.6, '#4a3524');
+      inkEll(812 + sw, 272, 44, 11, '#3a3a34', 3);
+      inkLine([772 + sw, 274, 744 + sw, 286, 734 + sw, 302], 9, '#3a3a34', { cap: true });
+      inkLine([778 + sw, 267, 846 + sw, 267], 2, 'rgba(226,208,168,.28)');
+      // two ladles on the beam
+      inkLine([866, 344, 866, 404], 2.4, '#6b4a2f');
+      inkEll(866, 414, 13, 9, '#8a7a5a', 2.4);
+      inkLine([866, 404, 866, 414], 1.4, 'rgba(74,50,32,.6)');
+      inkLine([904, 344, 904, 390], 2.4, '#6b4a2f');
+      inkEll(904, 400, 15, 10, '#8a7a5a', 2.4);
+      // garlic braid on the last hook
+      inkLine([930, 344, 930, 424], 1.6, '#8a7a5a');
+      for (let i = 0; i < 3; i++) inkEll(930, 432 + i * 18, 9, 11, CREAM, 2);
+      inkShape([922, 486, 938, 486, 934, 502, 926, 502], '#c9b98a', 1.6);
+    }
+
+    function drawCounter() {
+      inkEll(520, 714, 420, 20, 'rgba(20,14,10,.30)', 0);
+      inkShape([104, 512, 892, 508, 910, 612, 88, 618], OCHRE1, 4.2);
+      inkLine([110, 534, 898, 530], 1.8, 'rgba(42,33,26,.42)');
+      inkLine([100, 572, 906, 568], 1.4, 'rgba(42,33,26,.30)');
+      inkShape([88, 618, 910, 612, 922, 716, 76, 722], OCHRE0, 4.2);
+      for (const x of [130, 330, 530, 730]) {
+        inkOutline([x, 638, x + 150, 636, x + 152, 696, x + 2, 698], 2.8, 'rgba(42,33,26,.66)');
+        inkLine([x + 18, 650, x + 134, 648], 1.8, 'rgba(163,76,50,.42)');
+      }
+      for (let i = 0; i < 10; i++) inkLine([110 + i * 84, 622, 104 + i * 84, 714], 1.2, 'rgba(74,50,32,.38)');
+      inkLine([76, 720, 922, 714], 2.2, 'rgba(226,208,168,.18)');
+    }
+
+    function drawFish(ta, dy = 0) {
+      const y = 566 + dy;
+      // board
+      inkShape([644, 540 + dy, 842, 536 + dy, 850, 596 + dy, 652, 600 + dy], '#d5c092', 3.4);
+      for (let i = 0; i < 5; i++) inkLine([658 + i * 40, 547 + dy, 652 + i * 40, 594 + dy], 1.3, 'rgba(107,74,47,.35)');
+      // the fish: forked tail to the left, head and eye to the right
+      inkShape([690, y, 660, y - 26, 650, y - 6, 662, y + 2, 652, y + 26, 690, y + 10], '#3f6b60', 3);
+      inkShape([694, y - 22, 744, y - 30, 792, y - 18, 808, y + 2, 790, y + 20, 742, y + 26, 696, y + 14, 684, y - 4], '#4c6b72', 3.2);
+      inkShape([700, y + 6, 746, y + 2, 790, y + 8, 786, y + 17, 744, y + 22, 700, y + 15], CREAM2, 2);
+      inkShape([726, y - 28, 750, y - 44, 770, y - 26], '#3f6b60', 2.2);
+      inkShape([738, y + 2, 726, y + 18, 748, y + 13], '#3f6b60', 1.8);
+      inkLine([700, y - 13, 786, y - 8], 1.8, 'rgba(239,227,196,.34)');
+      inkLine([770, y - 18, 778, y - 2, 772, y + 12], 2, 'rgba(36,23,38,.55)');
+      inkEll(786, y - 7, 4.6, 4.6, '#efe3c4', 1.6);
+      inkEll(786, y - 7, 2.4, 2.4, INK, 0);
+      inkLine([806, y + 1, 798, y + 4], 1.8, '#2a3a3a');
+      for (let i = 0; i < 4; i++) for (let j = 0; j < 3; j++) inkLine([722 + i * 13, y - 8 + j * 9, 728 + i * 13, y - 4 + j * 9], 1, 'rgba(239,227,196,.30)');
+    }
+
+    function drawCleaver(x, y, a) {
+      L.push(); L.tr(x, y); L.rot(a);
+      // wooden handle with two rivets
+      inkLine([-34, 2, -4, 0], 10, '#5a3a2a', { cap: true });
+      inkEll(-34, 2, 5, 4, '#3a2418', 0);
+      inkEll(-24, 1.5, 2.4, 2.4, '#c9b98a', 0);
+      inkEll(-13, 1, 2.4, 2.4, '#c9b98a', 0);
+      // broad steel blade
+      inkShape([-2, -22, 58, -26, 78, -10, 74, 10, -2, 14], '#b9bab2', 2.8);
+      inkLine([1, -16, 60, -20, 74, -8], 2.2, 'rgba(255,255,255,.48)');
+      inkLine([-2, 13, 74, 9], 3.4, '#8f918a');
+      inkLine([10, -9, 42, -12], 1.4, 'rgba(36,23,38,.22)');
+      inkLine([56, 4, 72, 0], 1.2, 'rgba(36,23,38,.30)');
+      L.pop();
+    }
+
+    function draw03(ta) {
+      const o = { mode: 'stand', expr: 'effort', blink: ACT.blinkOf(3, ta, 3.7), light: -2.1, seed: 3, actPose: { lean: 5 } };
+      actorSide(3, 600, 715, 0.53, o, 1);
+    }
+
+    function drawChopArm(ta) {
+      const ph = ((ta - 8.2) / 0.62) % 1;
+      const u = 0.5 - 0.5 * Math.cos(TAU * ph);
+      // raised to the shoulder, then down onto the board
+      const hx = lerp(686, 716, Math.pow(u, 1.6)), hy = lerp(462, 542, Math.pow(u, 1.35));
+      const ex = lerp(656, 678, u), ey = lerp(470, 508, u);
+      inkLine([632, 474, ex, ey, hx, hy], 26, '#efe8d6', { cap: true, taper: .13 });
+      inkLine([635, 464, ex - 3, ey - 8, hx - 3, hy - 8], 6, 'rgba(226,208,168,.40)', { taper: .7 });
+      inkLine([632, 482, ex, ey + 8, hx, hy + 7], 8, 'rgba(201,185,138,.24)', { taper: .8 });
+      // the fist round the handle
+      inkEll(hx, hy, 12, 11, '#c99563', 2.6);
+      for (let i = 0; i < 3; i++) inkEll(hx - 7 + i * 7, hy - 5, 4, 5, '#c99563', 1.6);
+      inkLine([hx - 11, hy + 5, hx + 10, hy + 4], 1.6, 'rgba(90,60,40,.5)');
+      drawCleaver(hx + 10, hy + 5, lerp(-0.34, 0.4, u));
+      // board dip and scrap on each impact
+      const since = ta >= 8.51 ? ((ta - 8.51) % 0.62 + 0.62) % 0.62 : 9;
+      if (since < 0.16) {
+        const d = since / 0.16;
+        for (let i = 0; i < 4; i++) {
+          const an = -1.9 + i * 0.55, r = 10 + d * 26;
+          inkLine([772 + Math.cos(an) * r, 566 + Math.sin(an) * r * 0.6, 772 + Math.cos(an) * (r + 8), 566 + Math.sin(an) * (r + 8) * 0.6], 1.6, `rgba(239,227,196,${0.6 * (1 - d)})`, { taper: .5 });
+        }
+      }
+    }
+
+    function kitchenScene(ta) {
+      gradY(0, 520, '#2c5450', '#3f6b60', 22);
+      for (let y = 54; y < 510; y += 34) inkLine([0, y, 960, y], 1.2, 'rgba(239,227,196,.085)');
+      for (let x = 0; x < 960; x += 48) inkLine([x, 54, x, 510], 1.2, 'rgba(239,227,196,.065)');
+      inkFill([0, 0, 960, 0, 960, 92, 0, 98], CREAM3);
+      inkLine([0, 96, 960, 90], 2.2, 'rgba(42,33,26,.45)');
+      drawKitchenWindow(ta);
+      drawUtensils(ta);
+      draw03(ta);
+      drawCounter();
+      const since = ta >= 8.51 ? ((ta - 8.51) % 0.62 + 0.62) % 0.62 : 9;
+      const dip = since < 0.14 ? 2.5 * Math.sin(Math.PI * since / 0.14) : 0;
+      drawFish(ta, dip);
+      inkEll(866, 574, 34, 10, CREAM2, 2.4);
+      for (let i = 0; i < 5; i++) inkEll(850 + (i * 17) % 34, 562 + (i * 11) % 12, 7, 4, OLIVE2, 1.4);
+      drawChopArm(ta);
+      inkFill([340, 540, 560, 536, 574, 552, 352, 558], 'rgba(239,227,196,.05)');
+      motes(ta, 12, 200, 760, 180, 520, '245,222,168', 0.10);
+    }
+
+    /* ============================================================
+       3 · 老房拆迁
+       ============================================================ */
+    function drawRubble(ta) {
+      // bricks and tiles rest on the road at the foot of the house
+      const bricks = [[176, 596, 30, .18], [220, 612, 34, -.08], [268, 598, 28, .28], [316, 618, 36, .06], [366, 600, 30, -.16], [412, 622, 34, .12], [560, 604, 32, -.08], [604, 622, 30, .22], [648, 600, 36, -.12], [700, 618, 30, .10]];
+      for (const [x, y, w, r] of bricks) {
+        L.push(); L.tr(x, y); L.rot(r);
+        inkShape([-w / 2, -9, w / 2, -11, w / 2 + 2, 9, -w / 2 + 2, 11], OCHRE1, 2.4);
+        inkLine([-w / 2 + 4, 0, w / 2 - 2, -1], 1.2, 'rgba(42,33,26,.35)');
+        L.pop();
+      }
+      // two mounds of broken wall
+      inkShape([160, 616, 214, 584, 258, 606, 296, 588, 334, 620, 300, 636, 200, 638], '#8f6633', 3);
+      inkShape([500, 620, 544, 596, 584, 612, 620, 592, 656, 624, 616, 640, 528, 640], '#8f6633', 3);
+      for (let i = 0; i < 6; i++) inkLine([190 + i * 22, 604 + (i % 3) * 8, 210 + i * 22, 612 + (i % 3) * 8], 1.2, 'rgba(42,33,26,.35)');
+      // a fallen roof tile
+      inkShape([420, 626, 466, 616, 486, 630, 446, 642], '#3f6b60', 2.6);
+      inkLine([0, 640, 960, 634], 1.4, 'rgba(74,50,32,.40)');
+    }
+
+    function demolitionScene(ta) {
+      gradY(0, 470, '#c69a58', '#efe0b4', 24);
+      glow(720, 170, 24, 152, '248,214,146', 0.10, 12);
+      inkEll(720, 170, 22, 22, 'rgba(248,214,146,.66)', 0);
+      // distant lanes behind the ruin
+      inkFill([0, 452, 96, 416, 180, 442, 262, 410, 350, 448, 350, 540, 0, 540], TEAL3);
+      // the right-hand lane reaches behind the ruin too: it closes the gap between house and neighbour
+      inkFill([588, 470, 640, 442, 700, 440, 792, 404, 870, 432, 960, 416, 960, 540, 588, 540], TEAL3);
+      inkLine([0, 452, 96, 416, 180, 442, 262, 410, 350, 448], 2, 'rgba(29,64,63,.6)');
+      inkLine([588, 470, 640, 442, 700, 440, 792, 404, 870, 432, 960, 416], 2, 'rgba(29,64,63,.6)');
+      for (let i = 0; i < 4; i++) inkLine([60 + i * 70, 470 + i * 6, 60 + i * 70, 520 + i * 4], 1.4, 'rgba(29,64,63,.45)');
+      // small dark windows and a tiled edge on the neighbouring wall, so it is not a flat block
+      for (const [wx, wy, ww, wh] of [[614, 484, 16, 26], [664, 470, 14, 24], [742, 456, 15, 26]]) {
+        inkShape([wx, wy, wx + ww, wy - 2, wx + ww, wy + wh, wx, wy + wh + 2], 'rgba(23,48,46,.62)', 1.2, 'rgba(20,38,38,.55)');
+      }
+      inkLine([600, 508, 660, 494, 712, 486], 1.6, 'rgba(29,64,63,.45)');
+      inkLine([600, 522, 664, 508, 720, 500], 1.2, 'rgba(29,64,63,.35)');
+      // the road
+      inkFill([0, 540, 960, 528, 960, 920, 0, 920], '#b98a49', 0);
+      inkFill([0, 528, 960, 520, 960, 556, 0, 562], 'rgba(239,227,196,.18)');
+      for (let i = 0; i < 9; i++) {
+        const fx = 480 + (i - 4) * 40;
+        inkLine([fx, 560, 480 + (i - 4) * 190, 920], 1.1, 'rgba(74,50,32,.22)');
+      }
+      for (const y of [588, 612, 648, 692, 740, 792, 848, 900]) inkLine([0, y, 960, y - 4], 1.2, 'rgba(74,50,32,.25)');
+      // the half-demolished lane house, standing on the road
+      const wall = [176, 560, 176, 302, 236, 294, 306, 288, 384, 288, 452, 294, 512, 302, 546, 338, 574, 430, 590, 500, 600, 560];
+      L.SC(wall, OCHRE1, () => {
+        for (let y = 316; y < 560; y += 26) inkLine([160, y, 616, y - 4], 1.2, 'rgba(42,33,26,.30)');
+        for (let y = 316; y < 560; y += 26) for (let x = 192; x < 616; x += 52) inkLine([x + ((y / 26) % 2) * 26, y, x + ((y / 26) % 2) * 26, y + 26], 1, 'rgba(42,33,26,.22)');
+        inkEll(300, 420, 60, 40, 'rgba(226,208,168,.10)', 0);
+        inkEll(470, 500, 80, 50, 'rgba(107,74,47,.18)', 0);
+      }, 4, INK);
+      inkShape([166, 552, 606, 546, 610, 566, 164, 572], '#8a7a5a', 3);
+      // a shuttered window and a doorway on the standing wall
+      inkShape([238, 336, 320, 332, 322, 420, 240, 424], '#4a3524', 3);
+      inkShape([248, 344, 312, 340, 314, 412, 250, 416], '#163633', 2);
+      inkLine([280, 342, 280, 414], 3, '#6b4a2f');
+      inkLine([250, 378, 312, 376], 3, '#6b4a2f');
+      inkShape([392, 344, 462, 340, 464, 420, 394, 424], '#4a3524', 3);
+      inkShape([400, 352, 456, 348, 458, 412, 402, 416], '#163633', 2);
+      inkLine([428, 350, 428, 414], 3, '#6b4a2f');
+      inkShape([336, 446, 396, 442, 400, 552, 338, 556], '#5a4632', 3);
+      // the doorway shows a dim room, not a black hole: back wall, floor edge, a hanging cloth
+      inkShape([344, 452, 390, 449, 393, 548, 344, 551], '#2b4a46', 0);
+      inkFill([344, 452, 390, 449, 390, 470, 344, 473], 'rgba(20,38,38,.30)');
+      inkFill([344, 512, 392, 508, 393, 548, 344, 551], 'rgba(74,50,32,.28)');
+      inkLine([356, 452, 355, 548], 1.4, 'rgba(239,227,196,.13)');
+      inkLine([344, 512, 392, 508], 1.2, 'rgba(239,227,196,.10)');
+      inkEll(380, 490, 4, 6, 'rgba(248,214,146,.30)', 0);
+      // the roof over the left two-thirds, ridge tiles and eave
+      inkShape([146, 316, 300, 262, 446, 238, 530, 234, 538, 268, 372, 294, 152, 342], '#3f6b60', 4);
+      for (let i = 0; i < 10; i++) inkLine([158 + i * 38, 330 - i * 7, 316 + i * 24, 284 - i * 5], 1.8, 'rgba(239,227,196,.16)', { taper: .5 });
+      inkLine([146, 316, 300, 262, 446, 238, 530, 234], 3, '#2c5450');
+      inkShape([318, 272, 352, 266, 356, 240, 324, 246], '#6b4a2f', 3);
+      inkLine([320, 244, 354, 238], 2, 'rgba(42,33,26,.5)');
+      // the right third has fallen in: rafters over a dark open room
+      inkShape([476, 300, 546, 270, 590, 302, 596, 420, 552, 380, 500, 400], TEAL1, 3);
+      // the open room reads as a room: lit back wall, floor, a low window
+      inkFill([486, 316, 562, 300, 574, 372, 506, 384], '#3b5f57');
+      inkFill([492, 366, 570, 352, 574, 388, 500, 396], 'rgba(74,50,32,.42)');
+      inkFill([506, 330, 536, 324, 538, 352, 508, 358], 'rgba(239,227,196,.14)');
+      inkLine([506, 330, 536, 324, 538, 352, 508, 358], 1.2, 'rgba(42,33,26,.4)');
+      inkLine([496, 358, 568, 344], 1.5, 'rgba(239,227,196,.10)');
+      for (const [ax, ay, bx, by] of [[500, 396, 548, 292], [540, 408, 572, 300], [560, 430, 586, 336]]) inkLine([ax, ay, bx, by], 6, '#4a3524');
+      inkShape([560, 322, 600, 316, 604, 338, 562, 344], 'rgba(29,64,63,.5)', 0);
+      // a cloth still hanging from the broken wall, moving in the wind
+      const fl = Math.sin(ta * 3.2) * 7;
+      inkLine([588, 330, 592 + fl, 398, 586 + fl * 1.4, 430], 2, '#4a3524');
+      inkShape([578, 396, 616 + fl, 384, 622 + fl, 420, 582 + fl * 0.5, 436], 'rgba(239,227,196,.55)', 2);
+      // a rope still swinging from a beam
+      const rw = Math.sin(ta * 1.4 + 0.6) * 7;
+      inkLine([446, 240, 444 + rw, 300, 438 + rw * 1.4, 384], 2.4, '#4a3524');
+      inkEll(438 + rw * 1.4, 392, 8, 12, '#6b4a2f', 2.2);
+      drawRubble(ta);
+      // dust: painted soft clouds rolling off the ruin
+      for (let i = 0; i < 8; i++) {
+        const dx = (i * 137 + ta * (12 + i * 3)) % 1080 - 60;
+        const dy = 540 + (i % 3) * 36 + Math.sin(ta * 0.9 + i) * 8;
+        inkEll(dx, dy, 80 + i * 10, 24 + i * 3, `rgba(226,208,168,${0.05 + (i % 3) * 0.014})`, 0);
+      }
+      // two birds over the ruin
+      for (const [bx, by, s] of [[320, 150, 1.2], [372, 126, 1.0]]) {
+        const f = Math.sin(ta * 3.4 + bx) * 3 * s;
+        inkLine([bx - 8 * s, by, bx, by - 5 * s + f, bx + 8 * s, by], 2.2 * s, 'rgba(42,33,26,.6)', { taper: .3 });
+      }
+      motes(ta, 16, 60, 900, 120, 620, '239,227,196', 0.14);
+    }
+
+    /* ============================================================
+       4 · 阁楼与老照片
+       ============================================================ */
+    function drawPhoto(x, y, w, h, opt = {}) {
+      const alive = opt.alive ?? 0, detail = opt.detail ?? 1;
+      const sky0 = mix2('#a06e3e', '#d3aa63', alive * 0.7), sky1 = mix2('#e8d4a0', '#efe3c4', alive);
+      const horizon = y + h * 0.72;
+      for (let i = 0; i < 14; i++) {
+        const yy = y + h * 0.72 * i / 14;
+        inkFill([x, yy, x + w, yy, x + w, yy + h * 0.72 / 14 + 1, x, yy + h * 0.72 / 14 + 1], mix2(sky0, sky1, i / 14));
+      }
+      inkFill([x, horizon, x + w, horizon, x + w, y + h, x, y + h], mix2('#a5844e', '#c49a55', alive));
+      // a low sun behind the tomb, and its haze
+      inkEll(x + 0.30 * w, y + 0.30 * h, 0.045 * w, 0.045 * w, `rgba(255,240,200,${0.22 + alive * 0.3})`, 0);
+      glow(x + 0.30 * w, y + 0.30 * h, 0.02 * w, 0.16 * w, '255,236,190', 0.05 + alive * 0.05, 8);
+      // platform and the mausoleum
+      inkFill([x + 0.16 * w, y + 0.66 * h, x + 0.84 * w, y + 0.66 * h, x + 0.87 * w, y + 0.78 * h, x + 0.13 * w, y + 0.78 * h], mix2('#c9b98a', '#efe3c4', alive));
+      inkLine([x + 0.13 * w, y + 0.78 * h, x + 0.87 * w, y + 0.78 * h], 1.6, '#7a5a3a');
+      inkShape([x + 0.34 * w, y + 0.44 * h, x + 0.66 * w, y + 0.44 * h, x + 0.68 * w, y + 0.67 * h, x + 0.32 * w, y + 0.67 * h], mix2('#efe3c4', '#f6efdc', alive), 2.2, '#6b4a2f');
+      // the great dome, with a lit side and a shadowed rib
+      const cx = x + 0.5 * w, yb = y + 0.44 * h, rx = 0.105 * w, yt = y + 0.255 * h;
+      inkShape([cx - rx, yb, cx - rx * 0.82, yb - 0.09 * h, cx - rx * 0.35, yb - 0.15 * h, cx, yt, cx + rx * 0.35, yb - 0.15 * h, cx + rx * 0.82, yb - 0.09 * h, cx + rx, yb], mix2('#e8d4a8', '#f8f0da', alive), 2.6, '#5a4632');
+      const domeArc = L.pEll(cx, yb, rx * 0.98, 0.19 * h, Math.PI, TAU, 22);
+      inkLine(domeArc, 1.4, 'rgba(122,90,58,.30)');
+      inkShape([cx - rx * 0.98, yb, cx - rx * 0.62, yb - 0.135 * h, cx - rx * 0.18, yb - 0.176 * h, cx - rx * 0.28, yb - 0.02 * h], `rgba(255,248,226,${0.20 + alive * 0.16})`, 0);
+      inkLine([cx, yt, cx, yt - 0.035 * h], 1.8, '#6b4a2f');
+      inkEll(cx, yt - 0.04 * h, 0.012 * w, 0.012 * w, '#6b4a2f', 0);
+      inkShape([cx - 0.086 * w, yb, cx + 0.086 * w, yb, cx + 0.08 * w, yb + 0.03 * h, cx - 0.08 * w, yb + 0.03 * h], mix2('#d5c092', '#efe3c4', alive), 1.8, '#5a4632');
+      // the iwan and side arches
+      inkShape([cx - 0.062 * w, y + 0.665 * h, cx - 0.045 * w, y + 0.54 * h, cx, y + 0.505 * h, cx + 0.045 * w, y + 0.54 * h, cx + 0.062 * w, y + 0.665 * h], '#7a5a3e', 1.8, '#4a3524');
+      inkLine([cx - 0.030 * w, y + 0.665 * h, cx - 0.030 * w, y + 0.575 * h], 1.2, 'rgba(239,227,196,.28)');
+      for (const s of [-1, 1]) {
+        inkShape([cx + s * 0.115 * w, y + 0.665 * h, cx + s * 0.10 * w, y + 0.585 * h, cx + s * 0.075 * w, y + 0.665 * h], '#8a6a48', 1.4, '#5a4632');
+      }
+      // four minarets with balconies
+      for (const s of [-1, 1]) for (const d of [0.20, 0.29]) {
+        const mx = cx + s * d * w, top = y + 0.33 * h;
+        inkShape([mx - 0.012 * w, y + 0.70 * h, mx - 0.009 * w, top, mx, top - 0.028 * h, mx + 0.009 * w, top, mx + 0.012 * w, y + 0.70 * h], mix2('#e2d0a8', '#f6efdc', alive), 1.4, '#6b4a2f');
+        inkShape([mx - 0.017 * w, y + 0.44 * h, mx + 0.017 * w, y + 0.44 * h, mx + 0.014 * w, y + 0.468 * h, mx - 0.014 * w, y + 0.468 * h], '#8a6a48', 1.2, '#5a4632');
+        inkLine([mx + s * 0.004 * w, y + 0.70 * h, mx + s * 0.004 * w, y + 0.47 * h], 1, 'rgba(255,248,226,.22)');
+      }
+      // cypresses
+      for (const s of [-1, 1]) {
+        const tx = cx + s * 0.255 * w;
+        inkShape([tx, y + 0.72 * h, tx - 0.035 * w, y + 0.54 * h, tx, y + 0.44 * h, tx + 0.035 * w, y + 0.54 * h], mix2('#5f682b', '#7f8840', alive), 1.8, '#41491f');
+        inkLine([tx, y + 0.70 * h, tx, y + 0.52 * h], 1.2, 'rgba(239,227,196,.16)');
+      }
+      // reflecting pool: horizontal ripples, not glyphs
+      inkShape([cx - 0.20 * w, y + 0.79 * h, cx + 0.20 * w, y + 0.79 * h, cx + 0.27 * w, y + 0.98 * h, cx - 0.27 * w, y + 0.98 * h], mix2('#8a7a5a', '#4c6b72', alive), 2, '#5a4632');
+      for (let i = 0; i < 7; i++) {
+        const ry = y + (0.82 + i * 0.022) * h, half = 0.185 * w * (1 - i * 0.035);
+        inkLine([cx - half, ry, cx + half * 0.82, ry + 0.003 * h], 1.2, `rgba(239,227,196,${0.12 + alive * 0.16 - i * 0.008})`, { taper: .5 });
+      }
+      // the tiny figure in the held photo only: young Pan, the same blue suit and red tie
+      if (detail > 0.5) {
+        const fx = cx + 0.02 * w, fy = y + 0.735 * h, fh = 0.12 * h;
+        inkEll(fx, fy - 0.80 * fh, 0.15 * fh, 0.19 * fh, '#d8b08a', 0.7);
+        inkEll(fx, fy - 0.89 * fh, 0.145 * fh, 0.09 * fh, '#241c16', 0);
+        inkShape([fx - 0.19 * fh, fy - 0.66 * fh, fx + 0.19 * fh, fy - 0.66 * fh, fx + 0.17 * fh, fy - 0.08 * fh, fx - 0.17 * fh, fy - 0.08 * fh], '#2f4258', 0.7);
+        inkLine([fx, fy - 0.63 * fh, fx, fy - 0.30 * fh], 1.2, '#a34c32');
+        inkLine([fx - 0.07 * fh, fy - 0.08 * fh, fx - 0.08 * fh, fy], 1.6, '#26313f');
+        inkLine([fx + 0.07 * fh, fy - 0.08 * fh, fx + 0.08 * fh, fy], 1.6, '#26313f');
+      }
+      if (opt.border !== false) {
+        const b = 0.032 * Math.min(w, h);
+        inkFill([x, y, x + w, y, x + w, y + b, x, y + b], CREAM);
+        inkFill([x, y + h - b, x + w, y + h - b, x + w, y + h, x, y + h], CREAM);
+        inkFill([x, y, x + b, y, x + b, y + h, x, y + h], CREAM);
+        inkFill([x + w - b, y, x + w, y, x + w, y + h, x + w - b, y + h], CREAM);
+      }
+    }
+
+    function drawTrunk() {
+      // an open camphor chest in the attic
+      inkShape([320, 600, 704, 596, 720, 704, 306, 712], '#6b4a2f', 4);
+      inkShape([306, 712, 720, 704, 720, 720, 306, 720], '#4a3524', 2.4);
+      for (const x of [348, 402, 626, 680]) inkLine([x, 600, x - 2, 708], 3.2, '#b98a49');
+      inkLine([320, 648, 712, 644], 3, '#4a3524');
+      inkShape([320, 600, 704, 596, 696, 584, 332, 588], '#8f6633', 3);
+      // the open lid leaning back
+      inkShape([332, 588, 696, 584, 724, 478, 356, 470], '#8f6633', 4);
+      inkShape([356, 470, 724, 478, 714, 494, 366, 486], '#6b4a2f', 2.4);
+      for (let i = 0; i < 5; i++) inkLine([380 + i * 70, 490, 374 + i * 70, 588], 1.4, 'rgba(107,74,47,.45)');
+      inkEll(356, 470, 10, 10, '#b98a49', 2.2);
+      inkEll(724, 478, 10, 10, '#b98a49', 2.2);
+      // a cloth and a bundle of photos inside
+      inkShape([390, 552, 640, 548, 650, 586, 402, 590], 'rgba(163,76,50,.55)', 0);
+      for (let i = 0; i < 4; i++) {
+        L.push(); L.tr(520 + i * 6, 536 + i * 4); L.rot(-0.06 + i * 0.03);
+        inkShape([-62, -22, 60, -26, 64, 26, -58, 30], CREAM2, 2);
+        inkLine([-50, -14, 48, -18], 1.4, 'rgba(107,74,47,.35)');
+        L.pop();
+      }
+    }
+
+    function draw06(ta, photoUp) {
+      const lean = 9 + 4 * WIN(ta, 16.0, 0.4);
+      const o = { mode: 'stand', expr: ta > 16.0 ? 'smile' : 'curious', blink: ACT.blinkOf(6, ta, 3.1), light: -2.1, seed: 6, actPose: { lean } };
+      actorSide(6, 700, 708, 0.5, o, -1);
+    }
+
+    // the arm that holds the photograph, drawn over it so the hand is not buried
+    function draw06Reach(hx, hy) {
+      inkLine([700, 496, 638, 508, hx, hy], 25, OLIVE2, { cap: true, taper: .16 });
+      inkLine([700, 486, 640, 498, hx - 2, hy - 7], 5, 'rgba(226,208,168,.22)', { taper: .7 });
+      inkEll(hx, hy, 12, 10, '#dfb98a', 2.4);
+      for (let i = 0; i < 3; i++) inkLine([hx - 4, hy + 6 + i * 3, hx + 4, hy + 5 + i * 3], 2.4, 'rgba(150,90,70,.6)');
+    }
+
+    function atticScene(ta) {
+      gradY(0, 720, '#241a14', '#4a3524', 22);
+      // gable and rafters
+      inkLine([-30, 70, 480, 300, 990, 80], 34, '#3a2a1e');
+      inkLine([-20, 120, 470, 320], 26, '#33241a');
+      inkLine([980, 126, 490, 320], 26, '#33241a');
+      for (let i = 0; i < 7; i++) inkLine([40 + i * 140, 40, 300 + i * 40, 360], 5, 'rgba(74,53,36,.75)', { taper: .3 });
+      inkLine([0, 360, 960, 352], 9, '#4a3524');
+      // the small window in the roof
+      inkShape([120, 224, 286, 216, 292, 356, 126, 364], '#6b4a2f', 3);
+      inkShape([134, 236, 274, 230, 280, 344, 140, 350], '#d5c092', 2);
+      gradY(236, 350, '#efe3c4', '#b98a49', 12);
+      inkEll(216, 268, 30, 30, 'rgba(255,245,210,.35)', 0);
+      inkLine([206, 230, 202, 350], 4, '#6b4a2f');
+      inkLine([134, 292, 280, 288], 4, '#6b4a2f');
+      // the light falling into the attic: a soft outer shaft and a brighter core
+      inkFill([280, 300, 620, 520, 540, 560, 200, 360], 'rgba(239,227,196,.035)');
+      inkFill([310, 314, 596, 512, 556, 540, 268, 346], 'rgba(247,230,174,.05)');
+      inkFill([342, 330, 566, 500, 540, 518, 316, 352], 'rgba(250,238,190,.05)');
+      // crates, a rolled rug, cobwebs
+      inkShape([760, 430, 940, 424, 948, 620, 754, 628], '#5a4632', 3);
+      inkLine([760, 480, 944, 474], 2.4, 'rgba(42,33,26,.5)');
+      inkShape([800, 560, 930, 556, 934, 636, 798, 640], '#4a3524', 3);
+      inkShape([706, 598, 760, 594, 764, 640, 704, 644], '#8f6633', 2.6);
+      for (let i = 0; i < 4; i++) inkLine([10 + i * 18, 10, 70 + i * 20, 60 + i * 12], 1, 'rgba(239,227,196,.16)');
+      drawTrunk();
+      const photoUp = ta > 16.0;
+      draw06(ta, photoUp);
+      // the photograph being held up, in the shaft of light
+      if (photoUp) {
+        const lift = WIN(ta, 16.0, 0.55);
+        const cx = lerp(504, 462, lift), cy = lerp(548, 466, lift);
+        const w = lerp(172, 226, lift), h = w * 0.75;
+        L.push(); L.tr(cx, cy); L.rot(-0.06 + 0.02 * lift);
+        drawPhoto(-w / 2, -h / 2, w, h, { detail: 1 });
+        L.pop();
+        // the holding arm and hand, over the photo's near edge
+        draw06Reach(cx + w * 0.40, cy + h * 0.30);
+      }
+      // dust in the shaft
+      motes(ta, 18, 240, 720, 260, 560, '245,222,168', 0.16);
+    }
+
+    /* ============================================================
+       5 · 澳大利亚内陆 · 篝火与传说
+       ============================================================ */
+    function drawStars(t, yMax = 420, n = 84) {
+      for (let i = 0; i < n; i++) {
+        const x = (i * 173 + (i % 7) * 61 + 37) % 960;
+        const y = ((i * 97 + (i % 5) * 53 + 23) % yMax);
+        const a = (0.10 + 0.30 * (0.5 + 0.5 * Math.sin(t * 1.6 + i * 1.7))) * (1 - 0.45 * y / yMax);
+        const r = 0.7 + (i % 4) * 0.32;
+        inkFill(L.pEll(x, y, r, r, 0, TAU, 6), `rgba(239,227,196,${a.toFixed(3)})`);
+      }
+    }
+
+    function drawGalaxy(t) {
+      for (let i = 0; i < 120; i++) {
+        const u = i / 120;
+        const x = 20 + u * 920 + Math.sin(i * 2.1) * 20;
+        const y = 82 + u * 246 + Math.sin(u * 5.2) * 30 + Math.cos(i * 1.3) * 14;
+        const a = 0.022 + 0.045 * ((i % 5) / 5) + 0.008 * Math.sin(t * 0.8 + i);
+        const r = 0.7 + (i % 3) * 0.35;
+        inkFill(L.pEll(x, y, r, r, 0, TAU, 5), `rgba(239,227,196,${a.toFixed(3)})`);
+      }
+    }
+
+    function drawMoon(x, y, r) {
+      glow(x, y, r * 0.5, r * 4.4, '248,230,180', 0.12, 12);
+      inkEll(x, y, r, r, CREAM, 0);
+      inkEll(x - r * 0.32, y - r * 0.18, r * 0.16, r * 0.13, 'rgba(155,143,110,.30)', 0);
+      inkEll(x + r * 0.25, y + r * 0.27, r * 0.11, r * 0.09, 'rgba(155,143,110,.25)', 0);
+      inkEll(x - r * 0.05, y + r * 0.42, r * 0.09, r * 0.07, 'rgba(155,143,110,.22)', 0);
+    }
+
+    function drawCloud(t, x, y, w, h, col, a) {
+      for (let i = 0; i < 7; i++) {
+        const u = i / 6;
+        const px = x + w * u + Math.sin(t * 0.32 + i * 1.7) * 6;
+        const py = y + Math.sin(u * Math.PI) * h * 0.34;
+        const rx = w * (0.10 + 0.026 * Math.sin(i * 2.3));
+        inkEll(px, py, rx, h * 0.55, rgba(col, a), 0);
+      }
+      inkFill([x, y + h * 0.30, x + w, y + h * 0.22, x + w, y + h * 0.62, x, y + h * 0.70], rgba(col, a * 0.92));
+      inkLine([x + 10, y + h * 0.30, x + w - 10, y + h * 0.22], 1.2, `rgba(239,227,196,${(a * 0.55).toFixed(3)})`, { taper: .5 });
+    }
+
+    function drawGum(x, gy, s, lean = 0) {
+      L.push(); L.tr(x, gy); L.rot(lean); L.scl(s, s);
+      inkShape([-12, 0, -16, -66, -6, -138, -14, -208, -2, -276, 8, -206, 4, -136, 16, -66, 12, 0], '#d5c092', 2.6, '#5a4a38');
+      inkLine([-3, -150, -48, -222, -68, -262], 5, '#b9a883', { taper: .5 });
+      inkLine([2, -178, 50, -238, 72, -276], 4.6, '#b9a883', { taper: .5 });
+      inkLine([-8, -236, -18, -300], 3.4, '#b9a883', { taper: .4 });
+      for (const [bx, by, rx, ry, c] of [[-58, -282, 54, 22, '#4f5a33'], [34, -292, 60, 24, '#5f682b'], [-6, -318, 44, 19, '#6d7638'], [82, -268, 40, 18, '#4a5230'], [-84, -246, 34, 15, '#46502c']]) {
+        inkEll(bx, by, rx, ry, c, 2, 'rgba(42,33,26,.55)');
+        inkEll(bx - rx * 0.28, by - ry * 0.26, rx * 0.55, ry * 0.42, 'rgba(127,136,64,.45)', 0);
+      }
+      L.pop();
+    }
+
+    function drawHandStencil(x, y, s) {
+      inkEll(x, y + 8 * s, 16 * s, 19 * s, 'rgba(239,227,196,.80)', 0);
+      const fingers = [[-15, -6, -23, -33], [-6, -12, -9, -43], [3, -13, 4, -45], [11, -10, 18, -38], [17, -1, 27, -20]];
+      for (const [a, b, c, d] of fingers) inkLine([x + a * s, y + b * s, x + c * s, y + d * s], 7 * s, 'rgba(239,227,196,.80)', { cap: true });
+      inkLine([x - 13 * s, y + 22 * s, x - 22 * s, y + 33 * s], 6.5 * s, 'rgba(239,227,196,.80)', { cap: true });
+    }
+
+    function drawHandRock(x, y, s) {
+      L.push(); L.tr(x, y); L.scl(s, s);
+      inkShape([-112, 64, -132, -14, -86, -90, -12, -118, 60, -102, 108, -40, 102, 50, 48, 84, -42, 90], '#5a3d2b', 3.8, '#2a211a');
+      inkFill([-88, -54, -24, -88, 34, -76, 68, -36, 58, 26, -10, 42, -72, 30, -98, -14], 'rgba(185,138,73,.24)');
+      inkLine([-70, 10, -18, 30, 42, 20], 1.6, 'rgba(239,227,196,.13)', { taper: .5 });
+      drawHandStencil(-30, -22, 0.86);
+      drawHandStencil(28, 2, 0.68);
+      L.pop();
+    }
+
+    function drawFire(t, x, y, s) {
+      const fl = 0.9 + 0.10 * Math.sin(t * 8.7) + 0.05 * Math.sin(t * 15.3 + 1);
+      glow(x, y - 26 * s, 18 * s, 150 * s, '248,170,92', 0.14 * fl, 14);
+      for (let i = 0; i < 9; i++) {
+        const a = i / 9 * TAU;
+        inkEll(x + Math.cos(a) * 34 * s, y + 4 * s + Math.sin(a) * 10 * s, 9 * s, 7 * s, '#6b5a46', 2);
+      }
+      inkLine([x - 44 * s, y + 6 * s, x + 40 * s, y + 2 * s], 10 * s, '#3a2418', { cap: true });
+      inkLine([x - 34 * s, y + 14 * s, x + 26 * s, y - 12 * s], 8 * s, '#4a2f1e', { cap: true });
+      const h = 66 * s * fl;
+      inkShape([x - 24 * s, y + 4 * s, x - 16 * s, y - h * 0.35, x - 4 * s, y - h * 0.75, x + 2 * s, y - h, x + 12 * s, y - h * 0.62, x + 20 * s, y - h * 0.25, x + 24 * s, y + 4 * s, x + 8 * s, y + 10 * s, x - 8 * s, y + 10 * s], '#c0532a', 0);
+      inkShape([x - 16 * s, y + 4 * s, x - 9 * s, y - h * 0.28, x, y - h * 0.62, x + 6 * s, y - h * 0.30, x + 14 * s, y + 4 * s, x + 4 * s, y + 8 * s, x - 5 * s, y + 8 * s], '#e8a23f', 0);
+      inkShape([x - 8 * s, y + 4 * s, x - 3 * s, y - h * 0.18, x + 2 * s, y - h * 0.38, x + 6 * s, y - h * 0.10, x + 8 * s, y + 4 * s, x, y + 7 * s], '#f0cf7a', 0);
+      inkEll(x, y - 6 * s, 4 * s, 7 * s, '#fff0c0', 0);
+    }
+
+    function drawEmbers(t, x, y, s, n = 16) {
+      for (let i = 0; i < n; i++) {
+        const u = ((t * 0.34 + i * 0.137) % 1);
+        const px = x + (i - n / 2) * 5 * s + Math.sin(t * 1.6 + i * 1.7) * 10 * s * u;
+        const py = y - 16 * s - u * 138 * s;
+        const a = (1 - u) * 0.55;
+        inkEll(px, py, 1.1 * s, 1.8 * s, `rgba(240,207,122,${a.toFixed(3)})`, 0);
+      }
+    }
+
+    function drawSmoke(t, x, y, s) {
+      for (let i = 0; i < 3; i++) {
+        const pts = [];
+        for (let k = 0; k <= 6; k++) {
+          const v = k / 6;
+          pts.push(x + Math.sin(t * 0.9 + i * 1.8 + v * 4.2) * (6 + v * 20) * s, y - (24 + v * 150) * s - i * 10 * s);
+        }
+        inkLine(pts, (3 + i) * s, `rgba(200,190,160,${(0.10 - i * 0.02).toFixed(3)})`, { taper: .7 });
+      }
+    }
+
+    // the elder's bent legs: hip under the robe, knee up and forward, shin down to a bare foot on the ground
+    function drawElderLegs(t) {
+      const br = Math.sin(t * 1.1) * 1.2;
+      const leg = (dx, w, col) => {
+        const pts = [668 + dx, 672, 648 + dx, 642 + br, 630 + dx, 664, 624 + dx, 694];
+        inkLine(pts, w + 4.4, INK, { taper: .14, cap: true });
+        inkLine(pts, w, col, { taper: .14, cap: true });
+        inkLine([654 + dx, 646 + br, 636 + dx, 662], 2.2, 'rgba(239,227,196,.18)', { taper: .5 });
+      };
+      leg(-14, 12, '#6b4a2f');                       // far leg, darker
+      leg(0, 14.5, '#7d5a3a');                       // near leg, lit by the fire
+      // bare feet, toes toward the fire
+      const foot = (fx, fy, col) => {
+        inkEll(fx - 14, fy + 8, 19, 6.6, col, 2.2);
+        inkLine([fx - 30, fy + 8, fx + 2, fy + 7], 1.2, 'rgba(36,23,38,.35)');
+        for (let i = 0; i < 3; i++) inkLine([fx - 26 + i * 6, fy + 5, fx - 25 + i * 6, fy + 11], 1.1, 'rgba(36,23,38,.35)');
+      };
+      foot(618, 696, '#6b4326');
+      foot(610, 690, '#5a3620');
+    }
+
+    function outbackScene(t) {
+      gradY(0, 720, '#0f2025', '#2c5450', 30);
+      inkFill([0, 396, 960, 388, 960, 456, 0, 464], 'rgba(143,102,51,.16)');
+      drawStars(t, 408, 90);
+      drawGalaxy(t);
+      drawMoon(806, 126, 28);
+      inkShape([0, 430, 74, 396, 158, 424, 238, 402, 314, 434, 314, 472, 0, 472], '#203c3a', 2, 'rgba(15,30,30,.55)');
+      inkShape([552, 438, 636, 402, 716, 420, 800, 394, 884, 424, 960, 408, 960, 472, 552, 472], '#244440', 2, 'rgba(15,30,30,.55)');
+      gradY(460, 720, '#6b4a2f', '#a9764f', 20);
+      for (let i = 0; i < 7; i++) inkLine([0, 504 + i * 32, 960, 498 + i * 30], 1.1, 'rgba(74,50,32,.22)');
+      for (let i = 0; i < 18; i++) {
+        const gx = (i * 137 + 40) % 920, gy2 = 492 + (i * 53) % 206;
+        inkLine([gx, gy2, gx + 5, gy2 - (7 + i % 5)], 1.3, 'rgba(95,104,43,.5)', { taper: .6 });
+      }
+      drawHandRock(872, 518, 0.78);
+      drawGum(92, 648, 0.92, 0.03);
+      drawGum(902, 608, 0.6, -0.05);
+      // the spear warrior by the fire
+      actorFront(25, 304, 692, 0.52, { mode: 'stand', expr: 'stern', blink: ACT.blinkOf(25, t, 3.2), light: -2.1, seed: 25 });
+      inkEll(518, 694, 36, 9, '#5a3d2b', 2.6);
+      inkLine([494, 688, 542, 688], 1.6, 'rgba(226,208,168,.16)');
+      glow(492, 640, 46, 280, '248,180,100', 0.14, 12);
+      // a low flat seat rock under the elder, mostly hidden by the robe
+      inkShape([588, 690, 700, 680, 766, 692, 772, 708, 584, 713], '#4a3524', 2.8);
+      inkLine([600, 694, 756, 692], 1.5, 'rgba(226,208,168,.16)');
+      inkLine([590, 706, 764, 704], 1.3, 'rgba(36,23,38,.35)');
+      // lean forward a touch, head toward the fire; the sit pose lowers the body onto the rock
+      const eO = { mode: 'stand', expr: 'smile', blink: ACT.blinkOf(24, t, 3.9), light: -2.1, seed: 24, actPose: { sit: true, lean: 7, armN: [-55, -30] } };
+      actorSide(24, 671, 706, 0.58, eO, -1);
+      // bent legs in front of the seat, knee up, foot on the ground toward the fire
+      drawElderLegs(t);
+      drawFire(t, 492, 650, 1.42);
+      drawEmbers(t, 492, 644, 1.35, 20);
+      drawSmoke(t, 492, 630, 1.2);
+      motes(t, 10, 60, 900, 120, 600, '240,190,120', 0.10);
+    }
+
+    /* ============================================================
+       6 · 会飞的中国人
+       ============================================================ */
+    function drawBikeLocal(t, s, spin, dir = 1) {
+      L.push(); L.scl(dir, 1);
+      const R = 125 * s, WB = 460 * s, cy = -R;
+      const rear = -0.48 * WB, front = 0.52 * WB;
+      for (const wx of [rear, front]) {
+        inkEll(wx, cy, R, R, null, 3.2, '#241c16');
+        for (let i = 0; i < 9; i++) {
+          const a = spin + i * TAU / 9;
+          inkLine([wx + Math.cos(a) * R * 0.14, cy + Math.sin(a) * R * 0.14, wx + Math.cos(a) * R * 0.92, cy + Math.sin(a) * R * 0.92], 1.3, '#5a5650');
+        }
+        inkEll(wx, cy, 5 * s, 5 * s, RUST, 0);
+      }
+      const crank = [0, -1.05 * R], seat = [-0.18 * WB, -1.95 * R], bar = [0.30 * WB, -2.05 * R];
+      inkLine([rear, cy, crank[0], crank[1], front, cy], 4.2, '#3a3a34', { cap: true });
+      inkLine([crank[0], crank[1], seat[0], seat[1], rear, cy], 3.8, '#3a3a34', { cap: true });
+      inkLine([seat[0], seat[1], bar[0], bar[1], front, cy], 3.8, '#3a3a34', { cap: true });
+      inkShape([seat[0] - 16 * s, seat[1] - 5 * s, seat[0] + 16 * s, seat[1] - 7 * s, seat[0] + 18 * s, seat[1] + 4 * s, seat[0] - 18 * s, seat[1] + 3 * s], '#2a211a', 2.2);
+      inkLine([bar[0] - 14 * s, bar[1] - 7 * s, bar[0], bar[1], bar[0] + 8 * s, bar[1] - 10 * s], 5 * s, '#2a211a', { cap: true });
+      inkEll(crank[0], crank[1], 9 * s, 9 * s, null, 2.4, '#2a211a');
+      inkLine([crank[0] - 12 * s, crank[1] + 5 * s, crank[0] + 12 * s, crank[1] - 5 * s], 4 * s, '#2a211a', { cap: true });
+      inkLine([rear, cy + 4 * s, crank[0], crank[1] + 3 * s], 1.4, 'rgba(42,33,26,.7)');
+      L.pop();
+    }
+
+    function drawFlightCoat(t, s) {
+      const sw = Math.sin(t * 4.6) * 20 * s, sw2 = Math.sin(t * 4.2 + 1.7) * 15 * s, sw3 = Math.sin(t * 5.0 + 3.1) * 11 * s;
+      // the long coat splits into three ribbons lifted by the wind (long, separated, and rimmed so they read against the night sky)
+      inkLine([-16 * s, -342 * s, -128 * s, -332 * s + sw, -258 * s, -368 * s + sw, -404 * s, -408 * s + sw], 24 * s, '#3b5c7c', { taper: .30 });
+      inkLine([-14 * s, -300 * s, -108 * s, -292 * s + sw2, -228 * s, -312 * s + sw2, -366 * s, -332 * s + sw2], 19 * s, '#5b7fa3', { taper: .30 });
+      inkLine([-12 * s, -264 * s, -86 * s, -256 * s + sw3, -184 * s, -272 * s + sw3, -318 * s, -266 * s + sw3], 14 * s, '#7fa0bd', { taper: .30 });
+      // cream rims: three separate edges, not one blob
+      inkLine([-64 * s, -340 * s + sw, -220 * s, -364 * s + sw, -386 * s, -404 * s + sw], 3 * s, 'rgba(239,227,196,.55)', { taper: .48 });
+      inkLine([-58 * s, -298 * s + sw2, -196 * s, -310 * s + sw2, -348 * s, -330 * s + sw2], 2.5 * s, 'rgba(239,227,196,.40)', { taper: .48 });
+      inkLine([-48 * s, -260 * s + sw3, -158 * s, -270 * s + sw3, -300 * s, -264 * s + sw3], 2 * s, 'rgba(239,227,196,.32)', { taper: .48 });
+      // the red tie streams back too
+      inkLine([8 * s, -514 * s, -58 * s, -486 * s + sw * 0.45, -144 * s, -500 * s + sw * 0.7, -242 * s, -464 * s + sw], 4.8 * s, '#b5452f', { taper: .35 });
+      inkLine([-42 * s, -492 * s + sw * 0.3, -148 * s, -490 * s + sw * 0.6, -232 * s, -468 * s + sw * 0.8], 1.6 * s, 'rgba(239,227,196,.34)');
+    }
+
+    function drawPanFlight(t, x, y, s) {
+      L.push(); L.tr(x, y); L.rot(-0.06);
+      drawFlightCoat(t, s);
+      drawBikeLocal(t, s, t * 4.2, 1);
+      // wind streaks trailing the rear wheel
+      for (let i = 0; i < 3; i++) {
+        const u = ((t * 0.8 + i * 0.33) % 1);
+        inkLine([-220 * s - u * 90 * s, -150 * s + i * 34 * s, -140 * s - u * 70 * s, -152 * s + i * 34 * s], 1.6 * s, `rgba(239,227,196,${(0.24 * (1 - u)).toFixed(3)})`, { taper: .6 });
+      }
+      // both arms trail back like a rider leaning into the wind
+      const o = { mode: 'march', phase: (t * 1.05) % 1, expr: 'stern', hideBack: ['bike'], blink: ACT.blinkOf(1, t, 3.6), light: -1.2, seed: 1, actPose: { armN: [30, 34], lean: 11 } };
+      actorSide(1, 0, -119 * s, s, o, 1);
+      L.pop();
+    }
+
+    function flyingScene(t) {
+      gradY(0, 720, '#0e1d2a', '#3b4f52', 30);
+      drawStars(t, 552, 110);
+      drawGalaxy(t);
+      drawMoon(724, 196, 54);
+      drawCloud(t, -90, 462, 560, 92, '#b9c6b8', 0.12);
+      drawCloud(t, 500, 512, 560, 100, '#c9d0bd', 0.10);
+      inkShape([0, 600, 120, 560, 230, 586, 330, 552, 450, 588, 560, 560, 680, 590, 800, 570, 960, 600, 960, 720, 0, 720], '#223f3e', 2, 'rgba(15,30,30,.5)');
+      inkShape([0, 660, 90, 628, 180, 654, 270, 626, 360, 660, 470, 634, 580, 666, 700, 642, 820, 670, 960, 646, 960, 720, 0, 720], '#1a3232', 2, 'rgba(12,24,24,.55)');
+      for (const [bx, by, bs] of [[300, 250, 1.0], [340, 232, 0.8], [620, 300, 0.75]]) {
+        const f = Math.sin(t * 3.4 + bx) * 3 * bs;
+        inkLine([bx - 8 * bs, by, bx, by - 5 * bs + f, bx + 8 * bs, by], 2.2 * bs, 'rgba(42,33,26,.55)', { taper: .3 });
+      }
+      drawPanFlight(t, 418, 476, 0.37);
+      drawCloud(t, 110, 600, 380, 72, '#e2d0a8', 0.06);
+      for (let i = 0; i < 5; i++) inkLine([240 - i * 30, 330 + i * 18, 190 - i * 30, 334 + i * 18], 1.8, `rgba(239,227,196,${0.16 - i * 0.02})`, { taper: .5 });
+      motes(t, 10, 60, 900, 120, 560, '239,227,196', 0.08);
+    }
+
+    /* ============================================================
+       7 · 山路、悉尼到墨尔本
+       ============================================================ */
+    function drawRider(t, x, gy, s, opts = {}) {
+      L.push(); L.tr(x, gy);
+      drawBikeLocal(t, s, opts.spin ?? t * 8, 1);
+      const o = {
+        mode: 'march', phase: opts.phase ?? (t * 1.1) % 1, expr: opts.expr || 'effort',
+        hideBack: ['bike'], blink: ACT.blinkOf(1, t, 3.6), light: -2.1, seed: 1,
+        actPose: opts.pose || { armN: [-100, -92], lean: 7 },
+      };
+      actorSide(1, 0, -119 * s, s, o, 1);
+      L.pop();
+    }
+
+    function mountainScene(t) {
+      gradY(0, 470, '#3f6b60', '#e8cf9a', 30);
+      glow(742, 332, 18, 150, '248,214,146', 0.12, 12);
+      inkEll(742, 332, 20, 20, 'rgba(248,214,146,.55)', 0);
+      drawCloud(t, -60, 300, 430, 84, '#efe3c4', 0.14);
+      drawCloud(t, 560, 360, 480, 90, '#e2d0a8', 0.12);
+      inkShape([0, 438, 90, 400, 190, 428, 290, 396, 390, 426, 490, 398, 600, 430, 700, 404, 800, 430, 900, 408, 960, 426, 960, 520, 0, 520], '#6d8a76', 2.2, 'rgba(42,64,58,.5)');
+      inkShape([0, 492, 110, 448, 230, 478, 340, 444, 460, 482, 580, 452, 700, 486, 820, 458, 960, 488, 960, 560, 0, 560], '#5f7f66', 2.2, 'rgba(42,64,58,.55)');
+      inkShape([0, 540, 130, 500, 260, 532, 390, 498, 520, 536, 650, 506, 780, 540, 900, 514, 960, 528, 960, 620, 0, 620], '#7f8840', 2.4, 'rgba(66,73,31,.6)');
+      gradY(548, 720, '#8f6633', '#b98a49', 18);
+      inkShape([230, 720, 318, 664, 430, 616, 526, 566, 558, 526, 600, 528, 596, 566, 538, 610, 462, 650, 388, 698, 352, 720], '#c49a63', 3.2, 'rgba(74,50,32,.55)');
+      inkLine([300, 716, 344, 690, 418, 648, 496, 600, 548, 556], 2, 'rgba(107,74,47,.45)', { taper: .5 });
+      inkLine([352, 718, 388, 692, 456, 652, 524, 606, 568, 566], 1.8, 'rgba(107,74,47,.4)', { taper: .5 });
+      drawGum(104, 646, 1.0, 0.02);
+      drawGum(884, 612, 0.86, -0.04);
+      drawGum(676, 548, 0.5, 0.03);
+      for (let i = 0; i < 7; i++) {
+        const fx = 610 + i * 44, fy = 560 + i * 4;
+        inkLine([fx, fy, fx + 2, fy - 34], 3, '#5a4632', { taper: .3 });
+      }
+      inkLine([612, 538, 880, 566], 2, 'rgba(90,70,50,.55)');
+      inkLine([614, 552, 884, 580], 1.6, 'rgba(90,70,50,.45)');
+      inkLine([206, 650, 204, 574], 5, '#5a4632');
+      inkShape([182, 566, 256, 570, 264, 584, 186, 582], '#8f6633', 2.6, '#4a3524');
+      drawRider(t, 550, 592, 0.26, { spin: t * 8.4, phase: (t * 1.1) % 1 });
+      for (let i = 0; i < 5; i++) {
+        const u = ((t * 0.9 + i * 0.19) % 1);
+        inkEll(532 - u * 48, 586 - u * 8, 8 + u * 16, 5 + u * 8, `rgba(226,208,168,${(0.16 * (1 - u)).toFixed(3)})`, 0);
+      }
+      for (const [bx, by, bs] of [[700, 250, 1.0], [748, 232, 0.8]]) {
+        const f = Math.sin(t * 3.4 + bx) * 3 * bs;
+        inkLine([bx - 8 * bs, by, bx, by - 5 * bs + f, bx + 8 * bs, by], 2.2 * bs, 'rgba(42,33,26,.55)', { taper: .3 });
+      }
+      motes(t, 12, 80, 880, 200, 600, '245,222,168', 0.10);
+    }
+
+    /* ============================================================
+       8 · 双翼机追不上
+       ============================================================ */
+    function drawBiplane(t, x, y, s, u) {
+      L.push(); L.tr(x, y); L.scl(s, s); L.rot(-0.03 + 0.01 * Math.sin(t * 0.9));
+      for (let i = 0; i < 3; i++) inkLine([-230, 16 + i * 18, -164 - i * 14, 14 + i * 18], 2.4, `rgba(239,227,196,${(0.18 - i * 0.04).toFixed(3)})`, { taper: .6 });
+      inkShape([-150, 6, -184, -46, -148, -54, -120, -8], '#b98a49', 3.2, '#4a3524');
+      inkShape([-184, -2, -118, 2, -120, 18, -182, 14], '#c9a06a', 2.6, '#4a3524');
+      inkShape([-150, 12, -96, -18, 38, -22, 88, -6, 100, 24, 24, 42, -118, 38], '#c9a06a', 3.6, '#4a3524');
+      inkLine([-118, 12, 72, 2], 2, 'rgba(226,208,168,.38)');
+      inkShape([-122, -74, 102, -86, 126, -58, -104, -44], '#e2d0a8', 3.4, '#4a3524');
+      inkShape([-92, 44, 92, 34, 110, 58, -74, 66], '#d5c092', 3.4, '#4a3524');
+      inkLine([-100, -52, 84, -62], 1.6, 'rgba(255,255,255,.3)');
+      for (const sx of [-76, 20]) inkLine([sx, -48, sx + 4, 44], 3.2, '#4a3524');
+      inkEll(92, 8, 22, 25, '#8f6633', 3, '#4a3524');
+      inkEll(114, 6, 8, 40, 'rgba(42,33,26,.16)', 0);
+      for (let i = 0; i < 3; i++) {
+        const a = t * 38 + i * TAU / 3;
+        inkLine([114, 6, 114 + Math.cos(a) * 16, 6 + Math.sin(a) * 40], 2.6, 'rgba(42,33,26,.45)', { cap: true });
+      }
+      inkEll(114, 6, 4, 4, '#2a211a', 0);
+      inkEll(-18, -12, 26, 12, '#2a211a', 2.2);
+      inkEll(-20, -22, 11, 11, '#d6ab7a', 2);
+      inkEll(-20, -27, 12, 5, '#5a4632', 0);
+      inkLine([-30, -20, -10, -20], 2.2, '#2a211a');
+      inkLine([-24, -20, -24, -17], 2, '#2a211a');
+      inkLine([-18, -10, -6, -4, -2, 2], 5, '#a34c32', { taper: .4 });
+      inkLine([-34, 40, -34, 62], 3, '#4a3524');
+      inkEll(-34, 64, 12, 9, '#2a211a', 2);
+      inkLine([28, 38, 28, 58], 3, '#4a3524');
+      inkEll(28, 60, 12, 9, '#2a211a', 2);
+      inkEll(-36, -62, 10, 10, 'rgba(163,76,50,.65)', 0);
+      L.pop();
+    }
+
+    function biplaneScene(t, u) {
+      gradY(0, 520, '#4c7a72', '#e8cf9a', 30);
+      glow(806, 268, 22, 160, '248,214,146', 0.12, 12);
+      inkEll(806, 268, 22, 22, 'rgba(248,214,146,.5)', 0);
+      drawCloud(t, -80, 150, 460, 92, '#efe3c4', 0.16);
+      drawCloud(t, 540, 300, 520, 100, '#e2d0a8', 0.13);
+      inkShape([0, 520, 110, 476, 240, 510, 360, 470, 492, 508, 620, 474, 740, 506, 860, 480, 960, 508, 960, 640, 0, 640], '#5d7f6d', 2.4, 'rgba(42,64,58,.55)');
+      inkShape([0, 590, 130, 552, 260, 582, 390, 548, 520, 586, 650, 552, 780, 588, 900, 562, 960, 580, 960, 720, 0, 720], '#3f6b60', 2.6, 'rgba(29,64,63,.6)');
+      inkShape([500, 640, 560, 612, 640, 590, 700, 562, 742, 536, 774, 540, 764, 566, 722, 594, 650, 624, 580, 654, 560, 676], '#c9a06a', 2.4, 'rgba(74,50,32,.5)');
+      drawRider(t, 742, 542, 0.10, { spin: t * 12, phase: (t * 1.4) % 1 });
+      for (let i = 0; i < 4; i++) inkEll(730 - i * 10, 540 - i * 2, 5 + i * 3, 3 + i * 2, `rgba(226,208,168,${(0.14 - i * 0.03).toFixed(3)})`, 0);
+      drawBiplane(t, 300 + 46 * u, 320 + 5 * Math.sin(t * 1.3), 1.0, u);
+      for (let i = 0; i < 5; i++) {
+        const px = 470 + i * 36, py = 300 + (i % 3) * 42;
+        inkLine([px, py, px + 34, py - 2], 1.6, `rgba(239,227,196,${(0.10 + (i % 2) * 0.04).toFixed(3)})`, { taper: .5 });
+      }
+      motes(t, 10, 80, 900, 120, 520, '245,222,168', 0.08);
+    }
+
+    function drawOtsShoulder() {
+      inkShape([296, 720, 300, 612, 340, 560, 392, 544, 430, 566, 438, 630, 430, 720], '#3f6b60', 3.4, '#241726');
+      inkFill([330, 720, 334, 640, 366, 594, 404, 602, 408, 720], 'rgba(20,30,26,.28)');
+      inkLine([318, 586, 372, 566, 420, 584], 2.6, 'rgba(226,208,168,.20)', { taper: .5 });
+    }
+
+    /* ============================================================
+       shots
+       ============================================================ */
+    // every shot is a painted plate carrying the narration's picture
+    for (const [a, b] of [[0, 2.98], [2.98, 5.82], [5.82, 8.08], [8.08, 10.10], [10.10, 12.22], [12.22, 15.36], [15.36, 17.42], [17.42, 20.12]]) F.info('clip', a, b);
+
+    // 1 · 上海沈家巷：驴友推门、落座、倒酒（0–2.98）
+    G.shot(0, 2.98, (u, t) => {
+      const cam = K(t, [[0, { x: 452, y: 394, z: 1.0 }], [2.98, { x: 474, y: 412, z: 1.09 }]]);
+      camPush(cam.x, cam.y, cam.z);
+      tavernScene(t, taOf(t));
+      pop();
+    });
+
+    // 2 · 说起澳大利亚土著部落里流传着一个传说（2.98–5.82）— 内陆篝火
+    G.shot(2.98, 5.82, (u, t) => {
+      const cam = K(t, [[2.98, { x: 480, y: 398, z: 1.0 }], [4.2, { x: 470, y: 430, z: 1.10 }], [5.82, { x: 500, y: 466, z: 1.22 }]]);
+      camPush(cam.x, cam.y, cam.z);
+      outbackScene(t);
+      pop();
+    });
+
+    // 3 · 说九十年前，有个会飞的中国人（5.82–8.08）— 骑车飞过月亮
+    G.shot(5.82, 8.08, (u, t) => {
+      const cam = K(t, [[5.82, { x: 470, y: 346, z: 1.02 }], [8.08, { x: 500, y: 338, z: 1.07 }]]);
+      camPush(cam.x, cam.y, cam.z);
+      flyingScene(t);
+      pop();
+    });
+
+    // 4 · 骑车从悉尼到墨尔本，穿过山里（8.08–10.10）— 山路全景
+    G.shot(8.08, 10.10, (u, t) => {
+      const cam = K(t, [[8.08, { x: 470, y: 386, z: 1.04 }], [10.10, { x: 524, y: 394, z: 1.11 }]]);
+      camPush(cam.x, cam.y, cam.z);
+      mountainScene(t);
+      pop();
+    });
+
+    // 5 · 比开飞机来接他的人还快（10.10–12.22）— 双翼机追不上
+    G.shot(10.10, 12.22, (u, t) => {
+      const cam = K(t, [[10.10, { x: 464, y: 382, z: 1.02 }], [12.22, { x: 512, y: 378, z: 1.08 }]]);
+      camPush(cam.x, cam.y, cam.z);
+      biplaneScene(t, clamp((t - 10.10) / 2.12, 0, 1));
+      pop();
+    });
+
+    // 6 · 朋友听愣了，说，你等等，那个传说里的中国人（12.22–15.36）— 过肩近景
+    G.shot(12.22, 15.36, (u, t) => {
+      const cam = K(t, [[12.22, { x: 598, y: 396, z: 1.88 }], [15.36, { x: 604, y: 398, z: 1.95 }]]);
+      camPush(cam.x, cam.y, cam.z);
+      tavernScene(t, taOf(t));
+      drawOtsShoulder();
+      pop();
+    });
+
+    // 7 · 是不是姓潘？驴友说对呀。（15.36–17.42）— 双人中景
+    G.shot(15.36, 17.42, (u, t) => {
+      const cam = K(t, [[15.36, { x: 486, y: 448, z: 1.32 }], [17.42, { x: 494, y: 444, z: 1.38 }]]);
+      camPush(cam.x, cam.y, cam.z);
+      tavernScene(t, taOf(t));
+      pop();
+    });
+
+    // 8 · 朋友一拍桌子，那是我爷爷。驴友傻了。（17.42–20.12）
+    G.pause(SLAM, SLAM_B, { energy: 2, name: 'slam', hit: true });
+    G.shot(17.42, 20.12, (u, t) => {
+      const d = Math.max(0, t - SLAM);
+      const shk = d < 0.5 ? 7 * Math.exp(-9 * d) : 0;
+      const sx = shk * Math.sin(d * 70), sy = shk * Math.cos(d * 53);
+      const cam = K(t, [[17.42, { x: 500, y: 446, z: 1.42 }], [SLAM, { x: 504, y: 452, z: 1.50 }], [SLAM_B, { x: 504, y: 452, z: 1.54 }], [18.7, { x: 492, y: 448, z: 1.56 }], [20.12, { x: 392, y: 408, z: 1.62 }]]);
+      camPush(cam.x, cam.y, cam.z, 0, sx, sy);
+      tavernScene(t, taOf(t));
+      pop();
+    });
+
+    /* ============================================================
+       screen text and overlays
+       ============================================================ */
+    // 上海沈家巷 (brief.md, Act 1): place name in serif, cream with an ink edge
+    G.write('上海沈家巷', { x: 104, y: 104, size: 42, align: 'left', at: 0.9, until: 2.9, kind: 'label', color: CREAM, font: G.fonts.serif, tilt: -0.01 });
+    G.top((u, t) => {
+      const a = clamp((t - 0.9) / 0.35, 0, 1);
+      inkFill([104, 152, 300, 150, 300, 154, 104, 156], `rgba(163,76,50,${0.78 * a})`);
+    }, 0.9, 2.9);
+
+    /* ============================================================
+       sound effects
+       ============================================================ */
+    F.sfx(0.30, 'door', 0.45, { dur: 0.9 });
+    for (const f of ACT.footfalls([w04], 0.55, 2.35)) F.sfx(f.t, 'step', 0.42, { dur: 0.2 });
+    F.sfx(2.42, 'pour', 0.50, { dur: 0.55 });
+    F.sfx(2.90, 'cup', 0.26);
+    // outback: wind, fire, no music
+    F.sfx(3.08, 'wind', 0.22, { dur: 2.4 });
+    F.sfx(3.25, 'flame', 0.16, { dur: 0.7 });
+    F.sfx(4.35, 'flame', 0.14, { dur: 0.6 });
+    F.sfx(5.35, 'flame', 0.14, { dur: 0.6 });
+    // flight over the moon
+    F.sfx(5.90, 'whoosh', 0.30, { dur: 0.8 });
+    F.sfx(6.20, 'wind', 0.18, { dur: 1.6 });
+    // mountain road
+    F.sfx(8.35, 'wind', 0.16, { dur: 1.5 });
+    F.sfx(8.55, 'dust', 0.12, { dur: 0.4 });
+    F.sfx(9.30, 'dust', 0.10, { dur: 0.35 });
+    // the biplane falls behind
+    F.sfx(10.42, 'engine', 0.24, { dur: 1.55 });
+    F.sfx(10.95, 'whoosh', 0.22, { dur: 0.7 });
+    // back at the table
+    F.sfx(12.30, 'cup', 0.24);
+    F.sfx(13.35, 'cup', 0.26);
+    F.sfx(15.55, 'cup', 0.22);
+    F.sfx(SLAM, 'slam', 0.95, { dur: 0.6 });
+    F.sfx(SLAM + 0.04, 'cup', 0.5);
+    F.sfx(SLAM + 0.16, 'cup', 0.34);
+    F.sfx(19.0, 'cup', 0.16);
+
+    G.iris(19.94, { dur: 0.18, out: true, x: 480, y: 312, sfx: false });
+  },
+});
+</script></body></html>

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>阿努纳奇 · 第一段 · 皮影</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css">
+<style>html,body{margin:0;background:#111}#stage{position:relative;overflow:hidden}</style>
+<script src="timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/shadow.js"></script>
+<script src="lib/rods.js"></script>
+</head><body><div id="stage"></div><script>
+// 阿努纳奇 · 第一段 · 皮影戏（重制）：山、草、月亮、书、猿猴、罐子、基因、泥板、剪刀、细菌，全部像人物一样插着操纵杆，
+// 被签子推着晃、点、跳、开合；人物动作更放得开（走、指、说、转身、鞠躬、舞、退场）。
+// 时间全部来自旁白；文字见 brief.md。
+const { M, set, el } = PROMO;
+PROMO.compose({
+  bpm: 84, offset: 0.5, grain: false, tail: 1.1,
+  theme: { bg: '#140C07', fg: '#22140B', ink: '#22140B', paper: '#F3D9A4', accent: '#B5321F', muted: '#6B4A2A', fonts: { display: '"LXGW WenKai", serif', serif: '"LXGW WenKai", serif', sans: '"LXGW WenKai", serif', script: '"LXGW WenKai", serif' } },
+  captions: { size: 54 },
+  build: async (F) => {
+    const T = F.T, W = F.W, H = F.H, PT = F.portrait, Y = PROMO.shadow(F, { lamp: 0.05 }), s = T.start, w = T.word, e = T.end;
+    const X = (a, b) => W * (PT && b !== undefined ? b : a), L = (a, b) => (PT && b !== undefined ? b : a);
+    Y.floor = H * L(0.8, 0.66);
+    const a1 = s('l1'), a2 = s('l2'), a3 = s('l3'), a4 = s('l4'), a5 = s('l5'), a6 = s('l6'), a7 = s('l7'), a8 = s('l8'), fin = F.duration;
+    const PS = L(500, 540);
+    const scene = (a, z, o = {}) => { const Lr = F.layer('', 1); F.add((t) => set(Lr, { display: t >= a && t < z ? '' : 'none' })); return Y.stage(Lr, o).screen; };
+    const cut = (id) => s(id) - 0.25;
+    const name = (sc, text, at, until, o = {}) => Y.placard(sc, { text, at, until, size: L(54, 48), ...o });
+    const ROD = '#2A1A10';
+
+    /* ---------------- every prop hangs on a control rod ---------------- */
+    function rp(sc, o) {
+      let G = null, inner = null;
+      const hx = o.hx ?? o.x, hy = o.hy ?? H + L(90, 70);
+      Y.leather(sc, { at: o.at, until: o.until ?? 1e9, depth: o.depth ?? 0, what: o.what,
+        draw: (g, k) => {
+          G = k.sv('g', {}, g);
+          k.line(G, `M${o.x + (o.rodDx ?? 0)} ${o.rodY ?? o.y} L${hx} ${hy}`, o.rodW ?? F.px(4.2), ROD);
+          inner = k.sv('g', {}, G);
+          o.draw(inner, k, o);
+        },
+        frame: (t) => {
+          if (!G) return;
+          const a = (o.sway ?? .028) * Math.sin(t * (o.speed ?? 1.1) + (o.phase ?? 0));
+          const dy = (o.bob ?? 5) * Math.sin(t * (o.bobSpeed ?? 1.7) + (o.phase ?? 0)) + (o.lift ? o.lift(t) : 0);
+          G.setAttribute('transform', `rotate(${(a * 57.2958).toFixed(2)} ${hx} ${hy}) translate(0 ${dy.toFixed(1)})`);
+          if (o.frame) o.frame(t, inner, o);
+        } });
+      return { g: () => inner };
+    }
+
+    /* 山（带签子，缓慢呼吸） */
+    function mountain(sc, o) {
+      return rp(sc, { ...o, what: '皮影 山', sway: .012, speed: .5, bob: 3,
+        draw: (g, k, p) => {
+          const x = p.x, y = p.y, wd = p.w ?? L(300, 250), hh = p.h ?? L(230, 190);
+          k.plain(g, k.poly([[x - wd, y], [x - wd * .5, y - hh * .72], [x, y - hh], [x + wd * .38, y - hh * .58], [x + wd, y]]), k.colors.green);
+          for (let i = 0; i < 4; i++) k.line(g, `M${x - wd * .55 + i * wd * .28} ${y - 26 - i * 30} q${wd * .1} -16 ${wd * .2} 0`, 2.6);
+        } });
+    }
+    /* 草（每根草一根小签，自己摆） */
+    function grass(sc, o) {
+      return rp(sc, { ...o, what: '皮影 草', sway: .01, bob: 0,
+        draw: (g, k, p) => {
+          p.st = [];
+          for (let i = 0; i < 5; i++) {
+            const sg = k.sv('g', {}, g); p.st.push(sg);
+            const bx = p.x + (i - 2) * L(20, 16), by = p.y, hgt = L(105, 90) + (i % 3) * 22;
+            k.line(sg, `M${bx} ${by} Q${bx + (i % 2 ? 16 : -16)} ${by - hgt * .6} ${bx + (i % 2 ? 24 : -24)} ${by - hgt}`, F.px(4.4), k.colors.green);
+            k.line(sg, `M${bx + (i % 2 ? 10 : -10)} ${by - hgt * .45} q${i % 2 ? 26 : -26} -8 ${i % 2 ? 38 : -38} -30`, F.px(3.2), k.colors.deep);
+          }
+        },
+        frame: (t, g, p) => { p.st.forEach((sg, i) => sg.setAttribute('transform', `rotate(${(Math.sin(t * 1.9 + i * .8) * 5).toFixed(2)} ${p.x + (i - 2) * 20} ${p.y})`)); } });
+    }
+    /* 月亮（长签，慢慢升） */
+    function moon(sc, o) {
+      return rp(sc, { ...o, what: '皮影 月亮', sway: .02, speed: .6, bob: 0,
+        draw: (g, k, p) => {
+          const r = p.r ?? L(80, 66);
+          k.plain(g, k.poly(k.ring(p.x, p.y, r, 40)), k.colors.yellow);
+          k.plain(g, k.poly(k.ring(p.x - r * .2, p.y - r * .15, r * .62, 30)), '#F7E3A8');
+          k.line(g, `M${p.x + r * .4} ${p.y - r * .45} q${r * .3} ${r * .24} 0 ${r * .5}`, 3);
+        } });
+    }
+    /* 书（两页会翻，签子顶着） */
+    function book(sc, o) {
+      return rp(sc, { ...o, what: '皮影 书', sway: .03, speed: 1.5, bob: 7,
+        draw: (g, k, p) => {
+          const x = p.x, y = p.y, wd = p.w ?? L(150, 130), hh = p.h ?? L(96, 84);
+          k.plain(g, k.poly([[x - wd * .56, y], [x + wd * .56, y], [x + wd * .48, y - hh], [x - wd * .48, y - hh]]), k.colors.deep);
+          p.pl = k.sv('g', {}, g); p.pr = k.sv('g', {}, g);
+          k.plain(p.pl, k.poly([[x - 4, y - 6], [x - wd * .44, y - 14], [x - wd * .4, y - hh * .9], [x - 4, y - hh * .84]]), k.colors.skin);
+          k.plain(p.pr, k.poly([[x + 4, y - 6], [x + wd * .44, y - 14], [x + wd * .4, y - hh * .9], [x + 4, y - hh * .84]]), k.colors.skin);
+          for (let i = 0; i < 3; i++) { k.line(g, `M${x - wd * .34} ${y - hh * .24 - i * 18} L${x - 16} ${y - hh * .22 - i * 18}`, 2.2); k.line(g, `M${x + 16} ${y - hh * .22 - i * 18} L${x + wd * .34} ${y - hh * .24 - i * 18}`, 2.2); }
+        },
+        frame: (t, g, p) => {
+          const q = p.open ? p.open(t) : (.16 + .12 * Math.sin(t * 2.4));
+          p.pl.setAttribute('transform', `skewY(${(-q * 18).toFixed(2)})`);
+          p.pr.setAttribute('transform', `skewY(${(q * 18).toFixed(2)})`);
+        } });
+    }
+    /* 罐子（会晃，盖子会跳） */
+    function jar(sc, o) {
+      return rp(sc, { ...o, what: '皮影 罐', sway: .05, speed: 2.2, bob: 8,
+        draw: (g, k, p) => {
+          const x = p.x, y = p.y, wd = p.w ?? L(150, 130), hh = p.h ?? L(170, 150);
+          k.plain(g, k.poly([[x - wd * .28, y], [x - wd * .44, y - hh * .55], [x - wd * .34, y - hh * .82], [x + wd * .34, y - hh * .82], [x + wd * .44, y - hh * .55], [x + wd * .28, y]]), k.colors.ochre);
+          k.plain(g, k.poly([[x - wd * .38, y - hh * .82], [x + wd * .38, y - hh * .82], [x + wd * .3, y - hh * .9], [x - wd * .3, y - hh * .9]]), k.colors.deep);
+          p.lid = k.sv('g', {}, g);
+          k.plain(p.lid, k.poly([[x - wd * .3, y - hh * .92], [x + wd * .3, y - hh * .92], [x + wd * .22, y - hh * 1.02], [x - wd * .22, y - hh * 1.02]]), k.colors.red);
+          for (let i = 0; i < 3; i++) k.plain(g, k.poly(k.ring(x - wd * .2 + i * wd * .2, y - hh * .45, 5, 10)), k.colors.deep);
+        },
+        frame: (t, g, p) => {
+          const pop = p.popAt ? Math.max(0, Math.sin(Math.min(1, Math.max(0, (t - p.popAt) / 1.2)) * Math.PI)) : 0;
+          p.lid.setAttribute('transform', `translate(0 ${(-pop * 46).toFixed(1)}) rotate(${(pop * 12).toFixed(1)} ${p.x} ${p.y})`);
+        } });
+    }
+    /* 基因双螺旋（转） */
+    function helix(sc, o) {
+      return rp(sc, { ...o, what: '皮影 基因', sway: .02, bob: 6,
+        draw: (g, k, p) => {
+          p.hg = k.sv('g', {}, g);
+          const A = [], B = [], r = L(46, 40), hh = L(250, 210);
+          for (let i = 0; i <= 28; i++) { const u = i / 28, yy = p.y - u * hh, dx = Math.sin(u * Math.PI * 5) * r; A.push([p.x + dx, yy]); B.push([p.x - dx, yy]); }
+          k.line(p.hg, 'M' + A.map((q) => q.join(' ')).join(' L'), F.px(6), k.colors.red);
+          k.line(p.hg, 'M' + B.map((q) => q.join(' ')).join(' L'), F.px(6), k.colors.blue);
+          for (let i = 2; i < 28; i += 4) k.line(p.hg, `M${A[i][0]} ${A[i][1]} L${B[i][0]} ${B[i][1]}`, F.px(2.6), k.colors.white);
+        },
+        frame: (t, g, p) => { p.hg.setAttribute('transform', `translate(${p.x} 0) scale(${(1 + .06 * Math.sin(t * 3)).toFixed(3)} 1) translate(${-p.x} 0)`); } });
+    }
+    /* 猿猴（蹲着，胳膊和尾巴摆动，会跳） */
+    function ape(sc, o) {
+      return rp(sc, { ...o, what: '皮影 猿', sway: .03, speed: 1.8, bob: 6,
+        draw: (g, k, p) => {
+          const x = p.x, y = p.y;
+          k.plain(g, k.poly([[x - 56, y - 140], [x - 34, y - 196], [x + 6, y - 206], [x + 34, y - 184], [x + 44, y - 146], [x + 60, y - 92], [x + 48, y - 30], [x + 8, y - 30], [x - 34, y - 38], [x - 58, y - 92]]), k.colors.deep);
+          k.plain(g, k.poly([[x - 46, y - 240], [x - 20, y - 270], [x + 18, y - 266], [x + 30, y - 236], [x + 14, y - 212], [x - 18, y - 210], [x - 42, y - 218]]), k.colors.deep);
+          k.plain(g, k.poly([[x + 14, y - 248], [x + 52, y - 242], [x + 50, y - 222], [x + 14, y - 224]]), k.colors.deep);
+          k.plain(g, k.poly(k.ring(x + 30, y - 238, 5, 10)), k.colors.black);
+          p.arm = k.sv('g', {}, g);
+          k.line(p.arm, `M${x - 34} ${y - 150} L${x - 96} ${y - 20}`, F.px(17), k.colors.deep);
+          p.arm2 = k.sv('g', {}, g);
+          k.line(p.arm2, `M${x + 32} ${y - 154} L${x + 82} ${y - 8}`, F.px(17), k.colors.deep);
+          p.tail = k.sv('g', {}, g);
+          k.line(p.tail, `M${x + 52} ${y - 92} Q${x + 104} ${y - 66} ${x + 92} ${y - 14}`, F.px(9), k.colors.deep);
+        },
+        frame: (t, g, p) => {
+          const a = Math.sin(t * 2.4) * 14;
+          p.arm.setAttribute('transform', `rotate(${a.toFixed(1)} ${p.x - 34} ${p.y - 150})`);
+          p.arm2.setAttribute('transform', `rotate(${(-a * .7).toFixed(1)} ${p.x + 32} ${p.y - 154})`);
+          p.tail.setAttribute('transform', `rotate(${(Math.sin(t * 1.7) * 8).toFixed(1)} ${p.x + 52} ${p.y - 92})`);
+        } });
+    }
+    /* 泥板（会抖） */
+    function tablet(sc, o) {
+      return rp(sc, { ...o, what: '皮影 泥板', sway: .02, speed: 1.4, bob: 4,
+        draw: (g, k, p) => {
+          const x = p.x, y = p.y, wd = p.w ?? L(260, 230), hh = p.h ?? L(320, 280);
+          k.plain(g, k.poly([[x - wd / 2, y], [x + wd / 2, y], [x + wd / 2 + 8, y - hh], [x - wd / 2 + 8, y - hh]]), k.colors.skin);
+          for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
+            const lx = x - wd * .32 + c * wd * .2, ly = y - hh * .16 - r * hh * .2;
+            k.line(g, `M${lx - 15} ${ly} L${lx + 15} ${ly - 3}`, 3.6);
+            k.line(g, `M${lx - 11} ${ly + 8} L${lx + 11} ${ly + 6}`, 2.8);
+          }
+          p.xg = k.sv('g', { opacity: 0 }, g);
+          k.line(p.xg, `M${x - wd * .48} ${y - hh * .9} L${x + wd * .48} ${y - hh * .1}`, F.px(13), k.colors.red);
+          k.line(p.xg, `M${x + wd * .48} ${y - hh * .9} L${x - wd * .48} ${y - hh * .1}`, F.px(13), k.colors.red);
+        },
+        frame: (t, g, p) => {
+          const sh = p.shakeAt ? Math.exp(-Math.max(0, t - p.shakeAt) * 3) * 3 : 0;
+          g.setAttribute('transform', `translate(${(Math.sin(t * 40) * sh).toFixed(1)} 0)`);
+          if (p.xg) p.xg.setAttribute('opacity', p.stampAt && t >= p.stampAt ? '1' : '0');
+        } });
+    }
+    /* 剪刀（两片刃自己开合，签子推下来） */
+    function scissors(sc, o) {
+      return rp(sc, { ...o, what: '皮影 剪刀', sway: .025, speed: 1.2, bob: 0,
+        draw: (g, k, p) => {
+          const x = p.x, y = p.y, Lb = p.len ?? L(300, 260);
+          p.b1 = k.sv('g', {}, g); p.b2 = k.sv('g', {}, g);
+          k.line(p.b1, `M${x} ${y} L${x - Lb} ${y - Lb * .42}`, F.px(22), k.colors.deep);
+          k.line(p.b2, `M${x} ${y} L${x - Lb} ${y + Lb * .38}`, F.px(22), k.colors.deep);
+          k.line(g, `M${x} ${y} L${x + Lb * .32} ${y - Lb * .18}`, F.px(14), k.colors.deep);
+          k.line(g, `M${x} ${y} L${x + Lb * .3} ${y + Lb * .18}`, F.px(14), k.colors.deep);
+          k.plain(g, k.poly(k.ring(x + Lb * .42, y - Lb * .26, Lb * .13, 26)), k.colors.ochre);
+          k.plain(g, k.poly(k.ring(x + Lb * .4, y + Lb * .27, Lb * .13, 26)), k.colors.ochre);
+          k.plain(g, k.poly(k.ring(x + Lb * .42, y - Lb * .26, Lb * .07, 20)), '#FCEFD2');
+          k.plain(g, k.poly(k.ring(x + Lb * .4, y + Lb * .27, Lb * .07, 20)), '#FCEFD2');
+          k.plain(g, k.poly(k.ring(x, y, Lb * .035, 14)), k.colors.yellow);
+        },
+        frame: (t, g, p) => {
+          const open = p.snip ? (p.snip(t) ? .5 : 1) * (18 + Math.sin(t * 7) * 2) : 16;
+          p.b1.setAttribute('transform', `rotate(${(-open / 2).toFixed(1)} ${p.x} ${p.y})`);
+          p.b2.setAttribute('transform', `rotate(${(open / 2).toFixed(1)} ${p.x} ${p.y})`);
+        } });
+    }
+    /* 细菌（纤毛乱动，会蹦） */
+    function bacteria(sc, o) {
+      return rp(sc, { ...o, what: '皮影 细菌', sway: .03, speed: 2, bob: 9,
+        draw: (g, k, p) => {
+          const r = p.r ?? L(70, 60);
+          p.cil = [];
+          for (let i = 0; i < 10; i++) { const cg = k.sv('g', {}, g); p.cil.push(cg); const a = i / 10 * Math.PI * 2; k.line(cg, `M${p.x + Math.cos(a) * r} ${p.y + Math.sin(a) * r} L${p.x + Math.cos(a) * r * 1.42} ${p.y + Math.sin(a) * r * 1.32}`, F.px(5)); }
+          k.plain(g, k.poly(k.ring(p.x, p.y, r, 32)), k.colors.green);
+          k.plain(g, k.poly(k.ring(p.x - r * .3, p.y - r * .12, r * .18, 18)), k.colors.white);
+          k.plain(g, k.poly(k.ring(p.x + r * .28, p.y - r * .12, r * .18, 18)), k.colors.white);
+          k.plain(g, k.poly(k.ring(p.x - r * .28, p.y - r * .1, r * .08, 12)), k.colors.black);
+          k.plain(g, k.poly(k.ring(p.x + r * .3, p.y - r * .1, r * .08, 12)), k.colors.black);
+          k.line(g, `M${p.x - r * .2} ${p.y + r * .24} Q${p.x} ${p.y + r * .38} ${p.x + r * .22} ${p.y + r * .22}`, F.px(4));
+        },
+        frame: (t, g, p) => {
+          p.cil.forEach((cg, i) => { cg.setAttribute('transform', `rotate(${(Math.sin(t * 4 + i) * 12).toFixed(1)} ${p.x} ${p.y})`); });
+        } });
+    }
+
+    Y.cast({
+      作者: { kind: 'official', look: { hat: 'guan', beard: 'short' }, colors: { robe: 'green', trim: 'black' } },
+      神: { kind: 'emperor', look: { beard: 'long' }, colors: { robe: 'yellow', trim: 'red' } },
+      人: { kind: 'elder', look: { hat: 'hair' }, colors: { robe: 'blue', trim: 'black' } },
+      学者: { kind: 'official', look: { face: 'solid', faceColor: 'white', hat: 'guan', beard: 'long', brow: 'down' }, colors: { robe: 'blue', trim: 'black' } },
+    });
+
+    /* ================= 1 · 1978：山、草、月亮、书都在动 ================= */
+    const z1 = cut('l2');
+    Y.lamp(0.9, { to: 1, dur: 1.2 });
+    { const sc = scene(0, z1, { variant: 0 });
+      mountain(sc, { x: X(0.86, 0.84), y: Y.floor, at: .2, phase: .4 });
+      grass(sc, { x: X(0.1, 0.1), y: Y.floor, at: .25, phase: 1.2 });
+      grass(sc, { x: X(0.93, 0.9), y: Y.floor, at: .35, phase: 2.1 });
+      moon(sc, { x: X(0.87, 0.85), y: H * .2, r: L(74, 60), at: .3, hx: X(0.84, 0.84), phase: .8 });
+      book(sc, { x: X(0.53, 0.54), y: Y.floor - L(120, 100), w: L(190, 160), at: a1 + .3, phase: .2, open: (t) => .2 + .18 * Math.sin(t * 2.2) });
+      const au = Y.puppet(sc, { who: '作者', x: X(0.34, 0.4), at: a1 + .2, enter: 'left', size: PS });
+      au.talk(a1 + .7, 1.3); au.point(a1 + 2.0, 1.4); au.turn(a1 + 3.6); au.bow(a1 + 4.2);
+      name(sc, '1978', a1 + .5, z1, { over: au });
+      Y.title(sc, { text: '一本书', at: a1 + 1.6, until: z1, x: X(0.7, 0.62), y: H * L(0.24, 0.18), size: L(140, 108) });
+    }
+
+    /* ================= 2 · 神 × 猿：猿会跳、罐子会晃、基因在转 ================= */
+    const z2 = cut('l4');
+    Y.change(z1 + .1, .9, { to: 1, color: 'warm' });
+    { const sc = scene(z1, z2, { variant: 1 });
+      mountain(sc, { x: X(0.98, 0.96), y: Y.floor, at: z1 + .1, phase: 1.4 });
+      grass(sc, { x: X(0.08, 0.08), y: Y.floor, at: z1 + .2, phase: .3 });
+      const god = Y.puppet(sc, { who: '神', x: X(0.18, 0.2), at: a2 + .2, enter: 'right', size: PS * 1.05 });
+      god.walk(a2 + .6, X(0.24, 0.24), 1.0); god.point(a2 + 1.8, 1.4); god.talk(a2 + 3.2, 1.5); god.turn(a2 + 5.2);
+      ape(sc, { x: X(0.9, 0.88), y: Y.floor, at: a2 + .4, phase: .6, lift: (t) => Math.max(0, Math.sin((t - a2 - 1.0) * 3.2)) * 26 });
+      jar(sc, { x: X(0.52, 0.52), y: Y.floor - L(30, 20), at: a2 + .6, phase: 2.2, popAt: a3 - .5 });
+      helix(sc, { x: X(0.76, 0.76), y: H * .58, at: a2 + 1.4, phase: 1.1 });
+      const hum = Y.puppet(sc, { who: '人', x: X(0.52, 0.52), at: a3 - .15, size: PS * .58, enter: 'fade' });
+      hum.walk(a3 + .2, X(0.58, 0.58), .8); hum.talk(a3 + 1.0, 1.2); hum.dance(a3 + 2.0, 1.6);
+      Y.prop(sc, { kind: 'cloud', x: X(0.52, 0.52), y: H * .2, size: L(230, 200), at: a3 - .4, depth: .5 });
+      name(sc, '人', a3 + .1, z2, { over: hum });
+      Y.title(sc, { text: '基因', at: a2 + 2.0, until: a3 - .4, x: X(0.48, 0.48), y: H * .18, size: L(118, 96) });
+    }
+
+    /* ================= 3 · 二十多种语言：地图在走，书在跳 ================= */
+    const z3 = cut('l5');
+    Y.change(z2 + .1, .9, { to: 1, color: 'warm' });
+    { const sc = scene(z2, z3, { variant: 2 });
+      const mp = Y.map(sc, { at: a4 + .1, until: z3, cities: [
+        { name: '巴格达', x: .44, y: .5, at: a4 + .2 },
+        { name: '伦敦', x: .3, y: .28, at: a4 + .5 },
+        { name: '纽约', x: .12, y: .4, at: a4 + .8 },
+        { name: '东京', x: .84, y: .44, at: a4 + 1.1 },
+        { name: '开罗', x: .5, y: .64, at: a4 + 1.4 },
+      ] });
+      Y.route(mp, { via: ['巴格达', '伦敦', '纽约'], at: a4 + 1.0, dur: 1.2 });
+      Y.route(mp, { via: ['巴格达', '东京', '开罗'], at: a4 + 1.6, dur: 1.2, color: 'ochre' });
+      book(sc, { x: X(0.5, 0.5), y: H * .74, w: L(120, 100), at: a4 + .6, phase: .9, lift: (t) => Math.abs(Math.sin((t - a4) * 2.4)) * 30, open: () => .3 });
+      Y.title(sc, { text: '20+', at: a4 + 1.2, until: z3, x: X(0.5, 0.5), y: H * .18, size: L(110, 96) });
+      name(sc, '种语言', a4 + 1.8, z3, { x: X(0.5, 0.5), y: H * .31, size: L(46, 42), swing: false });
+    }
+
+    /* ================= 4 · 伪学术：学者在演，泥板在抖 ================= */
+    const z4 = cut('l7');
+    Y.change(z3 + .1, .9, { to: 1, color: 'warm' });
+    { const sc = scene(z3, z4, { variant: 0 });
+      mountain(sc, { x: X(0.88, 0.86), y: Y.floor, at: z3 + .1, phase: .2 });
+      grass(sc, { x: X(0.06, 0.06), y: Y.floor, at: z3 + .2, phase: 1.7 });
+      const sch = Y.puppet(sc, { who: '学者', x: X(0.26, 0.28), at: a5 + .2, size: PS });
+      sch.talk(a5 + .6, 1.3); sch.point(a5 + 2.0, 1.5); sch.sway(a5 + 3.4, 1.4, 8); sch.weep(a5 + 4.8, 1.2);
+      tablet(sc, { x: X(0.68, 0.66), y: Y.floor - L(20, 10), at: a5 + .5, shakeAt: a5 + 2.4, stampAt: a5 + 2.1, phase: 1.9 });
+      name(sc, '伪学术', a5 + 1.6, z4, { x: X(0.68, 0.62), y: H * .18, size: L(62, 54), swing: false });
+      sch.turn(a6 + .1); sch.walk(a6 + .5, X(0.16, 0.18), 1.0);
+    }
+    Y.change(z4 + .05, 1.0, { to: 0.9, color: 'warm' });
+
+    /* ================= 5 · 剪刀落下 → 细菌 ================= */
+    { const sc = scene(z4, fin + 1, { variant: 1 });
+      grass(sc, { x: X(0.08, 0.1), y: Y.floor, at: z4 + .1, phase: .5 });
+      grass(sc, { x: X(0.92, 0.9), y: Y.floor, at: z4 + .2, phase: 2.4 });
+      mountain(sc, { x: X(0.87, 0.86), y: Y.floor, at: z4 + .1, phase: .7, w: L(300, 260), h: L(210, 180) });
+      book(sc, { x: X(0.44, 0.44), y: Y.floor - L(20, 10), w: L(210, 180), at: z4 + .2, phase: 1.2, open: () => .1 });
+      scissors(sc, { x: X(0.44, 0.44), y: H * .34, len: L(300, 260), at: a7 - .5, phase: .4, snip: (t) => t > a7 + .6 && (t % 1.4) > 1.1, lift: (t) => -Math.max(0, 1 - Math.max(0, (t - a7 + .5) / 1.2)) * 260 });
+      bacteria(sc, { x: X(0.62, 0.62), y: H * .38, r: L(66, 58), at: a8 - .6, phase: .9, lift: (t) => -Math.max(0, Math.sin(Math.min(1, Math.max(0, (t - a8 + .4) / 1.4)) * Math.PI)) * 60 });
+      Y.title(sc, { text: '四十年后', at: a7 + .1, until: a8 - .2, x: X(0.5, 0.5), y: H * .16, size: L(96, 84) });
+      Y.title(sc, { text: '细菌', at: a8 + .2, until: fin + 1, x: X(0.2, 0.2), y: H * .58, size: L(110, 92) });
+    }
+
+    F.section(0, 1, { name: 'open' });
+    F.section(a2, 2, { name: 'myth' });
+    F.section(a5, 2, { name: 'turn' });
+    F.section(a7, 3, { name: 'scissors', hit: true });
+    F.section(a8, 2, { name: 'reveal', hit: true });
+    T.lines.filter((l) => !l.silence).forEach((l) => F.info('diagram', l.start, Math.min(l.end + .2, F.duration), { group: l.id }));
+  },
+});
+</script></body></html>
