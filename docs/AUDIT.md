@@ -120,6 +120,18 @@ OK 契约一致（0 WARN）
 
 站点设计对齐 `lemo-opuscar` 的语言但数字自定：深墨底 `#0b0a09`、纸色 `#ece4d6`、唯一暖色灯色 `#e9b47c`、衬线标题 + 无衬线标签 + 等宽数字、发丝线分隔。
 
+### 封面规则（2026-11-17 重做）
+
+原先所有卡片统一抽片头第 2.0 秒，实测有相当一批落在空镜、白屏、纯文字标题卡上（地图类、极简类、品牌卡尤其明显）。现在改成「选中样片里人物动作最丰富的一幕」：
+
+1. 用 `ffprobe -f lavfi -i "movie='<clip>',signalstats"` 逐帧拿 `pts_time` 与 `YAVG / YDIF / SATAVG`；再跑一遍 `edgedetect=low=0.08:high=0.24,signalstats` 拿边缘密度（以 YAVG 近似）。
+2. 排除：`YAVG>205 且 SATAVG<12`（白屏）、`YAVG<16`（黑场）、边缘密度低于全片中位 35% 分位（空镜）、首尾各 0.7 s。
+3. 评分 `0.68·z(运动，0.6 s 平滑) + 0.32·z(边缘，0.3 s 平滑)`，`z` 用中位数 / MAD 稳健标准化，取最高分。
+4. 自动算法对「整片都是空镜 / 白屏 / 纯文字卡」的样片无从下手，用 `tools/poster_overrides.json`（key → 秒 + 一句人话理由）人工钉死，优先级高于自动选帧。目前钉了 34 条。
+5. 全部 87 条用 ffmpeg `xstack` 拼版逐张目视审查过两轮（首轮找问题，次轮复核换帧结果）。
+
+复核结论：34 条全部改善到有主体（人物 / 角色 / 器物 / 信息图），只剩 5 条仍是浅色 —— `shuimo`（水墨淡彩）、`style-07`（铅笔草图）、`style-20`（极简线稿）、`style-42`（纯白图解）、`style-48`（品牌卡），属于样片风格本身的底色，不是选帧没选好。
+
 交互：
 
 - 卡片**悬停即播**（首次悬停才挂 `src`，同时最多 4 个在播，移出即暂停归零）；
@@ -141,6 +153,8 @@ OK 契约一致（0 WARN）
 6. **8 条 BB-Video 模板的分幕写死**：`pencil`、`isometric`、`manga`、`tapestry`、`shadow`、`parable`、`goldenage`、`blueprint` 的 `template/index.html` 里直接引用 `s('l1')…s('l8')`，文案行数一变就报 `timeline: narration line id "l2" not found`（已用 pencil 实跑复现，`frontend/jobs/*/04-成片/04-渲染日志.txt` 有现场）。`frontend/targets.json` 已把它们降级为 `new` + `ingest`，只留 `laolang`、`map` 直接 `render`。真要让它们一条文案出片，得改成按 `script.json` 行数动态取旁白的模板。
 7. **渲染器不自行退出**：BB-Video 的 `render.mjs` 成片写完后，Chrome 子进程会占住管道让 node 一直挂着（实测 laolang 6.2 s 片 22 秒渲染完成，进程却 20 分钟不退出）。`frontend.py` 加了看门狗（成片体积 12 秒不变即判成功并结束进程树），但这属于治标，根因在运行时未回收 Chrome 子进程。
 8. **fengmian 对短文本的固有缺陷**：`fm/analyze.py` 的 `keywords(text, top=6, for_tags=True)` 对 200 字左右的短稿返回 `[]`，导致 `suggested_tags` 为空、`build` 抛「话题必须恰好 4 个」。`frontend.py` 的 `pick_tags()` 用关键词 / 片名 / 选题补齐到 4 个绕过；上游按原样 vendor，未改其代码（`fengmian/VENDORED.md` 已记）。
+9. **5 条封面仍是浅色**（`shuimo`、`style-07`、`style-20`、`style-42`、`style-48`）：样片底色就是白 / 淡（水墨淡彩、铅笔草图、极简线稿、纯白图解、品牌卡），换帧也换不掉。真要在深色卡片上压得住，得给这几条单独做「暗底描边版」封面或换样片段落，等素材决定。
+10. **`tools/poster_overrides.json` 是手工表**：新加样片时自动选帧先生效，如果那条片子又空镜偏多，需要再看一遍拼版、把 key 钉进覆盖表；覆盖表里的秒数按站内 clip（前 30 秒）计算，不是原片时间轴。
 
 ---
 

@@ -179,6 +179,7 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 | `python tools/validate.py --samples-dir "<样片目录>"` | 顺带核对 catalog 里登记的样片文件是否都在 |
 | `python tools/normalize_pipelines.py` | 幂等补齐：给缺 `pipeline.json` 的管线建骨架、给已有文件补 `schema` + `meta`（保持原键顺序）、给缺 frontmatter 的 SKILL.md 补头 |
 | `python tools/build_samples.py` | 把原始样片压成网页用短片（**一律从片头取前 30 秒**，片短于 30 秒就整条；管线 1280 长边 / crf 30，风格 640 / crf 32）+ 抽封面，写 `site/assets/samples.json`（改规则后要加 `--force`） |
+| `python tools/build_samples.py --posters-only` | 只重挑封面帧、不重切短片：逐帧算运动 + 边缘密度，避开白屏 / 黑场 / 空镜，取动作最丰富的一帧；`tools/poster_overrides.json` 里手工钉秒的优先 |
 | `python tools/build_site.py` | catalog + samples → `site/assets/data.js` |
 | `python tools/build_fonts.py` | 按站点实际用字子集化思源宋 / 黑，出 woff2（约 600 KB，站点离线也有中文字形） |
 
@@ -262,6 +263,8 @@ python frontend/frontend.py run \
 ## 样片 🖼️ 87 段，全部可在站点播
 
 `site/media/` 里是压过的网页短片（**每部样片只取片头前 30 秒**，片短于 30 秒就整条；管线 1280 长边，风格 640，共 94.0 MB），原片不动，仍留在作者的同步盘里。
+
+**封面不是片头截图**：早期统一抽第 2 秒，结果一堆卡片是空镜、白屏、纯文字卡。现在的规则是「样片里人物动作最丰富的一幕」——逐帧统计运动（YDIF）与边缘密度，排除 `YAVG>205 且 SATAVG<12`（白屏）、`YAVG<16`（黑场）、边缘密度低于全片中位 35% 分位的帧（空镜），首尾各 0.7 秒不选，评分 `0.68·z(运动) + 0.32·z(边缘)`。对整片空镜 / 白屏 / 纯文字卡的样片（地图、极简、品牌卡这类），自动算法挑不出来，用 `tools/poster_overrides.json` 人工钉秒，目前钉了 34 条。87 条已逐张目视复核过一遍。
 
 **管线样片 32 条**（点管线看文档，点片名去站点看）：
 
@@ -594,7 +597,8 @@ Auto-Video/
 │   ├── av/                   # 共用小工具（读 JSON、探片、跑命令、解析 frontmatter）
 │   ├── validate.py           # 契约校验 + 反向目录检查（可带 --samples-dir）
 │   ├── normalize_pipelines.py# 幂等补齐 schema + meta 与 SKILL.md frontmatter
-│   ├── build_samples.py      # 压网页样片 + 抽封面 → site/media + samples.json
+│   ├── build_samples.py      # 压网页样片 + 挑封面帧 → site/media + samples.json
+│   ├── poster_overrides.json # 人工挑帧表：自动选帧挑到空镜 / 白屏的片子在这里钉秒
 │   ├── build_site.py         # catalog + samples → site/assets/data.js
 │   └── build_fonts.py        # 字体子集化 → site/fonts/*.woff2
 ├── docs/

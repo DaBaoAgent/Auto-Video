@@ -5,6 +5,11 @@
     "seconds": 30,
     "note": "统一从片头取前 30 秒；短片整条保留"
   },
+  "poster_rule": {
+    "by": "max-motion+edge",
+    "note": "逐帧统计 YDIF（运动）与 edgedetect 边缘密度，排除白屏 / 黑场 / 空镜后取动作最丰富的一帧；首尾各 0.7 秒不选",
+    "overrides": "tools/poster_overrides.json，人工挑帧优先于自动选帧"
+  },
   "generated_from": "D:\\BaiduSyncdisk\\@同步\\1 MG 动画\\管线样片",
   "items": [
     {
@@ -24,6 +29,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "前段全是字卡与空城墙，27s 有行走人物",
+        "seconds": 27.0
+      },
       "mp4": "media/jianying.mp4",
       "poster": "media/jianying.jpg",
       "source": "jianying 刘秀·位面之子.mp4",
@@ -46,6 +56,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "档案字卡为主，19s 门内有人影",
+        "seconds": 19.0
+      },
       "mp4": "media/lishi.mp4",
       "poster": "media/lishi.jpg",
       "source": "lishi 朱元璋·碽妃疑案.mp4",
@@ -68,6 +83,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
+      "poster_pick": {
+        "score": 4.42,
+        "motion": 5.45,
+        "edge": 3.8,
+        "yavg": 35.0,
+        "frames": 630,
+        "seconds": 19.47
+      },
       "mp4": "media/zhidiao.mp4",
       "poster": "media/zhidiao.jpg",
       "source": "zhidiao 鲤鱼.mp4",
@@ -90,6 +113,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 18.38,
+        "motion": 15.24,
+        "edge": 3.0,
+        "yavg": 161.1,
+        "frames": 900,
+        "seconds": 2.23
+      },
       "mp4": "media/shouhui.mp4",
       "poster": "media/shouhui.jpg",
       "source": "shouhui 商纣王.mp4",
@@ -112,6 +143,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "铅笔线稿多为图表，19s 有人物与整叠图纸",
+        "seconds": 19.0
+      },
       "mp4": "media/pencil.mp4",
       "poster": "media/pencil.jpg",
       "source": "pencil_阿努纳奇.mp4",
@@ -134,6 +170,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 27.1,
+      "poster_pick": {
+        "score": 1.95,
+        "motion": 16.59,
+        "edge": 23.2,
+        "yavg": 171.0,
+        "frames": 812,
+        "seconds": 14.07
+      },
       "mp4": "media/caiqian.mp4",
       "poster": "media/caiqian.jpg",
       "source": "caiqian 鳕鱼.mp4",
@@ -156,6 +200,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "白底极简，15s 有举牌小人",
+        "seconds": 15.0
+      },
       "mp4": "media/pingban.mp4",
       "poster": "media/pingban.jpg",
       "source": "pingban 关羽.mp4",
@@ -178,6 +227,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "全片多为字卡，3s 是皮影人物+鱼的道具特写",
+        "seconds": 3.0
+      },
       "mp4": "media/piying.mp4",
       "poster": "media/piying.jpg",
       "source": "piying 波斯湾伊甸园.mp4",
@@ -200,6 +254,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "空镜山水为主，7s 有主体与日轮",
+        "seconds": 7.0
+      },
       "mp4": "media/shuimo.mp4",
       "poster": "media/shuimo.jpg",
       "source": "shuimo 羽人 水墨.mp4",
@@ -222,6 +281,14 @@
       "height": 540,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 12.2,
+        "motion": 8.19,
+        "edge": 2.8,
+        "yavg": 80.3,
+        "frames": 900,
+        "seconds": 28.5
+      },
       "mp4": "media/shadow.mp4",
       "poster": "media/shadow.jpg",
       "source": "shadow_玄奘.mp4",
@@ -244,6 +311,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 1.73,
+        "motion": 11.51,
+        "edge": 9.2,
+        "yavg": 149.6,
+        "frames": 900,
+        "seconds": 24.5
+      },
       "mp4": "media/tapestry.mp4",
       "poster": "media/tapestry.jpg",
       "source": "tapestry_阿努纳奇.mp4",
@@ -266,6 +341,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 4.77,
+        "motion": 5.1,
+        "edge": 2.5,
+        "yavg": 52.5,
+        "frames": 900,
+        "seconds": 4.47
+      },
       "mp4": "media/laolang.mp4",
       "poster": "media/laolang.jpg",
       "source": "laolang 玄奘.mp4",
@@ -288,6 +371,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "避开 1978 标题卡，7s 有角色+徽章",
+        "seconds": 7.0
+      },
       "mp4": "media/goldenage.mp4",
       "poster": "media/goldenage.jpg",
       "source": "goldenage_阿努纳奇.mp4",
@@ -310,6 +398,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 4.61,
+        "motion": 27.35,
+        "edge": 22.6,
+        "yavg": 165.2,
+        "frames": 900,
+        "seconds": 11.6
+      },
       "mp4": "media/manga.mp4",
       "poster": "media/manga.jpg",
       "source": "manga_阿努纳奇_.mp4",
@@ -332,6 +428,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 29.4,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "像素地图多为空镜，27s 有两位古装人物对谈",
+        "seconds": 27.0
+      },
       "mp4": "media/xiangsu.mp4",
       "poster": "media/xiangsu.jpg",
       "source": "xiangsu 曹操.mp4",
@@ -354,6 +455,14 @@
       "height": 720,
       "aspect": "4:3",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 4.1,
+        "motion": 2.69,
+        "edge": 1.9,
+        "yavg": 154.7,
+        "frames": 900,
+        "seconds": 24.13
+      },
       "mp4": "media/tianshu.mp4",
       "poster": "media/tianshu.jpg",
       "source": "tianshu 镇魔塔.mp4",
@@ -376,6 +485,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 18.25,
+        "motion": 20.89,
+        "edge": 2.5,
+        "yavg": 96.3,
+        "frames": 900,
+        "seconds": 5.83
+      },
       "mp4": "media/shiliang.mp4",
       "poster": "media/shiliang.jpg",
       "source": "shiliang 扁平矢量.mp4",
@@ -398,6 +515,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "剪影人物动作段，避开夕阳空镜",
+        "seconds": 7.0
+      },
       "mp4": "media/lvdong.mp4",
       "poster": "media/lvdong.jpg",
       "source": "lvdong 玛雅文明.mp4",
@@ -420,6 +542,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 11.98,
+        "motion": 5.2,
+        "edge": 7.3,
+        "yavg": 32.9,
+        "frames": 900,
+        "seconds": 8.8
+      },
       "mp4": "media/huixingzhen.mp4",
       "poster": "media/huixingzhen.jpg",
       "source": "huixingzhen 羽人.mp4",
@@ -442,6 +572,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "星球空镜，取信息最密的彩色地球一帧",
+        "seconds": 15.0
+      },
       "mp4": "media/bianping.mp4",
       "poster": "media/bianping.jpg",
       "source": "bianping 扁平尺度漫游 僵尸地球.mp4",
@@ -464,6 +599,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 25.84,
+        "motion": 3.98,
+        "edge": 2.3,
+        "yavg": 31.6,
+        "frames": 900,
+        "seconds": 13.3
+      },
       "mp4": "media/xianshiqi.mp4",
       "poster": "media/xianshiqi.jpg",
       "source": "xiangshiqi UAP_赛博.mp4",
@@ -486,6 +629,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 3.56,
+        "motion": 10.56,
+        "edge": 6.1,
+        "yavg": 32.1,
+        "frames": 900,
+        "seconds": 21.0
+      },
       "mp4": "media/xuni.mp4",
       "poster": "media/xuni.jpg",
       "source": "xuni_朊病毒.mp4",
@@ -508,6 +659,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 2.77,
+        "motion": 3.61,
+        "edge": 4.3,
+        "yavg": 79.6,
+        "frames": 900,
+        "seconds": 19.03
+      },
       "mp4": "media/tuiyan.mp4",
       "poster": "media/tuiyan.jpg",
       "source": "tuiyan 3D 赤壁之战.mp4",
@@ -530,6 +689,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 1.98,
+        "motion": 13.5,
+        "edge": 15.7,
+        "yavg": 76.0,
+        "frames": 900,
+        "seconds": 13.07
+      },
       "mp4": "media/chengshi.mp4",
       "poster": "media/chengshi.jpg",
       "source": "sz 苏州 城长.mp4",
@@ -552,6 +719,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "等距灯场，19s 有操作者与楼上被围",
+        "seconds": 19.0
+      },
       "mp4": "media/dengju.mp4",
       "poster": "media/dengju.jpg",
       "source": "dengju 羽人.mp4",
@@ -574,6 +746,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 17.97,
+        "motion": 10.51,
+        "edge": 5.3,
+        "yavg": 184.2,
+        "frames": 900,
+        "seconds": 6.0
+      },
       "mp4": "media/isometric.mp4",
       "poster": "media/isometric.jpg",
       "source": "isometric_阿努纳奇.mp4",
@@ -596,6 +776,11 @@
       "height": 720,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "避开标题卡，取有行军图标与路线的地图",
+        "seconds": 15.0
+      },
       "mp4": "media/map.mp4",
       "poster": "media/map.jpg",
       "source": "map_张骞寻路.mp4",
@@ -618,6 +803,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 1.98,
+        "motion": 7.36,
+        "edge": 5.3,
+        "yavg": 60.6,
+        "frames": 900,
+        "seconds": 8.4
+      },
       "mp4": "media/ditu.mp4",
       "poster": "media/ditu.jpg",
       "source": "ditu 关羽.mp4",
@@ -640,6 +833,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 12.1,
+      "poster_pick": {
+        "score": 20.26,
+        "motion": 5.56,
+        "edge": 6.3,
+        "yavg": 77.8,
+        "frames": 363,
+        "seconds": 4.57
+      },
       "mp4": "media/blueprint.mp4",
       "poster": "media/blueprint.jpg",
       "source": "blueprint_玄奘.mp4",
@@ -662,6 +863,14 @@
       "height": 720,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 5.46,
+        "motion": 10.68,
+        "edge": 3.9,
+        "yavg": 37.3,
+        "frames": 900,
+        "seconds": 5.67
+      },
       "mp4": "media/parable.mp4",
       "poster": "media/parable.jpg",
       "source": "parable_阿努纳奇.mp4",
@@ -684,6 +893,11 @@
       "height": 1920,
       "aspect": "9:16",
       "clip_seconds": 17.9,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "实拍土路空镜多，19s 有骑马人物",
+        "seconds": 17.71
+      },
       "mp4": "media/shipai.mp4",
       "poster": "media/shipai.jpg",
       "source": "shipai 实拍 玛雅.mp4",
@@ -706,6 +920,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "避开云层空镜，27s 有黄袍人物与士兵群像",
+        "seconds": 27.0
+      },
       "mp4": "media/jilupian.mp4",
       "poster": "media/jilupian.jpg",
       "source": "jilupian 一口气看完日本3000年!从蒙古使者被砍头到两颗原子弹 这个国家的故事比权游还刺激#.mp4",
@@ -728,6 +947,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
+      "poster_pick": {
+        "score": 5.21,
+        "motion": 14.66,
+        "edge": 12.0,
+        "yavg": 77.9,
+        "frames": 630,
+        "seconds": 6.9
+      },
       "mp4": "media/style-01.mp4",
       "poster": "media/style-01.jpg",
       "source": "1930s 橡皮管卡通 020_鲤鱼_水墨A级.mp4",
@@ -750,6 +977,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 7.14,
+        "motion": 11.07,
+        "edge": 11.1,
+        "yavg": 134.5,
+        "frames": 900,
+        "seconds": 18.83
+      },
       "mp4": "media/style-02.mp4",
       "poster": "media/style-02.jpg",
       "source": "50s 扁平卡通 036-shuiyin-yinybing-30s.mp4",
@@ -772,6 +1007,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
+      "poster_pick": {
+        "score": 4.15,
+        "motion": 8.82,
+        "edge": 7.0,
+        "yavg": 64.3,
+        "frames": 630,
+        "seconds": 7.53
+      },
       "mp4": "media/style-03.mp4",
       "poster": "media/style-03.jpg",
       "source": "HD-2D 鲤鱼.mp4",
@@ -794,6 +1037,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 3.02,
+        "motion": 4.51,
+        "edge": 4.0,
+        "yavg": 221.8,
+        "frames": 900,
+        "seconds": 3.4
+      },
       "mp4": "media/style-04.mp4",
       "poster": "media/style-04.jpg",
       "source": "pingban 镇魔塔.mp4",
@@ -816,6 +1067,14 @@
       "height": 1920,
       "aspect": "9:16",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 2.85,
+        "motion": 2.06,
+        "edge": 3.6,
+        "yavg": 34.8,
+        "frames": 900,
+        "seconds": 18.33
+      },
       "mp4": "media/style-05.mp4",
       "poster": "media/style-05.jpg",
       "source": "video-9x16.mp4",
@@ -838,6 +1097,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 12.8,
+        "motion": 26.51,
+        "edge": 17.7,
+        "yavg": 133.9,
+        "frames": 900,
+        "seconds": 9.2
+      },
       "mp4": "media/style-06.mp4",
       "poster": "media/style-06.jpg",
       "source": "youxi 仁德天皇陵.mp4",
@@ -860,6 +1127,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "白纸草图近空白，7s 圆环装置最完整",
+        "seconds": 7.0
+      },
       "mp4": "media/style-07.mp4",
       "poster": "media/style-07.jpg",
       "source": "中国水墨 七星封印.mp4",
@@ -882,6 +1154,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
+      "poster_pick": {
+        "score": 2.46,
+        "motion": 12.88,
+        "edge": 10.6,
+        "yavg": 191.4,
+        "frames": 630,
+        "seconds": 15.5
+      },
       "mp4": "media/style-08.mp4",
       "poster": "media/style-08.jpg",
       "source": "孟菲斯微缩景观 鲤鱼.mp4",
@@ -904,6 +1184,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 5.88,
+        "motion": 15.83,
+        "edge": 18.6,
+        "yavg": 98.5,
+        "frames": 900,
+        "seconds": 16.57
+      },
       "mp4": "media/style-09.mp4",
       "poster": "media/style-09.jpg",
       "source": "孟菲斯微缩：法显.mp4",
@@ -926,6 +1214,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 20.0,
+      "poster_pick": {
+        "score": 2.93,
+        "motion": 5.35,
+        "edge": 3.0,
+        "yavg": 208.7,
+        "frames": 600,
+        "seconds": 18.83
+      },
       "mp4": "media/style-10.mp4",
       "poster": "media/style-10.jpg",
       "source": "水彩笔刷 鲤鱼.mp4",
@@ -948,6 +1244,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
+      "poster_pick": {
+        "score": 8.62,
+        "motion": 14.37,
+        "edge": 6.4,
+        "yavg": 134.4,
+        "frames": 630,
+        "seconds": 16.03
+      },
       "mp4": "media/style-11.mp4",
       "poster": "media/style-11.jpg",
       "source": "浮世绘 020_鲤鱼.mp4",
@@ -970,6 +1274,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 27.59,
+        "motion": 17.87,
+        "edge": 6.6,
+        "yavg": 152.5,
+        "frames": 900,
+        "seconds": 13.73
+      },
       "mp4": "media/style-12.mp4",
       "poster": "media/style-12.jpg",
       "source": "浮世绘：以诺书月球.mp4",
@@ -992,6 +1304,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "原 0.73s 是标题卡，15s 城楼上有皮影人物动作",
+        "seconds": 15.0
+      },
       "mp4": "media/style-13.mp4",
       "poster": "media/style-13.jpg",
       "source": "皮影戏 鲤鱼.mp4",
@@ -1014,6 +1331,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "罗盘空镜，15s 有圆盘+窗口人物",
+        "seconds": 15.0
+      },
       "mp4": "media/style-14.mp4",
       "poster": "media/style-14.jpg",
       "source": "皮影戏：以诺书月球.mp4",
@@ -1036,6 +1358,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 6.23,
+        "motion": 4.78,
+        "edge": 4.8,
+        "yavg": 132.8,
+        "frames": 900,
+        "seconds": 2.07
+      },
       "mp4": "media/style-15.mp4",
       "poster": "media/style-15.jpg",
       "source": "皮影戏：法显.mp4",
@@ -1058,6 +1388,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
+      "poster_pick": {
+        "score": 4.04,
+        "motion": 4.67,
+        "edge": 4.9,
+        "yavg": 36.2,
+        "frames": 630,
+        "seconds": 19.43
+      },
       "mp4": "media/style-16.mp4",
       "poster": "media/style-16.jpg",
       "source": "蜡笔儿童绘本 鲤鱼.mp4",
@@ -1080,6 +1418,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
+      "poster_pick": {
+        "score": 3.27,
+        "motion": 15.85,
+        "edge": 11.0,
+        "yavg": 176.5,
+        "frames": 630,
+        "seconds": 15.73
+      },
       "mp4": "media/style-17.mp4",
       "poster": "media/style-17.jpg",
       "source": "装饰艺术 鲤鱼.mp4",
@@ -1102,6 +1448,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "霓虹 BAR 标题卡，19s 门内有剪影人物",
+        "seconds": 19.0
+      },
       "mp4": "media/style-18.mp4",
       "poster": "media/style-18.jpg",
       "source": "钢笔淡彩 鲤鱼.mp4",
@@ -1124,6 +1475,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 2.81,
+        "motion": 17.75,
+        "edge": 14.2,
+        "yavg": 199.6,
+        "frames": 630,
+        "seconds": 12.83
+      },
       "mp4": "media/style-19.mp4",
       "poster": "media/style-19.jpg",
       "source": "钢笔淡彩：以诺书月球.mp4",
@@ -1146,6 +1505,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "白底极简，15s 半圆碗结构最完整",
+        "seconds": 15.0
+      },
       "mp4": "media/style-20.mp4",
       "poster": "media/style-20.jpg",
       "source": "ascii 1.mp4",
@@ -1168,6 +1532,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "ASCII 点阵近白屏，23s 有条形图与文字",
+        "seconds": 23.0
+      },
       "mp4": "media/style-21.mp4",
       "poster": "media/style-21.jpg",
       "source": "bauhaus.mp4",
@@ -1190,6 +1559,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 66.69,
+        "motion": 14.49,
+        "edge": 2.1,
+        "yavg": 58.8,
+        "frames": 900,
+        "seconds": 16.63
+      },
       "mp4": "media/style-22.mp4",
       "poster": "media/style-22.jpg",
       "source": "blueprint 1.mp4",
@@ -1212,6 +1589,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 17.36,
+        "motion": 5.9,
+        "edge": 9.0,
+        "yavg": 77.9,
+        "frames": 900,
+        "seconds": 8.27
+      },
       "mp4": "media/style-23.mp4",
       "poster": "media/style-23.jpg",
       "source": "chat.mp4",
@@ -1234,6 +1619,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "白底 UI，19s 对话含表情图标最生动",
+        "seconds": 19.0
+      },
       "mp4": "media/style-24.mp4",
       "poster": "media/style-24.jpg",
       "source": "collage 1.mp4",
@@ -1256,6 +1646,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 50.06,
+        "motion": 12.71,
+        "edge": 3.8,
+        "yavg": 169.5,
+        "frames": 900,
+        "seconds": 26.67
+      },
       "mp4": "media/style-25.mp4",
       "poster": "media/style-25.jpg",
       "source": "cutout.mp4",
@@ -1278,6 +1676,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 6.25,
+        "motion": 12.57,
+        "edge": 3.9,
+        "yavg": 81.7,
+        "frames": 900,
+        "seconds": 2.4
+      },
       "mp4": "media/style-26.mp4",
       "poster": "media/style-26.jpg",
       "source": "dossier 1.mp4",
@@ -1300,6 +1706,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "财报文字页，19s 有数据表与卡片",
+        "seconds": 19.0
+      },
       "mp4": "media/style-27.mp4",
       "poster": "media/style-27.jpg",
       "source": "drawnworld 1.mp4",
@@ -1322,6 +1733,10 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "fallback": "no-valid-frame",
+        "seconds": 2.0
+      },
       "mp4": "media/style-28.mp4",
       "poster": "media/style-28.jpg",
       "source": "filmroom.mp4",
@@ -1344,6 +1759,14 @@
       "height": 1080,
       "aspect": "4:3",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 62.22,
+        "motion": 12.25,
+        "edge": 12.5,
+        "yavg": 96.1,
+        "frames": 900,
+        "seconds": 1.9
+      },
       "mp4": "media/style-29.mp4",
       "poster": "media/style-29.jpg",
       "source": "goldenage.mp4",
@@ -1366,6 +1789,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 5.87,
+        "motion": 8.31,
+        "edge": 15.9,
+        "yavg": 86.4,
+        "frames": 900,
+        "seconds": 8.8
+      },
       "mp4": "media/style-30.mp4",
       "poster": "media/style-30.jpg",
       "source": "grain.mp4",
@@ -1388,6 +1819,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "扁平建筑空镜，7s 有红色标记与箭头",
+        "seconds": 7.0
+      },
       "mp4": "media/style-31.mp4",
       "poster": "media/style-31.jpg",
       "source": "ink.mp4",
@@ -1410,6 +1846,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "水墨山水空镜，15s 有日轮与竖排书法",
+        "seconds": 15.0
+      },
       "mp4": "media/style-32.mp4",
       "poster": "media/style-32.jpg",
       "source": "isometric 1.mp4",
@@ -1432,6 +1873,14 @@
       "height": 1920,
       "aspect": "9:16",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 50.27,
+        "motion": 16.44,
+        "edge": 14.5,
+        "yavg": 147.8,
+        "frames": 900,
+        "seconds": 25.57
+      },
       "mp4": "media/style-33.mp4",
       "poster": "media/style-33.jpg",
       "source": "isometric.mp4",
@@ -1454,6 +1903,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 11.08,
+        "motion": 14.1,
+        "edge": 9.3,
+        "yavg": 178.9,
+        "frames": 900,
+        "seconds": 12.77
+      },
       "mp4": "media/style-34.mp4",
       "poster": "media/style-34.jpg",
       "source": "launch.mp4",
@@ -1476,6 +1933,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "英文 UI 截图，15s 多卡片列表信息最密",
+        "seconds": 15.0
+      },
       "mp4": "media/style-35.mp4",
       "poster": "media/style-35.jpg",
       "source": "lumen.mp4",
@@ -1498,6 +1960,11 @@
       "height": 1920,
       "aspect": "9:16",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "紫色模糊抽象，3s 有黄衣角色",
+        "seconds": 3.0
+      },
       "mp4": "media/style-36.mp4",
       "poster": "media/style-36.jpg",
       "source": "manga.mp4",
@@ -1520,6 +1987,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 2.17,
+        "motion": 17.99,
+        "edge": 59.3,
+        "yavg": 169.9,
+        "frames": 900,
+        "seconds": 14.53
+      },
       "mp4": "media/style-37.mp4",
       "poster": "media/style-37.jpg",
       "source": "map.mp4",
@@ -1542,6 +2017,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 9.31,
+        "motion": 3.73,
+        "edge": 7.9,
+        "yavg": 192.0,
+        "frames": 900,
+        "seconds": 28.23
+      },
       "mp4": "media/style-38.mp4",
       "poster": "media/style-38.jpg",
       "source": "mystery.mp4",
@@ -1564,6 +2047,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 16.59,
+        "motion": 6.39,
+        "edge": 5.9,
+        "yavg": 88.2,
+        "frames": 900,
+        "seconds": 8.97
+      },
       "mp4": "media/style-39.mp4",
       "poster": "media/style-39.jpg",
       "source": "newsreel.mp4",
@@ -1586,6 +2077,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 22.3,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "卫星空镜，11s 有两人对谈实拍",
+        "seconds": 11.0
+      },
       "mp4": "media/style-40.mp4",
       "poster": "media/style-40.jpg",
       "source": "op.mp4",
@@ -1608,6 +2104,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 3.3,
+        "motion": 25.01,
+        "edge": 54.0,
+        "yavg": 132.6,
+        "frames": 669,
+        "seconds": 15.37
+      },
       "mp4": "media/style-41.mp4",
       "poster": "media/style-41.jpg",
       "source": "origami.mp4",
@@ -1630,6 +2134,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "白底文字卡，11s 有红黑图解块",
+        "seconds": 11.0
+      },
       "mp4": "media/style-42.mp4",
       "poster": "media/style-42.jpg",
       "source": "parable 1.mp4",
@@ -1652,6 +2161,14 @@
       "height": 1920,
       "aspect": "9:16",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 4.55,
+        "motion": 0.79,
+        "edge": 3.5,
+        "yavg": 29.0,
+        "frames": 900,
+        "seconds": 27.47
+      },
       "mp4": "media/style-43.mp4",
       "poster": "media/style-43.jpg",
       "source": "parable.mp4",
@@ -1674,6 +2191,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 2.85,
+        "motion": 2.06,
+        "edge": 3.6,
+        "yavg": 34.8,
+        "frames": 900,
+        "seconds": 18.33
+      },
       "mp4": "media/style-44.mp4",
       "poster": "media/style-44.jpg",
       "source": "pencil.mp4",
@@ -1696,6 +2221,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 5.76,
+        "motion": 1.86,
+        "edge": 4.9,
+        "yavg": 203.3,
+        "frames": 900,
+        "seconds": 4.97
+      },
       "mp4": "media/style-45.mp4",
       "poster": "media/style-45.jpg",
       "source": "pixel.mp4",
@@ -1718,6 +2251,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "深色噪点，15s 像素人物+色板",
+        "seconds": 15.0
+      },
       "mp4": "media/style-46.mp4",
       "poster": "media/style-46.jpg",
       "source": "pop.mp4",
@@ -1740,6 +2278,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 1.75,
+        "motion": 6.48,
+        "edge": 19.9,
+        "yavg": 184.4,
+        "frames": 900,
+        "seconds": 1.0
+      },
       "mp4": "media/style-47.mp4",
       "poster": "media/style-47.jpg",
       "source": "riso.mp4",
@@ -1762,6 +2308,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "粉色空镜/字卡，3s 品牌构图最完整",
+        "seconds": 3.0
+      },
       "mp4": "media/style-48.mp4",
       "poster": "media/style-48.jpg",
       "source": "shadow.mp4",
@@ -1784,6 +2335,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 8.76,
+        "motion": 7.51,
+        "edge": 2.7,
+        "yavg": 72.1,
+        "frames": 900,
+        "seconds": 19.53
+      },
       "mp4": "media/style-49.mp4",
       "poster": "media/style-49.jpg",
       "source": "storybook 1.mp4",
@@ -1806,6 +2365,14 @@
       "height": 1920,
       "aspect": "9:16",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "score": 2.45,
+        "motion": 12.06,
+        "edge": 16.0,
+        "yavg": 190.2,
+        "frames": 900,
+        "seconds": 28.7
+      },
       "mp4": "media/style-50.mp4",
       "poster": "media/style-50.jpg",
       "source": "storybook.mp4",
@@ -1828,6 +2395,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "白底 UI，27s 有小角色与纸箱动作",
+        "seconds": 27.0
+      },
       "mp4": "media/style-51.mp4",
       "poster": "media/style-51.jpg",
       "source": "swiss.mp4",
@@ -1850,6 +2422,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "标题字墙，15s 多卡片信息最密",
+        "seconds": 15.0
+      },
       "mp4": "media/style-52.mp4",
       "poster": "media/style-52.jpg",
       "source": "tapestry.mp4",
@@ -1872,6 +2449,14 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 27.5,
+      "poster_pick": {
+        "score": 1.32,
+        "motion": 7.57,
+        "edge": 15.2,
+        "yavg": 150.9,
+        "frames": 900,
+        "seconds": 6.7
+      },
       "mp4": "media/style-53.mp4",
       "poster": "media/style-53.jpg",
       "source": "toy3d.mp4",
@@ -1894,6 +2479,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "避开 Linear logo 卡，15s 是构建界面",
+        "seconds": 15.0
+      },
       "mp4": "media/style-54.mp4",
       "poster": "media/style-54.jpg",
       "source": "trailer.mp4",
@@ -1916,6 +2506,11 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "黑底文字卡，19s 有人物剪影站在光环中",
+        "seconds": 19.0
+      },
       "mp4": "media/style-55.mp4",
       "poster": "media/style-55.jpg",
       "source": "whiteboard.mp4",
