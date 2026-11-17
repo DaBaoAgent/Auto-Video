@@ -1,11 +1,13 @@
+import os
+YANDI = os.environ.get("YANDI_DIR", "")   # 设 YANDI_DIR 指向 yandi 项目根
 # -*- coding: utf-8 -*-
 """批量抠图：把 _raw 下的白底 JPG 批量转成 1254x1254 RGBA PNG，落到 人物/道具 子目录。"""
 import os, subprocess, sys
 
-BASE = r"D:\@kaifa\yandi\output\001_波斯湾伊甸园_口播稿+配音\波斯湾伊甸园故事常用素材_透明PNG_v1"
+BASE = rf"{YANDI}\output\001_波斯湾伊甸园_口播稿+配音\波斯湾伊甸园故事常用素材_透明PNG_v1"
 RAW = os.path.join(BASE, "_raw")
-PY = r"D:\@kaifa\yandi\vendor\gpt-sovits\.venv\Scripts\python.exe"
-SCRIPT = r"D:\@kaifa\yandi\tools\white2alpha.py"
+PY = rf"{YANDI}\vendor\gpt-sovits\.venv\Scripts\python.exe"
+SCRIPT = rf"{YANDI}\tools\white2alpha.py"
 
 # (raw_filename, 子目录, 中文名)
 JOBS = [

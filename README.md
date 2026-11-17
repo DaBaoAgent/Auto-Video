@@ -17,6 +17,10 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 
 **[▶ 在线样片站](https://dabaoagent.github.io/Auto-Video/)** —— 悬停即播、按工位分组、按横屏/竖屏和时长筛，点开有声播放。
 
+<img src="site/media/teaser.gif" width="78%" alt="四条管线各两秒：彩铅科普 / 漫画分格 / 水墨手绘 / 三维城市">
+
+<sub>↑ 8 秒、2.3 MB，四条管线各取两秒 —— 彩铅 · 漫画分格 · 水墨 · 三维城市，全是本仓库代码渲的。</sub>
+
 </div>
 
 <div align="center">

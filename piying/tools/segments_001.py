@@ -1,6 +1,8 @@
+import os
+YANDI = os.environ.get("YANDI_DIR", "")   # 设 YANDI_DIR 指向 yandi 项目根
 # -*- coding: utf-8 -*-
 import json
-d = json.load(open(r'D:\@kaifa\yandi\output\001_波斯湾伊甸园_口播稿+配音\配音.transcript.json', encoding='utf-8'))
+d = json.load(open(rf'{YANDI}\output\001_波斯湾伊甸园_口播稿+配音\配音.transcript.json', encoding='utf-8'))
 words = [(w['start'], w['end'], w['text']) for w in d]
 
 # 长停顿切语音段（gap>=0.18）

@@ -18,7 +18,12 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import os
 import re
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "tools"))
+from platform_paths import font_candidates  # noqa: E402
 import shutil
 import subprocess
 import sys
@@ -26,11 +31,7 @@ import sys
 from PIL import Image, ImageDraw, ImageFont
 
 PUNCT = "，。、；：？！…—·「」『』（）()《》〈〉【】\"'“”‘’,.!?;:-~～"
-DEFAULT_FONTS = [
-    r"MicrosoftYaHeiBold.ttc",
-    r"C:\Windows\Fonts\msyhbd.ttc",
-    r"C:\Windows\Fonts\msyh.ttc",
-]
+DEFAULT_FONTS = font_candidates(["msyhbd.ttc", "msyh.ttc"])
 
 
 def strip_punct(text):
@@ -79,7 +80,7 @@ def main():
     ap.add_argument("--timeline", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--font", default=None)
-    ap.add_argument("--mpt", default=os.environ.get("SHIPAI_MPT", r"D:\@kaifa\MoneyPrinterTurbo"))
+    ap.add_argument("--mpt", default=os.environ.get("SHIPAI_MPT", ""))
     ap.add_argument("--size", type=int, default=60)
     ap.add_argument("--min-size", type=int, default=44)
     ap.add_argument("--stroke", type=int, default=2)

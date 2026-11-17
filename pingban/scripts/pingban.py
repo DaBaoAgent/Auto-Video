@@ -22,6 +22,8 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 PIPELINE = Path(__file__).resolve().parent.parent      # pingban/
 PROJECTS = PIPELINE / "projects"
+# 渲染器统一用仓库根的唯一副本（vendor/bb-video/runtime/render-legacy.mjs）
+RENDER = PIPELINE.parent / "vendor" / "bb-video" / "runtime" / "render-legacy.mjs"
 SKELETON = "038_guanyu_sketch"
 GRAIN = 1
 LUFS, TRUE_PEAK = -14.0, -1.5
@@ -108,14 +110,14 @@ def cmd_new(a):
 # —— stills ——
 def cmd_stills(a):
     p = resolve(a.slug)
-    render = Path(__file__).parent / "render.mjs"
+    render = RENDER
     run(["node", render, p, "--still", a.times])
 
 
 # —— render ——
 def cmd_render(a):
     p = resolve(a.slug)
-    render = Path(__file__).parent / "render.mjs"
+    render = RENDER
     out = a.out or (p / "out" / "video.mp4")
     cmd = ["node", render, p, "--fps", str(a.fps), "--out", out]
     if a.start is not None:

@@ -14,8 +14,11 @@ from PIL import Image, ImageDraw, ImageFont
 
 import tcfg
 
-FONTS = [r"C:\Windows\Fonts\msyh.ttc", r"C:\Windows\Fonts\simhei.ttf",
-         r"C:\Windows\Fonts\simsun.ttc"]
+REPO = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO / "tools"))
+from platform_paths import font_candidates  # noqa: E402
+
+FONTS = font_candidates(["msyh.ttc", "simhei.ttf", "simsun.ttc"])
 
 
 def font(size: int) -> ImageFont.FreeTypeFont:

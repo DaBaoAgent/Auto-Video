@@ -6,7 +6,7 @@ import sys
 import time
 import urllib.request
 
-ROOT = r"D:\@kaifa\tushuo"
+ROOT = os.environ.get("ZHIDIAO_ROOT", "")  # 设 ZHIDIAO_ROOT 指向底图/素材根
 env = open(ROOT + r"\.env", encoding="utf-8", errors="ignore").read()
 KEY = re.search(r"^MODELSCOPE_API_KEY=(\S+)", env, re.M).group(1)
 cfg = json.load(open(ROOT + r"\content\warring-states-20min\shots.json", encoding="utf-8"))

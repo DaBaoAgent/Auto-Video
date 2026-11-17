@@ -10,7 +10,7 @@
 import os, sys, subprocess
 from pathlib import Path
 
-MODEL = os.environ.get("BFE_ALIGN_MODEL", r"C:\Users\20200\.cache\battlefield-editor\faster-whisper-small")
+MODEL = os.environ.get("BFE_ALIGN_MODEL") or str(Path.home() / ".cache" / "battlefield-editor" / "faster-whisper-small")
 
 
 def srt_time(t):

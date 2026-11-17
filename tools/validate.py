@@ -9,7 +9,7 @@
 
 用法：
     python tools/validate.py
-    python tools/validate.py --samples-dir "D:\\BaiduSyncdisk\\@同步\\1 MG 动画\\管线样片"
+    python tools/validate.py --samples-dir "$SAMPLES_DIR"   # 指向你同步盘里的管线样片目录
 退出码 1 = 有 error；只有 warn 时返回 0。
 """
 

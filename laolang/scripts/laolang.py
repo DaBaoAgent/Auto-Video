@@ -18,7 +18,7 @@
   python scripts/laolang.py covers <工程目录> --title 片名 [--subtitle 副标题] [--time 秒]   # 备用：截帧封面
   python scripts/laolang.py deliver <工程目录> --name <片名> [--title 片名] [--seq 1] [--chugao <根目录>]
   # 交付契约见 references/delivery.md：根目录默认 <laolang>/out，子目录 "<序号> <片名>/"
-  # 移动成片后，封面与发布信息一律调用 D:\@kaifa\fengmian（build / covers / gate）
+  # 移动成片后，封面与发布信息调用 fengmian（build / covers / gate），路径由 $FENGMIAN_DIR 指定
 
 前置：Node 18+、ffmpeg/ffprobe 在 PATH、Chrome 或 Edge（设置 CHROME_PATH；Windows 下未设时自动找本机 Chrome/Edge）。
 short-qa 另需 numpy 与 Pillow（可选；没有就只用 qa 的 ffmpeg 检查）。
@@ -44,23 +44,9 @@ ROOT = os.path.dirname(HERE)                 # <style>/
 RUNTIME = os.path.join(ROOT, "runtime")
 TEMPLATE = os.path.join(ROOT, "template")
 
-CHROME_CANDIDATES = [
-    os.environ.get("CHROME_PATH", ""),
-    r"C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe",
-    r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-    r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-    r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
-    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    "/usr/bin/google-chrome",
-    "/usr/bin/chromium",
-]
-
-
-def chrome_path():
-    for p in CHROME_CANDIDATES:
-        if p and os.path.exists(p):
-            return p
-    return os.environ.get("CHROME_PATH")
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(REPO, "tools"))
+from platform_paths import chrome_path, font_candidates  # noqa: E402  浏览器/字体统一探测
 
 
 def env_with_runtime():
@@ -409,15 +395,14 @@ def cmd_qa(args):
     sys.exit(0 if ok else 1)
 
 
-FONT_CANDIDATES = [
-    r"C:\Windows\Fonts\STXINGKA.TTF",       # 华文行楷：标题毛笔
-    r"C:\Windows\Fonts\STXINWEI.TTF",
-    r"C:\Windows\Fonts\msyhbd.ttc",
-    r"C:\Windows\Fonts\msyh.ttc",
-    r"C:\Windows\Fonts\simhei.ttf",
-    "/System/Library/Fonts/STHeiti Medium.ttc",
-    "/usr/share/fonts/opentype/noto/NotoSerifCJK-Bold.ttc",
-]
+FONT_CANDIDATES = font_candidates([
+    "STXINGKA.TTF",   # 华文行楷：标题毛笔
+    "STXINWEI.TTF",
+    "msyhbd.ttc",
+    "msyh.ttc",
+    "simhei.ttf",
+    "NotoSerifCJK-Bold.ttc",
+])
 
 
 def _font_path():
@@ -477,7 +462,7 @@ def make_covers(proj, video, t, title, subtitle):
     try:
         from PIL import Image, ImageDraw, ImageFont, ImageFilter
     except Exception:
-        sys.exit("covers 需要 Pillow：用 D:\\@kaifa\\tools\\python-media\\Scripts\\python.exe 运行")
+        sys.exit("covers 需要 Pillow：pip install pillow（或用装了它的解释器运行）")
     fp = _font_path()
     if not fp:
         sys.exit("找不到中文字体（试过 STXINGKA / STXINWEI / msyh / simhei）")
@@ -601,8 +586,7 @@ def _fengmian():
     """封面与发布信息的最后一道模块：优先仓库内 fengmian/，其次 FENGMIAN_DIR，最后老路径。"""
     root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     for d in (os.environ.get("FENGMIAN_DIR"),
-              os.path.join(root, "fengmian"),
-              r"D:\@kaifa\fengmian"):
+              os.path.join(root, "fengmian")):
         if d and os.path.exists(os.path.join(d, "fengmian.py")):
             return d, os.path.join(d, "fengmian.py")
     sys.exit("找不到 fengmian：仓库内 fengmian/ 缺失（或设 FENGMIAN_DIR 指向 fengmian 目录）")
@@ -619,7 +603,7 @@ def run_fengmian(sub, argv):
 def cmd_deliver(args):
     """交付契约（2026-11-11 宝哥定）：out/<序号> <片名>/。
 
-    移动成片 + 建交付子目录由本命令做；封面与发布信息一律调用 D:\\@kaifa\\fengmian：
+    移动成片 + 建交付子目录由本命令做；封面与发布信息调用 $FENGMIAN_DIR 指向的 fengmian：
     fengmian build → 发布信息.txt + 源文件/封面提示词-4比3|3比4.txt + 封面元信息.json
     fengmian covers → 封面-4比3.png（2048×1536）/ 封面-3比4.png（1536×2048）
     fengmian gate → 交付根多余封面/提示词门禁

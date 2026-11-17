@@ -1,0 +1,17 @@
+# Auto-Video 核心依赖
+#
+# 结论先说：**33 条管线里的模板 / Canvas / Node 那 20 多条，只需要三样东西**——
+#   python 3.10+（只用标准库）、node 18+、一个 Chrome / Edge / Chromium、以及 ffmpeg（PATH 里能找到就行）
+#
+# 所以这个文件默认是空的：装上面四样，`python demo/run.py` 就能出片。
+#
+# 需要配音 / 字幕 / 转录 / 音频分析的那几条管线，装可选项：
+#   pip install -r requirements-optional.txt
+#
+# 环境变量（都不是必填，找不到会自动探测）：
+#   CHROME_PATH     浏览器可执行文件
+#   FFMPEG_PATH     ffmpeg 可执行文件
+#   BV_FRAME_TIMEOUT  单帧渲染超时秒数（默认 60 / 120）
+#   GPT_SOVITS_PRESET  jianying / lishi 用的音色预设 json
+#
+# 详见 README 的「30 秒先看到东西」与 docs/pipelines.md。

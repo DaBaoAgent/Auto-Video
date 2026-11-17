@@ -121,7 +121,7 @@ def find_model(explicit=None):
         roots.append(os.path.join(os.environ["HF_HOME"], "hub"))
     roots += [
         os.path.expanduser("~/.cache/huggingface/hub"),
-        r"D:\cache_backup\huggingface\hub",
+        os.environ.get("HF_HUB_CACHE", ""),
     ]
     for root in roots:
         if not root or not os.path.isdir(root):

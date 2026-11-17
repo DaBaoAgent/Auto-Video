@@ -21,21 +21,69 @@ import net from 'node:net';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer-core';
 import events from 'node:events';
 events.defaultMaxListeners = 100;
 
+// —— 收尾与超时（2026-11-17 补）——
+// 每帧动作都有上限（BV_FRAME_TIMEOUT，默认 120s）；任何异常 / 信号 / 正常退出都会把 Chrome 与 ffmpeg 的
+// 进程树杀掉，不再留 msedge / chrome 僵尸。
+const FRAME_TIMEOUT = Math.max(5, +(process.env.BV_FRAME_TIMEOUT || 120)) * 1000;
+const PROCS = [];
+function reap(proc) {
+  if (!proc || proc.exitCode !== null || proc.signalCode) return;
+  try {
+    if (process.platform === 'win32') spawnSync('taskkill', ['/PID', String(proc.pid), '/T', '/F'], { stdio: 'ignore' });
+    else { try { process.kill(-proc.pid, 'SIGKILL'); } catch { proc.kill('SIGKILL'); } }
+  } catch {}
+}
+const reapAll = () => { for (const p of PROCS) reap(p); };
+process.once('exit', reapAll);
+for (const sig of ['SIGINT', 'SIGTERM', 'SIGHUP']) process.once(sig, () => { reapAll(); process.exit(1); });
+function withTimeout(promise, ms, label) {
+  let timer;
+  const guard = new Promise((_, rej) => { timer = setTimeout(() => rej(new Error(`${label} 超时 ${ms / 1000}s（BV_FRAME_TIMEOUT 可调）`)), ms); });
+  return Promise.race([promise, guard]).finally(() => clearTimeout(timer));
+}
+
+// —— 浏览器定位：$MG_CHROME / $CHROME_PATH → 各平台常见安装位置 → PATH 上的 chrome/msedge/chromium ——
+function findBrowser() {
+  const fromEnv = process.env.MG_CHROME || process.env.CHROME_PATH;
+  if (fromEnv && fs.existsSync(fromEnv)) return fromEnv;
+  const win = [
+    'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+    'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
+    'C:/Program Files/Microsoft/Edge/Application/msedge.exe',
+  ];
+  const mac = [
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge',
+    '/Applications/Chromium.app/Contents/MacOS/Chromium',
+  ];
+  const lin = ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/snap/bin/chromium'];
+  const list = process.platform === 'win32' ? win : process.platform === 'darwin' ? mac : lin;
+  for (const p of list) if (fs.existsSync(p)) return p;
+  for (const name of ['chrome', 'google-chrome', 'chromium', 'msedge']) {
+    const r = spawnSync(process.platform === 'win32' ? 'where' : 'which', [name], { encoding: 'utf8' });
+    if (r.status === 0 && r.stdout.trim()) return r.stdout.trim().split(/\r?\n/)[0];
+  }
+  return null;
+}
+
 // shouhui 改造：站点根 = 工程目录（MG_SITE），依赖根 = mg-styles-15 克隆（MG_VENDOR）
 const VENDOR = process.env.MG_VENDOR
   ? path.resolve(process.env.MG_VENDOR)
-  : path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../vendor/mg-styles-15');
+  : path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../mg-styles-15');
 const SITE = process.env.MG_SITE ? path.resolve(process.env.MG_SITE) : VENDOR;
 const ROOT = SITE;
-const CHROME = process.env.MG_CHROME || (process.platform === 'win32'
-  ? 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'
-  : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome');
+const CHROME = findBrowser();
+if (!CHROME) {
+  console.error('✗ 找不到 Chrome / Edge / Chromium。装一个，或用 $CHROME_PATH（$MG_CHROME 也行）指向它。');
+  process.exit(2);
+}
 // GPU flags: ANGLE/Metal on macOS; on Linux (e.g. the NVIDIA render box) default to ANGLE/Vulkan, override with MG_GPU_ARGS.
 const GPU_ARGS = process.env.MG_GPU_ARGS ? process.env.MG_GPU_ARGS.split(' ').filter(Boolean)
   : process.platform === 'darwin' ? ['--use-angle=metal']
@@ -105,10 +153,10 @@ async function openPage(browser, url, w, h, logPrefix) {
 }
 
 async function seek(page, t) {
-  await page.evaluate(async (t) => {
+  await withTimeout(page.evaluate(async (t) => {
     for (const a of document.getAnimations()) { try { a.pause(); a.currentTime = t * 1000; } catch {} }
     if (typeof window.renderAt === 'function') await window.renderAt(t);
-  }, t);
+  }, t), FRAME_TIMEOUT, `画 ${t.toFixed(2)}s`);
 }
 
 async function linkAt(page, t) {
@@ -116,11 +164,14 @@ async function linkAt(page, t) {
 }
 
 async function shot(page, w, h) {
-  return page.screenshot({ type: 'png', clip: { x: 0, y: 0, width: w, height: h }, optimizeForSpeed: true, captureBeyondViewport: false });
+  return withTimeout(
+    page.screenshot({ type: 'png', clip: { x: 0, y: 0, width: w, height: h }, optimizeForSpeed: true, captureBeyondViewport: false }),
+    FRAME_TIMEOUT, '截图');
 }
 
 function ffmpeg(args, opts = {}) {
   const p = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', ...args], { stdio: ['pipe', 'inherit', 'inherit'], ...opts });
+  PROCS.push(p);
   const done = new Promise((res, rej) => p.on('close', (c) => (c === 0 ? res() : rej(new Error('ffmpeg exit ' + c)))));
   return { p, done };
 }
@@ -214,6 +265,7 @@ async function main() {
       '--no-first-run', '--no-default-browser-check', '--disable-extensions',
       'about:blank',
     ], { stdio: 'ignore' });
+    PROCS.push(proc);
     const wsUrl = await new Promise((res, rej) => {
       const t0 = Date.now();
       const tick = async () => {
@@ -346,11 +398,20 @@ async function main() {
     fs.rmSync(tmp, { recursive: true, force: true });
     console.log(`done → ${out}  (${((performance.now() - t0) / 1000).toFixed(1)}s${audio && !args.noaudio ? ', with audio ' + path.relative(ROOT, audio) : ', no audio'})`);
   } finally {
-    for (const b of extra) { await b.close().catch(() => {}); try { b._proc?.kill(); fs.rmSync(b._udd, { recursive: true, force: true }); } catch {} }
+    for (const b of extra) {
+      await b.close().catch(() => {});
+      reap(b._proc);
+      try { fs.rmSync(b._udd, { recursive: true, force: true }); } catch {}
+    }
     await browser.close().catch(() => {});
-    try { browser._proc?.kill(); fs.rmSync(browser._udd, { recursive: true, force: true }); } catch {}
+    reap(browser._proc);
+    try { fs.rmSync(browser._udd, { recursive: true, force: true }); } catch {}
+    reapAll();
     srv.close();
   }
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+main().then(
+  () => process.exit(0),
+  (e) => { console.error(e); reapAll(); process.exit(1); }
+);

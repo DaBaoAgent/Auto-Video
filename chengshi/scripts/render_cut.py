@@ -23,13 +23,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 TEMPLATE = ROOT / "chengshi" / "template"
-EDGE = Path(r"C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe")
-FF_FALLBACK = Path(r"C:/Users/20200/bin/ffmpeg.exe")
-FP_FALLBACK = Path(r"C:/Users/20200/bin/ffprobe.exe")
+sys.path.insert(0, str(ROOT / "tools"))
+from platform_paths import chrome_path, ffmpeg_path, ffprobe_path  # noqa: E402
+EDGE = Path(chrome_path()) if chrome_path() else None
+FF_FALLBACK = Path(ffmpeg_path()) if ffmpeg_path() else None
+FP_FALLBACK = Path(ffprobe_path()) if ffprobe_path() else None
 
 
 def exe(name, fallback):
-    if Path(fallback).exists():
+    if fallback and Path(fallback).exists():
         return str(fallback)
     found = shutil.which(name)
     if found:

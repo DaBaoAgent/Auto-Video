@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """xuni 全片：从 009 的段落/块/ASR 建从句级字幕 + 分镜表。
@@ -208,6 +209,14 @@ def make_lines(clauses, mx=16):
     merged = [x for x in merged if core(x['text'])]
     return merged
 
+
+# 字体按需补齐：仓库只留 assets/fonts 单份，渲染前同步到本工程（缺字体只影响字形，不中断渲染）
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "tools"))
+    from sync_fonts import ensure as _ensure_fonts
+    _ensure_fonts("xuni")
+except Exception:
+    pass
 
 def main():
     ap = argparse.ArgumentParser()

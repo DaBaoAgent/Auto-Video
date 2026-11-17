@@ -33,23 +33,9 @@ ROOT = os.path.dirname(HERE)                 # <style>/
 RUNTIME = os.path.join(ROOT, "runtime")
 TEMPLATE = os.path.join(ROOT, "template")
 
-CHROME_CANDIDATES = [
-    os.environ.get("CHROME_PATH", ""),
-    r"C:\Users\Administrator\AppData\Local\Google\Chrome\Application\chrome.exe",
-    r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-    r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-    r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
-    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-    "/usr/bin/google-chrome",
-    "/usr/bin/chromium",
-]
-
-
-def chrome_path():
-    for p in CHROME_CANDIDATES:
-        if p and os.path.exists(p):
-            return p
-    return os.environ.get("CHROME_PATH")
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(REPO, "tools"))
+from platform_paths import chrome_path  # noqa: E402  浏览器统一探测，不再写死盘符
 
 
 def env_with_runtime():

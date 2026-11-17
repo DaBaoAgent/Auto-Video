@@ -18,7 +18,7 @@ import time
 import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-KEY_FILE = r"D:\BaiduSyncdisk\2 @AI编程\Api Key\智普 glm-5.3 flash.txt"
+KEY_FILE = os.environ.get("ZHIPU_KEY_FILE", "")  # 设 ZHIPU_KEY_FILE 指向含 key 的文本
 SHOTS = os.path.join(ROOT, "content", "warring-states-20min", "shots.json")
 OUT_DIR = os.path.join(ROOT, "content", "warring-states-20min", "shots", "_ms-test")
 S02_PNG = os.path.join(ROOT, "content", "warring-states-20min", "shots", "s02.png")

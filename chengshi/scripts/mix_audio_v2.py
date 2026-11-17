@@ -22,7 +22,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]          # Auto-Video/
-FF_FALLBACK = Path(r"C:/Users/20200/bin/ffmpeg.exe")
+FF_FALLBACK = Path(ffmpeg_path()) if ffmpeg_path() else None
 VOICE_EXTS = (".wav", ".mp3", ".flac", ".m4a")
 
 

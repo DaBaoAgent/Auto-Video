@@ -1,0 +1,32 @@
+name: contract
+
+# 契约门禁：catalog / targets / frontend 是否对得上，共享运行时有没有被改歪，文档有没有断链。
+# 这一条以前靠人记得跑，结果就出现过「15 份 render.mjs 里 4 份是旧版」这种事 —— 现在每次 push 都查。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 语法检查（自有 Python 全编译）
+        run: python tools/check_syntax.py
+
+      - name: 契约一致（33 条 / 11 工位 / frontend 覆盖）
+        run: python tools/validate.py
+
+      - name: 共享运行时一致
+        run: python tools/sync_runtime.py --check
+
+      - name: 文档与站点引用
+        run: python tools/check_links.py

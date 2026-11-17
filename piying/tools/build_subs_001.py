@@ -1,6 +1,8 @@
+import os
+YANDI = os.environ.get("YANDI_DIR", "")   # 设 YANDI_DIR 指向 yandi 项目根
 # -*- coding: utf-8 -*-
 import json, re
-d = json.load(open(r'D:\@kaifa\yandi\output\001_波斯湾伊甸园_口播稿+配音\配音.transcript.json', encoding='utf-8'))
+d = json.load(open(rf'{YANDI}\output\001_波斯湾伊甸园_口播稿+配音\配音.transcript.json', encoding='utf-8'))
 words = [(w['start'], w['end'], w['text']) for w in d]
 # 全文拼接
 full = ''.join(w[2] for w in words)
@@ -21,7 +23,7 @@ for i, (s, e, t) in enumerate(words):
     if gi < len(gaps) and gaps[gi][3] == i:
         out.append('\n')
         gi += 1
-open(r'D:\@kaifa\yandi\yandi-video\render\posiwan\transcript_segments.txt', 'w', encoding='utf-8').write('\n'.join(''.join(out).split('\n')))
+open(rf'{YANDI}\yandi-video\render\posiwan\transcript_segments.txt', 'w', encoding='utf-8').write('\n'.join(''.join(out).split('\n')))
 print('--- 全文（按停顿分行）---')
 seg = ''.join(out)
 for line in seg.split('\n'):

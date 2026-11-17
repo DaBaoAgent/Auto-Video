@@ -16,6 +16,8 @@
 """
 from __future__ import annotations
 
+import os
+
 import argparse
 import json
 import shutil
@@ -237,6 +239,14 @@ def cmd_all(P: Paths, concurrency: int, crf: int) -> None:
 
 
 # ------------------------------- 入口 -------------------------------
+
+# 字体按需补齐：仓库只留 assets/fonts 单份，渲染前同步到本工程（缺字体只影响字形，不中断渲染）
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "tools"))
+    from sync_fonts import ensure as _ensure_fonts
+    _ensure_fonts("lishi")
+except Exception:
+    pass
 
 def main() -> None:
     ap = argparse.ArgumentParser(prog="lishi", description="历史科普短片管线")

@@ -1,0 +1,21 @@
+# 可选依赖：只有需要配音 / 字幕 / 转录 / 音频分析的管线才装。
+# 模板类管线（pencil / manga / isometric / blueprint / tapestry / shadow / parable / goldenage / laolang / map）
+# 一条都不需要。
+
+# 画面与图像（caiqian 的字体子集、laolang 的封面、shipai 的字幕烧录）
+Pillow>=10.0
+
+# 音频测量与混音（所有管线的 LUFS 门禁都走 ffmpeg，这里的库用于更细的分析）
+numpy>=1.24
+soundfile>=0.12
+scipy>=1.10
+
+# 语音 / 字幕
+faster-whisper>=1.0        # shipai 的 ASR、tuiyan 的参考转录
+av>=11                     # 部分管线的音视频读写
+pypinyin>=0.50             # 中文断句与拼音提示
+requests>=2.31             # 调本地 GPT-SoVITS / 其他本地服务
+
+# 说明：
+# - 配音本身走本地 GPT-SoVITS HTTP 服务（peiyin 工位），不需要在这里装 torch。
+# - 三维地图 / 兵棋推演那两条要 node 侧依赖（three / playwright-core），见各自 README。

@@ -38,6 +38,8 @@ import urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 STYLE_ROOT = os.path.dirname(HERE)
 RUNTIME = os.path.join(STYLE_ROOT, "runtime")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(STYLE_ROOT)), "tools"))
+from platform_paths import chrome_path  # noqa: E402  浏览器统一探测
 OCR_URL = "http://127.0.0.1:18224/api/ocr"
 
 CJK = re.compile(r"[\u3400-\u9fff0-9A-Za-z]")
@@ -340,7 +342,7 @@ def run_captions(proj, html_path, T):
     if not html_path or not os.path.exists(html_path):
         return {"ok": False, "errors": ["找不到页面（--html）"], "captions": []}
     env = dict(os.environ)
-    chrome = os.environ.get("CHROME_PATH") or r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+    chrome = os.environ.get("CHROME_PATH") or chrome_path()
     if os.path.exists(chrome):
         env["CHROME_PATH"] = chrome
     cmd = ["node", os.path.join(RUNTIME, "render.mjs"), proj]

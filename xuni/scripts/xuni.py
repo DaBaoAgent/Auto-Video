@@ -290,6 +290,14 @@ def cmd_probe(a):
     outs = sorted((p / 'out').glob('*.mp4'))
     for q in outs: print(f'  MP4 {q.name}  {q.stat().st_size/1e6:.1f} MB')
 
+# 字体按需补齐：仓库只留 assets/fonts 单份，渲染前同步到本工程（缺字体只影响字形，不中断渲染）
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "tools"))
+    from sync_fonts import ensure as _ensure_fonts
+    _ensure_fonts("xuni")
+except Exception:
+    pass
+
 def main():
     ap = argparse.ArgumentParser(description='xuni synthwave pipeline')
     sub = ap.add_subparsers(dest='cmd', required=True)

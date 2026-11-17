@@ -12,7 +12,7 @@ tools/poster_overrides.json 手工钉秒（优先于自动选帧）。改完用 
 
 用法：
     python tools/build_samples.py
-    python tools/build_samples.py --src "D:\\BaiduSyncdisk\\@同步\\1 MG 动画\\管线样片" --force
+    python tools/build_samples.py --src "$SAMPLES_DIR" --force
     python tools/build_samples.py --posters-only
 """
 
@@ -29,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from av import (REPO, SITE_DIR, human_duration, load_pipelines, probe,
                 run, utf8_stdout, write_json)
 
-DEFAULT_SRC = Path(r"D:\BaiduSyncdisk\@同步\1 MG 动画\管线样片")
+DEFAULT_SRC = Path(os.environ.get("SAMPLES_DIR") or (Path.home() / "Auto-Video-samples"))   # 用 $SAMPLES_DIR 指定
 OVERRIDES = REPO / "tools" / "poster_overrides.json"
 
 

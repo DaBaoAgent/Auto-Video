@@ -19,7 +19,9 @@ import json, os, re, shutil, subprocess, sys, time
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SH = os.path.join(ROOT, 'shouhui')
 VENDOR = os.path.join(ROOT, 'vendor', 'mg-styles-15')
-EDGE = os.environ.get('MG_CHROME', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe')
+EDGE = os.environ.get('MG_CHROME') or os.environ.get('CHROME_PATH') or ''
+# 渲染器统一用仓库根的唯一副本；浏览器路径由它自己按 $CHROME_PATH / $MG_CHROME → 各平台常见位置 解析
+RENDER = os.path.join(ROOT, 'vendor', 'bb-video', 'runtime', 'render-mg.mjs')
 
 
 def P(slug):
@@ -112,20 +114,24 @@ def measure_lufs(path):
 
 def env():
     e = dict(os.environ)
-    e.update({'MG_VENDOR': VENDOR, 'MG_SITE': '', 'MG_GPU_ARGS': '--disable-gpu --no-sandbox', 'MG_CHROME': EDGE})
+    e.update({'MG_VENDOR': VENDOR, 'MG_SITE': '', 'MG_GPU_ARGS': '--disable-gpu --no-sandbox'})
+    if EDGE:
+        e['MG_CHROME'] = EDGE
+    else:
+        e.pop('MG_CHROME', None)   # 交给渲染器自己找 Chrome/Edge/Chromium
     return e
 
 
 def cmd_stills(slug, times):
     d = P(slug); e = env(); e['MG_SITE'] = d
-    run(['node', os.path.join(SH, 'scripts', 'render.mjs'), d, '--stills', times], env=e)
+    run(['node', RENDER, d, '--stills', times], env=e)
 
 
 def cmd_render(slug):
     fj = load(slug); d = P(slug); e = env(); e['MG_SITE'] = d
     out = os.path.join(d, 'out', fj.get('out_name', f"{fj['slug']}.mp4"))
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    run(['node', os.path.join(SH, 'scripts', 'render.mjs'), d, '--out', out,
+    run(['node', RENDER, d, '--out', out,
          '--audio', os.path.join(d, fj['audio']['mix']),
          '--fps', str(fj['render']['fps']), '--duration', str(fj['render']['duration']),
          '--crf', str(fj['render'].get('crf', 18))], env=e)
@@ -170,6 +176,14 @@ def cmd_probe(slug):
         p = os.path.join(d, rel)
         print(f"  {'✓' if os.path.exists(p) else '·'} {rel}" + (f"  {os.path.getsize(p)/1024:.0f} KB" if os.path.exists(p) else ''))
 
+
+# 字体按需补齐：仓库只留 assets/fonts 单份，渲染前同步到本工程（缺字体只影响字形，不中断渲染）
+try:
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "tools"))
+    from sync_fonts import ensure as _ensure_fonts
+    _ensure_fonts("shouhui")
+except Exception:
+    pass
 
 def main():
     if len(sys.argv) < 3:

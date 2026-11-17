@@ -23,6 +23,8 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 PIPELINE = Path(__file__).resolve().parent.parent      # caiqian/
 PROJECTS = PIPELINE / "projects"
+# 渲染器统一用仓库根的唯一副本（vendor/bb-video/runtime/render-legacy.mjs），不再各管线自带一份
+RENDER = PIPELINE.parent / "vendor" / "bb-video" / "runtime" / "render-legacy.mjs"
 SKELETON = "029_jia_xueyu"
 GRAIN = 1
 LUFS, TRUE_PEAK = -14.0, -1.5
@@ -133,14 +135,14 @@ def cmd_new(a):
 # —— stills ——
 def cmd_stills(a):
     p = resolve(a.slug)
-    render = Path(__file__).parent / "render.mjs"
+    render = RENDER
     run(["node", render, p, "--still", a.times])
 
 
 # —— render ——
 def cmd_render(a):
     p = resolve(a.slug)
-    render = Path(__file__).parent / "render.mjs"
+    render = RENDER
     length = a.end if a.end is not None else film_len(p)
     out = a.out or (p / "out" / "video.mp4")
     cmd = ["node", render, p, "--fps", str(a.fps), "--out", out]

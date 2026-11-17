@@ -21,7 +21,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]          # Auto-Video/
-FF_FALLBACK = Path(r"C:/Users/20200/bin/ffmpeg.exe")
+FF_FALLBACK = Path(ffmpeg_path()) if ffmpeg_path() else None
 EQ = ("bass=g=3:f=150,equalizer=f=250:t=q:w=1.5:g=2,"
       "equalizer=f=3000:t=q:w=1.5:g=2,highshelf=f=8000:g=1")
 

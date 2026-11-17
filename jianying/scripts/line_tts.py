@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -31,7 +32,7 @@ import numpy as np
 import requests
 import soundfile as sf
 
-PRESET = Path(r"D:\GPT-SoVITS\voices\dabao\preset.json")
+PRESET = Path(os.environ["GPT_SOVITS_PRESET"]) if os.environ.get("GPT_SOVITS_PRESET") else None
 SR = 44100
 
 
@@ -152,6 +153,8 @@ def main() -> None:
     if not args.text_file or not args.out:
         sys.exit("要么给 --project，要么同时给 --text-file 与 --out")
 
+    if not PRESET or not PRESET.is_file():
+        sys.exit("✗ 缺音色预设：设 GPT_SOVITS_PRESET=/path/to/voices/dabao/preset.json（里面是 voice/server/synthesis 三段）")
     cfg = json.loads(PRESET.read_text(encoding="utf-8"))
     voice, srv, syn = cfg["voice"], cfg["server"], cfg["synthesis"]
     post = cfg["postprocess"]

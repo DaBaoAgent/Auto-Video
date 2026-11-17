@@ -71,7 +71,7 @@ def meta(p):
 
 
 def lib_of(p):
-    lib = os.environ.get("LVDONG_LIB") or meta(p).get("lib") or r"D:\@kaifa\lemo-opuscar"
+    lib = os.environ.get("LVDONG_LIB") or meta(p).get("lib") or ""
     if not os.path.isdir(lib):
         die("library not found: %s (set LVDONG_LIB)" % lib)
     return lib
@@ -120,7 +120,7 @@ def cmd_new(a):
     open(os.path.join(src, "script.txt"), "w", encoding="utf-8").write(script)
     m = {
         "name": a.name, "title": title, "slug": "lvdong_" + re.sub(r"[^0-9A-Za-z_]", "_", a.name),
-        "style": "silhouette-rhythm", "lib": os.environ.get("LVDONG_LIB") or r"D:\@kaifa\lemo-opuscar",
+        "style": "silhouette-rhythm", "lib": os.environ.get("LVDONG_LIB") or "",
         "canvas": {"w": 1920, "h": 1080, "fps": 30},
         "duration": a.duration, "bpm": 90, "section_end": 0.0,
         "voice": "voice/source_full.wav", "script": "script.txt", "paras": paras, "drop": [],
