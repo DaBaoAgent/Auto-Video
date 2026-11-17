@@ -39,6 +39,17 @@ jilupian/
 
 ## 快速开始
 
+单入口（推荐）：`scripts/jilupian.py` 就是 `python -m autoup.run` 的壳，负责找解释器（`JILUPIAN_PY` → 本目录 `.venv` → 当前 python）、转发参数、缺依赖时直说缺哪个。
+
+```bash
+python scripts/jilupian.py check                 # 解释器 / 依赖 / ffmpeg / 本机配置
+python scripts/jilupian.py --batch 202611-A --manifest urls.txt
+python scripts/jilupian.py run --batch 202611-A --only s4,s5,s6 --force
+python scripts/jilupian.py --batch 202611-A --plan   # 只打印等价命令
+```
+
+底层命令（等价，需先 `uv sync`）：
+
 ```bash
 # 依赖：Python 3.11+、uv、ffmpeg/ffprobe（见 MIGRATION.md 引导下载）
 uv sync --all-extras --locked

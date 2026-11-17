@@ -11,7 +11,7 @@
     "engine": "3D 兵棋引擎 · 逐帧稳帧渲染",
     "aspect": "16:9",
     "fps": 30,
-    "entry": null,
+    "entry": "scripts/tuiyan.py",
     "status": "live",
     "sample": {
       "file": "tuiyan 3D 赤壁之战.mp4",

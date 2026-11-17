@@ -11,7 +11,7 @@
     "engine": "Canvas · Puppeteer 逐帧",
     "aspect": "16:9",
     "fps": 30,
-    "entry": null,
+    "entry": "scripts/xiangsu.py",
     "status": "live",
     "sample": {
       "file": "xiangsu 曹操.mp4",

@@ -289,6 +289,28 @@
       "bytes": 683948
     },
     {
+      "key": "tianshu",
+      "kind": "pipeline",
+      "pipeline": "tianshu",
+      "title": "镇魔塔",
+      "style": "天书奇谭",
+      "style_en": "Tianshu Cel",
+      "station": "toon",
+      "long_edge": 1280,
+      "max_seconds": 10.0,
+      "crf": 30,
+      "seconds": 41.0,
+      "duration": "0:41",
+      "width": 960,
+      "height": 720,
+      "aspect": "4:3",
+      "clip_seconds": 10.0,
+      "mp4": "media/tianshu.mp4",
+      "poster": "media/tianshu.jpg",
+      "source": "tianshu 镇魔塔.mp4",
+      "bytes": 485410
+    },
+    {
       "key": "shiliang",
       "kind": "pipeline",
       "pipeline": "shiliang",

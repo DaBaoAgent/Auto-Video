@@ -51,6 +51,7 @@ def main() -> int:
             "clip": m.get("clip_seconds"),
             "mp4": m.get("mp4"),
             "poster": m.get("poster"),
+            "note": p.get("sample_note"),
             "badge": p["engine"],
             "doc": DOC_URL.format(id=p["id"]),
         })

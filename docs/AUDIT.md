@@ -112,9 +112,9 @@ OK 契约一致
 
 | 项 | 数值 |
 | --- | --- |
-| 管线样片 | 27 条（6 条无样片：`zhidiao` `laolang` `lvdong` `tianshu` `jilupian` `peiyin`） |
+| 管线样片 | 28 条（4 条无样片：`zhidiao` `laolang` `lvdong` `jilupian`；`peiyin` 是配音前端，不出片，不计入缺样片） |
 | 风格样片 | 56 段（`BB-Video` 37 段 + 顶层年代命名 15 段 + 其余横向抽样），不进管线元数据 |
-| 合计 | 83 段网页短片 + 83 张封面，29.4 MB |
+| 合计 | 84 段网页短片 + 84 张封面，29.9 MB |
 | 字体 | 思源宋 600 子集 339 KB / 思源黑 400 子集 248 KB（754 个字） |
 
 站点设计对齐 `lemo-opuscar` 的语言但数字自定：深墨底 `#0b0a09`、纸色 `#ece4d6`、唯一暖色灯色 `#e9b47c`、衬线标题 + 无衬线标签 + 等宽数字、发丝线分隔。
@@ -126,14 +126,14 @@ OK 契约一致
 - 点击开**灯箱有声播放**，带片名 / 英文名 / 原片时长 / 试片时长 / 引擎 / 管线文档直链；
 - 样片库 5 列密集网格 + 全部 / 管线 / 风格 / 横屏 / 竖屏 / 一分钟以上筛选 + 搜索（`/` 聚焦）；
 - 键盘 `ESC` 关闭，`/` 聚焦搜索；
-- 无样片的管线显示「样片待补」，点击直达其 GitHub `SKILL.md`。
+- 无样片的管线显示「样片待补」，点击直达其 GitHub `SKILL.md`；`peiyin` 例外，显示「配音模块 · 无样片」（catalog 的 `sample_note` 字段驱动）。
 
 ---
 
 ## 六、遗留与下次接手
 
-1. **4 条 WARN**：需要真做单一入口，或把 WARN 改成显式的 `entry: null` + 文档说明；
-2. **6 条无样片**：`zhidiao`、`laolang`、`lvdong`、`tianshu`、`jilupian`、`peiyin` 待补录制；
+1. ~~**4 条 WARN**~~：已清零。`piying` / `xiangsu` / `tuiyan` / `jilupian` 各补了 `scripts/<id>.py` 单一入口（真实串联原有 node/bash/`python -m autoup.run` 步骤，带 `check` / `--plan`），catalog 的 `entry` 与各自 `pipeline.json` 的 `meta.entry` 已同步，`validate.py` 报 `OK 契约一致`、0 WARN。
+2. ~~**6 条无样片**~~：`tianshu` 已接《镇魔塔》41.0 s（`tianshu 镇魔塔.mp4`）；`peiyin` 已标注为配音前端、不出片、不需要样片（catalog `sample_note` + 站点卡片 + README 清单三处一致）。剩下 4 条真缺：`zhidiao`、`laolang`、`lvdong`、`jilupian`。
 3. **`youxi`（仁德天皇陵 192.7 s）** 仍是「待封装」状态，未进 catalog；
 4. **`showcase/`** 350 MB 旧原片保留未删（README 已改成站点用 `site/media/`），如需瘦身可后续单独处理；
 5. 站点的 `samples.json` / `data.js` / `media/` 是**生成物**，但为了 Pages 不跑 ffmpeg 而**入库**；换素材时重跑 `build_samples.py` + `build_site.py` 即可。

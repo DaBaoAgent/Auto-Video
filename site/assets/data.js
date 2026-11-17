@@ -110,6 +110,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/jianying.mp4",
    "poster": "media/jianying.jpg",
+   "note": null,
    "badge": "Remotion",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/jianying/SKILL.md"
   },
@@ -131,6 +132,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/lishi.mp4",
    "poster": "media/lishi.jpg",
+   "note": null,
    "badge": "Remotion",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/lishi/SKILL.md"
   },
@@ -152,6 +154,7 @@ window.AV = {
    "clip": null,
    "mp4": null,
    "poster": null,
+   "note": null,
    "badge": "HyperFrames",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/zhidiao/SKILL.md"
   },
@@ -173,6 +176,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/shouhui.mp4",
    "poster": "media/shouhui.jpg",
+   "note": null,
    "badge": "Canvas 逐帧 · 浏览器渲染",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/shouhui/SKILL.md"
   },
@@ -194,6 +198,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/pencil.mp4",
    "poster": "media/pencil.jpg",
+   "note": null,
    "badge": "Canvas · Chrome 逐帧",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pencil/SKILL.md"
   },
@@ -215,6 +220,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/caiqian.mp4",
    "poster": "media/caiqian.jpg",
+   "note": null,
    "badge": "G-buffer + 后处理",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/caiqian/SKILL.md"
   },
@@ -236,6 +242,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/pingban.mp4",
    "poster": "media/pingban.jpg",
+   "note": null,
    "badge": "纯 Canvas · 零依赖",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pingban/SKILL.md"
   },
@@ -257,6 +264,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/piying.mp4",
    "poster": "media/piying.jpg",
+   "note": null,
    "badge": "Playwright + Canvas 逐帧",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/piying/SKILL.md"
   },
@@ -278,6 +286,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/shuimo.mp4",
    "poster": "media/shuimo.jpg",
+   "note": null,
    "badge": "SVG + Canvas",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/shuimo/SKILL.md"
   },
@@ -299,6 +308,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/shadow.mp4",
    "poster": "media/shadow.jpg",
+   "note": null,
    "badge": "Canvas · Chrome 逐帧",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/shadow/SKILL.md"
   },
@@ -320,6 +330,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/tapestry.mp4",
    "poster": "media/tapestry.jpg",
+   "note": null,
    "badge": "Canvas · Chrome 逐帧",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/tapestry/SKILL.md"
   },
@@ -341,6 +352,7 @@ window.AV = {
    "clip": null,
    "mp4": null,
    "poster": null,
+   "note": null,
    "badge": "Canvas · Chrome 逐帧",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/laolang/SKILL.md"
   },
@@ -362,6 +374,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/goldenage.mp4",
    "poster": "media/goldenage.jpg",
+   "note": null,
    "badge": "Canvas · Chrome 逐帧",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/goldenage/SKILL.md"
   },
@@ -383,6 +396,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/manga.mp4",
    "poster": "media/manga.jpg",
+   "note": null,
    "badge": "Canvas · Chrome 逐帧",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/manga/SKILL.md"
   },
@@ -404,6 +418,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/xiangsu.mp4",
    "poster": "media/xiangsu.jpg",
+   "note": null,
    "badge": "Canvas · Puppeteer 逐帧",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/xiangsu/SKILL.md"
   },
@@ -416,15 +431,16 @@ window.AV = {
    "no": "16",
    "name_zh": "天书奇谭",
    "name_en": "Tianshu Cel",
-   "title": "",
+   "title": "镇魔塔",
    "engine": "ComfyUI + Wan2.2",
    "tagline": "本地 ComfyUI 出定帧、Wan2.2 出氛围动态，逐镜锚定原片亮度与饱和。",
    "aspect": "4:3",
-   "seconds": null,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "seconds": 41.0,
+   "duration": "0:41",
+   "clip": 10.0,
+   "mp4": "media/tianshu.mp4",
+   "poster": "media/tianshu.jpg",
+   "note": null,
    "badge": "ComfyUI + Wan2.2",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/tianshu/SKILL.md"
   },
@@ -446,6 +462,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/shiliang.mp4",
    "poster": "media/shiliang.jpg",
+   "note": null,
    "badge": "SVG 单页 · 逐帧确定性渲染",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/shiliang/SKILL.md"
   },
@@ -467,6 +484,7 @@ window.AV = {
    "clip": null,
    "mp4": null,
    "poster": null,
+   "note": null,
    "badge": "Canvas + 着色器 · 代码合成配乐",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/lvdong/SKILL.md"
   },
@@ -488,6 +506,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/huixingzhen.mp4",
    "poster": "media/huixingzhen.jpg",
+   "note": null,
    "badge": "HTML 逐帧 · 确定性渲染",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/huixingzhen/SKILL.md"
   },
@@ -509,6 +528,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/bianping.mp4",
    "poster": "media/bianping.jpg",
+   "note": null,
    "badge": "SVG 代码绘制 · lemo-opuscar core/render",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/bianping/SKILL.md"
   },
@@ -530,6 +550,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/xianshiqi.mp4",
    "poster": "media/xianshiqi.jpg",
+   "note": null,
    "badge": "Three.js + Canvas FUI 覆盖层",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/xianshiqi/SKILL.md"
   },
@@ -551,6 +572,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/xuni.mp4",
    "poster": "media/xuni.jpg",
+   "note": null,
    "badge": "Three.js + Canvas + VHS 后处理",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/xuni/SKILL.md"
   },
@@ -572,6 +594,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/tuiyan.mp4",
    "poster": "media/tuiyan.jpg",
+   "note": null,
    "badge": "3D 兵棋引擎 · 逐帧稳帧渲染",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/tuiyan/SKILL.md"
   },
@@ -593,6 +616,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/chengshi.mp4",
    "poster": "media/chengshi.jpg",
+   "note": null,
    "badge": "Three.js + Remotion",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/chengshi/SKILL.md"
   },
@@ -614,6 +638,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/dengju.mp4",
    "poster": "media/dengju.jpg",
+   "note": null,
    "badge": "Three.js 正交场景",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/dengju/SKILL.md"
   },
@@ -635,6 +660,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/isometric.mp4",
    "poster": "media/isometric.jpg",
+   "note": null,
    "badge": "Canvas · Chrome 逐帧",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/isometric/SKILL.md"
   },
@@ -656,6 +682,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/map.mp4",
    "poster": "media/map.jpg",
+   "note": null,
    "badge": "Chrome 逐帧 + ffmpeg",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/map/SKILL.md"
   },
@@ -677,6 +704,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/ditu.mp4",
    "poster": "media/ditu.jpg",
+   "note": null,
    "badge": "WebGL · 高程驱动水面",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/ditu/SKILL.md"
   },
@@ -698,6 +726,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/blueprint.mp4",
    "poster": "media/blueprint.jpg",
+   "note": null,
    "badge": "Canvas · Chrome 逐帧",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/blueprint/SKILL.md"
   },
@@ -719,6 +748,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/parable.mp4",
    "poster": "media/parable.jpg",
+   "note": null,
    "badge": "Three.js · 固定广角",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/parable/SKILL.md"
   },
@@ -740,6 +770,7 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/shipai.mp4",
    "poster": "media/shipai.jpg",
+   "note": null,
    "badge": "MoneyPrinterTurbo + ffmpeg",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/shipai/SKILL.md"
   },
@@ -761,6 +792,7 @@ window.AV = {
    "clip": null,
    "mp4": null,
    "poster": null,
+   "note": null,
    "badge": "S1–S9 流水线",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/jilupian/SKILL.md"
   },
@@ -782,6 +814,7 @@ window.AV = {
    "clip": null,
    "mp4": null,
    "poster": null,
+   "note": "配音前端：只出口播稿与配音，不出片，因此不需要样片",
    "badge": "GPT-SoVITS · 长稿分段合成",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/peiyin/SKILL.md"
   },

@@ -35,6 +35,18 @@ piying/
 
 ## 快速开始
 
+单入口（推荐）：`scripts/piying.py` 把下面六步 node 串成一条，缺 node / ffmpeg 会先告诉你。
+
+```powershell
+python scripts/piying.py check          # node / ffmpeg / 渲染目录自检
+python scripts/piying.py plan full      # 只打印将要执行的六条命令
+python scripts/piying.py full           # gen → qc → audit → capture → sfx → gate
+python scripts/piying.py sample         # 10 秒样片链路
+python scripts/piying.py gate           # 只跑交付门禁；其余阶段可单独点名
+```
+
+底层命令（入口内部就是按这个顺序调用的）：
+
 ```bash
 cd piying
 npm ci

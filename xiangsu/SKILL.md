@@ -73,6 +73,17 @@ xiangsu/
 
 ## 快速开始
 
+单入口（推荐）：`scripts/xiangsu.py` 负责找 bash（PATH → Git for Windows → `XIANGSU_BASH`）、检查环境变量，再按样片 / 全片两条链调对应 bash 脚本。
+
+```powershell
+python scripts/xiangsu.py check            # bash / node / ffmpeg / 渲染仓库 / numpy 自检
+python scripts/xiangsu.py plan demo        # 只打印命令
+python scripts/xiangsu.py demo             # 10 秒样片：音轨 → 渲染 → 验收
+python scripts/xiangsu.py full             # 全片：assemble → 音轨 → 渲染 → 验收
+python scripts/xiangsu.py verify --file <mp4>   # 四项验收
+python scripts/xiangsu.py covers -- --t43 12 --t34 30
+```
+
 10 秒样片（伊甸园前 10 秒）：
 
 ```powershell

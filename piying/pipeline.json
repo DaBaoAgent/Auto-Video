@@ -11,7 +11,7 @@
     "engine": "Playwright + Canvas 逐帧",
     "aspect": "16:9",
     "fps": 30,
-    "entry": null,
+    "entry": "scripts/piying.py",
     "status": "live",
     "sample": {
       "file": "piying 波斯湾伊甸园.mp4",

@@ -39,6 +39,19 @@ tuiyan/
 
 ## 常用命令（在 `vendor/battlefield-editor` 目录执行）
 
+单入口（推荐）：`scripts/tuiyan.py` 会自己切到引擎目录、按序串起校验与渲染，`--out` 缺省落在 `tuiyan/out/<时间戳>/`。
+
+```powershell
+python scripts/tuiyan.py check              # node / ffmpeg / 引擎 / 赤壁包自检
+python scripts/tuiyan.py plan all --out <目录>   # 只打印命令
+python scripts/tuiyan.py data               # 数据 Schema 校验
+python scripts/tuiyan.py audio              # 音频与中文残留
+python scripts/tuiyan.py zh                 # 繁体英文门禁（errors: 0）
+python scripts/tuiyan.py render --out <目录>     # 全片稳帧渲染（--detach 走后台启动器）
+python scripts/tuiyan.py all --out <目录>        # data → audio → zh → render → publish
+```
+
+底层命令：
 ```bash
 # 数据校验（含 Schema）
 node tools/validate-data.mjs --pkg packages/chibi-full/battlefield.json

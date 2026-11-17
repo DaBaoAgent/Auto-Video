@@ -11,7 +11,7 @@
     "engine": "S1–S9 流水线",
     "aspect": null,
     "fps": null,
-    "entry": null,
+    "entry": "scripts/jilupian.py",
     "status": "beta",
     "sample": null,
     "updated": "2026-11-15"

@@ -71,7 +71,7 @@
       pl.setAttribute("aria-hidden", "true");
       shot.appendChild(pl);
     } else {
-      shot.appendChild(el("span", null, "样片待补"));
+      shot.appendChild(el("span", null, esc(it.note || "样片待补")));
     }
     card.appendChild(shot);
 
@@ -147,7 +147,13 @@
 
     const foot = el("div", "station__foot");
     foot.appendChild(el("q", null, esc(st.line)));
-    foot.appendChild(el("div", "meta", `${esc(st.name_en)} · ${list.filter(x => x.mp4).length}/${list.length} 有样片`));
+    const withSample = list.filter((x) => x.mp4).length;
+    const films = list.filter((x) => !x.note).length;
+    const fronts = list.length - films;
+    const tally = films
+      ? `${withSample}/${films} 有样片` + (fronts ? ` · ${fronts} 个前端模块` : "")
+      : `${fronts} 个前端模块 · 不出片`;
+    foot.appendChild(el("div", "meta", `${esc(st.name_en)} · ${tally}`));
     sec.appendChild(foot);
 
     host.appendChild(sec);

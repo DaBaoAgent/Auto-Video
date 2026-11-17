@@ -12,8 +12,12 @@
     "aspect": "4:3",
     "fps": null,
     "entry": "scripts/tianshu.py",
-    "status": "beta",
-    "sample": null,
+    "status": "live",
+    "sample": {
+      "file": "tianshu 镇魔塔.mp4",
+      "title": "镇魔塔",
+      "seconds": 41.0
+    },
     "updated": "2026-11-15"
   },
   "version": "2026-11-15",

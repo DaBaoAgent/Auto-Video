@@ -96,7 +96,7 @@
       "engine": "Playwright + Canvas 逐帧",
       "aspect": "16:9",
       "fps": 30,
-      "entry": null,
+      "entry": "scripts/piying.py",
       "sample": { "file": "piying 波斯湾伊甸园.mp4", "title": "波斯湾伊甸园", "seconds": 272.2 }
     },
     {
@@ -180,7 +180,7 @@
       "engine": "Canvas · Puppeteer 逐帧",
       "aspect": "16:9",
       "fps": 30,
-      "entry": null,
+      "entry": "scripts/xiangsu.py",
       "sample": { "file": "xiangsu 曹操.mp4", "title": "曹操", "seconds": 29.4 }
     },
     {
@@ -193,7 +193,7 @@
       "aspect": "4:3",
       "fps": null,
       "entry": "scripts/tianshu.py",
-      "sample": null
+      "sample": { "file": "tianshu 镇魔塔.mp4", "title": "镇魔塔", "seconds": 41.0 }
     },
     {
       "id": "shiliang",
@@ -276,7 +276,7 @@
       "engine": "3D 兵棋引擎 · 逐帧稳帧渲染",
       "aspect": "16:9",
       "fps": 30,
-      "entry": null,
+      "entry": "scripts/tuiyan.py",
       "sample": { "file": "tuiyan 3D 赤壁之战.mp4", "title": "赤壁之战", "seconds": 539.8 }
     },
     {
@@ -384,7 +384,7 @@
       "engine": "S1–S9 流水线",
       "aspect": null,
       "fps": null,
-      "entry": null,
+      "entry": "scripts/jilupian.py",
       "sample": null
     },
     {
@@ -397,7 +397,8 @@
       "aspect": null,
       "fps": null,
       "entry": "scripts/synthesize_dabao_paragraphs.py",
-      "sample": null
+      "sample": null,
+      "sample_note": "配音前端：只出口播稿与配音，不出片，因此不需要样片"
     }
   ]
 }
