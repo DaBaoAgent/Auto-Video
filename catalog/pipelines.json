@@ -145,7 +145,7 @@
       "aspect": "4:3",
       "fps": 30,
       "entry": "scripts/laolang.py",
-      "sample": null
+      "sample": { "file": "laolang 玄奘.mp4", "title": "玄奘", "seconds": 62.2 }
     },
     {
       "id": "goldenage",
@@ -385,7 +385,7 @@
       "aspect": null,
       "fps": null,
       "entry": "scripts/jilupian.py",
-      "sample": null
+      "sample": { "file": "jilupian 一口气看完日本3000年!从蒙古使者被砍头到两颗原子弹 这个国家的故事比权游还刺激#.mp4", "title": "一口气看完日本3000年", "seconds": 818.4 }
     },
     {
       "id": "peiyin",

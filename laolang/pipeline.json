@@ -12,8 +12,12 @@
     "aspect": "4:3",
     "fps": 30,
     "entry": "scripts/laolang.py",
-    "status": "beta",
-    "sample": null,
+    "status": "live",
+    "sample": {
+      "file": "laolang 玄奘.mp4",
+      "title": "玄奘",
+      "seconds": 62.2
+    },
     "updated": "2026-11-15"
   },
   "version": "2026-11-11",

@@ -12,8 +12,12 @@
     "aspect": null,
     "fps": null,
     "entry": "scripts/jilupian.py",
-    "status": "beta",
-    "sample": null,
+    "status": "live",
+    "sample": {
+      "file": "jilupian 一口气看完日本3000年!从蒙古使者被砍头到两颗原子弹 这个国家的故事比权游还刺激#.mp4",
+      "title": "一口气看完日本3000年",
+      "seconds": 818.4
+    },
     "updated": "2026-11-15"
   },
   "spec": {

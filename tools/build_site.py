@@ -45,7 +45,7 @@ def main() -> int:
             "title": (p.get("sample") or {}).get("title", ""),
             "engine": p["engine"],
             "tagline": p["tagline"],
-            "aspect": p["aspect"] or m.get("aspect") or "16:9",
+            "aspect": m.get("aspect") or p["aspect"] or "16:9",
             "seconds": m.get("seconds") or (p.get("sample") or {}).get("seconds"),
             "duration": m.get("duration") or "—",
             "clip": m.get("clip_seconds"),
