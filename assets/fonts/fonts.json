@@ -1,45 +1,48 @@
 {
-  "_note": "字体不进仓库。第一次渲染前跑 `python tools/sync_fonts.py --fetch` 按这里的地址下载，落到 assets/fonts/ 后校验 SHA256；已下载的文件被 .gitignore 忽略。",
+  "_note": "字体不进仓库。第一次渲染前跑 `python tools/sync_fonts.py --fetch` 按这里的地址下载，落到 assets/fonts/ 后校验 SHA256；已下载的文件被 .gitignore 忽略。地址按优先级排列，第一个失败会试下一个；全部失败时脚本会打印手动放置路径。",
   "fonts": {
     "NotoSerifSC.ttf": {
       "license": "OFL-1.1",
-      "size_mb": 24.0,
+      "size_mb": 24.2,
       "sha256": "a4aed9985a5916fbf6690456f8732a9fccd517938e353165d4142b4f11a39280",
       "urls": [
-        "https://github.com/notofonts/noto-cjk/raw/main/Serif/SubsetOTF/SC/NotoSerifSC-Regular.otf",
-        "https://fonts.google.com/download?family=Noto%20Serif%20SC"
-      ]
+        "https://github.com/google/fonts/raw/main/ofl/notoserifsc/NotoSerifSC%5Bwght%5D.ttf"
+      ],
+      "note": "Google Fonts 的变量字体，和仓库里原来那份静态字重视觉一致"
     },
     "LXGWWenKai-Regular.ttf": {
       "license": "OFL-1.1",
       "size_mb": 23.6,
       "sha256": "8d6ba638ac9553413354cfaab97637c1cd778444e259441ea1e5f8fb2c697fba",
       "urls": [
-        "https://github.com/lxgw/LxgwWenKai/releases/download/v1.520/LXGWWenKai-Regular.ttf"
-      ]
+        "https://github.com/lxgw/LxgwWenKai/releases/download/v1.520/LXGWWenKai-Regular.ttf",
+        "https://github.com/lxgw/LxgwWenKai/raw/main/fonts/TTF/LXGWWenKai-Regular.ttf"
+      ],
+      "note": "楷体的 OFL 替代；没有系统楷体的机器用它"
     },
     "AlibabaPuHuiTi-3-85-Bold.ttf": {
       "license": "Alibaba PuHuiTi free commercial use",
       "size_mb": 8.0,
       "sha256": "d50f483fd8d9f95f9edbecdc199aee5fa9ddc5db8027f0d80334c3f502af61c8",
-      "urls": [
-        "https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-85-Bold/AlibabaPuHuiTi-3-85-Bold.ttf"
-      ]
+      "urls": [],
+      "manual": "https://www.alibabafonts.com/#/font",
+      "note": "官方只提供填表下载，没有稳定直链；跑 --fetch 会提示手动放到 assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf"
     },
     "LongCang-Regular.ttf": {
       "license": "OFL-1.1",
       "size_mb": 4.9,
       "sha256": "e5bf2c3f24ef2327c6f136d8f73e2f9dfdf44896fdbeb35a9515f44777bb91bc",
       "urls": [
-        "https://github.com/googlefonts/longcang/raw/main/fonts/ttf/LongCang-Regular.ttf"
+        "https://github.com/google/fonts/raw/main/ofl/longcang/LongCang-Regular.ttf"
       ]
     },
     "LXGWMarkerGothic-Regular.ttf": {
       "license": "OFL-1.1",
-      "size_mb": 3.0,
-      "sha256": "dfc9b27ef9e83024d5926d4a1feb70604eaf8c16aa73659c81d75a22accadae4",
+      "size_mb": 3.45,
+      "sha256": "04fb5eb130519fc590cdfc317f03a8892fdc2dada180332a879012a74172998a",
       "urls": [
-        "https://github.com/lxgw/LxgwMarkerGothic/releases/latest/download/LXGWMarkerGothic-Regular.ttf"
+        "https://raw.githubusercontent.com/lxgw/LxgwMarkerGothic/main/fonts/ttf/LXGWMarkerGothic-Regular.ttf",
+        "https://github.com/lxgw/LxgwMarkerGothic/raw/main/fonts/ttf/LXGWMarkerGothic-Regular.ttf"
       ]
     }
   }

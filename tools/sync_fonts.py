@@ -25,7 +25,9 @@ import hashlib
 import json
 import os
 import shutil
+import subprocess
 import sys
+import time
 import urllib.request
 from pathlib import Path
 
@@ -67,6 +69,46 @@ def sha256(path):
     return h.hexdigest()
 
 
+def _try_download(url, dst, quiet):
+    """先 urllib（重试一次），不行再退回 curl —— 有些代理环境下 urllib 的 TLS 会 EOF，curl 却正常。"""
+    tmp = dst.with_suffix(".part")
+    for attempt in (1, 2):
+        try:
+            if not quiet:
+                print(f"  ↓ {dst.name} ← {url}" + ("（重试）" if attempt > 1 else ""))
+            req = urllib.request.Request(url, headers={"User-Agent": "Auto-Video-sync-fonts/1.0"})
+            with urllib.request.urlopen(req, timeout=180) as r, open(tmp, "wb") as f:
+                shutil.copyfileobj(r, f)
+            if tmp.stat().st_size < 100 * 1024:
+                raise ValueError(f"文件太小（{tmp.stat().st_size} 字节），可能是网页不是字体")
+            return True
+        except Exception as e:
+            if not quiet:
+                print(f"    × {e}")
+            if tmp.exists():
+                tmp.unlink()
+            if attempt == 1:
+                time.sleep(2)
+    # curl 兜底
+    curl = shutil.which("curl")
+    if curl:
+        try:
+            if not quiet:
+                print(f"  ↓ [curl] {dst.name} ← {url}")
+            r = subprocess.run([curl, "-L", "--fail", "--silent", "--show-error", "-o", str(tmp), url],
+                               capture_output=True, timeout=300)
+            if r.returncode == 0 and tmp.exists() and tmp.stat().st_size > 100 * 1024:
+                return True
+            if not quiet:
+                print(f"    × curl 退出码 {r.returncode} {(r.stderr or b'').decode('utf-8', 'ignore')[:120]}")
+        except Exception as e:
+            if not quiet:
+                print(f"    × curl 失败：{e}")
+        if tmp.exists():
+            tmp.unlink()
+    return False
+
+
 def fetch(only=None, quiet=False):
     """按 fonts.json 下载缺失的单份字体，校验 SHA256（不一致只警告，因为官方地址版本会更新）。"""
     if not MANIFEST_JSON.exists():
@@ -83,30 +125,22 @@ def fetch(only=None, quiet=False):
             if not quiet:
                 print(f"  = {name} 已存在（{dst.stat().st_size / 1048576:.1f} MB）")
             continue
+        got = False
         for url in info.get("urls", []):
-            tmp = dst.with_suffix(".part")
-            try:
-                if not quiet:
-                    print(f"  ↓ {name} ← {url}")
-                with urllib.request.urlopen(url, timeout=180) as r, open(tmp, "wb") as f:
-                    shutil.copyfileobj(r, f)
-                if tmp.stat().st_size < 100 * 1024:
-                    raise ValueError(f"文件太小（{tmp.stat().st_size} 字节），可能是网页不是字体")
-                tmp.replace(dst)
+            if _try_download(url, dst, quiet):
+                dst.with_suffix(".part").replace(dst)
                 digest = sha256(dst)
                 if digest != info.get("sha256"):
-                    print(f"    ! 指纹与记录不同（{digest[:12]}… vs {info.get('sha256','')[:12]}…），官方版本可能更新了，先照用")
+                    print(f"    ! 指纹与记录不同（{digest[:12]}… vs {info.get('sha256', '')[:12]}…），官方版本可能更新了，先照用")
                 else:
-                    print(f"    ✓ 指纹一致")
+                    print("    ✓ 指纹一致")
+                got = True
                 break
-            except Exception as e:
-                if not quiet:
-                    print(f"    × {e}")
-                if tmp.exists():
-                    tmp.unlink()
-        else:
+        if not got:
             ok = False
-            print(f"  ✗ {name} 全部地址都失败，请手动下载放到 assets/fonts/{name}")
+            manual = info.get("manual")
+            hint = f"，也可以从 {manual} 手动下载" if manual else ""
+            print(f"  ✗ {name} 没有成功的地址，请手动放到 assets/fonts/{name}{hint}")
     return ok
 
 
