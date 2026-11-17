@@ -5,12 +5,15 @@
     所以字体必须物理地待在工程目录里。之前每个工程各存一份，同一款字体在仓库里躺了 4–5 份。
 
 现在的规则：
-    - `assets/fonts/` 是唯一副本（OFL / 免费商用字体）；
-    - KaiTi 是微软 Windows 系统字体，**不进仓库**；渲染前从系统字体目录复制（`BV_FONT_KAI` 可切到 OFL 替代），
+    - 字体**不进仓库**：`assets/fonts/fonts.json` 记着官方下载地址与 SHA256，第一次用跑一次
+      `python tools/sync_fonts.py --fetch` 下载（60 MB 级别的东西不该躺在 git 历史里）；
+    - 下载下来的字体在 `assets/fonts/`，被 `.gitignore` 忽略；
+    - KaiTi 是微软 Windows 系统字体，**从来不入库**；渲染前从系统字体目录复制（`BV_FONT_KAI` 可另指一个文件），
       这样本机渲染字形和以前完全一致，公开仓库也不再分发专有字体；
-    - 复制出来的文件在 `.gitignore` 里，`git status` 不会变脏。
+    - 复制到工程目录的那些在 `.gitignore` 里，`git status` 不会变脏。
 
 用法：
+    python tools/sync_fonts.py --fetch    # 第一次用：下载 + 同步
     python tools/sync_fonts.py            # 同步所有登记过的工程
     python tools/sync_fonts.py --check    # 只检查（CI 用），不写文件
     python tools/sync_fonts.py --pipeline shouhui
@@ -18,13 +21,17 @@
 
 import argparse
 import filecmp
+import hashlib
+import json
 import os
 import shutil
 import sys
+import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CANON = ROOT / "assets" / "fonts"
+MANIFEST_JSON = CANON / "fonts.json"
 
 # 字体键 → assets/fonts 里的文件名（KaiTi 例外：从系统取）
 CANON_FILES = {
@@ -50,6 +57,57 @@ MANIFEST = {
     "xuni": [("projects/009_prion30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf", "alibaba"),
              ("projects/009_prion_full/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf", "alibaba")],
 }
+
+
+def sha256(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def fetch(only=None, quiet=False):
+    """按 fonts.json 下载缺失的单份字体，校验 SHA256（不一致只警告，因为官方地址版本会更新）。"""
+    if not MANIFEST_JSON.exists():
+        print(f"✗ 缺 {MANIFEST_JSON}")
+        return False
+    spec = json.loads(MANIFEST_JSON.read_text(encoding="utf-8"))["fonts"]
+    CANON.mkdir(parents=True, exist_ok=True)
+    ok = True
+    for name, info in spec.items():
+        if only and name != only:
+            continue
+        dst = CANON / name
+        if dst.exists() and dst.stat().st_size > 1024:
+            if not quiet:
+                print(f"  = {name} 已存在（{dst.stat().st_size / 1048576:.1f} MB）")
+            continue
+        for url in info.get("urls", []):
+            tmp = dst.with_suffix(".part")
+            try:
+                if not quiet:
+                    print(f"  ↓ {name} ← {url}")
+                with urllib.request.urlopen(url, timeout=180) as r, open(tmp, "wb") as f:
+                    shutil.copyfileobj(r, f)
+                if tmp.stat().st_size < 100 * 1024:
+                    raise ValueError(f"文件太小（{tmp.stat().st_size} 字节），可能是网页不是字体")
+                tmp.replace(dst)
+                digest = sha256(dst)
+                if digest != info.get("sha256"):
+                    print(f"    ! 指纹与记录不同（{digest[:12]}… vs {info.get('sha256','')[:12]}…），官方版本可能更新了，先照用")
+                else:
+                    print(f"    ✓ 指纹一致")
+                break
+            except Exception as e:
+                if not quiet:
+                    print(f"    × {e}")
+                if tmp.exists():
+                    tmp.unlink()
+        else:
+            ok = False
+            print(f"  ✗ {name} 全部地址都失败，请手动下载放到 assets/fonts/{name}")
+    return ok
 
 
 def system_kai():
@@ -113,8 +171,13 @@ def ensure(pipeline, verbose=False):
 def main():
     ap = argparse.ArgumentParser(description="把单份字体同步到各工程目录")
     ap.add_argument("--check", action="store_true", help="只检查，不写文件")
+    ap.add_argument("--fetch", action="store_true", help="先按 fonts.json 下载缺失的字体")
     ap.add_argument("--pipeline", help="只处理这一条管线")
     a = ap.parse_args()
+
+    if a.fetch:
+        if not fetch():
+            return 1
 
     problems, counts = [], {"ok": 0, "synced": 0}
     for pipeline, items in MANIFEST.items():

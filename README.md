@@ -39,6 +39,7 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 git clone https://github.com/DaBaoAgent/Auto-Video.git
 cd Auto-Video
 python demo/run.py            # 15 秒 960×540：不配音、不下载素材、不调云端 API
+python tools/sync_fonts.py --fetch   # 要跑真实管线时再执行：下载 5 款免费商用字体并复制到各工程
 ```
 
 本机没有 Python / Node / Chrome？用 Docker，镜像里全带了（chromium + ffmpeg + 中文字体）：

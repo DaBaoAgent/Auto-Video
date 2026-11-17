@@ -4,7 +4,8 @@
 
 ## 字体
 
-字体只在 `assets/fonts/` 存一份，渲染前由 `tools/sync_fonts.py` 复制到各工程目录（复制品在 `.gitignore` 里，不入库）。
+字体**不进仓库**：`assets/fonts/fonts.json` 记着官方下载地址与 SHA256，第一次用跑 `python tools/sync_fonts.py --fetch` 下载；
+下载物与复制到工程目录的副本都在 `.gitignore` 里。
 
 | 字体 | 文件 | 授权 | 用途 |
 |---|---|---|---|

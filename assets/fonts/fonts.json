@@ -1,0 +1,46 @@
+{
+  "_note": "字体不进仓库。第一次渲染前跑 `python tools/sync_fonts.py --fetch` 按这里的地址下载，落到 assets/fonts/ 后校验 SHA256；已下载的文件被 .gitignore 忽略。",
+  "fonts": {
+    "NotoSerifSC.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 24.0,
+      "sha256": "a4aed9985a5916fbf6690456f8732a9fccd517938e353165d4142b4f11a39280",
+      "urls": [
+        "https://github.com/notofonts/noto-cjk/raw/main/Serif/SubsetOTF/SC/NotoSerifSC-Regular.otf",
+        "https://fonts.google.com/download?family=Noto%20Serif%20SC"
+      ]
+    },
+    "LXGWWenKai-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 23.6,
+      "sha256": "8d6ba638ac9553413354cfaab97637c1cd778444e259441ea1e5f8fb2c697fba",
+      "urls": [
+        "https://github.com/lxgw/LxgwWenKai/releases/download/v1.520/LXGWWenKai-Regular.ttf"
+      ]
+    },
+    "AlibabaPuHuiTi-3-85-Bold.ttf": {
+      "license": "Alibaba PuHuiTi free commercial use",
+      "size_mb": 8.0,
+      "sha256": "d50f483fd8d9f95f9edbecdc199aee5fa9ddc5db8027f0d80334c3f502af61c8",
+      "urls": [
+        "https://puhuiti.oss-cn-hangzhou.aliyuncs.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-85-Bold/AlibabaPuHuiTi-3-85-Bold.ttf"
+      ]
+    },
+    "LongCang-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 4.9,
+      "sha256": "e5bf2c3f24ef2327c6f136d8f73e2f9dfdf44896fdbeb35a9515f44777bb91bc",
+      "urls": [
+        "https://github.com/googlefonts/longcang/raw/main/fonts/ttf/LongCang-Regular.ttf"
+      ]
+    },
+    "LXGWMarkerGothic-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 3.0,
+      "sha256": "dfc9b27ef9e83024d5926d4a1feb70604eaf8c16aa73659c81d75a22accadae4",
+      "urls": [
+        "https://github.com/lxgw/LxgwMarkerGothic/releases/latest/download/LXGWMarkerGothic-Regular.ttf"
+      ]
+    }
+  }
+}

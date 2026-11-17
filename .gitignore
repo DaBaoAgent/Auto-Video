@@ -290,3 +290,7 @@ shiliang/projects/010_shengming30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
 xianshiqi/projects/UAP30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
 xuni/projects/009_prion30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
 xuni/projects/009_prion_full/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
+
+# 字体本体不进仓库（assets/fonts/fonts.json 记地址，tools/sync_fonts.py --fetch 下载）
+assets/fonts/*.ttf
+assets/fonts/*.part
