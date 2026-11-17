@@ -1,6 +1,6 @@
 {
   "schema": "auto-video/frontend-targets@1",
-  "note": "每条管线在 frontend 里怎么被调用。BB-Video 派生的 10 条里有 new/vo 的标准缝；其中 laolang、map 的模板是数据驱动的，可以一条文案直接渲染；pencil / isometric / manga / tapestry / shadow / parable / goldenage / blueprint 的模板按具体片子分幕写死，frontend 只做 new + 灌文案与配音并交交接包，render 归人。其余 23 条按 reason 里的文档手动接最后一步。改这里不需要动 frontend.py。",
+  "note": "每条管线在 frontend 里怎么被调用。BB-Video 派生的 10 条都有 new/vo/render 标准缝：模板全部数据驱动（分幕从 timeline.json 长出来，见 lib/autoscene.js），一条文案可以直接出片；其余 23 条按 reason 里的文档手动接最后一步。改这里不需要动 frontend.py。",
   "pipelines": {
     "jianying": {
       "render": null,
@@ -21,7 +21,8 @@
     "pencil": {
       "new": "python {entry} new \"{proj}\" --title \"{title}\"",
       "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-      "reason": "模板按某条成片的 8 幕分幕写死（index.html 里 s('l1')…s('l8')），文案行数一变渲染器就报 `timeline: narration line id \"l2\" not found`。frontend 负责 new + 灌文案与配音，render 前需按新稿段落重写 index.html 的分幕；交接包在 04-交接包/"
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
     },
     "caiqian": {
       "render": null,
@@ -42,12 +43,14 @@
     "shadow": {
       "new": "python {entry} new \"{proj}\" --title \"{title}\"",
       "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-      "reason": "模板按某条成片的 8 幕分幕写死（index.html 里 s('l1')…s('l8')），文案行数一变渲染器就报 `timeline: narration line id \"l2\" not found`。frontend 负责 new + 灌文案与配音，render 前需按新稿段落重写 index.html 的分幕；交接包在 04-交接包/"
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
     },
     "tapestry": {
       "new": "python {entry} new \"{proj}\" --title \"{title}\"",
       "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-      "reason": "模板按某条成片的 8 幕分幕写死（index.html 里 s('l1')…s('l8')），文案行数一变渲染器就报 `timeline: narration line id \"l2\" not found`。frontend 负责 new + 灌文案与配音，render 前需按新稿段落重写 index.html 的分幕；交接包在 04-交接包/"
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
     },
     "laolang": {
       "new": "python {entry} new \"{proj}\" --title \"{title}\"",
@@ -57,12 +60,14 @@
     "goldenage": {
       "new": "python {entry} new \"{proj}\" --title \"{title}\"",
       "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-      "reason": "模板按某条成片的 8 幕分幕写死（index.html 里 s('l1')…s('l8')），文案行数一变渲染器就报 `timeline: narration line id \"l2\" not found`。frontend 负责 new + 灌文案与配音，render 前需按新稿段落重写 index.html 的分幕；交接包在 04-交接包/"
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
     },
     "manga": {
       "new": "python {entry} new \"{proj}\" --title \"{title}\"",
       "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-      "reason": "模板按某条成片的 8 幕分幕写死（index.html 里 s('l1')…s('l8')），文案行数一变渲染器就报 `timeline: narration line id \"l2\" not found`。frontend 负责 new + 灌文案与配音，render 前需按新稿段落重写 index.html 的分幕；交接包在 04-交接包/"
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
     },
     "xiangsu": {
       "render": null,
@@ -111,7 +116,8 @@
     "isometric": {
       "new": "python {entry} new \"{proj}\" --title \"{title}\"",
       "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-      "reason": "模板按某条成片的 8 幕分幕写死（index.html 里 s('l1')…s('l8')），文案行数一变渲染器就报 `timeline: narration line id \"l2\" not found`。frontend 负责 new + 灌文案与配音，render 前需按新稿段落重写 index.html 的分幕；交接包在 04-交接包/"
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
     },
     "map": {
       "new": "python {entry} new \"{proj}\" --title \"{title}\"",
@@ -125,12 +131,14 @@
     "blueprint": {
       "new": "python {entry} new \"{proj}\" --title \"{title}\"",
       "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-      "reason": "模板按某条成片的 8 幕分幕写死（index.html 里 s('l1')…s('l8')），文案行数一变渲染器就报 `timeline: narration line id \"l2\" not found`。frontend 负责 new + 灌文案与配音，render 前需按新稿段落重写 index.html 的分幕；交接包在 04-交接包/"
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
     },
     "parable": {
       "new": "python {entry} new \"{proj}\" --title \"{title}\"",
       "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-      "reason": "模板按某条成片的 8 幕分幕写死（index.html 里 s('l1')…s('l8')），文案行数一变渲染器就报 `timeline: narration line id \"l2\" not found`。frontend 负责 new + 灌文案与配音，render 前需按新稿段落重写 index.html 的分幕；交接包在 04-交接包/"
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
     },
     "shipai": {
       "render": null,

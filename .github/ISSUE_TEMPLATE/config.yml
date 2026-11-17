@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 讨论区（用法、选型、作品）
+    url: https://github.com/DaBaoAgent/Auto-Video/discussions
+    about: 想聊「用哪条管线」「怎么改风格」「这条片怎么做的」来这边，不用开 issue。
+  - name: 在线样片站
+    url: https://dabaoagent.github.io/Auto-Video/
+    about: 先看片，再提问题。

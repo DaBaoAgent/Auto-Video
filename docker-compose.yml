@@ -1,0 +1,12 @@
+# 一键 demo：docker compose run --rm demo
+#
+# 不装 docker 的话，本机有 Python + Node + Chrome + ffmpeg 也能直接跑：
+#   python demo/run.py
+services:
+  demo:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./demo/out:/app/demo/out
+    command: ["python3", "demo/run.py"]

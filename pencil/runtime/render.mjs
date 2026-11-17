@@ -35,7 +35,7 @@
 // The final video gets BT.709 color tags and a frame check (sudden jumps / one-frame flashes / frozen frames / dead air; with a voiceover, dead air is
 //   looked for where nobody is speaking: the lead-in, long pauses, the tail after the last line).
 // The lint runs every time; with "errors" the final render is refused (drafts and stills are unaffected); add --force to render anyway.
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import { renderPlan, writeWav, SR, loadScore, loadModule } from './music.mjs';
 import { makeProjectBgm, voiceRms } from './bgm.mjs';
@@ -129,7 +129,7 @@ const pageError = (d, where = '') => { const raw = d.exception?.description || d
 // ---------- Minimal CDP client ----------
 class CDP {
   constructor(ws) {
-    this.ws = ws; this.id = 0; this.pending = new Map(); this.listeners = [];
+    this.ws = ws; this.id = 0; this.pending = new Map(); this.listeners = []; this.timeout = Number(process.env.BV_CDP_TIMEOUT || 120000);
     ws.onmessage = (ev) => {
       const m = JSON.parse(ev.data);
       if (m.id && this.pending.has(m.id)) {
@@ -137,11 +137,22 @@ class CDP {
         m.error ? rej(new Error(m.error.message)) : res(m.result);
       } else if (m.method) this.listeners.forEach((l) => l(m));
     };
+    // 页面 / 浏览器意外断掉时，所有在等的请求立刻失败，而不是一直挂着等一个永远不会来的回复
+    ws.onclose = () => {
+      const pending = [...this.pending.values()]; this.pending.clear();
+      for (const { rej } of pending) rej(new Error(M('调试连接已断开（Chrome 退出了）', 'debug connection closed (Chrome exited)')));
+    };
   }
-  send(method, params = {}, sessionId) {
+  send(method, params = {}, sessionId, timeout = this.timeout) {
     const id = ++this.id;
-    this.ws.send(JSON.stringify({ id, method, params, sessionId }));
-    return new Promise((res, rej) => this.pending.set(id, { res, rej }));
+    return new Promise((res, rej) => {
+      const tm = setTimeout(() => {
+        this.pending.delete(id);
+        rej(new Error(M(`调试请求超时 ${timeout} ms：${method}`, `CDP request timed out after ${timeout} ms: ${method}`)));
+      }, timeout);
+      this.pending.set(id, { res: (v) => { clearTimeout(tm); res(v); }, rej: (e) => { clearTimeout(tm); rej(e); } });
+      try { this.ws.send(JSON.stringify({ id, method, params, sessionId })); } catch (e) { clearTimeout(tm); this.pending.delete(id); rej(e); }
+    });
   }
   once(method, sessionId) {
     return new Promise((res) => {
@@ -167,18 +178,28 @@ async function launch() {
   const ws = new WebSocket(`ws://127.0.0.1:${port}${wsPath}`);
   await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });
   const cdp = new CDP(ws);
-  // However we exit (error, Ctrl-C, killed), close the Chrome we started and delete the temp folder — leave no orphan processes
-  const reap = () => { try { proc.kill('SIGKILL'); } catch {} try { fs.rmSync(dir, { recursive: true, force: true }); } catch {} };
+  // 收工时连同 Chrome 的整棵进程树一起收掉：Windows 上 kill 只终止 launcher，浏览器本体（以及它拉起的
+  // GPU/渲染子进程）会活下来，child handle 不释放，Node 的事件循环就永远不空 —— 表现就是「片都出来了，进程不退」。
+  const killTree = () => {
+    try {
+      if (process.platform === 'win32' && proc.pid) spawnSync('taskkill', ['/pid', String(proc.pid), '/T', '/F'], { stdio: 'ignore' });
+      else proc.kill('SIGKILL');
+    } catch {}
+    try { proc.unref(); } catch {}   // 句柄显式释放，别让它拖着事件循环
+  };
+  const reap = () => { killTree(); try { fs.rmSync(dir, { recursive: true, force: true }); } catch {} };
   process.once('exit', reap);
   for (const sig of ['SIGTERM', 'SIGHUP']) process.once(sig, () => { reap(); process.exit(1); });
   process.once('uncaughtException', (e) => { reap(); console.error(e); process.exit(1); });
   process.once('unhandledRejection', (e) => { reap(); console.error(e); process.exit(1); });
   const close = async () => {
     try { ws.close(); } catch {}
+    try { ws.terminate?.(); } catch {}
     const exited = new Promise((r) => proc.once('exit', r));
-    proc.kill();
+    killTree();
     await Promise.race([exited, new Promise((r) => setTimeout(r, 2000))]);
     try { fs.rmSync(dir, { recursive: true, force: true, maxRetries: 3 }); } catch {}
+    try { proc.unref(); } catch {}
   };
   return { cdp, close };
 }
@@ -206,7 +227,7 @@ async function cachedFetch(url) {
 async function openPage(cdp, scale) {
   const { targetId } = await cdp.send('Target.createTarget', { url: 'about:blank' });
   const { sessionId } = await cdp.send('Target.attachToTarget', { targetId, flatten: true });
-  const s = (m, p) => cdp.send(m, p, sessionId);
+  const s = (m, p, sid, tm) => cdp.send(m, p, sessionId, tm);   // tm 传下去：个别请求（PNG 封面）要单独的超时预算
   await s('Page.enable');
   await s('Runtime.enable');
   await s('Page.addScriptToEvaluateOnNewDocument', { source: `window.__RENDER__ = true; window.__BV_LANG = '${ZH ? 'zh' : 'en'}';` });   // the page's own checks speak the run's language
@@ -242,12 +263,26 @@ async function openPage(cdp, scale) {
   if (r.exceptionDetails) throw new Error(pageError(r.exceptionDetails, M('搭建时', 'while building:')) + '\n' + logs.join('\n'));
   const comp = r.result.value;
   if (comp.width !== 1920 || comp.height !== 1080) await s('Emulation.setDeviceMetricsOverride', { width: comp.width, height: comp.height, deviceScaleFactor: scale, mobile: false });
+  const meta = { fmt: 'jpeg' };
   return {
-    comp, logs,
+    comp, logs, frameFormat: () => meta.fmt,
     async frame(t, format = 'jpeg') {
       const e = await s('Runtime.evaluate', { expression: `window.renderFrame(${t})`, awaitPromise: true });
       if (e.exceptionDetails) throw new Error(pageError(e.exceptionDetails, `t=${t}`));
-      const shot = await s('Page.captureScreenshot', format === 'png' ? { format: 'png' } : { format: 'jpeg', quality: 92, optimizeForSpeed: true });
+      // PNG 只用来出封面：个别 Windows + headless Chrome 组合上 PNG 全帧截图会一直不返回（同一页同一帧的 JPEG 几毫秒就好）。
+      // 给它单独的短预算，超时就重渲一帧、降级成高画质 JPEG，并记下真正拿到的格式，别让「封面」把整条命令卡死。
+      const wantPng = format === 'png';
+      let shot;
+      try {
+        shot = await s('Page.captureScreenshot', wantPng ? { format: 'png' } : { format: 'jpeg', quality: 92, optimizeForSpeed: true }, undefined, wantPng ? 30000 : cdp.timeout);
+        meta.fmt = wantPng ? 'png' : 'jpeg';
+      } catch (err) {
+        if (!wantPng) throw err;
+        console.warn(M(`PNG 截图没回来（${err.message}），封面改用 JPEG`, `PNG screenshot did not return (${err.message}); using JPEG for the cover`));
+        await s('Runtime.evaluate', { expression: `window.renderFrame(${t})`, awaitPromise: true });
+        shot = await s('Page.captureScreenshot', { format: 'jpeg', quality: 96 });
+        meta.fmt = 'jpeg';
+      }
       return Buffer.from(shot.data, 'base64');
     },
     // If the page throws while the check calls a page function (__infoAt, __lint …): report the page's error directly (which file, which line), don't let later code crash again on undefined
@@ -857,9 +892,10 @@ async function main() {
       return;
     }
     if (flag('cover')) {
-      const out = path.join(proj, 'out', 'cover.png');
+      const buf = await first.frame((await first.eval('window.__coverAt')).result.value ?? 0, 'png');
+      const out = path.join(proj, 'out', 'cover.' + (first.frameFormat() === 'jpeg' ? 'jpg' : 'png'));
       fs.mkdirSync(path.dirname(out), { recursive: true });
-      fs.writeFileSync(out, await first.frame((await first.eval('window.__coverAt')).result.value ?? 0, 'png'));
+      fs.writeFileSync(out, buf);
       console.log(M(`封面：${out}`, `Cover: ${out}`));
       return;
     }
@@ -1031,9 +1067,10 @@ async function main() {
     const rhythmF = (await first.eval('window.__rhythm ? window.__rhythm() : null')).result.value;
     if (rhythmF && rhythmF.length && dScan && !flag('from') && !flag('to')) await rhythmScan(proj, dScan, fps, from, to - from, rhythmF, { cuts, sfx: acts.sfx || [], texts: (acts.texts || []).map((x) => x.a) }, (opt('aspect') || '16:9').replace(':', 'x'));
     if (!draft && !flag('from') && !flag('to')) {
-      const cover = path.join(outDir, nameFor('cover', plan0, 'png'));
       const coverAt = (await first.eval('window.__coverAt')).result.value ?? 0;
-      fs.writeFileSync(cover, await first.frame(coverAt, 'png'));
+      const coverBuf = await first.frame(coverAt, 'png');
+      const cover = path.join(outDir, nameFor('cover', plan0, first.frameFormat() === 'jpeg' ? 'jpg' : 'png'));
+      fs.writeFileSync(cover, coverBuf);
       console.log(M(`封面：${cover}`, `Cover: ${cover}`));
       const board = path.join(outDir, opt('aspect') ? nameFor('board', null, 'png') : 'board.png');   // The portrait contact sheet gets a suffix so it doesn't overwrite the landscape one
       const v = await first.snapshot(board);
@@ -1060,4 +1097,10 @@ async function main() {
 }
 
 // On error: page errors already carry the page's stack; for the script's own errors print the first few stack lines (otherwise there is only "Cannot read properties of undefined")
-main().catch((e) => { const msg = e.message || String(e); console.error(msg); if (e.stack && !/页面出错|page error/.test(msg)) console.error(e.stack.split('\n').slice(1, 6).join('\n')); process.exit(1); });
+// 正常收工后再显式退出一次：close() 已经收了 Chrome 与句柄，但 Windows 上偶尔还会留下别的引用把事件循环撑住，
+// 渲染命令必须保证「片出来就返回」，前端和 CI 都靠这个退出码。
+const hardExit = (code = process.exitCode || 0) => {
+  const go = () => process.exit(code);
+  try { if (process.stdout.writableLength === 0) go(); else process.stdout.write('', go); } catch { go(); }
+};
+main().then(() => hardExit(process.exitCode || 0)).catch((e) => { const msg = e.message || String(e); console.error(msg); if (e.stack && !/页面出错|page error/.test(msg)) console.error(e.stack.split('\n').slice(1, 6).join('\n')); process.exit(1); });

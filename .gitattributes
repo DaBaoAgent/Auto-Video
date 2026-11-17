@@ -1,0 +1,28 @@
+# 统一换行，避免 Windows 检出把 shell 脚本 / SKILL.md 改成 CRLF
+* text=auto eol=lf
+
+# 二进制：diff 无意义，且禁止 Git 尝试做文本合并
+*.mp4 binary
+*.mov binary
+*.mkv binary
+*.webm binary
+*.mp3 binary
+*.wav binary
+*.m4a binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.pdf binary
+*.zip binary
+
+# 大文件走 Git LFS（新增素材请用：git lfs track 后提交；已入库的历史大文件不在此列，
+# 迁移需单独一次 filter-repo，见 docs/素材与体积.md）
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.safetensors filter=lfs diff=lfs merge=lfs -text

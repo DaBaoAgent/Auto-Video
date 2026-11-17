@@ -262,3 +262,14 @@ tianshu/projects/*/source/*.wav
 tianshu/projects/*/work/state_*.json
 tianshu/projects/*/work/texture/
 tianshu/projects/*/work/wf_*.json
+
+# 样片与预览媒体：站点用的压缩样片在 site/media/ 入库（Pages 要直接读），
+# 原片 / 长片 / 预览 GIF 一律走 Release assets，不占 git。
+showcase/
+demo/out/
+**/review/
+*.preview.gif
+
+# 渲染器自动生成的联系表与封面（需要时重渲）
+**/board.png
+**/board-*.png

@@ -72,7 +72,7 @@ def proj_arg(p):
 def copy_runtime_lib(proj):
     lib = os.path.join(proj, "lib")
     os.makedirs(lib, exist_ok=True)
-    for name in ("core.js", "promo.js", STYLE + ".js"):
+    for name in ("core.js", "promo.js", "autoscene.js", STYLE + ".js"):
         src = os.path.join(RUNTIME, name)
         if not os.path.exists(src):
             sys.exit("运行时缺失：%s" % src)

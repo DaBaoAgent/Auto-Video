@@ -8,9 +8,10 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 
 [![stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
+[![release](https://img.shields.io/github/v/release/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/releases)
 ![pipelines](https://img.shields.io/badge/pipelines-32%20films%20%2B%201%20frontend-111111?style=flat-square)
 ![stations](https://img.shields.io/badge/stations-11-111111?style=flat-square)
-![samples](https://img.shields.io/badge/samples-83%20clips-e9b47c?style=flat-square)
+![samples](https://img.shields.io/badge/samples-88%20clips-e9b47c?style=flat-square)
 ![roadmap](https://img.shields.io/badge/roadmap-99%20styles-c43b32?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
@@ -18,7 +19,33 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 
 </div>
 
+<div align="center">
+
+<a href="https://dabaoagent.github.io/Auto-Video/"><img src="site/media/caiqian.jpg" width="32%" alt="彩铅科普"></a> <a href="https://dabaoagent.github.io/Auto-Video/"><img src="site/media/manga.jpg" width="32%" alt="漫画分格"></a> <a href="https://dabaoagent.github.io/Auto-Video/"><img src="site/media/chengshi.jpg" width="32%" alt="三维城市"></a>
+
+<sub>三条真实成片：彩铅科普 · 漫画分格 · 三维城市 —— 都是本仓库代码渲的，点开进样片站悬停即播。</sub>
+
+</div>
+
 **目录**：[三张入场券](#start) · [工位地图](#stations) · [统一契约](#contract) · [样片](#showcase) · [怎么生产一条片](#flow) · [快速开始](#quickstart) · [仓库结构](#layout) · [技术栈](#stack) · [常见问题](#faq) · [路线图](#roadmap) · [鸣谢与许可](#credits)
+
+## 30 秒先看到东西 ⏱️
+
+```bash
+git clone https://github.com/DaBaoAgent/Auto-Video.git
+cd Auto-Video
+python demo/run.py            # 15 秒 960×540：不配音、不下载素材、不调云端 API
+```
+
+本机没有 Python / Node / Chrome？用 Docker，镜像里全带了（chromium + ffmpeg + 中文字体）：
+
+```bash
+docker compose run --rm demo
+```
+
+产物 `demo/out/demo.mp4`。这条路径走的是「模板 + 任意行数稿子」：分幕从 `timeline.json` 长出来
+（[`vendor/bb-video/runtime/autoscene.js`](vendor/bb-video/runtime/autoscene.js)），8 条 BB-Video 派生模板
+不再写死 8 句旁白，5 句、12 句都能渲。
 
 <a id="start"></a>
 ## 三张入场券 🎟️
@@ -254,17 +281,17 @@ python frontend/frontend.py run \
 
 - **不接 peiyin 也能用**：03 阶段用的是免费的 edge-tts / 系统音色，克隆音色（peiyin、GPT-SoVITS）是可选的加分项，不是前置条件；
 - **`fengmian/` 是上游原样导入**（`DaBaoAgent/fengmian`，见 `fengmian/VENDORED.md`），本仓库只改调用方式，不改它的规则：标题两段式、≤25 字、含阿拉伯数字、恰好 4 个话题，任一不过就直接报错；
-- **哪些管线能被 04 自动出片**：`frontend/targets.json` 逐条登记。模板**按数据驱动**的（`laolang`、`map`）可以一条文案直接渲染；模板**按某条具体片子的分幕写死**的（`pencil`、`isometric`、`manga`、`tapestry`、`shadow`、`parable`、`goldenage`、`blueprint`）会照常建工程、灌文案与配音，但 `render` 要先把 `index.html` 的分幕改成新稿的段落数，否则渲染器会报 `timeline: narration line id "l2" not found`；这类管线在 `targets.json` 里登记为 `new` + `ingest`，`frontend.py` 会把 02/03 的产物连同 `04-下一步.md` 一起交到 `04-交接包/`，人接手只改分幕；
-- 33 条管线全部在 `targets.json` 里有位置：`laolang`、`map` 登记到 `render`（可直接出片）；`pencil` 家族其余 8 条登记 `new` + `ingest`（模板分幕写死，交接待接）；其余 23 条写明为什么不能自动接最后一步（要素材、要 key、要外部引擎）；
-- 校验：`python tools/validate.py` 会检查 `modules` 登记、`frontend.json` 契约、`targets.json` 是否覆盖全部管线，并打印「frontend 覆盖 33 条管线，可直接渲染 2 条」；
+- **哪些管线能被 04 自动出片**：`frontend/targets.json` 逐条登记。现在是 **10 / 33 一条龙**：`laolang`、`map`，以及 BB-Video 派生的 8 条（`pencil`、`isometric`、`manga`、`tapestry`、`shadow`、`parable`、`goldenage`、`blueprint`）。这 8 条的模板已改成**数据驱动分幕**（`vendor/bb-video/runtime/autoscene.js`：一句旁白一张卡，片头卡 + 序号 + 强调线，5 句、12 句都能渲），所以 `new → vo → render` 可以一口气走完，不再出现「文案行数一变就报 `timeline: narration line id "l2" not found`」。模板保底的是排版，不是原来那支片的手绘美术——要原画级的片子，仍走 `projects/` 里手写的 `index.html`；
+- 剩下 23 条在 `targets.json` 里写明为什么不能自动接最后一步：要真实素材（`shipai`、`jilupian`）、要高程与路线（`chengshi`、`ditu`）、要本地模型（`zhidiao` 的 ComfyUI、`tianshu`）、要管线内 TTS 时间轴（`shiliang`、`xuni`、`dengju`、`xianshiqi`），或者输入根本不是文案（`tuiyan` 的兵棋、`huixingzhen` 的剧本）；
+- 校验：`python tools/validate.py` 会检查 `modules` 登记、`frontend.json` 契约、`targets.json` 是否覆盖全部管线，并打印「frontend 覆盖 33 条管线，可直接渲染 10 条」；
 - 实跑记录（2026-11-17）：`laolang` 一条 33 字短稿从 01 跑到 05，exit 0，拿到 `04-成片/工程/out/video-16x9.mp4`（1920×1080 / 6.2 s / 带旁白）与 `05-发布/发布信息.txt`（标题两段式 + 4 个话题）。
 
 <a id="showcase"></a>
-## 样片 🖼️ 87 段，全部可在站点播
+## 样片 🖼️ 88 段，全部可在站点播
 
-`site/media/` 里是压过的网页短片（**每部样片只取片头前 30 秒**，片短于 30 秒就整条；管线 1280 长边，风格 640，共 94.0 MB），原片不动，仍留在作者的同步盘里。
+`site/media/` 里是压过的网页短片（**每部样片只取片头前 30 秒**，片短于 30 秒就整条；管线 1280 长边，风格 640，共 101 MB），原片不动，仍留在作者的同步盘里。
 
-**封面不是片头截图**：早期统一抽第 2 秒，结果一堆卡片是空镜、白屏、纯文字卡。现在的规则是「样片里人物动作最丰富的一幕」——逐帧统计运动（YDIF）与边缘密度，排除 `YAVG>205 且 SATAVG<12`（白屏）、`YAVG<16`（黑场）、边缘密度低于全片中位 35% 分位的帧（空镜），首尾各 0.7 秒不选，评分 `0.68·z(运动) + 0.32·z(边缘)`。对整片空镜 / 白屏 / 纯文字卡的样片（地图、极简、品牌卡这类），自动算法挑不出来，用 `tools/poster_overrides.json` 人工钉秒，目前钉了 34 条。87 条已逐张目视复核过一遍。
+**封面不是片头截图**：早期统一抽第 2 秒，结果一堆卡片是空镜、白屏、纯文字卡。现在的规则是「样片里人物动作最丰富的一幕」——逐帧统计运动（YDIF）与边缘密度，排除 `YAVG>205 且 SATAVG<12`（白屏）、`YAVG<16`（黑场）、边缘密度低于全片中位 35% 分位的帧（空镜），首尾各 0.7 秒不选，评分 `0.68·z(运动) + 0.32·z(边缘)`。对整片空镜 / 白屏 / 纯文字卡的样片（地图、极简、品牌卡这类），自动算法挑不出来，用 `tools/poster_overrides.json` 人工钉秒，目前钉了 34 条。88 条已逐张目视复核过一遍。
 
 **管线样片 32 条**（点管线看文档，点片名去站点看）：
 
@@ -331,255 +358,21 @@ python frontend/frontend.py run \
 
 <sub>`lishi` 的纸本视觉系统：楷体纪年、绢本底图、代码运镜与句级字幕（《建安十三年 · 我五十三岁》）。</sub>
 <a id="quickstart"></a>
-## 快速开始 🚀
+## 跑一条真片 🚀
+
+33 条管线的入口、引擎、样片时长都在 **[docs/pipelines.md](docs/pipelines.md)**；每条管线一条命令，参数与验收条件写在各自的 `SKILL.md`。
+
+最短的一条（不配音、不出封面，只为确认链路通）：
 
 ```bash
-git clone https://github.com/DaBaoAgent/Auto-Video.git
-cd Auto-Video
+python pencil/scripts/pencil.py new projects/demo --title "试片"
+node pencil/runtime/render.mjs projects/demo --scale 0.6 --no-audio
 ```
 
-仓库保存管线、模板、契约文件与 87 段网页样片（约 97 MB）；模型权重、外部渲染运行时与完整成片不在仓库内（见 [效果展示](#showcase)）。
+> 渲染需要 Chrome/Chromium（`CHROME_PATH` 可指定）和 `ffmpeg`；`python tools/validate.py` 会一次性告诉你
+> 这台机器上哪 33 条管线、11 个工位、32 份样片是否对齐。
 
-<details>
-<summary>环境与外部依赖总表（按管线）</summary>
 
-| 管线 | Python | Node | 浏览器 | ffmpeg | 外部引擎与其他 |
-| --- | --- | --- | --- | --- | --- |
-| jianying | 3.11+ | 18+ | — | ffmpeg、ffprobe、numpy | Remotion、GPT-SoVITS |
-| lishi | 3.11+ | 18+ | — | ffmpeg、ffprobe | Remotion、GPT-SoVITS |
-| piying | — | 20+ | Edge 或 Chrome | ffmpeg、ffprobe | Playwright |
-| shouhui | 3.10+ | 18+ | Edge | ffmpeg | mg-styles-15 |
-| zhidiao | 3.10+ | 见 MIGRATION | 无头浏览器 | ffmpeg | HyperFrames、GPT-SoVITS、Faster-Whisper |
-| tuiyan | 3.10+ | 18+ | Edge 或 Chrome | ffmpeg | battlefield-editor（仓库自带） |
-| jilupian | 3.11+ | — | — | ffmpeg、ffprobe | uv、OpenAI 兼容模型、GPT-SoVITS 或 Edge TTS |
-| xuni · shiliang · xianshiqi · dengju · shuimo | 3.11+ | 18+ | Edge | ffmpeg | mg-styles-15 |
-| huixingzhen | 3.11+ | 18+ | Edge | ffmpeg | mg-styles-15、`shouhui/node_modules` |
-| xiangsu | 3.10+（numpy） | 18+ | Chrome | ffmpeg、ffprobe | mg-styles-15、bash（Git Bash / WSL） |
-| chengshi | numpy、Pillow | 18+ | Edge（ANGLE） | ffmpeg | Remotion、GPT-SoVITS、OSM / Esri / SRTM 数据 |
-| peiyin | 3.10+ | — | — | ffmpeg | GPT-SoVITS（权重由 `setup.ps1` 拉取） |
-| shipai | 3.11+（复用 MoneyPrinterTurbo 的 `.venv`） | — | — | ffmpeg、ffprobe | MoneyPrinterTurbo（本地部署）、faster-whisper、Pillow、Pixabay key |
-| goldenage · manga · tapestry · pencil · isometric · parable · shadow · blueprint | 3.9+（只用标准库） | 18+ | Chrome 或 Edge | ffmpeg、ffprobe | BB-Video 浏览器运行时（仓库自带）；isometric / parable 需 Three.js import map（CDN） |
-
-</details>
-
-### jianying
-
-需要 Python 3.11+、Node.js 18+、ffmpeg、numpy 和 ffprobe。新选题从 `new` 开始，`init` 会把模板和依赖链接到选题目录：
-
-```bash
-python jianying/scripts/jianying_shotcraft.py new myfilm --title "标题"
-python jianying/scripts/jianying_shotcraft.py init --project myfilm
-python jianying/scripts/jianying_shotcraft.py all --project myfilm
-```
-
-逐行配音还需要 GPT-SoVITS。完整入口、镜头卡和验收规则见 [jianying/SKILL.md](jianying/SKILL.md)。
-
-### lishi
-
-需要 Python 3.11+、Node.js 18+、ffmpeg 和 ffprobe。选题目录准备好 `film.json`、分镜表和底图后，可从探针与整链开始：
-
-```bash
-python lishi/scripts/lishi.py probe --project <slug>
-python lishi/scripts/lishi.py all --project <slug>
-```
-
-完整入口与参数见 [lishi/SKILL.md](lishi/SKILL.md) 和 [lishi/pipeline.json](lishi/pipeline.json)。
-
-### shouhui
-
-需要 Python 3.10+、Node.js 18+、Edge 和 ffmpeg。仓库带有完整的商纣王示例工程；渲染前还要按迁移说明安装 `mg-styles-15` 渲染引擎：
-
-```bash
-python shouhui/scripts/shouhui.py probe 012_shangzhouwang
-python shouhui/scripts/shouhui.py stills 012_shangzhouwang --times 1,3,5,7,9
-python shouhui/scripts/shouhui.py render 012_shangzhouwang
-```
-
-完整环境和外部依赖见 [shouhui/MIGRATION.md](shouhui/MIGRATION.md)，手绘管线规则见 [shouhui/SKILL.md](shouhui/SKILL.md)。
-
-### piying
-
-需要 Node.js 20+、Edge 或 Chrome、ffmpeg 和 ffprobe。渲染示例页前先安装 Playwright：
-
-```bash
-cd piying
-npm ci
-cd render/piying
-node gen_full_yandi.js
-node qc_full_yandi.js
-node audit_yandi.js full
-```
-
-迁移后的素材路径已经改为模块内相对路径。完整规格与门禁说明见 [piying/SKILL.md](piying/SKILL.md) 和 [piying/MIGRATION.md](piying/MIGRATION.md)。
-
-### zhidiao
-
-首次运行前要先准备 GPT-SoVITS、Faster-Whisper、HyperFrames，以及单片 composition 使用的共享样式、GSAP 和字体。迁移与依赖说明见 [zhidiao/MIGRATION.md](zhidiao/MIGRATION.md)。
-
-```bash
-cd zhidiao
-python scripts/zhidiao_make_audio.py
-python scripts/zhidiao_assemble.py --slug <slug>
-```
-
-封面、分镜素材和交付打包工具都在 `zhidiao/tools/`。完整七阶段流程见 [zhidiao/references/pipeline.md](zhidiao/references/pipeline.md)。
-
-### tuiyan
-
-需要 Node.js 18+、Python 3.10+、ffmpeg 和 Edge/Chrome。渲染引擎与赤壁之战 46 幕完整包在 `vendor/battlefield-editor/`（迁移自 alannew 项目，只保留最终成片管线），首次运行先装节点依赖：
-
-```powershell
-Set-Location tuiyan/vendor/battlefield-editor
-npm ci
-node tools/validate-data.mjs --pkg packages/chibi-full/battlefield.json   # 数据校验
-$env:PROXY = "1"
-node tools/verify-zh.mjs                                                  # 中文残留门禁（errors: 0）
-node tools/render-film.mjs --pkg packages/chibi-full/battlefield.json --out <输出目录>  # 全片稳帧渲染
-```
-
-TTS 配音、影视原声 OST 为本机自备项；完整说明与依赖见 [tuiyan/SKILL.md](tuiyan/SKILL.md)、[tuiyan/MIGRATION.md](tuiyan/MIGRATION.md)。
-
-### jilupian
-
-需要 Python 3.11+、uv、ffmpeg/ffprobe，以及一个 OpenAI 兼容模型服务（默认智谱 GLM）。给一份片源 URL 清单即可自动出片：
-
-```powershell
-Set-Location jilupian
-uv sync --all-extras --locked
-$env:GLM_API_KEY = "你的 API Key"
-uv run python -m autoup.run --manifest urls.txt --batch 202611-A
-```
-
-配音默认走 GPT-SoVITS 本地服务（可自备，或 `--set voice.engine=edge_tts` 切免费方案）。配音模块、模型、字体等外部依赖一律引导下载，见 [jilupian/MIGRATION.md](jilupian/MIGRATION.md)；完整规则见 [jilupian/SKILL.md](jilupian/SKILL.md)。
-
-### xuni / shiliang / xianshiqi / dengju / huixingzhen / shuimo
-
-六条 MG 风格短片管线（合成波、扁平矢量、赛博 HUD、等轴 2.5D、回形针科普、纸本水墨），从 `AutoJY` 迁移，名字不变。需要 Node.js 18+、Python 3.11+、ffmpeg 和 Edge；渲染引擎 `mg-styles-15` 未随仓库提交（与 shouhui 共用），首次先安装：
-
-```powershell
-git clone --depth 1 https://github.com/Vincentwei1021/mg-styles-15.git vendor/mg-styles-15
-Set-Location vendor/mg-styles-15; npm install; Set-Location ../..
-New-Item -ItemType Junction -Path 'xuni/node_modules' -Target 'vendor/mg-styles-15/node_modules'   # 各管线各自建联接
-```
-
-以 xuni 为例（其余管线入口同名，见各自 README）：
-
-```bash
-python xuni/scripts/xuni.py probe 009_prion30
-python xuni/scripts/xuni.py stills 009_prion30 --times 0.3,7.7,13.5,27.8
-python xuni/scripts/xuni.py audio 009_prion30
-python xuni/scripts/xuni.py render 009_prion30
-python xuni/scripts/xuni.py mux 009_prion30
-python xuni/scripts/xuni.py qa 009_prion30
-python xuni/scripts/xuni.py publish 009_prion30
-```
-
-- `shuimo` 走 `shuimo.py` 编排（new/cues/audio/stills/render/sheet/mux/qa/publish），示例工程 `projects/yuren30`（013《羽人》30 秒样片）；`shuimo/node_modules` 同样建联接（只用到 puppeteer-core）。
-- `huixingzhen` 走 `render_frames.mjs` + 素材/音效脚本，参考实现 `projects/paperclip_zhou`（商纣王 20 秒，**未随仓库提交**，需自备）；渲染器复用 `shouhui/scripts/render.mjs` 的 puppeteer-core，依赖 `shouhui/node_modules` 联接。
-
-MG 组 5 条自带示例工程（xuni=009_prion30、shiliang=010_shengming30、xianshiqi=UAP30、dengju=yuren30、shuimo=yuren30）与 `pipeline.json` 定版参数；`huixingzhen` 的定稿参数在 `theme/dark.css`，参考工程需自备。完整说明见各管线 [SKILL.md](xuni/SKILL.md)。
-
-### xiangsu
-
-像素风管线：画面在 640×360 索引色帧缓冲里逐像素决定，×3 整数最近邻放大到 1920×1080，CRT 在输出分辨率上做。需要 Node.js 18+、Chrome、ffmpeg/ffprobe、Python+numpy 和 bash（Windows 用 Git Bash 或 WSL），渲染复用上一条的 `mg-styles-15` harness（`harness/render.mjs`、`tools/density.mjs`、像素字体）：
-
-```bash
-cd xiangsu
-# 脚本内默认路径仍是迁移前的 yandi 目录，运行前必须覆盖（见 SKILL.md「环境变量」）
-export XIANGSU_REPO="$PWD/../vendor/mg-styles-15"
-export XIANGSU_PROJ="<本片项目目录>"
-export XIANGSU_PY="<本机 python.exe，需 numpy>"
-bash build.sh                # 10 秒样片：音轨 → 渲染 1920×1080 → 4 项验收
-bash build.sh --no-audio     # 复用 audio.wav，只重渲画面
-```
-
-全片链路在 `xiangsu/full/`（先 `cd xiangsu/full`）：`node assemble.mjs`（拼装 `demo/film.js` 片头 + `parts/*.js`）→ `bash build_full.sh`（音轨 → 渲染 → 验收）→ `node make_covers.mjs --final`（4:3 / 3:4 双封面）。片级参数 `XIANGSU_PROJ/FILM/DUR/COVER_OUT` 不给默认值，缺省直接报错。完整参数、冻结基线与验收口径见 [xiangsu/SKILL.md](xiangsu/SKILL.md) 与 [xiangsu/README.md](xiangsu/README.md)。
-
-### chengshi
-
-城市年轮管线：用 OSM 建筑/道路/水系、Esri 卫星影像与 SRTM 地形确定性渲染一座城市的年代演进（Three.js + Remotion），从 `AutoJY` 迁移，名字统一为 chengshi（无 sz 别名）。需要 Python（numpy/Pillow）、Node 18+、Edge（ANGLE）与 ffmpeg；逐句配音走本机 GPT-SoVITS（API 9880）。
-
-渲染工程两个目录：`chengshi/render`（苏州 v2 分镜，原名 `template_v2` → `sz` → 现归一到 `render`，`render_cut_v2.py` 用它）与 `chengshi/template`（通用 v1，`render_cut.py` 用它，`make_city.py` 默认走这条）。**运行时依赖不在仓库里**：`.venv/`、Remotion 的 `node_modules`、Edge、ffmpeg、GPT-SoVITS 都需本机自备，缺依赖时先在渲染工程目录 `npm install`。
-
-```powershell
-# 建骨架（bbox 顺序：南,西,北,东）；仓库根目录先建好 .venv（numpy / Pillow）
-$env:PYTHONIOENCODING = "utf-8"
-.\.venv\Scripts\python.exe chengshi/scripts/chengshi.py new --project <slug> --title "成都·一座城的年轮" --bbox 30.6,104.0,30.8,104.2
-
-# 一键出片：抓 OSM/SRTM/Esri → 白模 → TTS → 混音（-15 LUFS）→ 1080p 审片
-.\.venv\Scripts\python.exe chengshi/scripts/make_city.py --project <slug>
-
-# 单帧预览与交付（母版 + 封面 + 裁切 + 发布信息）
-.\.venv\Scripts\python.exe chengshi/scripts/chengshi.py still --project <slug> --frame 300
-.\.venv\Scripts\python.exe chengshi/scripts/chengshi.py publish --project <slug>
-```
-
-示例工程在仓库根目录的 `projects/suzhou`（苏州《城长》160.7 s，完整成片见 [效果展示](#showcase)）；4K 母版需 `--allow-4k`。六个叙事数据文件、运行手册与质量硬约束见 [chengshi/USAGE.md](chengshi/USAGE.md)，完整规则见 [chengshi/SKILL.md](chengshi/SKILL.md)。
-
-### shipai
-
-实拍素材口播竖屏短片：**一个人的声音 + 一堆真实拍到的画面 + 一行一行跟着语音出现的字幕**，1080×1920 / 30 fps。画面不生成也不绘制，全部来自 Pixabay 实拍；管线只负责把「配音切段 → 素材挑选排序 → 底片 → 字幕」接顺。需要 Python 3.11（可直接复用 MoneyPrinterTurbo 的 `.venv`，`faster-whisper` 与 `Pillow` 都在里面）、ffmpeg/ffprobe、本地部署好的 [MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo) 与 Pixabay key：
-
-```powershell
-$py = "D:\@kaifa\MoneyPrinterTurbo\.venv\Scripts\python.exe"   # 或 SHIPAI_PY 指定
-
-# 建工程 → 切段与逐句时间 → 检索素材 → 按 id 下载（顺序即拼接顺序）
-& $py shipai\scripts\shipai.py new 004_玛雅巨人文明 --text 口播稿.md --wav 配音.wav --paragraph 1
-& $py shipai\scripts\shipai.py vo       004_玛雅巨人文明 --paragraph 1
-& $py shipai\scripts\shipai.py terms    004_玛雅巨人文明 --terms "mayan ruins|jungle temple"
-& $py shipai\scripts\shipai.py material 004_玛雅巨人文明 --ids 35423,144043,144042,22200,281134
-
-# 出无字幕底片 → 烧一行式字幕 → 校验
-& $py shipai\scripts\shipai.py base    004_玛雅巨人文明
-& $py shipai\scripts\shipai.py caption 004_玛雅巨人文明
-& $py shipai\scripts\shipai.py probe   004_玛雅巨人文明
-```
-
-首个实例 `shipai/projects/004_玛雅巨人文明/`：玛雅巨人文明第一大段，17.9 s，12 条字幕，5 段 Pixabay 实拍（危地马拉丛林金字塔、特奥蒂瓦坎太阳金字塔）；音频与成片不入库。已知坑（MPT 的 `--video-source` 默认 pexels、拼接默认 shuffle、自定义音频下字幕链失效）与字幕定版参数见 [shipai/SKILL.md](shipai/SKILL.md)、[shipai/references/](shipai/references/)。
-
-### goldenage / manga / tapestry / pencil / isometric / parable / shadow / blueprint / laolang
-
-九条从 BB-Video 33 种风格里迁出的成片管线，都用同一套「口播稿 → 配音 → 时间轴 → 纯函数画面 → Chrome 逐帧 → ffmpeg」链路；运行时代码随管线 vendored（MIT），不依赖外部渲染引擎。九条都带完整样片工程、`--check`、抽帧和 QA（其中 `laolang` 带玄奘 60 秒样片）：
-
-```bash
-# 以 goldenage 为例；其余八条把 goldenage 换成 manga / tapestry / pencil / isometric / parable / shadow / blueprint / laolang
-python goldenage/scripts/goldenage.py new projects/<名字> --title "片名"
-python goldenage/scripts/goldenage.py vo projects/<名字> --src 配音.wav --text 口播稿.txt
-python goldenage/scripts/goldenage.py check  projects/<名字>
-python goldenage/scripts/goldenage.py stills projects/<名字> --times 2,8,15,25
-python goldenage/scripts/goldenage.py render projects/<名字> --scale 0.6667
-python goldenage/scripts/goldenage.py deliver projects/<名字> --chugao 出稿/<编号>_<选题> --name "goldenage_片名_样片_1080p"
-```
-
-- `template/` 是各自完整样片的做法（不是空白模板）：`index.html` 逐幕画面、`brief.md` 事实表、`storyboard.md` 分镜、`score.js` / `sound.js` 配乐音效；`laolang` 用的是玄奘 60 秒样片。
-- 九条管线各自的风格规则、逐幕做法与已知坑见 [goldenage/SKILL.md](goldenage/SKILL.md)、[manga/SKILL.md](manga/SKILL.md)、[tapestry/SKILL.md](tapestry/SKILL.md)、[pencil/SKILL.md](pencil/SKILL.md)、[isometric/SKILL.md](isometric/SKILL.md)、[parable/SKILL.md](parable/SKILL.md)、[shadow/SKILL.md](shadow/SKILL.md)、[blueprint/SKILL.md](blueprint/SKILL.md)、[laolang/SKILL.md](laolang/SKILL.md)。
-- `isometric` 与已有的 `dengju`（mg-styles-15 等轴 2.5D）都画等距世界，但实现不同：`isometric` 是 BB-Video 的地块/路线/连续镜头运行时，`dengju` 是 mg-styles-15 的瓦片波浪运镜；按项目需要选。
-- `shadow` 与已有的 `piying` 都做皮影，但 `piying` 是 Playwright/Canvas 的剪影+卡片式讲解，`shadow` 是 BB-Video 的透光牛皮影人、操纵杆道具、红纸签与灯暗换场；按项目需要选。
-- `blueprint` 是蓝晒工程图，适合机构/机器/系统原理；它和 `swiss`（瑞士排版）、`launch`（产品发布）不是一类，按「要把原理画成图纸」的需求选。
-- `laolang` 是 1980 上美影手绘赛璐璐（老狼请客式）：4:3 片门、装饰绘景、定稿 toon 人物、24 动作、30 fps 稳定版；和 `goldenage`（美式橡皮管卡通）不是一类，按「要中国、手作、慢」的气质选。
-
-### peiyin
-
-前端模块：选题 → 出稿 → 配音。需要 Python 3.10+、PowerShell 和本地 GPT-SoVITS 环境；权重与音色约 2.4 GB，由 `setup.ps1` 引导下载，不入库：
-
-```powershell
-# 一键初始化：校验/拉取权重、建 venv、装 torch、健康检查
-pwsh -File .\peiyin\scripts\setup.ps1
-# 已有 GPT-SoVITS 安装时，直接复制缺失资源
-pwsh -File .\peiyin\scripts\setup.ps1 -WeightsFrom <旧 GPT-SoVITS 安装目录>
-
-# 批量配音（自然段合成，默认 dabao 音色）
-& '.\peiyin\GPT-SoVITS\.venv\Scripts\python.exe' `
-  '.\peiyin\scripts\synthesize_dabao_paragraphs.py' `
-  --text-file <口播稿定稿.txt> --out <输出目录\配音.wav> --paragraph-gap-ms 200
-
-# 审查门禁（small 全片回听，疑似漏点用 medium 回到对应自然段复听）
-.\peiyin\scripts\check_dabao_audio.ps1 -TopicDir <输出目录> -ExpectedParagraphGapMs 220
-```
-
-门禁产物为 `配音审查报告.md`（人工复核）与 `配音审查.json`（机器结果），规格、全文覆盖或收尾任一失败都不得交付。完整规约见 [peiyin/SKILL.md](peiyin/SKILL.md) 与 [peiyin/README.md](peiyin/README.md)。
-
-<a id="layout"></a>
 ## 仓库结构 🗂️
 
 ```text
@@ -758,6 +551,24 @@ Auto-Video/
 ```
 
 <a id="stack"></a>
+## 和同类项目的差别 🧭
+
+这不是「再做一个 MoneyPrinterTurbo」。同类项目解决的是**「给我一段能看的自动视频」**；这个仓库解决的是
+**「一条片该怎么画、怎么剪、怎么验」**——把工艺写成可复现的代码和门禁。
+
+| 维度 | 同类（MoneyPrinterTurbo / 剪映类自动化） | 本项目 |
+| --- | --- | --- |
+| 产出 | 一条通用解说片 | 33 种**画法血统**（剪影 / 皮影 / 彩铅 / 挂毯 / 三维城市 / 蓝图……） |
+| 画面来源 | 素材库检索拼接 | 代码绘制、模板渲染、本地模型；**不搬原片** |
+| 可复现性 | 每次结果有随机性 | 同稿同版 → 同像素（禁 `Date.now` / `Math.random`） |
+| 质量门禁 | 基本没有 | 契约校验 + 动效检查 + 事实核对 + 节奏扫描 + 字幕全量 |
+| 上手成本 | `pip install` 一条命令 | 要 Chrome/ffmpeg/本地模型 —— 所以有 `demo/run.py` 与 Docker 兜第一公里 |
+| 规模 | 单管线 | 33 条管线 / 11 工位，共用一套运行时与契约 |
+
+**差距也要说清楚**：真正的高星标项目（Remotion 7.3 万★、MoneyPrinterTurbo 14 万★）靠的是「任何人 10 分钟能出片」的
+最低门槛 + 生态（模板市场、API、Colab、镜像、插件）。本仓库内容层已经很硬，但包装层还在补：默认分支体积、
+Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星标差距复核-2026-11-17.md` 逐条落地。
+
 ## 技术栈 🧰
 
 | 环节 | 使用到的技术 |

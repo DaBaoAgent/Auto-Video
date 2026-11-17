@@ -1,0 +1,54 @@
+name: 反馈与提案
+description: 用这个模板告诉我们哪里跑不通，或者你想加一条什么管线。
+title: ""
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        先跑一遍 `python tools/validate.py`，把输出贴进来能省很多来回。
+        「跑不通」类问题请一定附上**命令 + 完整报错**，没有报错的反馈基本无法定位。
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 类型
+      options:
+        - 某条管线跑不通 / 出片不对
+        - 想加一条新管线（提案）
+        - 文档写错了 / 和实际不符
+        - 站点或样片问题
+        - 其它
+    validations:
+      required: true
+  - type: input
+    id: pipeline
+    attributes:
+      label: 哪条管线 / 哪个页面
+      placeholder: 例如 jianying、piying、站点样片库
+  - type: textarea
+    id: what
+    attributes:
+      label: 发生了什么
+      description: 期望的结果 vs 实际的结果
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现命令与报错
+      description: 整段贴，不要截断；有截图也可以拖进来
+      render: shell
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: 环境
+      placeholder: Windows 11 / Python 3.13 / Node 22 / Chrome 版本 / 显卡
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 自查
+      options:
+        - label: 我跑过 `python tools/validate.py`，结果贴在上面了
+        - label: 我搜过现有 issue，没有重复

@@ -1,0 +1,15 @@
+.git
+.gitattributes
+.gitignore
+**/node_modules
+**/out
+**/review
+demo/out
+demo/_work
+site
+docs
+showcase
+**/*.mp4
+**/*.mp3
+**/*.wav
+**/*.psd
