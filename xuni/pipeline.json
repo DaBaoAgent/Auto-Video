@@ -22,7 +22,7 @@
   },
   "version": "2026-10-30",
   "pipeline": "xuni",
-  "style": "mg-styles-15/10-synthwave",
+  "style": "styles/10-synthwave",
   "canvas": {
     "width": 1920,
     "height": 1080,

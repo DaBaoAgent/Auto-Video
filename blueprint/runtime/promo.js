@@ -3,9 +3,9 @@
 // One codebase serves both landscape 16:9 and portrait 9:16: sizes go through F.u (short side / 1080), layout branches on F.portrait.
 (function () {
   const { clamp, lerp } = window.EV;
-  // Message language for the page's checks and warnings: what the render decided (window.__BV_LANG), else the page's <html lang>.
+  // Message language for the page's checks and warnings: what the render decided (window.__AV_LANG), else the page's <html lang>.
   //   M(中文, English) → the message in that language; style runtimes use PROMO.M
-  const M = (zh, en) => ((window.__BV_LANG || (/^zh/i.test(document.documentElement.lang || '') ? 'zh' : 'en')) === 'zh' ? zh : en);
+  const M = (zh, en) => ((window.__AV_LANG || (/^zh/i.test(document.documentElement.lang || '') ? 'zh' : 'en')) === 'zh' ? zh : en);
   const E = {
     lin: (q) => q,
     expoOut: (q) => (q >= 1 ? 1 : 1 - Math.pow(2, -10 * q)),

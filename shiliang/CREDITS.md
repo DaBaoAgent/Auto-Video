@@ -2,7 +2,7 @@
 
 ## 上游风格
 
-- **mg-styles-15** — https://github.com/Vincentwei1021/mg-styles-15
+- **styles** — https://github.com/Vincentwei1021/styles
   - 许可：MIT
   - 使用部分：`demos/01-flat-vector` 的风格语法（纯色几何、弹性缓动、错峰入场、元素驱动转场）、
     `prompts-zh/01-flat-vector.md` 的工艺检查表与评分口径。
@@ -24,6 +24,6 @@
 
 ## 参考文档
 
-- `mg-styles-15/prompts-zh/01-flat-vector.md` —— 风格提示词与评分标准
-- `mg-styles-15/rubric.md` —— 上游评审量规
+- `styles/prompts-zh/01-flat-vector.md` —— 风格提示词与评分标准
+- `styles/rubric.md` —— 上游评审量规
 - `references/publish.md` —— AutoJY 成片交付规范

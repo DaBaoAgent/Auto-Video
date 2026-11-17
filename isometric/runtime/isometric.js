@@ -1,4 +1,4 @@
-// isometric.js: Isometric miniature world (等距微缩世界), one of bb-video's visual styles (style notes in styles/isometric/STYLE.md). Load after promo.js; the page needs a three import map (the starter page has one).
+// isometric.js: Isometric miniature world (等距微缩世界), one of 模板库's visual styles (style notes in styles/isometric/STYLE.md). Load after promo.js; the page needs a three import map (the starter page has one).
 // A whole little world seen from a fixed 45° isometric view (orthographic, no perspective, everything sharp): tiles on plinths with gaps between them, low-poly
 // buildings, trees, roads, conveyors, shelves, vehicles and little people that move on their own. Information is told by the world itself: routes drawn on the
 // ground, parcels flowing, counts piling up, a clock on a pole; the part being talked about lifts and stays in colour while the rest fades back.

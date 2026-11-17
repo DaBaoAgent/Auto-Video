@@ -48,7 +48,7 @@ ffmpeg -hide_banner -nostats -i /tmp/a.png -i /tmp/b.png -filter_complex "[0][1]
 管线代码必须留在克隆的渲染仓库内（harness 自带无头 Chrome + ffmpeg 逐帧合成）：
 
 ```
-vendor/mg-styles-15/demos/xiangsu/
+vendor/styles/demos/xiangsu/
 ├── index.html      入口（预加载像素字体后 import film.js，置 window.__ready）
 ├── film.js         主渲染器：色板/LUT、图元、像素字体、六镜头、转场、CRT
 ├── sprites.js      逐像素 sprite 表（ASCII 字符网格，每字符 = 1 px）
@@ -76,7 +76,7 @@ node tools/build_cues_asr.js
 ### 同步校验（每次改字幕或换配音后必跑）
 
 ```bash
-cd vendor/mg-styles-15
+cd vendor/styles
 node tools/check_sync.mjs --cues demos/xiangsu/cues_full.json \
   --audio demos/xiangsu/out/full48.mp4 \
   --asr "D:/@kaifa/yandi/output/002_仁德天皇陵/配音.wav.transcript.simp.json"
@@ -118,17 +118,17 @@ node tools/check_sync.mjs --cues demos/xiangsu/cues_full.json \
 ## 复现
 
 ```bash
-cd vendor/mg-styles-15
+cd vendor/styles
 # 1) 音轨（chiptune + 配音）
 vendor/gpt-sovits/.venv/Scripts/python.exe demos/xiangsu/audio.py
 # 2) sprite 自查图（必须 0 告警）
 node tools/sheet.mjs tools/sheet.png 6
 # 3) 关键帧
-MG_CHROME="C:/Program Files/Google/Chrome/Application/chrome.exe" \
+AV_CHROME="C:/Program Files/Google/Chrome/Application/chrome.exe" \
   node harness/render.mjs demos/xiangsu --stills 0.5,1.8,3.2,4.6,6.0,7.4,8.6,9.6
 # 4) 全片（音轨用 loudnorm 之后的 audio.wav，不是 mix_raw.wav）
 #    注意：产物文件名里的 640 指"栅格"，成片实际是 1920×1080（DEMO 决定）
-MG_CHROME="C:/Program Files/Google/Chrome/Application/chrome.exe" \
+AV_CHROME="C:/Program Files/Google/Chrome/Application/chrome.exe" \
   node harness/render.mjs demos/xiangsu --audio demos/xiangsu/out/audio.wav \
   --crf 14 --out demos/xiangsu/out/video640.mp4
 # 5) 密度度量（口径唯一，别手打 node -e）

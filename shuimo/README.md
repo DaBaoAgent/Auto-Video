@@ -13,15 +13,15 @@
 |---|---|
 | Python 3.11+ | 编排与配乐（纯标准库，无 numpy/scipy 依赖） |
 | ffmpeg / ffprobe | PATH 中可用；本机在 `D:/GPT-SoVITS/tools/ffmpeg/` |
-| Node.js 18+ | 渲染器与 puppeteer-core；`shuimo/node_modules` 已指向 `vendor/mg-styles-15/node_modules` |
+| Node.js 18+ | 渲染器与 puppeteer-core；`shuimo/node_modules` 已指向 `vendor/styles/node_modules` |
 | Edge | 无头渲染；路径见 `pipeline.json` 的 `render.edge`，可用 `SJ_EDGE` 覆盖 |
 | 字体 | `projects/yuren30/assets/font/`（LongCang / KaiTi） |
 
-`vendor/mg-styles-15` 是外部渲染引擎（未随仓库提交，与 shouhui 等管线共用），首次运行先安装：
+`vendor/styles` 是外部渲染引擎（未随仓库提交，与 shouhui 等管线共用），首次运行先安装：
 
 ```powershell
-git clone --depth 1 https://github.com/Vincentwei1021/mg-styles-15.git vendor/mg-styles-15
-Set-Location vendor/mg-styles-15
+git clone --depth 1 https://github.com/Vincentwei1021/styles.git vendor/styles
+Set-Location vendor/styles
 npm install
 Set-Location ../..
 ```
@@ -30,7 +30,7 @@ Set-Location ../..
 
 ```powershell
 New-Item -ItemType Junction -Path 'D:\@kaifa\Auto-Video\shuimo\node_modules' `
-  -Target 'D:\@kaifa\Auto-Video\vendor\mg-styles-15\node_modules'
+  -Target 'D:\@kaifa\Auto-Video\vendor\styles\node_modules'
 ```
 
 ## 快速开始

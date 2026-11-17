@@ -2,12 +2,12 @@
 
 ## 运行时代码
 
-- **BB-Video** — `runtime/core.js`、`runtime/promo.js`、`runtime/blueprint.js` 及渲染链（`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/`）来自 [BubbleBrainBB/BB-Video](https://github.com/BubbleBrainBB/BB-Video)，MIT License，许可见 `runtime/LICENSE.BB-Video`。
-- 本管线的 `scripts/`、`references/`、`template/` 整理自 BB-Video 的蓝图工程图风格与 018《玄奘》前 10 秒样片，MIT（与 Auto-Video 同许可）。
+- **模板库** — `runtime/core.js`、`runtime/promo.js`、`runtime/blueprint.js` 及渲染链（`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/`）来自 模板库，MIT License，许可见 `runtime/LICENSE-upstream`。
+- 本管线的 `scripts/`、`references/`、`template/` 整理自 模板库 的蓝图工程图风格与 018《玄奘》前 10 秒样片，MIT（与 Auto-Video 同许可）。
 
 ## 字体（OFL）
 
-Saira Condensed 500/600、Saira Stencil One、Noto Sans SC 400/500，页面从 jsDelivr @fontsource 加载，渲染器缓存到 `~/.cache/bubble-video/fonts`。
+Saira Condensed 500/600、Saira Stencil One、Noto Sans SC 400/500，页面从 jsDelivr @fontsource 加载，渲染器缓存到 `~/.cache/auto-video/fonts`。
 
 ## 样片
 

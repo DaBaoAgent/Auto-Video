@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // paperclip 管线 · 确定性渲染器（通用）
-// 页面协议（同 mg-styles-15 harness）：window.DEMO + window.renderAt(t) + window.__ready
+// 页面协议（同 styles harness）：window.DEMO + window.renderAt(t) + window.__ready
 //
 // 用法：
 //   node scripts/render_frames.mjs <slug> [--page index20.html] [--dur 20] [--fps 30] [--from 0] [--to 20]

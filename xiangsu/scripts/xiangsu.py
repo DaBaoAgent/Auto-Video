@@ -70,10 +70,10 @@ def check() -> int:
 
     repo = env_path("XIANGSU_REPO", "XIANGSU2_REPO")
     proj = env_path("XIANGSU_PROJ", "XIANGSU2_PROJ")
-    chrom = os.environ.get("MG_CHROME", "C:/Program Files/Google/Chrome/Application/chrome.exe")
+    chrom = os.environ.get("AV_CHROME", "C:/Program Files/Google/Chrome/Application/chrome.exe")
     print(f"XIANGSU_REPO  {repo or '未设（脚本会落到 D:/@kaifa 历史路径，必须覆盖）'}")
     print(f"XIANGSU_PROJ  {proj or '未设（同上）'}")
-    print(f"MG_CHROME     {chrom}  {'存在' if Path(chrom).exists() else '不存在'}")
+    print(f"AV_CHROME     {chrom}  {'存在' if Path(chrom).exists() else '不存在'}")
 
     if repo:
         harness = Path(repo) / "harness" / "render.mjs"

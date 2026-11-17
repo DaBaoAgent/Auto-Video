@@ -22,7 +22,7 @@
   },
   "version": "2026-11-09",
   "pipeline": "goldenage",
-  "style": "bb-video/goldenage",
+  "style": "goldenage",
   "label": "美式黄金卡通",
   "canvas": {
     "width": 1920,
@@ -91,7 +91,7 @@
     "jpeg_quality": 92,
     "crf_delivery": 18,
     "preset": "slow",
-    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/auto-video/fonts"
   },
   "delivery": {
     "sample": "出稿/<编号>_<选题>/",

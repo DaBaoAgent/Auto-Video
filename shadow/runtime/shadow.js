@@ -1,4 +1,4 @@
-// shadow.js: shadow puppetry (皮影戏) style (one of bb-video's visual styles; style notes in styles/shadow/STYLE.md). Load after promo.js.
+// shadow.js: shadow puppetry (皮影戏) style (one of 模板库's visual styles; style notes in styles/shadow/STYLE.md). Load after promo.js.
 // One frame: a screen inside the stage's wooden frame, lit warm yellow by an oil lamp behind it; the puppets are carved translucent ox-hide — red, green, ochre, black — with openwork patterns letting the lamplight through;
 // figures are in profile, with joints at neck, shoulder, elbow and hip, and control rods (sticks) reaching down. Good characters have an "open face" (only the outline carved), villains a "solid face" (all black).
 //

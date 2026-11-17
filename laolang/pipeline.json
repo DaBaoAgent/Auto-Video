@@ -22,7 +22,7 @@
   },
   "version": "2026-11-11",
   "pipeline": "laolang",
-  "style": "bb-video/laolang",
+  "style": "laolang",
   "label": "上海美影手绘赛璐璐（老狼请客式）",
   "canvas": {
     "width": 1920,

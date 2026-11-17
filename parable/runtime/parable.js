@@ -1,4 +1,4 @@
-// parable.js: 3D stick-figure parable (3D 火柴人寓言), one of bb-video's visual styles (style notes in styles/parable/STYLE.md). Load after promo.js; the page needs a three import map (the starter page has one).
+// parable.js: 3D stick-figure parable (3D 火柴人寓言), one of 模板库's visual styles (style notes in styles/parable/STYLE.md). Load after promo.js; the page needs a three import map (the starter page has one).
 // A wordless contrast told by thick white stick figures in a black void on a glossy floor: one fixed wide camera, the figures and their props mirrored in
 // the floor with soft contact shadows, a small monospace caps label over each figure, one prop set that grows over time (bricks, steps, a pile, coins)
 // and one red object that carries the meaning. No cuts and no camera moves: the story is the contrast between what the figures do.

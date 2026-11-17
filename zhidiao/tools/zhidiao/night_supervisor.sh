@@ -50,7 +50,7 @@ while [ "$(date +%s)" -lt "$DEADLINE_TS" ]; do
     sleep 300; continue
   fi
   # 4) 两条 agnes 都没跑：图没齐先跑图
-  MISSING=$("$PY" tools/zhidiao/pending_stats.py 2>/dev/null | grep IMG_MISSING | cut -d= -f2)
+  MISSING=$("$PY" tools/zhidiao/pending_stats.py 2>/dev/null | grep IAV_MISSING | cut -d= -f2)
   if [ -n "$MISSING" ] && [ "$MISSING" != "0" ]; then
     log "images pending=$MISSING -> launch images --jobs 2"
     "$PY" -u tools/zhidiao/agnes_shots.py images --slug warring-states-20min --jobs 2 --max-wait 21600 >> logs/agnes/supervisor-images.log 2>&1

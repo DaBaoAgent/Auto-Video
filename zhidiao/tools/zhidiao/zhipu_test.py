@@ -25,7 +25,7 @@ S02_PNG = os.path.join(ROOT, "content", "warring-states-20min", "shots", "s02.pn
 ENV_FILE = os.path.join(ROOT, ".env")
 
 BASE = "https://open.bigmodel.cn/api/paas/v4"
-IMG_MODEL = "cogview-3-flash"
+IAV_MODEL = "cogview-3-flash"
 VID_MODEL = "cogvideox-flash"
 
 _opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))  # 绕过本机 socks 代理
@@ -81,7 +81,7 @@ def test_image(key, shot_id="s001"):
     if not shot:
         raise SystemExit("shot %s not found" % shot_id)
     prompt = cfg["style"] + "。" + shot["prompt"]
-    payload = {"model": IMG_MODEL, "prompt": prompt, "size": "1344x768"}
+    payload = {"model": IAV_MODEL, "prompt": prompt, "size": "1344x768"}
     t0 = time.time()
     resp = post(BASE + "/images/generations", key, payload)
     elapsed = time.time() - t0
@@ -90,7 +90,7 @@ def test_image(key, shot_id="s001"):
     out = os.path.join(OUT_DIR, "%s-zhipu.png" % shot_id)
     size = download(url, out)
     print("[image] model=%s shot=%s submit+wait=%.1fs download=%.0fKB file=%s"
-          % (IMG_MODEL, shot_id, elapsed, size / 1024, out))
+          % (IAV_MODEL, shot_id, elapsed, size / 1024, out))
     return out
 
 

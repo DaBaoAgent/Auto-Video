@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""把 8 条 BB-Video 模板的 index.html 换成数据驱动分幕（AUTOSCENE）。
+"""把 8 条 模板库 模板的 index.html 换成数据驱动分幕（AUTOSCENE）。
 
 原来的模板把 8 句旁白写死在 scene 里（s('l1')…s('l8')），换稿就报
 `timeline: narration line id "l2" not found`。这个脚本做一次性的改写：

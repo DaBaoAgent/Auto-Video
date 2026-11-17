@@ -1,6 +1,6 @@
 {
   "schema": "auto-video/frontend-targets@1",
-  "note": "每条管线在 frontend 里怎么被调用。BB-Video 派生的 10 条都有 new/vo/render 标准缝：模板全部数据驱动（分幕从 timeline.json 长出来，见 lib/autoscene.js），一条文案可以直接出片；其余 23 条按 reason 里的文档手动接最后一步。改这里不需要动 frontend.py。",
+  "note": "每条管线在 frontend 里怎么被调用。模板库派生的 10 条都有 new/vo/render 标准缝：模板全部数据驱动（分幕从 timeline.json 长出来，见 lib/autoscene.js），一条文案可以直接出片；其余 23 条按 reason 里的文档手动接最后一步。改这里不需要动 frontend.py。",
   "pipelines": {
     "jianying": {
       "render": null,

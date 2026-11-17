@@ -1,6 +1,6 @@
 # dengju · 等轴 2.5D 样片管线
 
-风格取自 `mg-styles-15` **#03-isometric**（MIT）：真正等轴正交相机、粉彩微缩场景、
+风格取自 `styles` **#03-isometric**（MIT）：真正等轴正交相机、粉彩微缩场景、
 瓦片波浪、建筑/墓室生长、平行滑轨运镜、漂浮岛拉远、标题铺在等轴平面上。
 一条口播 = 一条 900 帧 / 30 秒片；字幕落在真实配音时码，音频收在 −14 LUFS / −1.5 dBTP。
 
@@ -10,7 +10,7 @@
 ## 环境
 
 - Node.js ≥18（three + puppeteer-core 走 `node_modules` 联接）
-- **mg-styles-15 渲染引擎**（`vendor/mg-styles-15`，未随仓库提交，与 shouhui/xuni 共用）：先 `git clone --depth 1 https://github.com/Vincentwei1021/mg-styles-15.git vendor/mg-styles-15`，`npm install`，再建联接 `New-Item -ItemType Junction -Path 'dengju/node_modules' -Target 'vendor/mg-styles-15/node_modules'`
+- **styles 渲染引擎**（`vendor/styles`，未随仓库提交，与 shouhui/xuni 共用）：先 `git clone --depth 1 https://github.com/Vincentwei1021/styles.git vendor/styles`，`npm install`，再建联接 `New-Item -ItemType Junction -Path 'dengju/node_modules' -Target 'vendor/styles/node_modules'`
 - Edge（`C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe`）
 - Python ≥3.11（配乐/混音纯标准库，不需要 numpy）
 - ffmpeg + ffprobe 在 PATH

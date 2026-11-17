@@ -31,14 +31,14 @@ shouhui/
 
 ## 外部依赖
 
-渲染器从 `vendor/mg-styles-15` 读取引擎和 Node 依赖。源仓库没有提交这个目录。
+渲染器从 `vendor/styles` 读取引擎和 Node 依赖。源仓库没有提交这个目录。
 
 ```powershell
-git clone --depth 1 https://github.com/Vincentwei1021/mg-styles-15.git vendor/mg-styles-15
-Set-Location vendor/mg-styles-15
+git clone --depth 1 https://github.com/Vincentwei1021/styles.git vendor/styles
+Set-Location vendor/styles
 npm install --no-audit --no-fund puppeteer-core@25.12.0 simplex-noise@4.0.3 opentype.js@2.0.0
 Set-Location ../..
-New-Item -ItemType Junction -Path 'shouhui/node_modules' -Target 'vendor/mg-styles-15/node_modules'
+New-Item -ItemType Junction -Path 'shouhui/node_modules' -Target 'vendor/styles/node_modules'
 ```
 
 示例工程还需要单独的配音源和 BGM 才能重跑 `audio`。`film.json` 中的 `出稿/012_商纣王/配音.wav` 与 `D:/@kaifa/BGM/悬疑/...mp3` 属于源仓库外部素材；已生成的旁白、混音和样片仍在示例工程内，可以直接用于 `probe`、静帧或重新渲染检查。
@@ -50,4 +50,4 @@ New-Item -ItemType Junction -Path 'shouhui/node_modules' -Target 'vendor/mg-styl
 - Edge
 - ffmpeg 与 ffprobe
 
-引擎和纸本素材来自 `mg-styles-15`，按 MIT 许可使用；示例字体按 OFL 许可使用。
+引擎和纸本素材来自 `styles`，按 MIT 许可使用；示例字体按 OFL 许可使用。

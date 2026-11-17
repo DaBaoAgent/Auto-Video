@@ -37,7 +37,7 @@ yandi-video/render/xiangsu/
     └── audio.py       chiptune + SFX 合成与配音混音（numpy，种子固定）
 ```
 
-构建落点：`<mg-styles-15 克隆>/demos/xiangsu-eden/`（harness 只能服务仓库内目录，`build.sh` 会把 `demo/` 同步进去）。
+构建落点：`<styles 克隆>/demos/xiangsu-eden/`（harness 只能服务仓库内目录，`build.sh` 会把 `demo/` 同步进去）。
 全片与封面分别落在 `demos/xiangsu-eden-full/`、`demos/xiangsu-cover/`（均可再生）。
 `demos/xiangsu/`（workbuddy 的旧 xiangsu 线）与 `demos/xiangsu-bay/`（640×360 样片）都不参与本管线，不要改。
 
@@ -60,7 +60,7 @@ yandi-video/render/xiangsu/
 
 ## 复现
 
-前置：Chrome、ffmpeg 在 PATH；渲染仓库 `mg-styles-15` 已 `npm install`（puppeteer-core）；
+前置：Chrome、ffmpeg 在 PATH；渲染仓库 `styles` 已 `npm install`（puppeteer-core）；
 Python 用 `D:/@kaifa/openviking/.venv/Scripts/python.exe`（numpy）。
 
 ```bash
@@ -77,11 +77,11 @@ bash build.sh --no-audio
 
 | 变量 | 默认 |
 |---|---|
-| `XIANGSU_REPO` | `D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15` |
+| `XIANGSU_REPO` | `D:/@kaifa/yandi/output/020_曹操/render/styles` |
 | `XIANGSU_PROJ` | `D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音`（样片落点） |
 | `XIANGSU_PY` | `D:/@kaifa/openviking/.venv/Scripts/python.exe` |
 | `XIANGSU_VOICE` | `D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/配音.wav`（样片旁白） |
-| `MG_CHROME` | `C:/Program Files/Google/Chrome/Application/chrome.exe` |
+| `AV_CHROME` | `C:/Program Files/Google/Chrome/Application/chrome.exe` |
 
 全片管线（`full/build_full.sh`、`full/make_audio.sh`、`full/make_covers.mjs --final`）的**片级参数没有默认值，未设置会直接报错**，见「新片参数（2026-10-30）」一节。旧名 `XIANGSU2_REPO` / `XIANGSU2_PROJ` / `XIANGSU2_PY` / `XIANGSU2_VOICE` / `XIANGSU2_COVER_OUT` 仍兼容（新名优先）。
 
@@ -91,10 +91,10 @@ bash build.sh --no-audio
 # 1) 音轨
 bash make_audio.sh "<repo>/demos/xiangsu-eden"
 # 2) 关键帧（目检用）
-cd "<repo>" && MG_CHROME="C:/Program Files/Google/Chrome/Application/chrome.exe" \
+cd "<repo>" && AV_CHROME="C:/Program Files/Google/Chrome/Application/chrome.exe" \
   node harness/render.mjs demos/xiangsu-eden --stills 2.30,4.60,7.30
 # 3) 全片
-cd "<repo>" && MG_CHROME="C:/Program Files/Google/Chrome/Application/chrome.exe" \
+cd "<repo>" && AV_CHROME="C:/Program Files/Google/Chrome/Application/chrome.exe" \
   node harness/render.mjs demos/xiangsu-eden --w 1920 --h 1080 --fps 30 --duration 10 \
   --audio demos/xiangsu-eden/out/audio.wav --crf 14 \
   --out "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/样片_前10秒_1920x1080.mp4"
@@ -285,7 +285,7 @@ node make_covers.mjs --final --t43 <取帧秒> --t34 <取帧秒>   # 裁切/取�
 | `XIANGSU_COVER_OUT` | make_covers --final | 报错 |
 | `XIANGSU_COVER_TITLE` | make_covers --final | 可用 `XIANGSU_FILM` 兜底，都没有则报错 |
 
-环境类参数仍有默认值：`XIANGSU_REPO`（渲染仓库）、`XIANGSU_PY`、`MG_CHROME`、`XIANGSU_WORKERS`。
+环境类参数仍有默认值：`XIANGSU_REPO`（渲染仓库）、`XIANGSU_PY`、`AV_CHROME`、`XIANGSU_WORKERS`。
 
 001 按原参数复现：
 

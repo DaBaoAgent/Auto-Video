@@ -34,7 +34,7 @@
 
 - `references/pipeline.md` 新增 §7 封面与发布信息、§8 交付结构，`SKILL.md` 总览由六阶段扩为七阶段。
 - 封面统一用 `tools/zhidiao/make_covers.py`（Seedream `doubao-seedream-5-0-flash-260915`，
-  配置读项目根 `.env` 的 `IMG_BASE_URL / IMG_MODEL / IMG_API_KEY`）：
+  配置读项目根 `.env` 的 `IAV_BASE_URL / IAV_MODEL / IAV_API_KEY`）：
   两张 2048×1536 / 1536×2048，主标题恰好 6 个汉字、金色毛笔、由模型直接画入。
 - 发布信息两行：标题 **≤25 字、两段式强钩子**、含阿拉伯数字；第二行恰好 4 个 `#话题`。
 - 打包用 `tools/zhidiao/package_delivery.py`，交付目录顶层 4 文件 + `源文件/`。

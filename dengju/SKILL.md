@@ -5,7 +5,7 @@ description: 用「等轴 2.5D Isometric」做科普口播样片与短片。口�
 
 # dengju：等轴 2.5D / Isometric 管线
 
-风格内核来自 `mg-styles-15` 的 **03-isometric**（MIT）：
+风格内核来自 `styles` 的 **03-isometric**（MIT）：
 真正的等轴正交相机（仰角 35.264°、方位角 45°）、粉彩摄影棚配色（薰衣草底、薄荷、蜜桃、天蓝、白）、
 柔和阴影 + SSAO、地面瓦片波浪、建筑生长、平行滑轨运镜、漂浮岛拉远、标题直接铺在等轴平面上。
 本管线把它收成「一条口播驱动一条片」的工程：**画面是时间的纯函数，
@@ -63,7 +63,7 @@ dengju/
         └── out/                成片、静帧、拼图、QA、交付说明
 ```
 
-`node_modules` 是目录联接，指向 `vendor/mg-styles-15/node_modules`（three / puppeteer-core）。
+`node_modules` 是目录联接，指向 `vendor/styles/node_modules`（three / puppeteer-core）。
 
 ## 常用命令
 
@@ -176,6 +176,6 @@ PC_FMT=jpeg PC_Q=92 node dengju/scripts/render_frames.mjs yuren30 --dur 30 --fro
 
 ## 资产与许可
 
-- 视觉语法来自 `mg-styles-15` #03（MIT，Vincentwei1021）；`js/render.js`、`js/anim.js`
+- 视觉语法来自 `styles` #03（MIT，Vincentwei1021）；`js/render.js`、`js/anim.js`
   为上游源码的本地副本，二次分发保留上游许可。
 - 字体 Alibaba PuHuiTi 3.0 85-Bold（免费商用）；Three.js（MIT）；Chromium/Edge 渲染。

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// render.mjs: zero-dependency renderer shared by both kinds of video (bb-video/core). Drives the local Chrome directly over the Chrome DevTools Protocol,
+// render.mjs: zero-dependency renderer shared by both kinds of video (模板库/core). Drives the local Chrome directly over the Chrome DevTools Protocol,
 // calls window.renderFrame(t) frame by frame, screenshots it, and hands the frames to ffmpeg to encode an mp4.
 // render.mjs: the zero-dependency renderer shared by every video (explainer/scripts/render.mjs and promo/scripts/render.mjs forward here).
 //
@@ -49,9 +49,9 @@ useEnvProxy();   // web fonts are fetched by Node: behind a proxy it needs switc
 
 const args = process.argv.slice(2);
 const proj = path.resolve(args[0] && !args[0].startsWith('--') ? args[0] : '.');
-// Output language: BV_LANG if set, otherwise the project's own language (lang.mjs); passed on to the sound scripts and the page
+// Output language: AV_LANG if set, otherwise the project's own language (lang.mjs); passed on to the sound scripts and the page
 const ZH = isZh(proj);
-process.env.BV_LANG = ZH ? 'zh' : 'en';
+process.env.AV_LANG = ZH ? 'zh' : 'en';
 const M = (zh, en) => (ZH ? zh : en);
 // The music seed defaults to the project folder name: the same project gets the same music every time; different projects get different chord progressions and motifs
 const withMusic = (plan) => ({ ...plan, music: { seed: path.basename(proj), ...(plan.music || {}) } });
@@ -129,7 +129,7 @@ const pageError = (d, where = '') => { const raw = d.exception?.description || d
 // ---------- Minimal CDP client ----------
 class CDP {
   constructor(ws) {
-    this.ws = ws; this.id = 0; this.pending = new Map(); this.listeners = []; this.timeout = Number(process.env.BV_CDP_TIMEOUT || 120000);
+    this.ws = ws; this.id = 0; this.pending = new Map(); this.listeners = []; this.timeout = Number(process.env.AV_CDP_TIMEOUT || 120000);
     ws.onmessage = (ev) => {
       const m = JSON.parse(ev.data);
       if (m.id && this.pending.has(m.id)) {
@@ -206,9 +206,9 @@ async function launch() {
 
 // ---------- Web fonts: local cache ----------
 // Styles load their fonts from CDNs (jsdelivr / Google Fonts). When Chrome fetches them itself it sometimes works and sometimes fails (the same file downloads fine with curl):
-// the check and the final video could then use different fonts. So we intercept font and font-css requests, download them in Node (3 retries), store them in ~/.cache/bubble-video/fonts,
+// the check and the final video could then use different fonts. So we intercept font and font-css requests, download them in Node (3 retries), store them in ~/.cache/auto-video/fonts,
 // and serve them locally from then on — once downloaded on the first online run, rendering no longer needs the network. --no-font-cache turns this off (Chrome fetches them itself).
-const FONT_CACHE = path.join(os.homedir(), '.cache', 'bubble-video', 'fonts');
+const FONT_CACHE = path.join(os.homedir(), '.cache', 'auto-video', 'fonts');
 const FONT_HOSTS = /^https?:\/\/(cdn\.jsdelivr\.net|fonts\.googleapis\.com|fonts\.gstatic\.com|unpkg\.com|cdnjs\.cloudflare\.com)\//;
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';   // Google Fonts serves woff2 based on the browser
 async function cachedFetch(url) {
@@ -230,7 +230,7 @@ async function openPage(cdp, scale) {
   const s = (m, p, sid, tm) => cdp.send(m, p, sessionId, tm);   // tm 传下去：个别请求（PNG 封面）要单独的超时预算
   await s('Page.enable');
   await s('Runtime.enable');
-  await s('Page.addScriptToEvaluateOnNewDocument', { source: `window.__RENDER__ = true; window.__BV_LANG = '${ZH ? 'zh' : 'en'}';` });   // the page's own checks speak the run's language
+  await s('Page.addScriptToEvaluateOnNewDocument', { source: `window.__RENDER__ = true; window.__AV_LANG = '${ZH ? 'zh' : 'en'}';` });   // the page's own checks speak the run's language
   if (!flag('offline') && !flag('no-font-cache')) {
     await s('Fetch.enable', { patterns: [{ urlPattern: '*', resourceType: 'Font' }, { urlPattern: '*', resourceType: 'Stylesheet' }] });
     cdp.listeners.push(async (m) => {
@@ -818,7 +818,7 @@ async function main() {
     }
     // The one-line music / sound-design note is still the template text: this film's sound hasn't been thought through yet (rendering goes ahead, but it is an unfinished spot)
     for (const [obj, f] of [[SCORE, 'score.js'], [PALETTE, 'sound.js']]) if (obj && /^(一句话：|One line:)/.test(String(obj.name || '')) && fs.existsSync(path.join(proj, f))) issues.push({ level: 'warn', t: 0, src: '', what: M('声音', 'sound'), msg: M(`${f} 的 name 还是模板原文（"${String(obj.name).slice(0, 24)}…"）：写一句这支片子的声音 / 配乐是什么样的，再按它改`, `${f} still has the template's name ("${String(obj.name).slice(0, 24)}…"): write one line about how this film should sound, then shape it to that`) });
-    if (fontMiss.length) issues.push({ level: 'warn', t: 0, src: '', what: M('字体', 'fonts'), msg: M(`${fontMiss.join('、')} 没加载上，这次用的是备用字体（字宽不一样，切边、重叠的结果可能和成片不同）：检查网络后重跑；字体会缓存在 ~/.cache/bubble-video/fonts，下好一次以后就稳定了`, `${fontMiss.join(', ')} did not load; a fallback font was used (widths differ, so clipping / overlap results may not match the final film): check the network and run again; fonts are cached in ~/.cache/bubble-video/fonts after the first download`) });
+    if (fontMiss.length) issues.push({ level: 'warn', t: 0, src: '', what: M('字体', 'fonts'), msg: M(`${fontMiss.join('、')} 没加载上，这次用的是备用字体（字宽不一样，切边、重叠的结果可能和成片不同）：检查网络后重跑；字体会缓存在 ~/.cache/auto-video/fonts，下好一次以后就稳定了`, `${fontMiss.join(', ')} did not load; a fallback font was used (widths differ, so clipping / overlap results may not match the final film): check the network and run again; fonts are cached in ~/.cache/auto-video/fonts after the first download`) });
     // Fact check: every piece of text that appears on screen (registered by the page) must be found in brief.md (ignoring case, spaces and punctuation)
     const briefPath = path.join(proj, 'brief.md');
     const texts = (await first.eval('window.__texts ? window.__texts() : []')).result.value || [];
@@ -910,7 +910,7 @@ async function main() {
     // Final video: don't render if a font didn't load (it would use a fallback font with a different layout from the check)
     const finalVideo = !flag('check') && !flag('stills') && !flag('sheet') && !flag('strip') && !flag('audio') && !flag('remux');
     if (finalVideo && fontMiss.length && !flag('allow-font-fallback')) {
-      console.error(M(`停下：${fontMiss.join('、')} 没加载上，成片会用备用字体。检查网络后重跑（下好一次会缓存在 ~/.cache/bubble-video/fonts）；确实要用备用字体渲染加 --allow-font-fallback`, `Stopped: ${fontMiss.join(', ')} did not load, so the film would use a fallback font. Check the network and run again (fonts are cached in ~/.cache/bubble-video/fonts once downloaded); to render with the fallback anyway, add --allow-font-fallback`));
+      console.error(M(`停下：${fontMiss.join('、')} 没加载上，成片会用备用字体。检查网络后重跑（下好一次会缓存在 ~/.cache/auto-video/fonts）；确实要用备用字体渲染加 --allow-font-fallback`, `Stopped: ${fontMiss.join(', ')} did not load, so the film would use a fallback font. Check the network and run again (fonts are cached in ~/.cache/auto-video/fonts once downloaded); to render with the fallback anyway, add --allow-font-fallback`));
       process.exitCode = 1; return;
     }
     if (flag('stills') || flag('sheet') || flag('strip')) {

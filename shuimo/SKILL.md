@@ -60,7 +60,7 @@ shuimo/
         └── out/                成片、静帧、拼图、QA、交付说明
 ```
 
-`node_modules` 是目录联接，指向 `vendor/mg-styles-15/node_modules`（只用到 puppeteer-core）。
+`node_modules` 是目录联接，指向 `vendor/styles/node_modules`（只用到 puppeteer-core）。
 
 ## 常用命令
 

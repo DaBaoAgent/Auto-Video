@@ -1,5 +1,5 @@
 // caiqian / ditu / pingban 共用逐帧渲染器（旧版 API，canonical 副本）
-// node vendor/bb-video/runtime/render-legacy.mjs <project> [--fps 24] [--out <mp4>] [--width 1920] [--height 1080] [--quality 92] [--from 0] [--to <秒>]
+// node vendor/runtime/render-legacy.mjs <project> [--fps 24] [--out <mp4>] [--width 1920] [--height 1080] [--quality 92] [--from 0] [--to <秒>]
 //
 // 页面契约（三个项目都遵守，和 lemo-opuscar 一致）：
 //   window.READY    资源与字体加载完成、第一帧已画好 → true
@@ -10,7 +10,7 @@
 //      screenshot(jpeg) 直接 pipe 给 ffmpeg → 出来的 mp4 是无声母版，混音交给 scripts/<管线>.py mux。
 // 依赖只认 playwright-core：优先 $PLAYWRIGHT_CORE，其次工程目录逐级向上的 node_modules，再次全局。
 //
-// 收尾（2026-11-17 补）：每条等待都有超时（BV_FRAME_TIMEOUT，默认 60s）；任何异常都会关浏览器、停服务器、
+// 收尾（2026-11-17 补）：每条等待都有超时（AV_FRAME_TIMEOUT，默认 60s）；任何异常都会关浏览器、停服务器、
 // 杀 ffmpeg 进程树；进程退出时兜底 reap 一次，不再留 chrome-headless-shell 僵尸。
 import fs from 'fs';
 import path from 'path';
@@ -18,7 +18,7 @@ import http from 'http';
 import { spawn, spawnSync } from 'child_process';
 import { createRequire } from 'module';
 
-const FRAME_TIMEOUT = Math.max(5, +(process.env.BV_FRAME_TIMEOUT || 60)) * 1000;
+const FRAME_TIMEOUT = Math.max(5, +(process.env.AV_FRAME_TIMEOUT || 60)) * 1000;
 const PROCS = [];
 
 // Windows 上 playwright spawn 出来的是一个进程树，杀父进程不够；POSIX 用进程组。
@@ -39,7 +39,7 @@ for (const sig of ['SIGINT', 'SIGTERM', 'SIGHUP']) process.once(sig, () => { rea
 function withTimeout(promise, ms, label) {
   let timer;
   const guard = new Promise((_, rej) => {
-    timer = setTimeout(() => rej(new Error(`${label} 超时 ${ms / 1000}s（BV_FRAME_TIMEOUT 可调）`)), ms);
+    timer = setTimeout(() => rej(new Error(`${label} 超时 ${ms / 1000}s（AV_FRAME_TIMEOUT 可调）`)), ms);
   });
   return Promise.race([promise, guard]).finally(() => clearTimeout(timer));
 }

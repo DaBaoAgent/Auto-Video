@@ -5,7 +5,7 @@ description: 用「赛博朋克 HUD / FUI 虚构界面」做口播样片与短�
 
 # xianshiqi：赛博朋克 HUD / FUI 短片管线
 
-风格内核来自 `mg-styles-15` 的 **22-hud**（MIT）：
+风格内核来自 `styles` 的 **22-hud**（MIT）：
 深青黑底 + 青色 `#00E5FF` 线稿 + 橙红 `#FF6A00` 告警态、六边形网格、
 带刻度的同心旋转环、雷达扫掠、数据列滚动、打字机状态行、sparkline、
 中央 Three.js 线框全息体、四角收缩的锁定框、辉光／扫描线／轻微色差／克制 glitch。
@@ -61,7 +61,7 @@ xianshiqi/
         └── out/                成片、静帧、拼图、QA
 ```
 
-`node_modules` 是目录联接，指向 `vendor/mg-styles-15/node_modules`（three / puppeteer-core）。
+`node_modules` 是目录联接，指向 `vendor/styles/node_modules`（three / puppeteer-core）。
 
 ## 常用命令
 
@@ -176,7 +176,7 @@ node xianshiqi/scripts/render_frames.mjs UAP30 --dur 30 --from 0 --to 30
 
 ## 资产与许可
 
-- 视觉语法来自 `mg-styles-15` #22（MIT，Vincentwei1021）；二次分发保留上游许可。
+- 视觉语法来自 `styles` #22（MIT，Vincentwei1021）；二次分发保留上游许可。
 - 字体 Alibaba PuHuiTi 3.0 85-Bold（免费商用）；Chromium/Edge 渲染。
 - 不使用真实品牌商标；片中出现的 `UAP // FUSION CENTER`、`SENSOR FUSION DESK`、
   `TACTICAL // PACIFIC TEST RANGE` 均为虚构界面文案。

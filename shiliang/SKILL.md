@@ -5,7 +5,7 @@ description: 用「扁平矢量 2D Motion Graphics」做科普口播样片与短
 
 # shiliang：扁平矢量 / 2D MG 管线
 
-风格内核来自 `mg-styles-15` 的 **01-flat-vector**（MIT）：
+风格内核来自 `styles` 的 **01-flat-vector**（MIT）：
 纯色大色块、几何化角色、无渐变、弹性缓动、错峰入场、由元素带动的转场。
 本管线把它收成「一条口播驱动一条片」的工程：**画面是时间的纯函数，
 字幕落在配音的真实时码上，音频最后统一到 −14 LUFS / ≤ −1.5 dBTP。**
@@ -53,7 +53,7 @@ shiliang/
         └── out/                成片、静帧、拼图、QA、交付说明
 ```
 
-`node_modules` 是目录联接，指向 `vendor/mg-styles-15/node_modules`（puppeteer-core）。
+`node_modules` 是目录联接，指向 `vendor/styles/node_modules`（puppeteer-core）。
 
 ## 常用命令
 
@@ -161,7 +161,7 @@ node shiliang/scripts/render_frames.mjs <slug> --dur 30 --from 0 --to 30
 
 ## 资产与许可
 
-- 视觉语法来自 `mg-styles-15` 的 `demos/01-flat-vector`（MIT，Vincentwei1021）；
+- 视觉语法来自 `styles` 的 `demos/01-flat-vector`（MIT，Vincentwei1021）；
   本管线为独立重写（SVG + 纯标准库配乐），未直接复制上游素材；二次分发保留上游许可。
 - 字体 Alibaba PuHuiTi 3.0 85-Bold（免费商用）；数字/英文用系统 Arial Black。
 - 不使用真实品牌商标；片中的 `SECURITY ALERT`、`LIFE 3.0` 等均为虚构界面文案。

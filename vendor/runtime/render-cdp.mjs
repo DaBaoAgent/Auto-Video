@@ -28,9 +28,9 @@ import events from 'node:events';
 events.defaultMaxListeners = 100;
 
 // —— 收尾与超时（2026-11-17 补）——
-// 每帧动作都有上限（BV_FRAME_TIMEOUT，默认 120s）；任何异常 / 信号 / 正常退出都会把 Chrome 与 ffmpeg 的
+// 每帧动作都有上限（AV_FRAME_TIMEOUT，默认 120s）；任何异常 / 信号 / 正常退出都会把 Chrome 与 ffmpeg 的
 // 进程树杀掉，不再留 msedge / chrome 僵尸。
-const FRAME_TIMEOUT = Math.max(5, +(process.env.BV_FRAME_TIMEOUT || 120)) * 1000;
+const FRAME_TIMEOUT = Math.max(5, +(process.env.AV_FRAME_TIMEOUT || 120)) * 1000;
 const PROCS = [];
 function reap(proc) {
   if (!proc || proc.exitCode !== null || proc.signalCode) return;
@@ -44,13 +44,13 @@ process.once('exit', reapAll);
 for (const sig of ['SIGINT', 'SIGTERM', 'SIGHUP']) process.once(sig, () => { reapAll(); process.exit(1); });
 function withTimeout(promise, ms, label) {
   let timer;
-  const guard = new Promise((_, rej) => { timer = setTimeout(() => rej(new Error(`${label} 超时 ${ms / 1000}s（BV_FRAME_TIMEOUT 可调）`)), ms); });
+  const guard = new Promise((_, rej) => { timer = setTimeout(() => rej(new Error(`${label} 超时 ${ms / 1000}s（AV_FRAME_TIMEOUT 可调）`)), ms); });
   return Promise.race([promise, guard]).finally(() => clearTimeout(timer));
 }
 
-// —— 浏览器定位：$MG_CHROME / $CHROME_PATH → 各平台常见安装位置 → PATH 上的 chrome/msedge/chromium ——
+// —— 浏览器定位：$AV_CHROME / $CHROME_PATH → 各平台常见安装位置 → PATH 上的 chrome/msedge/chromium ——
 function findBrowser() {
-  const fromEnv = process.env.MG_CHROME || process.env.CHROME_PATH;
+  const fromEnv = process.env.AV_CHROME || process.env.CHROME_PATH;
   if (fromEnv && fs.existsSync(fromEnv)) return fromEnv;
   const win = [
     'C:/Program Files/Google/Chrome/Application/chrome.exe',
@@ -73,19 +73,19 @@ function findBrowser() {
   return null;
 }
 
-// shouhui 改造：站点根 = 工程目录（MG_SITE），依赖根 = mg-styles-15 克隆（MG_VENDOR）
-const VENDOR = process.env.MG_VENDOR
-  ? path.resolve(process.env.MG_VENDOR)
-  : path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../mg-styles-15');
-const SITE = process.env.MG_SITE ? path.resolve(process.env.MG_SITE) : VENDOR;
+// shouhui 改造：站点根 = 工程目录（AV_SITE），依赖根 = styles 克隆（AV_VENDOR）
+const VENDOR = process.env.AV_VENDOR
+  ? path.resolve(process.env.AV_VENDOR)
+  : path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../styles');
+const SITE = process.env.AV_SITE ? path.resolve(process.env.AV_SITE) : VENDOR;
 const ROOT = SITE;
 const CHROME = findBrowser();
 if (!CHROME) {
-  console.error('✗ 找不到 Chrome / Edge / Chromium。装一个，或用 $CHROME_PATH（$MG_CHROME 也行）指向它。');
+  console.error('✗ 找不到 Chrome / Edge / Chromium。装一个，或用 $CHROME_PATH（$AV_CHROME 也行）指向它。');
   process.exit(2);
 }
-// GPU flags: ANGLE/Metal on macOS; on Linux (e.g. the NVIDIA render box) default to ANGLE/Vulkan, override with MG_GPU_ARGS.
-const GPU_ARGS = process.env.MG_GPU_ARGS ? process.env.MG_GPU_ARGS.split(' ').filter(Boolean)
+// GPU flags: ANGLE/Metal on macOS; on Linux (e.g. the NVIDIA render box) default to ANGLE/Vulkan, override with AV_GPU_ARGS.
+const GPU_ARGS = process.env.AV_GPU_ARGS ? process.env.AV_GPU_ARGS.split(' ').filter(Boolean)
   : process.platform === 'darwin' ? ['--use-angle=metal']
   : process.platform === 'win32' ? ['--use-angle=d3d11', '--no-sandbox', '--disable-gpu-watchdog', '--disable-gpu-process-crash-limit']
   : ['--use-gl=angle', '--use-angle=gl-egl', '--no-sandbox', '--disable-gpu-watchdog', '--disable-gpu-process-crash-limit'];   // NVIDIA via EGL (verified: hardware WebGL2, ~38–51 dB PSNR vs the Mac renders)
@@ -182,7 +182,7 @@ function writeAsync(stream, buf) {
 
 
 // Machine-wide cap on concurrent full renders (captures are GPU-serialized anyway; this bounds RAM use).
-const SLOTS = +(process.env.MG_RENDER_SLOTS || 3);
+const SLOTS = +(process.env.AV_RENDER_SLOTS || 3);
 const LOCKDIR = '/tmp/mg-render-slots';
 const alive = (pid) => { try { process.kill(pid, 0); return true; } catch (e) { return e.code === 'EPERM'; } };
 async function acquireSlot() {

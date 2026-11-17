@@ -2,33 +2,33 @@
 
 ## 来源
 
-- 风格运行时：`BB-Video/skills/bb-video/promo/runtime/laolang.js`（冻结版：`styles/laolang/toon-cast/archive/v20261110_stable/laolang.js`）
-- 底层投影：`BB-Video/skills/bb-video/promo/runtime/goldenage.js`（冻结版：`toon-cast/archive/v20261110_stable/goldenage.js`，关闭 gate weave / 静态颗粒 / 去逐帧灰尘）
-- 共享运行时：`BB-Video/skills/bb-video/core/runtime/core.js`、`BB-Video/skills/bb-video/promo/runtime/promo.js`
-- 标准动作：`BB-Video/skills/bb-video/promo/runtime/act.js`
-- 定稿人物：`BB-Video/skills/bb-video/styles/laolang/toon-cast/`
+- 风格运行时：`上游/promo/runtime/laolang.js`（冻结版：`styles/laolang/toon-cast/archive/v20261110_stable/laolang.js`）
+- 底层投影：`上游/promo/runtime/goldenage.js`（冻结版：`toon-cast/archive/v20261110_stable/goldenage.js`，关闭 gate weave / 静态颗粒 / 去逐帧灰尘）
+- 共享运行时：`上游/core/runtime/core.js`、`上游/promo/runtime/promo.js`
+- 标准动作：`上游/promo/runtime/act.js`
+- 定稿人物：`上游/styles/laolang/toon-cast/`
   - `lao_body.ts` / `toon.ts` / `lao_cast.js` / `lao_cast_full.js` / `lao_poses.js` / `build_toon.py` / `lib/toon.js`
   - 冻结快照：`archive/v20261110_stable/`（页面、`goldenage.js`、`laolang.js`、`lao_body.ts`、`lao_poses.js`、`lao_cast_full.js`、`toon.ts`、`lib/toon.js`、`STABLE_SPEC.md`、`MANIFEST.sha256`）
-- 眨眼/绘制入口：`BB-Video/work/xz-film-60/lib/cast-lite.js`
-- 样片工程：`BB-Video/work/xz-film-60/` → `template/`
+- 眨眼/绘制入口：`上游/work/xz-film-60/lib/cast-lite.js`
+- 样片工程：`上游/work/xz-film-60/` → `template/`
   - `index.html`（62.2 s 全片页面，与冻结快照逐字节一致）
   - `timeline.js` / `timeline.json`（19 句词级时间轴）
   - `brief.md`（事实与文案）、`sound.js`（音效）
   - `script.json`（`bgm:false`）
   - `lib/story.js`（SHOTS + cue + win，项目专属）
-- 配乐（可选）：`BB-Video/work/xz-laolang/score.js`（竹笛/琵琶/低音/木鱼/小锣，五声音阶 G 宫，84 BPM）
-- 风格规范：`BB-Video/skills/bb-video/styles/laolang/STYLE.md` → `references/style.md`
-- 人物参数：`BB-Video/skills/bb-video/styles/laolang/CHARACTERS.md` → `references/characters.md`
-- 动作集：`BB-Video/skills/bb-video/styles/laolang/ACTIONS.md` → `references/actions.md`
-- 样片方法：`BB-Video/skills/bb-video/styles/laolang/PRODUCTION.md` → `references/production.md`
-- 渲染链：`BB-Video/skills/bb-video/core/scripts/{render,music,bgm,sound,lang,net}.mjs`、`scores/*.mjs`（经 shadow 管线 vendored 版本）
+- 配乐（可选）：`上游/work/xz-laolang/score.js`（竹笛/琵琶/低音/木鱼/小锣，五声音阶 G 宫，84 BPM）
+- 风格规范：`上游/styles/laolang/STYLE.md` → `references/style.md`
+- 人物参数：`上游/styles/laolang/CHARACTERS.md` → `references/characters.md`
+- 动作集：`上游/styles/laolang/ACTIONS.md` → `references/actions.md`
+- 样片方法：`上游/styles/laolang/PRODUCTION.md` → `references/production.md`
+- 渲染链：`上游/core/scripts/{render,music,bgm,sound,lang,net}.mjs`、`scores/*.mjs`（经 shadow 管线 vendored 版本）
 - 编排脚本：以 `shadow/scripts/shadow.py` 为基底改写为 `laolang/scripts/laolang.py`；`make_vo.py` 为通用配音对齐脚本
-- 同步校验（2026-11-10 新增，非 BB-Video 来源）：`asr_probe.py`（真实 ASR 词时间）、`rebuild_timeline.py`（按 ASR 重建时间轴）、`sync_qa.py`（2–4 秒分镜 + 字幕/音频/OCR 校验）
+- 同步校验（2026-11-10 新增，非 模板库 来源）：`asr_probe.py`（真实 ASR 词时间）、`rebuild_timeline.py`（按 ASR 重建时间轴）、`sync_qa.py`（2–4 秒分镜 + 字幕/音频/OCR 校验）
 - 成片：`出稿/018_玄奘/26_60秒样片_统一景别_稳定版/`（本地归档，未入库）
 
 ## 入库内容
 
-- `runtime/`：BB-Video MIT 代码的逐字副本（`LICENSE.BB-Video` 随附）；其中 `goldenage.js` / `laolang.js` / `toon.js` 是 60 秒样片冻结版。
+- `runtime/`：模板库 MIT 代码的逐字副本（`LICENSE-upstream` 随附）；其中 `goldenage.js` / `laolang.js` / `toon.js` 是 60 秒样片冻结版。
 - `scripts/`：本管线新增的编排脚本 `laolang.py`（new / vo / asr / rebuild / shots / sync / check / stills / render / probe / qa / short-qa / deliver），以及 `make_vo.py`、`short_qa.py`、`asr_probe.py`、`rebuild_timeline.py`、`sync_qa.py`。
 - `references/`：风格规范、人物定稿参数、24 动作集、口播同步与分镜节奏、60 秒样片方法、分镜模板、验收清单。
 - `toon-cast/`：人物/动作源码、构建脚本、冻结快照与 `MANIFEST.sha256`。
@@ -42,7 +42,7 @@
 
 ## 更新方式
 
-BB-Video 的运行时或人物库更新后：
+模板库 的运行时或人物库更新后：
 
 1. 重新复制 `runtime/` 对应文件；若人物/动作有改动，先新建 `toon-cast/archive/vYYYYMMDD/` 快照并更新 `MANIFEST.sha256`。
 2. 跑一遍：
@@ -58,7 +58,7 @@ python scripts/laolang.py stills <临时工程> --times 2,8,15,25
 
 ## 与 shadow / blueprint 的关系
 
-三条都是 BB-Video 风格运行时迁移过来的管线，目录结构一致，但引擎不同：
+三条都是 模板库 风格运行时迁移过来的管线，目录结构一致，但引擎不同：
 
 - `shadow`：透光牛皮影人 + 操纵杆 + 灯暗换场
 - `blueprint`：蓝晒工程图 + 构造线 + 真实啮合机构

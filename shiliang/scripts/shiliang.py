@@ -77,7 +77,7 @@ def cmd_new(a):
     if FONT_SRC.exists() and not (p / 'assets/font' / FONT_SRC.name).exists():
         shutil.copy2(FONT_SRC, p / 'assets/font' / FONT_SRC.name)
     c = {
-        'pipeline': 'shiliang', 'style': 'mg-styles-15/01-flat-vector', 'slug': slug,
+        'pipeline': 'shiliang', 'style': 'styles/01-flat-vector', 'slug': slug,
         'title': a.title, 'episode': a.episode, 'source': a.src or '',
         'fps': 30, 'width': 1920, 'height': 1080, 'duration': a.duration,
         'bpm': 120, 'beat0': 0.0, 'key': 'F', 'mode': 'major',

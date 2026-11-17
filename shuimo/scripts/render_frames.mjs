@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // shuimo · deterministic page → JPEG/PNG frames (ink-wash pipeline).
-// Page protocol (same as mg-styles-15 / dengju): window.DEMO + window.renderAt(t) + window.__ready.
+// Page protocol (same as styles / dengju): window.DEMO + window.renderAt(t) + window.__ready.
 //
 // Usage:
 //   node shuimo/scripts/render_frames.mjs <slug> [--page index.html] [--from 0] [--to 30]

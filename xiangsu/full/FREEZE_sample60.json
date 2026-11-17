@@ -43,7 +43,7 @@
     "demo/film.js (head, 未改)": "0a6d7f5847822e6a336b676f046822fe21f7656ae845ba4007c8f4aee638ce64",
     "demo/sprites.js (未改)": "ef19041da186ff4bffcda46cc1d64fd63e343187f8a5218b1429ae32cbb4475f",
     "verify.mjs": "25adc08c914e5e6c389e1ce2ed3cdb3a12f369277b03c40cccdc41389d07305a",
-    "harness/render.mjs (mg-styles-15)": "606ccd06511643e649f6da4b5d057e409c209bf31b1ef69d06977e77947eb127",
+    "harness/render.mjs (styles)": "606ccd06511643e649f6da4b5d057e409c209bf31b1ef69d06977e77947eb127",
     "built demos/xiangsu2-eden-full/film.js": "6dad591a7edac078c92463f39d24bf715ffc7ce2ce1883f364fedc8ddd526d32"
   },
   "audio": {

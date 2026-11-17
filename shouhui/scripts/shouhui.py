@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""shouhui —— 「逐帧手绘 / 线条沸腾」短片管线（封装 mg-styles-15 / 05-cel-boil）
+"""shouhui —— 「逐帧手绘 / 线条沸腾」短片管线（封装 styles / 05-cel-boil）
 
 用法（在仓库根执行）：
     python shouhui/scripts/shouhui.py new    <slug> --title 标题
@@ -12,16 +12,16 @@
     python shouhui/scripts/shouhui.py all    <slug>
 
 输入契约：shouhui/projects/<slug>/film.json + js/scene.js + audio/cues.json
-依赖：node（vendor/mg-styles-15 已 npm install）、ffmpeg、Edge（无头渲染）
+依赖：node（vendor/styles 已 npm install）、ffmpeg、Edge（无头渲染）
 """
 import json, os, re, shutil, subprocess, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SH = os.path.join(ROOT, 'shouhui')
-VENDOR = os.path.join(ROOT, 'vendor', 'mg-styles-15')
-EDGE = os.environ.get('MG_CHROME') or os.environ.get('CHROME_PATH') or ''
-# 渲染器统一用仓库根的唯一副本；浏览器路径由它自己按 $CHROME_PATH / $MG_CHROME → 各平台常见位置 解析
-RENDER = os.path.join(ROOT, 'vendor', 'bb-video', 'runtime', 'render-mg.mjs')
+VENDOR = os.path.join(ROOT, 'vendor', 'styles')
+EDGE = os.environ.get('AV_CHROME') or os.environ.get('CHROME_PATH') or ''
+# 渲染器统一用仓库根的唯一副本；浏览器路径由它自己按 $CHROME_PATH / $AV_CHROME → 各平台常见位置 解析
+RENDER = os.path.join(ROOT, 'vendor', '模板库', 'runtime', 'render-cdp.mjs')
 
 
 def P(slug):
@@ -114,21 +114,21 @@ def measure_lufs(path):
 
 def env():
     e = dict(os.environ)
-    e.update({'MG_VENDOR': VENDOR, 'MG_SITE': '', 'MG_GPU_ARGS': '--disable-gpu --no-sandbox'})
+    e.update({'AV_VENDOR': VENDOR, 'AV_SITE': '', 'AV_GPU_ARGS': '--disable-gpu --no-sandbox'})
     if EDGE:
-        e['MG_CHROME'] = EDGE
+        e['AV_CHROME'] = EDGE
     else:
-        e.pop('MG_CHROME', None)   # 交给渲染器自己找 Chrome/Edge/Chromium
+        e.pop('AV_CHROME', None)   # 交给渲染器自己找 Chrome/Edge/Chromium
     return e
 
 
 def cmd_stills(slug, times):
-    d = P(slug); e = env(); e['MG_SITE'] = d
+    d = P(slug); e = env(); e['AV_SITE'] = d
     run(['node', RENDER, d, '--stills', times], env=e)
 
 
 def cmd_render(slug):
-    fj = load(slug); d = P(slug); e = env(); e['MG_SITE'] = d
+    fj = load(slug); d = P(slug); e = env(); e['AV_SITE'] = d
     out = os.path.join(d, 'out', fj.get('out_name', f"{fj['slug']}.mp4"))
     os.makedirs(os.path.dirname(out), exist_ok=True)
     run(['node', RENDER, d, '--out', out,
@@ -191,7 +191,7 @@ def main():
     cmd, slug = sys.argv[1], sys.argv[2]
     rest = sys.argv[3:]
     if not os.path.isdir(VENDOR):
-        raise SystemExit(f'缺 vendor：{VENDOR}（先 git clone mg-styles-15 并 npm install）')
+        raise SystemExit(f'缺 vendor：{VENDOR}（先 git clone styles 并 npm install）')
     if cmd == 'new':
         title = rest[rest.index('--title') + 1] if '--title' in rest else '未命名'
         cmd_new(slug, title)

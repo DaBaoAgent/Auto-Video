@@ -1,12 +1,12 @@
 // lang.mjs: which language the scripts' messages (checks, warnings, logs) are written in.
-//   BV_LANG=zh | en wins; otherwise the project's own language — `<html lang>` of its index.html, then script.json's voice —
+//   AV_LANG=zh | en wins; otherwise the project's own language — `<html lang>` of its index.html, then script.json's voice —
 //   so a Chinese video gets Chinese messages and every other video English ones. The render passes its choice on to the page
-//   (window.__BV_LANG) and to the sound scripts (process.env.BV_LANG), so every message of one run is in one language.
+//   (window.__AV_LANG) and to the sound scripts (process.env.AV_LANG), so every message of one run is in one language.
 import fs from 'node:fs';
 import path from 'node:path';
 
 export function isZh(proj) {
-  const env = process.env.BV_LANG;
+  const env = process.env.AV_LANG;
   if (env) return env === 'zh';
   if (proj) {
     try { const m = /<html[^>]*\blang=["']?([\w-]+)/i.exec(fs.readFileSync(path.join(proj, 'index.html'), 'utf8')); if (m) return /^zh/i.test(m[1]); } catch {}
@@ -15,7 +15,7 @@ export function isZh(proj) {
   return false;
 }
 // M(中文, English): the message in the run's language (read at call time, so a library follows what the render decided)
-export const M = (zh, en) => (process.env.BV_LANG === 'zh' ? zh : en);
+export const M = (zh, en) => (process.env.AV_LANG === 'zh' ? zh : en);
 
 // Starter pages carry a few Chinese placeholder strings ('标题', '一句话' …). A project in another language gets them in English
 //   (only whole quoted strings are swapped, so real content is never touched)

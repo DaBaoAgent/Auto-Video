@@ -1,9 +1,9 @@
-> **本文件是 BB-Video 的风格规范原文，随 Auto-Video 管线一起 vendored。**
-> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 BB-Video 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何真实工作室的角色、桥段、配乐、片尾或商标。
+> **本文件是 模板库 的风格规范原文，随 Auto-Video 管线一起 vendored。**
+> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 模板库 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何真实工作室的角色、桥段、配乐、片尾或商标。
 
 # Style: Bayeux-Tapestry embroidered scroll (贝叶挂毯 · 中世纪刺绣长卷, `tapestry`)
 
-> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to bb-video's `promo/` folder.
+> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to 模板库's `promo/` folder.
 
 A frame is a window on one long strip of embroidered linen, in the manner of the Bayeux Tapestry (11th century, public domain). The story runs along the cloth from left to right; the cloth scrolls past and never stops.
 

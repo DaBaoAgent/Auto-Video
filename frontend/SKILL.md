@@ -58,7 +58,7 @@ $env:AV_LLM_MODEL="qwen2.5-7b-instruct"
 
 ## 渲染器不退出怎么办
 
-BB-Video 系的 `render.mjs` 成片写完以后，Chrome 子进程有时还占着管道，进程不退出。`frontend.py` 自带看门狗：成片落盘且体积 12 秒不再变化就判成功、结束进程树，日志里留一行 `[watchdog]`；上限由 `--render-timeout` 控制（默认 900 秒）。
+模板库 系的 `render.mjs` 成片写完以后，Chrome 子进程有时还占着管道，进程不退出。`frontend.py` 自带看门狗：成片落盘且体积 12 秒不再变化就判成功、结束进程树，日志里留一行 `[watchdog]`；上限由 `--render-timeout` 控制（默认 900 秒）。
 
 ## 产物去向
 

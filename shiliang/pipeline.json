@@ -22,7 +22,7 @@
   },
   "version": "2026-10-30",
   "pipeline": "shiliang",
-  "style": "mg-styles-15/01-flat-vector",
+  "style": "styles/01-flat-vector",
   "canvas": {
     "width": 1920,
     "height": 1080,

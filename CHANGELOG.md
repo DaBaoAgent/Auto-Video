@@ -9,9 +9,14 @@
 ### 新增
 
 - **一键 demo**：`python demo/run.py` / `docker compose run --rm demo`，不需要配音、模型或云端 API，出 15 秒片。
-- **数据驱动分幕**：`vendor/bb-video/runtime/autoscene.js`。8 条 BB-Video 派生模板（pencil / isometric /
+- **数据驱动分幕**：`vendor/runtime/autoscene.js`。8 条模板库派生模板（pencil / isometric /
   manga / tapestry / shadow / parable / goldenage / blueprint）不再写死 8 句旁白，稿子几行都能渲。
-- **共享运行时单一源**：`vendor/bb-video/runtime/`，`tools/sync_runtime.py` 负责下发与漂移校验。
+- **共享运行时单一源**：`vendor/runtime/`，`tools/sync_runtime.py` 负责下发与漂移校验。
+- **去掉上游品牌名**：原 `vendor/bb-video/runtime/` 改为 `vendor/runtime/`，`render-mg.mjs` 改为
+  `render-cdp.mjs`，样式包目录统一叫 `styles/`。环境变量前缀随之统一：`BV_*` / `MG_*` → `AV_*`
+  （`AV_LANG`、`AV_CDP_TIMEOUT`、`AV_FRAME_TIMEOUT`、`AV_CHROME`、`AV_SITE`、`AV_VENDOR`、`AV_FONT_KAI`、`AV_FONT_DIR`）。
+  旧变量名不再读取，自己脚本里写过的请一并改。版权与许可出处只保留在 `THIRD_PARTY_NOTICES.md`
+  与 `vendor/runtime/LICENSE-upstream`（MIT 要求保留版权声明）。
 - **贡献漏斗**：`CONTRIBUTING.md`、`CODE_OF_CONDUCT.md`、`SECURITY.md`、issue 表单与 PR 模板。
 - **管线清单**：[docs/pipelines.md](docs/pipelines.md)，从 `catalog/pipelines.json` 生成，不再手写。
 

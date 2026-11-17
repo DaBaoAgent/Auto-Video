@@ -5,7 +5,7 @@ description: 用「逐帧手绘 / 线条沸腾（cel animation / line boil）」
 
 # shouhui：逐帧手绘短片管线
 
-风格内核来自 `Vincentwei1021/mg-styles-15` 的 **05-cel-boil**（MIT）：变宽笔触、每 2 帧换变体的 line boil、
+风格内核来自 `Vincentwei1021/styles` 的 **05-cel-boil**（MIT）：变宽笔触、每 2 帧换变体的 line boil、
 一拍二节奏、smear 拖影、cel FX 点缀、纸纹 multiply。本管线把那套引擎（`engine.js` 原样复用）
 和它"网页逐帧渲染"的方法（`harness/render.mjs` 改造版）收成本项目可用的一条链。
 
@@ -25,7 +25,7 @@ description: 用「逐帧手绘 / 线条沸腾（cel animation / line boil）」
 shouhui/
 ├── SKILL.md                       本文件
 ├── README.md                      环境与依赖
-├── node_modules → vendor/mg-styles-15/node_modules （目录联接，供 node 解析）
+├── node_modules → vendor/styles/node_modules （目录联接，供 node 解析）
 ├── scripts/
 │   ├── shouhui.py                 编排 CLI：new/audio/stills/render/qa/probe/all
 │   ├── render.mjs                 逐帧渲染器（改自 harness/render.mjs：站点根/依赖根分离、Edge 默认）
@@ -41,7 +41,7 @@ shouhui/
         └── out/                   成片 + stills
 ```
 
-依赖仓库在 `../vendor/mg-styles-15`（完整克隆，含 15 支原片与 `harness/`）。
+依赖仓库在 `../vendor/styles`（完整克隆，含 15 支原片与 `harness/`）。
 
 ## 常用命令
 
@@ -115,8 +115,8 @@ S = { A1: 3.20, T1a: 3.20, T1b: 3.50, B1: 6.70, T2a: 6.70, T2b: 7.00, C1: 10.00 
 6. **印章要按字形盒居中**：每个字用 `glyphBox` 算包围盒再摆，别用固定 `translate`（两字宽度不同会歪）；
    印面 210px 左右、白文占章宽 ~60%，缺角与斑驳各来几处，否则像贴纸。
 7. **纸齿是 multiply 一层就够**，别叠纹理贴图，会脏。
-8. **Windows 渲染三个必设**：`MG_CHROME` 指 Edge、`MG_GPU_ARGS="--disable-gpu --no-sandbox"`
-   （带 `--use-angle` 会在本机挂住）、`MG_SITE` 指工程目录（URL 里别出现 `//`，否则相对路径会被当成协议相对地址）。
+8. **Windows 渲染三个必设**：`AV_CHROME` 指 Edge、`AV_GPU_ARGS="--disable-gpu --no-sandbox"`
+   （带 `--use-angle` 会在本机挂住）、`AV_SITE` 指工程目录（URL 里别出现 `//`，否则相对路径会被当成协议相对地址）。
 9. **node 找不到 puppeteer**：`shouhui/node_modules` 必须是指向 vendor 的目录联接（`New-Item -ItemType Junction`）。
 10. **`audio.py` 不用。** 原片的配乐是它自己合成的；本管线要真人配音，音效走 `sfx_build.py` 的 cue 合成。
 

@@ -2,7 +2,7 @@
 
 ## 运行时代码
 
-- **BB-Video** — `runtime/core.js`、`runtime/promo.js`、`runtime/map.js` 及渲染链（`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/`）来自 [BubbleBrainBB/BB-Video](https://github.com/BubbleBrainBB/BB-Video)，MIT License，许可见 `runtime/LICENSE.BB-Video`。
+- **模板库** — `runtime/core.js`、`runtime/promo.js`、`runtime/map.js` 及渲染链（`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/`）来自 模板库，MIT License，许可见 `runtime/LICENSE-upstream`。
 - **stickers.js** — 本管线新增的贴纸层，MIT（与 Auto-Video 同许可）。
 
 ## 地图数据与库
@@ -11,7 +11,7 @@
 - **d3** v7.9.0 — ISC License，https://d3js.org
 - **topojson-client** v3.1.0 — ISC License，https://github.com/topojson/topojson-client
 
-页面运行时从 jsDelivr 固定版本加载 d3 / topojson-client / world-atlas；渲染器会缓存网页字体到 `~/.cache/bubble-video/fonts`。
+页面运行时从 jsDelivr 固定版本加载 d3 / topojson-client / world-atlas；渲染器会缓存网页字体到 `~/.cache/auto-video/fonts`。
 
 ## 字体（OFL 1.1）
 

@@ -95,7 +95,7 @@
     "assets": {
       "font_main": "assets/font/LongCang-Regular.ttf（OFL）",
       "font_seal": "assets/font/LXGWMarkerGothic-Regular.ttf（OFL）",
-      "paper": "assets/paper_base.jpg + paper_tooth.png（mg-styles-15 05-cel-boil）",
+      "paper": "assets/paper_base.jpg + paper_tooth.png（styles 05-cel-boil）",
       "engine": "js/engine.js（上游原样，MIT）"
     }
   }

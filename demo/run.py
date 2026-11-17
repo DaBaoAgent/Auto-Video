@@ -3,7 +3,7 @@
 
 只依赖三样东西：Python 3、Node 18+、一个 Chrome/Chromium、ffmpeg。
 不需要 TTS、不需要本地大模型、不需要 GPU，也不下载任何素材——分幕从模板的
-TIMELINE 长出来（见 vendor/bb-video/runtime/autoscene.js）。
+TIMELINE 长出来（见 vendor/runtime/autoscene.js）。
 
 用法：
     python demo/run.py                       # pencil 模板，15 秒，720p

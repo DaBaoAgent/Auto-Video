@@ -81,7 +81,7 @@ def cmd_new(a):
     if font_src.exists() and not (p / 'assets/font' / font_src.name).exists():
         shutil.copy2(font_src, p / 'assets/font' / font_src.name)
     c = {
-        'pipeline': 'xianshiqi', 'style': 'mg-styles-15/22-hud', 'slug': slug,
+        'pipeline': 'xianshiqi', 'style': 'styles/22-hud', 'slug': slug,
         'title': a.title, 'episode': a.episode, 'source': a.src or '',
         'fps': 30, 'width': 1920, 'height': 1080, 'duration': a.duration,
         'bpm': 96, 'beat0': 0.55, 'captions': [], 'scenes': {}, 'sfx': []

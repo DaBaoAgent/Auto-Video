@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // shiliang · deterministic page → PNG/JPEG frames.
-// Page protocol (same as mg-styles-15 harness): window.DEMO + window.renderAt(t) + window.__ready.
+// Page protocol (same as styles harness): window.DEMO + window.renderAt(t) + window.__ready.
 //
 // Usage:
 //   node shiliang/scripts/render_frames.mjs <slug> [--page index.html] [--from 0] [--to 30]

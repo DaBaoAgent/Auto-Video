@@ -81,7 +81,7 @@ def cmd_new(a):
     if font_src.exists() and not (p / 'assets/font' / font_src.name).exists():
         shutil.copy2(font_src, p / 'assets/font' / font_src.name)
     c = {
-        'pipeline': 'dengju', 'style': 'mg-styles-15/03-isometric', 'slug': slug,
+        'pipeline': 'dengju', 'style': 'styles/03-isometric', 'slug': slug,
         'title': a.title, 'episode': a.episode, 'source': a.src or '',
         'deliver_stem': f"{a.episode}_等距{int(a.duration)}秒样片",
         'fps': 30, 'width': 1920, 'height': 1080, 'duration': a.duration,

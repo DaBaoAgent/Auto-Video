@@ -183,7 +183,7 @@ zhidiao 出片后必须补齐封面与发布信息，规则对项目内所有成
 
 - 模型：`doubao-seedream-5-0-flash-260915`（火山方舟）。用项目内脚本
   `tools/zhidiao/make_covers.py`（纯标准库），配置读项目根 `.env` 的
-  `IMG_BASE_URL / IMG_MODEL / IMG_API_KEY`。
+  `IAV_BASE_URL / IAV_MODEL / IAV_API_KEY`。
 - 尺寸固定两张：4:3 = **2048×1536**，3:4 = **1536×2048**（JPG）。
   zhidiao 成片是 1920×1080 横版，但封面尺寸不随成片画幅变。
 - **只有一个主标题，恰好 6 个汉字**，金色毛笔行楷，由模型直接画进画面；

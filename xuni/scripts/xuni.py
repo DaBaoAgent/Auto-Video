@@ -77,7 +77,7 @@ def cmd_new(a):
         shutil.copy2(font_src, p / 'assets/font' / font_src.name)
     # starter cues
     c = {
-        'pipeline': 'xuni', 'style': 'mg-styles-15/10-synthwave', 'slug': slug,
+        'pipeline': 'xuni', 'style': 'styles/10-synthwave', 'slug': slug,
         'title': a.title, 'episode': a.episode, 'source': a.src or '',
         'fps': 30, 'width': 1920, 'height': 1080, 'duration': a.duration,
         'bpm': 100, 'beat0': 1.1, 'captions': [], 'myths': [], 'scenes': {},

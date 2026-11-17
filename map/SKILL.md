@@ -40,10 +40,10 @@ map/
 ├── CREDITS.md               许可与数据来源
 ├── pipeline.json            定版参数（画幅/色板/镜头/音频/交付）
 ├── runtime/
-│   ├── core.js promo.js map.js    浏览器运行时（BB-Video MIT，vendored）
+│   ├── core.js promo.js map.js    浏览器运行时（模板库 MIT，vendored）
 │   ├── stickers.js                贴纸层（本管线新增）
 │   ├── render.mjs music.mjs bgm.mjs lang.mjs net.mjs sound.mjs scores/
-│   └── LICENSE.BB-Video
+│   └── LICENSE-upstream
 ├── scripts/
 │   ├── map.py               编排 CLI：new/vo/check/stills/render/probe/deliver
 │   ├── make_vo.py           配音 + 口播稿 → timeline / paragraphs / script.json

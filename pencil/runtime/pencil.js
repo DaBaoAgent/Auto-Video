@@ -1,4 +1,4 @@
-// pencil.js: hand-drawn pencil-test animation (铅笔手绘动画), one of bb-video's visual styles (style notes in styles/pencil/STYLE.md). Load after promo.js.
+// pencil.js: hand-drawn pencil-test animation (铅笔手绘动画), one of 模板库's visual styles (style notes in styles/pencil/STYLE.md). Load after promo.js.
 // One frame: a sheet of warm off-white animation paper with tooth, a soft vignette, the peg holes and the drawing number of a pencil test; everything
 // is drawn in graphite — light blue construction lines first (circles, ovals, the line of action), the darker clean-up line laid over them with
 // pressure-driven weight and two offset passes per stroke, shading laid in as graphite smudge and hatching. The drawings are on twos (15 a second at 30 fps)

@@ -45,10 +45,10 @@ laolang/
 ├── MIGRATION.md             来源、入库范围与同步方式
 ├── pipeline.json            定版参数（画幅/色板/人物景别/声音/交付/冻结校验）
 ├── runtime/
-│   ├── core.js promo.js goldenage.js laolang.js act.js   浏览器运行时（BB-Video MIT）
+│   ├── core.js promo.js goldenage.js laolang.js act.js   浏览器运行时（模板库 MIT）
 │   ├── toon.js cast-lite.js                              定稿人物 + 眨眼/绘制入口
 │   ├── render.mjs music.mjs bgm.mjs sound.mjs lang.mjs net.mjs scores/
-│   └── LICENSE.BB-Video
+│   └── LICENSE-upstream
 ├── scripts/
 │   ├── laolang.py           编排：new / vo / asr / rebuild / shots / sync / check / stills / render / probe / qa / short-qa / deliver
 │   ├── make_vo.py           现成配音 + 口播稿 → 词级时间轴
@@ -57,7 +57,7 @@ laolang/
 │   ├── sync_qa.py           分镜 2–4 s、字幕、音频滞后、烧录字幕 OCR 校验
 │   └── short_qa.py          逐帧黑/白/冻结/pop 检查（可选，需 numpy + Pillow）
 ├── references/
-│   ├── style.md             完整风格规范（BB-Video STYLE.md）
+│   ├── style.md             完整风格规范（模板库 STYLE.md）
 │   ├── characters.md        人物定稿规格参数（比例/五官/单臂/18 人）
 │   ├── actions.md           24 个动作集 + 22 个命名姿态
 │   ├── sync.md              口播同步与分镜节奏（强制：ASR 校准 + 2–4 s 分镜 + 三层校验）
@@ -213,4 +213,4 @@ python scripts/laolang.py deliver projects/<名字> --name "片名" --title "片
 
 ## 许可
 
-运行时代码来自 [BB-Video](https://github.com/BubbleBrainBB/BB-Video)（MIT）；`toon.ts`/`cast.ts` 的思路来自 [claude-animated-shorts](https://github.com/)（MIT，Mr omi）；字体各自 OFL。详见 [CREDITS.md](CREDITS.md)。
+运行时代码来自 [模板库](https://github.com/BubbleBrainBB/模板库)（MIT）；`toon.ts`/`cast.ts` 的思路来自 [claude-animated-shorts](https://github.com/)（MIT，Mr omi）；字体各自 OFL。详见 [CREDITS.md](CREDITS.md)。

@@ -1,5 +1,5 @@
-> **本文件是 BB-Video 的风格规范原文，随 Auto-Video 管线一起 vendored。**
-> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 BB-Video 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何真实工作室的角色、桥段、配乐、片尾或商标。
+> **本文件是 模板库 的风格规范原文，随 Auto-Video 管线一起 vendored。**
+> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 模板库 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何真实工作室的角色、桥段、配乐、片尾或商标。
 
 # Isometric miniature world (等距微缩世界, `isometric`)
 A whole little world seen from a fixed 45° isometric view: square tiles of ground on thick plinths, with gaps between them, each tile one part of a system (a warehouse, a sorting hall, a highway, a station, a street). Everything is low-poly with rounded edges and flat, friendly colours on a pale background, lit by a soft sun with contact shadows. Things inside move on their own: little people walk and carry, belts run, scanners beep, vans and trucks drive, windows light up at night. The camera glides across the world, pushes in on one part and pulls back to the whole system; the part being talked about lifts a little and stays in colour while the rest fades back.

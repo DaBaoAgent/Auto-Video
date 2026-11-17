@@ -5,14 +5,14 @@
 #   bash build.sh --no-audio # 复用仓库 demo/out/audio.wav，只重渲画面
 #
 # 环境变量（都有默认值；XIANGSU2_* 为旧名，仍兼容）：
-#   XIANGSU_REPO  渲染仓库（harness 所在，必须是 mg-styles-15 克隆）
+#   XIANGSU_REPO  渲染仓库（harness 所在，必须是 styles 克隆）
 #   XIANGSU_PROJ  项目目录（成片落盘位置）
-#   MG_CHROME      Chrome 可执行文件
+#   AV_CHROME      Chrome 可执行文件
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
-REPO="${XIANGSU_REPO:-${XIANGSU2_REPO:-D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15}}"
+REPO="${XIANGSU_REPO:-${XIANGSU2_REPO:-D:/@kaifa/yandi/output/020_曹操/render/styles}}"
 PROJ="${XIANGSU_PROJ:-${XIANGSU2_PROJ:-D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音}}"
-CHROME="${MG_CHROME:-C:/Program Files/Google/Chrome/Application/chrome.exe}"
+CHROME="${AV_CHROME:-C:/Program Files/Google/Chrome/Application/chrome.exe}"
 DEMO="$REPO/demos/xiangsu-eden"
 OUT="$PROJ/样片_前10秒_1920x1080.mp4"
 
@@ -26,7 +26,7 @@ fi
 [ -f "$DEMO/out/audio.wav" ] || { echo "缺少 $DEMO/out/audio.wav，先跑 bash make_audio.sh"; exit 1; }
 
 # film.js 的 window.DEMO 已是 1920×1080；这里仍显式传参，防止将来改动漂移。
-(cd "$REPO" && MG_CHROME="$CHROME" node harness/render.mjs demos/xiangsu-eden \
+(cd "$REPO" && AV_CHROME="$CHROME" node harness/render.mjs demos/xiangsu-eden \
   --w 1920 --h 1080 --fps 30 --duration 10 \
   --audio demos/xiangsu-eden/out/audio.wav --crf 14 --out "$OUT")
 

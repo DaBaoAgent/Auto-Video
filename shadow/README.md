@@ -35,7 +35,7 @@ python scripts/shadow.py deliver projects/<名字> \
 
 | 目录 | 内容 |
 |---|---|
-| `runtime/` | 浏览器运行时 + 渲染器 + `rods.js` 控制杆 helper（BB-Video MIT） |
+| `runtime/` | 浏览器运行时 + 渲染器 + `rods.js` 控制杆 helper（模板库 MIT） |
 | `scripts/` | 建工程、配音对齐、渲染、QA、交付 |
 | `references/` | 风格规范、分镜模板、验收清单 |
 | `template/` | 阿努纳奇样片完整工程（无音频与成片） |
@@ -53,4 +53,4 @@ python scripts/shadow.py deliver projects/<名字> \
 
 ## 许可
 
-运行时代码来自 [BB-Video](https://github.com/BubbleBrainBB/BB-Video)（MIT），见 `runtime/LICENSE.BB-Video` 与 [CREDITS.md](CREDITS.md)。
+运行时代码来自 [模板库](https://github.com/BubbleBrainBB/模板库)（MIT），见 `runtime/LICENSE-upstream` 与 [CREDITS.md](CREDITS.md)。

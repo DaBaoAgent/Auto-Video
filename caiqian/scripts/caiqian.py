@@ -23,8 +23,8 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 PIPELINE = Path(__file__).resolve().parent.parent      # caiqian/
 PROJECTS = PIPELINE / "projects"
-# 渲染器统一用仓库根的唯一副本（vendor/bb-video/runtime/render-legacy.mjs），不再各管线自带一份
-RENDER = PIPELINE.parent / "vendor" / "bb-video" / "runtime" / "render-legacy.mjs"
+# 渲染器统一用仓库根的唯一副本（vendor/runtime/render-legacy.mjs），不再各管线自带一份
+RENDER = PIPELINE.parent / "vendor" / "模板库" / "runtime" / "render-legacy.mjs"
 SKELETON = "029_jia_xueyu"
 GRAIN = 1
 LUFS, TRUE_PEAK = -14.0, -1.5

@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const REPO = process.env.XIANGSU_REPO || process.env.XIANGSU2_REPO || 'D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15';
+const REPO = process.env.XIANGSU_REPO || process.env.XIANGSU2_REPO || 'D:/@kaifa/yandi/output/020_曹操/render/styles';
 // 渲染仓库自带 node_modules；本脚本不另装依赖
 const puppeteer = createRequire(path.join(REPO, 'package.json'))('puppeteer-core');
 const SRC = path.join(REPO, 'demos', 'xiangsu-eden-full');
@@ -28,7 +28,7 @@ const CAND = path.join(here, 'out', 'cover_cand');
 const OUT = process.env.XIANGSU_COVER_OUT || process.env.XIANGSU2_COVER_OUT || '';
 const TITLE = process.env.XIANGSU_COVER_TITLE || process.env.XIANGSU_FILM || '';
 const TITLE_COLS = (() => { const h = Math.ceil(TITLE.length / 2); return [TITLE.slice(0, h), TITLE.slice(h)]; })();
-const CHROME = process.env.MG_CHROME || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+const CHROME = process.env.AV_CHROME || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 
 const args = Object.fromEntries(
   process.argv.slice(2).reduce((acc, a, i, arr) => {

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""把 BB-Video 共享运行时从单一源同步到各管线。
+"""把共享运行时从单一源同步到各管线。
 
-背景：10 条 BB-Video 派生管线（pencil / isometric / manga / tapestry / shadow /
+背景：10 条上游模板派生管线（pencil / isometric / manga / tapestry / shadow /
 parable / goldenage / blueprint / laolang / map）各自带一份 runtime/，其中
 core.js、promo.js、render.mjs、music.mjs、sound.mjs、bgm.mjs、lang.mjs、net.mjs、
 scores/ 这些文件逐字节相同。以前改一个 bug 要在 10 个目录里改 10 次，漏一处就
 出现「这条管线修好了、那条没好」的幽灵问题。
 
-现在唯一的源是 vendor/bb-video/runtime/。管线自己的画法文件（pencil.js、manga.js、
+现在唯一的源是 vendor/runtime/。管线自己的画法文件（pencil.js、manga.js、
 shadow.js、rods.js、map.js、toon.js、cel.js、act.js、cast-lite.js …）不在同步范围内，
 各管线自己维护。
 
@@ -17,7 +17,7 @@ shadow.js、rods.js、map.js、toon.js、cel.js、act.js、cast-lite.js …）�
     python tools/sync_runtime.py --list    # 看哪些目录会被同步
 
 改了共享运行时之后的标准流程：
-    1. 只改 vendor/bb-video/runtime/<file>
+    1. 只改 vendor/runtime/<file>
     2. python tools/sync_runtime.py
     3. 抽一条管线渲一版样片（或跑 tools/render_smoke.py）确认没坏
 """
@@ -30,7 +30,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "vendor" / "bb-video" / "runtime"
+SRC = ROOT / "vendor" / "runtime"
 
 # 共享文件 / 目录的清单（新增共享文件时加到这里）
 SHARED = [
@@ -43,7 +43,7 @@ SHARED = [
     "lang.mjs",
     "net.mjs",
     "autoscene.js",
-    "LICENSE.BB-Video",
+    "LICENSE-upstream",
     "scores",
 ]
 
@@ -68,7 +68,7 @@ def pairs():
     for name in SHARED:
         src = SRC / name
         if not src.exists():
-            raise SystemExit(f"单一源缺文件：{src}（先把它放进 vendor/bb-video/runtime/）")
+            raise SystemExit(f"单一源缺文件：{src}（先把它放进 vendor/runtime/）")
         if src.is_dir():
             for f in sorted(src.rglob("*")):
                 if f.is_file():
@@ -109,7 +109,7 @@ def main() -> int:
 
     if args.check:
         if drift:
-            print("✗ 共享运行时漂移（单一源是 vendor/bb-video/runtime/）：")
+            print("✗ 共享运行时漂移（单一源是 vendor/runtime/）：")
             for d in drift:
                 print("  - " + d)
             print("  修：python tools/sync_runtime.py")

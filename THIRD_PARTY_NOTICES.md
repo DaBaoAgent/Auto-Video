@@ -33,7 +33,18 @@
 
 - Chrome / Edge / Chromium：各自许可，仓库不分发；
 - ffmpeg：LGPL/GPL，仓库不分发；
-- `vendor/bb-video/runtime/render.mjs` 依赖 playwright-core；`render-mg.mjs` 依赖 puppeteer-core；`render-legacy.mjs` 依赖 playwright-core。均为 Apache-2.0，装在各工程或全局 `node_modules` 里，不入库。
+- `vendor/runtime/render.mjs` 依赖 playwright-core；`render-cdp.mjs` 依赖 puppeteer-core；`render-legacy.mjs` 依赖 playwright-core。均为 Apache-2.0，装在各工程或全局 `node_modules` 里，不入库。
+
+## 模板库运行时
+
+`vendor/runtime/` 里的 `core.js`、`promo.js`、`render.mjs`、`music.mjs`、`sound.mjs`、`bgm.mjs`、`lang.mjs`、
+`net.mjs`、`autoscene.js`、`scores/` 以及 10 条派生管线里的同名副本，来自一个 MIT 授权的上游模板项目
+（版权人 Dylan Deng，2026）。完整许可原文随每个副本一起放在 `runtime/LICENSE-upstream`，
+MIT 要求保留的版权声明与许可条款原样未改。
+
+本仓库**不在代码、目录、文档和管线元数据里使用上游项目名字**：运行时目录叫 `vendor/runtime/`，
+CDP 渲染器叫 `render-cdp.mjs`，样式包叫 `styles/`，环境变量统一 `AV_*` 前缀。这条声明的用途只有一个——
+按许可证要求交代出处。
 
 ## 样品工程里的素材
 

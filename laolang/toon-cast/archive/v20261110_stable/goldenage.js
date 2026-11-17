@@ -1,4 +1,4 @@
-// goldenage.js: golden-age American theatrical cartoon (美式黄金卡通), one of bb-video's visual styles (style notes in styles/goldenage/STYLE.md). Load after promo.js.
+// goldenage.js: golden-age American theatrical cartoon (美式黄金卡通), one of 模板库's visual styles (style notes in styles/goldenage/STYLE.md). Load after promo.js.
 // One frame: a painted gouache world (deep Technicolor-rich night blues, warm yellow windows, Art Deco towers, brickwork, paper tooth) behind inked cel characters with hard
 // cel shadows; everything is drawn on twos (15 drawings a second at 30 fps) and its ink line boils from drawing to drawing (seeded); the picture sits in a projected print: gate weave,
 // lamp breath, fine colour grain, dust, a little halation, a rounded gate. Things obey cartoon physics: squash and stretch, anticipation, impact frames, elastic recovery, dead-still comic holds.

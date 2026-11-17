@@ -1,4 +1,4 @@
-// core.js: time-driven composition runtime, shared by every style (bb-video/core/runtime; projects get a copy in lib/)
+// core.js: time-driven composition runtime, shared by every style (模板库/core/runtime; projects get a copy in lib/)
 // Contract: the frame is a pure function of time. window.renderFrame(t) draws the frame at t seconds,
 // without relying on requestAnimationFrame / Date.now / unseeded Math.random.
 // The renderer (scripts/render.mjs) calls it frame by frame to take screenshots; opening the page directly in a browser starts the preview player.

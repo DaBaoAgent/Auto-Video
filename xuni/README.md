@@ -1,6 +1,6 @@
 # xuni · 合成波 / VHS 管线
 
-风格：`mg-styles-15` #10 Synthwave / VHS / Y2K（MIT）。
+风格：`styles` #10 Synthwave / VHS / Y2K（MIT）。
 首个实例：`projects/009_prion30/` —— 009《朊病毒·同类相食》前 30 秒样片。
 
 ## 环境
@@ -9,15 +9,15 @@
 |---|---|
 | Python 3.11+ | 只用标准库（音频合成不依赖 numpy/scipy/soundfile） |
 | ffmpeg / ffprobe | PATH 中可用；本机在 `D:/@kaifa/tools/ffmpeg/bin/` |
-| Node.js 18+ | 渲染器与 three.js；`xuni/node_modules` 已指向 `vendor/mg-styles-15/node_modules` |
+| Node.js 18+ | 渲染器与 three.js；`xuni/node_modules` 已指向 `vendor/styles/node_modules` |
 | Edge | 无头渲染；路径见 `pipeline.json` 的 `render.edge`，可用 `XUNI_EDGE` 覆盖 |
 | 字体 | `projects/<slug>/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf`（免费商用） |
 
-$(endor/mg-styles-15) 是外部渲染引擎（未随仓库提交，与 shouhui 管线共用），首次运行先安装：
+$(endor/styles) 是外部渲染引擎（未随仓库提交，与 shouhui 管线共用），首次运行先安装：
 
 ```powershell
-git clone --depth 1 https://github.com/Vincentwei1021/mg-styles-15.git vendor/mg-styles-15
-Set-Location vendor/mg-styles-15
+git clone --depth 1 https://github.com/Vincentwei1021/styles.git vendor/styles
+Set-Location vendor/styles
 npm install
 Set-Location ../..
 ```
@@ -26,7 +26,7 @@ Set-Location ../..
 
 ```powershell
 New-Item -ItemType Junction -Path 'D:\@kaifa\Auto-Video\xuni\node_modules' `
-  -Target 'D:\@kaifa\Auto-Video\vendor\mg-styles-15\node_modules'
+  -Target 'D:\@kaifa\Auto-Video\vendor\styles\node_modules'
 ```
 
 ## 快速开始

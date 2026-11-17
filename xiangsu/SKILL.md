@@ -63,13 +63,13 @@ xiangsu/
 
 | 依赖 | 说明 |
 | --- | --- |
-| `mg-styles-15` 渲染仓库 | harness 所在：`harness/render.mjs`、`tools/density.mjs`、像素字体 `assets/fonts/fonts.css`。**不随本仓库提交**，安装见项目 README 的 MG 段落（`git clone --depth 1` 后 `npm install`） |
-| Chrome | 无头逐帧渲染，`MG_CHROME` 指向可执行文件 |
+| `styles` 渲染仓库 | harness 所在：`harness/render.mjs`、`tools/density.mjs`、像素字体 `assets/fonts/fonts.css`。**不随本仓库提交**，安装见项目 README 的 MG 段落（`git clone --depth 1` 后 `npm install`） |
+| Chrome | 无头逐帧渲染，`AV_CHROME` 指向可执行文件 |
 | ffmpeg / ffprobe | 音轨合成、成片封装、验收探测，需在 PATH |
 | Python + numpy | `demo/audio.py`、`full/audio.py`、`sfx_prep.py` 合成音轨 |
 | bash | `build.sh` / `make_audio.sh` / `build_full.sh` 是 bash 脚本，Windows 用 Git Bash 或 WSL |
 
-本目录**没有** `npm install` 步骤：渲染发生在 `mg-styles-15` 仓库内，`build.sh` 会把 `demo/` 同步进 `<repo>/demos/xiangsu-eden/`。
+本目录**没有** `npm install` 步骤：渲染发生在 `styles` 仓库内，`build.sh` 会把 `demo/` 同步进 `<repo>/demos/xiangsu-eden/`。
 
 ## 快速开始
 
@@ -87,10 +87,10 @@ python scripts/xiangsu.py covers -- --t43 12 --t34 30
 10 秒样片（伊甸园前 10 秒）：
 
 ```powershell
-$env:XIANGSU_REPO = "D:/@kaifa/Auto-Video/vendor/mg-styles-15"
+$env:XIANGSU_REPO = "D:/@kaifa/Auto-Video/vendor/styles"
 $env:XIANGSU_PROJ = "D:/@kaifa/Auto-Video/xiangsu/projects/001_波斯湾伊甸园"
 $env:XIANGSU_PY   = "<本机 python.exe，需 numpy>"
-$env:MG_CHROME    = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+$env:AV_CHROME    = "C:/Program Files/Google/Chrome/Application/chrome.exe"
 cd D:/@kaifa/Auto-Video/xiangsu
 bash build.sh                 # 重做音轨 + 渲染 + 验收
 bash build.sh --no-audio      # 复用已生成的 audio.wav，只重渲画面
@@ -115,12 +115,12 @@ node make_covers.mjs --final --t43 <取帧秒> --t34 <取帧秒>   # 取帧/裁�
 
 | 变量 | 用在哪 | 默认值（原始仓库值，**必须按本机覆盖**） |
 | --- | --- | --- |
-| `XIANGSU_REPO` | 渲染仓库 | `D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15` |
+| `XIANGSU_REPO` | 渲染仓库 | `D:/@kaifa/yandi/output/020_曹操/render/styles` |
 | `XIANGSU_PROJ` | 成片落盘目录 | `D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音` |
 | `XIANGSU_PY` | 音轨脚本 python | `D:/@kaifa/openviking/.venv/Scripts/python.exe` |
 | `XIANGSU_VOICE` | 样片旁白 | `<XIANGSU_PROJ>/配音.wav` |
 | `XIANGSU_WORKERS` | 渲染并发 | `4` |
-| `MG_CHROME` | 浏览器 | `C:/Program Files/Google/Chrome/Application/chrome.exe` |
+| `AV_CHROME` | 浏览器 | `C:/Program Files/Google/Chrome/Application/chrome.exe` |
 | `XIANGSU_FILM` · `XIANGSU_DUR` · `XIANGSU_COVER_OUT` · `XIANGSU_COVER_TITLE` | 全片链路 | 无默认，不设报错 |
 
 旧名 `XIANGSU2_*` 在脚本里仍作 fallback，新名优先。默认值里的 `D:/@kaifa/yandi/...` 是迁移前的历史路径，落地时未改动（保持逐字节冻结），运行前必须覆盖。

@@ -25,7 +25,7 @@
 
 ## 依赖
 
-- Node.js + puppeteer-core（渲染；node_modules 目录联接自 `vendor/mg-styles-15`）
+- Node.js + puppeteer-core（渲染；node_modules 目录联接自 `vendor/styles`）
 - ffmpeg / ffprobe
 - Microsoft Edge（headless）
 - Python 3.11 标准库（音频合成/混音，无需 numpy）

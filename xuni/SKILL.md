@@ -5,7 +5,7 @@ description: 用「80s Synthwave / VHS / Y2K」做口播样片与短片。口播
 
 # xuni：合成波 / VHS 短片管线
 
-风格内核来自 `mg-styles-15` 的 **10-synthwave**（MIT）：
+风格内核来自 `styles` 的 **10-synthwave**（MIT）：
 透视网格 + 日落 + 线框山 + 棕榈 + 铬字 + VHS 做旧链。
 本管线把那套视觉语法收成「一条口播驱动一条片」的工程：**画面是时间的纯函数，
 字幕与镜头落在配音的真实时码上，音频最后统一到 −14 LUFS / ≤ −1.5 dBTP。**
@@ -52,7 +52,7 @@ xuni/
         └── out/                成片、静帧、QA
 ```
 
-`node_modules` 是目录联接，指向 `vendor/mg-styles-15/node_modules`（three / puppeteer-core）。
+`node_modules` 是目录联接，指向 `vendor/styles/node_modules`（three / puppeteer-core）。
 
 ## 常用命令
 
@@ -157,7 +157,7 @@ node xuni/scripts/render_frames.mjs <slug> --dur 30 --from 0 --to 30
 
 ## 资产与许可
 
-- 视觉语法来自 `mg-styles-15`（MIT，Vincentwei1021）；二次分发保留上游许可。
+- 视觉语法来自 `styles`（MIT，Vincentwei1021）；二次分发保留上游许可。
 - 字体 Alibaba PuHuiTi 3.0 85-Bold（免费商用）；Chromium/Edge 渲染。
 - 不使用真实品牌商标；片中出现的 `MYTHOS.EXE`、`MYTH_DB`、`BSE // SURVEILLANCE`
   均为虚构界面文案。

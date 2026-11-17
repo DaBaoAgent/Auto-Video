@@ -1,6 +1,6 @@
 // AUTOSCENE · 数据驱动的通用分幕
 //
-// 背景：BB-Video 派生的 8 条管线（pencil / isometric / manga / tapestry / shadow /
+// 背景：模板库派生的 8 条管线（pencil / isometric / manga / tapestry / shadow /
 // parable / goldenage / blueprint）原来的 template/index.html 是按某条样片的 8 句旁白
 // 手写死的（s('l1')…s('l8')），换一份 5 句或 12 句的稿子，渲染器直接报
 // `timeline: narration line id "l2" not found` —— 也就是说模板只能复刻那一支片。

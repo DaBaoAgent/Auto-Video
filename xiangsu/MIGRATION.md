@@ -30,8 +30,8 @@
 
 | 依赖 | 说明 |
 | --- | --- |
-| `mg-styles-15` 渲染仓库 | harness（`harness/render.mjs`）、`tools/density.mjs`、像素字体 `assets/fonts/fonts.css` 都在这个渲染仓库里，不随本管线提交。按项目 README 的 MG 段落装到 `vendor/mg-styles-15` |
-| Chrome | `MG_CHROME` 指向可执行文件 |
+| `styles` 渲染仓库 | harness（`harness/render.mjs`）、`tools/density.mjs`、像素字体 `assets/fonts/fonts.css` 都在这个渲染仓库里，不随本管线提交。按项目 README 的 MG 段落装到 `vendor/styles` |
+| Chrome | `AV_CHROME` 指向可执行文件 |
 | ffmpeg / ffprobe | 需在 PATH |
 | Python + numpy | 音轨合成（`audio.py` / `sfx_prep.py`） |
 | bash | `build.sh` / `make_audio.sh` / `build_full.sh`，Windows 用 Git Bash 或 WSL |
@@ -43,11 +43,11 @@
 脚本内的默认值仍是迁移前的 `D:/@kaifa/yandi/...`（为保持逐字节冻结未改写）。运行前必须覆盖：
 
 ```powershell
-$env:XIANGSU_REPO = "D:/@kaifa/Auto-Video/vendor/mg-styles-15"
+$env:XIANGSU_REPO = "D:/@kaifa/Auto-Video/vendor/styles"
 $env:XIANGSU_PROJ = "<本片项目目录>"
 $env:XIANGSU_PY   = "<本机 python.exe，需 numpy>"
 $env:XIANGSU_VOICE = "<本片 配音.wav>"
-$env:MG_CHROME    = "C:/Program Files/Google/Chrome/Application/chrome.exe"
+$env:AV_CHROME    = "C:/Program Files/Google/Chrome/Application/chrome.exe"
 ```
 
 完整变量表见 [SKILL.md](SKILL.md)「环境变量」。

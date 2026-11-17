@@ -11,12 +11,12 @@
 #   XIANGSU_DUR    全片秒数，须与 cues.json 的 duration 一致（例：272.05）
 #   XIANGSU_VOICE  旁白 wav（不设则用 $XIANGSU_PROJ/配音.wav）
 #
-# 可选：XIANGSU_REPO（渲染仓库，默认 020 曹操的 mg-styles-15 克隆）
-#       MG_CHROME、XIANGSU_WORKERS（并行渲染进程数，默认 4）
+# 可选：XIANGSU_REPO（渲染仓库，默认 020 曹操的 styles 克隆）
+#       AV_CHROME、XIANGSU_WORKERS（并行渲染进程数，默认 4）
 # XIANGSU2_* 为改名前的旧名，仍兼容。
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
-REPO="${XIANGSU_REPO:-${XIANGSU2_REPO:-D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15}}"
+REPO="${XIANGSU_REPO:-${XIANGSU2_REPO:-D:/@kaifa/yandi/output/020_曹操/render/styles}}"
 PROJ="${XIANGSU_PROJ:-${XIANGSU2_PROJ:-}}"
 : "${PROJ:?未设置 XIANGSU_PROJ（新片成片落盘目录，例 D:/@kaifa/yandi/output/002_xxx）}"
 : "${XIANGSU_FILM:?未设置 XIANGSU_FILM（片名，用于输出文件名，例 波斯湾伊甸园）}"
@@ -24,7 +24,7 @@ PROJ="${XIANGSU_PROJ:-${XIANGSU2_PROJ:-}}"
 DUR="$XIANGSU_DUR"
 export XIANGSU_VOICE="${XIANGSU_VOICE:-${XIANGSU2_VOICE:-$PROJ/配音.wav}}"
 [ -f "$XIANGSU_VOICE" ] || { echo "旁白不存在：$XIANGSU_VOICE（用 XIANGSU_VOICE 指定）" >&2; exit 1; }
-CHROME="${MG_CHROME:-C:/Program Files/Google/Chrome/Application/chrome.exe}"
+CHROME="${AV_CHROME:-C:/Program Files/Google/Chrome/Application/chrome.exe}"
 DEMO="$REPO/demos/xiangsu-eden-full"
 OUT="$PROJ/全片_${XIANGSU_FILM}_${DUR%.*}秒_1920x1080.mp4"
 
@@ -42,7 +42,7 @@ cp "$HERE/out/audio.wav" "$DEMO/out/audio.wav"
 
 # 3) 渲染：1920×1080 @30fps，CRF 14，界面与 10 s 样片同一管线
 if [ "${1:-}" != "--no-render" ]; then
-  (cd "$REPO" && MG_CHROME="$CHROME" node harness/render.mjs demos/xiangsu-eden-full \
+  (cd "$REPO" && AV_CHROME="$CHROME" node harness/render.mjs demos/xiangsu-eden-full \
     --w 1920 --h 1080 --fps 30 --duration "$DUR" --crf 14 --workers "${XIANGSU_WORKERS:-4}" \
     --out "$DEMO/out/video_full.mp4")
 fi

@@ -337,14 +337,14 @@ ffmpeg 全路径：D:/@kaifa/yandi/vendor/gpt-sovits/runtime/ffmpeg.exe（PATH �
 
 管线代号固定为 **xiangsu**。代码必须留在克隆的渲染仓库内（harness 自带无头 Chrome + ffmpeg），项目侧 `render/xiangsu/README.md` 只作入口说明。
 ```
-vendor/mg-styles-15/demos/xiangsu/
+vendor/styles/demos/xiangsu/
   index.html      预加载 Fusion Pixel 12 后 import film.js，置 window.__ready
   film.js         640×360 索引色帧缓冲：色板/LUT、图元、像素字体、六镜头、band wipe、CRT
   sprites.js      逐像素 sprite 表（ASCII 网格，每字符 = 1 px；空格仅人眼计数，构建时剥离）
   cues.json       声画共用 cue sheet（cuts / subs / hits）
   audio.py        chiptune（方波/三角/噪声）+ 配音混音，两遍法 loudnorm
-vendor/mg-styles-15/tools/sheet.mjs   sprite 表放大检查图（行宽/未知字符告警，逐像素自查用）
-vendor/mg-styles-15/tools/density.mjs 动效密度度量（三阈值 + 最长无变化段，口径唯一）
+vendor/styles/tools/sheet.mjs   sprite 表放大检查图（行宽/未知字符告警，逐像素自查用）
+vendor/styles/tools/density.mjs 动效密度度量（三阈值 + 最长无变化段，口径唯一）
 ```
 关键实现：`CHR` 里 **`'.'→-1 透明，`k`→0 不透明黑**（写成 `'.':0` 会让 `k` 全变透明，整张图只剩描边外的高光点）；
 `buildSpr(name,rows,map,rim)` 构建时做 `rimLight`（右上月光边）；`rotSpr/ blitRot` 提供 5° 档旋转帧缓存；
@@ -367,7 +367,7 @@ ffmpeg -hide_banner -nostats -i /tmp/a.png -i /tmp/b.png -filter_complex "[0][1]
 ```
 
 光栅 ×3 最近邻放大；文字按"版面比例不变"换算：320 版 scale 1 → 640 版 scale 2，标题 scale 2 → 4；像素字体 alpha 二值化阈值取 **>200**（118 会留 1 px 抗锯齿渗边，放大后发虚）。
-CHROME 路径：`C:/Program Files/Google/Chrome/Application/chrome.exe`（`MG_CHROME` 环境变量）。
+CHROME 路径：`C:/Program Files/Google/Chrome/Application/chrome.exe`（`AV_CHROME` 环境变量）。
 
 **sprite 表四条铁律**（2026-10-28 v2 逐条踩过，新画表前先读）：
 1. `CHR` 的 `'.'` 与 `k` 不能同为 0——透明与不透明黑必须分开；
@@ -378,8 +378,8 @@ CHROME 路径：`C:/Program Files/Google/Chrome/Application/chrome.exe`（`MG_CH
 
 **交付自检（xiangsu 线，五条命令按序跑完才算完）**：
 ```bash
-cd vendor/mg-styles-15
-export MG_CHROME="C:/Program Files/Google/Chrome/Application/chrome.exe"
+cd vendor/styles
+export AV_CHROME="C:/Program Files/Google/Chrome/Application/chrome.exe"
 node tools/sheet.mjs out/sheet.png 6                        # ① 18 张表：必须 0 条行宽/未知字符告警
 node tools/density.mjs demos/xiangsu/out/video640.mp4       # ② 密度：逐窗口 >1% ≥1 帧 + 最长无变化段
 ffmpeg -hide_banner -nostats -i demos/xiangsu/out/video640.mp4 \
@@ -397,13 +397,13 @@ node tools/check_sync.mjs --cues demos/xiangsu/cues_full.json \
 
 ### `20-pixel` 上游风格复刻（2026-10-28）
 
-上游标准：`D:/BaiduSyncdisk/MG 动画/videos/20-pixel.md`；实现：`vendor/mg-styles-15/demos/20-pixel/`；换皮版：`demos/rinoku20/`。
+上游标准：`D:/BaiduSyncdisk/MG 动画/videos/20-pixel.md`；实现：`vendor/styles/demos/20-pixel/`；换皮版：`demos/rinoku20/`。
 
 **做法**：整目录复制后只换内容层，不重写。保留 320×180×6、32 色板、day→afternoon→golden→sunset→flash→dusk→night 六段调色、4 层视差（0.125/0.30/0.55/1.0）、24×26 精灵合成器、cue 驱动的推镜与震动、WebGL2 CRT（扫描线+桶形+磷光+暗角）。
 **换皮点**：`LOGO0 = buildLogo5('中文')`（必须在 `C5` 常量之后）、条幅文案、对话框台词与说话人、HUD 标签、主角头美术。
 **不要开 `V5=true`**：那是 reel 版式，会多画一个跟随主角的圆球。
 **规格**：10.000 s / 1920×1080 / 30 fps / **−14 LUFS** / ≤ −1 dBTP（注意与系列其他片的 −16 区分）。
-**运行前提**：Windows 必须 `MG_GPU_ARGS="--use-angle=d3d11 --no-sandbox"`；`assets/fonts/latin/pressstart2p/` 需有 `PressStart2P-Regular.ttf`，缺失会导致字体加载 reject、整页不渲染（当前用 Fusion Pixel 拉丁子集顶替）。
+**运行前提**：Windows 必须 `AV_GPU_ARGS="--use-angle=d3d11 --no-sandbox"`；`assets/fonts/latin/pressstart2p/` 需有 `PressStart2P-Regular.ttf`，缺失会导致字体加载 reject、整页不渲染（当前用 Fusion Pixel 拉丁子集顶替）。
 **音频**：`demos/*/audio.py` 依赖 `pyloudnorm`；venv 无 pip 时用 numpy 版 BS.1770 替身（K 加权 + 双门限）放进 site-packages，实测与 ffmpeg ebur128 差 <0.1 LU。
 
 #### 用该引擎承载自有内容（2026-10-28 三镜样片，`film2.js`）
@@ -428,7 +428,7 @@ node tools/check_sync.mjs --cues demos/xiangsu/cues_full.json \
 | `tools/check_sync.mjs` | 字幕 / 旁白同步（VAD + ASR 内容级） | 窗内有声均值 ≥80%、字符重合均值 ≥80%、弱条 ≤8% |
 
 ```bash
-cd vendor/mg-styles-15
+cd vendor/styles
 # ① 拼渲染器（首次 --base 指基座；之后指产物自身）
 node tools/splice_film.mjs --base demos/rinoku20/film.js --content demos/rinoku20/_content2.js \
   --out demos/rinoku20/film2.js --cues demos/rinoku20/cues2.json
@@ -485,7 +485,7 @@ node delivery_gate_yandi.js       # 交付总门禁：四查(full+sample)+密度
 xiangsu 线（像素风）：
 
 ```bash
-cd D:/@kaifa/yandi/vendor/mg-styles-15
+cd D:/@kaifa/yandi/vendor/styles
 node tools/sheet.mjs out/sheet.png 6                          # sprite 表：0 告警
 node tools/density.mjs demos/xiangsu/out/video640.mp4         # 密度：逐窗口 + 最长无变化段
 ffmpeg -hide_banner -nostats -i demos/xiangsu/out/video640.mp4 -af loudnorm=print_format=summary -f null -

@@ -22,7 +22,7 @@
   },
   "version": "2026-10-30",
   "pipeline": "dengju",
-  "style": "mg-styles-15/03-isometric",
+  "style": "styles/03-isometric",
   "canvas": {
     "width": 1920,
     "height": 1080,

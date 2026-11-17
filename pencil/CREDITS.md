@@ -2,12 +2,12 @@
 
 ## 运行时代码
 
-- **BB-Video** — `runtime/core.js`、`runtime/promo.js`、`runtime/pencil.js` 及渲染链（`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/`）来自 [BubbleBrainBB/BB-Video](https://github.com/BubbleBrainBB/BB-Video)，MIT License，许可见 `runtime/LICENSE.BB-Video`。
-- 本管线的 `scripts/`、`references/`、`template/` 整理自 BB-Video 的 Hand-drawn pencil-test animation 风格与 044《阿努纳奇》样片，MIT（与 Auto-Video 同许可）。
+- **模板库** — `runtime/core.js`、`runtime/promo.js`、`runtime/pencil.js` 及渲染链（`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/`）来自 模板库，MIT License，许可见 `runtime/LICENSE-upstream`。
+- 本管线的 `scripts/`、`references/`、`template/` 整理自 模板库 的 Hand-drawn pencil-test animation 风格与 044《阿努纳奇》样片，MIT（与 Auto-Video 同许可）。
 
 ## 字体（OFL）
 
-['LXGW WenKai (霞鹜文楷)', 'Noto Sans SC']，页面从 jsDelivr @fontsource 加载，渲染器缓存到 `~/.cache/bubble-video/fonts`。
+['LXGW WenKai (霞鹜文楷)', 'Noto Sans SC']，页面从 jsDelivr @fontsource 加载，渲染器缓存到 `~/.cache/auto-video/fonts`。
 
 ## 样片
 

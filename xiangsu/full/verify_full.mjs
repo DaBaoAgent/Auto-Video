@@ -19,7 +19,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
-const REPO = process.env.XIANGSU_REPO || process.env.XIANGSU2_REPO || 'D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15';
+const REPO = process.env.XIANGSU_REPO || process.env.XIANGSU2_REPO || 'D:/@kaifa/yandi/output/020_曹操/render/styles';
 const argv = process.argv.slice(2);
 const FILE = argv[0];
 if (!FILE) { console.error('用法: node verify_full.mjs <video.mp4> [--duration 272.05]'); process.exit(2); }

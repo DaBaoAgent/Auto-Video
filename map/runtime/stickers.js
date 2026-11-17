@@ -1,4 +1,4 @@
-// stickers.js: the map pipeline's comic-sticker layer (one of bb-video-map's rules, kept as a small module).
+// stickers.js: the map pipeline's comic-sticker layer (one of 模板库-map's rules, kept as a small module).
 //
 // Every person, prop and landform is a plain SVG sticker pinned to a real lon/lat, or carried along a
 // route; the layer sits above routes and cities (z-index 5) and every character is lifted so its feet

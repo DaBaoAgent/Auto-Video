@@ -1,6 +1,6 @@
 # xianshiqi —— 赛博朋克 HUD / FUI 样片管线
 
-风格取自 `mg-styles-15` 的 **#22 赛博朋克 HUD / FUI**（MIT）。
+风格取自 `styles` 的 **#22 赛博朋克 HUD / FUI**（MIT）。
 一条口播进，30 秒 HUD 前线出：深青黑底、青色霓虹线框、雷达扫掠、目标锁定、
 数据流小字、Three.js 线框全息体、辉光与扫描线。
 
@@ -33,7 +33,7 @@ python xianshiqi/scripts/xianshiqi.py publish myfilm
 ## 环境
 
 - Node.js ≥18（three + puppeteer-core 走 `node_modules` 联接）
-- **mg-styles-15 渲染引擎**（`vendor/mg-styles-15`，未随仓库提交，与 shouhui/xuni 共用）：先 `git clone --depth 1 https://github.com/Vincentwei1021/mg-styles-15.git vendor/mg-styles-15`，`npm install`，再建联接 `New-Item -ItemType Junction -Path 'xianshiqi/node_modules' -Target 'vendor/mg-styles-15/node_modules'`
+- **styles 渲染引擎**（`vendor/styles`，未随仓库提交，与 shouhui/xuni 共用）：先 `git clone --depth 1 https://github.com/Vincentwei1021/styles.git vendor/styles`，`npm install`，再建联接 `New-Item -ItemType Junction -Path 'xianshiqi/node_modules' -Target 'vendor/styles/node_modules'`
 - Edge（`C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe`）
 - Python ≥3.11（配乐/混音纯标准库，不需要 numpy）
 - ffmpeg + ffprobe 在 PATH

@@ -1,14 +1,14 @@
 """字体单份化：仓库只留一份字体，渲染前按需同步到工程目录。
 
 为什么不能直接引用 `assets/fonts/`：
-    每个渲染器只服务「工程目录」这一个根（`render.mjs` / `render-legacy.mjs` / `render-mg.mjs` 都是），
+    每个渲染器只服务「工程目录」这一个根（`render.mjs` / `render-legacy.mjs` / `render-cdp.mjs` 都是），
     所以字体必须物理地待在工程目录里。之前每个工程各存一份，同一款字体在仓库里躺了 4–5 份。
 
 现在的规则：
     - 字体**不进仓库**：`assets/fonts/fonts.json` 记着官方下载地址与 SHA256，第一次用跑一次
       `python tools/sync_fonts.py --fetch` 下载（60 MB 级别的东西不该躺在 git 历史里）；
     - 下载下来的字体在 `assets/fonts/`，被 `.gitignore` 忽略；
-    - KaiTi 是微软 Windows 系统字体，**从来不入库**；渲染前从系统字体目录复制（`BV_FONT_KAI` 可另指一个文件），
+    - KaiTi 是微软 Windows 系统字体，**从来不入库**；渲染前从系统字体目录复制（`AV_FONT_KAI` 可另指一个文件），
       这样本机渲染字形和以前完全一致，公开仓库也不再分发专有字体；
     - 复制到工程目录的那些在 `.gitignore` 里，`git status` 不会变脏。
 
@@ -146,7 +146,7 @@ def fetch(only=None, quiet=False):
 
 def system_kai():
     """系统里的楷体：Windows simkai.ttf / macOS STKaiti。找不到返回 None。"""
-    env = os.environ.get("BV_FONT_KAI")
+    env = os.environ.get("AV_FONT_KAI")
     if env and Path(env).exists():
         return Path(env)
     candidates = [

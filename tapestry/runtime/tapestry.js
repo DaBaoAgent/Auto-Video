@@ -1,4 +1,4 @@
-// tapestry.js: the Bayeux-Tapestry embroidered scroll (贝叶挂毯 · 中世纪刺绣长卷) style, one of bb-video's visual styles (style notes in styles/tapestry/STYLE.md). Load after promo.js.
+// tapestry.js: the Bayeux-Tapestry embroidered scroll (贝叶挂毯 · 中世纪刺绣长卷) style, one of 模板库's visual styles (style notes in styles/tapestry/STYLE.md). Load after promo.js.
 // One frame: a window on one long strip of undyed linen (plain weave you can see), lit warm in the middle and darker at the edges. Everything on
 // it is embroidered in a few wool colours (terracotta, ochre, olive, sage, blue-green, grey-blue, dark blue): outlines in stem stitch (a chain of
 // short slanted overlapping stitches along the path), fills in laid-and-couched work (parallel threads in one direction, slightly uneven, held

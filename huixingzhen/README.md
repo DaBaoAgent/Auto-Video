@@ -1,6 +1,6 @@
 # huixingzhen · 回形针风科普短片管线
 
-风格：`mg-styles-15` #19 PaperClip「回形针」风（MIT）——实拍照片贴纸化 + 精确图表 + 大画布连续运镜 +
+风格：`styles` #19 PaperClip「回形针」风（MIT）——实拍照片贴纸化 + 精确图表 + 大画布连续运镜 +
 句级字幕 + 代码合成音效床 + 确定性 HTML 逐帧渲染。
 参考实现：`projects/paperclip_zhou/`（商纣王 20s 样片，含 10s 版对照；透明人物帧复用 `shouhui/projects/012_shangzhouwang/` 抠像产物）。
 
@@ -14,14 +14,14 @@
 | ffmpeg / ffprobe | PATH 中可用；本机在 `D:/GPT-SoVITS/tools/ffmpeg/` |
 | 字体 | `projects/<slug>/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf`（免费商用） |
 
-`vendor/mg-styles-15` 是外部渲染引擎（未随仓库提交，与 shouhui 等管线共用），首次运行先安装：
+`vendor/styles` 是外部渲染引擎（未随仓库提交，与 shouhui 等管线共用），首次运行先安装：
 
 ```powershell
-git clone --depth 1 https://github.com/Vincentwei1021/mg-styles-15.git vendor/mg-styles-15
-Set-Location vendor/mg-styles-15
+git clone --depth 1 https://github.com/Vincentwei1021/styles.git vendor/styles
+Set-Location vendor/styles
 npm install
 Set-Location ../..
-New-Item -ItemType Junction -Path 'shouhui/node_modules' -Target 'vendor/mg-styles-15/node_modules'
+New-Item -ItemType Junction -Path 'shouhui/node_modules' -Target 'vendor/styles/node_modules'
 ```
 
 `huixingzhen` 的 `render_frames.mjs` 复用 `shouhui/scripts/render.mjs` 的 puppeteer-core，因此只依赖上面

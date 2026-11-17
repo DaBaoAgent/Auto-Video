@@ -111,7 +111,7 @@
 - 道具不手持，放脚边/腰侧，不挡右臂。
 - 人物画布 600×1000；单人 PNG 输出 **1200×2000**，鱼 **2200×1240 RGBA**；总表 **1900×1500**。
 - 不用 CDN 字体；用本机 SimSun / KaiTi。
-- 参考实现：BB-Video 的 `styles/laolang/carp-pipeline/`（`lao_cast_carp.js`、`lib/toon.js`、`PIPELINE.md`；未随本仓库提交）。
+- 参考实现：模板库 的 `styles/laolang/carp-pipeline/`（`lao_cast_carp.js`、`lib/toon.js`、`PIPELINE.md`；未随本仓库提交）。
 
 ## 8. 参考图与冻结校验
 

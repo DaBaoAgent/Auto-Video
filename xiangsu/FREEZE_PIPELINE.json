@@ -31,7 +31,7 @@
   },
   "scope": {
     "workspace": "D:/@kaifa/yandi/yandi-video/render/xiangsu/",
-    "render_repo": "D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15/",
+    "render_repo": "D:/@kaifa/yandi/output/020_曹操/render/styles/",
     "delivery": "D:/@kaifa/yandi/out/3 波斯湾伊甸园/",
     "source_assets": "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/（口播稿 / 配音.wav / 词级转写）",
     "cleanup_record": "full/FREEZE_pipeline_2026-10-29_cleanup.json（status=superseded，写于改名前，文内 xiangsu2 为旧名）"
@@ -39,7 +39,7 @@
   "env": [
     {
       "name": "XIANGSU_REPO",
-      "default": "D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15",
+      "default": "D:/@kaifa/yandi/output/020_曹操/render/styles",
       "old": "XIANGSU2_REPO"
     },
     {
@@ -74,7 +74,7 @@
       "note": "新片必填；封面交付目录"
     },
     {
-      "name": "MG_CHROME",
+      "name": "AV_CHROME",
       "default": "C:/Program Files/Google/Chrome/Application/chrome.exe",
       "old": ""
     },

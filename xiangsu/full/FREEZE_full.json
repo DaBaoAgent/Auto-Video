@@ -95,7 +95,7 @@
     }
   },
   "environment": {
-    "repo": "D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15",
+    "repo": "D:/@kaifa/yandi/output/020_曹操/render/styles",
     "chrome": "C:/Program Files/Google/Chrome/Application/chrome.exe",
     "python": "D:/@kaifa/openviking/.venv/Scripts/python.exe",
     "node": "v24.22.1",

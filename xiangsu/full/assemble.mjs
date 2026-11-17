@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '..');
-const repo = process.env.XIANGSU_REPO || process.env.XIANGSU2_REPO || 'D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15';
+const repo = process.env.XIANGSU_REPO || process.env.XIANGSU2_REPO || 'D:/@kaifa/yandi/output/020_曹操/render/styles';
 const outDir = path.join(repo, 'demos', 'xiangsu-eden-full');
 
 const MARK = '// ---------------------------------------------------------------- transitions / subtitle / CRT';

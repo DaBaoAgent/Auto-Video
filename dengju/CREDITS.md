@@ -2,9 +2,9 @@
 
 ## 风格来源
 
-- **mg-styles-15 / 03-isometric**，作者 Vincentwei1021，MIT License。
-  - 上游提示词：`mg-styles-15/prompts-zh/03-isometric.md`
-  - 上游源码：`vendor/mg-styles-15/demos/03-isometric/`
+- **styles / 03-isometric**，作者 Vincentwei1021，MIT License。
+  - 上游提示词：`styles/prompts-zh/03-isometric.md`
+  - 上游源码：`vendor/styles/demos/03-isometric/`
   - 本管线沿用其等轴视觉语法、粉彩色板、`render.js` 累积渲染器与 `anim.js` 闭式动画工具；
     `projects/yuren30/js/render.js`、`anim.js` 为上游文件的本地副本（保留 MIT 许可）。
 

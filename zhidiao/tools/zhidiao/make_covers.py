@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """zhidiao 管线 · 封面生成（OpenAI 兼容文生图，纯标准库）
 
-默认读项目根 `.env` 的 IMG_BASE_URL / IMG_MODEL / IMG_API_KEY，
+默认读项目根 `.env` 的 IAV_BASE_URL / IAV_MODEL / IAV_API_KEY，
 调用 `<base>/images/generations`，把封面直接写进项目内
 （默认约定：content/<slug>/covers/<slug>-4x3.jpg）。
 
@@ -23,11 +23,11 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-ENV_KEYS = ("IMG_BASE_URL", "IMG_MODEL", "IMG_API_KEY")
+ENV_KEYS = ("IAV_BASE_URL", "IAV_MODEL", "IAV_API_KEY")
 ALIASES = {
-    "IMG_BASE_URL": ("OPENAI_BASE_URL", "OPENAI_API_BASE", "BASE_URL"),
-    "IMG_MODEL": ("OPENAI_IMAGE_MODEL", "IMAGE_MODEL", "OPENAI_MODEL"),
-    "IMG_API_KEY": ("OPENAI_API_KEY", "API_KEY"),
+    "IAV_BASE_URL": ("OPENAI_BASE_URL", "OPENAI_API_BASE", "BASE_URL"),
+    "IAV_MODEL": ("OPENAI_IMAGE_MODEL", "IMAGE_MODEL", "OPENAI_MODEL"),
+    "IAV_API_KEY": ("OPENAI_API_KEY", "API_KEY"),
 }
 
 
@@ -139,9 +139,9 @@ def main():
     args = ap.parse_args()
 
     load_env(find_env(args.env_file))
-    base = resolve("IMG_BASE_URL")
-    model = args.model or resolve("IMG_MODEL")
-    api_key = resolve("IMG_API_KEY")
+    base = resolve("IAV_BASE_URL")
+    model = args.model or resolve("IAV_MODEL")
+    api_key = resolve("IAV_API_KEY")
     missing = [n for n, v in zip(ENV_KEYS, (base, model, api_key)) if not v]
     if args.check:
         print("env:", find_env(args.env_file))

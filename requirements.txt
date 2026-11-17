@@ -11,7 +11,7 @@
 # 环境变量（都不是必填，找不到会自动探测）：
 #   CHROME_PATH     浏览器可执行文件
 #   FFMPEG_PATH     ffmpeg 可执行文件
-#   BV_FRAME_TIMEOUT  单帧渲染超时秒数（默认 60 / 120）
+#   AV_FRAME_TIMEOUT  单帧渲染超时秒数（默认 60 / 120）
 #   GPT_SOVITS_PRESET  jianying / lishi 用的音色预设 json
 #
 # 详见 README 的「30 秒先看到东西」与 docs/pipelines.md。

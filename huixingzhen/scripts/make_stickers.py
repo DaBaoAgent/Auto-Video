@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""给透明底 PNG 加回形针式白描边（参照上游 mg-styles-15 demos/19-paperclip/tools/stickers.py 的做法）"""
+"""给透明底 PNG 加回形针式白描边（参照上游 styles demos/19-paperclip/tools/stickers.py 的做法）"""
 import sys, os
 import numpy as np
 from PIL import Image

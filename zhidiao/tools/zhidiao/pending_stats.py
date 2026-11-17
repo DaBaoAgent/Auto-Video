@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """统计 shots.json 中尚未完成的图/视频数量（assets.json 不含未注册的新镜头）。
 
-输出: IMG_MISSING=<n>  VID_LEFT=<n>
+输出: IAV_MISSING=<n>  VID_LEFT=<n>
 """
 import json
 import os
@@ -39,7 +39,7 @@ def main():
                 os.path.join(SHOTS_DIR, sid + ".mp4"))
             if not vid_ok:
                 vid_left.append(sid)
-    print("IMG_MISSING=%d" % len(img_missing))
+    print("IAV_MISSING=%d" % len(img_missing))
     print("VID_LEFT=%d" % len(vid_left))
     if "-v" in sys.argv:
         print("img_missing:", " ".join(img_missing[:40]))

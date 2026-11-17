@@ -1,4 +1,4 @@
-// manga.js: the manga-panel / motion-comic (日漫 · 漫画分镜) style, one of bb-video's visual styles (style notes in styles/manga/STYLE.md). Load after promo.js.
+// manga.js: the manga-panel / motion-comic (日漫 · 漫画分镜) style, one of 模板库's visual styles (style notes in styles/manga/STYLE.md). Load after promo.js.
 // One frame: a black-and-white manga page — white paper, black ink line, screentone (flat dots, gradient dots, sand) laid per region — cut into
 // panels with gutters (wider between tiers than between columns), slanted panels, borderless and bleeding panels, figures breaking out of the
 // frame. Speed lines, focus lines (集中线), beta flashes, sweat drops and vein marks; big hand-lettered sound effects (ドン / ゴゴゴ / 轰 / 咚) that

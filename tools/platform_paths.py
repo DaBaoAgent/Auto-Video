@@ -17,7 +17,7 @@ import shutil
 import sys
 from pathlib import Path
 
-CHROME_ENV_KEYS = ("CHROME_PATH", "MG_CHROME", "PLAYWRIGHT_CHROME", "BV_CHROME")
+CHROME_ENV_KEYS = ("CHROME_PATH", "AV_CHROME", "PLAYWRIGHT_CHROME", "AV_CHROME")
 
 _WIN_BROWSERS = (
     r"C:\Program Files\Google\Chrome\Application\chrome.exe",
@@ -38,7 +38,7 @@ _LINUX_BROWSERS = (
     "/snap/bin/chromium",
 )
 
-_FONT_ENV_KEYS = ("BV_FONT_DIR", "FONT_DIR")
+_FONT_ENV_KEYS = ("AV_FONT_DIR", "FONT_DIR")
 _WIN_FONT_DIRS = (r"C:\Windows\Fonts", r"C:\WINNT\Fonts")
 _MAC_FONT_DIRS = ("/System/Library/Fonts", "/Library/Fonts", os.path.expanduser("~/Library/Fonts"))
 _LINUX_FONT_DIRS = ("/usr/share/fonts", "/usr/local/share/fonts", os.path.expanduser("~/.fonts"))

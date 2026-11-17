@@ -114,7 +114,7 @@ OK 契约一致（0 WARN）
 | 项 | 数值 |
 | --- | --- |
 | 管线样片 | 32 条（全部成片管线都有样片；`peiyin` 是配音前端，不出片，不计入缺样片） |
-| 风格样片 | 55 段（`BB-Video` 37 段 + 顶层年代命名 15 段 + 其余横向抽样），不进管线元数据 |
+| 风格样片 | 55 段（`模板库` 37 段 + 顶层年代命名 15 段 + 其余横向抽样），不进管线元数据 |
 | 合计 | 87 段网页短片 + 87 张封面，97.4 MB（每段取片头前 30 秒，不足 30 秒的取全片） |
 | 字体 | 思源宋 600 子集 339 KB / 思源黑 400 子集 248 KB（754 个字） |
 
@@ -150,8 +150,8 @@ OK 契约一致（0 WARN）
 3. **`youxi`（仁德天皇陵 192.7 s）** 仍是「待封装」状态，未进 catalog；
 4. **`showcase/`** 350 MB 旧原片保留未删（README 已改成站点用 `site/media/`），如需瘦身可后续单独处理；
 5. 站点的 `samples.json` / `data.js` / `media/` 是**生成物**，但为了 Pages 不跑 ffmpeg 而**入库**；换素材时重跑 `build_samples.py` + `build_site.py` 即可。
-6. **8 条 BB-Video 模板的分幕写死**：`pencil`、`isometric`、`manga`、`tapestry`、`shadow`、`parable`、`goldenage`、`blueprint` 的 `template/index.html` 里直接引用 `s('l1')…s('l8')`，文案行数一变就报 `timeline: narration line id "l2" not found`（已用 pencil 实跑复现，`frontend/jobs/*/04-成片/04-渲染日志.txt` 有现场）。`frontend/targets.json` 已把它们降级为 `new` + `ingest`，只留 `laolang`、`map` 直接 `render`。真要让它们一条文案出片，得改成按 `script.json` 行数动态取旁白的模板。
-7. **渲染器不自行退出**：BB-Video 的 `render.mjs` 成片写完后，Chrome 子进程会占住管道让 node 一直挂着（实测 laolang 6.2 s 片 22 秒渲染完成，进程却 20 分钟不退出）。`frontend.py` 加了看门狗（成片体积 12 秒不变即判成功并结束进程树），但这属于治标，根因在运行时未回收 Chrome 子进程。
+6. **8 条 模板库 模板的分幕写死**：`pencil`、`isometric`、`manga`、`tapestry`、`shadow`、`parable`、`goldenage`、`blueprint` 的 `template/index.html` 里直接引用 `s('l1')…s('l8')`，文案行数一变就报 `timeline: narration line id "l2" not found`（已用 pencil 实跑复现，`frontend/jobs/*/04-成片/04-渲染日志.txt` 有现场）。`frontend/targets.json` 已把它们降级为 `new` + `ingest`，只留 `laolang`、`map` 直接 `render`。真要让它们一条文案出片，得改成按 `script.json` 行数动态取旁白的模板。
+7. **渲染器不自行退出**：模板库 的 `render.mjs` 成片写完后，Chrome 子进程会占住管道让 node 一直挂着（实测 laolang 6.2 s 片 22 秒渲染完成，进程却 20 分钟不退出）。`frontend.py` 加了看门狗（成片体积 12 秒不变即判成功并结束进程树），但这属于治标，根因在运行时未回收 Chrome 子进程。
 8. **fengmian 对短文本的固有缺陷**：`fm/analyze.py` 的 `keywords(text, top=6, for_tags=True)` 对 200 字左右的短稿返回 `[]`，导致 `suggested_tags` 为空、`build` 抛「话题必须恰好 4 个」。`frontend.py` 的 `pick_tags()` 用关键词 / 片名 / 选题补齐到 4 个绕过；上游按原样 vendor，未改其代码（`fengmian/VENDORED.md` 已记）。
 9. **5 条封面仍是浅色**（`shuimo`、`style-07`、`style-20`、`style-42`、`style-48`）：样片底色就是白 / 淡（水墨淡彩、铅笔草图、极简线稿、纯白图解、品牌卡），换帧也换不掉。真要在深色卡片上压得住，得给这几条单独做「暗底描边版」封面或换样片段落，等素材决定。
 10. **`tools/poster_overrides.json` 是手工表**：新加样片时自动选帧先生效，如果那条片子又空镜偏多，需要再看一遍拼版、把 key 钉进覆盖表；覆盖表里的秒数按站内 clip（前 30 秒）计算，不是原片时间轴。

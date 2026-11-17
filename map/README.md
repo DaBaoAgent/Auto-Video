@@ -49,4 +49,4 @@ python scripts/map.py deliver projects/<名字> --chugao 出稿/<编号>_<选题
 
 ## 许可
 
-运行时代码来自 [BB-Video](https://github.com/BubbleBrainBB/BB-Video)（MIT），见 `runtime/LICENSE.BB-Video` 与 [CREDITS.md](CREDITS.md)。底图 Natural Earth（public domain）。
+运行时代码来自 [模板库](https://github.com/BubbleBrainBB/模板库)（MIT），见 `runtime/LICENSE-upstream` 与 [CREDITS.md](CREDITS.md)。底图 Natural Earth（public domain）。

@@ -1,14 +1,14 @@
 ---
 name: huixingzhen
-description: 粗描边贴纸人科普 MG 管线（mg-styles-15 #19「回形针 PaperClip」风格）。实拍照片贴纸化 + 精确图表 + 大画布连续运镜 + 句级字幕 + 代码合成音效床 + 确定性 HTML 逐帧渲染。当用户要做知识区/硬核科普/财经解释类短视频，或说「用回形针风出一集」「huixingzhen 出片」时使用。
+description: 粗描边贴纸人科普 MG 管线（styles #19「回形针 PaperClip」风格）。实拍照片贴纸化 + 精确图表 + 大画布连续运镜 + 句级字幕 + 代码合成音效床 + 确定性 HTML 逐帧渲染。当用户要做知识区/硬核科普/财经解释类短视频，或说「用回形针风出一集」「huixingzhen 出片」时使用。
 ---
 
 # huixingzhen · 回形针风科普短片管线
 
-description: 粗描边贴纸人科普 MG 管线（mg-styles-15 #19「回形针 PaperClip」风格）。实拍照片贴纸化 + 精确图表 + 大画布连续运镜 + 句级字幕 + 代码合成音效床 + 确定性 HTML 逐帧渲染。当用户要做知识区/硬核科普/财经解释类短视频，或说「用回形针风出一集」「huixingzhen 出片」时使用。
+description: 粗描边贴纸人科普 MG 管线（styles #19「回形针 PaperClip」风格）。实拍照片贴纸化 + 精确图表 + 大画布连续运镜 + 句级字幕 + 代码合成音效床 + 确定性 HTML 逐帧渲染。当用户要做知识区/硬核科普/财经解释类短视频，或说「用回形针风出一集」「huixingzhen 出片」时使用。
 
-上游风格来源：`mg-styles-15`（MIT）demos/19-paperclip + prompts/19-paperclip.md。
-完整提示词见 `mg-styles-15/prompts-zh/19-paperclip.md`；演示片 `mg-styles-15/videos/19-paperclip.mp4`。
+上游风格来源：`styles`（MIT）demos/19-paperclip + prompts/19-paperclip.md。
+完整提示词见 `styles/prompts-zh/19-paperclip.md`；演示片 `styles/videos/19-paperclip.mp4`。
 
 ---
 
@@ -81,7 +81,7 @@ huixingzhen/
 - 字幕时间轴必须与镜头表同源：**统一从词级对齐产物 `cues_full.json` 生成**，严禁再引入按字数累加的第二套时间（曾因此整体漂 4.8s）。
 
 ### 3. 渲染页（index.html）
-页面协议（与 mg-styles-15 harness 一致）：
+页面协议（与 styles harness 一致）：
 ```js
 window.DEMO = { width:1920, height:1080, fps:30, duration:20 };
 window.renderAt = async (t) => { ... };   // 每帧由 t 纯函数驱动
@@ -183,7 +183,7 @@ QA 清单：严格时长 / 1080p30 / −14±0.5 LUFS / 黑帧 0 / 字幕无空�
 ## 五、迭代惯例
 
 - 改文案/排版只动 `index*.html` 与 cues json，重渲一版分钟级完成。
-- 新风格提示词参考 `mg-styles-15/template.md`；评审用 `mg-styles-15/rubric.md` 双 AI 打磨。
+- 新风格提示词参考 `styles/template.md`；评审用 `styles/rubric.md` 双 AI 打磨。
 - 新实例：`projects/<slug>/` 复制参考实现结构，替换文案、贴纸与页面。
 
 ## 交付（封面 + 发布信息，2026-10-30 起全管线统一）

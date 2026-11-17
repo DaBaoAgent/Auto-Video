@@ -1,9 +1,9 @@
-> **本文件是 BB-Video 的风格规范原文，随 Auto-Video 管线一起 vendored。**
-> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 BB-Video 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何真实工作室的角色、桥段、配乐、片尾或商标。
+> **本文件是 模板库 的风格规范原文，随 Auto-Video 管线一起 vendored。**
+> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 模板库 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何真实工作室的角色、桥段、配乐、片尾或商标。
 
 # Manga / motion comic (日漫 · 漫画分镜, `manga`)
 
-> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to bb-video's `promo/` folder.
+> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to 模板库's `promo/` folder.
 
 One frame: a black-and-white manga page.
 - **The page.** White paper and black ink line. Screentone is laid per region: flat dots, gradient dots and sand.

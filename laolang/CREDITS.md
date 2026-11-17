@@ -2,15 +2,15 @@
 
 ## 运行时与风格代码
 
-- **BB-Video** — `core.js`、`promo.js`、`goldenage.js`、`laolang.js`、`act.js`、`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/*`
-  - 来源：<https://github.com/BubbleBrainBB/BB-Video>，MIT
-  - 许可原文：`runtime/LICENSE.BB-Video`
+- **模板库** — `core.js`、`promo.js`、`goldenage.js`、`laolang.js`、`act.js`、`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/*`
+  - 来源：<https://github.com/BubbleBrainBB/模板库>，MIT
+  - 许可原文：`runtime/LICENSE-upstream`
   - `goldenage.js` / `laolang.js` 使用 60 秒样片冻结版（关闭片门晃动、静态颗粒、去逐帧灰尘）
 
 ## 人物与动作
 
 - **claude-animated-shorts** — `toon.ts` / `cast.ts` / `story.ts` 的 Canvas2D Pen、600×1000 设计空间、眨眼时钟与镜头/ cue 结构；`lao_body.ts` 在其上重画。
-  - 来源：`BB-Video/work/claude-animated-shorts`，MIT，Copyright (c) 2026 Mr omi
+  - 来源：`上游/work/claude-animated-shorts`，MIT，Copyright (c) 2026 Mr omi
 - **laolang toon-cast** — `lao_body.ts`、`toon.ts`、`lao_cast.js`、`lao_cast_full.js`、`lao_poses.js`、`build_toon.py`、`lib/toon.js`
   - 原创绘制；不复制《老狼请客》的狼/熊/狐狸或任何原片角色
 

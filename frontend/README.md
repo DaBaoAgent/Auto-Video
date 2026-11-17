@@ -65,6 +65,6 @@ python frontend/frontend.py run  --pipeline laolang --topic "…" --title "…" 
 
 ## 两个已知的坑
 
-- **渲染器可能不退出**：BB-Video 系的 `render.mjs` 把成片写完后，Chrome 子进程有时还占着管道，进程就一直挂着。`frontend.py` 带看门狗：成片落盘且体积 12 秒不再变化就判成功并结束进程树，最长等 `--render-timeout` 秒（默认 900）。日志里会留一行 `[watchdog]` 说明。
+- **渲染器可能不退出**：模板库 系的 `render.mjs` 把成片写完后，Chrome 子进程有时还占着管道，进程就一直挂着。`frontend.py` 带看门狗：成片落盘且体积 12 秒不再变化就判成功并结束进程树，最长等 `--render-timeout` 秒（默认 900）。日志里会留一行 `[watchdog]` 说明。
 - **模板不是空白模板**：`pencil` 那 8 条的模板是某条具体片子的分幕，能直接吃任意文案的只有 `laolang`、`map`。想让它真出片，得先按新稿重写分幕——这一步 frontend 不替你做，但把材料都摆好了。
 

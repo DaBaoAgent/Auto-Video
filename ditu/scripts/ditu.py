@@ -22,8 +22,8 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 PIPELINE = Path(__file__).resolve().parent.parent      # ditu/
 PROJECTS = PIPELINE / "projects"
-# 渲染器统一用仓库根的唯一副本（vendor/bb-video/runtime/render-legacy.mjs）
-RENDER = PIPELINE.parent / "vendor" / "bb-video" / "runtime" / "render-legacy.mjs"
+# 渲染器统一用仓库根的唯一副本（vendor/runtime/render-legacy.mjs）
+RENDER = PIPELINE.parent / "vendor" / "模板库" / "runtime" / "render-legacy.mjs"
 SKELETON = "038_guanyu_fancheng"
 GRAIN = 2
 LUFS, TRUE_PEAK = -14.0, -1.5

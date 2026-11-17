@@ -8,7 +8,7 @@
  "purpose": "定稿后清场：只保留干净管线，为下一条视频做准备。删除全部可再生的中间件与生成目录；源码、脚本、FREEZE 记录、交付目录与源资产保留。",
  "scope": {
   "workspace": "D:/@kaifa/yandi/yandi-video/render/xiangsu2/",
-  "render_repo": "D:/@kaifa/yandi/output/020_曹操/render/mg-styles-15/",
+  "render_repo": "D:/@kaifa/yandi/output/020_曹操/render/styles/",
   "delivery": "D:/@kaifa/yandi/out/3 波斯湾伊甸园/",
   "source_assets": "D:/@kaifa/yandi/output/001_波斯湾伊甸园_口播稿+配音/（未动）"
  },

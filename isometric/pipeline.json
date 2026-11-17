@@ -22,7 +22,7 @@
   },
   "version": "2026-11-09",
   "pipeline": "isometric",
-  "style": "bb-video/isometric",
+  "style": "isometric",
   "label": "等距微缩世界",
   "canvas": {
     "width": 1920,
@@ -81,7 +81,7 @@
     "jpeg_quality": 92,
     "crf_delivery": 18,
     "preset": "slow",
-    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/auto-video/fonts"
   },
   "delivery": {
     "sample": "出稿/<编号>_<选题>/",

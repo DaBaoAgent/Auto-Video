@@ -1,4 +1,4 @@
-// blueprint.js: blueprint engineering drawing (蓝图工程图, one of bb-video's visual styles; style notes in styles/blueprint/STYLE.md). Load after promo.js.
+// blueprint.js: blueprint engineering drawing (蓝图工程图, one of 模板库's visual styles; style notes in styles/blueprint/STYLE.md). Load after promo.js.
 // One frame: a viewport over a large drawing sheet. Deep cyanotype blue with paper grain, an uneven fade and a fine grid; thin white / pale-cyan line work
 // drawn to draughting convention (ISO 128 line types: visible, thin, hidden dashed, centre dash-dot, phantom, construction), dimensions with arrowheads,
 // leaders with numbered balloons, a parts list, section views with hatching, detail circles, a title block, technical lettering; one red pencil as the accent.

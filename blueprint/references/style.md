@@ -1,9 +1,9 @@
-> **本文件是 BB-Video 的风格规范原文，随 Auto-Video 管线一起 vendored。**
-> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 BB-Video 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何公司图纸、CAD 布局、Logo 或商业外观。
+> **本文件是 模板库 的风格规范原文，随 Auto-Video 管线一起 vendored。**
+> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 模板库 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何公司图纸、CAD 布局、Logo 或商业外观。
 
 # Style: blueprint engineering drawing (蓝图工程图, `blueprint`)
 
-> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to bb-video's `promo/` folder.
+> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to 模板库's `promo/` folder.
 
 A frame is a viewport over a drawing sheet, and each subject has its own sheet. The ground is deep cyanotype blue with paper grain, a slow uneven fade and a fine grid (a heavier line every five cells); the line work is thin white and pale cyan, drawn to draughting convention. Visible edges are continuous, hidden edges dashed, centre lines and pitch circles dash-dot. Dimensions have arrowheads and numbers, and leaders end in numbered balloons with the part's name. There is a parts list, section views with 45° hatching, detail circles with a letter, a title block in the corner (title, drawing number, scale, sheet n / N, date) and technical / stencil lettering. Every line is *drafted* in: construction lines first, thin and quick (they stay faint), then the final weight, with a plotter pen riding the tip. Mechanisms really work. Gear trains with real tooth counts mesh and turn at the right ratios, the escapement locks and releases, the balance swings, springs coil and relax. A new subject arrives on a new sheet (the exposure lamp sweeps it in, or it slides over the last one); on a sheet the camera pushes into a detail and pulls back out. A red pencil is the one accent: a correction, a ring around the part that matters.
 

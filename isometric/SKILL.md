@@ -37,14 +37,14 @@ isometric/
 ├── MIGRATION.md             来源、入库范围与同步方式
 ├── pipeline.json            定版参数（画幅/色板/字体/运动/音频/交付）
 ├── runtime/
-│   ├── core.js promo.js isometric.js   浏览器运行时（BB-Video MIT，vendored）
+│   ├── core.js promo.js isometric.js   浏览器运行时（模板库 MIT，vendored）
 │   ├── render.mjs music.mjs bgm.mjs sound.mjs lang.mjs net.mjs scores/
-│   └── LICENSE.BB-Video
+│   └── LICENSE-upstream
 ├── scripts/
 │   ├── isometric.py           编排：new / vo / check / stills / render / qa / deliver
 │   └── make_vo.py           配音 + 口播稿 → timeline / paragraphs / script.json
 ├── references/
-│   ├── style.md             完整风格规范（BB-Video STYLE.md）
+│   ├── style.md             完整风格规范（模板库 STYLE.md）
 │   ├── storyboard.md        分镜模板
 │   └── qa.md                验收清单
 └── template/                阿努纳奇样片完整工程（无音频与成片）
@@ -192,5 +192,5 @@ python scripts/isometric.py deliver projects/<名字>   --chugao 出稿/<编号>
 
 ## 许可
 
-运行时代码来自 [BB-Video](https://github.com/BubbleBrainBB/BB-Video)（MIT），见 `runtime/LICENSE.BB-Video` 与 `CREDITS.md`。风格规范原文见 `references/style.md`；只学技法，不复用任何真实工作室的角色、桥段、配乐或片尾。
+运行时代码来自 [模板库](https://github.com/BubbleBrainBB/模板库)（MIT），见 `runtime/LICENSE-upstream` 与 `CREDITS.md`。风格规范原文见 `references/style.md`；只学技法，不复用任何真实工作室的角色、桥段、配乐或片尾。
 

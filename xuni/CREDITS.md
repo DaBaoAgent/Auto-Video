@@ -2,7 +2,7 @@
 
 ## 上游风格
 
-- **mg-styles-15** — https://github.com/Vincentwei1021/mg-styles-15
+- **styles** — https://github.com/Vincentwei1021/styles
   - 许可：MIT
   - 使用部分：`demos/10-synthwave` 的风格语法与 VHS 后处理思路；`assets/fonts/fonts.css` 的字体栈参考。
   - 本管线为独立重写（Three.js 场景 + Canvas 内容层 + 纯标准库配乐），未直接复制上游素材。
@@ -23,6 +23,6 @@
 
 ## 参考文档
 
-- `mg-styles-15/prompts-zh/10-synthwave.md` —— 风格提示词与评分标准
-- `mg-styles-15/rubric.md` —— 上游评审量规
+- `styles/prompts-zh/10-synthwave.md` —— 风格提示词与评分标准
+- `styles/rubric.md` —— 上游评审量规
 - `references/publish.md` —— AutoJY 成片交付规范

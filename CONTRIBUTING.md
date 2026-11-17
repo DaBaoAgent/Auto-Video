@@ -46,7 +46,7 @@ python tools/validate.py              # 必须 OK 契约一致，0 WARN
 - **确定性**：渲染代码里不许出现 `Date.now()` / `Math.random()`，随机必须走 seeded PRNG。同一条片、同一版代码，出来的像素必须一样。
 - **不搬原片**：样片、AI 底图、素材都要能用仓库里的脚本重新生成，或者写清来源与许可（`CREDITS.md`）。
 - **不塞二进制**：新的大文件（视频、字体、PSD、模型权重）走 Release assets 或 Git LFS；仓库本体只放代码与配置。
-- **共享运行时只有一个源**：`vendor/bb-video/runtime/`。改了要 `python tools/sync_runtime.py`，提交前 `--check` 必须过。
+- **共享运行时只有一个源**：`vendor/runtime/`。改了要 `python tools/sync_runtime.py`，提交前 `--check` 必须过。
 - **中文注释、中文提交信息**：这个仓库的读者是中文创作者，注释写「为什么」，不写「做了什么」。
 
 ## 提交前自检

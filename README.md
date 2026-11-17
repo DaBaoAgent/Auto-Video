@@ -49,7 +49,7 @@ docker compose run --rm demo
 ```
 
 产物 `demo/out/demo.mp4`。这条路径走的是「模板 + 任意行数稿子」：分幕从 `timeline.json` 长出来
-（[`vendor/bb-video/runtime/autoscene.js`](vendor/bb-video/runtime/autoscene.js)），8 条 BB-Video 派生模板
+（[`vendor/runtime/autoscene.js`](vendor/runtime/autoscene.js)），8 条模板库派生模板
 不再写死 8 句旁白，5 句、12 句都能渲。
 
 <a id="start"></a>
@@ -286,7 +286,7 @@ python frontend/frontend.py run \
 
 - **不接 peiyin 也能用**：03 阶段用的是免费的 edge-tts / 系统音色，克隆音色（peiyin、GPT-SoVITS）是可选的加分项，不是前置条件；
 - **`fengmian/` 是上游原样导入**（`DaBaoAgent/fengmian`，见 `fengmian/VENDORED.md`），本仓库只改调用方式，不改它的规则：标题两段式、≤25 字、含阿拉伯数字、恰好 4 个话题，任一不过就直接报错；
-- **哪些管线能被 04 自动出片**：`frontend/targets.json` 逐条登记。现在是 **10 / 33 一条龙**：`laolang`、`map`，以及 BB-Video 派生的 8 条（`pencil`、`isometric`、`manga`、`tapestry`、`shadow`、`parable`、`goldenage`、`blueprint`）。这 8 条的模板已改成**数据驱动分幕**（`vendor/bb-video/runtime/autoscene.js`：一句旁白一张卡，片头卡 + 序号 + 强调线，5 句、12 句都能渲），所以 `new → vo → render` 可以一口气走完，不再出现「文案行数一变就报 `timeline: narration line id "l2" not found`」。模板保底的是排版，不是原来那支片的手绘美术——要原画级的片子，仍走 `projects/` 里手写的 `index.html`；
+- **哪些管线能被 04 自动出片**：`frontend/targets.json` 逐条登记。现在是 **10 / 33 一条龙**：`laolang`、`map`，以及 模板库派生的 8 条（`pencil`、`isometric`、`manga`、`tapestry`、`shadow`、`parable`、`goldenage`、`blueprint`）。这 8 条的模板已改成**数据驱动分幕**（`vendor/runtime/autoscene.js`：一句旁白一张卡，片头卡 + 序号 + 强调线，5 句、12 句都能渲），所以 `new → vo → render` 可以一口气走完，不再出现「文案行数一变就报 `timeline: narration line id "l2" not found`」。模板保底的是排版，不是原来那支片的手绘美术——要原画级的片子，仍走 `projects/` 里手写的 `index.html`；
 - 剩下 23 条在 `targets.json` 里写明为什么不能自动接最后一步：要真实素材（`shipai`、`jilupian`）、要高程与路线（`chengshi`、`ditu`）、要本地模型（`zhidiao` 的 ComfyUI、`tianshu`）、要管线内 TTS 时间轴（`shiliang`、`xuni`、`dengju`、`xianshiqi`），或者输入根本不是文案（`tuiyan` 的兵棋、`huixingzhen` 的剧本）；
 - 校验：`python tools/validate.py` 会检查 `modules` 登记、`frontend.json` 契约、`targets.json` 是否覆盖全部管线，并打印「frontend 覆盖 33 条管线，可直接渲染 10 条」；
 - 实跑记录（2026-11-17）：`laolang` 一条 33 字短稿从 01 跑到 05，exit 0，拿到 `04-成片/工程/out/video-16x9.mp4`（1920×1080 / 6.2 s / 带旁白）与 `05-发布/发布信息.txt`（标题两段式 + 4 个话题）。
@@ -339,7 +339,7 @@ python frontend/frontend.py run \
 
 另有一条 [`peiyin`](peiyin/SKILL.md) **不算缺样片**：它是配音前端，只出口播稿与配音，不出片，所以本来就不该有片子可播；站点上它的卡片标「配音模块 · 无样片」并直接指向文档。
 
-另有 55 段**风格样片**（`BB-Video` 风格库与年代命名为主的横向抽样：1930s 橡皮管、50s 扁平卡通、浮世绘、钢笔淡彩、蜡笔绘本、孟菲斯微缩、皮影戏、纸雕灯影、中国水墨、装饰艺术、HD-2D，以及 ascii / bauhaus / collage / cutout / riso / swiss / pixel / pop 等英文风格线），它们不进管线的元数据，只在站点的「样片库」里作为风格参考。
+另有 55 段**风格样片**（`模板库` 风格库与年代命名为主的横向抽样：1930s 橡皮管、50s 扁平卡通、浮世绘、钢笔淡彩、蜡笔绘本、孟菲斯微缩、皮影戏、纸雕灯影、中国水墨、装饰艺术、HD-2D，以及 ascii / bauhaus / collage / cutout / riso / swiss / pixel / pop 等英文风格线），它们不进管线的元数据，只在站点的「样片库」里作为风格参考。
 
 ### 完整成片（本地归档，未入库）
 
@@ -423,7 +423,7 @@ Auto-Video/
 ├── map/
 │   ├── SKILL.md              # 地图动画管线入口
 │   ├── pipeline.json         # 定版参数
-│   ├── runtime/              # 浏览器运行时 + 渲染器（BB-Video MIT）
+│   ├── runtime/              # 浏览器运行时 + 渲染器（模板库 MIT）
 │   ├── scripts/              # 建工程、配音对齐、渲染、交付
 │   ├── references/           # 贴纸规范、分镜、QA
 │   ├── template/             # 8 s 可运行模板
@@ -474,7 +474,7 @@ Auto-Video/
 │   ├── docs/                 # 产品规则、剪辑策略、开发记录
 │   └── tests/                # 测试与 CI 门禁
 ├── goldenage/ · manga/ · tapestry/ · pencil/ · isometric/ · parable/ · shadow/ · blueprint/ · laolang/
-│                            # 九条 BB-Video 风格管线：SKILL.md + runtime/ + scripts/ + references/ + template/
+│                            # 九条 模板库 风格管线：SKILL.md + runtime/ + scripts/ + references/ + template/
 │                            # 完整样片工程随各自 template/ 入库（无音频与成片；laolang 是玄奘 60 秒样片）
 ├── shipai/
 │   ├── SKILL.md              # 实拍素材口播竖屏短片入口
@@ -581,7 +581,7 @@ Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星�
 | 画面工程 | TypeScript、Remotion、HTML、CSS、SVG、GSAP |
 | 逐帧手绘 | Canvas、puppeteer-core、simplex-noise、opentype.js |
 | 皮影剪影 | Playwright、Canvas、逐帧截图、ffmpeg |
-| MG 短片渲染 | Node.js、three.js、mg-styles-15、Edge 无头逐帧渲染 |
+| MG 短片渲染 | Node.js、three.js、styles、Edge 无头逐帧渲染 |
 | 像素风 | 640×360 索引色帧缓冲、×3 整数最近邻、输出分辨率 CRT 后处理 |
 | 3D 战场 | battlefield-editor（Three.js 兵棋引擎）、稳帧逐帧渲染 |
 | 立体地图 | three.js、terrarium 高程 + Sentinel-2 底图、playwright-core 逐帧、贴地经纬度标注 |
@@ -591,7 +591,7 @@ Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星�
 | 长视频渲染 | HyperFrames、浏览器逐帧渲染 |
 | 音频与交付 | ffmpeg、ffprobe、响度归一、两遍压缩 |
 | 自动质检 | 字幕重叠检查、补间审计、频闪检测、成品抽帧 |
-| BB-Video 风格运行时 | Canvas 2D / SVG / Three.js 纯函数逐帧、Chrome DevTools Protocol、代码合成配乐与音效 |
+| 模板库 风格运行时 | Canvas 2D / SVG / Three.js 纯函数逐帧、Chrome DevTools Protocol、代码合成配乐与音效 |
 
 <a id="faq"></a>
 ## 常见问题 ❓
@@ -604,9 +604,9 @@ Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星�
 </details>
 
 <details>
-<summary>mg-styles-15 是什么？为什么不在仓库里？</summary>
+<summary>styles 是什么？为什么不在仓库里？</summary>
 
-`mg-styles-15` 是 shouhui / xuni / shiliang / xianshiqi / dengju / huixingzhen / shuimo / xiangsu 共用的外部渲染引擎（MIT 协议，含 node_modules 约 1.2GB）。仓库只保留管线代码与示例工程，引擎按引导 clone + `npm install` + junction 安装（见上方针式安装命令或各管线 README）。
+`styles` 是 shouhui / xuni / shiliang / xianshiqi / dengju / huixingzhen / shuimo / xiangsu 共用的外部渲染引擎（MIT 协议，含 node_modules 约 1.2GB）。仓库只保留管线代码与示例工程，引擎按引导 clone + `npm install` + junction 安装（见上方针式安装命令或各管线 README）。
 
 </details>
 
@@ -627,7 +627,7 @@ Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星�
 <details>
 <summary>新风格九条管线和已有的 MG 管线有什么区别？</summary>
 
-九条新管线来自 BB-Video 的风格运行时（BB-Video 共 33 种风格），画面是浏览器里的纯函数（Canvas / SVG / Three.js），同一帧永远渲染同一画面；它们和 `xuni` / `shiliang` / `dengju` 等 mg-styles-15 管线不是一套引擎。`isometric` 与 `dengju` 都画等距世界，但 `isometric` 是地块/路线/连续镜头运行时，`dengju` 是 mg-styles-15 的瓦片波浪运镜。`shadow` 与 `piying` 都做皮影，但 `shadow` 是 BB-Video 的透光牛皮+操纵杆，`piying` 是 Playwright/Canvas 剪影+卡片讲解。`blueprint` 是蓝晒工程图，专门讲机构/机器/系统原理。`laolang` 是 1980 上美影手绘赛璐璐（老狼请客式），4:3 片门、定稿 toon 人物与 24 动作，适合中国历史/民间故事。
+九条新管线来自 模板库 的风格运行时（模板库 共 33 种风格），画面是浏览器里的纯函数（Canvas / SVG / Three.js），同一帧永远渲染同一画面；它们和 `xuni` / `shiliang` / `dengju` 等 styles 管线不是一套引擎。`isometric` 与 `dengju` 都画等距世界，但 `isometric` 是地块/路线/连续镜头运行时，`dengju` 是 styles 的瓦片波浪运镜。`shadow` 与 `piying` 都做皮影，但 `shadow` 是 模板库 的透光牛皮+操纵杆，`piying` 是 Playwright/Canvas 剪影+卡片讲解。`blueprint` 是蓝晒工程图，专门讲机构/机器/系统原理。`laolang` 是 1980 上美影手绘赛璐璐（老狼请客式），4:3 片门、定稿 toon 人物与 24 动作，适合中国历史/民间故事。
 
 </details>
 
@@ -650,17 +650,17 @@ Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管
 <a id="credits"></a>
 ## 鸣谢与许可 🙏
 
-- **mg-styles-15**（合成波 / 扁平矢量 / HUD / 等轴等 MG 风格引擎）：[Vincentwei1021/mg-styles-15](https://github.com/Vincentwei1021/mg-styles-15)，MIT
+- **styles**（合成波 / 扁平矢量 / HUD / 等轴等 MG 风格引擎）：[Vincentwei1021/styles](https://github.com/Vincentwei1021/styles)，MIT
 - **AlibabaPuHuiTi-3-85-Bold**（示例工程字体）：阿里巴巴普惠体，免费商用
 - **GPT-SoVITS**（配音方案）：[RVC-Boss/GPT-SoVITS](https://github.com/RVC-Boss/GPT-SoVITS)
-- **BB-Video**（goldenage / manga / tapestry / pencil / isometric / parable / shadow / blueprint / laolang 九条风格运行时与渲染链）：[BubbleBrainBB/BB-Video](https://github.com/BubbleBrainBB/BB-Video)，MIT
+- **模板库**（goldenage / manga / tapestry / pencil / isometric / parable / shadow / blueprint / laolang 九条风格运行时与渲染链）：模板库，MIT
 - **battlefield-editor**（3D 兵棋渲染引擎）：随 `tuiyan` 迁移自 alannew 项目
 - 本仓库管线由 `AutoUP`、`AutoJY`、`alannew` 等历史项目迁移归纳而来，出处与迁移说明见各管线 `MIGRATION.md` / `CREDITS.md`
 - **许可**：本仓库代码以 [MIT License](LICENSE) 发布（见根目录 `LICENSE`）；第三方组件遵循各自协议（见上）。
 
 ## English
 
-Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 32 styles, plus an optional `frontend/` module that runs topic → script → free edge-tts voice-over (with SRT) → any style lane → covers and publish copy through the vendored `fengmian/` project, so a clone of your own voice (`peiyin`, GPT-SoVITS) is optional rather than required. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) — or, in the `tianshu` lane, generates plates and ambient motion with local ComfyUI models (Qwen-Image 2.1 + Wan2.2 TI2V-5B) — without calling any cloud image or video API. The current 32 film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, pixel-art shorts (640×360 indexed framebuffer ×3 nearest-neighbour with output-resolution CRT), six MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric / paperclip explainer / ink-wash landscape), nine BB-Video style runtimes (golden-age cartoon / manga / Bayeux tapestry / pencil test / isometric miniature / 3D stick-figure parable / shadow puppetry / blueprint engineering drawing / Shanghai Animation Film Studio hand-drawn cel, laolang), satellite-terrain 3D map explainers with real elevation data (ditu), tablet-sketch scroll explainers drawn stroke by stroke (pingban), colored-pencil science illustrations hatched over a paper tooth (caiqian), city-growth films (real geodata: OSM buildings/roads/water, Esri satellite, SRTM terrain, Remotion + three.js), footage-based vertical shorts (Pixabay clips + MoneyPrinterTurbo CLI + single-line captions, shipai), silhouette-rhythm films cut on a 90 BPM beat (lvdong), and a local-model cel-animation lane (tianshu). 32 pipeline samples and 55 style samples are playable online; nine full films (about 2.3 GB) are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
+Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 32 styles, plus an optional `frontend/` module that runs topic → script → free edge-tts voice-over (with SRT) → any style lane → covers and publish copy through the vendored `fengmian/` project, so a clone of your own voice (`peiyin`, GPT-SoVITS) is optional rather than required. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) — or, in the `tianshu` lane, generates plates and ambient motion with local ComfyUI models (Qwen-Image 2.1 + Wan2.2 TI2V-5B) — without calling any cloud image or video API. The current 32 film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, pixel-art shorts (640×360 indexed framebuffer ×3 nearest-neighbour with output-resolution CRT), six MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric / paperclip explainer / ink-wash landscape), nine 模板库 style runtimes (golden-age cartoon / manga / Bayeux tapestry / pencil test / isometric miniature / 3D stick-figure parable / shadow puppetry / blueprint engineering drawing / Shanghai Animation Film Studio hand-drawn cel, laolang), satellite-terrain 3D map explainers with real elevation data (ditu), tablet-sketch scroll explainers drawn stroke by stroke (pingban), colored-pencil science illustrations hatched over a paper tooth (caiqian), city-growth films (real geodata: OSM buildings/roads/water, Esri satellite, SRTM terrain, Remotion + three.js), footage-based vertical shorts (Pixabay clips + MoneyPrinterTurbo CLI + single-line captions, shipai), silhouette-rhythm films cut on a 90 BPM beat (lvdong), and a local-model cel-animation lane (tianshu). 32 pipeline samples and 55 style samples are playable online; nine full films (about 2.3 GB) are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
 
 ## 关注更新
 

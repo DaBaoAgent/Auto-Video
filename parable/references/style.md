@@ -1,9 +1,9 @@
-> **本文件是 BB-Video 的风格规范原文，随 Auto-Video 管线一起 vendored。**
-> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 BB-Video 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何真实工作室的角色、桥段、配乐、片尾或商标。
+> **本文件是 模板库 的风格规范原文，随 Auto-Video 管线一起 vendored。**
+> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 模板库 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何真实工作室的角色、桥段、配乐、片尾或商标。
 
 # 3D stick-figure parable (3D 火柴人寓言, `parable`)
 
-> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to bb-video's `promo/` folder.
+> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to 模板库's `promo/` folder.
 
 One frame: a pure black void with a glossy floor. Two thick white stick figures stand in it; each has a round head floating just above the shoulders, rounded limbs, a dark outline and a small monospace caps label above it.
 - **Contrast.** The figures do two different things with the same material: one prop set that grows over time (beige 3D bricks, steps, a pile, coins).

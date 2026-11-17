@@ -60,7 +60,7 @@ python scripts/laolang.py deliver projects/<名字> --name "片名" --title "片
 
 | 目录 | 内容 |
 |---|---|
-| `runtime/` | 浏览器运行时（core/promo/goldenage/laolang/act/toon/cast-lite）+ 渲染器 + 合成音效/配乐（BB-Video MIT） |
+| `runtime/` | 浏览器运行时（core/promo/goldenage/laolang/act/toon/cast-lite）+ 渲染器 + 合成音效/配乐（模板库 MIT） |
 | `toon-cast/` | 人物/动作源码、构建脚本与 60 秒样片冻结快照 |
 | `scripts/` | 建工程、配音对齐、ASR 重建时间轴、分镜/同步校验、渲染、QA、交付 |
 | `references/` | 风格、人物、动作、口播同步与分镜节奏、制作方法、分镜模板、验收清单 |
@@ -78,4 +78,4 @@ python scripts/laolang.py deliver projects/<名字> --name "片名" --title "片
 
 ## 许可
 
-运行时代码来自 [BB-Video](https://github.com/BubbleBrainBB/BB-Video)（MIT），见 `runtime/LICENSE.BB-Video` 与 [CREDITS.md](CREDITS.md)。
+运行时代码来自 [模板库](https://github.com/BubbleBrainBB/模板库)（MIT），见 `runtime/LICENSE-upstream` 与 [CREDITS.md](CREDITS.md)。

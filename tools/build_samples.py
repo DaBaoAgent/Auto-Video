@@ -238,7 +238,7 @@ def main() -> int:
     for f in sorted(src.glob("*.mp4")):
         if f.name.lower() not in used:
             extras.append(f)
-    bb = src / "BB-Video"
+    bb = src / "模板库"
     if bb.is_dir():
         extras.extend(sorted(bb.glob("*.mp4")))
 

@@ -1,4 +1,4 @@
-// map.js: the animated map (地图动画) style, one of bb-video's visual styles (style notes in styles/map/STYLE.md). Load after promo.js.
+// map.js: the animated map (地图动画) style, one of 模板库's visual styles (style notes in styles/map/STYLE.md). Load after promo.js.
 // One frame: a designed, printed map drawn from real geodata — land on paper, water with engraved water lines along the coast, parks, a fine street
 // texture, cartographic labels with halos — and on it the story: routes drawn on stroke by stroke, a marker travelling a line, stations popping in,
 // areas spreading like ink, callout cards pinned to places, a year counter, a locator inset. One continuous camera flies between places (zooming out

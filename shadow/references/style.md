@@ -1,9 +1,9 @@
-> **本文件是 BB-Video 的风格规范原文，随 Auto-Video 管线一起 vendored。**
-> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 BB-Video 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何真实剧团/工作室的角色、桥段、配乐、片尾或商标。
+> **本文件是 模板库 的风格规范原文，随 Auto-Video 管线一起 vendored。**
+> 原文里的 `scripts/…`、`references/…`、`runtime/…` 是相对 模板库 的 `promo/` 目录；在本管线中，浏览器运行时在 `runtime/`，制作流程、脚本与交付见 `SKILL.md`，分镜模板见 `references/storyboard.md`，验收见 `references/qa.md`。只学技法，不复用任何真实剧团/工作室的角色、桥段、配乐、片尾或商标。
 
 # Shadow puppetry (皮影戏, `shadow`)
 
-> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to the `promo/` folder of bb-video.
+> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to the `promo/` folder of 模板库.
 
 One frame: an off-white screen inside the stage's wooden frame, lit from behind. The puppets are carved translucent ox-hide (red, green, ochre, black), with openwork patterns letting the light through. Figures are in profile, with joints at neck, shoulder, elbow and hip, and control rods (sticks, 签子) reaching down. Figures walk on stage, talk, bow, ride horses, fall; red paper slips hang down with names and years; at a scene change the lamp dims and comes back.
 

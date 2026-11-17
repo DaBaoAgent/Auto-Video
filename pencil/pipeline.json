@@ -22,7 +22,7 @@
   },
   "version": "2026-11-09",
   "pipeline": "pencil",
-  "style": "bb-video/pencil",
+  "style": "pencil",
   "label": "铅笔手绘动画",
   "canvas": {
     "width": 1920,
@@ -75,7 +75,7 @@
     "jpeg_quality": 92,
     "crf_delivery": 18,
     "preset": "slow",
-    "fonts": "jsDelivr @fontsource, cached in ~/.cache/bubble-video/fonts"
+    "fonts": "jsDelivr @fontsource, cached in ~/.cache/auto-video/fonts"
   },
   "delivery": {
     "sample": "出稿/<编号>_<选题>/",
