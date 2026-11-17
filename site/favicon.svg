@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Auto-Video">
+  <rect width="64" height="64" rx="12" fill="#0b0a09"/>
+  <path d="M16 46 L32 16 L48 46" fill="none" stroke="#e9b47c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M24 46 L40 46" fill="none" stroke="#f5efe6" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="46" cy="18" r="5" fill="#c43b32"/>
+</svg>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dabaoagent.github.io/Auto-Video/sitemap.xml
