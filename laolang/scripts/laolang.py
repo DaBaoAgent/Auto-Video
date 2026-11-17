@@ -598,11 +598,14 @@ def _delivery_cfg(proj):
 
 
 def _fengmian():
-    d = os.environ.get("FENGMIAN_DIR", r"D:\@kaifa\fengmian")
-    p = os.path.join(d, "fengmian.py")
-    if not os.path.exists(p):
-        sys.exit("找不到 fengmian：%s（设 FENGMIAN_DIR 指向 fengmian 目录）" % p)
-    return d, p
+    """封面与发布信息的最后一道模块：优先仓库内 fengmian/，其次 FENGMIAN_DIR，最后老路径。"""
+    root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    for d in (os.environ.get("FENGMIAN_DIR"),
+              os.path.join(root, "fengmian"),
+              r"D:\@kaifa\fengmian"):
+        if d and os.path.exists(os.path.join(d, "fengmian.py")):
+            return d, os.path.join(d, "fengmian.py")
+    sys.exit("找不到 fengmian：仓库内 fengmian/ 缺失（或设 FENGMIAN_DIR 指向 fengmian 目录）")
 
 
 def run_fengmian(sub, argv):

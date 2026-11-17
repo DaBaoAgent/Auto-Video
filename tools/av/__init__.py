@@ -48,9 +48,16 @@ def load_pipelines() -> list[dict]:
     return data["pipelines"]
 
 
+def load_modules() -> list[dict]:
+    """catalog 里登记的可选模块（frontend / fengmian），不是管线。"""
+    data = read_json(CATALOG_DIR / "pipelines.json")
+    return data.get("modules") or []
+
+
 def pipeline_dirs() -> list[Path]:
-    """仓库里像管线的目录：有 SKILL.md 或 pipeline.json，且不是工具目录。"""
+    """仓库里像管线的目录：有 SKILL.md 或 pipeline.json，且不是工具目录或可选模块。"""
     skip = {".git", "catalog", "schema", "site", "tools", "docs", "showcase", "projects"}
+    skip |= {m["path"] for m in load_modules() if m.get("path")}
     out = []
     for p in sorted(REPO.iterdir()):
         if not p.is_dir() or p.name in skip or p.name.startswith("."):

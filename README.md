@@ -25,7 +25,7 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 
 | 你想干什么 | 从哪儿进 | 一句话说明 |
 | --- | --- | --- |
-| 先看看长什么样 | [在线样片站](https://dabaoagent.github.io/Auto-Video/) | 86 段样片，按工位排开；鼠标停住就播，点开插入灯箱有声播放 |
+| 先看看长什么样 | [在线样片站](https://dabaoagent.github.io/Auto-Video/) | 87 段样片，按工位排开；鼠标停住就播，点开插入灯箱有声播放 |
 | 想做一条片 | 下面的[工位地图](#stations) → 点管线 → 读 `SKILL.md` | 每条 SKILL.md 是完整流程：入口脚本、参数、验收条件、已知坑 |
 | 想加 / 改一条管线 | [统一契约](#contract) | `catalog/pipelines.json` 是唯一事实来源，`tools/validate.py` 负责不许走样 |
 
@@ -226,17 +226,50 @@ flowchart LR
 | 质检 | 成片、时间轴、渲染数据 | 检查结果 | 字幕、频闪、补间、抽帧、响度通过 |
 | 交付 | 成片、封面、发布信息 | 可直接发布的目录 | 文件结构、尺寸、元信息符合规则 |
 
+<a id="frontend"></a>
+## 可选前端：一个选题走完五步 🚪
+
+`frontend/` 是一个**可选**的前端模块，不装也能单独用任何管线。它把「选题 → 文案 → 免费 TTS 配音 → 风格管线出片 → 封面 + 发布信息」串成一条命令：
+
+```bash
+python frontend/frontend.py run \
+  --pipeline laolang \
+  --topic "玄奘为什么要西行" \
+  --title "玄奘西行"
+```
+
+产物落在一个任务目录里，每步都有可见文件，某步失败就停在那步并保留前面全部产出：
+
+| 阶段 | 做什么 | 产出 | 依赖 |
+| --- | --- | --- | --- |
+| 01 选题 | 归一选题、给出钩子与关键词，写进 `01-选题.json` | `01-选题.md` / `.json` | 无（本地模板，可换成自己写） |
+| 02 文案 | 按 `prompts/script.md` 的口播规约成稿，压成纯文本 | `02-文案.md` / `02-文案.txt` | 无 |
+| 03 配音 | **免费** 的 edge-tts（微软在线音色，无需 key）或 Windows SAPI 本地音色 | `03-配音.mp3` / `03-字幕.srt` / `03-配音.json` | `edge-tts` 或系统 SAPI + ffmpeg |
+| 04 渲染 | 调目标管线：`new` 建工程 → `vo` 灌文案与配音 → `render` 出片 | `04-成片/` | 目标管线的运行时（Chrome / ffmpeg 等） |
+| 05 发布 | 调仓库内的 `fengmian/`：两张封面（4:3 / 3:4）+ 两行制发布信息 + 交付门禁 | `05-发布/发布信息.txt`、封面提示词 / 成图 | 出图需 `ARK_API_KEY`；**没有 key 也照常出发布信息** |
+| 06 清单 | 汇总本次所有产物与下一步 | `06-交付清单.md` | 无 |
+
+要点：
+
+- **不接 peiyin 也能用**：03 阶段用的是免费的 edge-tts / 系统音色，克隆音色（peiyin、GPT-SoVITS）是可选的加分项，不是前置条件；
+- **`fengmian/` 是上游原样导入**（`DaBaoAgent/fengmian`，见 `fengmian/VENDORED.md`），本仓库只改调用方式，不改它的规则：标题两段式、≤25 字、含阿拉伯数字、恰好 4 个话题，任一不过就直接报错；
+- **哪些管线能被 04 自动出片**：`frontend/targets.json` 逐条登记。模板**按数据驱动**的（`laolang`、`map`）可以一条文案直接渲染；模板**按某条具体片子的分幕写死**的（`pencil`、`isometric`、`manga`、`tapestry`、`shadow`、`parable`、`goldenage`、`blueprint`）会照常建工程、灌文案与配音，但 `render` 要先把 `index.html` 的分幕改成新稿的段落数，否则渲染器会报 `timeline: narration line id "l2" not found`；这类管线在 `targets.json` 里登记为 `new` + `ingest`，`frontend.py` 会把 02/03 的产物连同 `04-下一步.md` 一起交到 `04-交接包/`，人接手只改分幕；
+- 33 条管线全部在 `targets.json` 里有位置：`laolang`、`map` 登记到 `render`（可直接出片）；`pencil` 家族其余 8 条登记 `new` + `ingest`（模板分幕写死，交接待接）；其余 23 条写明为什么不能自动接最后一步（要素材、要 key、要外部引擎）；
+- 校验：`python tools/validate.py` 会检查 `modules` 登记、`frontend.json` 契约、`targets.json` 是否覆盖全部管线，并打印「frontend 覆盖 33 条管线，可直接渲染 2 条」；
+- 实跑记录（2026-11-17）：`laolang` 一条 33 字短稿从 01 跑到 05，exit 0，拿到 `04-成片/工程/out/video-16x9.mp4`（1920×1080 / 6.2 s / 带旁白）与 `05-发布/发布信息.txt`（标题两段式 + 4 个话题）。
+
 <a id="showcase"></a>
-## 样片 🖼️ 86 段，全部可在站点播
+## 样片 🖼️ 87 段，全部可在站点播
 
 `site/media/` 里是压过的网页短片（**每部样片只取片头前 30 秒**，片短于 30 秒就整条；管线 1280 长边，风格 640，共 94.0 MB），原片不动，仍留在作者的同步盘里。
 
-**管线样片 30 条**（点管线看文档，点片名去站点看）：
+**管线样片 32 条**（点管线看文档，点片名去站点看）：
 
 | 工位 | 管线 | 样片 | 原片时长 |
 | --- | --- | --- | --- |
 | 01 纸本叙事 | [jianying](jianying/SKILL.md) | 《刘秀·位面之子》 | 3:31（1920×1080） |
 | 01 纸本叙事 | [lishi](lishi/SKILL.md) | 《朱元璋·碽妃疑案》 | 2:25（1920×1080） |
+| 01 纸本叙事 | [zhidiao](zhidiao/SKILL.md) | 《鲤鱼》 | 0:21（1920×1080） |
 | 02 手绘笔触 | [shouhui](shouhui/SKILL.md) | 《商纣王》 | 3:26（1920×1080） |
 | 02 手绘笔触 | [pencil](pencil/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
 | 02 手绘笔触 | [caiqian](caiqian/SKILL.md) | 《鳕鱼》 | 0:27（1920×1080） |
@@ -251,6 +284,7 @@ flowchart LR
 | 04 卡通动画 | [xiangsu](xiangsu/SKILL.md) | 《曹操》 | 0:29（1920×1080） |
 | 04 卡通动画 | [tianshu](tianshu/SKILL.md) | 《镇魔塔》 | 0:41（960×720） |
 | 05 平面图形 | [shiliang](shiliang/SKILL.md) | 《扁平矢量》 | 0:30（1920×1080） |
+| 05 平面图形 | [lvdong](lvdong/SKILL.md) | 《玛雅文明》 | 0:58（1920×1080） |
 | 05 平面图形 | [huixingzhen](huixingzhen/SKILL.md) | 《羽人》 | 9:57（1920×1080） |
 | 05 平面图形 | [bianping](bianping/SKILL.md) | 《僵尸地球》 | 0:36（1920×1080） |
 | 06 屏幕赛博 | [xianshiqi](xianshiqi/SKILL.md) | 《UAP · 赛博》 | 0:30（1920×1080） |
@@ -266,11 +300,11 @@ flowchart LR
 | 10 实拍混剪 | [shipai](shipai/SKILL.md) | 《玛雅》 | 0:18（1080×1920） |
 | 10 实拍混剪 | [jilupian](jilupian/SKILL.md) | 《一口气看完日本3000年》 | 13:38（1920×1080） |
 
-**暂无样片 2 条**：[`zhidiao`](zhidiao/SKILL.md)、[`lvdong`](lvdong/SKILL.md)。
+**暂无样片 0 条**：32 条成片管线现在每条都有一段可播的样片，最短 21 秒（`zhidiao`《鲤鱼》），最长 13:38（`jilupian`《一口气看完日本3000年》）。
 
 另有一条 [`peiyin`](peiyin/SKILL.md) **不算缺样片**：它是配音前端，只出口播稿与配音，不出片，所以本来就不该有片子可播；站点上它的卡片标「配音模块 · 无样片」并直接指向文档。
 
-另有 56 段**风格样片**（`BB-Video` 风格库与年代命名为主的横向抽样：1930s 橡皮管、50s 扁平卡通、浮世绘、钢笔淡彩、蜡笔绘本、孟菲斯微缩、皮影戏、纸雕灯影、中国水墨、装饰艺术、HD-2D，以及 ascii / bauhaus / collage / cutout / riso / swiss / pixel / pop 等英文风格线），它们不进管线的元数据，只在站点的「样片库」里作为风格参考。
+另有 55 段**风格样片**（`BB-Video` 风格库与年代命名为主的横向抽样：1930s 橡皮管、50s 扁平卡通、浮世绘、钢笔淡彩、蜡笔绘本、孟菲斯微缩、皮影戏、纸雕灯影、中国水墨、装饰艺术、HD-2D，以及 ascii / bauhaus / collage / cutout / riso / swiss / pixel / pop 等英文风格线），它们不进管线的元数据，只在站点的「样片库」里作为风格参考。
 
 ### 完整成片（本地归档，未入库）
 
@@ -301,7 +335,7 @@ git clone https://github.com/DaBaoAgent/Auto-Video.git
 cd Auto-Video
 ```
 
-仓库保存管线、模板、契约文件与 86 段网页样片（约 94 MB）；模型权重、外部渲染运行时与完整成片不在仓库内（见 [效果展示](#showcase)）。
+仓库保存管线、模板、契约文件与 87 段网页样片（约 97 MB）；模型权重、外部渲染运行时与完整成片不在仓库内（见 [效果展示](#showcase)）。
 
 <details>
 <summary>环境与外部依赖总表（按管线）</summary>
@@ -569,7 +603,15 @@ Auto-Video/
 │   ├── index.html
 │   ├── assets/               # app.css / app.js / data.js / samples.json
 │   ├── fonts/                # 思源宋 600 + 思源黑 400 子集
-│   └── media/                # 86 段网页短片 + 86 张封面
+│   └── media/                # 87 段网页短片 + 87 张封面
+├── frontend/                 # 可选前端：选题 → 文案 → 免费 TTS → 管线 → 封面与发布信息
+│   ├── frontend.json         # 模块契约（五阶段 + 目标管线声明）
+│   ├── targets.json          # 33 条管线逐条登记：new / ingest / render 命令或跳过理由
+│   ├── frontend.py           # 一条命令跑完闭环（check / plan / run）
+│   ├── prompts/script.md     # 02 阶段的口播稿模板
+│   ├── SKILL.md              # 给 Agent 用的入口说明
+│   └── jobs/                 # 每次任务的中间产物（已 gitignore）
+├── fengmian/                 # 上游 DaBaoAgent/fengmian 原样导入：封面 + 发布信息 + 交付门禁
 ├── projects/
 │   └── suzhou/               # chengshi 示例工程：苏州《城长》160.7 s（data/ + film.json）
 ├── showcase/
@@ -759,7 +801,7 @@ Auto-Video/
 <details>
 <summary>样片和完整成片有什么区别？</summary>
 
-`site/media/` 里是 86 段网页样片（约 94 MB，GitHub Pages 直接播放，每段取片头前 30 秒）；`showcase/` 保留了早先的 30 秒原片与拼图；完整成片只在作者本地同步盘归档，不随仓库提交。需要原片时从归档取，不必重渲染；`zhidiao`、`lvdong` 本批没有归档成片。
+`site/media/` 里是 87 段网页样片（约 97 MB，GitHub Pages 直接播放，每段取片头前 30 秒）；`showcase/` 保留了早先的 30 秒原片与拼图；完整成片只在作者本地同步盘归档，不随仓库提交。需要原片时从归档取，不必重渲染；`zhidiao`《鲤鱼》只有 21 秒，所以整条都在。
 
 </details>
 
@@ -799,7 +841,7 @@ Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管
 
 ## English
 
-Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 32 styles, plus a `peiyin` frontend module for topic selection, script writing and GPT-SoVITS voice cloning. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) — or, in the `tianshu` lane, generates plates and ambient motion with local ComfyUI models (Qwen-Image 2.1 + Wan2.2 TI2V-5B) — without calling any cloud image or video API. The current 32 film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, pixel-art shorts (640×360 indexed framebuffer ×3 nearest-neighbour with output-resolution CRT), six MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric / paperclip explainer / ink-wash landscape), nine BB-Video style runtimes (golden-age cartoon / manga / Bayeux tapestry / pencil test / isometric miniature / 3D stick-figure parable / shadow puppetry / blueprint engineering drawing / Shanghai Animation Film Studio hand-drawn cel, laolang), satellite-terrain 3D map explainers with real elevation data (ditu), tablet-sketch scroll explainers drawn stroke by stroke (pingban), colored-pencil science illustrations hatched over a paper tooth (caiqian), city-growth films (real geodata: OSM buildings/roads/water, Esri satellite, SRTM terrain, Remotion + three.js), footage-based vertical shorts (Pixabay clips + MoneyPrinterTurbo CLI + single-line captions, shipai), silhouette-rhythm films cut on a 90 BPM beat (lvdong), and a local-model cel-animation lane (tianshu). 30 pipeline samples and 56 style samples are playable online; nine full films (about 2.3 GB) are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
+Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 32 styles, plus an optional `frontend/` module that runs topic → script → free edge-tts voice-over (with SRT) → any style lane → covers and publish copy through the vendored `fengmian/` project, so a clone of your own voice (`peiyin`, GPT-SoVITS) is optional rather than required. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) — or, in the `tianshu` lane, generates plates and ambient motion with local ComfyUI models (Qwen-Image 2.1 + Wan2.2 TI2V-5B) — without calling any cloud image or video API. The current 32 film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, pixel-art shorts (640×360 indexed framebuffer ×3 nearest-neighbour with output-resolution CRT), six MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric / paperclip explainer / ink-wash landscape), nine BB-Video style runtimes (golden-age cartoon / manga / Bayeux tapestry / pencil test / isometric miniature / 3D stick-figure parable / shadow puppetry / blueprint engineering drawing / Shanghai Animation Film Studio hand-drawn cel, laolang), satellite-terrain 3D map explainers with real elevation data (ditu), tablet-sketch scroll explainers drawn stroke by stroke (pingban), colored-pencil science illustrations hatched over a paper tooth (caiqian), city-growth films (real geodata: OSM buildings/roads/water, Esri satellite, SRTM terrain, Remotion + three.js), footage-based vertical shorts (Pixabay clips + MoneyPrinterTurbo CLI + single-line captions, shipai), silhouette-rhythm films cut on a 90 BPM beat (lvdong), and a local-model cel-animation lane (tianshu). 32 pipeline samples and 55 style samples are playable online; nine full films (about 2.3 GB) are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
 
 ## 关注更新
 

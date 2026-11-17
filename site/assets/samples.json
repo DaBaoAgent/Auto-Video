@@ -52,6 +52,28 @@
       "bytes": 1180576
     },
     {
+      "key": "zhidiao",
+      "kind": "pipeline",
+      "pipeline": "zhidiao",
+      "title": "鲤鱼",
+      "style": "纸雕剪影",
+      "style_en": "Paper-cut Lightbox",
+      "station": "paper",
+      "long_edge": 1280,
+      "max_seconds": 30.0,
+      "crf": 30,
+      "seconds": 21.0,
+      "duration": "0:21",
+      "width": 1920,
+      "height": 1080,
+      "aspect": "16:9",
+      "clip_seconds": 21.0,
+      "mp4": "media/zhidiao.mp4",
+      "poster": "media/zhidiao.jpg",
+      "source": "zhidiao 鲤鱼.mp4",
+      "bytes": 1029858
+    },
+    {
       "key": "shouhui",
       "kind": "pipeline",
       "pipeline": "shouhui",
@@ -358,6 +380,28 @@
       "poster": "media/shiliang.jpg",
       "source": "shiliang 扁平矢量.mp4",
       "bytes": 1131462
+    },
+    {
+      "key": "lvdong",
+      "kind": "pipeline",
+      "pipeline": "lvdong",
+      "title": "玛雅文明",
+      "style": "剪影律动",
+      "style_en": "Silhouette Rhythm",
+      "station": "graphic",
+      "long_edge": 1280,
+      "max_seconds": 30.0,
+      "crf": 30,
+      "seconds": 58.0,
+      "duration": "0:58",
+      "width": 1920,
+      "height": 1080,
+      "aspect": "16:9",
+      "clip_seconds": 30.0,
+      "mp4": "media/lvdong.mp4",
+      "poster": "media/lvdong.jpg",
+      "source": "lvdong 玛雅文明.mp4",
+      "bytes": 3060987
     },
     {
       "key": "huixingzhen",
@@ -1001,28 +1045,6 @@
       "key": "style-16",
       "kind": "style",
       "pipeline": null,
-      "title": "纸雕灯影 鲤鱼",
-      "style": "纸雕灯影 鲤鱼",
-      "style_en": "",
-      "station": null,
-      "long_edge": 640,
-      "max_seconds": 30.0,
-      "crf": 32,
-      "seconds": 21.0,
-      "duration": "0:21",
-      "width": 1920,
-      "height": 1080,
-      "aspect": "16:9",
-      "clip_seconds": 21.0,
-      "mp4": "media/style-16.mp4",
-      "poster": "media/style-16.jpg",
-      "source": "纸雕灯影 鲤鱼.mp4",
-      "bytes": 485273
-    },
-    {
-      "key": "style-17",
-      "kind": "style",
-      "pipeline": null,
       "title": "蜡笔儿童绘本 鲤鱼",
       "style": "蜡笔儿童绘本 鲤鱼",
       "style_en": "",
@@ -1036,13 +1058,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
-      "mp4": "media/style-17.mp4",
-      "poster": "media/style-17.jpg",
+      "mp4": "media/style-16.mp4",
+      "poster": "media/style-16.jpg",
       "source": "蜡笔儿童绘本 鲤鱼.mp4",
-      "bytes": 918856
+      "bytes": 485273
     },
     {
-      "key": "style-18",
+      "key": "style-17",
       "kind": "style",
       "pipeline": null,
       "title": "装饰艺术 鲤鱼",
@@ -1058,13 +1080,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
-      "mp4": "media/style-18.mp4",
-      "poster": "media/style-18.jpg",
+      "mp4": "media/style-17.mp4",
+      "poster": "media/style-17.jpg",
       "source": "装饰艺术 鲤鱼.mp4",
-      "bytes": 501648
+      "bytes": 918856
     },
     {
-      "key": "style-19",
+      "key": "style-18",
       "kind": "style",
       "pipeline": null,
       "title": "钢笔淡彩 鲤鱼",
@@ -1080,13 +1102,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 21.0,
-      "mp4": "media/style-19.mp4",
-      "poster": "media/style-19.jpg",
+      "mp4": "media/style-18.mp4",
+      "poster": "media/style-18.jpg",
       "source": "钢笔淡彩 鲤鱼.mp4",
-      "bytes": 827044
+      "bytes": 501648
     },
     {
-      "key": "style-20",
+      "key": "style-19",
       "kind": "style",
       "pipeline": null,
       "title": "钢笔淡彩：以诺书月球",
@@ -1102,13 +1124,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-20.mp4",
-      "poster": "media/style-20.jpg",
+      "mp4": "media/style-19.mp4",
+      "poster": "media/style-19.jpg",
       "source": "钢笔淡彩：以诺书月球.mp4",
-      "bytes": 523358
+      "bytes": 827044
     },
     {
-      "key": "style-21",
+      "key": "style-20",
       "kind": "style",
       "pipeline": null,
       "title": "ascii 1",
@@ -1124,13 +1146,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-21.mp4",
-      "poster": "media/style-21.jpg",
+      "mp4": "media/style-20.mp4",
+      "poster": "media/style-20.jpg",
       "source": "ascii 1.mp4",
-      "bytes": 724289
+      "bytes": 523358
     },
     {
-      "key": "style-22",
+      "key": "style-21",
       "kind": "style",
       "pipeline": null,
       "title": "bauhaus",
@@ -1146,13 +1168,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-22.mp4",
-      "poster": "media/style-22.jpg",
+      "mp4": "media/style-21.mp4",
+      "poster": "media/style-21.jpg",
       "source": "bauhaus.mp4",
-      "bytes": 495136
+      "bytes": 724289
     },
     {
-      "key": "style-23",
+      "key": "style-22",
       "kind": "style",
       "pipeline": null,
       "title": "blueprint 1",
@@ -1168,13 +1190,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-23.mp4",
-      "poster": "media/style-23.jpg",
+      "mp4": "media/style-22.mp4",
+      "poster": "media/style-22.jpg",
       "source": "blueprint 1.mp4",
-      "bytes": 651401
+      "bytes": 495136
     },
     {
-      "key": "style-24",
+      "key": "style-23",
       "kind": "style",
       "pipeline": null,
       "title": "chat",
@@ -1190,13 +1212,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-24.mp4",
-      "poster": "media/style-24.jpg",
+      "mp4": "media/style-23.mp4",
+      "poster": "media/style-23.jpg",
       "source": "chat.mp4",
-      "bytes": 469945
+      "bytes": 651401
     },
     {
-      "key": "style-25",
+      "key": "style-24",
       "kind": "style",
       "pipeline": null,
       "title": "collage 1",
@@ -1212,13 +1234,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-25.mp4",
-      "poster": "media/style-25.jpg",
+      "mp4": "media/style-24.mp4",
+      "poster": "media/style-24.jpg",
       "source": "collage 1.mp4",
-      "bytes": 628692
+      "bytes": 469945
     },
     {
-      "key": "style-26",
+      "key": "style-25",
       "kind": "style",
       "pipeline": null,
       "title": "cutout",
@@ -1234,13 +1256,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-26.mp4",
-      "poster": "media/style-26.jpg",
+      "mp4": "media/style-25.mp4",
+      "poster": "media/style-25.jpg",
       "source": "cutout.mp4",
-      "bytes": 647979
+      "bytes": 628692
     },
     {
-      "key": "style-27",
+      "key": "style-26",
       "kind": "style",
       "pipeline": null,
       "title": "dossier 1",
@@ -1256,13 +1278,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-27.mp4",
-      "poster": "media/style-27.jpg",
+      "mp4": "media/style-26.mp4",
+      "poster": "media/style-26.jpg",
       "source": "dossier 1.mp4",
-      "bytes": 912760
+      "bytes": 647979
     },
     {
-      "key": "style-28",
+      "key": "style-27",
       "kind": "style",
       "pipeline": null,
       "title": "drawnworld 1",
@@ -1278,13 +1300,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-28.mp4",
-      "poster": "media/style-28.jpg",
+      "mp4": "media/style-27.mp4",
+      "poster": "media/style-27.jpg",
       "source": "drawnworld 1.mp4",
-      "bytes": 883478
+      "bytes": 912760
     },
     {
-      "key": "style-29",
+      "key": "style-28",
       "kind": "style",
       "pipeline": null,
       "title": "filmroom",
@@ -1300,13 +1322,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-29.mp4",
-      "poster": "media/style-29.jpg",
+      "mp4": "media/style-28.mp4",
+      "poster": "media/style-28.jpg",
       "source": "filmroom.mp4",
-      "bytes": 635687
+      "bytes": 883478
     },
     {
-      "key": "style-30",
+      "key": "style-29",
       "kind": "style",
       "pipeline": null,
       "title": "goldenage",
@@ -1322,13 +1344,13 @@
       "height": 1080,
       "aspect": "4:3",
       "clip_seconds": 30.0,
-      "mp4": "media/style-30.mp4",
-      "poster": "media/style-30.jpg",
+      "mp4": "media/style-29.mp4",
+      "poster": "media/style-29.jpg",
       "source": "goldenage.mp4",
-      "bytes": 942685
+      "bytes": 635687
     },
     {
-      "key": "style-31",
+      "key": "style-30",
       "kind": "style",
       "pipeline": null,
       "title": "grain",
@@ -1344,13 +1366,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-31.mp4",
-      "poster": "media/style-31.jpg",
+      "mp4": "media/style-30.mp4",
+      "poster": "media/style-30.jpg",
       "source": "grain.mp4",
-      "bytes": 631785
+      "bytes": 942685
     },
     {
-      "key": "style-32",
+      "key": "style-31",
       "kind": "style",
       "pipeline": null,
       "title": "ink",
@@ -1366,13 +1388,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-32.mp4",
-      "poster": "media/style-32.jpg",
+      "mp4": "media/style-31.mp4",
+      "poster": "media/style-31.jpg",
       "source": "ink.mp4",
-      "bytes": 525641
+      "bytes": 631785
     },
     {
-      "key": "style-33",
+      "key": "style-32",
       "kind": "style",
       "pipeline": null,
       "title": "isometric 1",
@@ -1388,13 +1410,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-33.mp4",
-      "poster": "media/style-33.jpg",
+      "mp4": "media/style-32.mp4",
+      "poster": "media/style-32.jpg",
       "source": "isometric 1.mp4",
-      "bytes": 770812
+      "bytes": 525641
     },
     {
-      "key": "style-34",
+      "key": "style-33",
       "kind": "style",
       "pipeline": null,
       "title": "isometric",
@@ -1410,13 +1432,13 @@
       "height": 1920,
       "aspect": "9:16",
       "clip_seconds": 30.0,
-      "mp4": "media/style-34.mp4",
-      "poster": "media/style-34.jpg",
+      "mp4": "media/style-33.mp4",
+      "poster": "media/style-33.jpg",
       "source": "isometric.mp4",
-      "bytes": 732104
+      "bytes": 770812
     },
     {
-      "key": "style-35",
+      "key": "style-34",
       "kind": "style",
       "pipeline": null,
       "title": "launch",
@@ -1432,13 +1454,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-35.mp4",
-      "poster": "media/style-35.jpg",
+      "mp4": "media/style-34.mp4",
+      "poster": "media/style-34.jpg",
       "source": "launch.mp4",
-      "bytes": 675950
+      "bytes": 732104
     },
     {
-      "key": "style-36",
+      "key": "style-35",
       "kind": "style",
       "pipeline": null,
       "title": "lumen",
@@ -1454,13 +1476,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-36.mp4",
-      "poster": "media/style-36.jpg",
+      "mp4": "media/style-35.mp4",
+      "poster": "media/style-35.jpg",
       "source": "lumen.mp4",
-      "bytes": 544244
+      "bytes": 675950
     },
     {
-      "key": "style-37",
+      "key": "style-36",
       "kind": "style",
       "pipeline": null,
       "title": "manga",
@@ -1476,13 +1498,13 @@
       "height": 1920,
       "aspect": "9:16",
       "clip_seconds": 30.0,
-      "mp4": "media/style-37.mp4",
-      "poster": "media/style-37.jpg",
+      "mp4": "media/style-36.mp4",
+      "poster": "media/style-36.jpg",
       "source": "manga.mp4",
-      "bytes": 2279361
+      "bytes": 544244
     },
     {
-      "key": "style-38",
+      "key": "style-37",
       "kind": "style",
       "pipeline": null,
       "title": "map",
@@ -1498,13 +1520,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-38.mp4",
-      "poster": "media/style-38.jpg",
+      "mp4": "media/style-37.mp4",
+      "poster": "media/style-37.jpg",
       "source": "map.mp4",
-      "bytes": 677906
+      "bytes": 2279361
     },
     {
-      "key": "style-39",
+      "key": "style-38",
       "kind": "style",
       "pipeline": null,
       "title": "mystery",
@@ -1520,13 +1542,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-39.mp4",
-      "poster": "media/style-39.jpg",
+      "mp4": "media/style-38.mp4",
+      "poster": "media/style-38.jpg",
       "source": "mystery.mp4",
-      "bytes": 612363
+      "bytes": 677906
     },
     {
-      "key": "style-40",
+      "key": "style-39",
       "kind": "style",
       "pipeline": null,
       "title": "newsreel",
@@ -1542,13 +1564,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-40.mp4",
-      "poster": "media/style-40.jpg",
+      "mp4": "media/style-39.mp4",
+      "poster": "media/style-39.jpg",
       "source": "newsreel.mp4",
-      "bytes": 777706
+      "bytes": 612363
     },
     {
-      "key": "style-41",
+      "key": "style-40",
       "kind": "style",
       "pipeline": null,
       "title": "op",
@@ -1564,13 +1586,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 22.3,
-      "mp4": "media/style-41.mp4",
-      "poster": "media/style-41.jpg",
+      "mp4": "media/style-40.mp4",
+      "poster": "media/style-40.jpg",
       "source": "op.mp4",
-      "bytes": 1326712
+      "bytes": 777706
     },
     {
-      "key": "style-42",
+      "key": "style-41",
       "kind": "style",
       "pipeline": null,
       "title": "origami",
@@ -1586,13 +1608,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-42.mp4",
-      "poster": "media/style-42.jpg",
+      "mp4": "media/style-41.mp4",
+      "poster": "media/style-41.jpg",
       "source": "origami.mp4",
-      "bytes": 562991
+      "bytes": 1326712
     },
     {
-      "key": "style-43",
+      "key": "style-42",
       "kind": "style",
       "pipeline": null,
       "title": "parable 1",
@@ -1608,13 +1630,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-43.mp4",
-      "poster": "media/style-43.jpg",
+      "mp4": "media/style-42.mp4",
+      "poster": "media/style-42.jpg",
       "source": "parable 1.mp4",
-      "bytes": 509905
+      "bytes": 562991
     },
     {
-      "key": "style-44",
+      "key": "style-43",
       "kind": "style",
       "pipeline": null,
       "title": "parable",
@@ -1630,13 +1652,13 @@
       "height": 1920,
       "aspect": "9:16",
       "clip_seconds": 30.0,
-      "mp4": "media/style-44.mp4",
-      "poster": "media/style-44.jpg",
+      "mp4": "media/style-43.mp4",
+      "poster": "media/style-43.jpg",
       "source": "parable.mp4",
-      "bytes": 573741
+      "bytes": 509905
     },
     {
-      "key": "style-45",
+      "key": "style-44",
       "kind": "style",
       "pipeline": null,
       "title": "pencil",
@@ -1652,13 +1674,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-45.mp4",
-      "poster": "media/style-45.jpg",
+      "mp4": "media/style-44.mp4",
+      "poster": "media/style-44.jpg",
       "source": "pencil.mp4",
-      "bytes": 719494
+      "bytes": 573741
     },
     {
-      "key": "style-46",
+      "key": "style-45",
       "kind": "style",
       "pipeline": null,
       "title": "pixel",
@@ -1674,13 +1696,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-46.mp4",
-      "poster": "media/style-46.jpg",
+      "mp4": "media/style-45.mp4",
+      "poster": "media/style-45.jpg",
       "source": "pixel.mp4",
-      "bytes": 578340
+      "bytes": 719494
     },
     {
-      "key": "style-47",
+      "key": "style-46",
       "kind": "style",
       "pipeline": null,
       "title": "pop",
@@ -1696,13 +1718,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-47.mp4",
-      "poster": "media/style-47.jpg",
+      "mp4": "media/style-46.mp4",
+      "poster": "media/style-46.jpg",
       "source": "pop.mp4",
-      "bytes": 1256532
+      "bytes": 578340
     },
     {
-      "key": "style-48",
+      "key": "style-47",
       "kind": "style",
       "pipeline": null,
       "title": "riso",
@@ -1718,13 +1740,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-48.mp4",
-      "poster": "media/style-48.jpg",
+      "mp4": "media/style-47.mp4",
+      "poster": "media/style-47.jpg",
       "source": "riso.mp4",
-      "bytes": 667754
+      "bytes": 1256532
     },
     {
-      "key": "style-49",
+      "key": "style-48",
       "kind": "style",
       "pipeline": null,
       "title": "shadow",
@@ -1740,13 +1762,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-49.mp4",
-      "poster": "media/style-49.jpg",
+      "mp4": "media/style-48.mp4",
+      "poster": "media/style-48.jpg",
       "source": "shadow.mp4",
-      "bytes": 625680
+      "bytes": 667754
     },
     {
-      "key": "style-50",
+      "key": "style-49",
       "kind": "style",
       "pipeline": null,
       "title": "storybook 1",
@@ -1762,13 +1784,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-50.mp4",
-      "poster": "media/style-50.jpg",
+      "mp4": "media/style-49.mp4",
+      "poster": "media/style-49.jpg",
       "source": "storybook 1.mp4",
-      "bytes": 828712
+      "bytes": 625680
     },
     {
-      "key": "style-51",
+      "key": "style-50",
       "kind": "style",
       "pipeline": null,
       "title": "storybook",
@@ -1784,13 +1806,13 @@
       "height": 1920,
       "aspect": "9:16",
       "clip_seconds": 30.0,
-      "mp4": "media/style-51.mp4",
-      "poster": "media/style-51.jpg",
+      "mp4": "media/style-50.mp4",
+      "poster": "media/style-50.jpg",
       "source": "storybook.mp4",
-      "bytes": 720618
+      "bytes": 828712
     },
     {
-      "key": "style-52",
+      "key": "style-51",
       "kind": "style",
       "pipeline": null,
       "title": "swiss",
@@ -1806,13 +1828,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-52.mp4",
-      "poster": "media/style-52.jpg",
+      "mp4": "media/style-51.mp4",
+      "poster": "media/style-51.jpg",
       "source": "swiss.mp4",
-      "bytes": 756589
+      "bytes": 720618
     },
     {
-      "key": "style-53",
+      "key": "style-52",
       "kind": "style",
       "pipeline": null,
       "title": "tapestry",
@@ -1828,13 +1850,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-53.mp4",
-      "poster": "media/style-53.jpg",
+      "mp4": "media/style-52.mp4",
+      "poster": "media/style-52.jpg",
       "source": "tapestry.mp4",
-      "bytes": 674773
+      "bytes": 756589
     },
     {
-      "key": "style-54",
+      "key": "style-53",
       "kind": "style",
       "pipeline": null,
       "title": "toy3d",
@@ -1850,13 +1872,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 27.5,
-      "mp4": "media/style-54.mp4",
-      "poster": "media/style-54.jpg",
+      "mp4": "media/style-53.mp4",
+      "poster": "media/style-53.jpg",
       "source": "toy3d.mp4",
-      "bytes": 527841
+      "bytes": 674773
     },
     {
-      "key": "style-55",
+      "key": "style-54",
       "kind": "style",
       "pipeline": null,
       "title": "trailer",
@@ -1872,13 +1894,13 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-55.mp4",
-      "poster": "media/style-55.jpg",
+      "mp4": "media/style-54.mp4",
+      "poster": "media/style-54.jpg",
       "source": "trailer.mp4",
-      "bytes": 454954
+      "bytes": 527841
     },
     {
-      "key": "style-56",
+      "key": "style-55",
       "kind": "style",
       "pipeline": null,
       "title": "whiteboard",
@@ -1894,10 +1916,10 @@
       "height": 1080,
       "aspect": "16:9",
       "clip_seconds": 30.0,
-      "mp4": "media/style-56.mp4",
-      "poster": "media/style-56.jpg",
+      "mp4": "media/style-55.mp4",
+      "poster": "media/style-55.jpg",
       "source": "whiteboard.mp4",
-      "bytes": 502472
+      "bytes": 454954
     }
   ]
 }

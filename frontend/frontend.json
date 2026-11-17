@@ -1,0 +1,54 @@
+{
+  "schema": "auto-video/frontend@1",
+  "id": "frontend",
+  "name_zh": "前端闭环",
+  "name_en": "Front-end Closure",
+  "optional": true,
+  "attach_to": "all",
+  "summary": "一个选题 → 文案 → 免费 TTS 配音（带 srt）→ 该风格管线出片 → 封面 + 发布信息。可选模块：不接 peiyin（克隆音色）时也能一条命令走完。",
+  "stages": [
+    {
+      "no": "01",
+      "id": "topic",
+      "name_zh": "选题",
+      "produces": "01-选题.md",
+      "by": "frontend"
+    },
+    {
+      "no": "02",
+      "id": "script",
+      "name_zh": "文案",
+      "produces": "02-文案.md",
+      "by": "frontend（LLM 接口或现成稿）"
+    },
+    {
+      "no": "03",
+      "id": "voice",
+      "name_zh": "免费配音",
+      "produces": "03-配音.mp3 + 03-字幕.srt",
+      "by": "frontend（edge-tts / Windows SAPI）"
+    },
+    {
+      "no": "04",
+      "id": "render",
+      "name_zh": "风格管线",
+      "produces": "04-成片/",
+      "by": "该管线自己的 new / vo / render（frontend/targets.json 声明）"
+    },
+    {
+      "no": "05",
+      "id": "publish",
+      "name_zh": "封面 + 发布信息",
+      "produces": "05-发布/",
+      "by": "fengmian"
+    }
+  ],
+  "publish_module": {
+    "id": "fengmian",
+    "path": "fengmian",
+    "contract": "视频文案 → 两张封面（4:3 / 3:4）+ 两行制发布信息，含交付门禁",
+    "entry": "fengmian/fengmian.py"
+  },
+  "targets": "frontend/targets.json",
+  "entry": "frontend/frontend.py"
+}

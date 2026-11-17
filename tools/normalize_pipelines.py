@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from av import (CONTRACT, REPO, load_pipelines, load_stations, read_json,
+from av import (CATALOG_DIR, CONTRACT, REPO, load_pipelines, load_stations, read_json,
                 utf8_stdout, write_json)
 from av import parse_frontmatter
 
@@ -124,12 +124,13 @@ def main() -> int:
         print(normalize_pipeline_json(p, meta, args.dry_run))
         print(normalize_skill(p, args.dry_run))
 
-    # 反向检查：仓库里有、catalog 里没有
+    # 反向检查：仓库里有、catalog 里没有（可选模块 frontend/ 与 fengmian/ 不算管线）
     known = {p["id"] for p in pipelines}
+    modules = {m["path"] for m in (read_json(CATALOG_DIR / "pipelines.json").get("modules") or [])}
     for p in sorted(REPO.iterdir()):
         if not p.is_dir() or p.name in {".git", "catalog", "schema", "site", "tools", "docs", "showcase", "projects"}:
             continue
-        if p.name.startswith("."):
+        if p.name.startswith(".") or p.name in modules:
             continue
         if (p / "SKILL.md").exists() and p.name not in known:
             problems.append(f"仓库里有 {p.name}，catalog 里没有登记")

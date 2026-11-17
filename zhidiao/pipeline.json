@@ -12,8 +12,12 @@
     "aspect": null,
     "fps": null,
     "entry": "scripts/zhidiao_assemble.py",
-    "status": "beta",
-    "sample": null,
+    "status": "live",
+    "sample": {
+      "file": "zhidiao 鲤鱼.mp4",
+      "title": "鲤鱼",
+      "seconds": 21.0
+    },
     "updated": "2026-11-15"
   },
   "spec": {

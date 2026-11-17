@@ -70,7 +70,9 @@
 | `tools/build_samples.py` | 压网页短片 + 抽封面；**一律从片头取前 30 秒**（短片整条），管线 1280 长边 / crf 30，风格 640 / crf 32 |
 | `tools/build_site.py` | catalog + samples → `site/assets/data.js` |
 | `tools/build_fonts.py` | 按站点实际用字子集化思源宋 600 / 思源黑 400 → woff2 |
-| `site/` | 静态样片站：首屏、11 个工位、83 张卡、样片库筛选、灯箱 |
+| `site/` | 静态样片站：首屏、11 个工位、88 张卡（87 张有片）、样片库筛选、灯箱 |
+| `frontend/` | 可选前端模块：`frontend.json` 契约 `auto-video/frontend@1`、`targets.json` 逐条登记 33 条管线、`frontend.py` 一条命令跑五阶段、`prompts/script.md`、`SKILL.md` |
+| `fengmian/` | 上游 `DaBaoAgent/fengmian` 原样导入（24.3 MB，删 `.git`，见 `VENDORED.md`）：文案 → 两张封面 + 两行制发布信息 + 交付门禁 |
 | `.github/workflows/pages.yml` | 校验 → 建站 → 部署 Pages（`build_type` 由 legacy 切到 workflow） |
 | README | 重写头部：工位地图、统一契约、工具链、样片表；修正 33 条与样片规模；补全仓库结构 |
 | 33 个 `*/pipeline.json` | 新增 `schema` + `meta`，原有键一个没动 |
@@ -94,17 +96,16 @@ ERROR 退出 1，仅 WARN 退出 0。
 ## 四、当前校验结果
 
 ```
-管线 33 条 / 工位 11 个 / 带样片 27 条
+管线 33 条 / 工位 11 个 / 带样片 32 条
   01 纸本叙事    3 条  jianying lishi zhidiao
   ...
   11 前端工位    1 条  peiyin
 
-WARN 4
-  - piying / xiangsu / tuiyan / jilupian：没有声明单一入口脚本
-OK 契约一致
+可选模块：frontend 覆盖 33 条管线，可直接渲染 2 条（laolang, map），其余 31 条出交接包 + 下一步
+OK 契约一致（0 WARN）
 ```
 
-4 条 WARN 是真实状态：这四条管线靠多脚本 + 手工编排跑，没有唯一入口。**不强造一个假的入口来消警告**，先留 WARN。
+4 条 WARN（`piying` / `xiangsu` / `tuiyan` / `jilupian` 缺单一入口）已于本轮之前清零：各自补了 `scripts/<id>.py` 真实入口，catalog 与 `pipeline.json` 的 `meta.entry` 同步。
 
 ---
 
@@ -112,9 +113,9 @@ OK 契约一致
 
 | 项 | 数值 |
 | --- | --- |
-| 管线样片 | 30 条（2 条无样片：`zhidiao` `lvdong`；`peiyin` 是配音前端，不出片，不计入缺样片） |
-| 风格样片 | 56 段（`BB-Video` 37 段 + 顶层年代命名 15 段 + 其余横向抽样），不进管线元数据 |
-| 合计 | 86 段网页短片 + 86 张封面，94.0 MB（每段取片头前 30 秒） |
+| 管线样片 | 32 条（全部成片管线都有样片；`peiyin` 是配音前端，不出片，不计入缺样片） |
+| 风格样片 | 55 段（`BB-Video` 37 段 + 顶层年代命名 15 段 + 其余横向抽样），不进管线元数据 |
+| 合计 | 87 段网页短片 + 87 张封面，97.4 MB（每段取片头前 30 秒，不足 30 秒的取全片） |
 | 字体 | 思源宋 600 子集 339 KB / 思源黑 400 子集 248 KB（754 个字） |
 
 站点设计对齐 `lemo-opuscar` 的语言但数字自定：深墨底 `#0b0a09`、纸色 `#ece4d6`、唯一暖色灯色 `#e9b47c`、衬线标题 + 无衬线标签 + 等宽数字、发丝线分隔。
@@ -133,10 +134,13 @@ OK 契约一致
 ## 六、遗留与下次接手
 
 1. ~~**4 条 WARN**~~：已清零。`piying` / `xiangsu` / `tuiyan` / `jilupian` 各补了 `scripts/<id>.py` 单一入口（真实串联原有 node/bash/`python -m autoup.run` 步骤，带 `check` / `--plan`），catalog 的 `entry` 与各自 `pipeline.json` 的 `meta.entry` 已同步，`validate.py` 报 `OK 契约一致`、0 WARN。
-2. ~~**6 条无样片**~~：`tianshu` 已接《镇魔塔》41.0 s，`laolang` 已接《玄奘》62.2 s，`jilupian` 已接《一口气看完日本3000年》818.4 s；`peiyin` 已标注为配音前端、不出片、不需要样片（catalog `sample_note` + 站点卡片 + README 清单三处一致）。真缺样片的只剩 2 条：`zhidiao`、`lvdong`。
+2. ~~**6 条无样片**~~：`tianshu` 已接《镇魔塔》41.0 s，`laolang` 已接《玄奘》62.2 s，`jilupian` 已接《一口气看完日本3000年》818.4 s，`zhidiao` 已接《鲤鱼》21.0 s，`lvdong` 已接《玛雅文明》58.0 s；`peiyin` 已标注为配音前端、不出片、不需要样片（catalog `sample_note` + 站点卡片 + README 清单三处一致）。**缺样片已清零。**
 3. **`youxi`（仁德天皇陵 192.7 s）** 仍是「待封装」状态，未进 catalog；
 4. **`showcase/`** 350 MB 旧原片保留未删（README 已改成站点用 `site/media/`），如需瘦身可后续单独处理；
 5. 站点的 `samples.json` / `data.js` / `media/` 是**生成物**，但为了 Pages 不跑 ffmpeg 而**入库**；换素材时重跑 `build_samples.py` + `build_site.py` 即可。
+6. **8 条 BB-Video 模板的分幕写死**：`pencil`、`isometric`、`manga`、`tapestry`、`shadow`、`parable`、`goldenage`、`blueprint` 的 `template/index.html` 里直接引用 `s('l1')…s('l8')`，文案行数一变就报 `timeline: narration line id "l2" not found`（已用 pencil 实跑复现，`frontend/jobs/*/04-成片/04-渲染日志.txt` 有现场）。`frontend/targets.json` 已把它们降级为 `new` + `ingest`，只留 `laolang`、`map` 直接 `render`。真要让它们一条文案出片，得改成按 `script.json` 行数动态取旁白的模板。
+7. **渲染器不自行退出**：BB-Video 的 `render.mjs` 成片写完后，Chrome 子进程会占住管道让 node 一直挂着（实测 laolang 6.2 s 片 22 秒渲染完成，进程却 20 分钟不退出）。`frontend.py` 加了看门狗（成片体积 12 秒不变即判成功并结束进程树），但这属于治标，根因在运行时未回收 Chrome 子进程。
+8. **fengmian 对短文本的固有缺陷**：`fm/analyze.py` 的 `keywords(text, top=6, for_tags=True)` 对 200 字左右的短稿返回 `[]`，导致 `suggested_tags` 为空、`build` 抛「话题必须恰好 4 个」。`frontend.py` 的 `pick_tags()` 用关键词 / 片名 / 选题补齐到 4 个绕过；上游按原样 vendor，未改其代码（`fengmian/VENDORED.md` 已记）。
 
 ---
 

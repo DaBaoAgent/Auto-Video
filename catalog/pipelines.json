@@ -2,6 +2,28 @@
   "schema": "auto-video/catalog@1",
   "updated": "2026-11-15",
   "note": "Auto-Video 管线的唯一事实来源。站点、README 总览表与各管线 pipeline.json 的 meta 都从这里派生；改这里再跑 tools/normalize_pipelines.py + tools/build_site.py。",
+  "modules": [
+    {
+      "id": "frontend",
+      "path": "frontend",
+      "name_zh": "前端闭环",
+      "optional": true,
+      "attach_to": "all",
+      "contract": "auto-video/frontend@1",
+      "entry": "frontend/frontend.py",
+      "summary": "选题 → 文案 → 免费 TTS 配音（带 srt）→ 任意风格管线 → 封面 + 发布信息；不接 peiyin 克隆音色也能整条走完。"
+    },
+    {
+      "id": "fengmian",
+      "path": "fengmian",
+      "name_zh": "封面 + 发布信息",
+      "optional": true,
+      "attach_to": "all",
+      "entry": "fengmian/fengmian.py",
+      "vendored_from": "https://github.com/DaBaoAgent/fengmian",
+      "summary": "frontend 的第 05 阶段：文案 → 两张封面（4:3 / 3:4）+ 两行制发布信息，含交付门禁与硬校验。"
+    }
+  ],
   "pipelines": [
     {
       "id": "jianying",
@@ -37,7 +59,7 @@
       "aspect": null,
       "fps": null,
       "entry": "scripts/zhidiao_assemble.py",
-      "sample": null
+      "sample": { "file": "zhidiao 鲤鱼.mp4", "title": "鲤鱼", "seconds": 21.0 }
     },
     {
       "id": "shouhui",
@@ -217,7 +239,7 @@
       "aspect": "16:9",
       "fps": null,
       "entry": "scripts/lvdong.py",
-      "sample": null
+      "sample": { "file": "lvdong 玛雅文明.mp4", "title": "玛雅文明", "seconds": 58.0 }
     },
     {
       "id": "huixingzhen",

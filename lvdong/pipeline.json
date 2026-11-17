@@ -12,8 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/lvdong.py",
-    "status": "beta",
-    "sample": null,
+    "status": "live",
+    "sample": {
+      "file": "lvdong 玛雅文明.mp4",
+      "title": "玛雅文明",
+      "seconds": 58.0
+    },
     "updated": "2026-11-15"
   },
   "version": "2026-11-15",
