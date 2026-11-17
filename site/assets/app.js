@@ -217,7 +217,7 @@
     lbt.textContent = it.name_zh || it.title;
     lbe.textContent = it.name_en || "";
     const bits = [it.duration];
-    if (it.clip) bits.push(`试片 ${it.clip}s`);
+    if (it.clip) bits.push(it.clip >= 30 ? "片头 30s" : `全片 ${it.clip}s`);
     if (it.engine) bits.push(it.engine);
     if (it.doc) bits.push(`<a href="${it.doc}" target="_blank" rel="noopener">管线文档 ↗</a>`);
     lbm.innerHTML = bits.join(" · ");

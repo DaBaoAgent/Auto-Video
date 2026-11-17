@@ -67,7 +67,7 @@
 | `tools/av/__init__.py` | 共用：读 JSON（保证 LF）、探片、跑命令、解析 frontmatter |
 | `tools/normalize_pipelines.py` | 幂等补齐 `schema` + `meta`、给缺失的管线建骨架、给 SKILL.md 补 frontmatter |
 | `tools/validate.py` | 契约校验（见下）+ 反向目录检查 + `--samples-dir` 样片核对 |
-| `tools/build_samples.py` | 压网页短片 + 抽封面；管线 1280 长边 / 10 s / crf 30，风格 640 / 8 s / crf 32 |
+| `tools/build_samples.py` | 压网页短片 + 抽封面；**一律从片头取前 30 秒**（短片整条），管线 1280 长边 / crf 30，风格 640 / crf 32 |
 | `tools/build_site.py` | catalog + samples → `site/assets/data.js` |
 | `tools/build_fonts.py` | 按站点实际用字子集化思源宋 600 / 思源黑 400 → woff2 |
 | `site/` | 静态样片站：首屏、11 个工位、83 张卡、样片库筛选、灯箱 |
@@ -114,7 +114,7 @@ OK 契约一致
 | --- | --- |
 | 管线样片 | 30 条（2 条无样片：`zhidiao` `lvdong`；`peiyin` 是配音前端，不出片，不计入缺样片） |
 | 风格样片 | 56 段（`BB-Video` 37 段 + 顶层年代命名 15 段 + 其余横向抽样），不进管线元数据 |
-| 合计 | 86 段网页短片 + 86 张封面，31.0 MB |
+| 合计 | 86 段网页短片 + 86 张封面，94.0 MB（每段取片头前 30 秒） |
 | 字体 | 思源宋 600 子集 339 KB / 思源黑 400 子集 248 KB（754 个字） |
 
 站点设计对齐 `lemo-opuscar` 的语言但数字自定：深墨底 `#0b0a09`、纸色 `#ece4d6`、唯一暖色灯色 `#e9b47c`、衬线标题 + 无衬线标签 + 等宽数字、发丝线分隔。

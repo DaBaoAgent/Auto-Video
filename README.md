@@ -178,7 +178,7 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 | `python tools/validate.py` | 查契约：id 唯一、工位存在、`SKILL.md` frontmatter 对得上目录、`meta` 与 catalog 逐字段相等、入口文件真实存在、仓库里的目录与 catalog 双向不脱漏 |
 | `python tools/validate.py --samples-dir "<样片目录>"` | 顺带核对 catalog 里登记的样片文件是否都在 |
 | `python tools/normalize_pipelines.py` | 幂等补齐：给缺 `pipeline.json` 的管线建骨架、给已有文件补 `schema` + `meta`（保持原键顺序）、给缺 frontmatter 的 SKILL.md 补头 |
-| `python tools/build_samples.py` | 把原始样片压成网页用短片（管线 1280 长边 / 10 s / crf 30，风格 640 / 8 s / crf 32）+ 抽封面，写 `site/assets/samples.json` |
+| `python tools/build_samples.py` | 把原始样片压成网页用短片（**一律从片头取前 30 秒**，片短于 30 秒就整条；管线 1280 长边 / crf 30，风格 640 / crf 32）+ 抽封面，写 `site/assets/samples.json`（改规则后要加 `--force`） |
 | `python tools/build_site.py` | catalog + samples → `site/assets/data.js` |
 | `python tools/build_fonts.py` | 按站点实际用字子集化思源宋 / 黑，出 woff2（约 600 KB，站点离线也有中文字形） |
 
@@ -229,7 +229,7 @@ flowchart LR
 <a id="showcase"></a>
 ## 样片 🖼️ 86 段，全部可在站点播
 
-`site/media/` 里是压过的网页短片（管线样片 1280 长边 × 10 s，风格样片 640 × 8 s，共 29.4 MB），原片不动，仍留在作者的同步盘里。
+`site/media/` 里是压过的网页短片（**每部样片只取片头前 30 秒**，片短于 30 秒就整条；管线 1280 长边，风格 640，共 94.0 MB），原片不动，仍留在作者的同步盘里。
 
 **管线样片 30 条**（点管线看文档，点片名去站点看）：
 
@@ -301,7 +301,7 @@ git clone https://github.com/DaBaoAgent/Auto-Video.git
 cd Auto-Video
 ```
 
-仓库保存管线、模板、契约文件与 86 段网页样片（约 40 MB）；模型权重、外部渲染运行时与完整成片不在仓库内（见 [效果展示](#showcase)）。
+仓库保存管线、模板、契约文件与 86 段网页样片（约 94 MB）；模型权重、外部渲染运行时与完整成片不在仓库内（见 [效果展示](#showcase)）。
 
 <details>
 <summary>环境与外部依赖总表（按管线）</summary>
@@ -759,7 +759,7 @@ Auto-Video/
 <details>
 <summary>样片和完整成片有什么区别？</summary>
 
-`site/media/` 里是 86 段网页样片（约 40 MB，GitHub Pages 直接播放）；`showcase/` 保留了早先的 30 秒原片与拼图；完整成片只在作者本地同步盘归档，不随仓库提交。需要原片时从归档取，不必重渲染；`zhidiao`、`lvdong` 本批没有归档成片。
+`site/media/` 里是 86 段网页样片（约 94 MB，GitHub Pages 直接播放，每段取片头前 30 秒）；`showcase/` 保留了早先的 30 秒原片与拼图；完整成片只在作者本地同步盘归档，不随仓库提交。需要原片时从归档取，不必重渲染；`zhidiao`、`lvdong` 本批没有归档成片。
 
 </details>
 

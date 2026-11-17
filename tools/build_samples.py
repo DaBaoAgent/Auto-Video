@@ -1,8 +1,10 @@
 """把样片压成网页用的短片与封面，输出到 site/media/ 并写 manifest。
 
-管线样片：长边 1280、最长 10 秒、crf 30，用来在卡片上悬停即播。
-风格样片：长边 640、最长 8 秒、crf 32，用来做样片库的密集网格。
+统一规则：**一律从片头开始，只取前 30 秒**（片短于 30 秒就整条）。
+管线样片长边 1280 / crf 30，风格样片长边 640 / crf 32，用来在卡片上悬停即播。
 原片一律不动，只读。
+
+改了裁剪规则后必须带 --force 重切（输出比源文件新时默认会跳过）。
 
 用法：
     python tools/build_samples.py
@@ -43,7 +45,7 @@ def clip_job(src: Path, out_mp4: Path, out_jpg: Path, long_edge: int,
         scale = f"scale={long_edge}:-2"
 
     take = min(max_seconds, dur)
-    start = min(dur * 0.12, max(0.0, dur - take - 0.2)) if dur > take else 0.0
+    start = 0.0  # 统一从片头取，不做 12% 起切
 
     if force or not out_mp4.exists() or out_mp4.stat().st_mtime < src.stat().st_mtime:
         run(["ffmpeg", "-v", "error", "-y",
@@ -57,7 +59,7 @@ def clip_job(src: Path, out_mp4: Path, out_jpg: Path, long_edge: int,
     if force or not out_jpg.exists() or out_jpg.stat().st_mtime < src.stat().st_mtime:
         jw = long_edge if not portrait else max(360, int(long_edge * w / h))
         run(["ffmpeg", "-v", "error", "-y",
-             "-ss", f"{min(start + 0.6, max(0, dur - 0.2)):.3f}", "-i", str(src),
+             "-ss", f"{min(2.0, max(0.0, dur - 0.2)):.3f}", "-i", str(src),
              "-frames:v", "1", "-vf", f"scale={jw}:-2", "-q:v", "4",
              str(out_jpg)])
 
@@ -104,7 +106,7 @@ def main() -> int:
             "key": p["id"], "kind": "pipeline", "pipeline": p["id"],
             "title": s["title"], "style": p["name_zh"], "style_en": p["name_en"],
             "station": p["station"], "src": f,
-            "long_edge": 1280, "max_seconds": 10.0, "crf": 30,
+            "long_edge": 1280, "max_seconds": 30.0, "crf": 30,
         })
 
     # 风格样片库：源目录里剩下的
@@ -122,7 +124,7 @@ def main() -> int:
             "key": f"style-{i:02d}", "kind": "style", "pipeline": None,
             "title": stem, "style": stem, "style_en": "",
             "station": None, "src": f,
-            "long_edge": 640, "max_seconds": 8.0, "crf": 32,
+            "long_edge": 640, "max_seconds": 30.0, "crf": 32,
         })
 
     print(f"管线样片 {sum(1 for j in jobs if j['kind']=='pipeline')} 条 / 风格样片 {len(extras)} 条，共 {len(jobs)} 条")
@@ -156,7 +158,12 @@ def main() -> int:
 
     order = {p["id"]: i for i, p in enumerate(pipelines)}
     results.sort(key=lambda r: (order.get(r["pipeline"], 10_000), r["key"]))
-    manifest = {"schema": "auto-video/samples@1", "generated_from": str(src), "items": results}
+    manifest = {
+        "schema": "auto-video/samples@1",
+        "clip_rule": {"start": 0, "seconds": 30, "note": "统一从片头取前 30 秒；短片整条保留"},
+        "generated_from": str(src),
+        "items": results,
+    }
     write_json(SITE_DIR / "assets" / "samples.json", manifest)
 
     total = sum(r["bytes"] for r in results) / 1024 / 1024
