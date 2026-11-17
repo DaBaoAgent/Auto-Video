@@ -354,7 +354,7 @@ python frontend/frontend.py run \
 
 ### 更多画面
 
-![lishi 历史科普短片画面](showcase/frames/lishi-jianan13.png)
+![lishi 历史科普短片画面](site/media/lishi.jpg)
 
 <sub>`lishi` 的纸本视觉系统：楷体纪年、绢本底图、代码运镜与句级字幕（《建安十三年 · 我五十三岁》）。</sub>
 <a id="quickstart"></a>
@@ -411,7 +411,6 @@ Auto-Video/
 ├── fengmian/                 # 上游 DaBaoAgent/fengmian 原样导入：封面 + 发布信息 + 交付门禁
 ├── projects/
 │   └── suzhou/               # chengshi 示例工程：苏州《城长》160.7 s（data/ + film.json）
-├── showcase/
 │   ├── showcase-grid.gif     # 9 条管线样片九宫格
 │   ├── showcase-poster.jpg   # 样片拼图封面
 │   └── *_30s.mp4             # 早先的 30 秒原片（站点已改用 site/media/ 的压片）
@@ -616,7 +615,7 @@ Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星�
 <details>
 <summary>样片和完整成片有什么区别？</summary>
 
-`site/media/` 里是 87 段网页样片（约 97 MB，GitHub Pages 直接播放，每段取片头前 30 秒）；`showcase/` 保留了早先的 30 秒原片与拼图；完整成片只在作者本地同步盘归档，不随仓库提交。需要原片时从归档取，不必重渲染；`zhidiao`《鲤鱼》只有 21 秒，所以整条都在。
+`site/media/` 里是 88 段网页样片（约 101 MB，GitHub Pages 直接播放，每段取片头前 30 秒）；原片与完整成片只在作者本地归档、或挂到 Release assets，不随仓库提交（早先的 `showcase/` 已从仓库删除，见 `docs/素材与体积.md`）。需要原片时从归档取，不必重渲染；`zhidiao`《鲤鱼》只有 21 秒，所以整条都在。
 
 </details>
 
