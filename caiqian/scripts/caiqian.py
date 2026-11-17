@@ -265,7 +265,8 @@ def cmd_probe(a):
     print(f"  字幕 {len(cues)} 条" + (f"，末条 {cues[-1]['t1']}s" if cues else ""))
     tl = re.search(r"const TL\s*=\s*\{(.*?)\n\};", read_js(p), re.S)
     if tl:
-        print(f"  时间轴 {len(re.findall(r'^\s+\w+:', tl.group(1), re.M))} 个节拍")
+        beats = len(re.findall(r"^\s+\w+:", tl.group(1), re.M))
+        print(f"  时间轴 {beats} 个节拍")
     cands = sorted((p / "out").glob("*.mp4"), key=lambda f: f.stat().st_mtime, reverse=True) if (p / "out").is_dir() else []
     for f in cands[:4]:
         print(f"  成片 {f.name}  {f.stat().st_size/1048576:.1f} MB")
