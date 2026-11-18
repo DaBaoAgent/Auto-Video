@@ -322,3 +322,8 @@ shuimo2/projects/*/fonts/*.ttf
 zhuangshi/projects/*/out/
 zhuangshi/projects/*/voice/*.wav
 zhuangshi/projects/*/fonts/*.ttf
+
+# qianhuang（千黄 · 铅黄浓彩）：字体由 tools/sync_fonts.py 放进来；音效脚本入库，音轨不入库
+qianhuang/projects/*/out/
+qianhuang/projects/*/voice/*.wav
+qianhuang/projects/*/fonts/*.ttf

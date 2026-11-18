@@ -1,0 +1,14 @@
+Blood and Black Beach — Giallo Gouache (qianhuang)
+LemoLab × Claude Opus 5.5
+
+Picture: every line, wash, figure, colour field and letter is drawn by code in this folder
+(engine.js, world.js, poses.js, film.js). No generated or third-party images, no stock footage.
+
+Sound: the sfx bed is synthesised from scratch by voice/make_sfx.py (pure Python, wave + struct):
+blade whoosh / shing / thud, splice transients, letter ticks, title boom, sand steps, sub drone.
+Voice: recorded separately, not in this repo (voice/voice.wav is git-ignored).
+
+Fonts (SIL Open Font License 1.1, licences in fonts/):
+  Caveat — Impallari Type  (fonts/OFL-Caveat.txt)
+  Reenie Beanie — James Grieshaber  (fonts/OFL-ReenieBeanie.txt)
+  LongCang 龙藏 / MaShanZheng 马善政 — delivered by tools/sync_fonts.py, not stored in the repo

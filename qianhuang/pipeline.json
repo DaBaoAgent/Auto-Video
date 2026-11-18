@@ -1,0 +1,127 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "qianhuang",
+    "no": "41",
+    "name_zh": "铅黄浓彩",
+    "name_en": "Giallo Gouache",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "一页手绘浓彩被红蓝两盏色片灯夹住，刀落下去有声音。",
+    "engine": "Canvas 逐帧 · 钢笔浓彩 + 彩色色片光 + 合成音效",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/qianhuang.py",
+    "status": "live",
+    "sample": {
+      "file": "qianhuang 血之海滩.mp4",
+      "title": "血之海滩 · 第一段",
+      "seconds": 21.5
+    },
+    "updated": "2026-11-18"
+  },
+  "spec": {
+    "source": {
+      "style": "Giallo · 1970s Italian horror（铅黄）",
+      "references": "Mario Bava《Black Sunday》(1960) 的明暗法与多侧光、《Blood and Black Lace》(1964) 的侧向横移与灯池／墨黑；Dario Argento《Suspiria》的三原色＋补色污染",
+      "demo_film": "Blood and Black Beach / 血之海滩（第一段）"
+    },
+    "canvas": { "width": 1920, "height": 1080, "fps": 30, "page": "5120×2880 的大纸面，镜头在纸上走" },
+    "duration": { "default": 21.46, "min": 6, "max": 120 },
+    "paper": {
+      "base": "#F5EEDE",
+      "mottling": "两层 fbm 云斑",
+      "tooth": "细齿噪声乘在全部像素上（含人物与字）",
+      "edge": "页边噪声边界 + 白点带，永不画满整张纸"
+    },
+    "ink": {
+      "colour": "#3A2E24（dark sepia，全片一个颜色）",
+      "width_px": "近 3.4 / 远 1.3",
+      "rule": "线是提示不是描摹：窗画三道、树只勾扇贝外沿",
+      "boil": "12 fps（人物线抖每 1/12 s 换一次，页面不抖）"
+    },
+    "paint": {
+      "layers": "2–3 层粗边，multiply",
+      "alpha": "0.4–0.65",
+      "misregister_px": "1–3（与线错位）",
+      "dry_edge": "边缘 30–40% 加深",
+      "two_plates": "A 版冷（钴蓝夜湖）／B 版浓（血红海）；同一副几何两遍套色，trace 从地平线漫开，splitPlate 两枚印张并排"
+    },
+    "gel_light": {
+      "rig": "两盏硬边色片灯，无光源理由、彼此交叉；一镜可再加第三束",
+      "composite": "multiply 染色 → screen 补光芯（顺序不能反，纯 screen 会发灰）",
+      "hero_hold": "光束画在离屏，主体圈 destination-out 擦掉；圈随镜头推近与旋转搬运",
+      "blinds": "红蓝交替百叶：multiply .4 → color .62 → screen .2；少 color 红蓝相消成紫",
+      "crush": "四角 #0b0b0d + 内圈钴蓝→深红 screen",
+      "sides": "shadeSide 暗部走 void；fogBands 三带红蓝交替"
+    },
+    "palette": {
+      "red": "#b3001b",
+      "blue": "#1b2a8f",
+      "green": "#0f7a5c",
+      "acid": "#7cc41a",
+      "gold": "#ffc84e",
+      "void": "#0b0b0d",
+      "objects": {
+        "wall": "#ffe8a8 / 阴影 #7a2a4e / 窗 #ffc23a",
+        "land": "#08402f（压暗到 #030a09）",
+        "pier": "#8c2a1c",
+        "hull": "#ffe8a8 + 血红条",
+        "victim": "上衣 #d0202a / 下装 #1e2a80",
+        "killer": "雨衣 #150e22 + 右红左蓝两道细边"
+      },
+      "rule": "血红与钴蓝是两极，污染金只许窄窄一条，暗部永不用灰"
+    },
+    "typography": {
+      "fonts": "MaShanZheng（片名 268 px）+ LongCang（字幕 58 px）+ Caveat / Reenie Beanie（页边手写注记）",
+      "title": "黄 #ffc70a，黑边 #0c0908 5.5%，逐字按笔顺写出",
+      "subtitle": "黑晕 blur 10 → 黑边 4.6 px → 黄 #ffcb0e，x=158 / y=962",
+      "write_on": "先 strokeText 描边再 fillText 填色，共用同一个擦入矩形，保留逐笔揭示"
+    },
+    "figure": {
+      "build": "三维骨架正交投影，躯干截面生成，四肢有机锥形管",
+      "face": "杰森面具：白纸＋两个洞，右上黄侧光、左下钴蓝（羽化且裁在面具内）",
+      "rim": "黑衣服也要被两盏灯咬出边：右红左蓝细亮线，宽 0.07–0.17 倍衣宽",
+      "crowd": "页脚一排线人（后来者），只勾不填"
+    },
+    "camera": {
+      "type": "二维相机在整页纸上走",
+      "move": "SH.mv = [dx, dy, zk, dr]，一镜内线性推进",
+      "snap": "SH.snap = [ts, power, dur]：一下推上去就钉住，不回来（巴瓦的招牌动作）",
+      "dutch": "荷兰角随光束一起歪（dr 0.03–0.06 rad）",
+      "rotate": "绕轴自转＋推（巴瓦父亲给他改的自转摄影机用法）",
+      "cut": "一镜 2–4 秒，硬切；不用叠化",
+      "parallax": "前景随镜头反向滑 1.5 倍，纵深才成立"
+    },
+    "audio": {
+      "lufs": -14.6,
+      "true_peak": -1.6,
+      "limiter": "alimiter -1.6 dBFS",
+      "sfx_weight": "音效床 0.82（amix normalize=0）",
+      "sample_rate": 48000,
+      "channels": 2,
+      "sfx": "纯 Python 合成：刀锋三层（whoosh/shing/thud）、splice 转场、落字 tick/brush、开场 boom、sandstep 脚步、47.5/95 Hz 底噪",
+      "sync": "动作提前 0.30 s 起 whoosh；落点 +0.02 s shing、+0.01 s thud；切点与分镜同帧；每条字幕一记 −31 dB tick"
+    },
+    "render": {
+      "engine": "vendor/runtime/render-legacy.mjs（playwright-core + ffmpeg）",
+      "format": "jpeg",
+      "jpeg_quality": 92,
+      "crf": 20,
+      "preset": "slow",
+      "fps_real": "约 11–12 fps（1920×1080，单 worker）"
+    },
+    "delivery": {
+      "sample_dir": "projects/001_bayofblood/out/",
+      "final": "projects/001_bayofblood/out/bayofblood.mp4",
+      "files": ["<名>.mp4", "<名>.srt"],
+      "qa": "分辨率 / 帧率 30 / 帧数 / 时长 / 音轨 / −14.6 LUFS / 峰值 −1.6"
+    },
+    "credits": [
+      "PICTURE: 本仓库代码自己画（engine.js / world.js / poses.js / film.js），无生成图、无第三方素材",
+      "SOUND: voice/make_sfx.py 纯 Python 合成（wave + struct），无采样素材",
+      "FONT: MaShanZheng（马善政毛笔楷书）、LongCang（龙藏）、Caveat（Impallari Type）、Reenie Beanie（James Grieshaber），均 SIL OFL 1.1",
+      "STYLE: Giallo · 70 年代意大利铅黄，依据 Bava《Black Sunday》《Blood and Black Lace》与 Argento《Suspiria》的用光方法"
+    ]
+  }
+}

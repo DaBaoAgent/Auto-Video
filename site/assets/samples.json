@@ -931,6 +931,33 @@
       "bytes": 2252640
     },
     {
+      "key": "qianhuang",
+      "kind": "pipeline",
+      "pipeline": "qianhuang",
+      "title": "血之海滩 · 第一段",
+      "style": "铅黄浓彩",
+      "style_en": "Giallo Gouache",
+      "station": "hand",
+      "long_edge": 1280,
+      "max_seconds": 30.0,
+      "crf": 30,
+      "seconds": 21.47,
+      "duration": "0:21",
+      "width": 1920,
+      "height": 1080,
+      "aspect": "16:9",
+      "clip_seconds": 21.47,
+      "poster_pick": {
+        "by": "manual-override",
+        "note": "13.6s：片名黄字黑边刚写完，血海、两盏色片灯、受害人都在画面里",
+        "seconds": 13.6
+      },
+      "mp4": "media/qianhuang.mp4",
+      "poster": "media/qianhuang.jpg",
+      "source": "qianhuang 血之海滩.mp4",
+      "bytes": 2638826
+    },
+    {
       "key": "style-01",
       "kind": "style",
       "pipeline": null,

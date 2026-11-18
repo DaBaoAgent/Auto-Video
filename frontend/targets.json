@@ -179,6 +179,10 @@
     "zhuangshi": {
       "render": null,
       "reason": "装饰艺术按 slug 复制 012_starlight 骨架，场景在 scenes/ 与 shots_/ 里，镜头表沿 timeline.json"
+    },
+    "qianhuang": {
+      "render": null,
+      "reason": "铅黄浓彩是 2–4 秒硬切的手绘分镜：十镜表、色片灯与音效点都要跟着口播手工排，只接 frontend 的配音与 srt"
     }
   }
 }

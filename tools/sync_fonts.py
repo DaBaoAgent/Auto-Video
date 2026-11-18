@@ -113,6 +113,11 @@ MANIFEST = {
                  ("projects/012_toward/fonts/shippori-700.woff2", "shipporib"),
                  ("projects/012_toward/fonts/shippori-kanji.woff2", "shipporikanji"),
                  ("projects/012_toward/fonts/yuji-kanji.woff2", "yujikanji")],
+    # 铅黄浓彩：片名马善政、字幕龙藏、页边注记 Caveat / Reenie Beanie，四个都要在工程 fonts/ 里
+    "qianhuang": [("projects/001_bayofblood/fonts/MaShanZheng-Regular.ttf", "mashanzheng"),
+                  ("projects/001_bayofblood/fonts/LongCang-Regular.ttf", "longcang"),
+                  ("projects/001_bayofblood/fonts/Caveat.ttf", "caveat"),
+                  ("projects/001_bayofblood/fonts/ReenieBeanie.ttf", "reenie")],
     # weisuo / shuicai 的字体是按片子文本裁的子集、没有稳定来源，随工程入库，不走本表
 }
 
