@@ -110,6 +110,18 @@
       "sample": { "file": "pingban 关羽.mp4", "title": "关羽", "seconds": 39.4 }
     },
     {
+      "id": "gangbi",
+      "station": "hand",
+      "name_zh": "钢笔淡彩",
+      "name_en": "Pen & Wash Sketch",
+      "tagline": "钢笔线先走，水彩跟着到；镜头在整页纸上跟着草帽走。",
+      "engine": "Canvas 逐帧 · 钢笔 + 水彩双层",
+      "aspect": "16:9",
+      "fps": 24,
+      "entry": "scripts/gangbi.py",
+      "sample": { "file": "gangbi 风去了哪里.mp4", "title": "风去了哪里", "seconds": 33.4 }
+    },
+    {
       "id": "piying",
       "station": "craft",
       "name_zh": "皮影卡片",

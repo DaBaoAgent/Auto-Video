@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "xianshiqi",
-    "no": "21",
+    "no": "22",
     "name_zh": "赛博 HUD",
     "name_en": "Cyber HUD",
     "station": "screen",

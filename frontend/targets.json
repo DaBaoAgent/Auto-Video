@@ -32,6 +32,10 @@
       "render": null,
       "reason": "平板速写按笔画时序生成，需先定镜头表"
     },
+    "gangbi": {
+      "render": null,
+      "reason": "钢笔淡彩按 slug 复制 012_wind 骨架，画面地点与时间轴要手工定；配音可有可无，无配音时只出默片"
+    },
     "piying": {
       "render": null,
       "reason": "皮影六步 node 链要项目素材（gen/qc/audit），frontend 提供文案与配音"

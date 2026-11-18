@@ -42,6 +42,8 @@ CANON_FILES = {
     "longcang": "LongCang-Regular.ttf",
     "marker": "LXGWMarkerGothic-Regular.ttf",
     "wenkai": "LXGWWenKai-Regular.ttf",
+    "caveat": "Caveat.ttf",
+    "reenie": "ReenieBeanie.ttf",
 }
 
 # 每条管线里「渲染时真的会被浏览器/Remotion 读」的字体落点
@@ -58,6 +60,9 @@ MANIFEST = {
     "xianshiqi": [("projects/UAP30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf", "alibaba")],
     "xuni": [("projects/009_prion30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf", "alibaba"),
              ("projects/009_prion_full/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf", "alibaba")],
+    # 钢笔淡彩：标题与字幕用 Caveat，页边注记用 Reenie Beanie，两个都要在工程 fonts/ 里
+    "gangbi": [("projects/012_wind/fonts/Caveat.ttf", "caveat"),
+               ("projects/012_wind/fonts/ReenieBeanie.ttf", "reenie")],
 }
 
 

@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "map",
-    "no": "27",
+    "no": "28",
     "name_zh": "地图贴纸",
     "name_en": "Map Stickers",
     "station": "map",

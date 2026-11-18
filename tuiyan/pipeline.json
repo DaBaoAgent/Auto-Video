@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "tuiyan",
-    "no": "23",
+    "no": "24",
     "name_zh": "3D 战场推演",
     "name_en": "3D Battle Sim",
     "station": "d3",

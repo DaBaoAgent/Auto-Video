@@ -1,4 +1,4 @@
-# 管线清单：33 条，一条一个命令
+# 管线清单：34 条，一条一个命令
 
 这份清单由 `tools/build_pipeline_doc.py` 从 `catalog/pipelines.json` 生成，是目录的镜像；
 **入口与参数以各管线自己的 `SKILL.md` 为准**。这里回答的是「这条线现在能不能跑、从哪儿进、吃到什么输入」。
@@ -9,7 +9,7 @@
 - **beta** = 代码与文档在，样片还没补齐；
 - 命令都在仓库根目录执行，入口路径取 `pipeline.json` 的 `meta.entry`；不确定就 `--help`。
 
-当前：**32 条 live / 1 条待补样片 / 11 个工位**。
+当前：**33 条 live / 1 条待补样片 / 11 个工位**。
 
 ## 01 · 纸本叙事　*Paper & Chronicle*
 
@@ -24,6 +24,7 @@
 | id | 名称 | 状态 | 引擎 | 入口 | 样片 |
 | --- | --- | --- | --- | --- | --- |
 | `caiqian` | 彩铅科普（Colored-pencil Science） | live | G-buffer + 后处理 | `scripts/caiqian.py` | 27s |
+| `gangbi` | 钢笔淡彩（Pen & Wash Sketch） | live | Canvas 逐帧 · 钢笔 + 水彩双层 | `scripts/gangbi.py` | 33s |
 | `pencil` | 铅笔测试（Pencil Test） | live | Canvas · Chrome 逐帧 | `scripts/pencil.py` | 30s |
 | `pingban` | 平板速写（Tablet Sketch） | live | 纯 Canvas · 零依赖 | `scripts/pingban.py` | 39s |
 | `shouhui` | 逐帧手绘（Hand-drawn Cel） | live | Canvas 逐帧 · 浏览器渲染 | `scripts/shouhui.py` | 206s |

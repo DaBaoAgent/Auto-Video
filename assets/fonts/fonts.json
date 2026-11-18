@@ -44,6 +44,24 @@
         "https://raw.githubusercontent.com/lxgw/LxgwMarkerGothic/main/fonts/ttf/LXGWMarkerGothic-Regular.ttf",
         "https://github.com/lxgw/LxgwMarkerGothic/raw/main/fonts/ttf/LXGWMarkerGothic-Regular.ttf"
       ]
+    },
+    "Caveat.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.38,
+      "sha256": "0bdb6b660482d31531b3945849fba5916b3ef8695da7024a9e6b9ee3c4157988",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/caveat/Caveat%5Bwght%5D.ttf"
+      ],
+      "note": "可变字重 400–700；gangbi 的标题、字幕与片尾手写都用它"
+    },
+    "ReenieBeanie.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.14,
+      "sha256": "0ea608aa325bf9e11c9590cc0b63dcf7cd215e270784f1ebbe6fad4927b31ff8",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/reeniebeanie/ReenieBeanie.ttf"
+      ],
+      "note": "页边的手写注记（日期 / 时间 / 天气 / 地点）"
     }
   }
 }

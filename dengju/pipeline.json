@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "dengju",
-    "no": "25",
+    "no": "26",
     "name_zh": "等轴 2.5D",
     "name_en": "Isometric 2.5D",
     "station": "d3",
