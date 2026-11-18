@@ -1,0 +1,11 @@
+# 样片工程的产物不入库（体积大），只留清单与脚本
+*.mp4
+*.wav
+*.mp3
+*.jpg
+*.png
+work/
+probe/
+review*/
+audio/*
+!audio/durations.json
