@@ -114,7 +114,7 @@
     },
     "delivery": {
       "sample_dir": "projects/012_wind/out/",
-      "final": "projects/012_wind/out/feng_le.mp4",
+      "final": "projects/012_wind/out/wind.mp4",
       "files": ["<名>.mp4", "<名>.srt"],
       "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
     },
