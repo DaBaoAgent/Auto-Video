@@ -1,0 +1,274 @@
+{
+  "shadow": {
+    "id": "shadow",
+    "chars": 23,
+    "seconds": 7.2,
+    "voice": "zh-CN-YunjianNeural",
+    "rate": "-3%",
+    "cps": 3.19
+  },
+  "tapestry": {
+    "id": "tapestry",
+    "chars": 24,
+    "seconds": 7.08,
+    "voice": "zh-CN-YunjianNeural",
+    "rate": "-3%",
+    "cps": 3.39
+  },
+  "goldenage": {
+    "id": "goldenage",
+    "chars": 29,
+    "seconds": 7.464,
+    "voice": "zh-CN-YunxiNeural",
+    "rate": "+3%",
+    "cps": 3.89
+  },
+  "manga": {
+    "id": "manga",
+    "chars": 20,
+    "seconds": 6.936,
+    "voice": "zh-CN-YunxiNeural",
+    "rate": "+3%",
+    "cps": 2.88
+  },
+  "blueprint": {
+    "id": "blueprint",
+    "chars": 25,
+    "seconds": 7.848,
+    "voice": "zh-CN-YunjianNeural",
+    "rate": "-3%",
+    "cps": 3.19
+  },
+  "parable": {
+    "id": "parable",
+    "chars": 25,
+    "seconds": 6.576,
+    "voice": "zh-CN-YunxiNeural",
+    "rate": "+2%",
+    "cps": 3.8
+  },
+  "jianying": {
+    "id": "jianying",
+    "chars": 27,
+    "seconds": 7.656,
+    "voice": "zh-CN-YunjianNeural",
+    "rate": "-3%",
+    "cps": 3.53
+  },
+  "lishi": {
+    "id": "lishi",
+    "chars": 26,
+    "seconds": 7.848,
+    "voice": "zh-CN-YunjianNeural",
+    "rate": "-3%",
+    "cps": 3.31
+  },
+  "zhidiao": {
+    "id": "zhidiao",
+    "chars": 25,
+    "seconds": 7.152,
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-2%",
+    "cps": 3.5
+  },
+  "shouhui": {
+    "id": "shouhui",
+    "chars": 28,
+    "seconds": 8.088,
+    "voice": "zh-CN-XiaoyiNeural",
+    "rate": "0%",
+    "cps": 3.46
+  },
+  "pencil": {
+    "id": "pencil",
+    "chars": 26,
+    "seconds": 7.44,
+    "voice": "zh-CN-XiaoyiNeural",
+    "rate": "0%",
+    "cps": 3.49
+  },
+  "caiqian": {
+    "id": "caiqian",
+    "chars": 25,
+    "seconds": 6.384,
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "0%",
+    "cps": 3.92
+  },
+  "gangbi": {
+    "id": "gangbi",
+    "chars": 26,
+    "seconds": 7.128,
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-2%",
+    "cps": 3.65
+  },
+  "labi": {
+    "id": "labi",
+    "chars": 24,
+    "seconds": 7.416,
+    "voice": "zh-CN-YunxiaNeural",
+    "rate": "-4%",
+    "cps": 3.24
+  },
+  "shuicai": {
+    "id": "shuicai",
+    "chars": 22,
+    "seconds": 6.0,
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-3%",
+    "cps": 3.67
+  },
+  "piying": {
+    "id": "piying",
+    "chars": 25,
+    "seconds": 8.496,
+    "voice": "zh-CN-YunjianNeural",
+    "rate": "-3%",
+    "cps": 2.94
+  },
+  "shuimo": {
+    "id": "shuimo",
+    "chars": 21,
+    "seconds": 6.312,
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-3%",
+    "cps": 3.33
+  },
+  "laolang": {
+    "id": "laolang",
+    "chars": 25,
+    "seconds": 7.08,
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-3%",
+    "cps": 3.53
+  },
+  "fushihui": {
+    "id": "fushihui",
+    "chars": 25,
+    "seconds": 7.272,
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-3%",
+    "cps": 3.44
+  },
+  "shuimo2": {
+    "id": "shuimo2",
+    "chars": 23,
+    "seconds": 6.912,
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-3%",
+    "cps": 3.33
+  },
+  "xiangsu": {
+    "id": "xiangsu",
+    "chars": 24,
+    "seconds": 6.696,
+    "voice": "zh-CN-YunxiNeural",
+    "rate": "+3%",
+    "cps": 3.58
+  },
+  "shiliang": {
+    "id": "shiliang",
+    "chars": 24,
+    "seconds": 7.392,
+    "voice": "zh-CN-YunxiNeural",
+    "rate": "+3%",
+    "cps": 3.25
+  },
+  "lvdong": {
+    "id": "lvdong",
+    "chars": 22,
+    "seconds": 6.768,
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-2%",
+    "cps": 3.25
+  },
+  "huixingzhen": {
+    "id": "huixingzhen",
+    "chars": 25,
+    "seconds": 6.816,
+    "voice": "zh-CN-YunxiNeural",
+    "rate": "+3%",
+    "cps": 3.67
+  },
+  "bianping": {
+    "id": "bianping",
+    "chars": 25,
+    "seconds": 6.36,
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "0%",
+    "cps": 3.93
+  },
+  "zhuangshi": {
+    "id": "zhuangshi",
+    "chars": 23,
+    "seconds": 7.224,
+    "voice": "zh-CN-XiaoxiaoNeural",
+    "rate": "-3%",
+    "cps": 3.18
+  },
+  "xuni": {
+    "id": "xuni",
+    "chars": 23,
+    "seconds": 6.768,
+    "voice": "zh-CN-YunxiNeural",
+    "rate": "+3%",
+    "cps": 3.4
+  },
+  "dengju": {
+    "id": "dengju",
+    "chars": 24,
+    "seconds": 6.0,
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "0%",
+    "cps": 4.0
+  },
+  "isometric": {
+    "id": "isometric",
+    "chars": 25,
+    "seconds": 6.264,
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "0%",
+    "cps": 3.99
+  },
+  "weisuo": {
+    "id": "weisuo",
+    "chars": 24,
+    "seconds": 6.336,
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "0%",
+    "cps": 3.79
+  },
+  "map": {
+    "id": "map",
+    "chars": 24,
+    "seconds": 6.12,
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "0%",
+    "cps": 3.92
+  },
+  "ditu": {
+    "id": "ditu",
+    "chars": 26,
+    "seconds": 7.992,
+    "voice": "zh-CN-YunjianNeural",
+    "rate": "-3%",
+    "cps": 3.25
+  },
+  "pingban": {
+    "id": "pingban",
+    "chars": 26,
+    "seconds": 7.176,
+    "voice": "zh-CN-YunyangNeural",
+    "rate": "0%",
+    "cps": 3.62
+  },
+  "xianshiqi": {
+    "id": "xianshiqi",
+    "chars": 25,
+    "seconds": 7.656,
+    "voice": "zh-CN-YunxiNeural",
+    "rate": "+3%",
+    "cps": 3.27
+  }
+}

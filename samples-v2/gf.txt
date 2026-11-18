@@ -1,0 +1,1 @@
+[0:v]fps=30,ass=sub-jianying.ass[v];[2:a]atrim=0:10,volume=0.42,afade=t=in:st=0:d=0.7,afade=t=out:st=8.9:d=1.1[bg];[1:a]adelay=550|550,apad,atrim=0:10[vo];[vo][bg]amix=inputs=2:normalize=0:duration=first,loudnorm=I=-16:TP=-1.5:LRA=11[a]

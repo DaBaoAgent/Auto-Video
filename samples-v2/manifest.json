@@ -1,0 +1,329 @@
+{
+  "schema": "auto-video/samples-v2@1",
+  "created": "2026-11-18",
+  "note": "10 秒新样片清单：34 条纯代码画视频管线。口播按大宝口播规矩重写：口语短句、去 AI 味、无儿化音、无东北口音词。字幕开关按管线材质决定。",
+  "tts": {
+    "engine": "edge-tts",
+    "version": "7.3.1",
+    "concurrency": 2,
+    "sample_rate": 48000,
+    "loudness": "-14 LUFS",
+    "true_peak": "-1.5 dBTP"
+  },
+  "excluded": {
+    "tianshu": "重管线：本机 ComfyUI + Wan2.2，单支 15-25 分钟",
+    "shipai": "实拍混剪：需 Pixabay key + MoneyPrinterTurbo，非纯代码画面",
+    "jilupian": "纪录片解说：需片源下载与模型",
+    "chengshi": "真实地理数据驱动，本轮不做",
+    "tuiyan": "3D 兵棋引擎，本轮不做",
+    "peiyin": "前端模块，不出画面样片"
+  },
+  "samples": [
+    {
+      "id": "jianying",
+      "name_zh": "纸本卡片",
+      "station": "paper",
+      "voice": "zh-CN-YunjianNeural",
+      "rate": "-3%",
+      "subtitle": true,
+      "narration": "绢本打底，卡片断句。一句一刀，一千九百年前的事就这么翻出来了。"
+    },
+    {
+      "id": "lishi",
+      "name_zh": "纸本史话",
+      "station": "paper",
+      "voice": "zh-CN-YunjianNeural",
+      "rate": "-3%",
+      "subtitle": true,
+      "narration": "定帧是画的，运镜是算的。每句话落在自己那帧上，连闪都不许闪。"
+    },
+    {
+      "id": "zhidiao",
+      "name_zh": "纸雕剪影",
+      "station": "paper",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-2%",
+      "subtitle": true,
+      "narration": "一层纸一层影，叠出三层深浅。词落在纸背上，灯才从后头亮起。"
+    },
+    {
+      "id": "shouhui",
+      "name_zh": "逐帧手绘",
+      "station": "hand",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "0%",
+      "subtitle": true,
+      "narration": "两帧换一根线，线条自己在喘气。一拍二，二十四格，全是一笔一笔画的。"
+    },
+    {
+      "id": "pencil",
+      "name_zh": "铅笔测试",
+      "station": "hand",
+      "voice": "zh-CN-XiaoyiNeural",
+      "rate": "0%",
+      "subtitle": true,
+      "narration": "蓝线起稿，石墨压深，橡皮接着改。画和画之间，人是自己长出来的。"
+    },
+    {
+      "id": "caiqian",
+      "name_zh": "彩铅科普",
+      "station": "hand",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "0%",
+      "subtitle": true,
+      "narration": "先把鱼建成立体的，再一笔一笔排线。镜头扫到哪，画才活到哪。"
+    },
+    {
+      "id": "pingban",
+      "name_zh": "平板速写",
+      "station": "hand",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "0%",
+      "subtitle": true,
+      "narration": "六格手卷，笔尖带路。箭雨、水纹、人名，每一根线都是当场画下去的。"
+    },
+    {
+      "id": "gangbi",
+      "name_zh": "钢笔淡彩",
+      "station": "hand",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-2%",
+      "subtitle": true,
+      "narration": "钢笔先走，水彩慢半拍。颜色总晚到一两个像素，纸就把它们吃掉。"
+    },
+    {
+      "id": "labi",
+      "name_zh": "蜡笔儿童绘本",
+      "station": "hand",
+      "voice": "zh-CN-YunxiaNeural",
+      "rate": "-4%",
+      "subtitle": true,
+      "narration": "蜡笔先涂，水彩最后洗。藏在纸底下的星星，最后一笔才出来。"
+    },
+    {
+      "id": "shuicai",
+      "name_zh": "水彩笔刷",
+      "station": "hand",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-3%",
+      "subtitle": false,
+      "narration": "湿的接湿的，颜色在纸上走，自己干，边上自己留一道痕。"
+    },
+    {
+      "id": "piying",
+      "name_zh": "皮影卡片",
+      "station": "craft",
+      "voice": "zh-CN-YunjianNeural",
+      "rate": "-3%",
+      "subtitle": true,
+      "narration": "影人上台，卡片说话。密度、字幕、运镜、避坑，四道门全过了才开灯。"
+    },
+    {
+      "id": "shuimo",
+      "name_zh": "纸本水墨",
+      "station": "craft",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-3%",
+      "subtitle": true,
+      "narration": "一座山，一个种子就长出来。墨一渗，雾散开，场就换了。"
+    },
+    {
+      "id": "shadow",
+      "name_zh": "皮影戏",
+      "station": "craft",
+      "voice": "zh-CN-YunjianNeural",
+      "rate": "-3%",
+      "subtitle": true,
+      "narration": "牛皮透光，关节会动，杆子藏在幕下。灯一暗，台上换一场戏。"
+    },
+    {
+      "id": "tapestry",
+      "name_zh": "贝叶挂毯",
+      "station": "craft",
+      "voice": "zh-CN-YunjianNeural",
+      "rate": "-3%",
+      "subtitle": true,
+      "narration": "羊毛一针一针绣上去，脸和手留白。布卷往前走，故事往后排。"
+    },
+    {
+      "id": "laolang",
+      "name_zh": "上美影手绘",
+      "station": "craft",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-3%",
+      "subtitle": true,
+      "narration": "四比三的圆角片门，一九八〇年的手。人是画的，世界更像一幅画。"
+    },
+    {
+      "id": "fushihui",
+      "name_zh": "浮世绘",
+      "station": "craft",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-3%",
+      "subtitle": false,
+      "narration": "墨线一块，颜色一块，各自错开半格印上去。纸在吃墨，边上露白。"
+    },
+    {
+      "id": "shuimo2",
+      "name_zh": "中国水墨",
+      "station": "craft",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-3%",
+      "subtitle": false,
+      "narration": "墨分五色，一笔下去有骨有肉。飞白扫过，朱砂只落印章上。"
+    },
+    {
+      "id": "goldenage",
+      "name_zh": "黄金卡通",
+      "station": "toon",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+3%",
+      "subtitle": true,
+      "narration": "手绘的城市，墨线的角色，一秒十五张的抖。片门一晃，一九四八年的印片。"
+    },
+    {
+      "id": "manga",
+      "name_zh": "漫画分格",
+      "station": "toon",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+3%",
+      "subtitle": true,
+      "narration": "分格、网点、速度线。一格一个 beat，从右往左，一页一页翻。"
+    },
+    {
+      "id": "xiangsu",
+      "name_zh": "像素风",
+      "station": "toon",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+3%",
+      "subtitle": true,
+      "narration": "六百四乘三百六，一格一格点亮。放大三倍，扫描线还是细的。"
+    },
+    {
+      "id": "shiliang",
+      "name_zh": "扁平矢量",
+      "station": "graphic",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+3%",
+      "subtitle": true,
+      "narration": "纯色、几何、弹性。没有一个像素是渐变，转场由元素自己带走。"
+    },
+    {
+      "id": "lvdong",
+      "name_zh": "剪影律动",
+      "station": "graphic",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-2%",
+      "subtitle": true,
+      "narration": "九十拍，剪影站进落日。姿势落在拍上，那一拍，世界停住。"
+    },
+    {
+      "id": "huixingzhen",
+      "name_zh": "回形针风",
+      "station": "graphic",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+3%",
+      "subtitle": true,
+      "narration": "实拍照片贴成纸片，图表一笔不差。一张大画布，镜头一直在走。"
+    },
+    {
+      "id": "bianping",
+      "name_zh": "扁平尺度漫游",
+      "station": "graphic",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "0%",
+      "subtitle": true,
+      "narration": "从彗星撞木星，一路推到黑洞边上。左下角那只眼睛，替你眨眼。"
+    },
+    {
+      "id": "zhuangshi",
+      "name_zh": "装饰艺术",
+      "station": "graphic",
+      "voice": "zh-CN-XiaoxiaoNeural",
+      "rate": "-3%",
+      "subtitle": true,
+      "narration": "金线、漆面黑、阶梯边。午夜十二点，整座大堂从中间亮起来。"
+    },
+    {
+      "id": "xianshiqi",
+      "name_zh": "赛博 HUD",
+      "station": "screen",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+3%",
+      "subtitle": true,
+      "narration": "青线、网格、雷达扫。目标一动，四角的锁框收到位，告警只响一次。"
+    },
+    {
+      "id": "xuni",
+      "name_zh": "合成波 VHS",
+      "station": "screen",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+3%",
+      "subtitle": true,
+      "narration": "网格压到地平线，太阳切成条。铬字一亮，磁带就开始掉帧。"
+    },
+    {
+      "id": "dengju",
+      "name_zh": "等轴 2.5D",
+      "station": "d3",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "0%",
+      "subtitle": true,
+      "narration": "真正的等轴相机，三十五点二六度。地面起瓦浪，镜头贴着滑。"
+    },
+    {
+      "id": "isometric",
+      "name_zh": "等距微缩",
+      "station": "d3",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "0%",
+      "subtitle": true,
+      "narration": "四十五度的小世界，一块地块一道缝。讲到哪块，哪块就抬起来。"
+    },
+    {
+      "id": "weisuo",
+      "name_zh": "孟菲斯微缩",
+      "station": "d3",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "0%",
+      "subtitle": true,
+      "narration": "二维的形状，搭成三维的小镇。四季在框里转，人在格子里走。"
+    },
+    {
+      "id": "map",
+      "name_zh": "地图贴纸",
+      "station": "map",
+      "voice": "zh-CN-YunyangNeural",
+      "rate": "0%",
+      "subtitle": true,
+      "narration": "真实底图，贴纸钉在经纬度上。镜头永远飞向正在说的地方。"
+    },
+    {
+      "id": "ditu",
+      "name_zh": "真实地形",
+      "station": "map",
+      "voice": "zh-CN-YunjianNeural",
+      "rate": "-3%",
+      "subtitle": true,
+      "narration": "水有多深，岸有多低，全是真高程。八十四公里推下来，水漫过营帐。"
+    },
+    {
+      "id": "blueprint",
+      "name_zh": "工程蓝图",
+      "station": "diagram",
+      "voice": "zh-CN-YunjianNeural",
+      "rate": "-3%",
+      "subtitle": true,
+      "narration": "构造线先出，尺寸和引线后跟。齿数模数是真的，红笔只圈一次。"
+    },
+    {
+      "id": "parable",
+      "name_zh": "火柴人寓言",
+      "station": "diagram",
+      "voice": "zh-CN-YunxiNeural",
+      "rate": "+2%",
+      "subtitle": true,
+      "narration": "黑虚空，两个火柴人。同一堆材料垒上去，只有一件东西是红的。"
+    }
+  ]
+}
