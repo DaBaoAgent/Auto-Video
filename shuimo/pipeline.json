@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "shuimo",
-    "no": "10",
+    "no": "11",
     "name_zh": "纸本水墨",
     "name_en": "Ink Wash",
     "station": "craft",

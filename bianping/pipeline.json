@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "bianping",
-    "no": "21",
+    "no": "22",
     "name_zh": "扁平尺度漫游",
     "name_en": "Scale Zoom Explainer",
     "station": "graphic",

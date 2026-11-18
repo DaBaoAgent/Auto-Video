@@ -36,6 +36,10 @@
       "render": null,
       "reason": "钢笔淡彩按 slug 复制 012_wind 骨架，画面地点与时间轴要手工定；配音可有可无，无配音时只出默片"
     },
+    "labi": {
+      "render": null,
+      "reason": "蜡笔绘本按 slug 复制 012_moon 骨架，角色与水彩揭示点要先定；旁白与无词段落可混用，没配音时只出默片"
+    },
     "piying": {
       "render": null,
       "reason": "皮影六步 node 链要项目素材（gen/qc/audit），frontend 提供文案与配音"

@@ -1,0 +1,146 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "labi",
+    "no": "09",
+    "name_zh": "蜡笔儿童绘本",
+    "name_en": "Crayon Picture Book",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "一页绘本当着你的面画出来：蜡笔先走，水彩最后把藏起来的星星洗出来。",
+    "engine": "WebGL2 合成 + Canvas 逐帧 · 纸齿 / 蜡附着 / 水彩抗拒",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/labi.py",
+    "status": "live",
+    "sample": {
+      "file": "labi 月亮睡不着.mp4",
+      "title": "月亮睡不着",
+      "seconds": 52.0
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": {
+      "repo": "lemomo-ai/lemo-opuscar",
+      "path": "styles/crayon-book/demo",
+      "style": "Crayon Picture Book（蜡笔儿童绘本）",
+      "demo_film": "The Moon Can't Sleep / 月亮睡不着"
+    },
+    "canvas": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 24,
+      "page": "3200×1800 的一页，全页 = scale 0.6，镜头在纸上走"
+    },
+    "duration": {
+      "default": 52.0,
+      "min": 10,
+      "max": 120
+    },
+    "paper": {
+      "base": "#f4efe3（暖白）",
+      "tooth": "三倍频值噪声 1.35 / 2.9 / 6.3 px + 水平纤维项（x/10, y/1.9），对比 smoothstep(.16,.76)",
+      "anchor": "纸齿锚在页面上（随镜头平移；缩放时两个倍频交叉淡化，屏幕上恒定约 1 px），绝不做屏固定",
+      "finish": "最后一过浮雕（左上打光），蜡填满齿的地方浮雕减弱；低斑驳 ±2%，暖色晕影"
+    },
+    "wax": {
+      "model": "每一层蜡笔是一个画布：RGB = 颜色，A = 压力",
+      "threshold": "齿 > 1 − 1.22·压力 才上蜡（软边 ±0.07）",
+      "pressure": "轻压 = 只挂齿尖的点状；重压 = 近乎实心、略深 ×(1−0.1·p²)",
+      "rule": "这层物理决定一切质感，不许加滤镜假蜡笔"
+    },
+    "strokes": {
+      "shape": "带状笔画，低频手抖约 1.7 px，宽度 ±15%，两端收尖，中部更密并带 1–2 条细纹",
+      "width": "角色 7 px / 建筑 8 px / 精细物件 4–5 px",
+      "outline_colour": "一种深色（靛蓝 / 深褐 / 梅紫），从不用黑色"
+    },
+    "colouring": {
+      "pattern": "来回锯齿排线，留可见缝（约 10.5 px），每遍压力略不同",
+      "overshoot": "越界 0–7 px",
+      "press": "压力 0.72–1.14×；大片加一遍 40–50% 交叉排线",
+      "rule": "水彩经过的地方压力 ≥ 0.8 或交叉排线，否则发闷"
+    },
+    "wash": {
+      "layer": "独立密度画布 multiply 在页面上",
+      "behaviour": "边缘积色（密度减模糊密度）、最深的齿坑里颗粒化、噪声 bloom、推进中前沿是更深的湿边宽刷带（带刷毛细纹）",
+      "resist": "被蜡抗拒：density × (1 − 0.93·smoothstep(.12,.55, 蜡覆盖率))",
+      "count": "一部片子最多一支水彩，且从不涂角色"
+    },
+    "occlusion": "前面的部件在自己轮廓内擦掉后面的；角色身后「保住纸白」（knock-out 还原纸面并重置蜡），像小孩先画人再绕着涂色",
+    "palette": {
+      "paper": "#f4efe3",
+      "crayons": "12 支：ink/靛蓝 #2d3263（全片线色）、黄 #f5c63c、橙 #ec8a3c、红 #d4483c、粉 #ee8ea4、桃 #f4c7a4、棕 #7a4b31、赭 #e7b867、绿 #62a24c、天蓝 #79acd9、紫 #6a5aa6、白 #fbfaf4（白蜡抗拒专用）",
+      "watercolour": "一支 ultramarine，透射 (0.15, 0.19, 0.44)；按故事选（夜用群青、晨用玫瑰、雨用树汁绿）",
+      "value": "明暗靠压力，不靠加色"
+    },
+    "figure": {
+      "build": "成人假装小孩的画法：圆头约 2.5 头身、点眼 + 白蜡高光、粉颊、管状四肢、连指手、粗发块",
+      "objects": "有脸的物件配大眼与眼皮（月亮、房子、太阳都能有表情）",
+      "perspective": "儿童透视：山墙正面 + 侧墙斜着贴上去；人比门还大",
+      "hair": "头发只勾外沿，不要把线条画到发块上面（会看成发箍）"
+    },
+    "motion": {
+      "step": "所有绘制 12 fps 步进：线、涂色、角色、boil 种子；镜头、水彩前沿、闪光跑 24 fps",
+      "boil": "每 2 帧线条重抖（偏移 <1 px、手抖与排线行微变）；角色全抖，背景线 ×0.6，背景涂色不抖；安静处抖幅减半",
+      "draw_on": "线沿长度 0.4–0.9 s 画出来；涂色一行行铺；文字一个字一个字写",
+      "acting": "不用间插：一种姿势一张新画，按节拍替换；重复动作两张关键画交替"
+    },
+    "camera": {
+      "type": "二维相机在一整页上移动，词表不是路线",
+      "vocabulary": "锁全页 / 推向角色 / 锁中近景 / 沿视线摇 / 紧跟随（世界在主体前面自己画出来）/ 稳住广角看刷子在动 / 慢移横读 / 越出页边拉远（页是一个物件）/ 翻页",
+      "framing": "近景里关键人物 ≥ 画幅高度的 1/4；底部留出纸白给印的那行字",
+      "transition": "画出来、涂上去、水彩、平移、翻页；不用叠化（蜡笔不能淡出）"
+    },
+    "typography": {
+      "fonts": "Patrick Hand（字幕：50–56 px，墨色，每个字微倾与偏移，12 fps boil，左→右约 0.35 s，写在纸白挖空的毛边块上，不是深色字幕框）+ Gaegu（标题，Bold，逐字写）+ Short Stack / Gochi Hand / Caveat Brush / Sniglet 备用",
+      "hold": "保持 ≥ max(1.8 s, 语音 + 0.6 s)；无词的音乐段落不写字幕",
+      "voice_optional": "这条线可以没有旁白（无词段落由音乐与拟音扛）"
+    },
+    "native_moves": [
+      "白蜡抗拒：白蜡笔画在纸上是隐形的，洗过一次才露出来，第一帧就把它埋进去",
+      "世界先画出来：世界在主角手前面自己长出下一段（桥一块块长、路线一段段画）",
+      "涂色就是动作：被涂上色本身就是动作（盖上毯子 = 涂出格子、脸红 = 粉色乱涂）",
+      "boil：静止的画面也是活的；抖幅减半就把片子安静下来",
+      "儿童逻辑：错透视、物件长脸、数字写在天上",
+      "这是一本书：拉远露出书与蜡笔，翻一页到下一章"
+    ],
+    "audio": {
+      "lufs": -14,
+      "true_peak": -1.5,
+      "limiter": "alimiter -1.5 dBFS",
+      "premaster": "acompressor threshold=-18dB ratio=3 attack=5 release=60 → volume 补到 −14 LUFS",
+      "sample_rate": 48000,
+      "channels": 2,
+      "grain": 0,
+      "palette": "小木器与金属齿乐器，不用弦乐与三角钢琴：尤克里里/尼龙吉他、单簧管或巴松（低音与幽默）、音乐盒（能上弦走完）、钟琴/钢片琴（洗出一颗星一个音）、玩具钢琴（数一个东西一个音）、竖笛当歌声、沙锤与木鱼。一个主题留到最后完整听一次。",
+      "foley": "蜡笔 = stick-slip 带通噪声，颗粒跟笔画速度（涂色是节奏性的沙沙声）；湿刷 = 柔和低通噪声带刷毛细纹，跟着笔平移；毛毡噗、布料摩擦、翻页（抬起 / 呼 / 落下）",
+      "silence": "空一拍真静音当一个动作的休止；无词段落前留半秒气口",
+      "mix": "音乐在旁白下 −7 dB，无词段落 +4 dB；金属音色做柔和的高频提升"
+    },
+    "render": {
+      "engine": "vendor/runtime/render-legacy.mjs（playwright-core + ffmpeg，与 caiqian/ditu/pingban/gangbi 共用一份）",
+      "format": "jpeg",
+      "jpeg_quality": 92,
+      "crf": 18,
+      "preset": "medium",
+      "webgl": "无头 Chromium 默认 SwiftShader；出现「WebGL 上下文丢了」的全黑帧时用 LEMO_ANGLE=swiftshader",
+      "fps_real": "待实测（1920×1080，单 worker，WebGL2 合成）"
+    },
+    "delivery": {
+      "sample_dir": "projects/012_moon/out/",
+      "final": "projects/012_moon/out/moon.mp4",
+      "files": [
+        "<名>.mp4",
+        "<名>.srt"
+      ],
+      "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
+    },
+    "credits": [
+      "PICTURE: 本仓库代码自己画（gl.js / crayon.js / rig.js / chars.js / world.js / film.js / end.js），无生成图、无第三方素材",
+      "FONT: Patrick Hand、Gaegu、Short Stack、Gochi Hand、Caveat Brush、Sniglet，均 SIL OFL 1.1",
+      "STYLE: Crayon Picture Book，技法取自 lemo-opuscar styles/crayon-book",
+      "SOUND: 原 demo 的配乐（music/score.py）与拟音（mix.py）不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
+    ]
+  }
+}

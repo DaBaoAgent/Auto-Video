@@ -299,3 +299,8 @@ assets/fonts/*.part
 gangbi/projects/*/out/
 gangbi/projects/*/voice/*.wav
 gangbi/projects/*/fonts/*.ttf
+
+# labi（蜡笔儿童绘本）同上
+labi/projects/*/out/
+labi/projects/*/voice/*.wav
+labi/projects/*/fonts/*.ttf

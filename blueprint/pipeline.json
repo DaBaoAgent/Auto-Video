@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "blueprint",
-    "no": "30",
+    "no": "31",
     "name_zh": "工程蓝图",
     "name_en": "Blueprint",
     "station": "diagram",

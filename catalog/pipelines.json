@@ -122,6 +122,18 @@
       "sample": { "file": "gangbi 风去了哪里.mp4", "title": "风去了哪里", "seconds": 33.4 }
     },
     {
+      "id": "labi",
+      "station": "hand",
+      "name_zh": "蜡笔儿童绘本",
+      "name_en": "Crayon Picture Book",
+      "tagline": "一页绘本当着你的面画出来：蜡笔先走，水彩最后把藏起来的星星洗出来。",
+      "engine": "WebGL2 合成 + Canvas 逐帧 · 纸齿 / 蜡附着 / 水彩抗拒",
+      "aspect": "16:9",
+      "fps": 24,
+      "entry": "scripts/labi.py",
+      "sample": { "file": "labi 月亮睡不着.mp4", "title": "月亮睡不着", "seconds": 52.0 }
+    },
+    {
       "id": "piying",
       "station": "craft",
       "name_zh": "皮影卡片",

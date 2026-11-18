@@ -44,6 +44,13 @@ CANON_FILES = {
     "wenkai": "LXGWWenKai-Regular.ttf",
     "caveat": "Caveat.ttf",
     "reenie": "ReenieBeanie.ttf",
+    "patrickhand": "patrickhand_PatrickHand-Regular.ttf",
+    "gaegu": "gaegu_Gaegu-Regular.ttf",
+    "gaegub": "gaegu_Gaegu-Bold.ttf",
+    "shortstack": "shortstack_ShortStack-Regular.ttf",
+    "gochihand": "gochihand_GochiHand-Regular.ttf",
+    "caveatbrush": "caveatbrush_CaveatBrush-Regular.ttf",
+    "sniglet": "sniglet_Sniglet-Regular.ttf",
 }
 
 # 每条管线里「渲染时真的会被浏览器/Remotion 读」的字体落点
@@ -63,6 +70,15 @@ MANIFEST = {
     # 钢笔淡彩：标题与字幕用 Caveat，页边注记用 Reenie Beanie，两个都要在工程 fonts/ 里
     "gangbi": [("projects/012_wind/fonts/Caveat.ttf", "caveat"),
                ("projects/012_wind/fonts/ReenieBeanie.ttf", "reenie")],
+    # 蜡笔儿童绘本：字幕 Patrick Hand、标题 Gaegu（两个字重）、注记 Short Stack / Gochi Hand，
+    # Caveat Brush 与 Sniglet 备用；fonts.css 按这 7 个文件名取字
+    "labi": [("projects/012_moon/fonts/patrickhand_PatrickHand-Regular.ttf", "patrickhand"),
+             ("projects/012_moon/fonts/gaegu_Gaegu-Regular.ttf", "gaegu"),
+             ("projects/012_moon/fonts/gaegu_Gaegu-Bold.ttf", "gaegub"),
+             ("projects/012_moon/fonts/shortstack_ShortStack-Regular.ttf", "shortstack"),
+             ("projects/012_moon/fonts/gochihand_GochiHand-Regular.ttf", "gochihand"),
+             ("projects/012_moon/fonts/caveatbrush_CaveatBrush-Regular.ttf", "caveatbrush"),
+             ("projects/012_moon/fonts/sniglet_Sniglet-Regular.ttf", "sniglet")],
 }
 
 

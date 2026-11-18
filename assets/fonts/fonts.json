@@ -62,6 +62,76 @@
         "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/reeniebeanie/ReenieBeanie.ttf"
       ],
       "note": "页边的手写注记（日期 / 时间 / 天气 / 地点）"
+    },
+    "patrickhand_PatrickHand-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.2,
+      "sha256": "0f173b3e6cb6d1af25babf7f0057c5ac4ee11f9992b0469bb817e967ef4ad0fc",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/patrickhand/PatrickHand-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/patrickhand/PatrickHand-Regular.ttf"
+      ],
+      "note": "字幕：书页上印的那句话（54 px，蜡笔色）"
+    },
+    "gaegu_Gaegu-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 3.02,
+      "sha256": "aa52c98336f7c62e2896fc8b12b56a75d5b476d88a2f104b0980f4f7ce0adfc3",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/gaegu/Gaegu-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/gaegu/Gaegu-Regular.ttf"
+      ],
+      "note": "标题手写体（常规字重）"
+    },
+    "gaegu_Gaegu-Bold.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 2.83,
+      "sha256": "cc38a4af9506a45254d1ce07c589ec473d9e5f0be319e5a77b17c214903f8c1c",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/gaegu/Gaegu-Bold.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/gaegu/Gaegu-Bold.ttf"
+      ],
+      "note": "标题与结尾字（粗字重，一笔一笔写）"
+    },
+    "shortstack_ShortStack-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.06,
+      "sha256": "9f0e16e8683b2dce66edd7c3340362b554326739fbac594cabc1e9442cf5e8cc",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/shortstack/ShortStack-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/shortstack/ShortStack-Regular.ttf"
+      ],
+      "note": "小注记与道具上的字"
+    },
+    "gochihand_GochiHand-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.04,
+      "sha256": "c46b029ab4846b2935e301af0b2cf85a1d74d2858e6a33636a3e64cf3cc4696b",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/gochihand/GochiHand-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/gochihand/GochiHand-Regular.ttf"
+      ],
+      "note": "数数、天上的数字这类儿童笔迹"
+    },
+    "caveatbrush_CaveatBrush-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.28,
+      "sha256": "e565bd7bffd895ca64f8d1cb77c816b9b38d9c010246386a07c9648592f6f282",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/caveatbrush/CaveatBrush-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/caveatbrush/CaveatBrush-Regular.ttf"
+      ],
+      "note": "毛刷感的短标注"
+    },
+    "sniglet_Sniglet-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.07,
+      "sha256": "2856a975b9c0ac0402e8402ac4bd126cd97d6c90490435b6198d77e6384ae4f0",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/sniglet/Sniglet-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/sniglet/Sniglet-Regular.ttf"
+      ],
+      "note": "圆胖的强调字（标签、书名）"
     }
   }
 }
