@@ -1,0 +1,89 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "shuimo2",
+    "no": "17",
+    "name_zh": "中国水墨",
+    "name_en": "Chinese Ink Wash",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "一张宣纸：墨分五色，一笔下去有骨有肉，朱砂只在印章和一个点上。",
+    "engine": "Canvas 2D · 墨的浓淡/飞白/渗化 + 程序化宣纸",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/shuimo2.py",
+    "status": "live",
+    "sample": {
+      "file": "shuimo2 剑客与河.mp4",
+      "title": "剑客与河",
+      "seconds": 48.0
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": {
+      "repo": "lemomo-ai/lemo-opuscar",
+      "path": "styles/ink-wash/demo",
+      "style": "Chinese Ink Wash（中国水墨）",
+      "demo_film": "The Swordsman and the River / 剑客与河"
+    },
+    "canvas": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 24
+    },
+    "duration": {
+      "default": 48.0,
+      "min": 8,
+      "max": 150
+    },
+    "materials": {
+      "paper": "宣纸在合成器里程序化生成（不是贴图）：暖米 #F2ECDE、云状斑驳、长纤维、纸浆点、缩小后颗粒会退掉（不然闪）、轻晕影；锚在世界里",
+      "ink": "墨分五色（TONE）；一笔有骨有肉：中锋实、侧锋飞白、边缘渗化；泼墨与晕染分开",
+      "colour": "只有一支朱砂（约 #B02E22）给印章与故事里最多一处小点缀（主角带的东西）；绝不整片红、不用红字",
+      "motion": "人物 12 fps 拍二步进；位置、相机、晕、涟漪、飞溅 24 fps 一拍一帧",
+      "type": "题字用毛笔体（马善政 / 志莽行），正文衬线用 Cormorant；落款与印章在画内，不做浮层字幕框"
+    },
+    "palette": "",
+    "motion": "人物 12 fps 拍二步进；位置、相机、晕、涟漪、飞溅 24 fps 一拍一帧",
+    "type": "题字用毛笔体（马善政 / 志莽行），正文衬线用 Cormorant；落款与印章在画内，不做浮层字幕框",
+    "camera": "",
+    "native_moves": [
+      "一笔带过整片水",
+      "泼墨当高潮",
+      "飞白当风",
+      "留白当雾",
+      "印章收尾"
+    ],
+    "audio": {
+      "lufs": -14,
+      "true_peak": -1.5,
+      "limiter": "alimiter -1.5 dBFS",
+      "premaster": "acompressor threshold=-18dB ratio=3 attack=5 release=60 → volume 补到 −14 LUFS",
+      "sample_rate": 48000,
+      "channels": 2,
+      "grain": 0
+    },
+    "render": {
+      "engine": "vendor/runtime/render-legacy.mjs（playwright-core + ffmpeg，与本仓库其它管线共用一份）",
+      "format": "jpeg",
+      "jpeg_quality": 92,
+      "crf": 18,
+      "preset": "medium"
+    },
+    "delivery": {
+      "sample_dir": "projects/012_river/out/",
+      "final": "projects/012_river/out/river.mp4",
+      "files": [
+        "<名>.mp4"
+      ],
+      "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
+    },
+    "credits": [
+      "PICTURE: 本仓库代码自己画（The Swordsman and the River 的上游引擎迁入），无生成图、无第三方素材",
+      "FONT: Cormorant / Cormorant SC（OFL）、马善政毛笔体（OFL）、志莽行（OFL）",
+      "STYLE: Chinese Ink Wash，技法取自 lemo-opuscar styles/ink-wash/demo",
+      "SOUND: 上游配乐与拟音不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
+    ]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "weisuo",
+    "no": "33",
+    "name_zh": "孟菲斯微缩",
+    "name_en": "Memphis Diorama",
+    "station": "d3",
+    "station_no": "07",
+    "tagline": "一座 2D 形状搭起来的 3D 微缩小镇，一年四季在框里转，人在一格一格走。",
+    "engine": "three.js 3D 微缩 + 法线/深度描边后处理",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/weisuo.py",
+    "status": "live",
+    "sample": {
+      "file": "weisuo 柚子镇四季.mp4",
+      "title": "柚子镇四季",
+      "seconds": 45.0
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": {
+      "repo": "lemomo-ai/lemo-opuscar",
+      "path": "styles/memphis-diorama/demo",
+      "style": "Memphis Diorama（孟菲斯微缩）",
+      "demo_film": "Four Seasons in Pomelo Town / 柚子镇四季"
+    },
+    "canvas": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 60
+    },
+    "duration": {
+      "default": 45.0,
+      "min": 8,
+      "max": 150
+    },
+    "materials": {
+      "paper": "框外永远是暖白 #FFFCF6，那里不画任何东西",
+      "outline": "法线 + 深度的后处理描边，1080p 下约 2 px 深靛 #25214A；光锥、贴片、粒子（雨雪花瓣烟）与细枝不描边",
+      "palette": "5–7 个饱和色 + 2–3 个粉彩；示例：黄 #FFD234 / 粉 #FF7EB3 / 天蓝 #5CC8FF / 薄荷 #5EDFB0 / 淡紫 #B9A0FF / 桃 #FF9C6B / 钴蓝 #2F5BFF / 珊瑚 #FF5A5F / 绿 #2FCB7A；墨 #25214A 只给轮廓、字、轮胎与窗框",
+      "night": "夜是往紫的亮度移，不是整体压暗（黄不会变橄榄）；所有灯同一个暖黄 #FFD36E；黄昏加一层橙粉 #FF9E7A 再进夜",
+      "motion": "60 fps，每一帧都在动；只有画面的颗粒在 12 fps 上 boil",
+      "type": "框下三行居中：标题中英 600 / 约 25 px 深色，第二行 400 / 约 18 px 灰，第三行等宽 15 px 浅灰（时间、节气、地点、坐标）；有旁白时是「一行中文 + 一行英文」成对变化，另一行空位不顶上来",
+      "frame": "画面约 1520×744 px，略高于中心；字在框下，永不压主体"
+    },
+    "palette": "5–7 个饱和色 + 2–3 个粉彩；示例：黄 #FFD234 / 粉 #FF7EB3 / 天蓝 #5CC8FF / 薄荷 #5EDFB0 / 淡紫 #B9A0FF / 桃 #FF9C6B / 钴蓝 #2F5BFF / 珊瑚 #FF5A5F / 绿 #2FCB7A；墨 #25214A 只给轮廓、字、轮胎与窗框",
+    "motion": "60 fps，每一帧都在动；只有画面的颗粒在 12 fps 上 boil",
+    "type": "框下三行居中：标题中英 600 / 约 25 px 深色，第二行 400 / 约 18 px 灰，第三行等宽 15 px 浅灰（时间、节气、地点、坐标）；有旁白时是「一行中文 + 一行英文」成对变化，另一行空位不顶上来",
+    "camera": "",
+    "native_moves": [
+      "四季换季：同一座镇子换一层色与光",
+      "微缩景深：移轴式的浅景深让人变小",
+      "小人 12 fps 走，相机 60 fps 滑",
+      "夜间整镇换灯泡",
+      "下雨/落雪/花瓣翻页"
+    ],
+    "audio": {
+      "lufs": -14,
+      "true_peak": -1.5,
+      "limiter": "alimiter -1.5 dBFS",
+      "premaster": "acompressor threshold=-18dB ratio=3 attack=5 release=60 → volume 补到 −14 LUFS",
+      "sample_rate": 48000,
+      "channels": 2,
+      "grain": 0
+    },
+    "render": {
+      "engine": "vendor/runtime/render-legacy.mjs（playwright-core + ffmpeg，与本仓库其它管线共用一份）",
+      "format": "jpeg",
+      "jpeg_quality": 92,
+      "crf": 18,
+      "preset": "medium"
+    },
+    "delivery": {
+      "sample_dir": "projects/012_pomelo/out/",
+      "final": "projects/012_pomelo/out/pomelo.mp4",
+      "files": [
+        "<名>.mp4"
+      ],
+      "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
+    },
+    "credits": [
+      "PICTURE: 本仓库代码自己画（Four Seasons in Pomelo Town 的上游引擎迁入），无生成图、无第三方素材",
+      "FONT: three.js（MIT）随工程 lib/ 入库",
+      "STYLE: Memphis Diorama，技法取自 lemo-opuscar styles/memphis-diorama/demo",
+      "SOUND: 上游配乐与拟音不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
+    ]
+  }
+}

@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "isometric",
-    "no": "28",
+    "no": "32",
     "name_zh": "等距微缩",
     "name_en": "Isometric Diorama",
     "station": "d3",

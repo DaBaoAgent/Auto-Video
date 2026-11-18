@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "shiliang",
-    "no": "19",
+    "no": "22",
     "name_zh": "扁平矢量",
     "name_en": "Flat Vector",
     "station": "graphic",

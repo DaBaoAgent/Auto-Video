@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "shipai",
-    "no": "33",
+    "no": "38",
     "name_zh": "实拍混剪",
     "name_en": "Live-footage Cut",
     "station": "live",

@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "parable",
-    "no": "32",
+    "no": "37",
     "name_zh": "火柴人寓言",
     "name_en": "Stick-figure Parable",
     "station": "diagram",

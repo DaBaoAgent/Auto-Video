@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "manga",
-    "no": "16",
+    "no": "19",
     "name_zh": "漫画分格",
     "name_en": "Manga Panels",
     "station": "toon",

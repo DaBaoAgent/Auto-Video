@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "ditu",
-    "no": "30",
+    "no": "35",
     "name_zh": "真实地形",
     "name_en": "Terrain Map",
     "station": "map",

@@ -293,6 +293,7 @@ xuni/projects/009_prion_full/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
 
 # 字体本体不进仓库（assets/fonts/fonts.json 记地址，tools/sync_fonts.py --fetch 下载）
 assets/fonts/*.ttf
+assets/fonts/*.woff2
 assets/fonts/*.part
 
 # gangbi（钢笔淡彩）的工程产物与字体落点（字体由 tools/sync_fonts.py 放进来，Code 与配置入库）
@@ -304,3 +305,20 @@ gangbi/projects/*/fonts/*.ttf
 labi/projects/*/out/
 labi/projects/*/voice/*.wav
 labi/projects/*/fonts/*.ttf
+
+# weisuo（孟菲斯微缩）/ shuicai（水彩笔刷）：字体是按片子文本裁出的子集，没有稳定来源，随工程入库
+weisuo/projects/*/out/
+weisuo/projects/*/voice/*.wav
+shuicai/projects/*/out/
+shuicai/projects/*/voice/*.wav
+
+# fushihui / shuimo2 / zhuangshi：字体由 tools/sync_fonts.py 放进来
+fushihui/projects/*/out/
+fushihui/projects/*/voice/*.wav
+fushihui/projects/*/fonts/*.woff2
+shuimo2/projects/*/out/
+shuimo2/projects/*/voice/*.wav
+shuimo2/projects/*/fonts/*.ttf
+zhuangshi/projects/*/out/
+zhuangshi/projects/*/voice/*.wav
+zhuangshi/projects/*/fonts/*.ttf

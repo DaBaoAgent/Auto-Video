@@ -1,0 +1,92 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "fushihui",
+    "no": "16",
+    "name_zh": "浮世绘",
+    "name_en": "Ukiyo-e",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "一张木版画：墨线、几个色块各自错开半格印上去，纸在吃墨。",
+    "engine": "Canvas 2D · 分色版块 + 错版套印",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/fushihui.py",
+    "status": "live",
+    "sample": {
+      "file": "fushihui 向山.mp4",
+      "title": "向山",
+      "seconds": 44.0
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": {
+      "repo": "lemomo-ai/lemo-opuscar",
+      "path": "styles/ukiyoe/demo",
+      "style": "Ukiyo-e（浮世绘）",
+      "demo_film": "Toward the Mountain / 向山"
+    },
+    "canvas": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 24
+    },
+    "duration": {
+      "default": 44.0,
+      "min": 8,
+      "max": 150
+    },
+    "materials": {
+      "blocks": "每个色组画进各自的离屏画布并缓存（主墨线 / 蓝 / 绿·次色 / 红·人物），合成时每块给一个固定的小错版偏移（1.5–2.5 px，方向各不相同）",
+      "line": "主墨线 2.4–3 px；大轮廓是变宽的填充笔触、两端收尖、低频宽度抖动 ±20–35%；远景用灰墨线或不画",
+      "bokashi": "渐变逐像素生成，上缘按列被低频噪声带偏移 ±20–30 px；绝不用 fillRect 拼条（会有竖缝）",
+      "seal": "朱印从红色里挖出字，边缘有缺口感",
+      "figure": "人物在景里很小（整幅约 80–130 px），平涂、剪影清楚，脸几笔",
+      "motion": "人物与自然 8 fps 步进；雨与急水 12 fps；相机 24 fps 走一拍一帧（相机步进会抖）",
+      "reveal": "印刷揭示：每块约 0.3 s 以对角刮擦出现，边缘带噪，落位时滑 5–6 px 进对位",
+      "type": "字幕 = 横向题签：米色纸条 + 粗细墨框 + 左侧小朱印，Shippori Mincho 500 墨色居中靠下；占底部约 150 px，地面线与人物要在这之上；保持 ≥ max(1.8 s, 语音+0.6 s)"
+    },
+    "palette": "",
+    "motion": "人物与自然 8 fps 步进；雨与急水 12 fps；相机 24 fps 走一拍一帧（相机步进会抖）",
+    "type": "字幕 = 横向题签：米色纸条 + 粗细墨框 + 左侧小朱印，Shippori Mincho 500 墨色居中靠下；占底部约 150 px，地面线与人物要在这之上；保持 ≥ max(1.8 s, 语音+0.6 s)",
+    "camera": "",
+    "native_moves": [
+      "分色套印：颜色一块块错开半格印上去",
+      "印刷揭示带刮擦",
+      "朱印按下去",
+      "远景只用灰墨线",
+      "浪的爪"
+    ],
+    "audio": {
+      "lufs": -14,
+      "true_peak": -1.5,
+      "limiter": "alimiter -1.5 dBFS",
+      "premaster": "acompressor threshold=-18dB ratio=3 attack=5 release=60 → volume 补到 −14 LUFS",
+      "sample_rate": 48000,
+      "channels": 2,
+      "grain": 0
+    },
+    "render": {
+      "engine": "vendor/runtime/render-legacy.mjs（playwright-core + ffmpeg，与本仓库其它管线共用一份）",
+      "format": "jpeg",
+      "jpeg_quality": 92,
+      "crf": 18,
+      "preset": "medium"
+    },
+    "delivery": {
+      "sample_dir": "projects/012_toward/out/",
+      "final": "projects/012_toward/out/toward.mp4",
+      "files": [
+        "<名>.mp4"
+      ],
+      "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
+    },
+    "credits": [
+      "PICTURE: 本仓库代码自己画（Toward the Mountain 的上游引擎迁入），无生成图、无第三方素材",
+      "FONT: Shippori Mincho（OFL）、Yuji 毛笔体（OFL），汉字用按片子裁的分片",
+      "STYLE: Ukiyo-e，技法取自 lemo-opuscar styles/ukiyoe/demo",
+      "SOUND: 上游配乐与拟音不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
+    ]
+  }
+}

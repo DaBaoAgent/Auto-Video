@@ -159,6 +159,26 @@
     "peiyin": {
       "render": null,
       "reason": "配音前端：它本身就是 frontend 的可选替代（克隆音色），不出片"
+    },
+    "weisuo": {
+      "render": null,
+      "reason": "孟菲斯微缩按 slug 复制 012_pomelo 骨架，是 three.js 三维微缩，四季与镜头要手工定"
+    },
+    "shuicai": {
+      "render": null,
+      "reason": "水彩笔刷按 slug 复制 012_aus 骨架，湿画法的笔序与画面要手工定；这张是长片（113.6 s）"
+    },
+    "fushihui": {
+      "render": null,
+      "reason": "浮世绘按 slug 复制 012_toward 骨架，分色版块与错版由画面自动生成，景与镜头要手工定"
+    },
+    "shuimo2": {
+      "render": null,
+      "reason": "中国水墨按 slug 复制 012_river 骨架，墨与宣纸在合成器里生成，画面与镜头要手工定"
+    },
+    "zhuangshi": {
+      "render": null,
+      "reason": "装饰艺术按 slug 复制 012_starlight 骨架，场景在 scenes/ 与 shots_/ 里，镜头表沿 timeline.json"
     }
   }
 }

@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "shadow",
-    "no": "12",
+    "no": "13",
     "name_zh": "皮影戏",
     "name_en": "Shadow Puppetry",
     "station": "craft",

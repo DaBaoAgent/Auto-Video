@@ -134,6 +134,18 @@
       "sample": { "file": "labi 月亮睡不着.mp4", "title": "月亮睡不着", "seconds": 52.0 }
     },
     {
+      "id": "shuicai",
+      "station": "hand",
+      "name_zh": "水彩笔刷",
+      "name_en": "Watercolor Brush",
+      "tagline": "一笔一笔湿接湿的水彩，颜色在纸上自己走、自己干、自己留边。",
+      "engine": "Canvas 2D · 湿画法笔刷 + 纸张吸收",
+      "aspect": "16:9",
+      "fps": 24,
+      "entry": "scripts/shuicai.py",
+      "sample": { "file": "shuicai 从旱到涝.mp4", "title": "从旱到涝", "seconds": 113.6 }
+    },
+    {
       "id": "piying",
       "station": "craft",
       "name_zh": "皮影卡片",
@@ -192,6 +204,30 @@
       "fps": 30,
       "entry": "scripts/laolang.py",
       "sample": { "file": "laolang 玄奘.mp4", "title": "玄奘", "seconds": 62.2 }
+    },
+    {
+      "id": "fushihui",
+      "station": "craft",
+      "name_zh": "浮世绘",
+      "name_en": "Ukiyo-e",
+      "tagline": "一张木版画：墨线、几个色块各自错开半格印上去，纸在吃墨。",
+      "engine": "Canvas 2D · 分色版块 + 错版套印",
+      "aspect": "16:9",
+      "fps": 24,
+      "entry": "scripts/fushihui.py",
+      "sample": { "file": "fushihui 向山.mp4", "title": "向山", "seconds": 44.0 }
+    },
+    {
+      "id": "shuimo2",
+      "station": "craft",
+      "name_zh": "中国水墨",
+      "name_en": "Chinese Ink Wash",
+      "tagline": "一张宣纸：墨分五色，一笔下去有骨有肉，朱砂只在印章和一个点上。",
+      "engine": "Canvas 2D · 墨的浓淡/飞白/渗化 + 程序化宣纸",
+      "aspect": "16:9",
+      "fps": 24,
+      "entry": "scripts/shuimo2.py",
+      "sample": { "file": "shuimo2 剑客与河.mp4", "title": "剑客与河", "seconds": 48.0 }
     },
     {
       "id": "goldenage",
@@ -290,6 +326,18 @@
       "sample": { "file": "bianping 扁平尺度漫游 僵尸地球.mp4", "title": "僵尸地球", "seconds": 35.7 }
     },
     {
+      "id": "zhuangshi",
+      "station": "graphic",
+      "name_zh": "装饰艺术",
+      "name_en": "Art Deco",
+      "tagline": "金线、漆面黑、阶梯边：酒店大堂在午夜亮起来，一切都从中心展开。",
+      "engine": "Canvas 2D · 金色渐变线 + 灯泡招牌 + 装饰字体排版",
+      "aspect": "16:9",
+      "fps": 24,
+      "entry": "scripts/zhuangshi.py",
+      "sample": { "file": "zhuangshi 星光酒店午夜.mp4", "title": "星光酒店午夜", "seconds": 39.0 }
+    },
+    {
       "id": "xianshiqi",
       "station": "screen",
       "name_zh": "赛博 HUD",
@@ -360,6 +408,18 @@
       "fps": 30,
       "entry": "scripts/isometric.py",
       "sample": { "file": "isometric_阿努纳奇.mp4", "title": "阿努纳奇", "seconds": 30.4 }
+    },
+    {
+      "id": "weisuo",
+      "station": "d3",
+      "name_zh": "孟菲斯微缩",
+      "name_en": "Memphis Diorama",
+      "tagline": "一座 2D 形状搭起来的 3D 微缩小镇，一年四季在框里转，人在一格一格走。",
+      "engine": "three.js 3D 微缩 + 法线/深度描边后处理",
+      "aspect": "16:9",
+      "fps": 24,
+      "entry": "scripts/weisuo.py",
+      "sample": { "file": "weisuo 柚子镇四季.mp4", "title": "柚子镇四季", "seconds": 45.0 }
     },
     {
       "id": "map",

@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "chengshi",
-    "no": "26",
+    "no": "30",
     "name_zh": "城市年轮",
     "name_en": "City Rings",
     "station": "d3",

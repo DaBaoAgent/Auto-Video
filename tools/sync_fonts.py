@@ -51,6 +51,23 @@ CANON_FILES = {
     "gochihand": "gochihand_GochiHand-Regular.ttf",
     "caveatbrush": "caveatbrush_CaveatBrush-Regular.ttf",
     "sniglet": "sniglet_Sniglet-Regular.ttf",
+    # 中国水墨：Cormorant 两族 + 两支中文毛笔体
+    "cormorant": "CormorantGaramond-VF.ttf",
+    "cormoranti": "CormorantGaramond-Italic-VF.ttf",
+    "cormorantsc": "CormorantSC-Medium.ttf",
+    "cormorantscb": "CormorantSC-SemiBold.ttf",
+    "mashanzheng": "MaShanZheng-Regular.ttf",
+    "zhimangxing": "ZhiMangXing-Regular.ttf",
+    # 装饰艺术
+    "limelight": "Limelight-Regular.ttf",
+    "poiret": "PoiretOne-Regular.ttf",
+    "josefin": "JosefinSans[wght].ttf",
+    "italiana": "Italiana-Regular.ttf",
+    # 浮世绘：Shippori Mincho 两字重 + 两套汉字分片
+    "shippori": "shippori-500.woff2",
+    "shipporib": "shippori-700.woff2",
+    "shipporikanji": "shippori-kanji.woff2",
+    "yujikanji": "yuji-kanji.woff2",
 }
 
 # 每条管线里「渲染时真的会被浏览器/Remotion 读」的字体落点
@@ -79,6 +96,24 @@ MANIFEST = {
              ("projects/012_moon/fonts/gochihand_GochiHand-Regular.ttf", "gochihand"),
              ("projects/012_moon/fonts/caveatbrush_CaveatBrush-Regular.ttf", "caveatbrush"),
              ("projects/012_moon/fonts/sniglet_Sniglet-Regular.ttf", "sniglet")],
+    # 中国水墨：衬线正文 + 毛笔题字
+    "shuimo2": [("projects/012_river/fonts/CormorantGaramond-VF.ttf", "cormorant"),
+                ("projects/012_river/fonts/CormorantGaramond-Italic-VF.ttf", "cormoranti"),
+                ("projects/012_river/fonts/CormorantSC-Medium.ttf", "cormorantsc"),
+                ("projects/012_river/fonts/CormorantSC-SemiBold.ttf", "cormorantscb"),
+                ("projects/012_river/fonts/MaShanZheng-Regular.ttf", "mashanzheng"),
+                ("projects/012_river/fonts/ZhiMangXing-Regular.ttf", "zhimangxing")],
+    # 装饰艺术：四个字体各司其职
+    "zhuangshi": [("projects/012_starlight/fonts/Limelight-Regular.ttf", "limelight"),
+                  ("projects/012_starlight/fonts/PoiretOne-Regular.ttf", "poiret"),
+                  ("projects/012_starlight/fonts/JosefinSans[wght].ttf", "josefin"),
+                  ("projects/012_starlight/fonts/Italiana-Regular.ttf", "italiana")],
+    # 浮世绘：明朝体 + 汉字分片
+    "fushihui": [("projects/012_toward/fonts/shippori-500.woff2", "shippori"),
+                 ("projects/012_toward/fonts/shippori-700.woff2", "shipporib"),
+                 ("projects/012_toward/fonts/shippori-kanji.woff2", "shipporikanji"),
+                 ("projects/012_toward/fonts/yuji-kanji.woff2", "yujikanji")],
+    # weisuo / shuicai 的字体是按片子文本裁的子集、没有稳定来源，随工程入库，不走本表
 }
 
 

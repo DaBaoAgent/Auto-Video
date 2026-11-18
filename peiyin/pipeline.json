@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "peiyin",
-    "no": "35",
+    "no": "40",
     "name_zh": "配音前端",
     "name_en": "Voice Front-end",
     "station": "front",

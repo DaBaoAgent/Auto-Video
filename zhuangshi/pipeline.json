@@ -1,0 +1,90 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "zhuangshi",
+    "no": "26",
+    "name_zh": "装饰艺术",
+    "name_en": "Art Deco",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "金线、漆面黑、阶梯边：酒店大堂在午夜亮起来，一切都从中心展开。",
+    "engine": "Canvas 2D · 金色渐变线 + 灯泡招牌 + 装饰字体排版",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/zhuangshi.py",
+    "status": "live",
+    "sample": {
+      "file": "zhuangshi 星光酒店午夜.mp4",
+      "title": "星光酒店午夜",
+      "seconds": 39.0
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": {
+      "repo": "lemomo-ai/lemo-opuscar",
+      "path": "styles/art-deco/demo",
+      "style": "Art Deco（装饰艺术）",
+      "demo_film": "Midnight at the Starlight Hotel / 星光酒店午夜"
+    },
+    "canvas": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 24
+    },
+    "duration": {
+      "default": 39.0,
+      "min": 8,
+      "max": 150
+    },
+    "materials": {
+      "stroke": "签名笔画 gline：比线宽约 1.6 px 的深色刻线 + 金色渐变线 + 顶上一根细高光；可选发光与平行双线；没有任何东西是黑色卡通轮廓",
+      "palette": "漆面近黑、金渐变、象牙字、深绿/酒红点缀；金色是渐变不是单色，且越亮的地方金越白",
+      "bulbs": "灯泡招牌沿字形骨架排：用 crossing number 判节点、链端 14 px 内焊接，否则 G/S/R 在曲线上会断",
+      "motion": "人物 12 fps 拍二步进；相机、光、灯泡、金色描线、光泽 24 fps 一拍一帧",
+      "type": "标题、字幕、转场是一个系统：都从中心展开。字幕卡是漆面黑条约 88% + 阶梯端 + 双金线，Josefin Sans SemiBold 40–42 px 象牙色，可按声音加小喇叭图标；保持 ≥ max(1.8 s, 语音+0.6 s)",
+      "camera": "相机卡片化：镜头在装饰卡片上滑与翻，不做常规剪辑"
+    },
+    "palette": "漆面近黑、金渐变、象牙字、深绿/酒红点缀；金色是渐变不是单色，且越亮的地方金越白",
+    "motion": "人物 12 fps 拍二步进；相机、光、灯泡、金色描线、光泽 24 fps 一拍一帧",
+    "type": "标题、字幕、转场是一个系统：都从中心展开。字幕卡是漆面黑条约 88% + 阶梯端 + 双金线，Josefin Sans SemiBold 40–42 px 象牙色，可按声音加小喇叭图标；保持 ≥ max(1.8 s, 语音+0.6 s)",
+    "camera": "相机卡片化：镜头在装饰卡片上滑与翻，不做常规剪辑",
+    "native_moves": [
+      "标题从中心展开",
+      "金色描线一笔划过去",
+      "灯泡招牌一个个亮",
+      "卡片翻转换场",
+      "镜像双线"
+    ],
+    "audio": {
+      "lufs": -14,
+      "true_peak": -1.5,
+      "limiter": "alimiter -1.5 dBFS",
+      "premaster": "acompressor threshold=-18dB ratio=3 attack=5 release=60 → volume 补到 −14 LUFS",
+      "sample_rate": 48000,
+      "channels": 2,
+      "grain": 0
+    },
+    "render": {
+      "engine": "vendor/runtime/render-legacy.mjs（playwright-core + ffmpeg，与本仓库其它管线共用一份）",
+      "format": "jpeg",
+      "jpeg_quality": 92,
+      "crf": 18,
+      "preset": "medium"
+    },
+    "delivery": {
+      "sample_dir": "projects/012_starlight/out/",
+      "final": "projects/012_starlight/out/starlight.mp4",
+      "files": [
+        "<名>.mp4"
+      ],
+      "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
+    },
+    "credits": [
+      "PICTURE: 本仓库代码自己画（Midnight at the Starlight Hotel 的上游引擎迁入），无生成图、无第三方素材",
+      "FONT: Limelight / Poiret One / Josefin Sans / Italiana，均 OFL",
+      "STYLE: Art Deco，技法取自 lemo-opuscar styles/art-deco/demo",
+      "SOUND: 上游配乐与拟音不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
+    ]
+  }
+}

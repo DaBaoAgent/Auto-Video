@@ -1,0 +1,88 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "shuicai",
+    "no": "10",
+    "name_zh": "水彩笔刷",
+    "name_en": "Watercolor Brush",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "一笔一笔湿接湿的水彩，颜色在纸上自己走、自己干、自己留边。",
+    "engine": "Canvas 2D · 湿画法笔刷 + 纸张吸收",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/shuicai.py",
+    "status": "live",
+    "sample": {
+      "file": "shuicai 从旱到涝.mp4",
+      "title": "从旱到涝",
+      "seconds": 113.6
+    },
+    "updated": "2026-11-15"
+  },
+  "spec": {
+    "source": {
+      "repo": "lemomo-ai/lemo-opuscar",
+      "path": "styles/watercolor/demo",
+      "style": "Watercolor Brush（水彩笔刷）",
+      "demo_film": "Arid to Wet / 从旱到涝"
+    },
+    "canvas": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 60
+    },
+    "duration": {
+      "default": 113.6,
+      "min": 8,
+      "max": 150
+    },
+    "materials": {
+      "medium": "湿画法：颜色在湿纸上扩散、边界积水变深、干后留一圈边；不画硬边色块",
+      "paper": "纸本身的暖调与颗粒参与成像，不是白底",
+      "palette": "示例：旱到涝 红赭 → 鼠尾草 → 麦秆 → 蓝灰 → 深绿；港口清晨 天 #f3e2c8 / 水 #9fb4c4 / 船体 #5f7486 / 点缀 #c8442a；菜园 土 #e8e0c0 / 叶 #8ea860 / 影 #4e6e3c / 南瓜 #d9632e",
+      "motion": "60 fps + 平滑缓动（ss/eio/eo/ei），慢而流的水彩不该抖",
+      "type": "字幕写在纸上不开框：底部居中，衬线斜体约 36 px（最多两行平衡），第二语言一行约 2/3 字号，墨 78% 压在纸色光晕上；保持 ≥ max(1.8 s, 语音+0.6 s)"
+    },
+    "palette": "示例：旱到涝 红赭 → 鼠尾草 → 麦秆 → 蓝灰 → 深绿；港口清晨 天 #f3e2c8 / 水 #9fb4c4 / 船体 #5f7486 / 点缀 #c8442a；菜园 土 #e8e0c0 / 叶 #8ea860 / 影 #4e6e3c / 南瓜 #d9632e",
+    "motion": "60 fps + 平滑缓动（ss/eio/eo/ei），慢而流的水彩不该抖",
+    "type": "字幕写在纸上不开框：底部居中，衬线斜体约 36 px（最多两行平衡），第二语言一行约 2/3 字号，墨 78% 压在纸色光晕上；保持 ≥ max(1.8 s, 语音+0.6 s)",
+    "camera": "",
+    "native_moves": [
+      "一笔从旱画到涝",
+      "颜色自己流过去",
+      "留白当旱地",
+      "同一棵树湿了又干"
+    ],
+    "audio": {
+      "lufs": -14,
+      "true_peak": -1.5,
+      "limiter": "alimiter -1.5 dBFS",
+      "premaster": "acompressor threshold=-18dB ratio=3 attack=5 release=60 → volume 补到 −14 LUFS",
+      "sample_rate": 48000,
+      "channels": 2,
+      "grain": 0
+    },
+    "render": {
+      "engine": "vendor/runtime/render-legacy.mjs（playwright-core + ffmpeg，与本仓库其它管线共用一份）",
+      "format": "jpeg",
+      "jpeg_quality": 92,
+      "crf": 18,
+      "preset": "medium"
+    },
+    "delivery": {
+      "sample_dir": "projects/012_aus/out/",
+      "final": "projects/012_aus/out/aus.mp4",
+      "files": [
+        "<名>.mp4"
+      ],
+      "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
+    },
+    "credits": [
+      "PICTURE: 本仓库代码自己画（Arid to Wet 的上游引擎迁入），无生成图、无第三方素材",
+      "FONT: 字幕与标题用 Google Fonts 子集（Noto Serif SC / Cormorant Garamond / Caveat / IBM Plex Mono，均 OFL）",
+      "STYLE: Watercolor Brush，技法取自 lemo-opuscar styles/watercolor/demo",
+      "SOUND: 上游配乐与拟音不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
+    ]
+  }
+}

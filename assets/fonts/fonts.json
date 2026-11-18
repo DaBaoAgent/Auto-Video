@@ -1,5 +1,4 @@
 {
-  "_note": "字体不进仓库。第一次渲染前跑 `python tools/sync_fonts.py --fetch` 按这里的地址下载，落到 assets/fonts/ 后校验 SHA256；已下载的文件被 .gitignore 忽略。地址按优先级排列，第一个失败会试下一个；全部失败时脚本会打印手动放置路径。",
   "fonts": {
     "NotoSerifSC.ttf": {
       "license": "OFL-1.1",
@@ -132,6 +131,142 @@
         "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/sniglet/Sniglet-Regular.ttf"
       ],
       "note": "圆胖的强调字（标签、书名）"
+    },
+    "CormorantGaramond-VF.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 1.14,
+      "sha256": "b20b7d9626dd956b2c5e558692ad328b1f19e3275e2782db4fa07670d83f35e0",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/cormorantgaramond/CormorantGaramond%5Bwght%5D.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/cormorantgaramond/CormorantGaramond%5Bwght%5D.ttf"
+      ],
+      "note": "正文衬线（可变字重）"
+    },
+    "CormorantSC-Medium.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.73,
+      "sha256": "7ec02e6b6c20697fd8d5038349452b6f3c628c16440a04156650d42e3fef89bf",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/cormorantsc/CormorantSC-Medium.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/cormorantsc/CormorantSC-Medium.ttf"
+      ],
+      "note": "小字标题（中型）"
+    },
+    "CormorantSC-SemiBold.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.73,
+      "sha256": "648cd1c932871e4e8e1d147b593315409e8ea82282f88e9397e2cceae83d065b",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/cormorantsc/CormorantSC-SemiBold.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/cormorantsc/CormorantSC-SemiBold.ttf"
+      ],
+      "note": "小字标题（半粗）"
+    },
+    "MaShanZheng-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 5.59,
+      "sha256": "6d2546bb189c732a8ca29af9e22457b152387d158aa459e4ac2ce1e51788b7fb",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/mashanzheng/MaShanZheng-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/mashanzheng/MaShanZheng-Regular.ttf"
+      ],
+      "note": "毛笔题字（马善政）"
+    },
+    "ZhiMangXing-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 3.88,
+      "sha256": "644e0cae9b40f0b10ab729a01bd32032e3973bac22be3dccae01bf6ae7fde969",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/zhimangxing/ZhiMangXing-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/zhimangxing/ZhiMangXing-Regular.ttf"
+      ],
+      "note": "狂草落款（志莽行）"
+    },
+    "Limelight-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.13,
+      "sha256": "f5bf8a9159adfc5b9c756c85d812a4fd1299b8916fefdf39ad4b24ade6d8d0cf",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/limelight/Limelight-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/limelight/Limelight-Regular.ttf"
+      ],
+      "note": "装饰艺术大标题"
+    },
+    "PoiretOne-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.12,
+      "sha256": "457f2d03263f58e5a6dbcc1b607b10dff6581e7cf9c4ebdf330ec3e6772a3558",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/poiretone/PoiretOne-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/poiretone/PoiretOne-Regular.ttf"
+      ],
+      "note": "细线几何字（字幕与副标）"
+    },
+    "JosefinSans[wght].ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.11,
+      "sha256": "9255abdb5f393bc51e101abbd07a716a977fd3e15472b1b84b260f426a342bfd",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/josefinsans/JosefinSans%5Bwght%5D.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/josefinsans/JosefinSans%5Bwght%5D.ttf"
+      ],
+      "note": "正文与标签（可变字重）"
+    },
+    "Italiana-Regular.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.03,
+      "sha256": "0ad271d9cd42a57cd5c5fa483ae2406a8138b95acb2a43eb73a8d37b7291fee9",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/italiana/Italiana-Regular.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/italiana/Italiana-Regular.ttf"
+      ],
+      "note": "酒店招牌衬线"
+    },
+    "shippori-500.woff2": {
+      "license": "OFL-1.1",
+      "size_mb": 0.03,
+      "sha256": "2ae50ae674f7ead88a6eb0b28a87b751603788314a75168ce4a0440ccb9e0f34",
+      "urls": [
+        "https://fonts.gstatic.com/s/shipporiminchob1/v24/wXK1E2wCr44tulPdnn-xbIpJ9RgT9-nKeol_2XKgxn0Euw.woff2"
+      ],
+      "note": "明朝体正文（中）"
+    },
+    "shippori-700.woff2": {
+      "license": "OFL-1.1",
+      "size_mb": 0.03,
+      "sha256": "6b52957cd60267748a7ff367fb6100f68648b63a01bdf65dc4a47db303e4fafa",
+      "urls": [
+        "https://fonts.gstatic.com/s/shipporiminchob1/v24/wXK1E2wCr44tulPdnn-xbIpJ9RgT9-nKMo9_2XKgxn0Euw.woff2"
+      ],
+      "note": "明朝体标题（粗）"
+    },
+    "yuji-kanji.woff2": {
+      "license": "OFL-1.1",
+      "size_mb": 0.01,
+      "sha256": "7d9b6cbde3580e0eb088a5321aad1b47d22b7f834e0495838bc62ab5e8789850",
+      "urls": [
+        "https://fonts.gstatic.com/l/font?kit=BngNUXdTV3vO6Lw5ApOPqPLgxKiB016imHlMp0YYi8XemWgmMW4qkeGyGCGeJldNtdeK0nam1Ei7yQhLaOgxngPhTHqCSBMwXg2wc_7rwvYBS5rRPhfWavKMIBqT&skey=9ffd14150d67040a&v=v9"
+      ],
+      "note": "毛笔体汉字（題字）"
+    },
+    "CormorantGaramond-Italic-VF.ttf": {
+      "license": "OFL-1.1",
+      "size_mb": 0.68,
+      "sha256": "0f48ea6abb2084537854f7174c470991a463b13036309e3b50a81511611c530d",
+      "urls": [
+        "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/cormorantgaramond/CormorantGaramond-Italic%5Bwght%5D.ttf",
+        "https://cdn.jsdelivr.net/gh/google/fonts@86aced91de05cd4f96a06838124cca45be337b2b/ofl/cormorantgaramond/CormorantGaramond-Italic%5Bwght%5D.ttf"
+      ],
+      "note": "正文斜体"
+    },
+    "shippori-kanji.woff2": {
+      "license": "OFL-1.1",
+      "size_mb": 0.01,
+      "sha256": "dbb71c8eb89660161ac290176b82bc88bfd7f1e48689dba9adb4173f04333ed0",
+      "urls": [
+        "https://fonts.gstatic.com/l/font?kit=wXK1E2wCr44tulPdnn-xbIpJ9RgT9-nKVo5P23in5H8-_RXZDE7W25vpdrc6QOoP0WpmWVU1b9jQ0jEYbmSFyIUvUmfsKExGgph7rtuYO14gDMyLqEC63bJyQlHQpBY8AfVc6-vGCe4&skey=2867c78c9b80ca5d&v=v24"
+      ],
+      "note": "只含本片用到的汉字（7 KB 子集）；gstatic 上的版本号写死，失效时用 --fetch 会报缺"
     }
   }
 }

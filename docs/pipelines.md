@@ -1,4 +1,4 @@
-# 管线清单：35 条，一条一个命令
+# 管线清单：40 条，一条一个命令
 
 这份清单由 `tools/build_pipeline_doc.py` 从 `catalog/pipelines.json` 生成，是目录的镜像；
 **入口与参数以各管线自己的 `SKILL.md` 为准**。这里回答的是「这条线现在能不能跑、从哪儿进、吃到什么输入」。
@@ -9,7 +9,7 @@
 - **beta** = 代码与文档在，样片还没补齐；
 - 命令都在仓库根目录执行，入口路径取 `pipeline.json` 的 `meta.entry`；不确定就 `--help`。
 
-当前：**34 条 live / 1 条待补样片 / 11 个工位**。
+当前：**39 条 live / 1 条待补样片 / 11 个工位**。
 
 ## 01 · 纸本叙事　*Paper & Chronicle*
 
@@ -29,15 +29,18 @@
 | `pencil` | 铅笔测试（Pencil Test） | live | Canvas · Chrome 逐帧 | `scripts/pencil.py` | 30s |
 | `pingban` | 平板速写（Tablet Sketch） | live | 纯 Canvas · 零依赖 | `scripts/pingban.py` | 39s |
 | `shouhui` | 逐帧手绘（Hand-drawn Cel） | live | Canvas 逐帧 · 浏览器渲染 | `scripts/shouhui.py` | 206s |
+| `shuicai` | 水彩笔刷（Watercolor Brush） | live | Canvas 2D · 湿画法笔刷 + 纸张吸收 | `scripts/shuicai.py` | 114s |
 
 ## 03 · 传统工艺　*Traditional Crafts*
 
 | id | 名称 | 状态 | 引擎 | 入口 | 样片 |
 | --- | --- | --- | --- | --- | --- |
+| `fushihui` | 浮世绘（Ukiyo-e） | live | Canvas 2D · 分色版块 + 错版套印 | `scripts/fushihui.py` | 44s |
 | `laolang` | 上美影手绘（Shanghai Cel） | live | Canvas · Chrome 逐帧 | `scripts/laolang.py` | 62s |
 | `piying` | 皮影卡片（Shadow-puppet Cards） | live | Playwright + Canvas 逐帧 | `scripts/piying.py` | 272s |
 | `shadow` | 皮影戏（Shadow Puppetry） | live | Canvas · Chrome 逐帧 | `scripts/shadow.py` | 203s |
 | `shuimo` | 纸本水墨（Ink Wash） | live | SVG + Canvas | `scripts/shuimo.py` | 30s |
+| `shuimo2` | 中国水墨（Chinese Ink Wash） | live | Canvas 2D · 墨的浓淡/飞白/渗化 + 程序化宣纸 | `scripts/shuimo2.py` | 48s |
 | `tapestry` | 贝叶挂毯（Bayeux Tapestry） | live | Canvas · Chrome 逐帧 | `scripts/tapestry.py` | 30s |
 
 ## 05 · 平面图形　*Graphic & Motion*
@@ -48,6 +51,7 @@
 | `huixingzhen` | 回形针风（Paperclip Explainer） | live | HTML 逐帧 · 确定性渲染 | `scripts/gen_episode.py` | 597s |
 | `lvdong` | 剪影律动（Silhouette Rhythm） | live | Canvas + 着色器 · 代码合成配乐 | `scripts/lvdong.py` | 58s |
 | `shiliang` | 扁平矢量（Flat Vector） | live | SVG 单页 · 逐帧确定性渲染 | `scripts/shiliang.py` | 30s |
+| `zhuangshi` | 装饰艺术（Art Deco） | live | Canvas 2D · 金色渐变线 + 灯泡招牌 + 装饰字体排版 | `scripts/zhuangshi.py` | 39s |
 
 ## 06 · 屏幕赛博　*Screens & Neon*
 
@@ -114,6 +118,7 @@
 | id | 名称 | 状态 | 引擎 | 入口 | 样片 |
 | --- | --- | --- | --- | --- | --- |
 | `tuiyan` | 3D 战场推演（3D Battle Sim） | live | 3D 兵棋引擎 · 逐帧稳帧渲染 | `scripts/tuiyan.py` | 540s |
+| `weisuo` | 孟菲斯微缩（Memphis Diorama） | live | three.js 3D 微缩 + 法线/深度描边后处理 | `scripts/weisuo.py` | 45s |
 
 ## 99 · toon　**
 
