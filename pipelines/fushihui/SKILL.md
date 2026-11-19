@@ -57,6 +57,15 @@ python fushihui/scripts/fushihui.py new    013_xxx
 
 转场只用这套材料自己的手段：不用叠化，不做常规剪辑。
 
+## 画幅：横屏与竖屏（2026-11-19 起）
+
+管线不再写死 16:9。`index.html` 的 canvas 按视口尺寸建，`print.js` 里 `W/H` 从 canvas 读、`FR`（墨框）按 `min(W,H)` 自动算边距：
+
+- 竖屏：`node vendor/runtime/render-legacy.mjs pipelines/fushihui/projects/<工程> --width 1080 --height 1920 --fps 24 --out .../out/video-9x16.mp4`
+- 横屏：同一条命令把 `--width/--height` 换成 1920/1080 即可
+- 字体缺失时不再卡死：`main.js` 的 `document.fonts.load` 已被 2.5 s 超时兜住，缺字库就回落系统衬线
+
+**画幅只解决画布，构图要自己重排**：竖屏把天空往上推、把题签移到右上竖排（`cartouche`）、地面线放到 1500 左右、人物按整幅 1/3 高的尺度画；横屏仍按「人物 80–130 px」的老规矩。竖屏参考工程：`projects/ep24v3_ukiyoe_portrait/`（EP24《门口的小摊》，1080×1920，10 s，人物带 IK 手臂会取杯）。
 ## 已知坑
 
 1. bokashi 用 fillRect 拼会出竖缝——逐像素生成
@@ -72,3 +81,4 @@ python fushihui/scripts/fushihui.py new    013_xxx
 - [ ] 字幕/题字在材料上，不是浮层深色框
 - [ ] `render` 帧数 = `DUR × fps`；`qa` 六项全绿（有音轨时）
 - [ ] `python tools/validate.py` 这条管线 0 error
+

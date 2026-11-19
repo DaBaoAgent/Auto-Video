@@ -1,8 +1,11 @@
 // Woodblock print engine: washi paper, colour blocks (with misregistration / goma-zuri (胡麻摺, sesame-seed speckle) / wood grain), bokashi (ぼかし, hand-wiped gradation), carved key lines, ink-take reveal, title slips and vermilion seals
 import { clamp, lerp, mulberry, hash, vnoise, ss, TAU } from './lib.js';
-export const W = 1920, H = 1080;
+// 画幅：跟随页面 canvas（index.html 按视口 / --width --height 设），缺省 1920×1080
+const _cv = typeof document !== 'undefined' ? document.getElementById('c') : null;
+export const W = (_cv && _cv.width) || 1920, H = (_cv && _cv.height) || 1080;
 // picture frame (key-line border)
-export const FR = { x0: 44, y0: 38, x1: 1876, y1: 1042 };
+const _m = Math.round(Math.min(W, H) * 0.035), _my = Math.round(_m * 0.86);
+export const FR = { x0: _m, y0: _my, x1: W - _m, y1: H - _my };
 export const PAL = {
   paper: '#eee2c6', paperD: '#e2d3b0', mount: '#c9b690', mountD: '#b19d74',
   prus: '#1d3a66', prusD: '#13284a', prusL: '#4d6f98', ai: '#2f4f73', sky: '#8db0c6', skyL: '#bcd0d6',
@@ -277,3 +280,4 @@ export function cartouche(x, cx, y0, title, { series = '山へ五景', w = 84, s
 export function printTex(x, grain = .1, baren = .5, ox = 0, oy = 0) {
   x.save(); x.globalAlpha = grain; x.drawImage(TX.grain, ox, oy); x.globalAlpha = baren; x.drawImage(TX.barenPaper, -ox * .5, oy * .3); x.restore();
 }
+

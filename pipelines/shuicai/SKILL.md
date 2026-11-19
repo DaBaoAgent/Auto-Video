@@ -51,6 +51,14 @@ python shuicai/scripts/shuicai.py new    013_xxx
 
 转场只用这套材料自己的手段：不用叠化，不做常规剪辑。
 
+## 画幅：横屏与竖屏（2026-11-19 起）
+
+`engine.js` 的 `W/H` 不再写死，改从页面 canvas 读；`index.html` 的 canvas 按视口建。渲染时用 `--width/--height` 决定横竖：
+
+- 竖屏：`node vendor/runtime/render-legacy.mjs pipelines/shuicai/projects/<工程> --width 1080 --height 1920 --fps 60 --out .../out/video-9x16.mp4`
+- 横屏：`--width 1920 --height 1080`
+
+竖屏要重排构图：天与水分段、地平线抬到下部 1/4、主体竖向叠放；湿接水的笔触宽度按画幅短边等比缩。
 ## 已知坑
 
 1. 硬边色块 = 数码水彩，立刻塌掉风格：所有边都要有积水的深边
@@ -65,3 +73,4 @@ python shuicai/scripts/shuicai.py new    013_xxx
 - [ ] 字幕/题字在材料上，不是浮层深色框
 - [ ] `render` 帧数 = `DUR × fps`；`qa` 六项全绿（有音轨时）
 - [ ] `python tools/validate.py` 这条管线 0 error
+

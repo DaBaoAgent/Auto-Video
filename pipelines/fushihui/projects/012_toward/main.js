@@ -13,8 +13,18 @@ const J = async f => { try { const r = await fetch(f); if (r.ok) return await r.
 const LINES = (await J('lines.json')) || [], DURS = (await J('voices/dur.json')) || {};
 const LINE = Object.fromEntries(LINES.map(l => [l.id, l]));
 
-await document.fonts.load('400 40px Yuji', '山へ五景旅一二三四田毎の朝雨橋茶屋窓海立つ');
-await document.fonts.load('600 40px ShipporiK', '山へ五景'); await document.fonts.load('500 40px Shippori', 'Aa'); await document.fonts.load('700 40px Shippori', 'Aa');
+// 字体缺字库时不阻塞：最多等 2.5 s，然后回落到系统衬线
+try {
+  await Promise.race([
+    Promise.all([
+      document.fonts.load('400 40px Yuji', '山へ五景旅一二三四田毎の朝雨橋茶屋窓海立つ'),
+      document.fonts.load('600 40px ShipporiK', '山へ五景'),
+      document.fonts.load('500 40px Shippori', 'Aa'),
+      document.fonts.load('700 40px Shippori', 'Aa'),
+    ]),
+    new Promise(r => setTimeout(r, 2500)),
+  ]);
+} catch (e) {}
 buildTextures();
 
 // —— Subtitles (title-slip style) ——
@@ -282,3 +292,4 @@ function events() {
 window.render = render; window.DUR = DUR; window.EV = events(); window.SUBS = SUBS;
 render(parseFloat(QS.get('t') ?? '20'));
 window.READY = true;
+

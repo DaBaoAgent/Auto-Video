@@ -1,5 +1,7 @@
 // ---------- basic utilities ----------
-const W = 1920, H = 1080;
+// 画幅：跟随页面 canvas（--width/--height 决定），缺省 1920×1080
+const _cvs = typeof document !== 'undefined' ? document.getElementById('c') : null;
+const W = (_cvs && _cvs.width) || 1920, H = (_cvs && _cvs.height) || 1080;
 function mulberry(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 let RNG = mulberry(20260924);
 const rnd = (a = 0, b = 1) => a + (b - a) * RNG();
@@ -140,3 +142,4 @@ function edgeOf(s, side, w, col, a = .85) {
   const pts = s.pts.map((p, i) => [p[0] + s.nx[i] * s.ws[i] * .47 * side, p[1] + s.ny[i] * s.ws[i] * .47 * side]);
   return mk(pts, w, col, { prof: 'even', nb: 0, a, rough: .35 });
 }
+
