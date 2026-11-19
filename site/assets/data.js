@@ -545,11 +545,11 @@ window.AV = {
    "engine": "ComfyUI + Wan2.2",
    "tagline": "本地 ComfyUI 出定帧、Wan2.2 出氛围动态，逐镜锚定原片亮度与饱和。",
    "aspect": "4:3",
-   "seconds": 41.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "seconds": 30.0,
+   "duration": "0:30",
+   "clip": 30.0,
+   "mp4": "media/tianshu.mp4",
+   "poster": "media/tianshu.jpg",
    "note": null,
    "badge": "ComfyUI + Wan2.2",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/tianshu/SKILL.md"
@@ -992,7 +992,7 @@ window.AV = {
    "poster": "media/qianhuang.jpg",
    "note": null,
    "badge": "Canvas 逐帧 · 钢笔浓彩 + 彩色色片光 + 合成音效",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/qianhuang/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/qianhuang/SKILL.md"
   },
   {
    "key": "zimu",
@@ -1008,13 +1008,13 @@ window.AV = {
    "tagline": "美国一年死掉 130 万箱蜜蜂，总数却涨了 6%：静音也能看懂的新闻。",
    "aspect": "16:9",
    "seconds": 59.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:00",
+   "clip": 30.0,
+   "mp4": "media/zimu.mp4",
+   "poster": "media/zimu.jpg",
    "note": null,
    "badge": "lemo styles/caption-news · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/zimu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/zimu/SKILL.md"
   },
   {
    "key": "xinwen",
@@ -1030,13 +1030,13 @@ window.AV = {
    "tagline": "1926 年报纸说查尔斯顿会跳坏膝盖，福特工人野餐会上的孩子照跳不误。",
    "aspect": "16:9",
    "seconds": 54.6,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:55",
+   "clip": 30.0,
+   "mp4": "media/xinwen.mp4",
+   "poster": "media/xinwen.jpg",
    "note": null,
    "badge": "lemo styles/newsreel · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xinwen/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/xinwen/SKILL.md"
   },
   {
    "key": "daoshu",
@@ -1052,13 +1052,13 @@ window.AV = {
    "tagline": "阿尔忒弥斯二号发射的最后一分钟，一秒不剪：格子从 1 开到 9，点火合成 1。",
    "aspect": "16:9",
    "seconds": 59.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:00",
+   "clip": 30.0,
+   "mp4": "media/daoshu.mp4",
+   "poster": "media/daoshu.jpg",
    "note": null,
    "badge": "lemo styles/countdown · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/daoshu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/daoshu/SKILL.md"
   },
   {
    "key": "jiaoxiang",
@@ -1074,13 +1074,13 @@ window.AV = {
    "tagline": "纽约的一天：延时光河、踩着十六分音符的网格，1899 年和今天并排。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/jiaoxiang.mp4",
+   "poster": "media/jiaoxiang.jpg",
    "note": null,
    "badge": "lemo styles/city-symphony · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jiaoxiang/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/jiaoxiang/SKILL.md"
   },
   {
    "key": "diaocha",
@@ -1096,13 +1096,13 @@ window.AV = {
    "tagline": "新闻片、照片、证词和调查报告排上同一条时间轴，五路来源指向一处。",
    "aspect": "16:9",
    "seconds": 60.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:00",
+   "clip": 30.0,
+   "mp4": "media/diaocha.mp4",
+   "poster": "media/diaocha.jpg",
    "note": null,
    "badge": "lemo styles/visual-investigation · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/diaocha/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/diaocha/SKILL.md"
   },
   {
    "key": "mengtai",
@@ -1118,13 +1118,13 @@ window.AV = {
    "tagline": "帝国大厦的小册子写着建造者，工地实拍和老照片给出答案：每天 2,500 人。",
    "aspect": "16:9",
    "seconds": 60.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:00",
+   "clip": 30.0,
+   "mp4": "media/mengtai.mp4",
+   "poster": "media/mengtai.jpg",
    "note": null,
    "badge": "lemo styles/kino-montage · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/mengtai/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/mengtai/SKILL.md"
   },
   {
    "key": "zhanshu",
@@ -1140,13 +1140,13 @@ window.AV = {
    "tagline": "半场 0–3，费内巴切 12 分钟连进三球：冻住画面、画线、分屏、射门图。",
    "aspect": "16:9",
    "seconds": 54.4,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:54",
+   "clip": 30.0,
+   "mp4": "media/zhanshu.mp4",
+   "poster": "media/zhanshu.jpg",
    "note": null,
    "badge": "lemo styles/telestrator · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/zhanshu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/zhanshu/SKILL.md"
   },
   {
    "key": "baozhuang",
@@ -1162,13 +1162,13 @@ window.AV = {
    "tagline": "一周四条 AI 新闻，一整套电视台包装：串联单、标题条、翻牌价格表、规格卡。",
    "aspect": "16:9",
    "seconds": 53.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:54",
+   "clip": 30.0,
+   "mp4": "media/baozhuang.mp4",
+   "poster": "media/baozhuang.jpg",
    "note": null,
    "badge": "lemo styles/news-package · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/baozhuang/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/baozhuang/SKILL.md"
   },
   {
    "key": "dangan",
@@ -1184,13 +1184,13 @@ window.AV = {
    "tagline": "电报说最长飞了 57 秒；放大镜下，莱特兄弟的底片和档案说是 59 秒。",
    "aspect": "16:9",
    "seconds": 40.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:40",
+   "clip": 30.0,
+   "mp4": "media/dangan.mp4",
+   "poster": "media/dangan.jpg",
    "note": null,
    "badge": "lemo styles/archive-lighttable · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/dangan/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/dangan/SKILL.md"
   },
   {
    "key": "youhua",
@@ -1206,13 +1206,13 @@ window.AV = {
    "tagline": "灰色雨中广场，第一把红伞撑开，圆舞曲把整个广场刷上颜色。",
    "aspect": "16:9",
    "seconds": 39.7,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:40",
+   "clip": 30.0,
+   "mp4": "media/youhua.mp4",
+   "poster": "media/youhua.jpg",
    "note": null,
    "badge": "lemo styles/impasto · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/youhua/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/youhua/SKILL.md"
   },
   {
    "key": "yibi",
@@ -1228,13 +1228,13 @@ window.AV = {
    "tagline": "一根不离纸的线画完一个人的一生，再把笔交给孩子。",
    "aspect": "16:9",
    "seconds": 47.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:48",
+   "clip": 30.0,
+   "mp4": "media/yibi.mp4",
+   "poster": "media/yibi.jpg",
    "note": null,
    "badge": "lemo styles/one-line · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/yibi/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/yibi/SKILL.md"
   },
   {
    "key": "baiban",
@@ -1250,13 +1250,13 @@ window.AV = {
    "tagline": "手机怎么知道你在哪：GPS、原子钟，和相对论每天多出的 38 微秒。",
    "aspect": "16:9",
    "seconds": 111.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:51",
+   "clip": 30.0,
+   "mp4": "media/baiban.mp4",
+   "poster": "media/baiban.jpg",
    "note": null,
    "badge": "lemo styles/whiteboard · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/baiban/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/baiban/SKILL.md"
   },
   {
    "key": "heiban",
@@ -1272,13 +1272,13 @@ window.AV = {
    "tagline": "粉笔写下网上的说法，再一擦，把「射」写回三千年前。",
    "aspect": "16:9",
    "seconds": 49.3,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:49",
+   "clip": 30.0,
+   "mp4": "media/heiban.mp4",
+   "poster": "media/heiban.jpg",
    "note": null,
    "badge": "lemo styles/chalkboard · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/heiban/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/heiban/SKILL.md"
   },
   {
    "key": "biji",
@@ -1294,13 +1294,13 @@ window.AV = {
    "tagline": "一只蜜蜂一辈子只酿 1/12 茶匙蜜；笔跟着一滴黄从花走到罐子，最后整页成了一张海报。",
    "aspect": "16:9",
    "seconds": 51.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:51",
+   "clip": 30.0,
+   "mp4": "media/biji.mp4",
+   "poster": "media/biji.jpg",
    "note": null,
    "badge": "lemo styles/sketchnote · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/biji/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/biji/SKILL.md"
   },
   {
    "key": "make",
@@ -1316,13 +1316,13 @@ window.AV = {
    "tagline": "一支马克笔在白纸上算出海边能看多远，再告诉你：爬高 100 倍，只能多看远 10 倍。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/make.mp4",
+   "poster": "media/make.jpg",
    "note": null,
    "badge": "lemo styles/marker-paper · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/make/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/make/SKILL.md"
   },
   {
    "key": "jianzhi",
@@ -1338,13 +1338,13 @@ window.AV = {
    "tagline": "除夕年兽进村，小女孩剪出的大窗花照亮全村，把它吓跑。",
    "aspect": "16:9",
    "seconds": 49.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:49",
+   "clip": 30.0,
+   "mp4": "media/jianzhi.mp4",
+   "poster": "media/jianzhi.jpg",
    "note": null,
    "badge": "lemo styles/papercut-red · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jianzhi/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/jianzhi/SKILL.md"
   },
   {
    "key": "boli",
@@ -1360,13 +1360,13 @@ window.AV = {
    "tagline": "阳光从清晨移到黄昏，照到哪一格花窗，哪一格的故事就动起来。",
    "aspect": "16:9",
    "seconds": 56.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:57",
+   "clip": 30.0,
+   "mp4": "media/boli.mp4",
+   "poster": "media/boli.jpg",
    "note": null,
    "badge": "lemo styles/stained-glass · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/boli/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/boli/SKILL.md"
   },
   {
    "key": "jinbo",
@@ -1382,13 +1382,13 @@ window.AV = {
    "tagline": "画里的世界只有金子会发光，可太阳熄了；一个女孩提着最后一盏灯上山，把光还给了太阳。",
    "aspect": "16:9",
    "seconds": 46.8,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:47",
+   "clip": 30.0,
+   "mp4": "media/jinbo.mp4",
+   "poster": "media/jinbo.jpg",
    "note": null,
    "badge": "lemo styles/gilded-illumination · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jinbo/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/jinbo/SKILL.md"
   },
   {
    "key": "kongban",
@@ -1404,13 +1404,13 @@ window.AV = {
    "tagline": "周日早晨骑车穿过城市：面包店、公园、河边，每到一处加一版油墨，最后三版套印。",
    "aspect": "16:9",
    "seconds": 40.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:40",
+   "clip": 30.0,
+   "mp4": "media/kongban.mp4",
+   "poster": "media/kongban.jpg",
    "note": null,
    "badge": "lemo styles/risograph · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/kongban/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/kongban/SKILL.md"
   },
   {
    "key": "wangdian",
@@ -1426,13 +1426,13 @@ window.AV = {
    "tagline": "橘猫胖橘被立案审查：测试重力、凌晨跑酷，最后无罪释放。",
    "aspect": "16:9",
    "seconds": 30.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:30",
+   "clip": 30.0,
+   "mp4": "media/wangdian.mp4",
+   "poster": "media/wangdian.jpg",
    "note": null,
    "badge": "lemo styles/halftone-dossier · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/wangdian/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/wangdian/SKILL.md"
   },
   {
    "key": "muke",
@@ -1448,13 +1448,13 @@ window.AV = {
    "tagline": "村子用一整个冬天铸一口钟，钟声第一次响起，雪停了。",
    "aspect": "16:9",
    "seconds": 58.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:59",
+   "clip": 30.0,
+   "mp4": "media/muke.mp4",
+   "poster": "media/muke.jpg",
    "note": null,
    "badge": "lemo styles/woodcut · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/muke/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/muke/SKILL.md"
   },
   {
    "key": "tongban",
@@ -1470,13 +1470,13 @@ window.AV = {
    "tagline": "一张博物志图版自己刻出来：雕刀推开铜版，蜜蜂一线线成形，最后手工水彩上色。",
    "aspect": "16:9",
    "seconds": 40.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:40",
+   "clip": 30.0,
+   "mp4": "media/tongban.mp4",
+   "poster": "media/tongban.jpg",
    "note": null,
    "badge": "lemo styles/engraving · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/tongban/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/tongban/SKILL.md"
   },
   {
    "key": "siyin",
@@ -1492,13 +1492,13 @@ window.AV = {
    "tagline": "一张满屏丝印海报一座城，票根数着离家的公里数，走到世界的另一头，才发现那是回家的路。",
    "aspect": "16:9",
    "seconds": 50.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:50",
+   "clip": 30.0,
+   "mp4": "media/siyin.mp4",
+   "poster": "media/siyin.jpg",
    "note": null,
    "badge": "lemo styles/silkscreen-poster · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/siyin/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/siyin/SKILL.md"
   },
   {
    "key": "guaban",
@@ -1514,13 +1514,13 @@ window.AV = {
    "tagline": "刮版画的北海道河谷一镜到底，丹顶鹤从 33 只数回到 1,927 只。",
    "aspect": "16:9",
    "seconds": 60.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:00",
+   "clip": 30.0,
+   "mp4": "media/guaban.mp4",
+   "poster": "media/guaban.jpg",
    "note": null,
    "badge": "lemo styles/printed-long-take · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/guaban/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/guaban/SKILL.md"
   },
   {
    "key": "bopu",
@@ -1536,13 +1536,13 @@ window.AV = {
    "tagline": "超市里几乎每根香蕉都是同一株植物的复制：一面一模一样的版画墙，一根被网点吃黑的老香蕉，最后一波换色翻出上千种香蕉。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/bopu.mp4",
+   "poster": "media/bopu.jpg",
    "note": null,
    "badge": "lemo styles/pop-art · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/bopu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/bopu/SKILL.md"
   },
   {
    "key": "fugu",
@@ -1558,13 +1558,13 @@ window.AV = {
    "tagline": "1918 年一整版印反了的航空邮票：24 美元买下、剪开散落，66 号至今下落不明。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/fugu.mp4",
+   "poster": "media/fugu.jpg",
    "note": null,
    "badge": "lemo styles/vintage-collage · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/fugu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/fugu/SKILL.md"
   },
   {
    "key": "ruishi",
@@ -1580,13 +1580,13 @@ window.AV = {
    "tagline": "一张音乐会海报按瑞士设计的五条规则自己排版，第五条是只打破一条。",
    "aspect": "16:9",
    "seconds": 44.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:44",
+   "clip": 30.0,
+   "mp4": "media/ruishi.mp4",
+   "poster": "media/ruishi.jpg",
    "note": null,
    "badge": "lemo styles/swiss-motion · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/ruishi/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/ruishi/SKILL.md"
   },
   {
    "key": "jiandie",
@@ -1602,13 +1602,13 @@ window.AV = {
    "tagline": "虚构 1964 年间谍片的片头：追一把被偷的钥匙，几何碎片最后拼成片名。",
    "aspect": "16:9",
    "seconds": 44.1,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:44",
+   "clip": 30.0,
+   "mp4": "media/jiandie.mp4",
+   "poster": "media/jiandie.jpg",
    "note": null,
    "badge": "lemo styles/spy-titles · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jiandie/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/jiandie/SKILL.md"
   },
   {
    "key": "xiangxing",
@@ -1624,13 +1624,13 @@ window.AV = {
    "tagline": "一把被落在公交车上的黄伞，晴天里在失物招领的货架上等了一整天，暴雨回来时和另外 312 把一起撑开：物件、交通、天气和标识，都是卡着节拍的几何象形符号。",
    "aspect": "16:9",
    "seconds": 50.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:50",
+   "clip": 30.0,
+   "mp4": "media/xiangxing.mp4",
+   "poster": "media/xiangxing.jpg",
    "note": null,
    "badge": "lemo styles/pictogram-motion · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xiangxing/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/xiangxing/SKILL.md"
   },
   {
    "key": "baohao",
@@ -1646,13 +1646,13 @@ window.AV = {
    "tagline": "一个点每十年翻一倍：七十年后是 128，不复利只有 6.02，最后十年抵得上之前的全部。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/baohao.mp4",
+   "poster": "media/baohao.jpg",
    "note": null,
    "badge": "lemo styles/bauhaus-shapes · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/baohao/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/baohao/SKILL.md"
   },
   {
    "key": "wenzi",
@@ -1668,13 +1668,13 @@ window.AV = {
    "tagline": "一封信、一通电话、一面窗墙、十三级台阶：叫他别回头的她每一话都更近一步，直到她自己猛地回头。",
    "aspect": "16:9",
    "seconds": 46.2,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:46",
+   "clip": 30.0,
+   "mp4": "media/wenzi.mp4",
+   "poster": "media/wenzi.jpg",
    "note": null,
    "badge": "lemo styles/text-flash-cuts · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/wenzi/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/wenzi/SKILL.md"
   },
   {
    "key": "xinxi",
@@ -1690,13 +1690,13 @@ window.AV = {
    "tagline": "一杯咖啡从种植园到你手里的旅程。",
    "aspect": "16:9",
    "seconds": 58.8,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:59",
+   "clip": 30.0,
+   "mp4": "media/xinxi.mp4",
+   "poster": "media/xinxi.jpg",
    "note": null,
    "badge": "lemo styles/iso-infographic · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xinxi/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/xinxi/SKILL.md"
   },
   {
    "key": "chaijie",
@@ -1712,13 +1712,13 @@ window.AV = {
    "tagline": "开源键盘的一半在一次环绕中逐层拆开，看到主控再合拢，标上真实尺寸。",
    "aspect": "16:9",
    "seconds": 38.8,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:39",
+   "clip": 30.0,
+   "mp4": "media/chaijie.mp4",
+   "poster": "media/chaijie.jpg",
    "note": null,
    "badge": "lemo styles/teardown · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/chaijie/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/chaijie/SKILL.md"
   },
   {
    "key": "poumian",
@@ -1734,13 +1734,13 @@ window.AV = {
    "tagline": "一部手机握住底角就掉信号；拆开才发现金属边框就是天线，被切成几段，手一握就把缝连上了。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/poumian.mp4",
+   "poster": "media/poumian.jpg",
    "note": null,
    "badge": "lemo styles/hardcore-info · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/poumian/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/poumian/SKILL.md"
   },
   {
    "key": "jixie",
@@ -1756,13 +1756,13 @@ window.AV = {
    "tagline": "剖开一块不用电的表：三套系统按能量流向逐一染色，抽走擒纵后齿轮疯转，最后放慢到 1/40 等那一声滴答。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/jixie.mp4",
+   "poster": "media/jixie.jpg",
    "note": null,
    "badge": "lemo styles/precise-mechanism · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jixie/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/jixie/SKILL.md"
   },
   {
    "key": "shuoming",
@@ -1778,13 +1778,13 @@ window.AV = {
    "tagline": "两个从没装过家具的新手照说明书装婴儿床，十步排在同一张 45° 说明书上；第十步，说明书里没有。",
    "aspect": "16:9",
    "seconds": 50.6,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:51",
+   "clip": 30.0,
+   "mp4": "media/shuoming.mp4",
+   "poster": "media/shuoming.jpg",
    "note": null,
    "badge": "lemo styles/instruction-manual · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/shuoming/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/shuoming/SKILL.md"
   },
   {
    "key": "bishi",
@@ -1800,13 +1800,13 @@ window.AV = {
    "tagline": "深夜台灯下，一台笔式绘图仪用四支笔按真实高程画出珠穆朗玛峰，最后一笔写下它的高度。",
    "aspect": "16:9",
    "seconds": 49.9,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:50",
+   "clip": 30.0,
+   "mp4": "media/bishi.mp4",
+   "poster": "media/bishi.jpg",
    "note": null,
    "badge": "lemo styles/pen-plotter · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/bishi/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/bishi/SKILL.md"
   },
   {
    "key": "liushui",
@@ -1822,13 +1822,13 @@ window.AV = {
    "tagline": "把人体剖成一座倒着开的工厂：12:30 的一份三明治被一站一站拆开，六小时后变成追公交车的力气。",
    "aspect": "16:9",
    "seconds": 54.9,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:55",
+   "clip": 30.0,
+   "mp4": "media/liushui.mp4",
+   "poster": "media/liushui.jpg",
    "note": null,
    "badge": "lemo styles/assembly-line-diagram · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/liushui/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/liushui/SKILL.md"
   },
   {
    "key": "xianwei",
@@ -1844,13 +1844,13 @@ window.AV = {
    "tagline": "一镜从肝组织玻片推到单个细胞核，两个圆逐像素数出 2.4 倍的蓝。",
    "aspect": "16:9",
    "seconds": 39.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:40",
+   "clip": 30.0,
+   "mp4": "media/xianwei.mp4",
+   "poster": "media/xianwei.jpg",
    "note": null,
    "badge": "lemo styles/microscope · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xianwei/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/xianwei/SKILL.md"
   },
   {
    "key": "jianbao",
@@ -1866,13 +1866,13 @@ window.AV = {
    "tagline": "一条河要架桥，四种桥型在一面简报墙上逐个受检，拍板的是桥下要过的船。",
    "aspect": "16:9",
    "seconds": 40.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:40",
+   "clip": 30.0,
+   "mp4": "media/jianbao.mp4",
+   "poster": "media/jianbao.jpg",
    "note": null,
    "badge": "lemo styles/briefing-board · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jianbao/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/jianbao/SKILL.md"
   },
   {
    "key": "anjian",
@@ -1888,13 +1888,13 @@ window.AV = {
    "tagline": "机场安检机屏幕上的一个夜班：一个充电宝、一瓶水，还有在 CT 里动了一下腿的六只活蟹。",
    "aspect": "16:9",
    "seconds": 51.9,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/anjian.mp4",
+   "poster": "media/anjian.jpg",
    "note": null,
    "badge": "lemo styles/security-xray · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/anjian/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/anjian/SKILL.md"
   },
   {
    "key": "sailu",
@@ -1910,13 +1910,13 @@ window.AV = {
    "tagline": "快递少女骑车穿过雨后霓虹都市，赶在黎明发射前送到一盘磁带。",
    "aspect": "16:9",
    "seconds": 59.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:59",
+   "clip": 30.0,
+   "mp4": "media/sailu.mp4",
+   "poster": "media/sailu.jpg",
    "note": null,
    "badge": "lemo styles/cel-anime-80s · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/sailu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/sailu/SKILL.md"
   },
   {
    "key": "kehuan",
@@ -1932,13 +1932,13 @@ window.AV = {
    "tagline": "厌世天才开传送门只想买杯咖啡，却穿过越来越离谱的平行宇宙。",
    "aspect": "16:9",
    "seconds": 57.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:58",
+   "clip": 30.0,
+   "mp4": "media/kehuan.mp4",
+   "poster": "media/kehuan.jpg",
    "note": null,
    "badge": "lemo styles/scifi-toon · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/kehuan/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/kehuan/SKILL.md"
   },
   {
    "key": "wushi",
@@ -1954,13 +1954,13 @@ window.AV = {
    "tagline": "用 50 年代教育片的口吻，三步教你装好一台扫地机。",
    "aspect": "16:9",
    "seconds": 40.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:40",
+   "clip": 30.0,
+   "mp4": "media/wushi.mp4",
+   "poster": "media/wushi.jpg",
    "note": null,
    "badge": "lemo styles/midcentury-toon · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/wushi/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/wushi/SKILL.md"
   },
   {
    "key": "gaoxiao",
@@ -1976,13 +1976,13 @@ window.AV = {
    "tagline": "阿尔萨斯-洛林在 1871 到 1945 年间四次换主人：每次都有人撕下那块纸、贴上新的，住在上面的她一步没挪。",
    "aspect": "16:9",
    "seconds": 51.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:51",
+   "clip": 30.0,
+   "mp4": "media/gaoxiao.mp4",
+   "poster": "media/gaoxiao.jpg",
    "note": null,
    "badge": "lemo styles/comic-history · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/gaoxiao/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/gaoxiao/SKILL.md"
   },
   {
    "key": "xiangsu2",
@@ -1998,13 +1998,13 @@ window.AV = {
    "tagline": "灯塔熄灭，孙女提着最后一簇火穿过夜林、爬上风暴悬崖。",
    "aspect": "16:9",
    "seconds": 76.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:17",
+   "clip": 30.0,
+   "mp4": "media/xiangsu2.mp4",
+   "poster": "media/xiangsu2.jpg",
    "note": null,
    "badge": "lemo styles/hd-2d · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xiangsu2/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/xiangsu2/SKILL.md"
   },
   {
    "key": "weiyou",
@@ -2020,13 +2020,13 @@ window.AV = {
    "tagline": "见习宇航员闯五秒训练营，越来越快，Boss 关亲手降落回地球。",
    "aspect": "16:9",
    "seconds": 59.8,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:00",
+   "clip": 30.0,
+   "mp4": "media/weiyou.mp4",
+   "poster": "media/weiyou.jpg",
    "note": null,
    "badge": "lemo styles/microgame · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/weiyou/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/weiyou/SKILL.md"
   },
   {
    "key": "jiezou",
@@ -2042,13 +2042,13 @@ window.AV = {
    "tagline": "把 AI 发展史做成一局节奏游戏，模型踩着拍登场，最后发成绩单。",
    "aspect": "16:9",
    "seconds": 148.8,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "2:29",
+   "clip": 30.0,
+   "mp4": "media/jiezou.mp4",
+   "poster": "media/jiezou.jpg",
    "note": null,
    "badge": "lemo styles/game-show · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jiezou/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/jiezou/SKILL.md"
   },
   {
    "key": "zifu",
@@ -2064,13 +2064,13 @@ window.AV = {
    "tagline": "月球基地的 AI 沉睡 40 年后被唤醒，用字符画出“家”来回复。",
    "aspect": "16:9",
    "seconds": 59.8,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:00",
+   "clip": 30.0,
+   "mp4": "media/zifu.mp4",
+   "poster": "media/zifu.jpg",
    "note": null,
    "badge": "lemo styles/ascii-crt · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/zifu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/zifu/SKILL.md"
   },
   {
    "key": "mopian",
@@ -2086,13 +2086,13 @@ window.AV = {
    "tagline": "面包店学徒追一个滚走的面包，最后掰成两半分给饿肚子的小女孩。",
    "aspect": "16:9",
    "seconds": 54.2,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:54",
+   "clip": 30.0,
+   "mp4": "media/mopian.mp4",
+   "poster": "media/mopian.jpg",
    "note": null,
    "badge": "lemo styles/silent-film · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/mopian/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/mopian/SKILL.md"
   },
   {
    "key": "houshi",
@@ -2108,13 +2108,13 @@ window.AV = {
    "tagline": "新夜班员工拍下入职第一晚：无尽的黄色办公空间，和墙上的员工守则。",
    "aspect": "16:9",
    "seconds": 59.7,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:00",
+   "clip": 30.0,
+   "mp4": "media/houshi.mp4",
+   "poster": "media/houshi.jpg",
    "note": null,
    "badge": "lemo styles/backrooms · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/houshi/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/houshi/SKILL.md"
   },
   {
    "key": "zhike",
@@ -2130,13 +2130,13 @@ window.AV = {
    "tagline": "一条手指长的灯笼鱼摸黑往上游半公里，用自己的光藏起影子；镜头拉远，原来每晚有无数动物和它一起升起。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/zhike.mp4",
+   "poster": "media/zhike.jpg",
    "note": null,
    "badge": "lemo styles/scratch-film · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/zhike/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/zhike/SKILL.md"
   },
   {
    "key": "puguang",
@@ -2152,13 +2152,13 @@ window.AV = {
    "tagline": "天黑下来的这一路，从山到海：鹿、狼、鹰、鲑鱼、鲸，每只动物的剪影里装着它的那片天地；最后鲸身体里的港湾落在真的海岸上。",
    "aspect": "16:9",
    "seconds": 50.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:51",
+   "clip": 30.0,
+   "mp4": "media/puguang.mp4",
+   "poster": "media/puguang.jpg",
    "note": null,
    "badge": "lemo styles/double-exposure · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/puguang/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/puguang/SKILL.md"
   },
   {
    "key": "fabu",
@@ -2174,13 +2174,13 @@ window.AV = {
    "tagline": "虚构 app Tidy 的发布片：被埋掉的光标一键把几百个窗口归位。",
    "aspect": "16:9",
    "seconds": 42.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:42",
+   "clip": 30.0,
+   "mp4": "media/fabu.mp4",
+   "poster": "media/fabu.jpg",
    "note": null,
    "badge": "lemo styles/dark-keynote · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/fabu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/fabu/SKILL.md"
   },
   {
    "key": "luping",
@@ -2196,13 +2196,13 @@ window.AV = {
    "tagline": "像素小人 Clawd 搬进 Claude 应用，一镜到底演示 Plan 模式和自检。",
    "aspect": "16:9",
    "seconds": 59.4,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:59",
+   "clip": 30.0,
+   "mp4": "media/luping.mp4",
+   "poster": "media/luping.jpg",
    "note": null,
    "badge": "lemo styles/living-screencast · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/luping/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/luping/SKILL.md"
   },
   {
    "key": "zhuomian",
@@ -2218,13 +2218,13 @@ window.AV = {
    "tagline": "一张猫照片跳过桌上的应用卡片，从一台手机飞到朋友手机里，一镜跟到底。",
    "aspect": "16:9",
    "seconds": 60.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:00",
+   "clip": 30.0,
+   "mp4": "media/zhuomian.mp4",
+   "poster": "media/zhuomian.jpg",
    "note": null,
    "badge": "lemo styles/desktop-flythrough · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/zhuomian/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/zhuomian/SKILL.md"
   },
   {
    "key": "biaoge",
@@ -2240,13 +2240,13 @@ window.AV = {
    "tagline": "总数说 B 更好；把藏起来的结石大小列打开，A 在每一组都赢。一张表讲清辛普森悖论，一格就是一位病人。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/biaoge.mp4",
+   "poster": "media/biaoge.jpg",
    "note": null,
    "badge": "lemo styles/spreadsheet · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/biaoge/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/biaoge/SKILL.md"
   },
   {
    "key": "dianzhen",
@@ -2262,13 +2262,13 @@ window.AV = {
    "tagline": "1966 年 2 月，月面的第一张近照被英国一座射电望远镜当成报社传真收下，一行一行印出来：早了一天，比例却拉高了。",
    "aspect": "16:9",
    "seconds": 50.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:50",
+   "clip": 30.0,
+   "mp4": "media/dianzhen.mp4",
+   "poster": "media/dianzhen.jpg",
    "note": null,
    "badge": "lemo styles/one-bit-dither · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/dianzhen/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/dianzhen/SKILL.md"
   },
   {
    "key": "dianlu",
@@ -2284,13 +2284,13 @@ window.AV = {
    "tagline": "江河变成电路板上的走线，电流从水坝跑 2,080 公里进手机充电器。",
    "aspect": "16:9",
    "seconds": 60.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:00",
+   "clip": 30.0,
+   "mp4": "media/dianlu.mp4",
+   "poster": "media/dianlu.jpg",
    "note": null,
    "badge": "lemo styles/circuit-board · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/dianlu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/dianlu/SKILL.md"
   },
   {
    "key": "yinghuo",
@@ -2306,13 +2306,13 @@ window.AV = {
    "tagline": "萤火虫闪一下就是在发问：女孩得到的回答是一只鹿，暴风雨吹灭了所有的光，她用最后一只问遍了整片黑夜。",
    "aspect": "16:9",
    "seconds": 50.6,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:51",
+   "clip": 30.0,
+   "mp4": "media/yinghuo.mp4",
+   "poster": "media/yinghuo.jpg",
    "note": null,
    "badge": "lemo styles/firefly-pointillism · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/yinghuo/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/yinghuo/SKILL.md"
   },
   {
    "key": "liuchang",
@@ -2328,13 +2328,13 @@ window.AV = {
    "tagline": "几千条从最佳路径算出来的墨色风线，画出超强台风摩羯的一生：在南海睁开风眼，在文昌登陆，在越南散开，一整周最后收成一条线。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/liuchang.mp4",
+   "poster": "media/liuchang.jpg",
    "note": null,
    "badge": "lemo styles/flow-field · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/liuchang/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/liuchang/SKILL.md"
   },
   {
    "key": "shibo",
@@ -2350,13 +2350,13 @@ window.AV = {
    "tagline": "方方正正的波，怎么由圆滚出来？一个个圆叠成方波，直到镜头扎进一个角：那里有一个永远消不掉的 9% 尖角。",
    "aspect": "16:9",
    "seconds": 51.1,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:51",
+   "clip": 30.0,
+   "mp4": "media/shibo.mp4",
+   "poster": "media/shibo.jpg",
    "note": null,
    "badge": "lemo styles/oscilloscope-math · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/shibo/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/shibo/SKILL.md"
   },
   {
    "key": "nihong",
@@ -2372,13 +2372,13 @@ window.AV = {
    "tagline": "一只霓虹猫去街尾招牌上偷金鱼当夜宵，一爪子拍漏了鱼缸，又叼着快灭的鱼冒雨跑回家，放进自家招牌上的冰饮杯。",
    "aspect": "16:9",
    "seconds": 48.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:48",
+   "clip": 30.0,
+   "mp4": "media/nihong.mp4",
+   "poster": "media/nihong.jpg",
    "note": null,
    "badge": "lemo styles/neon-tubes · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/nihong/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/nihong/SKILL.md"
   },
   {
    "key": "leida",
@@ -2394,13 +2394,13 @@ window.AV = {
    "tagline": "1969 年 7 月 21 日帕克斯的风暴里，一面放倒到极限的 64 米天线顶住了风，替全世界接住了登月直播。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/leida.mp4",
+   "poster": "media/leida.jpg",
    "note": null,
    "badge": "lemo styles/dark-documentary · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/leida/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/leida/SKILL.md"
   },
   {
    "key": "jimu",
@@ -2416,13 +2416,13 @@ window.AV = {
    "tagline": "积木宇航员用零件拼出火箭，飞向积木月亮。",
    "aspect": "16:9",
    "seconds": 54.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:54",
+   "clip": 30.0,
+   "mp4": "media/jimu.mp4",
+   "poster": "media/jimu.jpg",
    "note": null,
    "badge": "lemo styles/brick-toy · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jimu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/jimu/SKILL.md"
   },
   {
    "key": "liti",
@@ -2438,13 +2438,13 @@ window.AV = {
    "tagline": "立体书在书桌上打开，小精灵 Pip 在纸片世界冒险，最后跳出书外。",
    "aspect": "16:9",
    "seconds": 133.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "2:13",
+   "clip": 30.0,
+   "mp4": "media/liti.mp4",
+   "poster": "media/liti.jpg",
    "note": null,
    "badge": "lemo styles/paper-popup · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/liti/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/liti/SKILL.md"
   },
   {
    "key": "yizhou",
@@ -2460,13 +2460,13 @@ window.AV = {
    "tagline": "玩具城的早高峰，一切都像模型。",
    "aspect": "16:9",
    "seconds": 38.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:38",
+   "clip": 30.0,
+   "mp4": "media/yizhou.mp4",
+   "poster": "media/yizhou.jpg",
    "note": null,
    "badge": "lemo styles/tilt-shift · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/yizhou/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/yizhou/SKILL.md"
   },
   {
    "key": "chanpin",
@@ -2482,13 +2482,13 @@ window.AV = {
    "tagline": "虚构玻璃耳机 Aura 的开箱与特写。",
    "aspect": "16:9",
    "seconds": 32.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:32",
+   "clip": 30.0,
+   "mp4": "media/chanpin.mp4",
+   "poster": "media/chanpin.jpg",
    "note": null,
    "badge": "lemo styles/glass-product · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/chanpin/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/chanpin/SKILL.md"
   },
   {
    "key": "labi2",
@@ -2504,13 +2504,13 @@ window.AV = {
    "tagline": "第一人称飞过蜡笔画的村子，落在老人花园里的一朵花上；最后换成他的眼睛，和他说的一句话。",
    "aspect": "16:9",
    "seconds": 64.5,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "1:05",
+   "clip": 30.0,
+   "mp4": "media/labi2.mp4",
+   "poster": "media/labi2.jpg",
    "note": null,
    "badge": "lemo styles/crayon-world · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/labi2/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/labi2/SKILL.md"
   },
   {
    "key": "weixing",
@@ -2526,13 +2526,13 @@ window.AV = {
    "tagline": "卫星照着地图去找咸海，找到的是沙漠；只有筑了坝的那一块回来了。",
    "aspect": "16:9",
    "seconds": 37.8,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:38",
+   "clip": 30.0,
+   "mp4": "media/weixing.mp4",
+   "poster": "media/weixing.jpg",
    "note": null,
    "badge": "lemo styles/satellite-briefing · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/weixing/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/weixing/SKILL.md"
   },
   {
    "key": "cehui",
@@ -2548,13 +2548,13 @@ window.AV = {
    "tagline": "激光点云剥掉一片森林的树冠，露出当年农田的石墙：3.4 公里。",
    "aspect": "16:9",
    "seconds": 40.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:40",
+   "clip": 30.0,
+   "mp4": "media/cehui.mp4",
+   "poster": "media/cehui.jpg",
    "note": null,
    "badge": "lemo styles/lidar-survey · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/cehui/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/cehui/SKILL.md"
   },
   {
    "key": "recheng",
@@ -2570,13 +2570,13 @@ window.AV = {
    "tagline": "雪夜里，一台热像仪绕着一栋老居民楼转：漏风的窗、墙里的暖气管、睡在热车盖上的猫，还有一年后改造完的同一栋楼。",
    "aspect": "16:9",
    "seconds": 49.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:49",
+   "clip": 30.0,
+   "mp4": "media/recheng.mp4",
+   "poster": "media/recheng.jpg",
    "note": null,
    "badge": "lemo styles/thermal-camera · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/recheng/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/recheng/SKILL.md"
   },
   {
    "key": "shuju",
@@ -2592,13 +2592,13 @@ window.AV = {
    "tagline": "一百年的夏季气温，图表本身就是故事。",
    "aspect": "16:9",
    "seconds": 50.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:50",
+   "clip": 30.0,
+   "mp4": "media/shuju.mp4",
+   "poster": "media/shuju.jpg",
    "note": null,
    "badge": "lemo styles/dataviz · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/shuju/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/shuju/SKILL.md"
   },
   {
    "key": "baimo",
@@ -2614,13 +2614,13 @@ window.AV = {
    "tagline": "投影机把数据一层层刷上鹿特丹白模：从 1940 年的空洞到今天的塔楼。",
    "aspect": "16:9",
    "seconds": 40.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:40",
+   "clip": 30.0,
+   "mp4": "media/baimo.mp4",
+   "poster": "media/baimo.jpg",
    "note": null,
    "badge": "lemo styles/white-model · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/baimo/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/baimo/SKILL.md"
   },
   {
    "key": "shiwu",
@@ -2636,13 +2636,13 @@ window.AV = {
    "tagline": "十二年风电和太阳能装机叠成实物，绕表盘升成两条螺旋，2021 年太阳能反超。",
    "aspect": "16:9",
    "seconds": 39.4,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:39",
+   "clip": 30.0,
+   "mp4": "media/shiwu.mp4",
+   "poster": "media/shiwu.jpg",
    "note": null,
    "badge": "lemo styles/data-physical · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/shiwu/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/shiwu/SKILL.md"
   },
   {
    "key": "dietie",
@@ -2658,13 +2658,13 @@ window.AV = {
    "tagline": "一张纸上的线路图，从 1993 年的 6 公里长到 21 条线、906 公里。",
    "aspect": "16:9",
    "seconds": 47.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:47",
+   "clip": 30.0,
+   "mp4": "media/dietie.mp4",
+   "poster": "media/dietie.jpg",
    "note": null,
    "badge": "lemo styles/transit-map · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/dietie/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/dietie/SKILL.md"
   },
   {
    "key": "moni",
@@ -2680,145 +2680,13 @@ window.AV = {
    "tagline": "160 只植绒小人抢豆子：快的先抢到也先跑不动，跑完 20 代，整块台面都变蓝了。",
    "aspect": "16:9",
    "seconds": 52.0,
-   "duration": "—",
-   "clip": null,
-   "mp4": null,
-   "poster": null,
+   "duration": "0:52",
+   "clip": 30.0,
+   "mp4": "media/moni.mp4",
+   "poster": "media/moni.jpg",
    "note": null,
    "badge": "lemo styles/pip-simulation · 上游 demo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/moni/SKILL.md"
-  },
-  {
-   "key": "liaotian",
-   "kind": "pipeline",
-   "pipeline": "liaotian",
-   "station": "screen",
-   "station_name": "屏幕赛博",
-   "no": "119",
-   "name_zh": "聊天叙事",
-   "name_en": "Chat Narrative",
-   "title": "一骑红尘妃子笑 · 聊天群",
-   "engine": "BB-Video styles/chat · 上游 promo",
-   "tagline": "故事发生在聊天软件里：气泡、输入中、语音条与引用卡，镜头推进一条时其余变暗。",
-   "aspect": "16:9",
-   "seconds": 58.6,
-   "duration": "0:59",
-   "clip": null,
-   "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/chat.mp4",
-   "poster": "media/liaotian.jpg",
-   "note": null,
-   "badge": "BB-Video styles/chat · 上游 promo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/liaotian/SKILL.md"
-  },
-  {
-   "key": "keli",
-   "kind": "pipeline",
-   "pipeline": "keli",
-   "station": "graphic",
-   "station_name": "平面图形",
-   "no": "120",
-   "name_zh": "扁平颗粒插画",
-   "name_en": "Flat Grain Illustration",
-   "title": "人类如何照亮夜晚",
-   "engine": "BB-Video styles/grain · 上游 promo",
-   "tagline": "两种专色印在暖纸上，体积与光全靠点状颗粒；一条地平线把时代一段段长出来。",
-   "aspect": "16:9",
-   "seconds": 92.6,
-   "duration": "1:33",
-   "clip": null,
-   "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/grain.mp4",
-   "poster": "media/keli.jpg",
-   "note": null,
-   "badge": "BB-Video styles/grain · 上游 promo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/keli/SKILL.md"
-  },
-  {
-   "key": "andiao",
-   "kind": "pipeline",
-   "pipeline": "andiao",
-   "station": "screen",
-   "station_name": "屏幕赛博",
-   "no": "121",
-   "name_zh": "暗调励志",
-   "name_en": "Dark Motivational",
-   "title": "再刷五分钟 · 报复性熬夜",
-   "engine": "BB-Video styles/lumen · 上游 promo",
-   "tagline": "几乎全黑的房间只留一盏动机光，方形头小人用眉眼演完熬夜、拖延与那个决定。",
-   "aspect": "16:9",
-   "seconds": 165.3,
-   "duration": "2:45",
-   "clip": null,
-   "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/lumen.mp4",
-   "poster": "media/andiao.jpg",
-   "note": null,
-   "badge": "BB-Video styles/lumen · 上游 promo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/andiao/SKILL.md"
-  },
-  {
-   "key": "xuanyi",
-   "kind": "pipeline",
-   "pipeline": "xuanyi",
-   "station": "screen",
-   "station_name": "屏幕赛博",
-   "no": "122",
-   "name_zh": "悬疑探秘",
-   "name_en": "Suspense Mystery",
-   "title": "为什么你的朋友该叫你爸爸",
-   "engine": "BB-Video styles/mystery · 上游 promo",
-   "tagline": "冷面伪科学电视：4:3 蓝屏、编号症状、橡皮管贴纸演一遍，最后切到测试卡。",
-   "aspect": "16:9",
-   "seconds": 44.4,
-   "duration": "0:44",
-   "clip": null,
-   "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/mystery.mp4",
-   "poster": "media/xuanyi.jpg",
-   "note": null,
-   "badge": "BB-Video styles/mystery · 上游 promo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xuanyi/SKILL.md"
-  },
-  {
-   "key": "oupu",
-   "kind": "pipeline",
-   "pipeline": "oupu",
-   "station": "graphic",
-   "station_name": "平面图形",
-   "no": "123",
-   "name_zh": "欧普艺术",
-   "name_en": "Op Art",
-   "title": "Stripe · 官网",
-   "engine": "BB-Video styles/op · 上游 promo",
-   "tagline": "黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。",
-   "aspect": "16:9",
-   "seconds": 22.3,
-   "duration": "0:22",
-   "clip": null,
-   "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/op.mp4",
-   "poster": "media/oupu.jpg",
-   "note": null,
-   "badge": "BB-Video styles/op · 上游 promo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/oupu/SKILL.md"
-  },
-  {
-   "key": "yugao",
-   "kind": "pipeline",
-   "pipeline": "yugao",
-   "station": "graphic",
-   "station_name": "平面图形",
-   "no": "124",
-   "name_zh": "电影预告",
-   "name_en": "Movie Trailer",
-   "title": "Deep Space Echo · 预告",
-   "engine": "BB-Video styles/trailer · 上游 promo",
-   "tagline": "2.39:1 遮幅的好莱坞预告：青橙调、黑底金属字卡、钢琴一记、BRAAM 与标题砸屏。",
-   "aspect": "16:9",
-   "seconds": 83.2,
-   "duration": "1:23",
-   "clip": null,
-   "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/trailer.mp4",
-   "poster": "media/yugao.jpg",
-   "note": null,
-   "badge": "BB-Video styles/trailer · 上游 promo",
-   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/yugao/SKILL.md"
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/moni/SKILL.md"
   }
  ]
 };
