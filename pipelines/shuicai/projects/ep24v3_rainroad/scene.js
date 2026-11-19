@@ -69,28 +69,25 @@ function buildBg() {
       const y = 1310 + i * 52;
       drawList(x, [mk(qcurve(-20, y, W + 20, y + rnd(-8, 8), rnd(-10, 10), 8), rnd(8, 16), PAL_R.grassD, { prof: 'brush', a: .22, rough: .3 })], 1);
     }
-    // 路：从底边收向消失点的两条边 + 湿面
-    const roadL = [], roadR = [];
-    for (let i = 0; i <= 10; i++) {
-      const q = i / 10, y = lerp(HB.y, ROAD.near, q), lx = lerp(HB.x, ROAD.nearX - 420 * q, q * .9), rx = lerp(HB.x, ROAD.nearX + 470 * q, q * .9);
-      roadL.push([lx, y]); roadR.push([rx, y]);
+    // 路：横穿画面的一条带（上沿 1560 / 下沿 1826），上边是田，下边是路肩草
+    drawList(x, [mk(qcurve(-30, 1560, W + 30, 1562 + rnd(-3, 3), rnd(-4, 4), 10), 20, PAL_R.roadD, { prof: 'even', a: .30, rough: .26, nb: 2 }),
+      mk(qcurve(-30, 1826, W + 30, 1828 + rnd(-3, 3), rnd(-4, 4), 10), 24, PAL_R.roadD, { prof: 'even', a: .34, rough: .24, nb: 2 })], 1);
+    // 湿路面：横向多层湿接
+    for (let i = 0; i < 9; i++) {
+      const y = 1570 + i * 28;
+      drawList(x, [mk(qcurve(-40, y + rnd(-5, 5), W + 40, y + rnd(-6, 6), rnd(-3, 3), 12), rnd(46, 78), PAL_R.road, { prof: 'even', a: rnd(.07, .15), rough: .18, nb: 1 })], 1);
     }
-    drawList(x, [mk(roadL, 12, PAL_R.roadD, { prof: 'even', a: .32, rough: .34, nb: 2 }),
-      mk(roadR, 10, PAL_R.roadD, { prof: 'even', a: .28, rough: .34, nb: 2 })], 1);
-    // 路面的水光（几笔横向淡蓝）
+    // 两道车辙（横着走）
+    for (const dy of [44, 132]) {
+      drawList(x, [mk(qcurve(-30, 1560 + dy, W + 30, 1560 + dy + rnd(-4, 4), 3, 10), 10, PAL_R.roadD, { prof: 'even', a: .22, rough: .2, nb: 1 })], 1);
+    }
+    // 路面积水（横向亮片）
     for (let i = 0; i < 16; i++) {
-      const q = i / 16, y = lerp(HB.y + 20, H + 20, q), lx = lerp(HB.x, ROAD.nearX - 420, q), rx = lerp(HB.x, ROAD.nearX + 470, q);
-      const x0 = lx + (rx - lx) * rnd(.06, .3), x1 = lx + (rx - lx) * rnd(.5, .94);
-      drawList(x, [mk(qcurve(x0, y, x1, y + rnd(-6, 6), rnd(-6, 6), 6), rnd(6, 22), rnd(.5, 1) > .5 ? PAL_R.paddy : '#c8cdc7', { prof: 'brush', a: rnd(.10, .26), rough: .28, nb: 2 })], 1);
-    }
-    // 路的实体（压一层薄赭，让路面有“湿土”）
-    for (let i = 0; i < 10; i++) {
-      const q = i / 10, y = lerp(HB.y + 40, H + 30, q);
-      const lx = lerp(HB.x - 20, ROAD.nearX - 420, q), rx = lerp(HB.x + 20, ROAD.nearX + 470, q);
-      drawList(x, [mk(qcurve(lx, y, rx, y + rnd(-6, 6), rnd(-8, 8), 12), rnd(90, 150), PAL_R.road, { prof: 'even', a: rnd(.10, .2), rough: .2, nb: 1 })], 1);
+      const x0 = rnd(-20, W), y = 1570 + rnd(10, 240);
+      drawList(x, [mk(qcurve(x0, y, x0 + rnd(60, 230), y + rnd(-3, 3), rnd(-3, 3), 6), rnd(9, 26), rnd(.5, 1) > .5 ? PAL_R.paddy : '#c8cdc7', { prof: 'brush', a: rnd(.10, .24), rough: .26, nb: 2 })], 1);
     }
     // 电线杆三根（近大远小），杆上横担 + 两根线
-    const poles = [[286, 1860, 1.05], [392, 1560, .74], [452, 1408, .54]];
+    const poles = [[298, 1552, .95], [588, 1508, .74], [828, 1472, .56]];
     const wires = [];
     for (const [px, py, s] of poles) {
       const hgt = 300 * s, wds = 26 * s;
@@ -134,35 +131,23 @@ function buildBg() {
       clump(L, 30 + i * 156 + rnd(-26, 26), HB.y - 8 + rnd(-12, 12), rnd(26, 46), Math.round(rnd(7, 11)), ['#5f7566', '#71897a', '#4f6355'], { l0: 8, l1: 20, w0: 5, w1: 11, a0: .22, a1: .42, sy: .5 });
       drawList(x, L, 1);
     }
-    // 路边界桩：木桩 + 红漆的「50」
-    drawList(x, [mk([[208, 1700], [206, 1502]], 34, '#7a6248', { prof: 'trunk', a: .55, rough: .26, nb: 3 })], 1);
+    // 路边界桩：木桩 + 红漆的「50」（立在路的上面那条田埂上）
+    drawList(x, [mk([[196, 1560], [194, 1362]], 34, '#7a6248', { prof: 'trunk', a: .55, rough: .26, nb: 3 })], 1);
     x.save();
     x.globalAlpha = .62; x.fillStyle = '#8d3a2b';
     x.font = '500 74px "Georgia", serif'; x.textAlign = 'center'; x.textBaseline = 'middle';
-    x.fillText('50', 205, 1552);
+    x.fillText('50', 193, 1412);
     x.font = '400 30px "Georgia", serif'; x.globalAlpha = .5;
-    x.fillText('km', 205, 1610);
+    x.fillText('km', 193, 1470);
     x.restore();
-    // 路面压深（湿土）
-    const roadPath = x.beginPath();
-    x.moveTo(HB.x - 26, HB.y); x.lineTo(HB.x + 26, HB.y);
-    x.lineTo(ROAD.nearX + 470, H + 20); x.lineTo(ROAD.nearX - 420, H + 20); x.closePath();
-    const roadG = x.createLinearGradient(0, HB.y, 0, H + 20);
-    roadG.addColorStop(0, 'rgba(74,62,52,0.10)'); roadG.addColorStop(.5, 'rgba(74,62,52,0.24)'); roadG.addColorStop(1, 'rgba(58,48,40,0.34)');
-    x.fillStyle = roadG; x.fill(roadPath);
-
-    // 路两侧的田与水（压住留白，让路成为一条带）
-    for (const sgn of [-1, 1]) {
-      x.beginPath();
-      x.moveTo(HB.x + sgn * 26, HB.y);
-      x.lineTo(HB.x + sgn * 36, HB.y);
-      x.lineTo(ROAD.nearX + sgn * (sgn < 0 ? 900 : 1200), H + 30);
-      x.lineTo(ROAD.nearX + sgn * (sgn < 0 ? 420 : 470), H + 30);
-      x.closePath();
-      const fg = x.createLinearGradient(0, HB.y, 0, H);
-      fg.addColorStop(0, 'rgba(126,142,124,0.06)'); fg.addColorStop(.6, 'rgba(126,142,124,0.16)'); fg.addColorStop(1, 'rgba(104,120,102,0.22)');
-      x.fillStyle = fg; x.fill();
-    }
+    // 路面压深（湿土）：横带，下沿更重
+    const roadG = x.createLinearGradient(0, 1560, 0, 1832);
+    roadG.addColorStop(0, 'rgba(74,62,52,0.08)'); roadG.addColorStop(.35, 'rgba(74,62,52,0.22)'); roadG.addColorStop(1, 'rgba(58,48,40,0.32)');
+    x.fillStyle = roadG; x.fillRect(0, 1560, W, 272);
+    // 路面下缘之外（路肩草）压一层绿灰
+    const vergeG = x.createLinearGradient(0, 1832, 0, H);
+    vergeG.addColorStop(0, 'rgba(96,112,86,0.18)'); vergeG.addColorStop(1, 'rgba(74,92,68,0.28)');
+    x.fillStyle = vergeG; x.fillRect(0, 1832, W, H - 1832);
     // 四角淡压
     const vg = x.createRadialGradient(W / 2, H / 2, Math.min(W, H) * .42, W / 2, H / 2, Math.max(W, H) * .78);
     vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(120,96,66,0.16)');
@@ -290,7 +275,7 @@ function drawPuddles(x, t) {
   const st = Math.floor(t * 6) / 6;
   for (let i = 0; i < 9; i++) {
     const seed = i * 7.3;
-    const px = 240 + ((i * 137) % 640), py = 1330 + ((i * 79) % 540);
+    const px = 120 + ((i * 137) % 820), py = 1590 + ((i * 79) % 220);
     const k = ((st * .9 + i * .37) % 1);
     x.strokeStyle = `rgba(120,146,160,${(1 - k) * .30})`; x.lineWidth = 1.6;
     x.beginPath(); x.ellipse(px, py, 6 + k * 34, 2 + k * 9, 0, 0, Math.PI * 2); x.stroke();
@@ -305,7 +290,7 @@ window.render = function render(t) {
   // 车：10 s 自左往右骑过画面（匀速带一点缓起缓停）
   const q = clamp(t / DUR10);
   const bx = lerp(-240, W + 260, clamp(q * 1.02));
-  const by = 1706 + Math.sin(t * 6.2) * 2.4;
+  const by = 1734;
   const bs = 1.12;
   // 车轮下的湿地影
   ctx.save();
@@ -331,6 +316,8 @@ function EaseInOut(x) { x = clamp(x); return x < .5 ? 2 * x * x : 1 - Math.pow(-
 
 window.render(0);
 window.READY = true;
+
+
 
 
 
