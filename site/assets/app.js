@@ -19,8 +19,8 @@
 
   /* ---------------------------------------------------------- 首屏计数 */
   const withSample = items.filter((it) => it.kind === "pipeline" && it.mp4).length;
-  const allSamples = items.filter((it) => it.mp4).length;
-  $("#kicker").textContent = `${stations.length} 个工位 · ${items.filter(i => i.kind === "pipeline").length} 条管线 · ${allSamples} 段样片`;
+  const pipelineCount = items.filter((i) => i.kind === "pipeline").length;
+  $("#kicker").textContent = `${stations.length} 个工位 · ${pipelineCount} 条管线 · ${withSample} 支样片`;
 
   /* ---------------------------------------------------------- 目录与跳转 */
   const contents = $("#contents");
@@ -169,50 +169,7 @@
     host.appendChild(sec);
   });
 
-  /* ------------------------------------------------------------ 样片库 */
-  const lib = items.filter((it) => it.mp4);
-  $("#libcount").textContent = `${lib.length} 段`;
-  const libgrid = $("#libgrid");
-  const libempty = $("#libempty");
-  let filter = "all";
-  let query = "";
-
-  function match(it) {
-    if (filter === "pipeline" && it.kind !== "pipeline") return false;
-    if (filter === "style" && it.kind !== "style") return false;
-    if (filter === "portrait" && it.aspect !== "9:16") return false;
-    if (filter === "landscape" && it.aspect === "9:16") return false;
-    if (filter === "long" && !(it.seconds >= 60)) return false;
-    if (!query) return true;
-    const hay = [it.name_zh, it.name_en, it.title, it.pipeline, it.station_name].join(" ").toLowerCase();
-    return hay.includes(query);
-  }
-
-  function renderLib() {
-    libgrid.innerHTML = "";
-    const hits = lib.filter(match);
-    hits.forEach((it) => libgrid.appendChild(makeCard(it)));
-    libempty.hidden = hits.length > 0;
-    $("#libcount").textContent = `${hits.length} / ${lib.length} 段`;
-  }
-  renderLib();
-
-  document.querySelectorAll(".chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      document.querySelectorAll(".chip").forEach((c) => c.classList.remove("on"));
-      chip.classList.add("on");
-      filter = chip.dataset.filter;
-      renderLib();
-    });
-  });
-
-  const q = $("#q");
-  q.addEventListener("input", () => {
-    query = q.value.trim().toLowerCase();
-    renderLib();
-  });
-
-  /* ------------------------------------------------------------- 灯箱 */
+  /* ------------------------------------------------------------ 灯箱 */
   const lb = $("#lightbox");
   const lbv = $("#lbvideo");
   const lbt = $("#lbtitle");
@@ -250,11 +207,6 @@
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && lb.classList.contains("on")) closeLightbox();
-    if (e.key === "/" && document.activeElement !== q) {
-      e.preventDefault();
-      q.focus();
-      q.select();
-    }
   });
 
   /* --------------------------------------------------------- 顶栏状态 */

@@ -92,7 +92,25 @@ body.scrolled .top::before { opacity: 1; }
   align-items: center; gap: clamp(28px, 5vw, 96px);
   padding: 16vh var(--pad) 12vh;
   border-bottom: 1px solid var(--hair);
+  overflow: hidden;
 }
+/* 首屏背景：千黄（qianhuang）浓彩——血海落日 */
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(96deg, rgba(11,10,9,.95) 0%, rgba(11,10,9,.88) 32%, rgba(11,10,9,.58) 56%, rgba(11,10,9,.30) 78%, rgba(11,10,9,.22) 100%),
+    linear-gradient(90deg, rgba(11,10,9,0) 58%, rgba(11,10,9,.52) 86%, rgba(11,10,9,.72) 100%),
+    linear-gradient(180deg, rgba(11,10,9,.10) 0%, rgba(11,10,9,.30) 62%, var(--ink) 100%),
+    url("../media/hero-qianhuang.jpg");
+  background-size: cover, cover, cover, cover;
+  background-position: center, center, 62% 46%;
+  background-repeat: no-repeat;
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(120% 80% at 78% 42%, rgba(233,180,124,.10) 0%, rgba(11,10,9,0) 62%);
+}
+.hero > * { position: relative; z-index: 1; }
 .hero__text { max-width: min(100%, 46rem); }
 .kicker {
   display: flex; align-items: center; gap: 10px;
@@ -116,6 +134,7 @@ body.scrolled .top::before { opacity: 1; }
   border-left: 1px solid var(--hair); padding-left: clamp(16px, 2vw, 28px);
   margin-bottom: 6px;
 }
+.hero__side .contents a span:last-child { color: var(--paper-2); }
 .hero__side p {
   font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
   color: var(--paper-3); text-transform: uppercase; margin-bottom: 14px;

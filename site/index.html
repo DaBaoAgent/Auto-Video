@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Auto-Video · 动画工坊 —— 33 条成片管线 + 可选前端闭环，从一个选题到可发布成片</title>
-<meta name="description" content="Auto-Video 是 33 条 AI 视频成片管线（含 1 个配音前端）的集合：纸本叙事、手绘笔触、传统工艺、卡通动画、平面图形、屏幕赛博、三维推演、地图地理、图纸说明、实拍混剪。每条管线都有定版参数、可复现的渲染命令和样片。">
+<title>Auto-Video · 动画工坊 —— 40 条成片管线 + 1 个配音前端，从一个选题到可发布成片</title>
+<meta name="description" content="Auto-Video 是 40 条 AI 视频成片管线（再加 1 个配音前端）的集合：纸本叙事、手绘笔触、传统工艺、卡通动画、平面图形、屏幕赛博、三维推演、地图地理、图纸说明、实拍混剪。每条管线都有定版参数、可复现的渲染命令和 10 秒样片。">
 <meta property="og:title" content="Auto-Video · 动画工坊">
-<meta property="og:description" content="33 条管线 · 11 个工位 · 88 段样片，悬停即播。">
+<meta property="og:description" content="41 条管线 · 11 个工位 · 40 支样片，悬停即播。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://dabaoagent.github.io/Auto-Video/">
-<meta property="og:image" content="https://dabaoagent.github.io/Auto-Video/media/caiqian.jpg">
-<meta property="og:image:width" content="1280">
-<meta property="og:image:height" content="720">
+<meta property="og:image" content="https://dabaoagent.github.io/Auto-Video/media/hero-qianhuang.jpg">
+<meta property="og:image:width" content="2560">
+<meta property="og:image:height" content="1040">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://dabaoagent.github.io/Auto-Video/media/caiqian.jpg">
+<meta name="twitter:image" content="https://dabaoagent.github.io/Auto-Video/media/hero-qianhuang.jpg">
 <link rel="canonical" href="https://dabaoagent.github.io/Auto-Video/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="favicon.svg">
@@ -48,32 +48,10 @@
   </section>
 
   <div id="stations"></div>
-
-  <section class="library" id="library">
-    <div class="lib__head">
-      <div>
-        <h2>样片库</h2>
-        <span class="kick">Sample Library</span>
-        <p>同一批素材里的全部样片，按管线、横竖屏和时长筛。鼠标停住就播，点一下放大出声。</p>
-      </div>
-      <div class="meta" id="libcount"></div>
-    </div>
-    <div class="tools">
-      <button class="chip on" data-filter="all">全部</button>
-      <button class="chip" data-filter="pipeline">管线样片</button>
-      <button class="chip" data-filter="style">风格样片</button>
-      <button class="chip" data-filter="landscape">横屏</button>
-      <button class="chip" data-filter="portrait">竖屏</button>
-      <button class="chip" data-filter="long">一分钟以上</button>
-      <label class="search"><span aria-hidden="true">⌕</span><input id="q" type="search" placeholder="搜片名 / 风格 / 管线  按 / 聚焦" aria-label="搜索样片"></label>
-    </div>
-    <div class="grid small" id="libgrid"></div>
-    <p class="emptyhint" id="libempty" hidden>没有匹配的样片。</p>
-  </section>
 </main>
 
 <footer class="foot">
-  <div><b>Auto-Video</b>32 条成片管线 + 1 个配音前端，共 11 个工位。画面全部由代码、模板或本地模型生成。</div>
+  <div><b>Auto-Video</b>40 条成片管线 + 1 个配音前端，共 11 个工位。画面全部由代码、模板或本地模型生成。</div>
   <div><b>数据来源</b><span class="mono">catalog/pipelines.json</span> 是唯一事实来源，站点由它生成。</div>
   <div><b>仓库</b><a href="https://github.com/DaBaoAgent/Auto-Video" target="_blank" rel="noopener">github.com/DaBaoAgent/Auto-Video</a></div>
   <div><b>许可</b>MIT · 样片版权归作者本人</div>

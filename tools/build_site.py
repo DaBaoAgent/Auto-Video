@@ -56,29 +56,12 @@ def main() -> int:
             "doc": DOC_URL.format(id=p["id"]),
         })
 
-    for s in samples:
-        if s["kind"] != "style":
-            continue
-        items.append({
-            "key": s["key"],
-            "kind": "style",
-            "pipeline": None,
-            "station": None,
-            "station_name": "",
-            "no": "",
-            "name_zh": s["title"],
-            "name_en": "",
-            "title": "",
-            "engine": "",
-            "tagline": "",
-            "aspect": s.get("aspect", "16:9"),
-            "seconds": s.get("seconds", 0),
-            "duration": s.get("duration", "—"),
-            "mp4": s.get("mp4"),
-            "poster": s.get("poster"),
-            "badge": "风格样片",
-            "doc": None,
-        })
+    # 样片库模块已下线：风格样片（kind=style）不再进 data.js，
+    # 站点只按工位展示管线卡。需要恢复时把下面这段取消注释即可。
+    # for s in samples:
+    #     if s["kind"] != "style":
+    #         continue
+    #     items.append({...})
 
     data = {
         "generated": read_json(REPO / "catalog" / "pipelines.json").get("updated", ""),
