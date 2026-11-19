@@ -2,16 +2,16 @@
 
 # Auto-Video 🎬
 
-### 一个想法 → 32 条成片管线 · 11 个工位 · 一部能发的片
+### 一个想法 → 40 条成片管线 · 11 个工位 · 一部能发的片
 
-Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本地克隆音色配音、32 条成片管线出片，外加 1 个配音前端（[peiyin](peiyin/SKILL.md)）。每条管线是一套**画法 + 镜头语法 + 交付门禁**，参数写死在 `pipeline.json` 里可复现，画面由代码、模板或本机模型确定性渲染，不依赖云端生图 / 生视频 API，也没有按次调用费用。
+Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本地克隆音色配音、40 条成片管线出片，外加 1 个配音前端（[peiyin](pipelines/peiyin/SKILL.md)）。每条管线是一套**画法 + 镜头语法 + 交付门禁**，参数写死在 `pipeline.json` 里可复现，画面由代码、模板或本机模型确定性渲染，不依赖云端生图 / 生视频 API，也没有按次调用费用。
 
 [![stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
 [![release](https://img.shields.io/github/v/release/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/releases)
-![pipelines](https://img.shields.io/badge/pipelines-32%20films%20%2B%201%20frontend-111111?style=flat-square)
+![pipelines](https://img.shields.io/badge/pipelines-40%20films%20%2B%201%20frontend-111111?style=flat-square)
 ![stations](https://img.shields.io/badge/stations-11-111111?style=flat-square)
-![samples](https://img.shields.io/badge/samples-88%20clips-e9b47c?style=flat-square)
+![samples](https://img.shields.io/badge/samples-40%20clips-e9b47c?style=flat-square)
 ![roadmap](https://img.shields.io/badge/roadmap-99%20styles-c43b32?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
@@ -33,7 +33,7 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 
 **目录**：[三张入场券](#start) · [工位地图](#stations) · [统一契约](#contract) · [样片](#showcase) · [怎么生产一条片](#flow) · [快速开始](#quickstart) · [仓库结构](#layout) · [技术栈](#stack) · [常见问题](#faq) · [路线图](#roadmap) · [鸣谢与许可](#credits)
 
-> **仓库结构（2026-11 起）**：41 条风格管线全部收在 `pipelines/` 下，根目录只留基础设施
+> **仓库结构（2026-11 起）**：41 条管线全部收在 `pipelines/` 下，根目录只留基础设施
 > （`assets` `catalog` `docs` `out` `tools` `vendor` `site` `demo` `docker` `frontend` `projects` `samples-v2` `schema`）。
 > 各管线入口一律按 `python pipelines/<管线名>/scripts/<管线名>.py ...` 调用；`out/<编号_片名>/` 放定稿的成片、字幕、封面与发布信息。
 >
@@ -59,7 +59,7 @@ docker compose run --rm demo
 ```
 
 产物 `demo/out/demo.mp4`。这条路径走的是「模板 + 任意行数稿子」：分幕从 `timeline.json` 长出来
-（[`vendor/runtime/autoscene.js`](vendor/runtime/autoscene.js)），8 条模板库派生模板
+（[`vendor/runtime/autoscene.js`](vendor/runtime/autoscene.js)），模板派生管线
 不再写死 8 句旁白，5 句、12 句都能渲。
 
 <a id="start"></a>
@@ -67,12 +67,12 @@ docker compose run --rm demo
 
 | 你想干什么 | 从哪儿进 | 一句话说明 |
 | --- | --- | --- |
-| 先看看长什么样 | [在线样片站](https://dabaoagent.github.io/Auto-Video/) | 87 段样片，按工位排开；鼠标停住就播，点开插入灯箱有声播放 |
+| 先看看长什么样 | [在线样片站](https://dabaoagent.github.io/Auto-Video/) | 40 段样片，按工位排开；鼠标停住就播，点开插入灯箱有声播放 |
 | 想做一条片 | 下面的[工位地图](#stations) → 点管线 → 读 `SKILL.md` | 每条 SKILL.md 是完整流程：入口脚本、参数、验收条件、已知坑 |
 | 想加 / 改一条管线 | [统一契约](#contract) | `catalog/pipelines.json` 是唯一事实来源，`tools/validate.py` 负责不许走样 |
 
 <a id="stations"></a>
-## 工位地图 🗺️ 32 条成片 + 1 个前端
+## 工位地图 🗺️ 40 条成片 + 1 个前端
 
 管线按**工位**分组：工位是「同一套画法血统」的一族，编号即站点与文档中的排序。
 
@@ -82,9 +82,9 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [jianying](jianying/SKILL.md) | 《刘秀·位面之子》 3:31 | 绢本纸本美术 + 卡片运动语法，2–4 秒一镜，字幕贴着从句走。 | Remotion |
-| [lishi](lishi/SKILL.md) | 《朱元璋·碽妃疑案》 2:25 | AI 静帧底图 + 代码运镜，句级全量字幕与纸色衬底常驻。 | Remotion |
-| [zhidiao](zhidiao/SKILL.md) | 样片待补 | 词级转写与拼音 DP 对齐，HyperFrames 渲一张会动的纸雕灯箱。 | HyperFrames |
+| [jianying](pipelines/jianying/SKILL.md) | 《刘秀·位面之子》 3:31 | 绢本纸本美术 + 卡片运动语法，2–4 秒一镜，字幕贴着从句走。 | Remotion |
+| [lishi](pipelines/lishi/SKILL.md) | 《朱元璋·碽妃疑案》 2:25 | AI 静帧底图 + 代码运镜，句级全量字幕与纸色衬底常驻。 | Remotion |
+| [zhidiao](pipelines/zhidiao/SKILL.md) | 《鲤鱼》 0:21 | 词级转写与拼音 DP 对齐，HyperFrames 渲一张会动的纸雕灯箱。 | HyperFrames |
 
 ### 02 · 手绘笔触　*Hand & Pencil*
 
@@ -92,10 +92,14 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [shouhui](shouhui/SKILL.md) | 《商纣王》 3:26 | 纸纹、墨线 boil、墨字书写，cel 火焰与火星，24 fps 线条沸腾。 | Canvas 逐帧 · 浏览器渲染 |
-| [pencil](pencil/SKILL.md) | 《阿努纳奇》 0:30 | 蓝线起稿、石墨勾线、橡皮修改，画与画之间 morph。 | Canvas · Chrome 逐帧 |
-| [caiqian](caiqian/SKILL.md) | 《鳕鱼》 0:27 | 四张 G-buffer 由后处理叠成彩铅排线，锚定坐标防漂移。 | G-buffer + 后处理 |
-| [pingban](pingban/SKILL.md) | 《关羽》 0:39 | 六格手卷，铅笔一笔一笔现场画，镜头跟着笔尖走。 | 纯 Canvas · 零依赖 |
+| [shouhui](pipelines/shouhui/SKILL.md) | 《商纣王》 3:26 | 纸纹、墨线 boil、墨字书写，cel 火焰与火星，24 fps 线条沸腾。 | Canvas 逐帧 · 浏览器渲染 |
+| [pencil](pipelines/pencil/SKILL.md) | 《阿努纳奇》 0:30 | 蓝线起稿、石墨勾线、橡皮修改，画与画之间 morph。 | Canvas · Chrome 逐帧 |
+| [caiqian](pipelines/caiqian/SKILL.md) | 《鳕鱼》 0:27 | 四张 G-buffer 由后处理叠成彩铅排线，锚定坐标防漂移。 | G-buffer + 后处理 |
+| [pingban](pipelines/pingban/SKILL.md) | 《关羽》 0:39 | 六格手卷，铅笔一笔一笔现场画，镜头跟着笔尖走。 | 纯 Canvas · 零依赖 |
+| [gangbi](pipelines/gangbi/SKILL.md) | 《风去了哪里》 0:33 | 钢笔线先走，水彩跟着到；镜头在整页纸上跟着草帽走。 | Canvas 逐帧 · 钢笔 + 水彩双层 |
+| [labi](pipelines/labi/SKILL.md) | 《月亮睡不着》 0:52 | 一页绘本当着你的面画出来：蜡笔先走，水彩最后把藏起来的星星洗出来。 | WebGL2 合成 + Canvas 逐帧 |
+| [shuicai](pipelines/shuicai/SKILL.md) | 《从旱到涝》 1:54 | 一笔一笔湿接湿的水彩，颜色在纸上自己走、自己干、自己留边。 | Canvas 2D · 湿画法笔刷 + 纸张吸收 |
+| [qianhuang](pipelines/qianhuang/SKILL.md) | 《血之海滩 · 第一段》 0:21 | 一页手绘浓彩被红蓝两盏色片灯夹住，刀落下去有声音。 | Canvas 逐帧 · 钢笔浓彩 + 色片光 |
 
 ### 03 · 传统工艺　*Traditional Crafts*
 
@@ -103,11 +107,13 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [piying](piying/SKILL.md) | 《波斯湾伊甸园》 4:32 | 皮影剪影配卡片式讲解，分镜生成与四查门禁。 | Playwright + Canvas 逐帧 |
-| [shuimo](shuimo/SKILL.md) | 《羽人》 0:30 | 宣纸底、生成式 SVG 山水、墨渗转场、竖排题记与朱砂印。 | SVG + Canvas |
-| [shadow](shadow/SKILL.md) | 《玄奘》 3:23 | 素白幕、木质台框、透光牛皮影人，灯暗换场。 | Canvas · Chrome 逐帧 |
-| [tapestry](tapestry/SKILL.md) | 《阿努纳奇》 0:30 | 亚麻底、羊毛绣线、茎针绣与铺线，长卷滚动推进。 | Canvas · Chrome 逐帧 |
-| [laolang](laolang/SKILL.md) | 《玄奘》 1:02 | 1980 上美影式手绘赛璐璐，4:3 圆角片门，定稿 toon 人物 24 动作。 | Canvas · Chrome 逐帧 |
+| [piying](pipelines/piying/SKILL.md) | 《波斯湾伊甸园》 4:32 | 皮影剪影配卡片式讲解，分镜生成与四查门禁。 | Playwright + Canvas 逐帧 |
+| [shuimo](pipelines/shuimo/SKILL.md) | 《羽人》 0:30 | 宣纸底、生成式 SVG 山水、墨渗转场、竖排题记与朱砂印。 | SVG + Canvas |
+| [shadow](pipelines/shadow/SKILL.md) | 《玄奘》 3:23 | 素白幕、木质台框、透光牛皮影人，灯暗换场。 | Canvas · Chrome 逐帧 |
+| [tapestry](pipelines/tapestry/SKILL.md) | 《阿努纳奇》 0:30 | 亚麻底、羊毛绣线、茎针绣与铺线，长卷滚动推进。 | Canvas · Chrome 逐帧 |
+| [laolang](pipelines/laolang/SKILL.md) | 《玄奘》 1:02 | 1980 上美影式手绘赛璐璐，4:3 圆角片门，定稿 toon 人物 24 动作。 | Canvas · Chrome 逐帧 |
+| [fushihui](pipelines/fushihui/SKILL.md) | 《向山》 0:44 | 一张木版画：墨线、几个色块各自错开半格印上去，纸在吃墨。 | Canvas 2D · 分色版块 + 错版套印 |
+| [shuimo2](pipelines/shuimo2/SKILL.md) | 《剑客与河》 0:48 | 一张宣纸：墨分五色，一笔下去有骨有肉，朱砂只在印章和一个点上。 | Canvas 2D · 墨的浓淡/飞白/渗化 + 程序化宣纸 |
 
 ### 04 · 卡通动画　*Cartoons*
 
@@ -115,10 +121,10 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [goldenage](goldenage/SKILL.md) | 《阿努纳奇》 0:30 | 手绘城市背景 + 墨线赛璐璐角色，15 张/秒的抽搐墨线。 | Canvas · Chrome 逐帧 |
-| [manga](manga/SKILL.md) | 《阿努纳奇》 0:30 | 黑墨线、网点、分格、拟声词，镜头按阅读顺序读页。 | Canvas · Chrome 逐帧 |
-| [xiangsu](xiangsu/SKILL.md) | 《曹操》 0:29 | 640×360 索引色帧缓冲逐像素绘制，×3 最近邻放大并在输出分辨率做 CRT。 | Canvas · Puppeteer 逐帧 |
-| [tianshu](tianshu/SKILL.md) | 《镇魔塔》 0:41 | 本地 ComfyUI 出定帧、Wan2.2 出氛围动态，逐镜锚定原片亮度与饱和。 | ComfyUI + Wan2.2 |
+| [goldenage](pipelines/goldenage/SKILL.md) | 《阿努纳奇》 0:30 | 手绘城市背景 + 墨线赛璐璐角色，15 张/秒的抽搐墨线。 | Canvas · Chrome 逐帧 |
+| [manga](pipelines/manga/SKILL.md) | 《阿努纳奇》 0:30 | 黑墨线、网点、分格、拟声词，镜头按阅读顺序读页。 | Canvas · Chrome 逐帧 |
+| [xiangsu](pipelines/xiangsu/SKILL.md) | 《曹操》 0:29 | 640×360 索引色帧缓冲逐像素绘制，×3 最近邻放大并在输出分辨率做 CRT。 | Canvas · Puppeteer 逐帧 |
+| [tianshu](pipelines/tianshu/SKILL.md) | 《镇魔塔》 0:41 | 本地 ComfyUI 出定帧、Wan2.2 出氛围动态，逐镜锚定原片亮度与饱和。 | ComfyUI + Wan2.2 |
 
 ### 05 · 平面图形　*Graphic & Motion*
 
@@ -126,10 +132,11 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [shiliang](shiliang/SKILL.md) | 《扁平矢量》 0:30 | 纯色几何世界、弹性入场、元素驱动转场，纯标准库合成 MG-pop 配乐。 | SVG 单页 · 逐帧确定性渲染 |
-| [lvdong](lvdong/SKILL.md) | 样片待补 | 纯黑剪影站在落日与水面前，姿势落在 90 BPM 的拍上，关键一拍拍冻结。 | Canvas + 着色器 · 代码合成配乐 |
-| [huixingzhen](huixingzhen/SKILL.md) | 《羽人》 9:57 | 实拍照片贴纸化、精确图表、大画布连续运镜。 | HTML 逐帧 · 确定性渲染 |
-| [bianping](bianping/SKILL.md) | 《僵尸地球》 0:36 | 从彗星撞木星连续推到黑洞事件视界，Orbi 小眼睛角色做引导。 | SVG 代码绘制 · lemo-opuscar core/render |
+| [shiliang](pipelines/shiliang/SKILL.md) | 《扁平矢量》 0:30 | 纯色几何世界、弹性入场、元素驱动转场，纯标准库合成 MG-pop 配乐。 | SVG 单页 · 逐帧确定性渲染 |
+| [lvdong](pipelines/lvdong/SKILL.md) | 《玛雅文明》 0:58 | 纯黑剪影站在落日与水面前，姿势落在 90 BPM 的拍上，关键一拍拍冻结。 | Canvas + 着色器 · 代码合成配乐 |
+| [huixingzhen](pipelines/huixingzhen/SKILL.md) | 《羽人》 9:57 | 实拍照片贴纸化、精确图表、大画布连续运镜。 | HTML 逐帧 · 确定性渲染 |
+| [bianping](pipelines/bianping/SKILL.md) | 《僵尸地球》 0:36 | 从彗星撞木星连续推到黑洞事件视界，Orbi 小眼睛角色做引导。 | SVG 代码绘制 · lemo-opuscar core/render |
+| [zhuangshi](pipelines/zhuangshi/SKILL.md) | 《星光酒店午夜》 0:39 | 金线、漆面黑、阶梯边：酒店大堂在午夜亮起来，一切都从中心展开。 | Canvas 2D · 金色渐变线 + 灯泡招牌 |
 
 ### 06 · 屏幕赛博　*Screens & Neon*
 
@@ -137,8 +144,8 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [xianshiqi](xianshiqi/SKILL.md) | 《UAP · 赛博》 0:30 | 深青黑底、青色霓虹线框、雷达扫掠与目标锁定。 | Three.js + Canvas FUI 覆盖层 |
-| [xuni](xuni/SKILL.md) | 《朊病毒》 0:30 | 霓虹网格、日落、铬字、扫描线、Y2K 窗口。 | Three.js + Canvas + VHS 后处理 |
+| [xianshiqi](pipelines/xianshiqi/SKILL.md) | 《UAP · 赛博》 0:30 | 深青黑底、青色霓虹线框、雷达扫掠与目标锁定。 | Three.js + Canvas FUI 覆盖层 |
+| [xuni](pipelines/xuni/SKILL.md) | 《朊病毒》 0:30 | 霓虹网格、日落、铬字、扫描线、Y2K 窗口。 | Three.js + Canvas + VHS 后处理 |
 
 ### 07 · 三维推演　*3D & Diorama*
 
@@ -146,10 +153,11 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [tuiyan](tuiyan/SKILL.md) | 《赤壁之战》 9:00 | 全 3D 兵棋推演，稳帧 1080p，音效与 BGM 按关键镜挂。 | 3D 兵棋引擎 · 逐帧稳帧渲染 |
-| [chengshi](chengshi/SKILL.md) | 《苏州 · 城长》 2:41 | OSM/Esri/SRTM 真实数据驱动的白模 3D 城市，确定性生长。 | Three.js + Remotion |
-| [dengju](dengju/SKILL.md) | 《羽人》 0:30 | 粉彩微缩模型、真正等轴正交相机、地面瓦片波浪与滑轨运镜。 | Three.js 正交场景 |
-| [isometric](isometric/SKILL.md) | 《阿努纳奇》 0:30 | 45° 等距微缩世界，带厚底座的方形地块组成系统，镜头连续滑行、讲到哪块就抬起哪块。 | Canvas · Chrome 逐帧 |
+| [tuiyan](pipelines/tuiyan/SKILL.md) | 《赤壁之战》 9:00 | 全 3D 兵棋推演，稳帧 1080p，音效与 BGM 按关键镜挂。 | 3D 兵棋引擎 · 逐帧稳帧渲染 |
+| [chengshi](pipelines/chengshi/SKILL.md) | 《苏州 · 城长》 2:41 | OSM/Esri/SRTM 真实数据驱动的白模 3D 城市，确定性生长。 | Three.js + Remotion |
+| [dengju](pipelines/dengju/SKILL.md) | 《羽人》 0:30 | 粉彩微缩模型、真正等轴正交相机、地面瓦片波浪与滑轨运镜。 | Three.js 正交场景 |
+| [isometric](pipelines/isometric/SKILL.md) | 《阿努纳奇》 0:30 | 45° 等距微缩世界，带厚底座的方形地块组成系统，镜头连续滑行、讲到哪块就抬起哪块。 | Canvas · Chrome 逐帧 |
+| [weisuo](pipelines/weisuo/SKILL.md) | 《柚子镇四季》 0:45 | 一座 2D 形状搭起来的 3D 微缩小镇，一年四季在框里转，人在一格一格走。 | three.js 3D 微缩 + 描边后处理 |
 
 ### 08 · 地图地理　*Maps & Terrain*
 
@@ -157,8 +165,8 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [map](map/SKILL.md) | 《张骞寻路》 9:04 | Natural Earth 真实底图上，人物贴纸与标注卡锚定经纬度。 | Chrome 逐帧 + ffmpeg |
-| [ditu](ditu/SKILL.md) | 《关羽》 0:39 | 卫星地形 + terrarium 高程，按高程起伏的三维水面从 84 km 推到 26 km。 | WebGL · 高程驱动水面 |
+| [map](pipelines/map/SKILL.md) | 《张骞寻路》 9:04 | Natural Earth 真实底图上，人物贴纸与标注卡锚定经纬度。 | Chrome 逐帧 + ffmpeg |
+| [ditu](pipelines/ditu/SKILL.md) | 《关羽》 0:39 | 卫星地形 + terrarium 高程，按高程起伏的三维水面从 84 km 推到 26 km。 | WebGL · 高程驱动水面 |
 
 ### 09 · 图纸说明　*Diagram & Blueprint*
 
@@ -166,8 +174,8 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [blueprint](blueprint/SKILL.md) | 《玄奘 · 前 10 秒》 0:12 | 蓝晒图纸、白色细线，构造线先出、尺寸与 leader 标注跟进，红铅笔唯一强调。 | Canvas · Chrome 逐帧 |
-| [parable](parable/SKILL.md) | 《阿努纳奇》 2:58 | 黑虚空里的白色火柴人，两个角色同一堆材料，一个红色物件承载意义，无切镜。 | Three.js · 固定广角 |
+| [blueprint](pipelines/blueprint/SKILL.md) | 《玄奘 · 前 10 秒》 0:12 | 蓝晒图纸、白色细线，构造线先出、尺寸与 leader 标注跟进，红铅笔唯一强调。 | Canvas · Chrome 逐帧 |
+| [parable](pipelines/parable/SKILL.md) | 《阿努纳奇》 2:58 | 黑虚空里的白色火柴人，两个角色同一堆材料，一个红色物件承载意义，无切镜。 | Three.js · 固定广角 |
 
 ### 10 · 实拍混剪　*Live Footage*
 
@@ -175,8 +183,8 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [shipai](shipai/SKILL.md) | 《玛雅》 0:18 | Pixabay 按 id 下载、固定顺序拼接，MoneyPrinterTurbo 出底片，一行式字幕烧入。 | MoneyPrinterTurbo + ffmpeg |
-| [jilupian](jilupian/SKILL.md) | 《一口气看完日本3000年》 13:38 | 给一份片源 URL 清单，核验、下载、口播、配音、影子匹配、自动剪辑到发布资料。 | S1–S9 流水线 |
+| [shipai](pipelines/shipai/SKILL.md) | 《玛雅》 0:18 | Pixabay 按 id 下载、固定顺序拼接，MoneyPrinterTurbo 出底片，一行式字幕烧入。 | MoneyPrinterTurbo + ffmpeg |
+| [jilupian](pipelines/jilupian/SKILL.md) | 《一口气看完日本3000年》 13:38 | 给一份片源 URL 清单，核验、下载、口播、配音、影子匹配、自动剪辑到发布资料。 | S1–S9 流水线 |
 
 ### 11 · 前端工位　*Front of House*
 
@@ -184,7 +192,7 @@ docker compose run --rm demo
 
 | 管线 | 样片 | 适合的内容 | 视觉与生产方法 |
 | --- | --- | --- | --- |
-| [peiyin](peiyin/SKILL.md) | 配音模块 · 无样片 | 选题、口播稿审计、批量克隆配音与时间轴，成片之前的两个阶段。 | GPT-SoVITS · 长稿分段合成 |
+| [peiyin](pipelines/peiyin/SKILL.md) | 配音模块 · 无样片 | 选题、口播稿审计、批量克隆配音与时间轴，成片之前的两个阶段。 | GPT-SoVITS · 长稿分段合成 |
 
 <a id="contract"></a>
 ## 统一契约 📐
@@ -208,7 +216,7 @@ docker compose run --rm demo
 
 | 文件 | 作用 |
 | --- | --- |
-| [`catalog/pipelines.json`](catalog/pipelines.json) | 33 条管线的登记表：id / 工位 / 中英名 / 一句话 / 引擎 / 画幅 / 帧率 / 入口 / 状态 / 样片。站点的数据从它生成 |
+| [`catalog/pipelines.json`](catalog/pipelines.json) | 41 条管线的登记表：id / 工位 / 中英名 / 一句话 / 引擎 / 画幅 / 帧率 / 入口 / 状态 / 样片。站点的数据从它生成 |
 | [`catalog/stations.json`](catalog/stations.json) | 11 个工位：编号、中英名、说明、段末诗意句 |
 | [`schema/pipeline.schema.json`](schema/pipeline.schema.json) | JSON Schema（draft 2020-12）：`schema` + `meta` 必填；顶层 `additionalProperties: true`，历史扁平键合法 |
 | `*/pipeline.json` | 每条管线自己的定版参数：新增 `schema` + `meta`，其余键原样保留 |
@@ -227,16 +235,16 @@ docker compose run --rm demo
 
 ### 单一入口：一条管线一个命令
 
-33 条管线里 33 条都有 `entry`，`tools/validate.py` 会验证它真实存在。约定是 `python <管线>/scripts/<管线>.py <阶段>`，任何一条都能先 `check` 再 `--plan` 看命令：
+41 条管线里 41 条都有 `entry`，`tools/validate.py` 会验证它真实存在。约定是 `python <管线>/scripts/<管线>.py <阶段>`，任何一条都能先 `check` 再 `--plan` 看命令：
 
 | 管线 | 入口 | 最常用的三步 |
 | --- | --- | --- |
-| [piying](piying/SKILL.md) | `scripts/piying.py` | `check` → `plan full` → `full`（六步 node 串成一条） |
-| [xiangsu](xiangsu/SKILL.md) | `scripts/xiangsu.py` | `check` → `plan demo` → `demo`（bash 缺失会明确报错） |
-| [tuiyan](tuiyan/SKILL.md) | `scripts/tuiyan.py` | `check` → `plan all` → `all --out <目录>` |
-| [jilupian](jilupian/SKILL.md) | `scripts/jilupian.py` | `check` → `--batch <批> --manifest <清单>`（转发给 `autoup.run`） |
+| [piying](pipelines/piying/SKILL.md) | `scripts/piying.py` | `check` → `plan full` → `full`（六步 node 串成一条） |
+| [xiangsu](pipelines/xiangsu/SKILL.md) | `scripts/xiangsu.py` | `check` → `plan demo` → `demo`（bash 缺失会明确报错） |
+| [tuiyan](pipelines/tuiyan/SKILL.md) | `scripts/tuiyan.py` | `check` → `plan all` → `all --out <目录>` |
+| [jilupian](pipelines/jilupian/SKILL.md) | `scripts/jilupian.py` | `check` → `--batch <批> --manifest <清单>`（转发给 `autoup.run`） |
 
-这四条原先各自散着：皮影是六条 node 命令、像素是两条 bash 链、推演要在 `vendor/battlefield-editor` 里换目录跑、纪录片只能 `python -m autoup.run`。现在入口只做三件事——找对解释器/工作目录、按顺序串联、缺依赖时把缺什么说清楚；渲染参数与定版数值一个没改。
+这五条原先各自散着：皮影是六条 node 命令、像素是两条 bash 链、推演要在 `vendor/battlefield-editor` 里换目录跑、纪录片只能 `python -m autoup.run`。现在入口只做三件事——找对解释器/工作目录、按顺序串联、缺依赖时把缺什么说清楚；渲染参数与定版数值一个没改。
 
 ### 加一条新管线要做的四件事
 
@@ -296,76 +304,82 @@ python frontend/frontend.py run \
 
 - **不接 peiyin 也能用**：03 阶段用的是免费的 edge-tts / 系统音色，克隆音色（peiyin、GPT-SoVITS）是可选的加分项，不是前置条件；
 - **`fengmian/` 是上游原样导入**（`DaBaoAgent/fengmian`，见 `fengmian/VENDORED.md`），本仓库只改调用方式，不改它的规则：标题两段式、≤25 字、含阿拉伯数字、恰好 4 个话题，任一不过就直接报错；
-- **哪些管线能被 04 自动出片**：`frontend/targets.json` 逐条登记。现在是 **10 / 33 一条龙**：`laolang`、`map`，以及 模板库派生的 8 条（`pencil`、`isometric`、`manga`、`tapestry`、`shadow`、`parable`、`goldenage`、`blueprint`）。这 8 条的模板已改成**数据驱动分幕**（`vendor/runtime/autoscene.js`：一句旁白一张卡，片头卡 + 序号 + 强调线，5 句、12 句都能渲），所以 `new → vo → render` 可以一口气走完，不再出现「文案行数一变就报 `timeline: narration line id "l2" not found`」。模板保底的是排版，不是原来那支片的手绘美术——要原画级的片子，仍走 `projects/` 里手写的 `index.html`；
-- 剩下 23 条在 `targets.json` 里写明为什么不能自动接最后一步：要真实素材（`shipai`、`jilupian`）、要高程与路线（`chengshi`、`ditu`）、要本地模型（`zhidiao` 的 ComfyUI、`tianshu`）、要管线内 TTS 时间轴（`shiliang`、`xuni`、`dengju`、`xianshiqi`），或者输入根本不是文案（`tuiyan` 的兵棋、`huixingzhen` 的剧本）；
-- 校验：`python tools/validate.py` 会检查 `modules` 登记、`frontend.json` 契约、`targets.json` 是否覆盖全部管线，并打印「frontend 覆盖 33 条管线，可直接渲染 10 条」；
+- **哪些管线能被 04 自动出片**：`frontend/targets.json` 逐条登记。现在是 **10 / 41 一条龙**：`pencil`、`shadow`、`tapestry`、`laolang`、`goldenage`、`manga`、`isometric`、`map`、`blueprint`、`parable`。这几条的模板已改成**数据驱动分幕**（`vendor/runtime/autoscene.js`：一句旁白一张卡，片头卡 + 序号 + 强调线，5 句、12 句都能渲），所以 `new → vo → render` 可以一口气走完，不再出现「文案行数一变就报 `timeline: narration line id "l2" not found`」。模板保底的是排版，不是原来那支片的手绘美术——要原画级的片子，仍走 `projects/` 里手写的 `index.html`；
+- 剩下 31 条在 `targets.json` 里写明为什么不能自动接最后一步：要真实素材（`shipai`、`jilupian`）、要高程与路线（`chengshi`、`ditu`）、要本地模型（`zhidiao` 的 ComfyUI、`tianshu`）、要管线内 TTS 时间轴（`shiliang`、`xuni`、`dengju`、`xianshiqi`），或者输入根本不是文案（`tuiyan` 的兵棋、`huixingzhen` 的剧本）；
+- 校验：`python tools/validate.py` 会检查 `modules` 登记、`frontend.json` 契约、`targets.json` 是否覆盖全部管线，并打印「frontend 覆盖 41 条管线，可直接渲染 10 条」；
 - 实跑记录（2026-11-17）：`laolang` 一条 33 字短稿从 01 跑到 05，exit 0，拿到 `04-成片/工程/out/video-16x9.mp4`（1920×1080 / 6.2 s / 带旁白）与 `05-发布/发布信息.txt`（标题两段式 + 4 个话题）。
 
 <a id="showcase"></a>
-## 样片 🖼️ 88 段，全部可在站点播
+## 样片 🖼️ 40 段，全部可在站点播
 
-`site/media/` 里是压过的网页短片（**每部样片只取片头前 30 秒**，片短于 30 秒就整条；管线 1280 长边，风格 640，共 101 MB），原片不动，仍留在作者的同步盘里。
+`site/media/` 里是压过的网页短片（**每部样片只取片头前 30 秒**，片短于 30 秒就整条；管线 1280 长边，风格 640），原片不动，仍留在作者的同步盘里。
 
-**封面不是片头截图**：早期统一抽第 2 秒，结果一堆卡片是空镜、白屏、纯文字卡。现在的规则是「样片里人物动作最丰富的一幕」——逐帧统计运动（YDIF）与边缘密度，排除 `YAVG>205 且 SATAVG<12`（白屏）、`YAVG<16`（黑场）、边缘密度低于全片中位 35% 分位的帧（空镜），首尾各 0.7 秒不选，评分 `0.68·z(运动) + 0.32·z(边缘)`。对整片空镜 / 白屏 / 纯文字卡的样片（地图、极简、品牌卡这类），自动算法挑不出来，用 `tools/poster_overrides.json` 人工钉秒，目前钉了 34 条。88 条已逐张目视复核过一遍。
+**封面不是片头截图**：早期统一抽第 2 秒，结果一堆卡片是空镜、白屏、纯文字卡。现在的规则是「样片里人物动作最丰富的一幕」——逐帧统计运动（YDIF）与边缘密度，排除 `YAVG>205 且 SATAVG<12`（白屏）、`YAVG<16`（黑场）、边缘密度低于全片中位 35% 分位的帧（空镜），首尾各 0.7 秒不选，评分 `0.68·z(运动) + 0.32·z(边缘)`。对整片空镜 / 白屏 / 纯文字卡的样片（地图、极简、品牌卡这类），自动算法挑不出来，用 `tools/poster_overrides.json` 人工钉秒。40 条已逐张目视复核过一遍。
 
-**管线样片 32 条**（点管线看文档，点片名去站点看）：
+**管线样片 40 条**（点管线看文档，点片名去站点看）：
 
 | 工位 | 管线 | 样片 | 原片时长 |
 | --- | --- | --- | --- |
-| 01 纸本叙事 | [jianying](jianying/SKILL.md) | 《刘秀·位面之子》 | 3:31（1920×1080） |
-| 01 纸本叙事 | [lishi](lishi/SKILL.md) | 《朱元璋·碽妃疑案》 | 2:25（1920×1080） |
-| 01 纸本叙事 | [zhidiao](zhidiao/SKILL.md) | 《鲤鱼》 | 0:21（1920×1080） |
-| 02 手绘笔触 | [shouhui](shouhui/SKILL.md) | 《商纣王》 | 3:26（1920×1080） |
-| 02 手绘笔触 | [pencil](pencil/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
-| 02 手绘笔触 | [caiqian](caiqian/SKILL.md) | 《鳕鱼》 | 0:27（1920×1080） |
-| 02 手绘笔触 | [pingban](pingban/SKILL.md) | 《关羽》 | 0:39（1920×1080） |
-| 03 传统工艺 | [piying](piying/SKILL.md) | 《波斯湾伊甸园》 | 4:32（1920×1080） |
-| 03 传统工艺 | [shuimo](shuimo/SKILL.md) | 《羽人》 | 0:30（1920×1080） |
-| 03 传统工艺 | [shadow](shadow/SKILL.md) | 《玄奘》 | 3:23（960×540） |
-| 03 传统工艺 | [tapestry](tapestry/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
-| 03 传统工艺 | [laolang](laolang/SKILL.md) | 《玄奘》 | 1:02（1920×1080） |
-| 04 卡通动画 | [goldenage](goldenage/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
-| 04 卡通动画 | [manga](manga/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
-| 04 卡通动画 | [xiangsu](xiangsu/SKILL.md) | 《曹操》 | 0:29（1920×1080） |
-| 04 卡通动画 | [tianshu](tianshu/SKILL.md) | 《镇魔塔》 | 0:41（960×720） |
-| 05 平面图形 | [shiliang](shiliang/SKILL.md) | 《扁平矢量》 | 0:30（1920×1080） |
-| 05 平面图形 | [lvdong](lvdong/SKILL.md) | 《玛雅文明》 | 0:58（1920×1080） |
-| 05 平面图形 | [huixingzhen](huixingzhen/SKILL.md) | 《羽人》 | 9:57（1920×1080） |
-| 05 平面图形 | [bianping](bianping/SKILL.md) | 《僵尸地球》 | 0:36（1920×1080） |
-| 06 屏幕赛博 | [xianshiqi](xianshiqi/SKILL.md) | 《UAP · 赛博》 | 0:30（1920×1080） |
-| 06 屏幕赛博 | [xuni](xuni/SKILL.md) | 《朊病毒》 | 0:30（1920×1080） |
-| 07 三维推演 | [tuiyan](tuiyan/SKILL.md) | 《赤壁之战》 | 9:00（1920×1080） |
-| 07 三维推演 | [chengshi](chengshi/SKILL.md) | 《苏州 · 城长》 | 2:41（1920×1080） |
-| 07 三维推演 | [dengju](dengju/SKILL.md) | 《羽人》 | 0:30（1920×1080） |
-| 07 三维推演 | [isometric](isometric/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
-| 08 地图地理 | [map](map/SKILL.md) | 《张骞寻路》 | 9:04（1280×720） |
-| 08 地图地理 | [ditu](ditu/SKILL.md) | 《关羽》 | 0:39（1920×1080） |
-| 09 图纸说明 | [blueprint](blueprint/SKILL.md) | 《玄奘 · 前 10 秒》 | 0:12（1920×1080） |
-| 09 图纸说明 | [parable](parable/SKILL.md) | 《阿努纳奇》 | 2:58（1280×720） |
-| 10 实拍混剪 | [shipai](shipai/SKILL.md) | 《玛雅》 | 0:18（1080×1920） |
-| 10 实拍混剪 | [jilupian](jilupian/SKILL.md) | 《一口气看完日本3000年》 | 13:38（1920×1080） |
+| 01 纸本叙事 | [jianying](pipelines/jianying/SKILL.md) | 《刘秀·位面之子》 | 3:31（1920×1080） |
+| 01 纸本叙事 | [lishi](pipelines/lishi/SKILL.md) | 《朱元璋·碽妃疑案》 | 2:25（1920×1080） |
+| 01 纸本叙事 | [zhidiao](pipelines/zhidiao/SKILL.md) | 《鲤鱼》 | 0:21（1920×1080） |
+| 02 手绘笔触 | [shouhui](pipelines/shouhui/SKILL.md) | 《商纣王》 | 3:26（1920×1080） |
+| 02 手绘笔触 | [pencil](pipelines/pencil/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
+| 02 手绘笔触 | [caiqian](pipelines/caiqian/SKILL.md) | 《鳕鱼》 | 0:27（1920×1080） |
+| 02 手绘笔触 | [pingban](pipelines/pingban/SKILL.md) | 《关羽》 | 0:39（1920×1080） |
+| 02 手绘笔触 | [gangbi](pipelines/gangbi/SKILL.md) | 《风去了哪里》 | 0:33（1920×1080） |
+| 02 手绘笔触 | [labi](pipelines/labi/SKILL.md) | 《月亮睡不着》 | 0:52（1920×1080） |
+| 02 手绘笔触 | [shuicai](pipelines/shuicai/SKILL.md) | 《从旱到涝》 | 1:54（1920×1080） |
+| 02 手绘笔触 | [qianhuang](pipelines/qianhuang/SKILL.md) | 《血之海滩 · 第一段》 | 0:21（1920×1080） |
+| 03 传统工艺 | [piying](pipelines/piying/SKILL.md) | 《波斯湾伊甸园》 | 4:32（1920×1080） |
+| 03 传统工艺 | [shuimo](pipelines/shuimo/SKILL.md) | 《羽人》 | 0:30（1920×1080） |
+| 03 传统工艺 | [shadow](pipelines/shadow/SKILL.md) | 《玄奘》 | 3:23（960×540） |
+| 03 传统工艺 | [tapestry](pipelines/tapestry/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
+| 03 传统工艺 | [laolang](pipelines/laolang/SKILL.md) | 《玄奘》 | 1:02（1920×1080） |
+| 03 传统工艺 | [fushihui](pipelines/fushihui/SKILL.md) | 《向山》 | 0:44（1920×1080） |
+| 03 传统工艺 | [shuimo2](pipelines/shuimo2/SKILL.md) | 《剑客与河》 | 0:48（1920×1080） |
+| 04 卡通动画 | [goldenage](pipelines/goldenage/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
+| 04 卡通动画 | [manga](pipelines/manga/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
+| 04 卡通动画 | [xiangsu](pipelines/xiangsu/SKILL.md) | 《曹操》 | 0:29（1920×1080） |
+| 04 卡通动画 | [tianshu](pipelines/tianshu/SKILL.md) | 《镇魔塔》 | 0:41（960×720） |
+| 05 平面图形 | [shiliang](pipelines/shiliang/SKILL.md) | 《扁平矢量》 | 0:30（1920×1080） |
+| 05 平面图形 | [lvdong](pipelines/lvdong/SKILL.md) | 《玛雅文明》 | 0:58（1920×1080） |
+| 05 平面图形 | [huixingzhen](pipelines/huixingzhen/SKILL.md) | 《羽人》 | 9:57（1920×1080） |
+| 05 平面图形 | [bianping](pipelines/bianping/SKILL.md) | 《僵尸地球》 | 0:36（1920×1080） |
+| 05 平面图形 | [zhuangshi](pipelines/zhuangshi/SKILL.md) | 《星光酒店午夜》 | 0:39（1920×1080） |
+| 06 屏幕赛博 | [xianshiqi](pipelines/xianshiqi/SKILL.md) | 《UAP · 赛博》 | 0:30（1920×1080） |
+| 06 屏幕赛博 | [xuni](pipelines/xuni/SKILL.md) | 《朊病毒》 | 0:30（1920×1080） |
+| 07 三维推演 | [tuiyan](pipelines/tuiyan/SKILL.md) | 《赤壁之战》 | 9:00（1920×1080） |
+| 07 三维推演 | [chengshi](pipelines/chengshi/SKILL.md) | 《苏州 · 城长》 | 2:41（1920×1080） |
+| 07 三维推演 | [dengju](pipelines/dengju/SKILL.md) | 《羽人》 | 0:30（1920×1080） |
+| 07 三维推演 | [isometric](pipelines/isometric/SKILL.md) | 《阿努纳奇》 | 0:30（1920×1080） |
+| 07 三维推演 | [weisuo](pipelines/weisuo/SKILL.md) | 《柚子镇四季》 | 0:45（1920×1080） |
+| 08 地图地理 | [map](pipelines/map/SKILL.md) | 《张骞寻路》 | 9:04（1280×720） |
+| 08 地图地理 | [ditu](pipelines/ditu/SKILL.md) | 《关羽》 | 0:39（1920×1080） |
+| 09 图纸说明 | [blueprint](pipelines/blueprint/SKILL.md) | 《玄奘 · 前 10 秒》 | 0:12（1920×1080） |
+| 09 图纸说明 | [parable](pipelines/parable/SKILL.md) | 《阿努纳奇》 | 2:58（1280×720） |
+| 10 实拍混剪 | [shipai](pipelines/shipai/SKILL.md) | 《玛雅》 | 0:18（1080×1920） |
+| 10 实拍混剪 | [jilupian](pipelines/jilupian/SKILL.md) | 《一口气看完日本3000年》 | 13:38（1920×1080） |
 
-**暂无样片 0 条**：32 条成片管线现在每条都有一段可播的样片，最短 21 秒（`zhidiao`《鲤鱼》），最长 13:38（`jilupian`《一口气看完日本3000年》）。
+**暂无样片 0 条**：40 条成片管线现在每条都有一段可播的样片，最短 12 秒（`blueprint`《玄奘 · 前 10 秒》），最长 13:38（`jilupian`《一口气看完日本3000年》）。
 
-另有一条 [`peiyin`](peiyin/SKILL.md) **不算缺样片**：它是配音前端，只出口播稿与配音，不出片，所以本来就不该有片子可播；站点上它的卡片标「配音模块 · 无样片」并直接指向文档。
-
-另有 55 段**风格样片**（`模板库` 风格库与年代命名为主的横向抽样：1930s 橡皮管、50s 扁平卡通、浮世绘、钢笔淡彩、蜡笔绘本、孟菲斯微缩、皮影戏、纸雕灯影、中国水墨、装饰艺术、HD-2D，以及 ascii / bauhaus / collage / cutout / riso / swiss / pixel / pop 等英文风格线），它们不进管线的元数据，只在站点的「样片库」里作为风格参考。
+另有一条 [`peiyin`](pipelines/peiyin/SKILL.md) **不算缺样片**：它是配音前端，只出口播稿与配音，不出片，所以本来就不该有片子可播；站点上它的卡片标「配音模块 · 无样片」并直接指向文档。
 
 ### 完整成片（本地归档，未入库）
 
-本批 9 部完整成片共约 2.3 GB，存于作者本地同步盘（`1 MG 动画/管线样片/`），不随仓库提交；片名与时长取自交付文件。
+本批完整成片存于作者本地同步盘（`1 MG 动画/管线样片/`）与 `out/<编号_片名>/`，不随仓库提交；片名与时长取自交付文件。
 
 | 管线 | 成片 | 时长 | 画面 |
 | --- | --- | --- | --- |
-| [jianying](jianying/SKILL.md) | 刘秀·位面之子 | 211.0 s | 1920×1080 / 30 fps |
-| [lishi](lishi/SKILL.md) | 朱元璋·碽妃疑案 | 144.9 s | 1920×1080 / 30 fps |
-| [piying](piying/SKILL.md) | 波斯湾伊甸园 | 272.2 s | 1920×1080 / 30 fps |
-| [shouhui](shouhui/SKILL.md) | 商纣王 | 205.7 s | 1920×1080 / 24 fps |
-| [tuiyan](tuiyan/SKILL.md) | 3D 赤壁之战 | 539.8 s | 1920×1080 / 30 fps |
-| [huixingzhen](huixingzhen/SKILL.md) | 羽人 | 597.3 s | 1920×1080 / 30 fps |
-| [chengshi](chengshi/SKILL.md) | 苏州·城长 | 160.7 s | 1920×1080 / 30 fps |
-| [jilupian](jilupian/SKILL.md) | 一口气看完日本3000年 | 818.4 s | 1920×1080 / 30 fps |
-| youxi（待封装） | 仁德天皇陵 | 192.7 s | 1920×1080 / 30 fps |
+| [jianying](pipelines/jianying/SKILL.md) | 刘秀·位面之子 | 211.0 s | 1920×1080 / 30 fps |
+| [lishi](pipelines/lishi/SKILL.md) | 朱元璋·碽妃疑案 | 144.9 s | 1920×1080 / 30 fps |
+| [piying](pipelines/piying/SKILL.md) | 波斯湾伊甸园 | 272.2 s | 1920×1080 / 30 fps |
+| [shouhui](pipelines/shouhui/SKILL.md) | 商纣王 | 205.7 s | 1920×1080 / 24 fps |
+| [tuiyan](pipelines/tuiyan/SKILL.md) | 3D 赤壁之战 | 539.8 s | 1920×1080 / 30 fps |
+| [huixingzhen](pipelines/huixingzhen/SKILL.md) | 羽人 | 597.3 s | 1920×1080 / 30 fps |
+| [chengshi](pipelines/chengshi/SKILL.md) | 苏州·城长 | 160.7 s | 1920×1080 / 30 fps |
+| [jilupian](pipelines/jilupian/SKILL.md) | 一口气看完日本3000年 | 818.4 s | 1920×1080 / 30 fps |
+| [qianhuang](pipelines/qianhuang/SKILL.md) | 血之海滩（插图重画版） | 219.5 s | 1920×1080 / 30 fps |
 
 ### 更多画面
 
@@ -375,17 +389,17 @@ python frontend/frontend.py run \
 <a id="quickstart"></a>
 ## 跑一条真片 🚀
 
-33 条管线的入口、引擎、样片时长都在 **[docs/pipelines.md](docs/pipelines.md)**；每条管线一条命令，参数与验收条件写在各自的 `SKILL.md`。
+41 条管线的入口、引擎、样片时长都在 **[docs/pipelines.md](docs/pipelines.md)**；每条管线一条命令，参数与验收条件写在各自的 `SKILL.md`。
 
 最短的一条（不配音、不出封面，只为确认链路通）：
 
 ```bash
-python pencil/scripts/pencil.py new projects/demo --title "试片"
-node pencil/runtime/render.mjs projects/demo --scale 0.6 --no-audio
+python pipelines/pencil/scripts/pencil.py new projects/demo --title "试片"
+node pipelines/pencil/runtime/render.mjs projects/demo --scale 0.6 --no-audio
 ```
 
 > 渲染需要 Chrome/Chromium（`CHROME_PATH` 可指定）和 `ffmpeg`；`python tools/validate.py` 会一次性告诉你
-> 这台机器上哪 33 条管线、11 个工位、32 份样片是否对齐。
+> 这台机器上哪 41 条管线、11 个工位、40 份样片是否对齐。
 
 
 ## 仓库结构 🗂️
@@ -397,7 +411,7 @@ Auto-Video/
 ├── .github/workflows/
 │   └── pages.yml             # 校验 + 建站 + 部署 GitHub Pages
 ├── catalog/
-│   ├── pipelines.json        # 33 条管线的登记表（唯一事实来源）
+│   ├── pipelines.json        # 41 条管线的登记表（唯一事实来源）
 │   └── stations.json         # 11 个工位
 ├── schema/
 │   └── pipeline.schema.json  # pipeline.json 的 JSON Schema（schema + meta 必填）
@@ -415,153 +429,35 @@ Auto-Video/
 │   ├── index.html
 │   ├── assets/               # app.css / app.js / data.js / samples.json
 │   ├── fonts/                # 思源宋 600 + 思源黑 400 子集
-│   └── media/                # 87 段网页短片 + 87 张封面
+│   └── media/                # 40 段网页短片 + 封面
 ├── frontend/                 # 可选前端：选题 → 文案 → 免费 TTS → 管线 → 封面与发布信息
 │   ├── frontend.json         # 模块契约（五阶段 + 目标管线声明）
-│   ├── targets.json          # 33 条管线逐条登记：new / ingest / render 命令或跳过理由
+│   ├── targets.json          # 41 条管线逐条登记：new / ingest / render 命令或跳过理由
 │   ├── frontend.py           # 一条命令跑完闭环（check / plan / run）
 │   ├── prompts/script.md     # 02 阶段的口播稿模板
 │   ├── SKILL.md              # 给 Agent 用的入口说明
 │   └── jobs/                 # 每次任务的中间产物（已 gitignore）
 ├── fengmian/                 # 上游 DaBaoAgent/fengmian 原样导入：封面 + 发布信息 + 交付门禁
+├── out/                      # 定稿归档：<编号_片名>/ 成片 + 字幕 + 3:4 / 4:3 封面 + 发布信息（成片 mp4 不入库）
 ├── projects/
 │   └── suzhou/               # chengshi 示例工程：苏州《城长》160.7 s（data/ + film.json）
 │   ├── showcase-grid.gif     # 9 条管线样片九宫格
 │   ├── showcase-poster.jpg   # 样片拼图封面
 │   └── *_30s.mp4             # 早先的 30 秒原片（站点已改用 site/media/ 的压片）
 │   └── frames/               # 样片抽帧与 README 配图
-├── map/
-│   ├── SKILL.md              # 地图动画管线入口
-│   ├── pipeline.json         # 定版参数
-│   ├── runtime/              # 浏览器运行时 + 渲染器（模板库 MIT）
-│   ├── scripts/              # 建工程、配音对齐、渲染、交付
-│   ├── references/           # 贴纸规范、分镜、QA
-│   ├── template/             # 8 s 可运行模板
-│   └── projects/zhangqian/   # 张骞全片实例（代码/文案/44 张贴纸）
-├── jianying/
-│   ├── SKILL.md              # 纸本历史短片入口
-│   ├── MIGRATION.md
-│   ├── scripts/              # 七阶段编排与制作脚本
-│   ├── cards/                # 镜头运动语法
-│   ├── references/           # 流程、主题、声音与验收规则
-│   └── template/             # Remotion 画面工程
-├── lishi/
-│   ├── SKILL.md              # 纸本历史科普短片入口
-│   ├── pipeline.json         # 定版参数
-│   ├── references/           # 分镜、QA 与发布规则
-│   ├── scripts/              # 对齐、分镜、音轨、渲染、封装
-│   └── template/             # Remotion 画面工程
-├── piying/
-│   ├── SKILL.md              # 皮影剪影管线入口
-│   ├── MIGRATION.md
-│   ├── docs/ · references/   # 成片规则、段落分配与生产规格
-│   ├── render/piying/        # 分镜、渲染、QC 与交付门禁
-│   ├── output/               # 炎帝示例输入与素材
-│   └── tools/                # 配音、转写与素材处理
-├── shouhui/
-│   ├── SKILL.md              # 逐帧手绘短片入口
-│   ├── MIGRATION.md
-│   ├── scripts/              # 编排、逐帧渲染与音效
-│   └── projects/             # 示例工程与可直接查看的样片
-├── zhidiao/
-│   ├── SKILL.md              # 纸雕剪影长视频入口
-│   ├── MIGRATION.md
-│   ├── references/           # 目录契约、渲染、质检与交付规则
-│   ├── scripts/              # 配音对齐、组装、审计、抽帧
-│   └── tools/                # TTS、分镜素材、封面与交付打包
-├── tuiyan/
-│   ├── SKILL.md              # 历史战争推演视频入口（全 3D 战场重现）
-│   ├── MIGRATION.md
-│   ├── pipeline/laorou/      # 口播稿子管线（机检 + 中文去味）
-│   ├── scripts/              # 封面、试听、抽帧审核、发布校验
-│   ├── references/           # 开发报告总纲
-│   └── vendor/battlefield-editor/  # 3D 兵棋引擎 + 赤壁之战 46 幕完整包
-├── jilupian/
-│   ├── SKILL.md              # 纪录片解说流水线入口（S1–S9）
-│   ├── MIGRATION.md
-│   ├── autoup/               # 主包：阶段、TTS 适配器、配置
-│   ├── references/           # 内容风格、下载规则、流程规格
-│   ├── docs/                 # 产品规则、剪辑策略、开发记录
-│   └── tests/                # 测试与 CI 门禁
-├── goldenage/ · manga/ · tapestry/ · pencil/ · isometric/ · parable/ · shadow/ · blueprint/ · laolang/
-│                            # 九条 模板库 风格管线：SKILL.md + runtime/ + scripts/ + references/ + template/
-│                            # 完整样片工程随各自 template/ 入库（无音频与成片；laolang 是玄奘 60 秒样片）
-├── shipai/
-│   ├── SKILL.md              # 实拍素材口播竖屏短片入口
-│   ├── pipeline.json         # 定版参数（画幅 / 引擎 / 素材 / 字幕 / 校验）
-│   ├── scripts/              # 编排、切段对齐、素材检索下载、字幕烧录
-│   ├── references/           # MPT CLI 契约、素材规则、字幕规范、交付
-│   └── projects/             # 004 玛雅巨人文明实例（口播稿 / 时间轴 / 素材 id，无音频与成片）
-├── xuni/
-│   ├── SKILL.md              # 合成波 / VHS / Y2K 短片入口
-│   ├── README.md · CREDITS.md · pipeline.json
-│   ├── scripts/              # 编排、配乐、混音、逐帧渲染
-│   └── projects/             # 009 朊病毒样片工程
-├── shiliang/
-│   ├── SKILL.md              # 扁平矢量 2D MG 短片入口
-│   ├── README.md · CREDITS.md · pipeline.json
-│   ├── scripts/              # 编排、配乐、混音、逐帧渲染
-│   └── projects/             # 010 生命 3.0 样片工程
-├── xianshiqi/
-│   ├── SKILL.md              # 赛博朋克 HUD / FUI 短片入口
-│   ├── README.md · CREDITS.md · pipeline.json
-│   ├── scripts/              # 编排、配乐、混音、逐帧渲染
-│   └── projects/             # UAP 样片工程
-├── dengju/
-│   ├── SKILL.md              # 等轴 2.5D 短片入口
-│   ├── README.md · CREDITS.md · pipeline.json
-│   ├── scripts/              # 编排、配乐、混音、逐帧渲染
-│   └── projects/             # 013 羽人样片工程
-├── huixingzhen/
-│   ├── SKILL.md              # 回形针风科普短片入口
-│   ├── README.md
-│   ├── scripts/              # 渲染、音效合成、贴纸/卡片/小帧素材
-│   └── theme/                # 深色主题定稿参数
-├── shuimo/
-│   ├── SKILL.md              # 纸本水墨山水样片入口
-│   ├── README.md · CREDITS.md · pipeline.json
-│   ├── scripts/              # 编排、配乐、混音、逐帧渲染
-│   └── projects/             # 013 羽人水墨样片工程
-├── chengshi/
-│   ├── SKILL.md              # 城市年轮短片管线入口
-│   ├── USAGE.md              # 运行手册（环境 / 建城 / 出片 / 硬约束）
-│   ├── pipeline.json         # 定版参数
-│   ├── scripts/              # 抓数据、建城、配音、混音、渲染
-│   ├── render/               # Remotion 渲染工程（苏州 v2 分镜，原名 template_v2 → sz）
-│   └── template/             # 通用渲染工程（v1，render_cut.py 用它）
-├── xiangsu/
-│   ├── SKILL.md              # 像素风管线入口
-│   ├── README.md             # 冻结参数、复现、验收与历史记录
-│   ├── MIGRATION.md          # 从 yandi 落地的来源、哈希校验与路径说明
-│   ├── demo/                 # 前 10 秒样片源文件真身（film.js / sprites.js / cues.json / audio.py）
-│   └── full/                 # 全片链路（assemble / parts / 音轨 / 封面 / 验收）
-├── ditu/
-│   ├── SKILL.md              # 立体地图解说管线入口
-│   ├── README.md · MIGRATION.md · CREDITS.md · pipeline.json
-│   ├── scripts/              # 编排 CLI + 逐帧渲染器（playwright-core + ffmpeg）
-│   └── projects/             # 038 关羽水淹七军工程（真实地形 / 高程水面 / 贴地标注）
-├── pingban/
-│   ├── SKILL.md              # 平板速写讲解管线入口
-│   ├── README.md · MIGRATION.md · CREDITS.md · pipeline.json
-│   ├── scripts/              # 编排 CLI + 逐帧渲染器
-│   └── projects/             # 038 关羽水淹七军手卷工程（六格 / 逐笔画 / 手写字幕）
-├── caiqian/
-│   ├── SKILL.md              # 彩铅科普插画管线入口
-│   ├── README.md · MIGRATION.md · CREDITS.md · pipeline.json
-│   ├── scripts/              # 编排 CLI + 逐帧渲染器
-│   └── projects/             # 029 假鳕鱼段（四张 G-buffer / 分层排线 / 手写标签与字幕）
-├── tianshu/
-│   ├── SKILL.md              # 天书本地大模型出片管线入口（Qwen-Image + Wan2.2）
-│   ├── README.md · CREDITS.md · pipeline.json
-│   ├── template/             # 提示词骨架（画种锚点 / 负词 / 色板规则 / I2V 铁律）
-│   ├── scripts/              # 编排 CLI + 出图/出视频/后期/运镜/拼接/质检/交付
-│   └── projects/             # 026 镇魔塔示范工程（真实 6 镜 prompt / 取色目标 / 运镜）
-└── peiyin/
-    ├── SKILL.md              # 前端三模块入口（选题 / 出稿 / 配音）
-    ├── README.md · MIGRATION.md · AGENTS.md
-    ├── docs/                 # 10 份规约 + 对标逐字稿参考库
-    ├── scripts/              # 初始化、批量配音、门禁校验、口播稿审计
-    └── GPT-SoVITS/           # 配音引擎干净代码（权重由 setup.ps1 拉取）
+├── samples-v2/               # 10 秒站点样片源片、字幕与制作进度（压片进 site/media/）
+└── pipelines/                # 41 条管线，一条一个目录：SKILL.md + pipeline.json + scripts/ + references/ + projects/
+    ├── paper/                # 01 纸本叙事：jianying · lishi · zhidiao
+    ├── hand/                 # 02 手绘笔触：shouhui · pencil · caiqian · pingban · gangbi · labi · shuicai · qianhuang
+    ├── craft/                # 03 传统工艺：piying · shuimo · shadow · tapestry · laolang · fushihui · shuimo2
+    ├── toon/                 # 04 卡通动画：goldenage · manga · xiangsu · tianshu
+    ├── graphic/              # 05 平面图形：shiliang · lvdong · huixingzhen · bianping · zhuangshi
+    ├── screen/               # 06 屏幕赛博：xianshiqi · xuni
+    ├── d3/                   # 07 三维推演：tuiyan · chengshi · dengju · isometric · weisuo
+    ├── map/                  # 08 地图地理：map · ditu
+    ├── diagram/              # 09 图纸说明：blueprint · parable
+    ├── live/                 # 10 实拍混剪：shipai · jilupian
+    └── front/                # 11 前端工位：peiyin（配音前端，不出片）
 ```
 
 <a id="stack"></a>
@@ -572,12 +468,12 @@ Auto-Video/
 
 | 维度 | 同类（MoneyPrinterTurbo / 剪映类自动化） | 本项目 |
 | --- | --- | --- |
-| 产出 | 一条通用解说片 | 33 种**画法血统**（剪影 / 皮影 / 彩铅 / 挂毯 / 三维城市 / 蓝图……） |
+| 产出 | 一条通用解说片 | 40 种**画法血统**（剪影 / 皮影 / 彩铅 / 挂毯 / 三维城市 / 蓝图……） |
 | 画面来源 | 素材库检索拼接 | 代码绘制、模板渲染、本地模型；**不搬原片** |
 | 可复现性 | 每次结果有随机性 | 同稿同版 → 同像素（禁 `Date.now` / `Math.random`） |
 | 质量门禁 | 基本没有 | 契约校验 + 动效检查 + 事实核对 + 节奏扫描 + 字幕全量 |
 | 上手成本 | `pip install` 一条命令 | 要 Chrome/ffmpeg/本地模型 —— 所以有 `demo/run.py` 与 Docker 兜第一公里 |
-| 规模 | 单管线 | 33 条管线 / 11 工位，共用一套运行时与契约 |
+| 规模 | 单管线 | 41 条管线 / 11 工位，共用一套运行时与契约 |
 
 **差距也要说清楚**：真正的高星标项目（Remotion 7.3 万★、MoneyPrinterTurbo 14 万★）靠的是「任何人 10 分钟能出片」的
 最低门槛 + 生态（模板市场、API、Colab、镜像、插件）。本仓库内容层已经很硬，但包装层还在补：默认分支体积、
@@ -623,14 +519,14 @@ Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星�
 <details>
 <summary>模型、权重、字体、大文件为什么都不入库？</summary>
 
-这是本项目的一贯政策：**代码与配置入库，重量级资产引导下载**。渲染引擎、TTS 模型、音色权重、字体（如 `AlibabaPuHuiTi`，免费商用）等都可通过官方渠道下载，完整成片（本批 8 部约 2.2 GB）也只做本地归档，避免仓库膨胀和不可再生成产物污染版本历史。
+这是本项目的一贯政策：**代码与配置入库，重量级资产引导下载**。渲染引擎、TTS 模型、音色权重、字体（如 `AlibabaPuHuiTi`，免费商用）等都可通过官方渠道下载，完整成片只做本地归档（`out/<编号_片名>/`，成片 mp4 不入库），避免仓库膨胀和不可再生成产物污染版本历史。
 
 </details>
 
 <details>
 <summary>样片和完整成片有什么区别？</summary>
 
-`site/media/` 里是 88 段网页样片（约 101 MB，GitHub Pages 直接播放，每段取片头前 30 秒）；原片与完整成片只在作者本地归档、或挂到 Release assets，不随仓库提交（早先的 `showcase/` 已从仓库删除，见 `docs/素材与体积.md`）。需要原片时从归档取，不必重渲染；`zhidiao`《鲤鱼》只有 21 秒，所以整条都在。
+`site/media/` 里是 40 段网页样片（GitHub Pages 直接播放，每段取片头前 30 秒）；原片与完整成片只在作者本地归档、或挂到 Release assets，不随仓库提交（早先的 `showcase/` 已从仓库删除，见 `docs/素材与体积.md`）。需要原片时从归档取，不必重渲染；`zhidiao`《鲤鱼》只有 21 秒，所以整条都在。
 
 </details>
 
@@ -651,7 +547,7 @@ Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星�
 <a id="roadmap"></a>
 ## 路线图 🧭
 
-当前：`32 / 99` 成片管线（`peiyin` 是前端模块，不计入风格数）。另有一条 `youxi`（仁德天皇陵，192.7 s）已出片待封装，完成管线目录后计入路线图。
+当前：`40 / 99` 成片管线（`peiyin` 是前端模块，不计入风格数）。
 
 Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管线必须带自己的流程说明、脚本、可复用资源和验收条件，才算完成迁移。
 
@@ -670,7 +566,7 @@ Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管
 
 ## English
 
-Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 32 styles, plus an optional `frontend/` module that runs topic → script → free edge-tts voice-over (with SRT) → any style lane → covers and publish copy through the vendored `fengmian/` project, so a clone of your own voice (`peiyin`, GPT-SoVITS) is optional rather than required. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) — or, in the `tianshu` lane, generates plates and ambient motion with local ComfyUI models (Qwen-Image 2.1 + Wan2.2 TI2V-5B) — without calling any cloud image or video API. The current 32 film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, Canvas shadow-puppet animation (Playwright), 3D battle simulations, pixel-art shorts (640×360 indexed framebuffer ×3 nearest-neighbour with output-resolution CRT), six MG short-film styles (synthwave / flat-vector / cyberpunk HUD / isometric / paperclip explainer / ink-wash landscape), nine 模板库 style runtimes (golden-age cartoon / manga / Bayeux tapestry / pencil test / isometric miniature / 3D stick-figure parable / shadow puppetry / blueprint engineering drawing / Shanghai Animation Film Studio hand-drawn cel, laolang), satellite-terrain 3D map explainers with real elevation data (ditu), tablet-sketch scroll explainers drawn stroke by stroke (pingban), colored-pencil science illustrations hatched over a paper tooth (caiqian), city-growth films (real geodata: OSM buildings/roads/water, Esri satellite, SRTM terrain, Remotion + three.js), footage-based vertical shorts (Pixabay clips + MoneyPrinterTurbo CLI + single-line captions, shipai), silhouette-rhythm films cut on a 90 BPM beat (lvdong), and a local-model cel-animation lane (tianshu). 32 pipeline samples and 55 style samples are playable online; nine full films (about 2.3 GB) are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
+Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 40 styles, plus an optional `frontend/` module that runs topic → script → free edge-tts voice-over (with SRT) → any style lane → covers and publish copy through the vendored `fengmian/` project, so a clone of your own voice (`peiyin`, GPT-SoVITS) is optional rather than required. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) — or, in the `tianshu` lane, generates plates and ambient motion with local ComfyUI models (Qwen-Image 2.1 + Wan2.2 TI2V-5B) — without calling any cloud image or video API. The 40 film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, pencil test, colored-pencil science, tablet sketch, pen-and-wash, crayon picture book, wet-brush watercolor, and giallo gouache; shadow-puppet crafts, ink wash, Bayeux tapestry, Shanghai-era hand-drawn cel, ukiyo-e woodblock, and a second Chinese ink-wash lane; golden-age toon, manga panels, pixel art, and a local-model cel lane; flat vector, silhouette rhythm, paperclip explainer, scale-zoom, and Art Deco; cyberpunk HUD and synthwave VHS; 3D battle sim, city growth, isometric 2.5D, isometric diorama, and Memphis diorama; sticker maps and real-terrain maps; blueprint and stick-figure parable; plus footage-based vertical shorts and a documentary pipeline. 40 pipeline samples are playable online; full films are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
 
 ## 关注更新
 
