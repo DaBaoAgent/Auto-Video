@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/city-symphony.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "1. **Ask the user first** whether they have their own footage, photographs, documents or data for the place: their own t…"
+    "engine_note": "灰阶构图：亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。",
+    "style": {
+      "family": "photo",
+      "palette": "night",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/jiaoxiang/projects/demo"
+    }
   }
 }

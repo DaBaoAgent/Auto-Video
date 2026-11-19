@@ -1,63 +1,44 @@
 ---
 name: shibo
-description: 示波器数学（Oscilloscope Math）：方方正正的波，怎么由圆滚出来？一个个圆叠成方波，直到镜头扎进一个角：那里有一个永远消不掉的 9% 尖角。 上游为 lemo-opuscar styles/oscilloscope-math，演示站暂用其样片；入口复现上游 demo。
+description: 用「示波器数学」做screen短片，黑底加色，描线分多遍叠加，亮芯压在光晕上，暗角收边。
 ---
 
-# shibo：示波器数学（Oscilloscope Math）
+# shibo：示波器数学
 
-| 项 | 值 |
-| --- | --- |
-| 工位 | 06 屏幕赛博 |
-| 上游风格 | lemo-opuscar `styles/oscilloscope-math` |
-| 上游样片 | 《吉布斯现象》51.1 s |
-| 画幅 | 16:9 |
-| 入口 | `pipelines/shibo/scripts/shibo.py` |
+黑底加色：描线分多遍叠加，亮芯压在光晕上，暗角收边。
 
-## 这条管线交什么
+## 一句话原则
 
-方方正正的波，怎么由圆滚出来？一个个圆叠成方波，直到镜头扎进一个角：那里有一个永远消不掉的 9% 尖角。
+1. **画面自己画。** 没有上游脚本可调，霓虹族的绘制代码在 `vendor/runtime/stylekit.js`，
+   这条管线的形状坐标、色板、节拍写在 `projects/demo/main.js` 的 `SPEC` 里，生成时按 id 播种定死。
+2. **确定性。** 只用 seeded RNG；不用 `Math.random`、不用 `Date.now`，同一秒数永远同一帧。
+3. **一帧一画。** `renderAt(t)` 从空白重画，不叠上一帧，抽帧和整片完全一致。
+4. **只出画面。** 配音、字幕、配乐由外层工序接，管线本身不掺。
 
-上游的一句话：How do you roll a square out of circles? Spinning circles stack into a square wave, until a dive into one corner finds the 9% spike that never goes away.
+## 目录
 
-## 入口命令
-
-```bash
-# 1. 先看这台机器够不够（上游 demo 要 sh + lemo 的 .venv + node + ffmpeg）
-python pipelines/shibo/scripts/shibo.py --check
-
-# 2. 只看要跑哪些步骤，不执行
-python pipelines/shibo/scripts/shibo.py --plan
-
-# 3. 真跑：复现上游 demo 成片（Windows 上走 WSL）
-python pipelines/shibo/scripts/shibo.py
+```
+shibo/
+├── SKILL.md
+├── pipeline.json         定版参数（画幅/风格族/节拍）
+├── scripts/shibo.py      入口：--check / --plan / --stills / --render / --mp4
+└── projects/demo/
+    ├── index.html        画布壳（字体走 assets/fonts）
+    ├── main.js           SPEC + 版式牌 + renderAt
+    ├── frames/           抓下来的帧（不入库）
+    └── out/              静帧与成片（不入库）
 ```
 
-## 参数
+## 常用命令
 
-- `--check` 只体检不出片；
-- `--plan` 打印步骤；
-- 不给参数就是复现上游样片；
-- 库位置默认 `D:/@kaifa/lemo-opuscar`，可用 `LEMO_LIB` 或同名环境变量覆盖；
-- 渲染器按仓库约定读 `PLAYWRIGHT_CORE`，默认指向 `piying/node_modules/playwright-core`。
-
-## 引擎
-
-demo/film.py`: `frame(t)` returns the Manim mobjects for second `t` (world, camera `cam(t)`, `chain(t)`, `trace(s, t)`, …
+```bash
+python pipelines/shibo/scripts/shibo.py --check
+python pipelines/shibo/scripts/shibo.py --stills 0.6,2.0,5.0
+python pipelines/shibo/scripts/shibo.py --render
+```
 
 ## 验收
 
-- `python tools/validate.py` 通过（catalog / pipeline.json / SKILL.md 三方一致）；
-- 站点卡片能播样片（样片取自 `lemomo-ai/lemo-opuscar-films`）；
-- 出片与上游《吉布斯现象》同画幅、同帧率，−14 LUFS。
-
-## 已知坑
-
-1. **上游 demo 只认 Linux 的 `.venv/bin/python`**：Windows 原生跑不了，要走 WSL；`--check` 会直接说缺什么，不会假装跑过。
-2. **字体不随仓库走**：上游 `demo/tools/fonts.sh` 现取现子集，首次跑要联网。
-3. **样片是借的**：现在站点用的是上游 720p 网络版，不是本仓库渲的；等真封装时换成本地 `projects/<编号>/out/*.mp4`。
-4. 上游的配乐与拟音依赖 lemo 的 Python 音频栈，本仓库没有等价实现，暂不接管声音。
-
-## 上游文档
-
-- 风格不变量：`styles/oscilloscope-math/STYLE.md`
-- 样片怎么做的：`styles/oscilloscope-math/DEMO.md`
+- `--check` 全 OK 才动手；缺 puppeteer-core / 浏览器 / ffmpeg 会直接报出来，不假装成功。
+- 静帧看三件事：形状对不对、色板是不是这一族的气质、字有没有压到主体。
+- 出片后 `ffprobe` 核时长与画幅，与 `pipeline.json` 的 `meta` 对齐。

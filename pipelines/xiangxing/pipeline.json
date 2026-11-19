@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/pictogram-motion.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "In `demo/`: `engine.js` (palette, `G.pattern` / `G.drawPattern` with whole-row offsets, `G.motif`, pictograms such as `G…"
+    "engine_note": "大色块 + 大字：几何压底，字按行进场，横线随进度长出来。",
+    "style": {
+      "family": "flat",
+      "palette": "graphic",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/xiangxing/projects/demo"
+    }
   }
 }

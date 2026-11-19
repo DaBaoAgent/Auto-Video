@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/pen-plotter.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "demo/plot.js`: `buildProgram(data)` (stroke list → machine ops with kinematics, pen changes, marks), `plotState(G, P)` (…"
+    "engine_note": "先画线再标尺寸：主体、引线、图号分层出现，像一张正在被画完的图纸。",
+    "style": {
+      "family": "plan",
+      "palette": "plotter",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/bishi/projects/demo"
+    }
   }
 }

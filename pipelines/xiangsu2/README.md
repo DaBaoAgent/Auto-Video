@@ -1,28 +1,25 @@
-# xiangsu2 —— 2.5D 像素（2.5D Pixel Art）
+# xiangsu2 · 2.5D 像素
 
-灯塔熄灭，孙女提着最后一簇火穿过夜林、爬上风暴悬崖。
+限定色板：大像素块拼前景远景，整帧量化到 8–14 级。
 
-| 项 | 值 |
-| --- | --- |
-| 工位 | 04 卡通动画 |
-| 上游 | lemo-opuscar `styles/hd-2d`（2.5D 像素） |
-| 样片 | 《守灯人》76.5 s，来源 `lemomo-ai/lemo-opuscar-films` |
-| 入口 | `pipelines/xiangsu2/scripts/xiangsu2.py` |
-| 画幅 | 16:9 |
+## 环境
 
-## 跑
+- Node ≥ 18，puppeteer-core（仓库内任意带它的管线即可，默认找 `dengju/node_modules`）
+- Edge 或 Chrome（`STYLE_EDGE` 可指定）
+- ffmpeg 在 PATH 里
+- 字体：`assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf`（仓库自带，OFL）
+
+## 快速开始
 
 ```bash
-python pipelines/xiangsu2/scripts/xiangsu2.py --check   # 体检
-python pipelines/xiangsu2/scripts/xiangsu2.py --plan    # 看步骤
-python pipelines/xiangsu2/scripts/xiangsu2.py           # 复现上游 demo
+python pipelines/xiangsu2/scripts/xiangsu2.py --check
+python pipelines/xiangsu2/scripts/xiangsu2.py --stills 1.2,3.4
+python pipelines/xiangsu2/scripts/xiangsu2.py --render
 ```
 
-上游 demo 在 Linux / WSL 上跑；Windows 原生缺 `.venv/bin/python`。
+产物：`projects/demo/out/xiangsu2.mp4`（1920×1080 / 30 fps）。
 
-## 现状
+## 画面是怎么来的
 
-这条线是**登记 + 上游复现**，还没有搬成本仓库自己的渲染代码：
-画面、镜头、声音全部以 `styles/hd-2d/STYLE.md` 为准，样片先用上游的。
-要做成「一条文案直接出片」，得把 demo 的 `film.js` 拆成数据驱动的 `template/`，
-再按 `CONTRIBUTING.md` 补样片。
+`vendor/runtime/stylekit.js` 里 像素族的绘制原语 + 本管线 `SPEC` 的几何与色板。
+所有坐标在生成时就写死，运行时不掷骰子。

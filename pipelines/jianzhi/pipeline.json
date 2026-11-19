@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/papercut-red.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "In `demo/`: `paper.js` (paper textures, piece builder: fill, cut, inset, edge, grain, shadows, transmission), `motifs.js…"
+    "engine_note": "背光镂空：纸色分层叠上，孔洞透出背光，金线勾边。",
+    "style": {
+      "family": "paper",
+      "palette": "crimson",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/jianzhi/projects/demo"
+    }
   }
 }

@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/hd-2d.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "In `demo/`: `px.js` (pixel canvas, Bayer ramps, surfaces, lit billboards, glow), `kit.js` (world UVs, materials, houses,…"
+    "engine_note": "限定色板：大像素块拼前景远景，整帧量化到 8–14 级。",
+    "style": {
+      "family": "pixel",
+      "palette": "hd2d",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/xiangsu2/projects/demo"
+    }
   }
 }

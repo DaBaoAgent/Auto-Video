@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/cel-anime-80s.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "In `demo/`: `cel.js` (path, cel, ribbon, flutter), `pal.js` (colour models), `head80.js` (80s head, 3 views × expression…"
+    "engine_note": "平涂加描边：天空渐变、角色几何化剪影、速度线与地平线。",
+    "style": {
+      "family": "cel",
+      "palette": "anime80",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/sailu/projects/demo"
+    }
   }
 }

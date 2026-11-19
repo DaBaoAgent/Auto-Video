@@ -1,28 +1,25 @@
-# leida —— 雷达扫描纪录片（Radar Sweep Documentary）
+# leida · 雷达扫描纪录片
 
-1969 年 7 月 21 日帕克斯的风暴里，一面放倒到极限的 64 米天线顶住了风，替全世界接住了登月直播。
+灰阶构图：亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。
 
-| 项 | 值 |
-| --- | --- |
-| 工位 | 06 屏幕赛博 |
-| 上游 | lemo-opuscar `styles/dark-documentary`（雷达扫描纪录片） |
-| 样片 | 《狂风里接住登月直播》52.0 s，来源 `lemomo-ai/lemo-opuscar-films` |
-| 入口 | `pipelines/leida/scripts/leida.py` |
-| 画幅 | 16:9 |
+## 环境
 
-## 跑
+- Node ≥ 18，puppeteer-core（仓库内任意带它的管线即可，默认找 `dengju/node_modules`）
+- Edge 或 Chrome（`STYLE_EDGE` 可指定）
+- ffmpeg 在 PATH 里
+- 字体：`assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf`（仓库自带，OFL）
+
+## 快速开始
 
 ```bash
-python pipelines/leida/scripts/leida.py --check   # 体检
-python pipelines/leida/scripts/leida.py --plan    # 看步骤
-python pipelines/leida/scripts/leida.py           # 复现上游 demo
+python pipelines/leida/scripts/leida.py --check
+python pipelines/leida/scripts/leida.py --stills 1.2,3.4
+python pipelines/leida/scripts/leida.py --render
 ```
 
-上游 demo 在 Linux / WSL 上跑；Windows 原生缺 `.venv/bin/python`。
+产物：`projects/demo/out/leida.mp4`（1920×1080 / 30 fps）。
 
-## 现状
+## 画面是怎么来的
 
-这条线是**登记 + 上游复现**，还没有搬成本仓库自己的渲染代码：
-画面、镜头、声音全部以 `styles/dark-documentary/STYLE.md` 为准，样片先用上游的。
-要做成「一条文案直接出片」，得把 demo 的 `film.js` 拆成数据驱动的 `template/`，
-再按 `CONTRIBUTING.md` 补样片。
+`vendor/runtime/stylekit.js` 里 摄影族的绘制原语 + 本管线 `SPEC` 的几何与色板。
+所有坐标在生成时就写死，运行时不掷骰子。

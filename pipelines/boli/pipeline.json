@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/stained-glass.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "In `demo/`: `glass.js` (pieces, textures, lead, grisaille, lozenges), `comp.js` (WebGL2 compositor), `window.js` (lancet…"
+    "engine_note": "背光镂空：纸色分层叠上，孔洞透出背光，金线勾边。",
+    "style": {
+      "family": "paper",
+      "palette": "glass",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/boli/projects/demo"
+    }
   }
 }

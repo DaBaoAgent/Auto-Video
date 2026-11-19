@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/archive-lighttable.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "demo/film.js`: `IT` (objects: centre, rotation, scale), `toW()` / `toT()` (texture ↔ world), `CAM` keys and `w2s()`, `di…"
+    "engine_note": "灰阶构图：亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。",
+    "style": {
+      "family": "photo",
+      "palette": "amber",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/dangan/projects/demo"
+    }
   }
 }

@@ -1,520 +1,520 @@
 {
- "schema": "auto-video/frontend-targets@1",
- "note": "每条管线在 frontend 里怎么被调用。模板库派生的 10 条都有 new/vo/render 标准缝：模板全部数据驱动（分幕从 timeline.json 长出来，见 lib/autoscene.js），一条文案可以直接出片；其余 23 条按 reason 里的文档手动接最后一步。改这里不需要动 frontend.py。",
- "pipelines": {
-  "jianying": {
-   "render": null,
-   "reason": "片源/分镜驱动：先用 jianying/scripts/jianying_shotcraft.py 建工程再裁切，配音从 srt 出"
-  },
-  "lishi": {
-   "render": null,
-   "reason": "人物口播：lishi/scripts/lishi.py 有自己的七步骨架，接 frontend 的 02/03 产物即可"
-  },
-  "zhidiao": {
-   "render": null,
-   "reason": "纸雕灯箱要 ComfyUI 出画，frontend 只提供文案与配音"
-  },
-  "shouhui": {
-   "render": null,
-   "reason": "shouhui 工程用 film.json 分镜，需先手工排幕"
-  },
-  "pencil": {
-   "new": "python {entry} new \"{proj}\" --title \"{title}\"",
-   "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-   "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
-   "render": "python {entry} render \"{proj}\""
-  },
-  "caiqian": {
-   "render": null,
-   "reason": "彩铅工程按 slug 建，配 srt 走 srt 阶段；先手工确认分幕"
-  },
-  "pingban": {
-   "render": null,
-   "reason": "平板速写按笔画时序生成，需先定镜头表"
-  },
-  "gangbi": {
-   "render": null,
-   "reason": "钢笔淡彩按 slug 复制 012_wind 骨架，画面地点与时间轴要手工定；配音可有可无，无配音时只出默片"
-  },
-  "labi": {
-   "render": null,
-   "reason": "蜡笔绘本按 slug 复制 012_moon 骨架，角色与水彩揭示点要先定；旁白与无词段落可混用，没配音时只出默片"
-  },
-  "piying": {
-   "render": null,
-   "reason": "皮影六步 node 链要项目素材（gen/qc/audit），frontend 提供文案与配音"
-  },
-  "shuimo": {
-   "render": null,
-   "reason": "水墨用 own TTS 服务对齐音轨；frontend 可先出配音再 audio 阶段"
-  },
-  "shadow": {
-   "new": "python {entry} new \"{proj}\" --title \"{title}\"",
-   "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-   "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
-   "render": "python {entry} render \"{proj}\""
-  },
-  "tapestry": {
-   "new": "python {entry} new \"{proj}\" --title \"{title}\"",
-   "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-   "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
-   "render": "python {entry} render \"{proj}\""
-  },
-  "laolang": {
-   "new": "python {entry} new \"{proj}\" --title \"{title}\"",
-   "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-   "render": "python {entry} render \"{proj}\""
-  },
-  "goldenage": {
-   "new": "python {entry} new \"{proj}\" --title \"{title}\"",
-   "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-   "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
-   "render": "python {entry} render \"{proj}\""
-  },
-  "manga": {
-   "new": "python {entry} new \"{proj}\" --title \"{title}\"",
-   "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-   "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
-   "render": "python {entry} render \"{proj}\""
-  },
-  "xiangsu": {
-   "render": null,
-   "reason": "像素要 640×360 索引帧缓冲逐像素画，分镜得先定；frontend 提供文案与配音"
-  },
-  "tianshu": {
-   "render": null,
-   "reason": "天书是 beats→plan→plates 的本地模型链，配音由 tianshu 自己出"
-  },
-  "shiliang": {
-   "render": null,
-   "reason": "扁平矢量用 audio/cues 阶段对齐，需管线内 TTS 时间轴"
-  },
-  "lvdong": {
-   "render": null,
-   "reason": "剪影律动按 90 BPM 卡点，节奏先定再配音"
-  },
-  "huixingzhen": {
-   "render": null,
-   "reason": "彗星针按集数脚本 gen_episode.py 走，输入是剧本不是文案"
-  },
-  "bianping": {
-   "render": null,
-   "reason": "僵尸地球有 own 分镜与配音脚本，frontend 只供文案"
-  },
-  "xianshiqi": {
-   "render": null,
-   "reason": "赛博 HUD 的 audio/cues 阶段要管线内 TTS 时间轴"
-  },
-  "xuni": {
-   "render": null,
-   "reason": "朊病毒 MG 的 audio/cues 阶段要管线内 TTS 时间轴"
-  },
-  "tuiyan": {
-   "render": null,
-   "reason": "兵棋推演要 data→verify→render-film，台词与场景绑定"
-  },
-  "chengshi": {
-   "render": null,
-   "reason": "城市年轮按 OSM/SRTM 数据驱动，无文案分幕"
-  },
-  "dengju": {
-   "render": null,
-   "reason": "瓦片波浪要 audio/cues 阶段对齐，需管线内 TTS 时间轴"
-  },
-  "isometric": {
-   "new": "python {entry} new \"{proj}\" --title \"{title}\"",
-   "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-   "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
-   "render": "python {entry} render \"{proj}\""
-  },
-  "map": {
-   "new": "python {entry} new \"{proj}\" --title \"{title}\"",
-   "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-   "render": "python {entry} render \"{proj}\""
-  },
-  "ditu": {
-   "render": null,
-   "reason": "卫星地形要真实高程与路线数据，先定线路"
-  },
-  "blueprint": {
-   "new": "python {entry} new \"{proj}\" --title \"{title}\"",
-   "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-   "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
-   "render": "python {entry} render \"{proj}\""
-  },
-  "parable": {
-   "new": "python {entry} new \"{proj}\" --title \"{title}\"",
-   "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
-   "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
-   "render": "python {entry} render \"{proj}\""
-  },
-  "shipai": {
-   "render": null,
-   "reason": "实拍素材要先挑 Pixabay 片段，再叠 frontend 的配音与字幕"
-  },
-  "jilupian": {
-   "render": null,
-   "reason": "纪录片要片源 URL 清单，S1–S9 全链，配音走 autoup 配置"
-  },
-  "peiyin": {
-   "render": null,
-   "reason": "配音前端：它本身就是 frontend 的可选替代（克隆音色），不出片"
-  },
-  "weisuo": {
-   "render": null,
-   "reason": "孟菲斯微缩按 slug 复制 012_pomelo 骨架，是 three.js 三维微缩，四季与镜头要手工定"
-  },
-  "shuicai": {
-   "render": null,
-   "reason": "水彩笔刷按 slug 复制 012_aus 骨架，湿画法的笔序与画面要手工定；这张是长片（113.6 s）"
-  },
-  "fushihui": {
-   "render": null,
-   "reason": "浮世绘按 slug 复制 012_toward 骨架，分色版块与错版由画面自动生成，景与镜头要手工定"
-  },
-  "shuimo2": {
-   "render": null,
-   "reason": "中国水墨按 slug 复制 012_river 骨架，墨与宣纸在合成器里生成，画面与镜头要手工定"
-  },
-  "zhuangshi": {
-   "render": null,
-   "reason": "装饰艺术按 slug 复制 012_starlight 骨架，场景在 scenes/ 与 shots_/ 里，镜头表沿 timeline.json"
-  },
-  "qianhuang": {
-   "render": null,
-   "reason": "铅黄浓彩是 2–4 秒硬切的手绘分镜：十镜表、色片灯与音效点都要跟着口播手工排，只接 frontend 的配音与 srt"
-  },
-  "zimu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/caption-news/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "xinwen": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/newsreel/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "daoshu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/countdown/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "jiaoxiang": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/city-symphony/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "diaocha": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/visual-investigation/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "mengtai": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/kino-montage/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "zhanshu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/telestrator/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "baozhuang": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/news-package/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "dangan": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/archive-lighttable/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "youhua": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/impasto/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "yibi": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/one-line/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "baiban": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/whiteboard/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "heiban": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/chalkboard/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "biji": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/sketchnote/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "make": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/marker-paper/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "jianzhi": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/papercut-red/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "boli": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/stained-glass/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "jinbo": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/gilded-illumination/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "kongban": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/risograph/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "wangdian": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/halftone-dossier/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "muke": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/woodcut/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "tongban": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/engraving/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "siyin": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/silkscreen-poster/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "guaban": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/printed-long-take/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "bopu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/pop-art/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "fugu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/vintage-collage/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "ruishi": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/swiss-motion/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "jiandie": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/spy-titles/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "xiangxing": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/pictogram-motion/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "baohao": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/bauhaus-shapes/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "wenzi": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/text-flash-cuts/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "xinxi": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/iso-infographic/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "chaijie": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/teardown/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "poumian": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/hardcore-info/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "jixie": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/precise-mechanism/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "shuoming": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/instruction-manual/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "bishi": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/pen-plotter/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "liushui": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/assembly-line-diagram/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "xianwei": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/microscope/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "jianbao": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/briefing-board/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "anjian": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/security-xray/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "sailu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/cel-anime-80s/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "kehuan": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/scifi-toon/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "wushi": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/midcentury-toon/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "gaoxiao": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/comic-history/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "xiangsu2": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/hd-2d/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "weiyou": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/microgame/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "jiezou": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/game-show/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "zifu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/ascii-crt/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "mopian": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/silent-film/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "houshi": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/backrooms/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "zhike": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/scratch-film/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "puguang": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/double-exposure/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "fabu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/dark-keynote/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "luping": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/living-screencast/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "zhuomian": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/desktop-flythrough/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "biaoge": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/spreadsheet/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "dianzhen": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/one-bit-dither/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "dianlu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/circuit-board/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "yinghuo": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/firefly-pointillism/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "liuchang": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/flow-field/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "shibo": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/oscilloscope-math/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "nihong": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/neon-tubes/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "leida": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/dark-documentary/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "jimu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/brick-toy/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "liti": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/paper-popup/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "yizhou": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/tilt-shift/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "chanpin": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/glass-product/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "labi2": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/crayon-world/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "weixing": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/satellite-briefing/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "cehui": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/lidar-survey/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "recheng": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/thermal-camera/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "shuju": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/dataviz/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "baimo": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/white-model/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "shiwu": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/data-physical/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "dietie": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/transit-map/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "moni": {
-   "render": null,
-   "reason": "上游 demo 只出整片样片（styles/pip-simulation/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
-  },
-  "liaotian": {
-   "render": null,
-   "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
-  },
-  "keli": {
-   "render": null,
-   "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
-  },
-  "andiao": {
-   "render": null,
-   "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
-  },
-  "xuanyi": {
-   "render": null,
-   "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
-  },
-  "oupu": {
-   "render": null,
-   "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
-  },
-  "yugao": {
-   "render": null,
-   "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
+  "schema": "auto-video/frontend-targets@1",
+  "note": "每条管线在 frontend 里怎么被调用。模板库派生的 10 条都有 new/vo/render 标准缝：模板全部数据驱动（分幕从 timeline.json 长出来，见 lib/autoscene.js），一条文案可以直接出片；其余 23 条按 reason 里的文档手动接最后一步。改这里不需要动 frontend.py。",
+  "pipelines": {
+    "jianying": {
+      "render": null,
+      "reason": "片源/分镜驱动：先用 jianying/scripts/jianying_shotcraft.py 建工程再裁切，配音从 srt 出"
+    },
+    "lishi": {
+      "render": null,
+      "reason": "人物口播：lishi/scripts/lishi.py 有自己的七步骨架，接 frontend 的 02/03 产物即可"
+    },
+    "zhidiao": {
+      "render": null,
+      "reason": "纸雕灯箱要 ComfyUI 出画，frontend 只提供文案与配音"
+    },
+    "shouhui": {
+      "render": null,
+      "reason": "shouhui 工程用 film.json 分镜，需先手工排幕"
+    },
+    "pencil": {
+      "new": "python {entry} new \"{proj}\" --title \"{title}\"",
+      "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
+    },
+    "caiqian": {
+      "render": null,
+      "reason": "彩铅工程按 slug 建，配 srt 走 srt 阶段；先手工确认分幕"
+    },
+    "pingban": {
+      "render": null,
+      "reason": "平板速写按笔画时序生成，需先定镜头表"
+    },
+    "gangbi": {
+      "render": null,
+      "reason": "钢笔淡彩按 slug 复制 012_wind 骨架，画面地点与时间轴要手工定；配音可有可无，无配音时只出默片"
+    },
+    "labi": {
+      "render": null,
+      "reason": "蜡笔绘本按 slug 复制 012_moon 骨架，角色与水彩揭示点要先定；旁白与无词段落可混用，没配音时只出默片"
+    },
+    "piying": {
+      "render": null,
+      "reason": "皮影六步 node 链要项目素材（gen/qc/audit），frontend 提供文案与配音"
+    },
+    "shuimo": {
+      "render": null,
+      "reason": "水墨用 own TTS 服务对齐音轨；frontend 可先出配音再 audio 阶段"
+    },
+    "shadow": {
+      "new": "python {entry} new \"{proj}\" --title \"{title}\"",
+      "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
+    },
+    "tapestry": {
+      "new": "python {entry} new \"{proj}\" --title \"{title}\"",
+      "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
+    },
+    "laolang": {
+      "new": "python {entry} new \"{proj}\" --title \"{title}\"",
+      "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
+      "render": "python {entry} render \"{proj}\""
+    },
+    "goldenage": {
+      "new": "python {entry} new \"{proj}\" --title \"{title}\"",
+      "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
+    },
+    "manga": {
+      "new": "python {entry} new \"{proj}\" --title \"{title}\"",
+      "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
+    },
+    "xiangsu": {
+      "render": null,
+      "reason": "像素要 640×360 索引帧缓冲逐像素画，分镜得先定；frontend 提供文案与配音"
+    },
+    "tianshu": {
+      "render": null,
+      "reason": "天书是 beats→plan→plates 的本地模型链，配音由 tianshu 自己出"
+    },
+    "shiliang": {
+      "render": null,
+      "reason": "扁平矢量用 audio/cues 阶段对齐，需管线内 TTS 时间轴"
+    },
+    "lvdong": {
+      "render": null,
+      "reason": "剪影律动按 90 BPM 卡点，节奏先定再配音"
+    },
+    "huixingzhen": {
+      "render": null,
+      "reason": "彗星针按集数脚本 gen_episode.py 走，输入是剧本不是文案"
+    },
+    "bianping": {
+      "render": null,
+      "reason": "僵尸地球有 own 分镜与配音脚本，frontend 只供文案"
+    },
+    "xianshiqi": {
+      "render": null,
+      "reason": "赛博 HUD 的 audio/cues 阶段要管线内 TTS 时间轴"
+    },
+    "xuni": {
+      "render": null,
+      "reason": "朊病毒 MG 的 audio/cues 阶段要管线内 TTS 时间轴"
+    },
+    "tuiyan": {
+      "render": null,
+      "reason": "兵棋推演要 data→verify→render-film，台词与场景绑定"
+    },
+    "chengshi": {
+      "render": null,
+      "reason": "城市年轮按 OSM/SRTM 数据驱动，无文案分幕"
+    },
+    "dengju": {
+      "render": null,
+      "reason": "瓦片波浪要 audio/cues 阶段对齐，需管线内 TTS 时间轴"
+    },
+    "isometric": {
+      "new": "python {entry} new \"{proj}\" --title \"{title}\"",
+      "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
+    },
+    "map": {
+      "new": "python {entry} new \"{proj}\" --title \"{title}\"",
+      "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
+      "render": "python {entry} render \"{proj}\""
+    },
+    "ditu": {
+      "render": null,
+      "reason": "卫星地形要真实高程与路线数据，先定线路"
+    },
+    "blueprint": {
+      "new": "python {entry} new \"{proj}\" --title \"{title}\"",
+      "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
+    },
+    "parable": {
+      "new": "python {entry} new \"{proj}\" --title \"{title}\"",
+      "ingest": "python {entry} vo \"{proj}\" --src \"{voice}\" --text \"{script}\"",
+      "reason": "模板已改为数据驱动分幕（lib/autoscene.js：一句旁白一张卡，几行稿子都能渲），frontend 灌完文案与配音可直接出片；片头卡与排版是保底方案，要原样片那种手绘美术仍走 projects/ 手写工程",
+      "render": "python {entry} render \"{proj}\""
+    },
+    "shipai": {
+      "render": null,
+      "reason": "实拍素材要先挑 Pixabay 片段，再叠 frontend 的配音与字幕"
+    },
+    "jilupian": {
+      "render": null,
+      "reason": "纪录片要片源 URL 清单，S1–S9 全链，配音走 autoup 配置"
+    },
+    "peiyin": {
+      "render": null,
+      "reason": "配音前端：它本身就是 frontend 的可选替代（克隆音色），不出片"
+    },
+    "weisuo": {
+      "render": null,
+      "reason": "孟菲斯微缩按 slug 复制 012_pomelo 骨架，是 three.js 三维微缩，四季与镜头要手工定"
+    },
+    "shuicai": {
+      "render": null,
+      "reason": "水彩笔刷按 slug 复制 012_aus 骨架，湿画法的笔序与画面要手工定；这张是长片（113.6 s）"
+    },
+    "fushihui": {
+      "render": null,
+      "reason": "浮世绘按 slug 复制 012_toward 骨架，分色版块与错版由画面自动生成，景与镜头要手工定"
+    },
+    "shuimo2": {
+      "render": null,
+      "reason": "中国水墨按 slug 复制 012_river 骨架，墨与宣纸在合成器里生成，画面与镜头要手工定"
+    },
+    "zhuangshi": {
+      "render": null,
+      "reason": "装饰艺术按 slug 复制 012_starlight 骨架，场景在 scenes/ 与 shots_/ 里，镜头表沿 timeline.json"
+    },
+    "qianhuang": {
+      "render": null,
+      "reason": "铅黄浓彩是 2–4 秒硬切的手绘分镜：十镜表、色片灯与音效点都要跟着口播手工排，只接 frontend 的配音与 srt"
+    },
+    "zimu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/zimu/scripts/zimu.py --render；前端只做分发"
+    },
+    "xinwen": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/xinwen/scripts/xinwen.py --render；前端只做分发"
+    },
+    "daoshu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/daoshu/scripts/daoshu.py --render；前端只做分发"
+    },
+    "jiaoxiang": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/jiaoxiang/scripts/jiaoxiang.py --render；前端只做分发"
+    },
+    "diaocha": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/diaocha/scripts/diaocha.py --render；前端只做分发"
+    },
+    "mengtai": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/mengtai/scripts/mengtai.py --render；前端只做分发"
+    },
+    "zhanshu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/zhanshu/scripts/zhanshu.py --render；前端只做分发"
+    },
+    "baozhuang": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/baozhuang/scripts/baozhuang.py --render；前端只做分发"
+    },
+    "dangan": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/dangan/scripts/dangan.py --render；前端只做分发"
+    },
+    "youhua": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/youhua/scripts/youhua.py --render；前端只做分发"
+    },
+    "yibi": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/yibi/scripts/yibi.py --render；前端只做分发"
+    },
+    "baiban": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/baiban/scripts/baiban.py --render；前端只做分发"
+    },
+    "heiban": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/heiban/scripts/heiban.py --render；前端只做分发"
+    },
+    "biji": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/biji/scripts/biji.py --render；前端只做分发"
+    },
+    "make": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/make/scripts/make.py --render；前端只做分发"
+    },
+    "jianzhi": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/jianzhi/scripts/jianzhi.py --render；前端只做分发"
+    },
+    "boli": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/boli/scripts/boli.py --render；前端只做分发"
+    },
+    "jinbo": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/jinbo/scripts/jinbo.py --render；前端只做分发"
+    },
+    "kongban": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/kongban/scripts/kongban.py --render；前端只做分发"
+    },
+    "wangdian": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/wangdian/scripts/wangdian.py --render；前端只做分发"
+    },
+    "muke": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/muke/scripts/muke.py --render；前端只做分发"
+    },
+    "tongban": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/tongban/scripts/tongban.py --render；前端只做分发"
+    },
+    "siyin": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/siyin/scripts/siyin.py --render；前端只做分发"
+    },
+    "guaban": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/guaban/scripts/guaban.py --render；前端只做分发"
+    },
+    "bopu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/bopu/scripts/bopu.py --render；前端只做分发"
+    },
+    "fugu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/fugu/scripts/fugu.py --render；前端只做分发"
+    },
+    "ruishi": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/ruishi/scripts/ruishi.py --render；前端只做分发"
+    },
+    "jiandie": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/jiandie/scripts/jiandie.py --render；前端只做分发"
+    },
+    "xiangxing": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/xiangxing/scripts/xiangxing.py --render；前端只做分发"
+    },
+    "baohao": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/baohao/scripts/baohao.py --render；前端只做分发"
+    },
+    "wenzi": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/wenzi/scripts/wenzi.py --render；前端只做分发"
+    },
+    "xinxi": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/xinxi/scripts/xinxi.py --render；前端只做分发"
+    },
+    "chaijie": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/chaijie/scripts/chaijie.py --render；前端只做分发"
+    },
+    "poumian": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/poumian/scripts/poumian.py --render；前端只做分发"
+    },
+    "jixie": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/jixie/scripts/jixie.py --render；前端只做分发"
+    },
+    "shuoming": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/shuoming/scripts/shuoming.py --render；前端只做分发"
+    },
+    "bishi": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/bishi/scripts/bishi.py --render；前端只做分发"
+    },
+    "liushui": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/liushui/scripts/liushui.py --render；前端只做分发"
+    },
+    "xianwei": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/xianwei/scripts/xianwei.py --render；前端只做分发"
+    },
+    "jianbao": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/jianbao/scripts/jianbao.py --render；前端只做分发"
+    },
+    "anjian": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/anjian/scripts/anjian.py --render；前端只做分发"
+    },
+    "sailu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/sailu/scripts/sailu.py --render；前端只做分发"
+    },
+    "kehuan": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/kehuan/scripts/kehuan.py --render；前端只做分发"
+    },
+    "wushi": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/wushi/scripts/wushi.py --render；前端只做分发"
+    },
+    "gaoxiao": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/gaoxiao/scripts/gaoxiao.py --render；前端只做分发"
+    },
+    "xiangsu2": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/xiangsu2/scripts/xiangsu2.py --render；前端只做分发"
+    },
+    "weiyou": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/weiyou/scripts/weiyou.py --render；前端只做分发"
+    },
+    "jiezou": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/jiezou/scripts/jiezou.py --render；前端只做分发"
+    },
+    "zifu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/zifu/scripts/zifu.py --render；前端只做分发"
+    },
+    "mopian": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/mopian/scripts/mopian.py --render；前端只做分发"
+    },
+    "houshi": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/houshi/scripts/houshi.py --render；前端只做分发"
+    },
+    "zhike": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/zhike/scripts/zhike.py --render；前端只做分发"
+    },
+    "puguang": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/puguang/scripts/puguang.py --render；前端只做分发"
+    },
+    "fabu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/fabu/scripts/fabu.py --render；前端只做分发"
+    },
+    "luping": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/luping/scripts/luping.py --render；前端只做分发"
+    },
+    "zhuomian": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/zhuomian/scripts/zhuomian.py --render；前端只做分发"
+    },
+    "biaoge": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/biaoge/scripts/biaoge.py --render；前端只做分发"
+    },
+    "dianzhen": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/dianzhen/scripts/dianzhen.py --render；前端只做分发"
+    },
+    "dianlu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/dianlu/scripts/dianlu.py --render；前端只做分发"
+    },
+    "yinghuo": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/yinghuo/scripts/yinghuo.py --render；前端只做分发"
+    },
+    "liuchang": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/liuchang/scripts/liuchang.py --render；前端只做分发"
+    },
+    "shibo": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/shibo/scripts/shibo.py --render；前端只做分发"
+    },
+    "nihong": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/nihong/scripts/nihong.py --render；前端只做分发"
+    },
+    "leida": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/leida/scripts/leida.py --render；前端只做分发"
+    },
+    "jimu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/jimu/scripts/jimu.py --render；前端只做分发"
+    },
+    "liti": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/liti/scripts/liti.py --render；前端只做分发"
+    },
+    "yizhou": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/yizhou/scripts/yizhou.py --render；前端只做分发"
+    },
+    "chanpin": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/chanpin/scripts/chanpin.py --render；前端只做分发"
+    },
+    "labi2": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/labi2/scripts/labi2.py --render；前端只做分发"
+    },
+    "weixing": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/weixing/scripts/weixing.py --render；前端只做分发"
+    },
+    "cehui": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/cehui/scripts/cehui.py --render；前端只做分发"
+    },
+    "recheng": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/recheng/scripts/recheng.py --render；前端只做分发"
+    },
+    "shuju": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/shuju/scripts/shuju.py --render；前端只做分发"
+    },
+    "baimo": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/baimo/scripts/baimo.py --render；前端只做分发"
+    },
+    "shiwu": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/shiwu/scripts/shiwu.py --render；前端只做分发"
+    },
+    "dietie": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/dietie/scripts/dietie.py --render；前端只做分发"
+    },
+    "moni": {
+      "render": null,
+      "reason": "自研 Canvas 渲染（vendor/runtime/stylekit.js + projects/demo/main.js），本机可出帧：python pipelines/moni/scripts/moni.py --render；前端只做分发"
+    },
+    "liaotian": {
+      "render": null,
+      "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
+    },
+    "keli": {
+      "render": null,
+      "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
+    },
+    "andiao": {
+      "render": null,
+      "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
+    },
+    "xuanyi": {
+      "render": null,
+      "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
+    },
+    "oupu": {
+      "render": null,
+      "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
+    },
+    "yugao": {
+      "render": null,
+      "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
+    }
   }
- }
 }

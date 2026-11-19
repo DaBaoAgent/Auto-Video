@@ -1,63 +1,44 @@
 ---
 name: zhike
-description: 胶片直刻（Scratch Film）：一条手指长的灯笼鱼摸黑往上游半公里，用自己的光藏起影子；镜头拉远，原来每晚有无数动物和它一起升起。 上游为 lemo-opuscar styles/scratch-film，演示站暂用其样片；入口复现上游 demo。
+description: 用「胶片直刻」做screen短片，灰阶构图，亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。
 ---
 
-# zhike：胶片直刻（Scratch Film）
+# zhike：胶片直刻
 
-| 项 | 值 |
-| --- | --- |
-| 工位 | 06 屏幕赛博 |
-| 上游风格 | lemo-opuscar `styles/scratch-film` |
-| 上游样片 | 《夜里往上游》52.0 s |
-| 画幅 | 16:9 |
-| 入口 | `pipelines/zhike/scripts/zhike.py` |
+灰阶构图：亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。
 
-## 这条管线交什么
+## 一句话原则
 
-一条手指长的灯笼鱼摸黑往上游半公里，用自己的光藏起影子；镜头拉远，原来每晚有无数动物和它一起升起。
+1. **画面自己画。** 没有上游脚本可调，摄影族的绘制代码在 `vendor/runtime/stylekit.js`，
+   这条管线的形状坐标、色板、节拍写在 `projects/demo/main.js` 的 `SPEC` 里，生成时按 id 播种定死。
+2. **确定性。** 只用 seeded RNG；不用 `Math.random`、不用 `Date.now`，同一秒数永远同一帧。
+3. **一帧一画。** `renderAt(t)` 从空白重画，不叠上一帧，抽帧和整片完全一致。
+4. **只出画面。** 配音、字幕、配乐由外层工序接，管线本身不掺。
 
-上游的一句话：A finger-long lanternfish climbs half a kilometre in the dark, hides its shadow with its own lights, and turns out to be one of countless animals rising every night.
+## 目录
 
-## 入口命令
-
-```bash
-# 1. 先看这台机器够不够（上游 demo 要 sh + lemo 的 .venv + node + ffmpeg）
-python pipelines/zhike/scripts/zhike.py --check
-
-# 2. 只看要跑哪些步骤，不执行
-python pipelines/zhike/scripts/zhike.py --plan
-
-# 3. 真跑：复现上游 demo 成片（Windows 上走 WSL）
-python pipelines/zhike/scripts/zhike.py
+```
+zhike/
+├── SKILL.md
+├── pipeline.json         定版参数（画幅/风格族/节拍）
+├── scripts/zhike.py      入口：--check / --plan / --stills / --render / --mp4
+└── projects/demo/
+    ├── index.html        画布壳（字体走 assets/fonts）
+    ├── main.js           SPEC + 版式牌 + renderAt
+    ├── frames/           抓下来的帧（不入库）
+    └── out/              静帧与成片（不入库）
 ```
 
-## 参数
+## 常用命令
 
-- `--check` 只体检不出片；
-- `--plan` 打印步骤；
-- 不给参数就是复现上游样片；
-- 库位置默认 `D:/@kaifa/lemo-opuscar`，可用 `LEMO_LIB` 或同名环境变量覆盖；
-- 渲染器按仓库约定读 `PLAYWRIGHT_CORE`，默认指向 `piying/node_modules/playwright-core`。
-
-## 引擎
-
-demo/js/base.js`: maths, `scratch`, `dye`, `hatch`, `glow`, emulsion / dust / grain plates.
+```bash
+python pipelines/zhike/scripts/zhike.py --check
+python pipelines/zhike/scripts/zhike.py --stills 0.6,2.0,5.0
+python pipelines/zhike/scripts/zhike.py --render
+```
 
 ## 验收
 
-- `python tools/validate.py` 通过（catalog / pipeline.json / SKILL.md 三方一致）；
-- 站点卡片能播样片（样片取自 `lemomo-ai/lemo-opuscar-films`）；
-- 出片与上游《夜里往上游》同画幅、同帧率，−14 LUFS。
-
-## 已知坑
-
-1. **上游 demo 只认 Linux 的 `.venv/bin/python`**：Windows 原生跑不了，要走 WSL；`--check` 会直接说缺什么，不会假装跑过。
-2. **字体不随仓库走**：上游 `demo/tools/fonts.sh` 现取现子集，首次跑要联网。
-3. **样片是借的**：现在站点用的是上游 720p 网络版，不是本仓库渲的；等真封装时换成本地 `projects/<编号>/out/*.mp4`。
-4. 上游的配乐与拟音依赖 lemo 的 Python 音频栈，本仓库没有等价实现，暂不接管声音。
-
-## 上游文档
-
-- 风格不变量：`styles/scratch-film/STYLE.md`
-- 样片怎么做的：`styles/scratch-film/DEMO.md`
+- `--check` 全 OK 才动手；缺 puppeteer-core / 浏览器 / ffmpeg 会直接报出来，不假装成功。
+- 静帧看三件事：形状对不对、色板是不是这一族的气质、字有没有压到主体。
+- 出片后 `ffprobe` 核时长与画幅，与 `pipeline.json` 的 `meta` 对齐。

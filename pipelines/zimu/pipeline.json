@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/caption-news.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "Copy `demo/` into the project and replace the content:"
+    "engine_note": "屏幕里的一帧：字符阵、扫描线、横向亮带，外框压住四边。",
+    "style": {
+      "family": "screen",
+      "palette": "news",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/zimu/projects/demo"
+    }
   }
 }
