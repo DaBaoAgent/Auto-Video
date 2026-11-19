@@ -16,7 +16,7 @@
 | 组件 | 来源 | 许可 |
 |---|---|---|
 | three.js（`lib/three.module.js`、`lib/addons/**`） | three.js 官方发行包 | MIT |
-| `lib/lib.js`（缓动/分段/平滑工具） | lemomo-ai/lemo-opuscar `core/lib.js` | MIT |
+| `lib/lib.js`（缓动/分段/平滑工具） | 公开样片库/开源风格库 `core/lib.js` | MIT |
 | `index.html` / `post.js` / `tools/*.py` | 本项目（原 films/guanyu-fancheng） | 与本项目一致 |
 | `scripts/render.mjs` / `scripts/ditu.py` | 本项目新写 | 与本项目一致 |
 

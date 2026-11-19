@@ -7,7 +7,7 @@
     "station": "live",
     "station_no": "10",
     "tagline": "美国一年死掉 130 万箱蜜蜂，总数却涨了 6%：静音也能看懂的新闻。",
-    "engine": "lemo styles/caption-news · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/zimu.py",
@@ -16,23 +16,19 @@
       "title": "蜜蜂账本",
       "seconds": 59.5
     },
-    "no": "42"
+    "no": "42",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "caption-news",
     "upstream_cn": "字幕新闻",
     "upstream_en": "Caption News",
     "upstream_line": "America lost 1.3 million bee colonies, yet the count rose 6 %: a news short that works with the sound off.",
     "upstream_film": "The Bee Ledger",
     "upstream_dur": 59.5,
-    "upstream_docs": {
-      "style": "styles/caption-news/STYLE.md",
-      "demo": "styles/caption-news/DEMO.md",
-      "build": "styles/caption-news/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/caption-news.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/zimu.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "屏幕里的一帧：字符阵、扫描线、横向亮带，外框压住四边。",
     "style": {
       "family": "screen",

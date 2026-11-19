@@ -7,7 +7,7 @@
     "station": "map",
     "station_no": "08",
     "tagline": "卫星照着地图去找咸海，找到的是沙漠；只有筑了坝的那一块回来了。",
-    "engine": "lemo styles/satellite-briefing · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/weixing.py",
@@ -16,23 +16,19 @@
       "title": "地图上还写着海",
       "seconds": 37.8
     },
-    "no": "111"
+    "no": "111",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "satellite-briefing",
     "upstream_cn": "卫星简报",
     "upstream_en": "Satellite Briefing",
     "upstream_line": "A satellite follows the map to the Aral Sea and finds a desert; only the part someone dammed came back.",
     "upstream_film": "The Map Still Says Sea",
     "upstream_dur": 37.8,
-    "upstream_docs": {
-      "style": "styles/satellite-briefing/STYLE.md",
-      "demo": "styles/satellite-briefing/DEMO.md",
-      "build": "styles/satellite-briefing/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/satellite-briefing.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/weixing.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "场 + 等值线 + 站点：先铺色斑，再压等高圈，最后点数据与线路。",
     "style": {
       "family": "map",

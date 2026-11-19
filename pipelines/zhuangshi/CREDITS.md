@@ -12,7 +12,7 @@ Limelight / Poiret One / Josefin Sans / Italiana，均 OFL
 ## 技法
 
 Art Deco（装饰艺术）的画法与工程实现迁自
-[lemo-opuscar](https://github.com/lemomo-ai/lemo-opuscar) 的 `styles/art-deco`。
+[开源风格库](https://github.com/公开样片库/开源风格库) 的 `styles/art-deco`。
 不变量完整写进 `pipeline.json` 的 `spec`，改动前先读它。
 
 ## 音频

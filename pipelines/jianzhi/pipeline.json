@@ -7,7 +7,7 @@
     "station": "craft",
     "station_no": "03",
     "tagline": "除夕年兽进村，小女孩剪出的大窗花照亮全村，把它吓跑。",
-    "engine": "lemo styles/papercut-red · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jianzhi.py",
@@ -16,23 +16,19 @@
       "title": "年兽进村",
       "seconds": 49.0
     },
-    "no": "57"
+    "no": "57",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "papercut-red",
     "upstream_cn": "红色窗花剪纸",
     "upstream_en": "Red Paper-cut",
     "upstream_line": "On New Year's Eve the beast Nian comes to town, and one girl's giant paper-cut lights up the village to scare it off.",
     "upstream_film": "Nian Comes to Town",
     "upstream_dur": 49.0,
-    "upstream_docs": {
-      "style": "styles/papercut-red/STYLE.md",
-      "demo": "styles/papercut-red/DEMO.md",
-      "build": "styles/papercut-red/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/papercut-red.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/jianzhi.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "背光镂空：纸色分层叠上，孔洞透出背光，金线勾边。",
     "style": {
       "family": "paper",

@@ -12,7 +12,7 @@ Cormorant / Cormorant SC（OFL）、马善政毛笔体（OFL）、志莽行（OF
 ## 技法
 
 Chinese Ink Wash（中国水墨）的画法与工程实现迁自
-[lemo-opuscar](https://github.com/lemomo-ai/lemo-opuscar) 的 `styles/ink-wash`。
+[开源风格库](https://github.com/公开样片库/开源风格库) 的 `styles/ink-wash`。
 不变量完整写进 `pipeline.json` 的 `spec`，改动前先读它。
 
 ## 音频

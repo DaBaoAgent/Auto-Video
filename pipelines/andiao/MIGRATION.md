@@ -10,7 +10,7 @@
 
 ## 入库内容
 
-- `runtime/`：BB-Video MIT 代码的逐字副本（`LICENSE-upstream` 随附），风格文件仅把注释里的上游名改为「模板库」。
+- `runtime/`：开源风格包 MIT 代码的逐字副本（`LICENSE-upstream` 随附），风格文件仅把注释里的上游名改为「模板库」。
 - `scripts/`：本管线新增的编排脚本 `andiao.py`（new / check / stills / render / probe / qa / deliver）。
 - `references/`：风格规范原文、分镜模板、验收清单。
 - `template/`：起步工程；**不包含** `audio/`、`out/`、`review/`、`lib/`。

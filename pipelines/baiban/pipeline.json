@@ -7,7 +7,7 @@
     "station": "hand",
     "station_no": "02",
     "tagline": "手机怎么知道你在哪：GPS、原子钟，和相对论每天多出的 38 微秒。",
-    "engine": "lemo styles/whiteboard · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/baiban.py",
@@ -16,23 +16,19 @@
       "title": "口袋里的爱因斯坦",
       "seconds": 111.0
     },
-    "no": "53"
+    "no": "53",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "whiteboard",
     "upstream_cn": "白板讲解",
     "upstream_en": "Whiteboard Explainer",
     "upstream_line": "How your phone knows where you are: GPS, atomic clocks, and the 38 microseconds relativity adds every day.",
     "upstream_film": "Einstein in Your Pocket",
     "upstream_dur": 111.0,
-    "upstream_docs": {
-      "style": "styles/whiteboard/STYLE.md",
-      "demo": "styles/whiteboard/DEMO.md",
-      "build": "styles/whiteboard/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/whiteboard.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/baiban.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "逐笔写出来：每一笔有起笔时间，高亮带压在关键笔画上。",
     "style": {
       "family": "board",

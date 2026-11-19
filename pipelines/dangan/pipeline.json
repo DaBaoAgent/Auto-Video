@@ -7,7 +7,7 @@
     "station": "live",
     "station_no": "10",
     "tagline": "电报说最长飞了 57 秒；放大镜下，莱特兄弟的底片和档案说是 59 秒。",
-    "engine": "lemo styles/archive-lighttable · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/dangan.py",
@@ -16,23 +16,19 @@
       "title": "差两秒",
       "seconds": 40.0
     },
-    "no": "50"
+    "no": "50",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "archive-lighttable",
     "upstream_cn": "档案看片台",
     "upstream_en": "Archive Light Table",
     "upstream_line": "The telegram said 57 seconds; under a loupe, the Wrights' glass negatives and the archive say 59.",
     "upstream_film": "Two Seconds Short",
     "upstream_dur": 40.0,
-    "upstream_docs": {
-      "style": "styles/archive-lighttable/STYLE.md",
-      "demo": "styles/archive-lighttable/DEMO.md",
-      "build": "styles/archive-lighttable/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/archive-lighttable.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/dangan.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "灰阶构图：亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。",
     "style": {
       "family": "photo",

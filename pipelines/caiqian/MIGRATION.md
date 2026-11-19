@@ -4,7 +4,7 @@
 
 | 项 | 值 |
 |---|---|
-| 上游仓库 | `lemomo-ai/lemo-opuscar`（本地 `D:\@kaifa\lemo-opuscar`） |
+| 上游仓库 | `公开样片库/开源风格库`（本地 `开源风格库`） |
 | 上游位置 | `styles/colored-pencil/demo/`（风格试片 s029） |
 | 上游工程 | `films/s029_style_tests/colored-pencil/` |
 | 成片参照 | `films/s029_style_tests/029_colored-pencil.mp4`（60.3 MB / 27.1 s） |
@@ -37,7 +37,7 @@ projects/029_jia_xueyu/
 | `three/addons/` 映射 | 保留映射但**工程不 import addons** | 全部几何与后处理都是 `main.js` 里手写的，不需要 examples |
 | `build.sh`（FROM=0 TO=50.8） | 不迁；改由 `scripts/caiqian.py` 编排 | 上游脚本绑死库根、Kokoro、`core/render/*`、FreePats/VSCO/VCSL 采样库，无法独立运行 |
 | `mix.py` + 采样库配音混音 | `mux` 只做预母带 + 合流 | 采样与 foley 是库内音频体系；这里按本机 ffmpeg 做 −14 LUFS 定版 |
-| `fonts/src/LXGWWenKai-Regular.ttf`（15.2 MB） | 不入库 | 按 lemo 惯例由 `tools/make_font.py` 现取现子集（v1.245.1 固定版本） |
+| `fonts/src/LXGWWenKai-Regular.ttf`（15.2 MB） | 不入库 | 按 开源风格库的做法由 `tools/make_font.py` 现取现子集（v1.245.1 固定版本） |
 | `main_v1.js`（53 KB） | 不迁 | 旧版拆分，`main.js` 已内联全部逻辑 |
 | `scene.js` / `shots.js` / `labels.js` | 不迁 | 旧拆分残留；`const SHOTS`、`buildLabels()`、`GLY` 都已在 `main.js` 内 |
 | `events.json`（37.6 KB） | 不迁 | `core/render/events.mjs` 的导出物；渲染时 `main.js` 现算 `window.EV` |
@@ -68,5 +68,5 @@ projects/029_jia_xueyu/
 ## 运行环境
 
 Windows / Linux / macOS 均可：渲染器只依赖 Node 20+ 与 ffmpeg，路径查找按平台回退。
-实测机器：Windows 11 + Node 20 + ffmpeg 7.x + `D:/@kaifa/lemo-opuscar/node_modules/playwright-core`，
+实测机器：Windows 11 + Node 20 + ffmpeg 7.x + `开源风格库/node_modules/playwright-core`，
 650 帧耗时约 1–2 分钟（6–10 fps），成片 1920×1080 / 24 fps / 27.10 s / −14.7 LUFS。

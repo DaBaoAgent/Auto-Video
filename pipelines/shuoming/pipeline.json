@@ -7,7 +7,7 @@
     "station": "diagram",
     "station_no": "09",
     "tagline": "两个从没装过家具的新手照说明书装婴儿床，十步排在同一张 45° 说明书上；第十步，说明书里没有。",
-    "engine": "lemo styles/instruction-manual · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/shuoming.py",
@@ -16,23 +16,19 @@
       "title": "第十步",
       "seconds": 50.6
     },
-    "no": "77"
+    "no": "77",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "instruction-manual",
     "upstream_cn": "说明书插画",
     "upstream_en": "Instruction Manual Art",
     "upstream_line": "Two first-timers build a crib from a flat-pack manual, ten steps on one 45° page; step ten was never in the manual.",
     "upstream_film": "Step Ten",
     "upstream_dur": 50.6,
-    "upstream_docs": {
-      "style": "styles/instruction-manual/STYLE.md",
-      "demo": "styles/instruction-manual/DEMO.md",
-      "build": "styles/instruction-manual/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/instruction-manual.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/shuoming.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "先画线再标尺寸：主体、引线、图号分层出现，像一张正在被画完的图纸。",
     "style": {
       "family": "plan",

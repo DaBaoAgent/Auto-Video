@@ -7,7 +7,7 @@
     "station": "graphic",
     "station_no": "05",
     "tagline": "一张满屏丝印海报一座城，票根数着离家的公里数，走到世界的另一头，才发现那是回家的路。",
-    "engine": "lemo styles/silkscreen-poster · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/siyin.py",
@@ -16,23 +16,19 @@
       "title": "绕远路回家",
       "seconds": 50.0
     },
-    "no": "64"
+    "no": "64",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "silkscreen-poster",
     "upstream_cn": "丝印旅行海报",
     "upstream_en": "Silkscreen Travel Poster",
     "upstream_line": "A traveller crosses the world one full-bleed screen print at a time, a ticket stub counting the distance from home, until the far side turns into the way back.",
     "upstream_film": "The Long Way Home",
     "upstream_dur": 50.0,
-    "upstream_docs": {
-      "style": "styles/silkscreen-poster/STYLE.md",
-      "demo": "styles/silkscreen-poster/DEMO.md",
-      "build": "styles/silkscreen-poster/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/silkscreen-poster.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/siyin.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "网点分色：同形状叠两三版网，套色故意偏 2–3 px，出印刷的错位感。",
     "style": {
       "family": "halftone",

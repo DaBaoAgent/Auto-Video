@@ -9,7 +9,7 @@ description: 扁平尺度漫游（Scale Zoom Explainer）——深夜空蓝底�
 
 首个实例：`template/` 是「僵尸地球第一段 · 彗星撞木星与九号行星黑洞假说」35.7 秒样片（1920×1080 / 24fps / 857帧）。
 
-- 依赖库：lemo-opuscar（`D:\@kaifa\lemo-opuscar`），风格来自 `styles/flat-space-explainer`
+- 依赖库：仓库内抓帧（`D:\@kaifa\仓库内抓帧`），风格来自 `styles/flat-space-explainer`
 - 风格规范：[`references/style.md`](references/style.md)
 - ASR 对齐方法：[`references/sync.md`](references/sync.md)
 - 配乐与音效：[`references/audio.md`](references/audio.md)
@@ -42,9 +42,9 @@ bianping/
 └── template/               僵尸地球第一段 35.7s 样片工程
     ├── index.html
     ├── film.js             6 个场景 + VO 字幕数组
-    ├── flat.js             调色板 + 绘制工具（从 lemo-opuscar 复制）
-    ├── heroes.js           tear/capsule（从 lemo-opuscar 复制）
-    ├── orbi.js             Orbi 眼睛角色（从 lemo-opuscar 复制）
+    ├── flat.js             调色板 + 绘制工具（本仓库自带）
+    ├── heroes.js           tear/capsule（本仓库自带）
+    ├── orbi.js             Orbi 眼睛角色（本仓库自带）
     ├── fonts/Jost.ttf
     ├── fonts/NotoSansSC-Bold-sub.woff2
     └── out/                （不入库：video.mp4, vo1.wav, music.wav, amix.wav）
@@ -55,7 +55,7 @@ bianping/
 ### 1. 建工程
 
 从 `template/` 复制整个目录到你的项目 `film/` 下，改 `film.js` 里的场景和 VO 数组。
-同时从 lemo-opuscar `styles/flat-space-explainer/` 复制 `flat.js`、`heroes.js`、`orbi.js` 和字体文件。
+同时本仓库自带 `flat.js`、`heroes.js`、`orbi.js` 和字体文件。
 
 ### 2. 切配音
 
@@ -94,10 +94,10 @@ C:\Users\20200\AppData\Local\Programs\Python\Python312\python.exe asr.py
 ### 5. 配乐
 
 ```bash
-D:\@kaifa\lemo-opuscar\.venv\Scripts\python.exe music.py
+D:\@kaifa\仓库内抓帧\.venv\Scripts\python.exe music.py
 ```
 
-`music.py` 调用 lemo-opuscar 的 `pluck.py`（music_box 琶音 + kalimba 点缀）和 `sfx.py`（thump/crash/whoosh/ding），输出 `out/music.wav`。
+`music.py` 调用 仓库内抓帧 的 `pluck.py`（music_box 琶音 + kalimba 点缀）和 `sfx.py`（thump/crash/whoosh/ding），输出 `out/music.wav`。
 
 ### 6. 混音
 
@@ -108,7 +108,7 @@ ffmpeg -i out/vo1.wav -i out/music.wav -filter_complex "[1:a]volume=0.35[bg];[0:
 ### 7. 渲染
 
 ```bash
-cd D:\@kaifa\lemo-opuscar
+cd D:\@kaifa\仓库内抓帧
 node core/render/video.mjs "<film目录>" --fps 24 --workers 3 --out "<film目录>\out\video.mp4"
 ```
 

@@ -7,7 +7,7 @@
     "station": "live",
     "station_no": "10",
     "tagline": "1926 年报纸说查尔斯顿会跳坏膝盖，福特工人野餐会上的孩子照跳不误。",
-    "engine": "lemo styles/newsreel · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/xinwen.py",
@@ -16,23 +16,19 @@
       "title": "膝盖警报",
       "seconds": 54.6
     },
-    "no": "43"
+    "no": "43",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "newsreel",
     "upstream_cn": "1920s 新闻影片",
     "upstream_en": "1920s Newsreel",
     "upstream_line": "1926: the papers say the Charleston will ruin America's knees; at Ford's own picnic the kids dance it anyway.",
     "upstream_film": "Knock-Knee Alert",
     "upstream_dur": 54.6,
-    "upstream_docs": {
-      "style": "styles/newsreel/STYLE.md",
-      "demo": "styles/newsreel/DEMO.md",
-      "build": "styles/newsreel/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/newsreel.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/xinwen.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "灰阶构图：亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。",
     "style": {
       "family": "photo",

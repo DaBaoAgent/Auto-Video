@@ -22,7 +22,7 @@
   },
   "spec": {
     "source": {
-      "repo": "lemomo-ai/lemo-opuscar",
+      "repo": "公开样片库/开源风格库",
       "path": "styles/watercolor/demo",
       "style": "Watercolor Brush（水彩笔刷）",
       "demo_film": "Arid to Wet / 从旱到涝"
@@ -81,7 +81,7 @@
     "credits": [
       "PICTURE: 本仓库代码自己画（Arid to Wet 的上游引擎迁入），无生成图、无第三方素材",
       "FONT: 字幕与标题用 Google Fonts 子集（Noto Serif SC / Cormorant Garamond / Caveat / IBM Plex Mono，均 OFL）",
-      "STYLE: Watercolor Brush，技法取自 lemo-opuscar styles/watercolor/demo",
+      "STYLE: Watercolor Brush，技法取自 开源风格库 styles/watercolor/demo",
       "SOUND: 上游配乐与拟音不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
     ]
   }

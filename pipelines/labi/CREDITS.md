@@ -19,7 +19,7 @@
 
 ## 技法
 
-蜡笔绘本的画法与工程实现迁自 [lemo-opuscar](https://github.com/lemomo-ai/lemo-opuscar) 的 `styles/crayon-book`：
+蜡笔绘本的画法与工程实现迁自 [开源风格库](https://github.com/公开样片库/开源风格库) 的 `styles/crayon-book`：
 
 - 纸：三倍频值噪声 + 纤维项的齿，锚在页面上随镜头走，最后一过浮雕。
 - 蜡：每层画布 RGB = 色、A = 压力；齿 > 1 − 1.22·压力 才上蜡，轻压挂齿尖、重压近乎实心。

@@ -25,7 +25,7 @@ description: 用「平板手写速写」做讲解短片：整页六格手卷，�
 pingban/
 ├── SKILL.md                    本文档
 ├── README.md                   环境、依赖、快速开始
-├── MIGRATION.md                从 lemo-opuscar 迁入的来源与差异
+├── MIGRATION.md                从 开源风格库 迁入的来源与差异
 ├── pipeline.json               定版参数（画幅/纸域/色板/笔触/相机/字幕/音频）
 ├── scripts/
 │   ├── pingban.py              编排 CLI：new / stills / render / mux / qa / probe

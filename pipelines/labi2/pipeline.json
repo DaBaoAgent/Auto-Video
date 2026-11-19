@@ -7,7 +7,7 @@
     "station": "d3",
     "station_no": "07",
     "tagline": "第一人称飞过蜡笔画的村子，落在老人花园里的一朵花上；最后换成他的眼睛，和他说的一句话。",
-    "engine": "lemo styles/crayon-world · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/labi2.py",
@@ -16,23 +16,19 @@
       "title": "蝴蝶",
       "seconds": 64.5
     },
-    "no": "110"
+    "no": "110",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "crayon-world",
     "upstream_cn": "蜡笔立体世界",
     "upstream_en": "Crayon World 3D",
     "upstream_line": "A first-person flight over a crayon village to one flower in an old man's garden; then his eyes, and what he says.",
     "upstream_film": "The Butterfly",
     "upstream_dur": 64.5,
-    "upstream_docs": {
-      "style": "styles/crayon-world/STYLE.md",
-      "demo": "styles/crayon-world/DEMO.md",
-      "build": "styles/crayon-world/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/crayon-world.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/labi2.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "逐笔写出来：每一笔有起笔时间，高亮带压在关键笔画上。",
     "style": {
       "family": "board",

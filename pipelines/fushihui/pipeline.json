@@ -22,7 +22,7 @@
   },
   "spec": {
     "source": {
-      "repo": "lemomo-ai/lemo-opuscar",
+      "repo": "公开样片库/开源风格库",
       "path": "styles/ukiyoe/demo",
       "style": "Ukiyo-e（浮世绘）",
       "demo_film": "Toward the Mountain / 向山"
@@ -85,7 +85,7 @@
     "credits": [
       "PICTURE: 本仓库代码自己画（Toward the Mountain 的上游引擎迁入），无生成图、无第三方素材",
       "FONT: Shippori Mincho（OFL）、Yuji 毛笔体（OFL），汉字用按片子裁的分片",
-      "STYLE: Ukiyo-e，技法取自 lemo-opuscar styles/ukiyoe/demo",
+      "STYLE: Ukiyo-e，技法取自 开源风格库 styles/ukiyoe/demo",
       "SOUND: 上游配乐与拟音不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
     ]
   }

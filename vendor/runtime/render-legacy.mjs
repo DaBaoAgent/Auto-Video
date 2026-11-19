@@ -1,7 +1,7 @@
 // caiqian / ditu / pingban 共用逐帧渲染器（旧版 API，canonical 副本）
 // node vendor/runtime/render-legacy.mjs <project> [--fps 24] [--out <mp4>] [--width 1920] [--height 1080] [--quality 92] [--from 0] [--to <秒>]
 //
-// 页面契约（三个项目都遵守，和 lemo-opuscar 一致）：
+// 页面契约（三个项目都遵守，和 开源风格库 一致）：
 //   window.READY    资源与字体加载完成、第一帧已画好 → true
 //   window.DUR      片长（秒）
 //   window.render(t) 把 t 秒那一帧画到画布上（必须幂等，禁 Date.now / Math.random）
@@ -74,7 +74,7 @@ const CANDIDATES = [
   process.env.PLAYWRIGHT_CORE,
   findUp('playwright-core', project),
   process.env.LEMO_OPUSCAR_HOME && path.join(process.env.LEMO_OPUSCAR_HOME, 'node_modules', 'playwright-core'),
-  `C:/Users/${process.env.USERNAME}/lemo-opuscar/node_modules/playwright-core`,
+  `C:/Users/${process.env.USERNAME}/开源风格库/node_modules/playwright-core`,
   path.join(process.env.APPDATA || '', 'npm', 'node_modules', 'playwright-core')
 ].filter(Boolean);
 let chromium = null, source = '';

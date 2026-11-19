@@ -8,7 +8,7 @@
     "station": "graphic",
     "station_no": "05",
     "tagline": "从彗星撞木星连续推到黑洞事件视界，Orbi 小眼睛角色做引导。",
-    "engine": "SVG 代码绘制 · lemo-opuscar core/render",
+    "engine": "SVG 代码绘制 · 仓库内抓帧",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/bianping.py",
@@ -22,7 +22,6 @@
   },
   "version": "2026-11-15",
   "pipeline": "bianping",
-  "style": "lemo-opuscar/flat-space-explainer",
   "label": "扁平尺度漫游（Scale Zoom Explainer）",
   "canvas": {
     "width": 1920,
@@ -52,13 +51,11 @@
     "creamD": "#F0DCC0"
   },
   "fonts": [
-    "Jost (latin, variable 100-900)",
-    "Noto Sans SC Bold subset (CJK)"
+    "仓库 assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf（缺失时退系统字体）"
   ],
   "motion": {
     "engine": "SVG code-driven, t is a pure function",
-    "renderer": "lemo-opuscar core/render/video.mjs",
-    "workers": 3,
+    "renderer": "vendor/runtime/style-frames.mjs",
     "transitions": "circle wipe at scene cuts",
     "orbi": "eye-character guide bottom-left; blink every ~3s, jump on surprises"
   },
@@ -69,19 +66,22 @@
   },
   "audio": {
     "voice": "reuse user's 配音.wav",
-    "bgm_engine": "lemo-opuscar core/audio/pluck.py",
-    "sfx_engine": "lemo-opuscar core/audio/sfx.py",
+    "bgm_engine": "内置 WAV 合成（可选，缺 numpy 时跳过）",
+    "sfx_engine": "内置 WAV 合成（可选，缺 numpy 时跳过）",
     "voice_volume": 1.0,
     "music_volume": 0.35,
     "sample_rate": 48000
   },
   "render": {
-    "lib_root": "D:/@kaifa/lemo-opuscar",
-    "cmd": "cd D:/@kaifa/lemo-opuscar; node core/render/video.mjs <film_dir> --fps 24 --workers 3 --out <output.mp4>"
+    "cmd": "python scripts/bianping.py render <project> --fps 24 --dur 36",
+    "still": "python scripts/bianping.py stills <project> --times 2,10",
+    "mux": "python scripts/bianping.py mux <project> --audio 配音.wav --out 成片.mp4"
   },
   "qa": [
     "subtitles must match ASR transcription word-for-word",
     "scene cuts must align with ASR sentence boundaries",
     "no AI-generated images; all visuals are code-drawn SVG"
-  ]
+  ],
+  "spec": {},
+  "style": "auto-video/flat-space-explainer"
 }

@@ -254,7 +254,7 @@ def ensure_credits(proj):
     p = os.path.join(out, "CREDITS.txt")
     if os.path.exists(p):
         return p
-    text = ("画面运行时：BB-Video（MIT，本地封装）\n"
+    text = ("画面运行时：开源风格包（MIT，本地封装）\n"
             "管线：Auto-Video · %s（%s）\n"
             "字体：页面所用 @fontsource 字体，各自 OFL 许可\n" % (STYLE, LABEL))
     with open(p, "w", encoding="utf-8") as f:

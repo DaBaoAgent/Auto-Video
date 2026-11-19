@@ -7,7 +7,7 @@
     "station": "live",
     "station_no": "10",
     "tagline": "帝国大厦的小册子写着建造者，工地实拍和老照片给出答案：每天 2,500 人。",
-    "engine": "lemo styles/kino-montage · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/mengtai.py",
@@ -16,23 +16,19 @@
       "title": "410 天",
       "seconds": 60.0
     },
-    "no": "47"
+    "no": "47",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "kino-montage",
     "upstream_cn": "构成主义蒙太奇",
     "upstream_en": "Constructivist Montage",
     "upstream_line": "The Empire State's 1931 brochure credits its builders; the site film and Hine's photos answer: 2,500 a day.",
     "upstream_film": "410 Days",
     "upstream_dur": 60.0,
-    "upstream_docs": {
-      "style": "styles/kino-montage/STYLE.md",
-      "demo": "styles/kino-montage/DEMO.md",
-      "build": "styles/kino-montage/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/kino-montage.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/mengtai.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "灰阶构图：亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。",
     "style": {
       "family": "photo",

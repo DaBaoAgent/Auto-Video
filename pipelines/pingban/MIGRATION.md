@@ -2,7 +2,7 @@
 
 ## 来源
 
-- 仓库：`lemomo-ai/lemo-opuscar`
+- 仓库：`公开样片库/开源风格库`
 - 版本：`3a7132b`（运行时与渲染器基线；`films/` 属本地工作区，未随该库提交）
 - 原路径：`films/guanyu-sketch/`
 - 当前路径：`pingban/projects/038_guanyu_sketch/`
@@ -17,7 +17,7 @@ pingban/
 ├── CREDITS.md             新增：字体许可
 ├── scripts/
 │   ├── pingban.py         新增：编排 CLI（new/stills/render/mux/qa/probe）
-│   └── render.mjs         新写：playwright-core 逐帧 + ffmpeg，替掉 lemo 的 core/render
+│   └── render.mjs         新写：playwright-core 逐帧 + ffmpeg，替掉外部引擎的 core/render
 └── projects/
     └── 038_guanyu_sketch/
         ├── index.html     原样迁入（自包含，零外部依赖）
@@ -27,7 +27,7 @@ pingban/
 
 ## 与本源的差异
 
-| 原工程（lemo-opuscar） | 本管线 |
+| 原工程（开源风格库） | 本管线 |
 |---|---|
 | 渲染用 `core/render/video.mjs`（多 worker + 锁 + 段拼接） | 单文件 `scripts/render.mjs`（顺序渲染，13–16 fps） |
 | 项目在 `films/` 下，从库根跑 | 工程在 `projects/` 下，从 Auto-Video 根跑 |

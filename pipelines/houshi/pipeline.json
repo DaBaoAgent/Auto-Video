@@ -7,7 +7,7 @@
     "station": "screen",
     "station_no": "06",
     "tagline": "新夜班员工拍下入职第一晚：无尽的黄色办公空间，和墙上的员工守则。",
-    "engine": "lemo styles/backrooms · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/houshi.py",
@@ -16,23 +16,19 @@
       "title": "夜班入职培训",
       "seconds": 59.7
     },
-    "no": "92"
+    "no": "92",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "backrooms",
     "upstream_cn": "后室录像带",
     "upstream_en": "Liminal Found Footage",
     "upstream_line": "A new night-shift hire films their first night in an endless yellow office, following the rules on the wall.",
     "upstream_film": "Night Shift Orientation",
     "upstream_dur": 59.7,
-    "upstream_docs": {
-      "style": "styles/backrooms/STYLE.md",
-      "demo": "styles/backrooms/DEMO.md",
-      "build": "styles/backrooms/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/backrooms.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/houshi.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "屏幕里的一帧：字符阵、扫描线、横向亮带，外框压住四边。",
     "style": {
       "family": "screen",

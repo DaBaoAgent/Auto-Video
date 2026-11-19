@@ -7,7 +7,7 @@
     "station": "screen",
     "station_no": "06",
     "tagline": "1969 年 7 月 21 日帕克斯的风暴里，一面放倒到极限的 64 米天线顶住了风，替全世界接住了登月直播。",
-    "engine": "lemo styles/dark-documentary · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/leida.py",
@@ -16,23 +16,19 @@
       "title": "狂风里接住登月直播",
       "seconds": 52.0
     },
-    "no": "105"
+    "no": "105",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "dark-documentary",
     "upstream_cn": "雷达扫描纪录片",
     "upstream_en": "Radar Sweep Documentary",
     "upstream_line": "A storm at Parkes, 21 July 1969: a 64-metre dish tipped to its limit holds on and catches the moonwalk for the world.",
     "upstream_film": "Catching the Moon",
     "upstream_dur": 52.0,
-    "upstream_docs": {
-      "style": "styles/dark-documentary/STYLE.md",
-      "demo": "styles/dark-documentary/DEMO.md",
-      "build": "styles/dark-documentary/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/dark-documentary.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/leida.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "灰阶构图：亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。",
     "style": {
       "family": "photo",

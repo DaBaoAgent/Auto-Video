@@ -22,7 +22,7 @@ pingban/
 | 依赖 | 说明 |
 |---|---|
 | Node ≥ 20 | 渲染器只用 `playwright-core`，工程本身不 import 任何库 |
-| playwright-core | 自动从工程目录逐级向上找 `node_modules`，找不到再看同机的 lemo-opuscar；也可用 `$PLAYWRIGHT_CORE` 指定 |
+| playwright-core | 自动从工程目录逐级向上找 `node_modules`，找不到再看同机的 开源风格库；也可用 `$PLAYWRIGHT_CORE` 指定 |
 | chromium-headless-shell | playwright 自带；`npx playwright-core install chromium-headless-shell` 装一次 |
 | ffmpeg / ffprobe | 截帧、编码、混音、质检 |
 | Python ≥ 3.10 | 编排 CLI（只用标准库） |
@@ -40,7 +40,7 @@ python pingban/scripts/pingban.py qa      038_guanyu_sketch
 
 ## 为什么不用 glyphs.json
 
-早期版本（lemo-opuscar 的 029 骨架）把字做成手写字形骨架动画，缺字画不出来、子集外全是空白。
+早期版本（开源风格库 的 029 骨架）把字做成手写字形骨架动画，缺字画不出来、子集外全是空白。
 本管线改成 **canvas `fillText` + 逐字裁剪扫出**：任何 GB2312 范围内的字都能写，只要字体子集覆盖；
 出笔节奏由 `TXT()` 返回的 `t0+d` 时间戳驱动，和线条共用同一条笔画队列。
 

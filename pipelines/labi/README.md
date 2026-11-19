@@ -10,7 +10,7 @@
 labi/
 ├── SKILL.md              入口命令、画面语法、已知坑、验收清单
 ├── README.md             本文件
-├── MIGRATION.md          从 lemo-opuscar 迁入的来源与差异
+├── MIGRATION.md          从 开源风格库 迁入的来源与差异
 ├── CREDITS.md            字体 / 引擎 / 技法许可
 ├── pipeline.json         契约（schema + meta + spec 定版参数）
 ├── scripts/
@@ -76,7 +76,7 @@ python labi/scripts/labi.py new 013_xxx
 |---|---|
 | 画面 | 全部由 `gl.js` / `crayon.js` / `world.js` / `film.js` 代码生成，无生成图、无第三方素材 |
 | 字体 | Patrick Hand（Patrick W. G.）、Gaegu（Kwon/Google）、Short Stack、Gochi Hand、Caveat Brush、Sniglet，均 SIL OFL 1.1 |
-| 技法 | lemo-opuscar `styles/crayon-book`，见 `MIGRATION.md` |
+| 技法 | 开源风格库 `styles/crayon-book`，见 `MIGRATION.md` |
 
 ## 许可
 

@@ -4,18 +4,17 @@
 
 ### 一个想法 → 124 条管线 · 11 个工位 · 一部能发的片
 
-Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本地克隆音色配音、123 条成片管线出片（40 条本仓库自研 + 77 条 2026-11-20 起改为**仓库内自研渲染** + 6 条自研封装自 BB-Video），外加 1 个配音前端（[peiyin](pipelines/peiyin/SKILL.md)）。每条管线是一套**画法 + 镜头语法 + 交付门禁**，参数写死在 `pipeline.json` 里可复现，画面由代码、模板或本机模型确定性渲染，不依赖云端生图 / 生视频 API，也没有按次调用费用。
+Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本地克隆音色配音、123 条成片管线出片（40 条本仓库自研 + 77 条自研内核渲染 + 6 条本地运行时封装），外加 1 个配音前端（[peiyin](pipelines/peiyin/SKILL.md)）。每条管线是一套**画法 + 镜头语法 + 交付门禁**，参数写死在 `pipeline.json` 里可复现，画面由代码、模板或本机模型确定性渲染，不依赖云端生图 / 生视频 API，也没有按次调用费用。
 
-> **2026-11-19 新增 77 条 / 11-20 改为自研渲染**：lemo-opuscar 库里没封装的 77 个风格已全部登记（双拼命名，映射表 `tools/lemo_style_map.json`）。
-> 这 77 条**不再转调上游脚本**：绘制内核是仓库自己的 `vendor/runtime/stylekit.js`（14 个风格族：刻印 / 网点 / 霓虹 / 屏幕 / 像素 / 立体 / 图纸 / 地图 / 摄影 / 纸艺 / 板写 / 平面 / 赛璐珞 / 场），
+> **77 条自研内核渲染（2026-11-20）**：绘制内核是仓库自己的 `vendor/runtime/stylekit.js`，14 个风格族——刻印 / 网点 / 霓虹 / 屏幕 / 像素 / 立体 / 图纸 / 地图 / 摄影 / 纸艺 / 板写 / 平面 / 赛璐珞 / 场。
 > 每条管线的形状坐标、色板、节拍写在 `pipelines/<id>/projects/demo/main.js` 的 `SPEC` 里（生成时按 id 播种定死），
 > 抓帧走 `vendor/runtime/style-frames.mjs`（puppeteer-core + 本机 Edge），合流走 ffmpeg；入口统一是
-> `python pipelines/<id>/scripts/<id>.py --check / --stills / --render`。演示站仍用上游样片，本地随时可出自己画的帧。
+> `python pipelines/<id>/scripts/<id>.py --check / --stills / --render`，本机可自己出帧，不调任何外部脚本。
+> 演示站卡片里的短片现阶段是早期外部样片，换成自研成片只需重跑 `--render` 后重编站点。
 >
-> **2026-11-20 6 条 BB-Video 转自研封装**：BB-Video 的 37 个风格逐条对照后，去掉已迁移的 9 条、同族等价的 22 条，
-> 只保留 6 条真正缺的（聊天叙事 / 扁平颗粒插画 / 暗调励志 / 悬疑探秘 / 欧普艺术 / 电影预告），映射表 `tools/bb_style_map.json`。
-> 这 6 条已把 `promo/runtime/<slug>.js`、共享运行时、渲染链、起步工程与风格规范复制进 `pipelines/<id>/`，
-> 入口只调本地 `runtime/render.mjs`，不再依赖 BB-Video checkout；演示站暂用 BB-Video 成片，等正式工程渲完再换本地片。
+> **6 条本地运行时封装（2026-11-20）**：聊天叙事 / 扁平颗粒插画 / 暗调励志 / 悬疑探秘 / 欧普艺术 / 电影预告。
+> 运行时、共享内核、渲染链、起步工程与风格规范都已复制进 `pipelines/<id>/`，入口只调本地 `runtime/render.mjs`，
+> 不依赖任何外部 checkout。
 
 [![stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
@@ -146,7 +145,7 @@ docker compose run --rm demo
 | [shiliang](pipelines/shiliang/SKILL.md) | 《扁平矢量》 0:30 | 纯色几何世界、弹性入场、元素驱动转场，纯标准库合成 MG-pop 配乐。 | SVG 单页 · 逐帧确定性渲染 |
 | [lvdong](pipelines/lvdong/SKILL.md) | 《玛雅文明》 0:58 | 纯黑剪影站在落日与水面前，姿势落在 90 BPM 的拍上，关键一拍拍冻结。 | Canvas + 着色器 · 代码合成配乐 |
 | [huixingzhen](pipelines/huixingzhen/SKILL.md) | 《羽人》 9:57 | 实拍照片贴纸化、精确图表、大画布连续运镜。 | HTML 逐帧 · 确定性渲染 |
-| [bianping](pipelines/bianping/SKILL.md) | 《僵尸地球》 0:36 | 从彗星撞木星连续推到黑洞事件视界，Orbi 小眼睛角色做引导。 | SVG 代码绘制 · lemo-opuscar core/render |
+| [bianping](pipelines/bianping/SKILL.md) | 《僵尸地球》 0:36 | 从彗星撞木星连续推到黑洞事件视界，Orbi 小眼睛角色做引导。 | SVG 代码绘制 · 仓库内抓帧 |
 | [zhuangshi](pipelines/zhuangshi/SKILL.md) | 《星光酒店午夜》 0:39 | 金线、漆面黑、阶梯边：酒店大堂在午夜亮起来，一切都从中心展开。 | Canvas 2D · 金色渐变线 + 灯泡招牌 |
 
 ### 06 · 屏幕赛博　*Screens & Neon*
@@ -372,7 +371,7 @@ python frontend/frontend.py run \
 | 10 实拍混剪 | [shipai](pipelines/shipai/SKILL.md) | 《玛雅》 | 0:18（1080×1920） |
 | 10 实拍混剪 | [jilupian](pipelines/jilupian/SKILL.md) | 《一口气看完日本3000年》 | 13:38（1920×1080） |
 
-上表是 40 条本仓库自研管线的样片；其余 77 条（自研内核渲染）与 6 条已封装的 BB-Video 管线样片在站点对应卡片里，不在这张表里重复。
+上表是 40 条本仓库自研管线的样片；其余 77 条（自研内核渲染）与 6 条本地运行时封装的样片在站点对应卡片里，不在这张表里重复。
 
 **可播 123 条**：123 条成片管线每条都有可播样片，最短 12 秒（`blueprint`《玄奘 · 前 10 秒》），最长 13:38（`jilupian`《一口气看完日本3000年》）。
 
@@ -481,7 +480,7 @@ Auto-Video/
 
 | 维度 | 同类（MoneyPrinterTurbo / 剪映类自动化） | 本项目 |
 | --- | --- | --- |
-| 产出 | 一条通用解说片 | 123 种**画法血统**（40 种自研 + 77 种自研内核渲染 + 6 种自研封装自 BB-Video）（剪影 / 皮影 / 彩铅 / 挂毯 / 三维城市 / 蓝图……） |
+| 产出 | 一条通用解说片 | 123 种**画法血统**（40 种自研 + 77 种自研内核渲染 + 6 种本地运行时封装）（剪影 / 皮影 / 彩铅 / 挂毯 / 三维城市 / 蓝图……） |
 | 画面来源 | 素材库检索拼接 | 代码绘制、模板渲染、本地模型；**不搬原片** |
 | 可复现性 | 每次结果有随机性 | 同稿同版 → 同像素（禁 `Date.now` / `Math.random`） |
 | 质量门禁 | 基本没有 | 契约校验 + 动效检查 + 事实核对 + 节奏扫描 + 字幕全量 |
@@ -560,7 +559,7 @@ Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星�
 <a id="roadmap"></a>
 ## 路线图 🧭
 
-当前：`123 / 99` 成片管线（40 条自研 + 77 条自研内核渲染 + 6 条自研封装自 BB-Video）（`peiyin` 是前端模块，不计入风格数）。
+当前：`123 / 99` 成片管线（40 条自研 + 77 条自研内核渲染 + 6 条本地运行时封装）（`peiyin` 是前端模块，不计入风格数）。
 
 Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管线必须带自己的流程说明、脚本、可复用资源和验收条件，才算完成迁移。
 
@@ -579,7 +578,7 @@ Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管
 
 ## English
 
-Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 123 styles (40 built in this repo, 77 registered from lemo-opuscar, 6 self-vendored from BB-Video), plus an optional `frontend/` module that runs topic → script → free edge-tts voice-over (with SRT) → any style lane → covers and publish copy through the vendored `fengmian/` project, so a clone of your own voice (`peiyin`, GPT-SoVITS) is optional rather than required. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) — or, in the `tianshu` lane, generates plates and ambient motion with local ComfyUI models (Qwen-Image 2.1 + Wan2.2 TI2V-5B) — without calling any cloud image or video API. The 40 built-in film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, pencil test, colored-pencil science, tablet sketch, pen-and-wash, crayon picture book, wet-brush watercolor, and giallo gouache; shadow-puppet crafts, ink wash, Bayeux tapestry, Shanghai-era hand-drawn cel, ukiyo-e woodblock, and a second Chinese ink-wash lane; golden-age toon, manga panels, pixel art, and a local-model cel lane; flat vector, silhouette rhythm, paperclip explainer, scale-zoom, and Art Deco; cyberpunk HUD and synthwave VHS; 3D battle sim, city growth, isometric 2.5D, isometric diorama, and Memphis diorama; sticker maps and real-terrain maps; blueprint and stick-figure parable; plus footage-based vertical shorts and a documentary pipeline. 123 pipeline samples are playable online; full films are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
+Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 123 styles (40 built in this repo, 77 rendered by the in-repo style kernel, 6 self-vendored with a local runtime), plus an optional `frontend/` module that runs topic → script → free edge-tts voice-over (with SRT) → any style lane → covers and publish copy through the vendored `fengmian/` project, so a clone of your own voice (`peiyin`, GPT-SoVITS) is optional rather than required. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) — or, in the `tianshu` lane, generates plates and ambient motion with local ComfyUI models (Qwen-Image 2.1 + Wan2.2 TI2V-5B) — without calling any cloud image or video API. The 40 built-in film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, pencil test, colored-pencil science, tablet sketch, pen-and-wash, crayon picture book, wet-brush watercolor, and giallo gouache; shadow-puppet crafts, ink wash, Bayeux tapestry, Shanghai-era hand-drawn cel, ukiyo-e woodblock, and a second Chinese ink-wash lane; golden-age toon, manga panels, pixel art, and a local-model cel lane; flat vector, silhouette rhythm, paperclip explainer, scale-zoom, and Art Deco; cyberpunk HUD and synthwave VHS; 3D battle sim, city growth, isometric 2.5D, isometric diorama, and Memphis diorama; sticker maps and real-terrain maps; blueprint and stick-figure parable; plus footage-based vertical shorts and a documentary pipeline. 123 pipeline samples are playable online; full films are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
 
 ## 关注更新
 

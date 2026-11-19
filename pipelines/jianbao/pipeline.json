@@ -7,7 +7,7 @@
     "station": "diagram",
     "station_no": "09",
     "tagline": "一条河要架桥，四种桥型在一面简报墙上逐个受检，拍板的是桥下要过的船。",
-    "engine": "lemo styles/briefing-board · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jianbao.py",
@@ -16,23 +16,19 @@
       "title": "船说了算",
       "seconds": 40.0
     },
-    "no": "81"
+    "no": "81",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "briefing-board",
     "upstream_cn": "工程简报板",
     "upstream_en": "Engineering Briefing Board",
     "upstream_line": "Four bridge types are tested on one briefing wall, and the ship that must pass under picks the winner.",
     "upstream_film": "The Ship Decides",
     "upstream_dur": 40.0,
-    "upstream_docs": {
-      "style": "styles/briefing-board/STYLE.md",
-      "demo": "styles/briefing-board/DEMO.md",
-      "build": "styles/briefing-board/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/briefing-board.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/jianbao.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "先画线再标尺寸：主体、引线、图号分层出现，像一张正在被画完的图纸。",
     "style": {
       "family": "plan",

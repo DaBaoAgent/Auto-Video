@@ -16,7 +16,7 @@
 ## 技法
 
 钢笔淡彩（Urban Sketch · Pen & Wash）的画法与工程实现迁自
-[lemo-opuscar](https://github.com/lemomo-ai/lemo-opuscar) 的 `styles/urban-sketch`：
+[开源风格库](https://github.com/公开样片库/开源风格库) 的 `styles/urban-sketch`：
 
 - 墨：一根近乎等粗的深褐细线，抖 1 px、转角冲出去 3–8 px、长笔画留断口；笔顺按像素烘焙，后处理回放。
 - 洗：2–3 层透明水彩 multiply，与线错位 1–3 px，边缘干得深，颜料沉进纸齿。

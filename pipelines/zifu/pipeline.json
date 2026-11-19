@@ -7,7 +7,7 @@
     "station": "screen",
     "station_no": "06",
     "tagline": "月球基地的 AI 沉睡 40 年后被唤醒，用字符画出“家”来回复。",
-    "engine": "lemo styles/ascii-crt · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/zifu.py",
@@ -16,23 +16,19 @@
       "title": "静海日志",
       "seconds": 59.8
     },
-    "no": "90"
+    "no": "90",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "ascii-crt",
     "upstream_cn": "CRT 字符终端",
     "upstream_en": "CRT ASCII Terminal",
     "upstream_line": "A moon-base AI wakes after forty years to a signal from Earth, and replies by drawing “home” in characters.",
     "upstream_film": "Tranquility.log",
     "upstream_dur": 59.8,
-    "upstream_docs": {
-      "style": "styles/ascii-crt/STYLE.md",
-      "demo": "styles/ascii-crt/DEMO.md",
-      "build": "styles/ascii-crt/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/ascii-crt.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/zifu.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "屏幕里的一帧：字符阵、扫描线、横向亮带，外框压住四边。",
     "style": {
       "family": "screen",

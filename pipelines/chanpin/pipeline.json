@@ -7,7 +7,7 @@
     "station": "d3",
     "station_no": "07",
     "tagline": "虚构玻璃耳机 Aura 的开箱与特写。",
-    "engine": "lemo styles/glass-product · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/chanpin.py",
@@ -16,23 +16,19 @@
       "title": "Aura：听见光",
       "seconds": 32.0
     },
-    "no": "109"
+    "no": "109",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "glass-product",
     "upstream_cn": "玻璃质感产品",
     "upstream_en": "Glass Product Render",
     "upstream_line": "Unboxing and close-ups of Aura, fictional glass earbuds, in strip-light sweeps and caustics.",
     "upstream_film": "Aura — Hear the Light",
     "upstream_dur": 32.0,
-    "upstream_docs": {
-      "style": "styles/glass-product/STYLE.md",
-      "demo": "styles/glass-product/DEMO.md",
-      "build": "styles/glass-product/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/glass-product.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/chanpin.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "等轴测：体块按 x/y/z 投影，顶面提亮、左面中间调、右面压暗，落地投影跟着走。",
     "style": {
       "family": "iso",

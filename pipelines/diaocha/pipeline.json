@@ -7,7 +7,7 @@
     "station": "live",
     "station_no": "10",
     "tagline": "新闻片、照片、证词和调查报告排上同一条时间轴，五路来源指向一处。",
-    "engine": "lemo styles/visual-investigation · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/diaocha.py",
@@ -16,23 +16,19 @@
       "title": "兴登堡号：四分钟与三十二秒",
       "seconds": 60.0
     },
-    "no": "46"
+    "no": "46",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "visual-investigation",
     "upstream_cn": "视觉调查",
     "upstream_en": "Visual Investigation",
     "upstream_line": "Newsreel, photos, testimony and the 1937 inquiry on one clock: five sources point to the same spot.",
     "upstream_film": "The Hindenburg: Four Minutes, 32 Seconds",
     "upstream_dur": 60.0,
-    "upstream_docs": {
-      "style": "styles/visual-investigation/STYLE.md",
-      "demo": "styles/visual-investigation/DEMO.md",
-      "build": "styles/visual-investigation/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/visual-investigation.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/diaocha.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "场 + 等值线 + 站点：先铺色斑，再压等高圈，最后点数据与线路。",
     "style": {
       "family": "map",

@@ -22,7 +22,7 @@
   },
   "spec": {
     "source": {
-      "repo": "lemomo-ai/lemo-opuscar",
+      "repo": "公开样片库/开源风格库",
       "path": "styles/crayon-book/demo",
       "style": "Crayon Picture Book（蜡笔儿童绘本）",
       "demo_film": "The Moon Can't Sleep / 月亮睡不着"
@@ -139,7 +139,7 @@
     "credits": [
       "PICTURE: 本仓库代码自己画（gl.js / crayon.js / rig.js / chars.js / world.js / film.js / end.js），无生成图、无第三方素材",
       "FONT: Patrick Hand、Gaegu、Short Stack、Gochi Hand、Caveat Brush、Sniglet，均 SIL OFL 1.1",
-      "STYLE: Crayon Picture Book，技法取自 lemo-opuscar styles/crayon-book",
+      "STYLE: Crayon Picture Book，技法取自 开源风格库 styles/crayon-book",
       "SOUND: 原 demo 的配乐（music/score.py）与拟音（mix.py）不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
     ]
   }

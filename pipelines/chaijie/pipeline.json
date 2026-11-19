@@ -7,7 +7,7 @@
     "station": "diagram",
     "station_no": "09",
     "tagline": "开源键盘的一半在一次环绕中逐层拆开，看到主控再合拢，标上真实尺寸。",
-    "engine": "lemo styles/teardown · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/chaijie.py",
@@ -16,23 +16,19 @@
       "title": "二十一键",
       "seconds": 38.8
     },
-    "no": "74"
+    "no": "74",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "teardown",
     "upstream_cn": "产品拆解",
     "upstream_en": "Exploded Teardown",
     "upstream_line": "Half an open-source keyboard comes apart in one orbit, down to the chip, then closes with its real dimensions.",
     "upstream_film": "21 Keys, Opened",
     "upstream_dur": 38.8,
-    "upstream_docs": {
-      "style": "styles/teardown/STYLE.md",
-      "demo": "styles/teardown/DEMO.md",
-      "build": "styles/teardown/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/teardown.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/chaijie.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "先画线再标尺寸：主体、引线、图号分层出现，像一张正在被画完的图纸。",
     "style": {
       "family": "plan",

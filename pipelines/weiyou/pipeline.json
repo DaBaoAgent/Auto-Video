@@ -7,7 +7,7 @@
     "station": "toon",
     "station_no": "04",
     "tagline": "见习宇航员闯五秒训练营，越来越快，Boss 关亲手降落回地球。",
-    "engine": "lemo styles/microgame · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/weiyou.py",
@@ -16,23 +16,19 @@
       "title": "五秒宇航员",
       "seconds": 59.8
     },
-    "no": "88"
+    "no": "88",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "microgame",
     "upstream_cn": "微游戏快闪",
     "upstream_en": "Microgame Frenzy",
     "upstream_line": "A clumsy cadet survives a five-second boot camp, faster and faster, until the boss: landing home.",
     "upstream_film": "Five-Second Astronaut",
     "upstream_dur": 59.8,
-    "upstream_docs": {
-      "style": "styles/microgame/STYLE.md",
-      "demo": "styles/microgame/DEMO.md",
-      "build": "styles/microgame/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/microgame.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/weiyou.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "限定色板：大像素块拼前景远景，整帧量化到 8–14 级。",
     "style": {
       "family": "pixel",

@@ -109,5 +109,6 @@
       "_署名.txt"
     ],
     "qa": "review/qa.json"
-  }
+  },
+  "spec": {}
 }

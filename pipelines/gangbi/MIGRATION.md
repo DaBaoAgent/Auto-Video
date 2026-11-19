@@ -4,7 +4,7 @@
 
 | 项 | 值 |
 |---|---|
-| 上游仓库 | `lemomo-ai/lemo-opuscar`（本地 `D:\@kaifa\lemo-opuscar`） |
+| 上游仓库 | `公开样片库/开源风格库`（本地 `开源风格库`） |
 | 上游位置 | `styles/urban-sketch/demo/` |
 | 上游风格页 | `styles/urban-sketch/STYLE.md`（11.6 KB，风格不变量） |
 | 上游样片 | 《Where the Wind Went / 风去了哪里》，33.4 s |
@@ -68,6 +68,6 @@ projects/012_wind/
 ## 运行环境
 
 Windows / Linux / macOS 均可。实测机器：Windows 11 + Node 20 + ffmpeg 7.x +
-`D:/@kaifa/lemo-opuscar/node_modules/playwright-core`（渲染器按 `$PLAYWRIGHT_CORE` → 工程向上 → 全局的顺序找）。
+`开源风格库/node_modules/playwright-core`（渲染器按 `$PLAYWRIGHT_CORE` → 工程向上 → 全局的顺序找）。
 
 实测：802 帧、33.4 s、1920×1080 / 24 fps；渲染速度与成片音量见 `SKILL.md` 验收一节的实际输出。

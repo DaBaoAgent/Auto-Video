@@ -26,8 +26,17 @@
       "references": "Mario Bava《Black Sunday》(1960) 的明暗法与多侧光、《Blood and Black Lace》(1964) 的侧向横移与灯池／墨黑；Dario Argento《Suspiria》的三原色＋补色污染",
       "demo_film": "Blood and Black Beach / 血之海滩（第一段）"
     },
-    "canvas": { "width": 1920, "height": 1080, "fps": 30, "page": "5120×2880 的大纸面，镜头在纸上走" },
-    "duration": { "default": 21.46, "min": 6, "max": 260 },
+    "canvas": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "page": "5120×2880 的大纸面，镜头在纸上走"
+    },
+    "duration": {
+      "default": 21.46,
+      "min": 6,
+      "max": 260
+    },
     "paper": {
       "base": "#F5EEDE",
       "mottling": "两层 fbm 云斑",
@@ -138,7 +147,10 @@
     "delivery": {
       "sample_dir": "projects/002_bayofblood_full/out/",
       "final": "projects/002_bayofblood_full/out/bayofblood_full_crf24.mp4",
-      "files": ["<名>.mp4", "<名>.srt"],
+      "files": [
+        "<名>.mp4",
+        "<名>.srt"
+      ],
       "qa": "分辨率 / 帧率 30 / 帧数 / 时长 / 音轨 / −14.6 LUFS / 峰值 −1.6"
     },
     "credits": [

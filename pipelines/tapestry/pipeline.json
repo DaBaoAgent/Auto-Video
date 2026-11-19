@@ -101,5 +101,6 @@
     "duration": "30.5 s / 1920×1080 / 30 fps",
     "path": "template/",
     "media_committed": false
-  }
+  },
+  "spec": {}
 }

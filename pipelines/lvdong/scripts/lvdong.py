@@ -20,12 +20,14 @@
 <project> is a name under lvdong/projects/ or a path to a project folder.
 Everything machine-specific comes from the environment, so nothing is hard-coded:
 
-    LVDONG_LIB     the lemo-opuscar library root (default: project.json "lib")
-    LVDONG_PY      the python that has numpy/scipy/soundfile (default <LIB>/.venv/Scripts/python.exe)
-    LVDONG_FFMPEG  ffmpeg binary (default: ffmpeg on PATH)
+    LVDONG_PY       the python that has numpy/scipy/soundfile (default: repo .venv, else this python)
+    LVDONG_FFMPEG   ffmpeg binary (default: ffmpeg on PATH)
+    STYLE_EDGE      browser for the frame grabber (default: Edge)
+    STYLE_PUPPETEER puppeteer-core directory (default: vendor/node_modules/puppeteer-core)
 
-The picture is rendered by the library (core/render/*.mjs), the sound by scripts/sound.py and
-out/score.json, the muxing by ffmpeg here — no bash needed on Windows.
+The picture is rendered inside this repo: the page (index.html + cast.js + film.js + styles/sky.js)
+is served by vendor/runtime/style-frames.mjs and grabbed frame by frame; the sound comes from
+scripts/sound.py and out/score.json; the muxing is ffmpeg here — no bash needed on Windows.
 """
 import argparse, json, math, os, re, shutil, subprocess, sys, unicodedata
 
@@ -34,6 +36,7 @@ ROOT = os.path.dirname(HERE)                       # lvdong/
 PROJECTS = os.path.join(ROOT, "projects")
 TPL = os.path.join(ROOT, "template")
 ASSETS = os.path.join(ROOT, "assets")
+REPO = os.path.dirname(os.path.dirname(ROOT))      # 仓库根：pipelines/lvdong → 仓库
 
 FF = os.environ.get("LVDONG_FFMPEG", "ffmpeg")
 
@@ -70,18 +73,13 @@ def meta(p):
     return json.load(open(f, encoding="utf-8"))
 
 
-def lib_of(p):
-    lib = os.environ.get("LVDONG_LIB") or meta(p).get("lib") or ""
-    if not os.path.isdir(lib):
-        die("library not found: %s (set LVDONG_LIB)" % lib)
-    return lib
-
-
-def py_of(lib):
+def py_of():
+    """带 numpy/scipy/soundfile 的解释器：环境变量 → 仓库 .venv → 当前 python"""
     py = os.environ.get("LVDONG_PY")
     if py:
         return py
-    for c in (os.path.join(lib, ".venv", "Scripts", "python.exe"), os.path.join(lib, ".venv", "bin", "python")):
+    for c in (os.path.join(REPO, ".venv", "Scripts", "python.exe"),
+              os.path.join(REPO, ".venv", "bin", "python")):
         if os.path.isfile(c):
             return c
     return sys.executable
@@ -110,6 +108,9 @@ def cmd_new(a):
     open(os.path.join(src, "index.html"), "w", encoding="utf-8").write(html)
     for f in ("film.js", "cast.js"):
         shutil.copyfile(os.path.join(TPL, f), os.path.join(src, f))
+    sky = os.path.join(src, "styles", "sky.js")
+    os.makedirs(os.path.dirname(sky), exist_ok=True)
+    shutil.copyfile(os.path.join(TPL, "styles", "demo", "sky.js"), sky)
     script = ""
     paras = a.paras
     if a.script:
@@ -120,7 +121,7 @@ def cmd_new(a):
     open(os.path.join(src, "script.txt"), "w", encoding="utf-8").write(script)
     m = {
         "name": a.name, "title": title, "slug": "lvdong_" + re.sub(r"[^0-9A-Za-z_]", "_", a.name),
-        "style": "silhouette-rhythm", "lib": os.environ.get("LVDONG_LIB") or "",
+        "style": "silhouette-rhythm",
         "canvas": {"w": 1920, "h": 1080, "fps": 30},
         "duration": a.duration, "bpm": 90, "section_end": 0.0,
         "voice": "voice/source_full.wav", "script": "script.txt", "paras": paras, "drop": [],
@@ -143,7 +144,7 @@ def cmd_transcribe(a):
     wav = os.path.join(p, m.get("voice", "voice/source_full.wav"))
     if not os.path.isfile(wav):
         die("narration missing: " + wav)
-    run([py_of(lib_of(p)), os.path.join(HERE, "transcribe.py"), wav,
+    run([py_of(), os.path.join(HERE, "transcribe.py"), wav,
          os.path.join(p, "voice", "words_full.json"),
          "--prompt", a.prompt or "这是一段中文科普口播。"],
         cwd=ROOT)
@@ -152,7 +153,7 @@ def cmd_transcribe(a):
 def cmd_align(a):
     p = project_dir(a.project)
     m = meta(p)
-    run([py_of(lib_of(p)), os.path.join(HERE, "align.py"), p, os.path.join(p, m.get("script", "script.txt")),
+    run([py_of(), os.path.join(HERE, "align.py"), p, os.path.join(p, m.get("script", "script.txt")),
          "--paras", str(a.paras or m.get("paras", 3)),
          "--limit", str(a.limit or (m.get("duration", 0) - 1.0)),
          "--drop", "|".join(a.drop.split("|") if a.drop else m.get("drop", []))], cwd=ROOT)
@@ -162,7 +163,7 @@ def cmd_cues(a):
     p = project_dir(a.project)
     m = meta(p)
     c = m.get("cues", {})
-    run([py_of(lib_of(p)), os.path.join(HERE, "make_cues.py"), p,
+    run([py_of(), os.path.join(HERE, "make_cues.py"), p,
          "--end", str(a.end or m.get("section_end") or m.get("duration", 0) - 4.0),
          "--want", str(c.get("want", 16)), "--hard", str(c.get("hard", 20)),
          "--min-hold", str(c.get("min_hold", 1.6)), "--tail", str(c.get("tail", 0.45)),
@@ -175,69 +176,58 @@ def cmd_sound(a):
     if not os.path.isfile(sf_file):
         die("score.json missing — copy projects/004_玛雅巨人文明/score.json and rewrite it")
     voice = os.path.join(p, meta(p).get("voice", "voice/source_full.wav"))
-    run([py_of(lib_of(p)), os.path.join(HERE, "sound.py"), p, "--voice", voice, "--out", outdir(p)], cwd=ROOT)
+    run([py_of(), os.path.join(HERE, "sound.py"), p, "--voice", voice, "--out", outdir(p)], cwd=ROOT)
 
 
 # ------------------------------------------------------------------ picture
+HARNESS = os.path.join(REPO, "vendor", "runtime", "style-frames.mjs")
+
+
 def cmd_stage(a):
+    """把构图层与字体补进工程（不再往外部库里铺 films/ 目录）"""
     p = project_dir(a.project)
-    lib = lib_of(p)
-    m = meta(p)
-    slug = slug_of(p)
-    dst = os.path.join(lib, "films", slug)
-    os.makedirs(dst, exist_ok=True)
-    for f in ("index.html", "cast.js", "film.js"):
-        s = os.path.join(p, f)
-        if not os.path.isfile(s):
-            die("missing %s in the project" % f)
-        shutil.copyfile(s, os.path.join(dst, f))
-    os.makedirs(os.path.join(dst, "out"), exist_ok=True)
-    cues = os.path.join(p, "out", "cues.json")
-    if os.path.isfile(cues):
-        shutil.copyfile(cues, os.path.join(dst, "out", "cues.json"))
-    fdir = os.path.join(p, "fonts")
-    if not os.path.isdir(fdir):
-        fdir = os.path.join(ASSETS, "fonts")
+    sky = os.path.join(p, "styles", "sky.js")
+    if not os.path.isfile(sky):
+        os.makedirs(os.path.dirname(sky), exist_ok=True)
+        shutil.copyfile(os.path.join(TPL, "styles", "demo", "sky.js"), sky)
+    fdir = os.path.join(ASSETS, "fonts")
     if os.path.isdir(fdir):
-        shutil.copytree(fdir, os.path.join(dst, "fonts"), dirs_exist_ok=True)
-    else:
-        print("WARNING no fonts/ — subtitles will fall back or fail to load "
-              "(put NotoSansSC.ttf and Anton-Regular.ttf in lvdong/assets/fonts/)")
-    print("staged -> " + dst)
-    return dst
+        shutil.copytree(fdir, os.path.join(p, "fonts"), dirs_exist_ok=True)
+    os.makedirs(outdir(p), exist_ok=True)
+    print("staged -> " + p)
+    return p
 
 
-def _stage_dir(p):
-    return os.path.join(lib_of(p), "films", slug_of(p))
+def _canvas(p):
+    cv = meta(p).get("canvas", {}) or {}
+    return cv.get("w", 1920), cv.get("h", 1080), cv.get("fps", 30)
 
 
 def cmd_still(a):
     p = project_dir(a.project)
-    lib = lib_of(p)
-    d = _stage_dir(p)
-    if not os.path.isdir(d):
-        d = cmd_stage(a)
+    cmd_stage(a)
+    w, h, fps = _canvas(p)
     sd = os.path.join(p, "stills")
     os.makedirs(sd, exist_ok=True)
-    cmd = ["node", os.path.join("core", "render", "still.mjs"), "films/" + slug_of(p)] + [str(x) for x in a.times] + \
-          ["--out", sd, "--prefix", a.prefix]
-    if a.q:
-        cmd += ["--q", a.q]
-    run(cmd, cwd=lib)
+    run(["node", HARNESS, "--project", p, "--w", str(w), "--h", str(h), "--fps", str(fps),
+         "--stills", ",".join(str(x) for x in a.times), "--out", sd], cwd=REPO)
 
 
 def cmd_video(a):
     p = project_dir(a.project)
-    lib = lib_of(p)
-    d = _stage_dir(p)
-    if not os.path.isdir(d):
-        d = cmd_stage(a)
-    vout = os.path.join(d, "out", "video.mp4")
-    run(["node", os.path.join("core", "render", "video.mjs"), "films/" + slug_of(p),
-         "--fps", str(a.fps or meta(p).get("canvas", {}).get("fps", 30)),
-         "--workers", str(a.workers), "--out", vout], cwd=lib)
-    shutil.copyfile(vout, os.path.join(outdir(p), "video.mp4"))
-    print("video -> " + os.path.join(outdir(p), "video.mp4"))
+    cmd_stage(a)
+    m = meta(p)
+    w, h, fps = _canvas(p)
+    fps = a.fps or fps
+    dur = float(m.get("duration") or 30.0)
+    frames = os.path.join(p, "out", "frames")
+    run(["node", HARNESS, "--project", p, "--w", str(w), "--h", str(h), "--fps", str(fps),
+         "--dur", str(dur), "--out", frames], cwd=REPO)
+    vout = os.path.join(outdir(p), "video.mp4")
+    run([FF, "-y", "-framerate", str(fps), "-i", os.path.join(frames, "%04d.png"),
+         "-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p", "-movflags", "+faststart", vout])
+    shutil.rmtree(frames, ignore_errors=True)
+    print("video -> " + vout)
 
 
 def probe(path, stream=None):

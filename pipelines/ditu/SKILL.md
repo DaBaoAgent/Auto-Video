@@ -25,7 +25,7 @@ description: 用「真实卫星地形 + 三维水面」做立体地图解说片�
 ditu/
 ├── SKILL.md                    本文档
 ├── README.md                   环境、依赖、快速开始
-├── MIGRATION.md                从 lemo-opuscar 迁入的来源与差异
+├── MIGRATION.md                从 开源风格库 迁入的来源与差异
 ├── pipeline.json               定版参数（画幅/地形/相机/色板/渲染/音频/交付）
 ├── scripts/
 │   ├── ditu.py                 编排 CLI：new / stills / render / mux / qa / probe

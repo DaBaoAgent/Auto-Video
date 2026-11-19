@@ -7,7 +7,7 @@
     "station": "screen",
     "station_no": "06",
     "tagline": "一条手指长的灯笼鱼摸黑往上游半公里，用自己的光藏起影子；镜头拉远，原来每晚有无数动物和它一起升起。",
-    "engine": "lemo styles/scratch-film · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/zhike.py",
@@ -16,23 +16,19 @@
       "title": "夜里往上游",
       "seconds": 52.0
     },
-    "no": "93"
+    "no": "93",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "scratch-film",
     "upstream_cn": "胶片直刻",
     "upstream_en": "Scratch Film",
     "upstream_line": "A finger-long lanternfish climbs half a kilometre in the dark, hides its shadow with its own lights, and turns out to be one of countless animals rising every night.",
     "upstream_film": "The Night Climb",
     "upstream_dur": 52.0,
-    "upstream_docs": {
-      "style": "styles/scratch-film/STYLE.md",
-      "demo": "styles/scratch-film/DEMO.md",
-      "build": "styles/scratch-film/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/scratch-film.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/zhike.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "灰阶构图：亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。",
     "style": {
       "family": "photo",

@@ -1,6 +1,6 @@
 # Dark cinematic motivational short (暗调励志动画, `lumen`)
 
-> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to bb-video's `promo/` folder.
+> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to 开源风格包's `promo/` folder.
 
 One frame: a stylized room drawn in code, and almost all of it black.
 - **One motivated light.** A phone screen lighting a face from below, a red alarm clock, a desk lamp's cone, moonlight through blinds, dawn through a window. The light is the picture: it falls off into the dark, throws a giant shadow on the wall, picks out a rim, hangs in the air as haze and dust, and glows (bloom). Grain and a vignette sit on top.

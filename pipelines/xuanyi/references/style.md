@@ -1,6 +1,6 @@
 # Suspense mystery (悬疑探秘, `mystery`)
 
-> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to bb-video's `promo/` folder.
+> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to 开源风格包's `promo/` folder.
 
 A deadpan, mock-serious "science programme" about everyday things. Two looks share one runtime:
 

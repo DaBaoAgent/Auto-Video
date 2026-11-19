@@ -1,6 +1,6 @@
 ---
 name: xuanyi
-description: 悬疑探秘（Suspense Mystery）：冷面伪科学电视：4:3 蓝屏、编号症状、橡皮管贴纸演一遍，最后切到测试卡。 本地封装 BB-Video styles/mystery 运行时（runtime/ + template/ + render.mjs），new 建工程、check/stills 验画面、render 出片，不再依赖上游 checkout。
+description: 悬疑探秘（Suspense Mystery）：冷面伪科学电视：4:3 蓝屏、编号症状、橡皮管贴纸演一遍，最后切到测试卡。 本地封装 开源风格包 styles/mystery 运行时（runtime/ + template/ + render.mjs），new 建工程、check/stills 验画面、render 出片，不再依赖上游 checkout。
 ---
 
 # xuanyi：悬疑探秘（Suspense Mystery）
@@ -8,7 +8,7 @@ description: 悬疑探秘（Suspense Mystery）：冷面伪科学电视：4:3 �
 | 项 | 值 |
 | --- | --- |
 | 工位 | 06 屏幕赛博 |
-| 上游风格 | BB-Video `skills/bb-video/styles/mystery`（运行时已入库） |
+| 上游风格 | 开源风格包 `skills/开源风格包/styles/mystery`（运行时已入库） |
 | 演示片 | 《为什么你的朋友该叫你爸爸》44.4 s（站点暂用上游成片） |
 | 画幅 | 16:9 |
 | 入口 | `pipelines/xuanyi/scripts/xuanyi.py` |
@@ -42,7 +42,7 @@ python pipelines/xuanyi/scripts/xuanyi.py deliver projects/xuanyi_demo --chugao 
 
 | 路径 | 内容 |
 | --- | --- |
-| `runtime/` | 共享运行时 `core.js` / `promo.js` + 风格运行时 `mystery.js` + 渲染器 `render.mjs`；MIT，见 `runtime/LICENSE.BB-Video` |
+| `runtime/` | 共享运行时 `core.js` / `promo.js` + 风格运行时 `mystery.js` + 渲染器 `render.mjs`；MIT，见 `runtime/LICENSE` |
 | `template/` | 起步工程：`index.html`、`score.js`、`sound.js`、`brief.md`、`assets/manifest.js` |
 | `references/` | `style.md`（上游风格规范原文）、`storyboard.md`、`qa.md` |
 | `scripts/` | 本管线编排：new / check / stills / render / probe / qa / deliver |
@@ -57,4 +57,4 @@ python pipelines/xuanyi/scripts/xuanyi.py deliver projects/xuanyi_demo --chugao 
 
 ## 许可
 
-运行时代码来自 [BB-Video](https://github.com/BubbleBrainBB/BB-Video)（MIT），许可见 `runtime/LICENSE.BB-Video`；风格规范与起步工程整理自同一仓库，见 [CREDITS.md](CREDITS.md) 与 [MIGRATION.md](MIGRATION.md)。
+运行时代码来自 [开源风格包](https://github.com/开源风格包)（MIT），许可见 `runtime/LICENSE`；风格规范与起步工程整理自同一仓库，见 [CREDITS.md](CREDITS.md) 与 [MIGRATION.md](MIGRATION.md)。

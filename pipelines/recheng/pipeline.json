@@ -7,7 +7,7 @@
     "station": "map",
     "station_no": "08",
     "tagline": "雪夜里，一台热像仪绕着一栋老居民楼转：漏风的窗、墙里的暖气管、睡在热车盖上的猫，还有一年后改造完的同一栋楼。",
-    "engine": "lemo styles/thermal-camera · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（场族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/recheng.py",
@@ -16,23 +16,19 @@
       "title": "冬夜，一栋楼的体温",
       "seconds": 49.0
     },
-    "no": "113"
+    "no": "113",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "thermal-camera",
     "upstream_cn": "热成像",
     "upstream_en": "Thermal Camera",
     "upstream_line": "A thermal camera circles an old apartment block on a snowy night: a leaking window, pipes inside the walls, a cat asleep on a warm bonnet, and the same block a year after its retrofit.",
     "upstream_film": "A Building on a Winter Night",
     "upstream_dur": 49.0,
-    "upstream_docs": {
-      "style": "styles/thermal-camera/STYLE.md",
-      "demo": "styles/thermal-camera/DEMO.md",
-      "build": "styles/thermal-camera/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/thermal-camera.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/recheng.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "场值成色：高斯斑叠成热场，按色阶上色，再压等温线。",
     "style": {
       "family": "field",

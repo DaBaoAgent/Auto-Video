@@ -23,7 +23,7 @@ python scripts/yugao.py render projects/<名字> --scale 0.6667
 
 | 目录 | 内容 |
 |---|---|
-| `runtime/` | 浏览器运行时 + 渲染器（BB-Video MIT） |
+| `runtime/` | 浏览器运行时 + 渲染器（开源风格包 MIT） |
 | `scripts/` | 建工程、自检、抽帧、渲染、QA、交付 |
 | `references/` | 风格规范、分镜模板、验收清单 |
 | `template/` | 起步工程（无音频与成片） |
@@ -37,4 +37,4 @@ python scripts/yugao.py render projects/<名字> --scale 0.6667
 
 ## 许可
 
-运行时代码来自 [BB-Video](https://github.com/BubbleBrainBB/BB-Video)（MIT），见 `runtime/LICENSE.BB-Video` 与 [CREDITS.md](CREDITS.md)。
+运行时代码来自 [开源风格包](https://github.com/开源风格包)（MIT），见 `runtime/LICENSE` 与 [CREDITS.md](CREDITS.md)。

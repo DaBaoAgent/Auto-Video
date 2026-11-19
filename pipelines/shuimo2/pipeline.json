@@ -22,7 +22,7 @@
   },
   "spec": {
     "source": {
-      "repo": "lemomo-ai/lemo-opuscar",
+      "repo": "公开样片库/开源风格库",
       "path": "styles/ink-wash/demo",
       "style": "Chinese Ink Wash（中国水墨）",
       "demo_film": "The Swordsman and the River / 剑客与河"
@@ -82,7 +82,7 @@
     "credits": [
       "PICTURE: 本仓库代码自己画（The Swordsman and the River 的上游引擎迁入），无生成图、无第三方素材",
       "FONT: Cormorant / Cormorant SC（OFL）、马善政毛笔体（OFL）、志莽行（OFL）",
-      "STYLE: Chinese Ink Wash，技法取自 lemo-opuscar styles/ink-wash/demo",
+      "STYLE: Chinese Ink Wash，技法取自 开源风格库 styles/ink-wash/demo",
       "SOUND: 上游配乐与拟音不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
     ]
   }

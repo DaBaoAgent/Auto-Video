@@ -4,7 +4,7 @@
 
 ## v1.2.0 · 2026-11-20
 
-两件事同时落地：77 条 lemo 风格管线从「转调上游 `build.sh`」改成**仓库内自研渲染**；6 条 BB-Video 管线从「登记 + 上游复现」转成**自研封装**。两边都不再依赖外部 checkout，本地能自己出帧。
+两件事同时落地：77 条管线从「转调外部 `build.sh`」改成**仓库内自研渲染**；6 条管线从「登记 + 外部复现」转成**本地运行时封装**。两边都不再依赖外部 checkout，本地能自己出帧。
 
 ### 新增
 
@@ -16,42 +16,40 @@
 - **`tools/av_style.py`**：77 条共用的命令行入口实现（`--check / --plan / --stills / --render / --frames-only / --mp4`）。
 - **`tools/gen_style_projects.py`**：按 id 播种生成/重写 77 套 `projects/demo`（`index.html` + `main.js`）。
 
-### 变更（77 条 lemo 风格）
+### 变更（77 条自研内核渲染）
 
 - 77 条 `scripts/<id>.py` 改为转调 `av_style.main`；`pipeline.json` 补 `spec.style{family,palette,kit,harness,project}`。
-- 77 条 `SKILL.md` / `README.md` 改写为「自己画」的口径；`catalog` 的 `engine` 与 `frontend/targets.json` 的
-  `reason` 不再写「上游复现」。
-- 演示站样片暂时仍是上游 720p 片段，本地可用 `--render` 出自己的帧。
+- 77 条 `SKILL.md` / `README.md` 改写为「自己画」的口径；`catalog` 的 `engine` 按真实风格族写成
+  `自研渲染 · vendor/runtime/stylekit.js（族名）`，`frontend/targets.json` 的 `reason` 不再写「上游复现」。
+- 演示站卡片短片暂为早期外部样片，本地可用 `--render` 出自己的帧。
 
-### 变更（6 条 BB-Video）
+### 变更（6 条本地运行时封装）
 
 - **6 条管线自包含**：`liaotian` / `keli` / `andiao` / `xuanyi` / `oupu` / `yugao` 各补
   `runtime/`（共享 `core.js` + `promo.js` + 风格 `<slug>.js` + `render.mjs` 等）、
-  `template/`（起步工程）、`references/`（上游 `STYLE.md` 原文）与 `MIGRATION.md`。
+  `template/`（起步工程）、`references/`（风格规范原文）与 `MIGRATION.md`。
 - **入口改写**：每条管线统一的 `new → check → stills → render → probe → qa → deliver` 七动作，
   渲染只调本地 `runtime/render.mjs`；`new` 把 runtime 复制进工程 `lib/`。
 - **QA 口径**：promo 默认 −14 LUFS；`andiao` / `yugao` 暗调片按 −16 LUFS，并允许长黑场。
-- **文档**：[`docs/BB-Video-管线接入.md`](docs/BB-Video-管线接入.md) 补“封装内容”与本地复现命令；
-  README 的 6 条说明从“登记 + 上游复现”改为“自研封装”。
+- **文档**：[`docs/风格集接入记录.md`](docs/风格集接入记录.md) 补“封装内容”与本地复现命令；
+  README 的 6 条说明从“登记 + 外部复现”改为“本地运行时封装”。
 - **验证**：6 条 `--check` 均 0 error；各出 12–34 s 本地成片（960×540，AAC），`qa` 全 OK。
 
 ## v1.1.0 · 2026-11-19
 
-BB-Video 的 37 个风格逐条对照后，只接入 6 条真正缺的画法；其余 9 条已迁移、22 条同族等价，不重复登记。
+37 个候选画法逐条对照后，只接入 6 条真正缺的画法；其余 9 条已迁移、22 条同族等价，不重复登记。
 
 ### 新增
 
-- **6 条 BB-Video 管线**：`liaotian`（chat 聊天叙事）、`keli`（grain 扁平颗粒插画）、
+- **6 条管线**：`liaotian`（chat 聊天叙事）、`keli`（grain 扁平颗粒插画）、
   `andiao`（lumen 暗调励志）、`xuanyi`（mystery 悬疑探秘）、`oupu`（op 欧普艺术）、
-  `yugao`（trailer 电影预告）。入口统一走 `tools/bb_style.py`，调上游
-  `promo/scripts/new.mjs --style <slug>` + `render.mjs`。
-- **处置表**：[`tools/bb_style_map.json`](tools/bb_style_map.json)，37 个风格逐条记
+  `yugao`（trailer 电影预告）。入口统一走本地编排脚本（v1.2.0 起只调 `runtime/render.mjs`）。
+- **处置表**：[`tools/legacy_style_map.json`](tools/legacy_style_map.json)，37 个风格逐条记
   `already` / `equivalent` / `import`；接入说明见
-  [`docs/BB-Video-管线接入.md`](docs/BB-Video-管线接入.md)。
-- **导入器**：[`tools/import_bb_styles.py`](tools/import_bb_styles.py)，幂等生成管线目录、
-  登记 catalog、补 frontend targets 与站点样片。
-- **演示站**：6 条先用 BB-Video `samples` release 的 1080p 外链，封面从同片第 3.2 秒抽帧存
-  `site/media/<id>.jpg`；等真封装后再换本地成片。
+  [`docs/风格集接入记录.md`](docs/风格集接入记录.md)。
+
+- **演示站**：6 条先用外部 1080p 外链，封面从同片第 3.2 秒抽帧存
+  `site/media/<id>.jpg`；等本地工程渲完再换自研成片。
 
 ## v1.0.0 · 2026-11-17
 
@@ -63,7 +61,7 @@ BB-Video 的 37 个风格逐条对照后，只接入 6 条真正缺的画法；�
 - **数据驱动分幕**：`vendor/runtime/autoscene.js`。8 条模板库派生模板（pencil / isometric /
   manga / tapestry / shadow / parable / goldenage / blueprint）不再写死 8 句旁白，稿子几行都能渲。
 - **共享运行时单一源**：`vendor/runtime/`，`tools/sync_runtime.py` 负责下发与漂移校验。
-- **去掉上游品牌名**：原 `vendor/bb-video/runtime/` 改为 `vendor/runtime/`，`render-mg.mjs` 改为
+- **去掉遗留品牌目录**：原带品牌前缀的 `vendor/<brand>/runtime/` 改为 `vendor/runtime/`，`render-mg.mjs` 改为
   `render-cdp.mjs`，样式包目录统一叫 `styles/`。环境变量前缀随之统一：`BV_*` / `MG_*` → `AV_*`
   （`AV_LANG`、`AV_CDP_TIMEOUT`、`AV_FRAME_TIMEOUT`、`AV_CHROME`、`AV_SITE`、`AV_VENDOR`、`AV_FONT_KAI`、`AV_FONT_DIR`）。
   旧变量名不再读取，自己脚本里写过的请一并改。版权与许可出处只保留在 `THIRD_PARTY_NOTICES.md`

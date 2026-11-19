@@ -13,11 +13,10 @@ score.json（谱）─ sound.py ─ mix.wav ───────┴─ mux（�
 ## 快速开始
 
 ```powershell
-$env:LVDONG_LIB = "D:\@kaifa\lemo-opuscar"
 cd D:\@kaifa\Auto-Video\lvdong
 
 # 1 建工程（口播稿里取前 3 段）
-& "$env:LVDONG_LIB\.venv\Scripts\python.exe" scripts\lvdong.py new 005_新题目 `
+python scripts\lvdong.py new 005_新题目 `
     --script "D:\path\口播稿.md" --paras 3 --duration 58
 # 2 把旁白整条放到 projects\005_新题目\voice\source_full.wav
 
@@ -49,10 +48,10 @@ python scripts\lvdong.py check 005_新题目
 | 依赖 | 版本/位置 | 用途 |
 |---|---|---|
 | node | v22+ | 渲染（`core/render/still.mjs` / `video.mjs`） |
-| python + numpy / scipy / soundfile | `$LVDONG_LIB\.venv\Scripts\python.exe` | 转写、对齐、合成、混音 |
+| python + numpy / scipy / soundfile | 当前 python（或 `LVDONG_PY`） | 转写、对齐、合成、混音 |
 | faster-whisper | 同上 venv | 逐词转写（`small` int8 CPU） |
 | ffmpeg / ffprobe | 8.x，PATH 上（或 `LVDONG_FFMPEG`） | 混流、两遍 loudnorm、封面、探测 |
-| lemo-opuscar | `LVDONG_LIB`（默认 `D:\@kaifa\lemo-opuscar`） | 皮肤/天空引擎与渲染器 |
+| `vendor/runtime/style-frames.mjs` | 仓库内自带 | 逐帧抓取（puppeteer-core + 本机 Edge） |
 | 字体 | `assets/fonts/`：NotoSansSC + Anton（OFL，不入库） | 字幕与画面字 |
 
 **不需要 bash**：混流的两遍 loudnorm 直接写在 `lvdong.py` 里。
@@ -75,7 +74,7 @@ python scripts\lvdong.py check 005_新题目
 - 不用 AI 生图、不用实拍素材、不用照片。
 - 不做片名卡、不做分镜预览页（要故事板另说）。
 - 不合成音色（旁白是你给的；要 TTS 走 `peiyin`）。
-- 不复制 lemo-opuscar 的引擎源码，只用它；引擎更新了就跟着更新。
+- 抓帧器与 `styles/sky.js` 都在仓库内，跟着仓库一起版本走。
 
 ## 首个实例
 

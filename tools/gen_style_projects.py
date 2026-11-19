@@ -1,4 +1,4 @@
-"""把 77 条 lemo 登记管线改成「自研渲染」：写各自的 demo 项目与入口脚本。
+"""把 77 条 外部登记管线改成「自研渲染」：写各自的 demo 项目与入口脚本。
 
 生成物（每条管线）：
   projects/demo/index.html     画布壳 + 字体
@@ -894,7 +894,7 @@ FAMILY_LEAD = {
 
 def main() -> int:
     cat = json.loads((ROOT / "catalog" / "pipelines.json").read_text(encoding="utf-8"))["pipelines"]
-    smap = json.loads((ROOT / "tools" / "lemo_style_map.json").read_text(encoding="utf-8"))["styles"]
+    smap = json.loads((ROOT / "tools" / "style_map.json").read_text(encoding="utf-8"))["styles"]
     stmap = {s["id"]: s for s in json.loads((ROOT / "catalog" / "stations.json").read_text(encoding="utf-8"))["stations"]}
     by_id = {p["id"]: p for p in cat}
 

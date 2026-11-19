@@ -25,9 +25,9 @@ description: 用「剪影律动」（Silhouette Rhythm）把一段口播稿做�
 | 剪影演员表 `cast.js` | 是 | 从 `template/cast.js` 起手，按题材加演员（碑、仓库、金字塔、巨人…） |
 | 时间轴 `film.js` | 是 | 从 `template/film.js` 起手；`SEC` 段表按拍界切 |
 | 谱 `score.json` | 是 | 从 `projects/004_玛雅巨人文明/score.json` 复制后重写 |
-| lemo-opuscar 库 | 是 | 渲染引擎（`core/render/*.mjs` + `styles/silhouette-rhythm/demo/sky.js`），环境变量 `LVDONG_LIB` 或 `project.json` 的 `lib` |
+| `vendor/runtime/style-frames.mjs` | 是 | 仓库内抓帧：puppeteer-core + 本机 Edge/Chrome，页面协议 `__ready` / `renderAt` |
 | 字体 | 是 | `NotoSansSC.ttf` + `Anton-Regular.ttf` 放 `lvdong/assets/fonts/`（OFL，不入库） |
-| ffmpeg / node / python+numpy+scipy+soundfile | 是 | `LVDONG_FFMPEG` / `LVDONG_PY` 可指定；默认 `$LIB/.venv/Scripts/python.exe` |
+| ffmpeg / node / python+numpy+scipy+soundfile | 是 | `LVDONG_FFMPEG` / `LVDONG_PY` 可指定；默认当前 python（需 numpy/scipy/soundfile），或用 `LVDONG_PY` 指定 |
 | AI 生图 | 否 | **完全不用**。天空、水面、剪影、涟漪、水珠、石碑、仓库全由代码画 |
 
 ## 目录
@@ -64,18 +64,17 @@ lvdong/
 ### 0 准备（一次）
 
 ```powershell
-$env:LVDONG_LIB  = "D:\@kaifa\lemo-opuscar"
 $env:LVDONG_FFMPEG = "ffmpeg"
 # 字体（OFL，不入库）：从任意一支已做好的片子，或自己下载
 New-Item -ItemType Directory -Force -Path D:\@kaifa\Auto-Video\lvdong\assets\fonts
-Copy-Item D:\@kaifa\lemo-opuscar\films\004_maya_part1\fonts\*.ttf D:\@kaifa\Auto-Video\lvdong\assets\fonts\
+Copy-Item <字体目录>\*.ttf pipelines\lvdong\assets\fonts\
 ```
 
 ### 1 建工程
 
 ```powershell
 cd D:\@kaifa\Auto-Video\lvdong
-& "D:\@kaifa\lemo-opuscar\.venv\Scripts\python.exe" scripts\lvdong.py new 005_你的题目 `
+python scripts\lvdong.py new 005_你的题目 `
     --script "D:\@kaifa\@\出稿\005_你的题目\口播稿.md" --paras 3 --duration 58
 ```
 
@@ -142,7 +141,7 @@ python scripts\lvdong.py check  005_你的题目
 ## 不封装的部分
 
 - **不封装题材与故事**：结构、镜头、演员、道具都由你做，`template/film.js` 里只有一个占位剪影。
-- **不封装渲染引擎**：`sky.js`、`still.mjs`、`video.mjs` 属于 lemo-opuscar，管线用 `$LIB` 指过去，不复制入库（版本变了要跟着变）。
+- **渲染在仓库内**：抓帧走 `vendor/runtime/style-frames.mjs`，`styles/sky.js` 随工程复制，不读任何外部目录。
 - **不封装配音**：旁白是喂进来的；这条管线不合成音色（要合成走 `peiyin` / `lishi`）。
 - **不封装 AI 生图**：这支风格不需要，管线里也没有这条分支。
 - **不封装平台发布**：只出 mp4/srt/poster。

@@ -10,7 +10,7 @@
     "note": "逐帧统计 YDIF（运动）与 edgedetect 边缘密度，排除白屏 / 黑场 / 空镜后取动作最丰富的一帧；首尾各 0.7 秒不选",
     "overrides": "tools/poster_overrides.json，人工挑帧优先于自动选帧"
   },
-  "generated_from": "D:/@kaifa/lemo-film-cache + 原有清单 + BB-Video 6 条",
+  "generated_from": "site/media 本地文件 + 原有清单 + 本地运行时 6 条",
   "items": [
     {
       "key": "jianying",
@@ -3600,15 +3600,15 @@
       "style": "聊天叙事",
       "style_en": "Chat Narrative",
       "station": "screen",
-      "badge": "BB-Video 样片",
+      "badge": "开源风格包 样片",
       "seconds": 58.6,
       "duration": "0:59",
       "aspect": "16:9",
       "clip_seconds": null,
-      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/chat.mp4",
+      "mp4": "https://github.com/开源风格包/releases/download/samples/chat.mp4",
       "poster": "media/liaotian.jpg",
-      "source": "BB-Video samples/chat.mp4",
-      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+      "source": "开源风格包 samples/chat.mp4",
+      "note": "演示站暂用 开源风格包 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
     },
     {
       "key": "keli",
@@ -3618,15 +3618,15 @@
       "style": "扁平颗粒插画",
       "style_en": "Flat Grain Illustration",
       "station": "graphic",
-      "badge": "BB-Video 样片",
+      "badge": "开源风格包 样片",
       "seconds": 92.6,
       "duration": "1:33",
       "aspect": "16:9",
       "clip_seconds": null,
-      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/grain.mp4",
+      "mp4": "https://github.com/开源风格包/releases/download/samples/grain.mp4",
       "poster": "media/keli.jpg",
-      "source": "BB-Video samples/grain.mp4",
-      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+      "source": "开源风格包 samples/grain.mp4",
+      "note": "演示站暂用 开源风格包 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
     },
     {
       "key": "andiao",
@@ -3636,15 +3636,15 @@
       "style": "暗调励志",
       "style_en": "Dark Motivational",
       "station": "screen",
-      "badge": "BB-Video 样片",
+      "badge": "开源风格包 样片",
       "seconds": 165.3,
       "duration": "2:45",
       "aspect": "16:9",
       "clip_seconds": null,
-      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/lumen.mp4",
+      "mp4": "https://github.com/开源风格包/releases/download/samples/lumen.mp4",
       "poster": "media/andiao.jpg",
-      "source": "BB-Video samples/lumen.mp4",
-      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+      "source": "开源风格包 samples/lumen.mp4",
+      "note": "演示站暂用 开源风格包 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
     },
     {
       "key": "xuanyi",
@@ -3654,15 +3654,15 @@
       "style": "悬疑探秘",
       "style_en": "Suspense Mystery",
       "station": "screen",
-      "badge": "BB-Video 样片",
+      "badge": "开源风格包 样片",
       "seconds": 44.4,
       "duration": "0:44",
       "aspect": "16:9",
       "clip_seconds": null,
-      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/mystery.mp4",
+      "mp4": "https://github.com/开源风格包/releases/download/samples/mystery.mp4",
       "poster": "media/xuanyi.jpg",
-      "source": "BB-Video samples/mystery.mp4",
-      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+      "source": "开源风格包 samples/mystery.mp4",
+      "note": "演示站暂用 开源风格包 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
     },
     {
       "key": "oupu",
@@ -3672,15 +3672,15 @@
       "style": "欧普艺术",
       "style_en": "Op Art",
       "station": "graphic",
-      "badge": "BB-Video 样片",
+      "badge": "开源风格包 样片",
       "seconds": 22.3,
       "duration": "0:22",
       "aspect": "16:9",
       "clip_seconds": null,
-      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/op.mp4",
+      "mp4": "https://github.com/开源风格包/releases/download/samples/op.mp4",
       "poster": "media/oupu.jpg",
-      "source": "BB-Video samples/op.mp4",
-      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+      "source": "开源风格包 samples/op.mp4",
+      "note": "演示站暂用 开源风格包 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
     },
     {
       "key": "yugao",
@@ -3690,16 +3690,16 @@
       "style": "电影预告",
       "style_en": "Movie Trailer",
       "station": "graphic",
-      "badge": "BB-Video 样片",
+      "badge": "开源风格包 样片",
       "seconds": 83.2,
       "duration": "1:23",
       "aspect": "16:9",
       "clip_seconds": null,
-      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/trailer.mp4",
+      "mp4": "https://github.com/开源风格包/releases/download/samples/trailer.mp4",
       "poster": "media/yugao.jpg",
-      "source": "BB-Video samples/trailer.mp4",
-      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+      "source": "开源风格包 samples/trailer.mp4",
+      "note": "演示站暂用 开源风格包 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
     }
   ],
-  "note": "2026-11-19：77 条 lemo 登记管线的样片取自 lemomo-ai/lemo-opuscar-films，原有 40 条与风格样片条目原样保留"
+  "note": "2026-11-19：77 条 外部登记管线的样片取自 公开样片库，原有 40 条与风格样片条目原样保留"
 }

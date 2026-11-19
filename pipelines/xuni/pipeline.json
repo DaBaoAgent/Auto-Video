@@ -99,5 +99,6 @@
     "sample": "出稿/<编号>_<选题>/<集号>_合成波<N>秒样片.mp4",
     "final": "out/<编号>_<人物>/",
     "final_rules": "references/publish.md"
-  }
+  },
+  "spec": {}
 }

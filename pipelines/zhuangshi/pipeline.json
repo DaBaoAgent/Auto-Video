@@ -22,7 +22,7 @@
   },
   "spec": {
     "source": {
-      "repo": "lemomo-ai/lemo-opuscar",
+      "repo": "公开样片库/开源风格库",
       "path": "styles/art-deco/demo",
       "style": "Art Deco（装饰艺术）",
       "demo_film": "Midnight at the Starlight Hotel / 星光酒店午夜"
@@ -83,7 +83,7 @@
     "credits": [
       "PICTURE: 本仓库代码自己画（Midnight at the Starlight Hotel 的上游引擎迁入），无生成图、无第三方素材",
       "FONT: Limelight / Poiret One / Josefin Sans / Italiana，均 OFL",
-      "STYLE: Art Deco，技法取自 lemo-opuscar styles/art-deco/demo",
+      "STYLE: Art Deco，技法取自 开源风格库 styles/art-deco/demo",
       "SOUND: 上游配乐与拟音不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
     ]
   }

@@ -26,14 +26,14 @@ ditu/
 | 依赖 | 说明 |
 |---|---|
 | Node ≥ 20 | 渲染器只用 `playwright-core`，不需要 npm install 到本项目 |
-| playwright-core | 自动从工程目录逐级向上找 `node_modules`，找不到再看同机的 lemo-opuscar；也可用 `$PLAYWRIGHT_CORE` 指定 |
+| playwright-core | 自动从工程目录逐级向上找 `node_modules`，找不到再看同机的 开源风格库；也可用 `$PLAYWRIGHT_CORE` 指定 |
 | chromium-headless-shell | playwright 自带；`npx playwright-core install chromium-headless-shell` 装一次 |
 | ffmpeg / ffprobe | 截帧、编码、混音、质检 |
 | Python ≥ 3.10 | 编排 CLI（只用标准库） |
 | GPU | 真 WebGL 才快；虚拟机里 `$env:LEMO_ANGLE="swiftshader"` 可跑通但慢 6× |
 
 ```powershell
-npm i -g playwright-core        # 或任一份 lemo-opuscar 里的即可
+npm i -g playwright-core        # 或任一份 开源风格库 里的即可
 npx playwright-core install chromium-headless-shell
 ```
 
