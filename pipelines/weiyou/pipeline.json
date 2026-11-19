@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "weiyou",
+    "name_zh": "微游戏快闪",
+    "name_en": "Microgame Frenzy",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "见习宇航员闯五秒训练营，越来越快，Boss 关亲手降落回地球。",
+    "engine": "lemo styles/microgame · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/weiyou.py",
+    "sample": {
+      "file": "weiyou microgame.mp4",
+      "title": "五秒宇航员",
+      "seconds": 59.8
+    },
+    "no": "88"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "microgame",
+    "upstream_cn": "微游戏快闪",
+    "upstream_en": "Microgame Frenzy",
+    "upstream_line": "A clumsy cadet survives a five-second boot camp, faster and faster, until the boss: landing home.",
+    "upstream_film": "Five-Second Astronaut",
+    "upstream_dur": 59.8,
+    "upstream_docs": {
+      "style": "styles/microgame/STYLE.md",
+      "demo": "styles/microgame/DEMO.md",
+      "build": "styles/microgame/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/microgame.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/timeline.js` (tempo grid and segments, the single source of truth), `demo/toon.js` + `demo/stage.js` + `demo/hud.js…"
+  }
+}

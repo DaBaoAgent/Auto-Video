@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "yugao",
+    "no": "124",
+    "name_zh": "电影预告",
+    "name_en": "Movie Trailer",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "2.39:1 遮幅的好莱坞预告：青橙调、黑底金属字卡、钢琴一记、BRAAM 与标题砸屏。",
+    "engine": "BB-Video styles/trailer · 上游 promo",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/yugao.py",
+    "sample": {
+      "file": "yugao bb-trailer.mp4",
+      "title": "Deep Space Echo · 预告",
+      "seconds": 83.2
+    }
+  },
+  "spec": {
+    "source": "BB-Video",
+    "style_slug": "trailer",
+    "upstream_cn": "电影预告",
+    "upstream_en": "Movie Trailer",
+    "upstream_line": "A 2.39:1 Hollywood trailer: teal-orange grade, metallic one-phrase cards, a lone ping, BRAAMs, the title slam.",
+    "upstream_film": "Deep Space Echo · 预告",
+    "upstream_dur": 83.2,
+    "upstream_docs": {
+      "style": "skills/bb-video/styles/trailer/STYLE.md",
+      "guide": "skills/bb-video/promo/GUIDE.md",
+      "skill": "skills/bb-video/SKILL.md"
+    },
+    "sample_source": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/trailer.mp4",
+    "sample_note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "BB-Video styles/three.js 画法 · 上游 promo 运行时（Chrome 逐帧）"
+  }
+}

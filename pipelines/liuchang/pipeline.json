@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "liuchang",
+    "name_zh": "流场风线",
+    "name_en": "Flow-field Wind Lines",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "几千条从最佳路径算出来的墨色风线，画出超强台风摩羯的一生：在南海睁开风眼，在文昌登陆，在越南散开，一整周最后收成一条线。",
+    "engine": "lemo styles/flow-field · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/liuchang.py",
+    "sample": {
+      "file": "liuchang flow-field.mp4",
+      "title": "摩羯过琼州",
+      "seconds": 52.0
+    },
+    "no": "102"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "flow-field",
+    "upstream_cn": "流场风线",
+    "upstream_en": "Flow-field Wind Lines",
+    "upstream_line": "Thousands of ink wind lines, computed from the best track, draw Super Typhoon Yagi: the eye opening over the South China Sea, the landfall on Hainan, the spiral coming apart in Vietnam, and a whole week folded into one last line.",
+    "upstream_film": "Typhoon Yagi over Qiongzhou",
+    "upstream_dur": 52.0,
+    "upstream_docs": {
+      "style": "styles/flow-field/STYLE.md",
+      "demo": "styles/flow-field/DEMO.md",
+      "build": "styles/flow-field/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/flow-field.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/field.js`: Mercator kilometres (`toXY`, `toLL`), `makeStorm(track)` (spline track, monotone intensity, Holland B, R…"
+  }
+}

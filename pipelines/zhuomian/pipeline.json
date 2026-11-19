@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "zhuomian",
+    "name_zh": "桌面卡片穿梭",
+    "name_en": "Tabletop App Flythrough",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "一张猫照片跳过桌上的应用卡片，从一台手机飞到朋友手机里，一镜跟到底。",
+    "engine": "lemo styles/desktop-flythrough · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/zhuomian.py",
+    "sample": {
+      "file": "zhuomian desktop-flythrough.mp4",
+      "title": "叮之前",
+      "seconds": 60.0
+    },
+    "no": "97"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "desktop-flythrough",
+    "upstream_cn": "桌面卡片穿梭",
+    "upstream_en": "Tabletop App Flythrough",
+    "upstream_line": "A cat photo hops across app cards on a sunlit desk, from one phone to a friend's.",
+    "upstream_film": "Before the Ding",
+    "upstream_dur": 60.0,
+    "upstream_docs": {
+      "style": "styles/desktop-flythrough/STYLE.md",
+      "demo": "styles/desktop-flythrough/DEMO.md",
+      "build": "styles/desktop-flythrough/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/desktop-flythrough.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/` (three.js r170 + Canvas 2D). Copy the folder into the project; the engine files work as they are, the film is…"
+  }
+}

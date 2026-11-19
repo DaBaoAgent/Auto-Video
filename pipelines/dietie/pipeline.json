@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "dietie",
+    "name_zh": "地铁线路图",
+    "name_en": "Transit Map",
+    "station": "map",
+    "station_no": "08",
+    "tagline": "一张纸上的线路图，从 1993 年的 6 公里长到 21 条线、906 公里。",
+    "engine": "lemo styles/transit-map · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/dietie.py",
+    "sample": {
+      "file": "dietie transit-map.mp4",
+      "title": "6 公里",
+      "seconds": 47.0
+    },
+    "no": "117"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "transit-map",
+    "upstream_cn": "地铁线路图",
+    "upstream_en": "Transit Map",
+    "upstream_line": "A printed metro map grows from one 6 km line in 1993 to 21 lines and 906 km.",
+    "upstream_film": "6 Kilometres",
+    "upstream_dur": 47.0,
+    "upstream_docs": {
+      "style": "styles/transit-map/STYLE.md",
+      "demo": "styles/transit-map/DEMO.md",
+      "build": "styles/transit-map/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/transit-map.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "The pipeline, independent of any code: (1) the network as data: stations with native and second-language names and a tie…"
+  }
+}

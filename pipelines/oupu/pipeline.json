@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "oupu",
+    "no": "123",
+    "name_zh": "欧普艺术",
+    "name_en": "Op Art",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。",
+    "engine": "BB-Video styles/op · 上游 promo",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/oupu.py",
+    "sample": {
+      "file": "oupu bb-op.mp4",
+      "title": "Stripe · 官网",
+      "seconds": 22.3
+    }
+  },
+  "spec": {
+    "source": "BB-Video",
+    "style_slug": "op",
+    "upstream_cn": "欧普艺术",
+    "upstream_en": "Op Art",
+    "upstream_line": "Black-and-white stripes, rings and checkerboards bulge through lenses; venetian-blind reveals.",
+    "upstream_film": "Stripe · 官网",
+    "upstream_dur": 22.3,
+    "upstream_docs": {
+      "style": "skills/bb-video/styles/op/STYLE.md",
+      "guide": "skills/bb-video/promo/GUIDE.md",
+      "skill": "skills/bb-video/SKILL.md"
+    },
+    "sample_source": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/op.mp4",
+    "sample_note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "BB-Video styles/WebGL 画法 · 上游 promo 运行时（Chrome 逐帧）"
+  }
+}

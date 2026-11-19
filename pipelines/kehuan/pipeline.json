@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "kehuan",
+    "name_zh": "科幻情景喜剧卡通",
+    "name_en": "Sci-Fi Sitcom Toon",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "厌世天才开传送门只想买杯咖啡，却穿过越来越离谱的平行宇宙。",
+    "engine": "lemo styles/scifi-toon · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/kehuan.py",
+    "sample": {
+      "file": "kehuan scifi-toon.mp4",
+      "title": "跑腿买咖啡",
+      "seconds": 57.5
+    },
+    "no": "84"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "scifi-toon",
+    "upstream_cn": "科幻情景喜剧卡通",
+    "upstream_en": "Sci-Fi Sitcom Toon",
+    "upstream_line": "A jaded genius opens a portal just to buy coffee and tumbles through ever-stranger universes.",
+    "upstream_film": "Coffee Run",
+    "upstream_dur": 57.5,
+    "upstream_docs": {
+      "style": "styles/scifi-toon/STYLE.md",
+      "demo": "styles/scifi-toon/DEMO.md",
+      "build": "styles/scifi-toon/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/scifi-toon.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/`: `toon.js` (vector engine: matrix stack, screen-space boil, constant line width, flat shading), `chars.js` (p…"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "sailu",
+    "name_zh": "80 年代赛璐璐动画",
+    "name_en": "80s Cel Anime",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "快递少女骑车穿过雨后霓虹都市，赶在黎明发射前送到一盘磁带。",
+    "engine": "lemo styles/cel-anime-80s · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/sailu.py",
+    "sample": {
+      "file": "sailu cel-anime-80s.mp4",
+      "title": "城市灯火，1987",
+      "seconds": 59.0
+    },
+    "no": "83"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "cel-anime-80s",
+    "upstream_cn": "80 年代赛璐璐动画",
+    "upstream_en": "80s Cel Anime",
+    "upstream_line": "A courier girl rides through a rain-soaked neon city to deliver a tape before the dawn launch.",
+    "upstream_film": "City Lights, 1987",
+    "upstream_dur": 59.0,
+    "upstream_docs": {
+      "style": "styles/cel-anime-80s/STYLE.md",
+      "demo": "styles/cel-anime-80s/DEMO.md",
+      "build": "styles/cel-anime-80s/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/cel-anime-80s.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/`: `cel.js` (path, cel, ribbon, flutter), `pal.js` (colour models), `head80.js` (80s head, 3 views × expression…"
+  }
+}

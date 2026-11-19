@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "weixing",
+    "name_zh": "卫星简报",
+    "name_en": "Satellite Briefing",
+    "station": "map",
+    "station_no": "08",
+    "tagline": "卫星照着地图去找咸海，找到的是沙漠；只有筑了坝的那一块回来了。",
+    "engine": "lemo styles/satellite-briefing · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/weixing.py",
+    "sample": {
+      "file": "weixing satellite-briefing.mp4",
+      "title": "地图上还写着海",
+      "seconds": 37.8
+    },
+    "no": "111"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "satellite-briefing",
+    "upstream_cn": "卫星简报",
+    "upstream_en": "Satellite Briefing",
+    "upstream_line": "A satellite follows the map to the Aral Sea and finds a desert; only the part someone dammed came back.",
+    "upstream_film": "The Map Still Says Sea",
+    "upstream_dur": 37.8,
+    "upstream_docs": {
+      "style": "styles/satellite-briefing/STYLE.md",
+      "demo": "styles/satellite-briefing/DEMO.md",
+      "build": "styles/satellite-briefing/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/satellite-briefing.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/engine.js`: `makeCamera({lat, lon, d, tilt, heading, sx, sy})`, `project()` / `unproject()`, the WebGL2 plate shade…"
+  }
+}

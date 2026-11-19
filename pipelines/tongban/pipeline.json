@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "tongban",
+    "name_zh": "铜版画",
+    "name_en": "Copperplate Engraving",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "一张博物志图版自己刻出来：雕刀推开铜版，蜜蜂一线线成形，最后手工水彩上色。",
+    "engine": "lemo styles/engraving · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/tongban.py",
+    "sample": {
+      "file": "tongban engraving.mp4",
+      "title": "蜜蜂，图版七",
+      "seconds": 40.0
+    },
+    "no": "63"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "engraving",
+    "upstream_cn": "铜版画",
+    "upstream_en": "Copperplate Engraving",
+    "upstream_line": "A natural-history plate engraves itself: the burin cuts the copper, the bee builds up line by line, and a watercolour wash brings it to life.",
+    "upstream_film": "The Honeybee, Plate VII",
+    "upstream_dur": 40.0,
+    "upstream_docs": {
+      "style": "styles/engraving/STYLE.md",
+      "demo": "styles/engraving/DEMO.md",
+      "build": "styles/engraving/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/engraving.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/engine/`: `burin.js` (`B.Ink` ordered stroke store + `schedule`, `B.hatch`, `B.engraveTone`, `B.contourHatch`, `B.o…"
+  }
+}

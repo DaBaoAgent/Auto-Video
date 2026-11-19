@@ -2,6 +2,24 @@
 
 版本口径：`MAJOR.MINOR.PATCH`。管线数量、契约字段这类会打断已有工程的变化走 MINOR；只修 bug 走 PATCH。
 
+## v1.1.0 · 2026-11-19
+
+BB-Video 的 37 个风格逐条对照后，只接入 6 条真正缺的画法；其余 9 条已迁移、22 条同族等价，不重复登记。
+
+### 新增
+
+- **6 条 BB-Video 管线**：`liaotian`（chat 聊天叙事）、`keli`（grain 扁平颗粒插画）、
+  `andiao`（lumen 暗调励志）、`xuanyi`（mystery 悬疑探秘）、`oupu`（op 欧普艺术）、
+  `yugao`（trailer 电影预告）。入口统一走 `tools/bb_style.py`，调上游
+  `promo/scripts/new.mjs --style <slug>` + `render.mjs`。
+- **处置表**：[`tools/bb_style_map.json`](tools/bb_style_map.json)，37 个风格逐条记
+  `already` / `equivalent` / `import`；接入说明见
+  [`docs/BB-Video-管线接入.md`](docs/BB-Video-管线接入.md)。
+- **导入器**：[`tools/import_bb_styles.py`](tools/import_bb_styles.py)，幂等生成管线目录、
+  登记 catalog、补 frontend targets 与站点样片。
+- **演示站**：6 条先用 BB-Video `samples` release 的 1080p 外链，封面从同片第 3.2 秒抽帧存
+  `site/media/<id>.jpg`；等真封装后再换本地成片。
+
 ## v1.0.0 · 2026-11-17
 
 第一个可交付版本：33 条管线、11 个工位、32 条带样片，契约校验通过。

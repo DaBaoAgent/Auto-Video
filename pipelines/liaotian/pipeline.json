@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "liaotian",
+    "no": "119",
+    "name_zh": "聊天叙事",
+    "name_en": "Chat Narrative",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "故事发生在聊天软件里：气泡、输入中、语音条与引用卡，镜头推进一条时其余变暗。",
+    "engine": "BB-Video styles/chat · 上游 promo",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/liaotian.py",
+    "sample": {
+      "file": "liaotian bb-chat.mp4",
+      "title": "一骑红尘妃子笑 · 聊天群",
+      "seconds": 58.6
+    }
+  },
+  "spec": {
+    "source": "BB-Video",
+    "style_slug": "chat",
+    "upstream_cn": "聊天叙事",
+    "upstream_en": "Chat Narrative",
+    "upstream_line": "One frame is a chat app; the story happens message after message, and the camera pushes into the one that matters.",
+    "upstream_film": "一骑红尘妃子笑 · 聊天群",
+    "upstream_dur": 58.6,
+    "upstream_docs": {
+      "style": "skills/bb-video/styles/chat/STYLE.md",
+      "guide": "skills/bb-video/promo/GUIDE.md",
+      "skill": "skills/bb-video/SKILL.md"
+    },
+    "sample_source": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/chat.mp4",
+    "sample_note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "BB-Video 上游 promo 运行时（Chrome 逐帧）"
+  }
+}

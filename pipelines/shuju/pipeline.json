@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "shuju",
+    "name_zh": "数据叙事",
+    "name_en": "Data Storytelling",
+    "station": "map",
+    "station_no": "08",
+    "tagline": "一百年的夏季气温，图表本身就是故事。",
+    "engine": "lemo styles/dataviz · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/shuju.py",
+    "sample": {
+      "file": "shuju dataviz.mp4",
+      "title": "一百个夏天",
+      "seconds": 50.0
+    },
+    "no": "114"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "dataviz",
+    "upstream_cn": "数据叙事",
+    "upstream_en": "Data Storytelling",
+    "upstream_line": "A hundred years of summer temperatures, where the chart itself tells the story.",
+    "upstream_film": "A Hundred Summers",
+    "upstream_dur": 50.0,
+    "upstream_docs": {
+      "style": "styles/dataviz/STYLE.md",
+      "demo": "styles/dataviz/DEMO.md",
+      "build": "styles/dataviz/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/dataviz.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/engine.js` (Canvas 2D, world units = chart pixels at zoom 1) is the style: paper, camera, value ramps, `pencilStrok…"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "boli",
+    "name_zh": "彩色玻璃窗",
+    "name_en": "Stained Glass",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "阳光从清晨移到黄昏，照到哪一格花窗，哪一格的故事就动起来。",
+    "engine": "lemo styles/stained-glass · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/boli.py",
+    "sample": {
+      "file": "boli stained-glass.mp4",
+      "title": "东窗之龙",
+      "seconds": 56.5
+    },
+    "no": "58"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "stained-glass",
+    "upstream_cn": "彩色玻璃窗",
+    "upstream_en": "Stained Glass",
+    "upstream_line": "Sunlight crosses a cathedral window from dawn to dusk, waking each pane of a knight-and-dragon tale.",
+    "upstream_film": "The Dragon of the East Window",
+    "upstream_dur": 56.5,
+    "upstream_docs": {
+      "style": "styles/stained-glass/STYLE.md",
+      "demo": "styles/stained-glass/DEMO.md",
+      "build": "styles/stained-glass/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/stained-glass.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/`: `glass.js` (pieces, textures, lead, grisaille, lozenges), `comp.js` (WebGL2 compositor), `window.js` (lancet…"
+  }
+}

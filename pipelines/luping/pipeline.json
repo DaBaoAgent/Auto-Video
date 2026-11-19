@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "luping",
+    "name_zh": "像素小人录屏",
+    "name_en": "Mascot Screencast",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "像素小人 Clawd 搬进 Claude 应用，一镜到底演示 Plan 模式和自检。",
+    "engine": "lemo styles/living-screencast · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/luping.py",
+    "sample": {
+      "file": "luping living-screencast.mp4",
+      "title": "Clawd 搬进来了",
+      "seconds": 59.4
+    },
+    "no": "96"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "living-screencast",
+    "upstream_cn": "像素小人录屏",
+    "upstream_en": "Mascot Screencast",
+    "upstream_line": "Clawd hops out of the terminal into the Claude app and acts out plan mode and self-checks in one take.",
+    "upstream_film": "Clawd Moves In",
+    "upstream_dur": 59.4,
+    "upstream_docs": {
+      "style": "styles/living-screencast/STYLE.md",
+      "demo": "styles/living-screencast/DEMO.md",
+      "build": "styles/living-screencast/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/living-screencast.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/`: `film.js` (timeline: VO at fixed times, every visual beat hung on a spoken word with `W(id, word)`, camera m…"
+  }
+}

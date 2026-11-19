@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "jimu",
+    "name_zh": "积木玩具",
+    "name_en": "Brick Toy",
+    "station": "d3",
+    "station_no": "07",
+    "tagline": "积木宇航员用零件拼出火箭，飞向积木月亮。",
+    "engine": "lemo styles/brick-toy · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/jimu.py",
+    "sample": {
+      "file": "jimu brick-toy.mp4",
+      "title": "零件拼出的火箭",
+      "seconds": 54.0
+    },
+    "no": "106"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "brick-toy",
+    "upstream_cn": "积木玩具",
+    "upstream_en": "Brick Toy",
+    "upstream_line": "A brick astronaut builds a rocket from spare parts and flies to a brick moon.",
+    "upstream_film": "Rocket from Spare Parts",
+    "upstream_dur": 54.0,
+    "upstream_docs": {
+      "style": "styles/brick-toy/STYLE.md",
+      "demo": "styles/brick-toy/DEMO.md",
+      "build": "styles/brick-toy/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/brick-toy.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/`: `bricks.js` (rounded brick/plate/round-brick geometry, studs, plastic materials with clearcoat and fingerpri…"
+  }
+}

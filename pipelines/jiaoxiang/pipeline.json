@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "jiaoxiang",
+    "name_zh": "城市交响曲",
+    "name_en": "City Symphony",
+    "station": "live",
+    "station_no": "10",
+    "tagline": "纽约的一天：延时光河、踩着十六分音符的网格，1899 年和今天并排。",
+    "engine": "lemo styles/city-symphony · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/jiaoxiang.py",
+    "sample": {
+      "file": "jiaoxiang city-symphony.mp4",
+      "title": "纽约的一天",
+      "seconds": 52.0
+    },
+    "no": "45"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "city-symphony",
+    "upstream_cn": "城市交响曲",
+    "upstream_en": "City Symphony",
+    "upstream_line": "One day in New York in time-lapse: rivers of light, a grid on the sixteenths, 1899 beside today.",
+    "upstream_film": "One Day in New York",
+    "upstream_dur": 52.0,
+    "upstream_docs": {
+      "style": "styles/city-symphony/STYLE.md",
+      "demo": "styles/city-symphony/DEMO.md",
+      "build": "styles/city-symphony/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/city-symphony.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "1. **Ask the user first** whether they have their own footage, photographs, documents or data for the place: their own t…"
+  }
+}

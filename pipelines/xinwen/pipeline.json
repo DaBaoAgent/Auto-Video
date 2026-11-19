@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xinwen",
+    "name_zh": "1920s 新闻影片",
+    "name_en": "1920s Newsreel",
+    "station": "live",
+    "station_no": "10",
+    "tagline": "1926 年报纸说查尔斯顿会跳坏膝盖，福特工人野餐会上的孩子照跳不误。",
+    "engine": "lemo styles/newsreel · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/xinwen.py",
+    "sample": {
+      "file": "xinwen newsreel.mp4",
+      "title": "膝盖警报",
+      "seconds": 54.6
+    },
+    "no": "43"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "newsreel",
+    "upstream_cn": "1920s 新闻影片",
+    "upstream_en": "1920s Newsreel",
+    "upstream_line": "1926: the papers say the Charleston will ruin America's knees; at Ford's own picnic the kids dance it anyway.",
+    "upstream_film": "Knock-Knee Alert",
+    "upstream_dur": 54.6,
+    "upstream_docs": {
+      "style": "styles/newsreel/STYLE.md",
+      "demo": "styles/newsreel/DEMO.md",
+      "build": "styles/newsreel/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/newsreel.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "Catalogue descriptions matter: a picnic film can contain both old-time dances and the Charleston; use only the shots tha…"
+  }
+}

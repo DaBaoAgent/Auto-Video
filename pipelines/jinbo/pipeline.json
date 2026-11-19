@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "jinbo",
+    "name_zh": "金箔彩绘",
+    "name_en": "Gilded Illumination",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "画里的世界只有金子会发光，可太阳熄了；一个女孩提着最后一盏灯上山，把光还给了太阳。",
+    "engine": "lemo styles/gilded-illumination · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/jinbo.py",
+    "sample": {
+      "file": "jinbo gilded-illumination.mp4",
+      "title": "借来的光",
+      "seconds": 46.8
+    },
+    "no": "59"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "gilded-illumination",
+    "upstream_cn": "金箔彩绘",
+    "upstream_en": "Gilded Illumination",
+    "upstream_line": "In a painted world where only gold shines, the sun goes out; a girl carries the last lamp up the mountain and gives it its light back.",
+    "upstream_film": "Borrowed Light",
+    "upstream_dur": 46.8,
+    "upstream_docs": {
+      "style": "styles/gilded-illumination/STYLE.md",
+      "demo": "styles/gilded-illumination/DEMO.md",
+      "build": "styles/gilded-illumination/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/gilded-illumination.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "lib.js`: math and easing, `monotone`/`track`, the pigment palette, the leaf-square gold texture (`makeGold`, `leafAt`), …"
+  }
+}

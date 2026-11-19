@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "keli",
+    "no": "120",
+    "name_zh": "扁平颗粒插画",
+    "name_en": "Flat Grain Illustration",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "两种专色印在暖纸上，体积与光全靠点状颗粒；一条地平线把时代一段段长出来。",
+    "engine": "BB-Video styles/grain · 上游 promo",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/keli.py",
+    "sample": {
+      "file": "keli bb-grain.mp4",
+      "title": "人类如何照亮夜晚",
+      "seconds": 92.6
+    }
+  },
+  "spec": {
+    "source": "BB-Video",
+    "style_slug": "grain",
+    "upstream_cn": "扁平颗粒插画",
+    "upstream_en": "Flat Grain Illustration",
+    "upstream_line": "A flat vector illustration in two spot colours, with light and volume built from stipple grain.",
+    "upstream_film": "人类如何照亮夜晚",
+    "upstream_dur": 92.6,
+    "upstream_docs": {
+      "style": "skills/bb-video/styles/grain/STYLE.md",
+      "guide": "skills/bb-video/promo/GUIDE.md",
+      "skill": "skills/bb-video/SKILL.md"
+    },
+    "sample_source": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/grain.mp4",
+    "sample_note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "BB-Video 上游 promo 运行时（Chrome 逐帧）"
+  }
+}

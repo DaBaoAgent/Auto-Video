@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "muke",
+    "name_zh": "木刻版画",
+    "name_en": "Woodcut Print",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "村子用一整个冬天铸一口钟，钟声第一次响起，雪停了。",
+    "engine": "lemo styles/woodcut · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/muke.py",
+    "sample": {
+      "file": "muke woodcut.mp4",
+      "title": "铸钟人",
+      "seconds": 58.5
+    },
+    "no": "62"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "woodcut",
+    "upstream_cn": "木刻版画",
+    "upstream_en": "Woodcut Print",
+    "upstream_line": "A village spends a whole winter casting one bell; the first time it rings, the snow stops.",
+    "upstream_film": "The Bell Founder",
+    "upstream_dur": 58.5,
+    "upstream_docs": {
+      "style": "styles/woodcut/STYLE.md",
+      "demo": "styles/woodcut/DEMO.md",
+      "build": "styles/woodcut/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/woodcut.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/engine/index.js` (imports only `/core/lib.js`) carves and prints **any path or shape**, on two canvases: a **mask**…"
+  }
+}

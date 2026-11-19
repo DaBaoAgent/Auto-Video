@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "siyin",
+    "name_zh": "丝印旅行海报",
+    "name_en": "Silkscreen Travel Poster",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "一张满屏丝印海报一座城，票根数着离家的公里数，走到世界的另一头，才发现那是回家的路。",
+    "engine": "lemo styles/silkscreen-poster · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/siyin.py",
+    "sample": {
+      "file": "siyin silkscreen-poster.mp4",
+      "title": "绕远路回家",
+      "seconds": 50.0
+    },
+    "no": "64"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "silkscreen-poster",
+    "upstream_cn": "丝印旅行海报",
+    "upstream_en": "Silkscreen Travel Poster",
+    "upstream_line": "A traveller crosses the world one full-bleed screen print at a time, a ticket stub counting the distance from home, until the far side turns into the way back.",
+    "upstream_film": "The Long Way Home",
+    "upstream_dur": 50.0,
+    "upstream_docs": {
+      "style": "styles/silkscreen-poster/STYLE.md",
+      "demo": "styles/silkscreen-poster/DEMO.md",
+      "build": "styles/silkscreen-poster/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/silkscreen-poster.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/engine/silk.js` prints **any shape** in this style from a `Path2D`: `makeTextures`, `paperSheet`, `ink(ctx, {path, …"
+  }
+}

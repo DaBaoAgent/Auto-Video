@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "liushui",
+    "name_zh": "流水线图解",
+    "name_en": "Assembly-Line Diagram",
+    "station": "diagram",
+    "station_no": "09",
+    "tagline": "把人体剖成一座倒着开的工厂：12:30 的一份三明治被一站一站拆开，六小时后变成追公交车的力气。",
+    "engine": "lemo styles/assembly-line-diagram · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/liushui.py",
+    "sample": {
+      "file": "liushui assembly-line-diagram.mp4",
+      "title": "拆解流水线",
+      "seconds": 54.9
+    },
+    "no": "79"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "assembly-line-diagram",
+    "upstream_cn": "流水线图解",
+    "upstream_en": "Assembly-Line Diagram",
+    "upstream_line": "A body cut open as a factory that runs backwards: a 12:30 sandwich is taken apart station by station, and six hours later it runs for the bus.",
+    "upstream_film": "The Disassembly Line",
+    "upstream_dur": 54.9,
+    "upstream_docs": {
+      "style": "styles/assembly-line-diagram/STYLE.md",
+      "demo": "styles/assembly-line-diagram/DEMO.md",
+      "build": "styles/assembly-line-diagram/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/assembly-line-diagram.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/lib.js`: palettes (`PALS`, `C`), misregistration per plate, `shape`, `txt` (with the far-camera cut-off), `pipe` (i…"
+  }
+}

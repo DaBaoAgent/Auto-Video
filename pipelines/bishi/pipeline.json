@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "bishi",
+    "name_zh": "笔式绘图仪",
+    "name_en": "Pen Plotter",
+    "station": "diagram",
+    "station_no": "09",
+    "tagline": "深夜台灯下，一台笔式绘图仪用四支笔按真实高程画出珠穆朗玛峰，最后一笔写下它的高度。",
+    "engine": "lemo styles/pen-plotter · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/bishi.py",
+    "sample": {
+      "file": "bishi pen-plotter.mp4",
+      "title": "8848.86",
+      "seconds": 49.9
+    },
+    "no": "78"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "pen-plotter",
+    "upstream_cn": "笔式绘图仪",
+    "upstream_en": "Pen Plotter",
+    "upstream_line": "At night under a desk lamp, a pen plotter draws Mount Qomolangma from real elevation data with four pens, and writes its height last.",
+    "upstream_film": "8848.86",
+    "upstream_dur": 49.9,
+    "upstream_docs": {
+      "style": "styles/pen-plotter/STYLE.md",
+      "demo": "styles/pen-plotter/DEMO.md",
+      "build": "styles/pen-plotter/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/pen-plotter.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/plot.js`: `buildProgram(data)` (stroke list → machine ops with kinematics, pen changes, marks), `plotState(G, P)` (…"
+  }
+}

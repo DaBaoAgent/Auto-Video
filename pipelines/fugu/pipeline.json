@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "fugu",
+    "name_zh": "复古版画拼贴",
+    "name_en": "Vintage Engraving Collage",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "1918 年一整版印反了的航空邮票：24 美元买下、剪开散落，66 号至今下落不明。",
+    "engine": "lemo styles/vintage-collage · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/fugu.py",
+    "sample": {
+      "file": "fugu vintage-collage.mp4",
+      "title": "倒置的珍妮",
+      "seconds": 52.0
+    },
+    "no": "67"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "vintage-collage",
+    "upstream_cn": "复古版画拼贴",
+    "upstream_en": "Vintage Engraving Collage",
+    "upstream_line": "A 1918 airmail sheet printed with its plane upside down: bought for $24, cut up and scattered, and number 66 is still missing.",
+    "upstream_film": "The Inverted Jenny",
+    "upstream_dur": 52.0,
+    "upstream_docs": {
+      "style": "styles/vintage-collage/STYLE.md",
+      "demo": "styles/vintage-collage/DEMO.md",
+      "build": "styles/vintage-collage/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/vintage-collage.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "Python (numpy, scipy, Pillow) bakes the parts into `parts/*.png` and `parts/manifest.json`: paper and torn papers (`demo…"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "daoshu",
+    "name_zh": "实时倒计时分屏",
+    "name_en": "Live Countdown Split-screen",
+    "station": "live",
+    "station_no": "10",
+    "tagline": "阿尔忒弥斯二号发射的最后一分钟，一秒不剪：格子从 1 开到 9，点火合成 1。",
+    "engine": "lemo styles/countdown · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/daoshu.py",
+    "sample": {
+      "file": "daoshu countdown.mp4",
+      "title": "自己倒数",
+      "seconds": 59.5
+    },
+    "no": "44"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "countdown",
+    "upstream_cn": "实时倒计时分屏",
+    "upstream_en": "Live Countdown Split-screen",
+    "upstream_line": "The last minute of the Artemis II launch, uncut: one cell opens to nine, and they merge into one at ignition.",
+    "upstream_film": "Counting Itself Down",
+    "upstream_dur": 59.5,
+    "upstream_docs": {
+      "style": "styles/countdown/STYLE.md",
+      "demo": "styles/countdown/DEMO.md",
+      "build": "styles/countdown/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/countdown.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "Materials — ask first.** Before searching, ask the user whether they have their own material of the event: footage from …"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "poumian",
+    "name_zh": "线稿剖面图解",
+    "name_en": "Line-Art Cutaway",
+    "station": "diagram",
+    "station_no": "09",
+    "tagline": "一部手机握住底角就掉信号；拆开才发现金属边框就是天线，被切成几段，手一握就把缝连上了。",
+    "engine": "lemo styles/hardcore-info · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/poumian.py",
+    "sample": {
+      "file": "poumian hardcore-info.mp4",
+      "title": "你手机的天线在哪",
+      "seconds": 52.0
+    },
+    "no": "75"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "hardcore-info",
+    "upstream_cn": "线稿剖面图解",
+    "upstream_en": "Line-Art Cutaway",
+    "upstream_line": "A phone loses signal when held by the corner; taken apart, its metal frame turns out to be the antenna, cut into pieces your hand can bridge.",
+    "upstream_film": "Where Is Your Phone's Antenna?",
+    "upstream_dur": 52.0,
+    "upstream_docs": {
+      "style": "styles/hardcore-info/STYLE.md",
+      "demo": "styles/hardcore-info/DEMO.md",
+      "build": "styles/hardcore-info/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/hardcore-info.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/main.js`: model building helpers (`slab`, `rr`, `box`, `cyl`, `setS` writes the path parameter `aS`, `withR` the ri…"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "youhua",
+    "name_zh": "油画厚涂",
+    "name_en": "Impasto Oil Painting",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "灰色雨中广场，第一把红伞撑开，圆舞曲把整个广场刷上颜色。",
+    "engine": "lemo styles/impasto · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/youhua.py",
+    "sample": {
+      "file": "youhua impasto.mp4",
+      "title": "雨的颜色",
+      "seconds": 39.7
+    },
+    "no": "51"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "impasto",
+    "upstream_cn": "油画厚涂",
+    "upstream_en": "Impasto Oil Painting",
+    "upstream_line": "In a grey, rainy square one red umbrella opens, and a waltz paints the whole plaza in colour.",
+    "upstream_film": "The Colour of Rain",
+    "upstream_dur": 39.7,
+    "upstream_docs": {
+      "style": "styles/impasto/STYLE.md",
+      "demo": "styles/impasto/DEMO.md",
+      "build": "styles/impasto/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/impasto.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "Files: `demo/engine/impasto.js` (renderer), `demo/engine/plate.js` (reference → strokes)."
+  }
+}

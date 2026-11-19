@@ -17,7 +17,7 @@ from av import (REPO, SITE_DIR, load_pipelines, load_stations, read_json,
                 utf8_stdout)
 
 REPO_URL = "https://github.com/DaBaoAgent/Auto-Video"
-DOC_URL = REPO_URL + "/blob/main/{id}/SKILL.md"
+DOC_URL = REPO_URL + "/blob/main/pipelines/{id}/SKILL.md"
 
 
 def main() -> int:
