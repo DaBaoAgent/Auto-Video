@@ -1,6 +1,8 @@
-# 字体（不进仓库）
+# 字体（以清单为主，四款 CJK 大字随仓库走）
 
 60 MB 的字体不该躺在 git 历史里——每次 clone 都要为它付带宽，法律上还要单独审一遍。所以这里**只放清单，不放字体**。
+
+**例外**：四款渲染离不开的中文大字已入库（`KaiTi.ttf` 11.2 MB、`AlibabaPuHuiTi-3-85-Bold.ttf` 8.0 MB、`MaShanZheng-Regular.ttf` 5.6 MB、`LongCang-Regular.ttf` 4.9 MB，约 30 MB），克隆后不必再 `--fetch` 就能出片；其余字体仍按清单下载。
 
 第一次用（或者换了台机器）：
 

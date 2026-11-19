@@ -295,6 +295,11 @@ xuni/projects/009_prion_full/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
 assets/fonts/*.ttf
 assets/fonts/*.woff2
 assets/fonts/*.part
+# 例外：四款 CJK 大字入库，克隆即可渲染，不必再 --fetch
+!assets/fonts/KaiTi.ttf
+!assets/fonts/LongCang-Regular.ttf
+!assets/fonts/MaShanZheng-Regular.ttf
+!assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf
 
 # gangbi（钢笔淡彩）的工程产物与字体落点（字体由 tools/sync_fonts.py 放进来，Code 与配置入库）
 gangbi/projects/*/out/
