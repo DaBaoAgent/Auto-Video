@@ -88,7 +88,7 @@ python ditu/scripts/ditu.py new my_map --title "标题"
 
 1. **`await Promise.all([...].map(...))` 少一个右括号**，整个 module 静默不执行，页面全黑但 `READY` 不会为 true —— 渲染器会等 120 s 超时才报错。
 2. **`const arc` 与 `function arc` 重名**：three.js 的 `ArcCurve` 一次都没被用上，改叫 `take`。
-3. **WebGL 上下文丢失**：虚拟机/远程桌面里 Chrome 会建完就丢，出片全黑且 exit 0。先看 `window.__glLost`，必要时 `$env:LEMO_ANGLE="swiftshader"`（慢 6×）。
+3. **WebGL 上下文丢失**：虚拟机/远程桌面里 Chrome 会建完就丢，出片全黑且 exit 0。先看 `window.__glLost`，必要时 `$env:STYLE_ANGLE="swiftshader"`（慢 6×）。
 4. **水面与地形 z-fighting**：水面片必须比地形高 3.5 mm 以上（`+.0035`），再低就出现条带。
 5. **标签被地形吃掉**：`lift` 给小了，标签一半埋进坡里；按相机高度给 0.6–1.2 km 的抬升。
 6. **一遍避让不够**：46 个营地标签挤在同一个河谷，必须两遍（先按优先级占位，再把剩下的往空位挤）。

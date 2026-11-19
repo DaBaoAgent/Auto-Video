@@ -61,7 +61,7 @@ Native moves spent: *the beat in unison* as the hook; *the cascade* for the take
 
 ## End card
 
-On the dark water at the lower left, word by word on the beat, each with a small ring under it: **HALF** (42.5) **A** (43.0) **BEAT** (43.75, half a beat late), 慢半拍 (44.2), *Silhouette Rhythm · 剪影律动* (44.6), *LemoLab × Claude Opus 5.5* (45.0); held to 49.0 while the line keeps flying. Anton 136 px, Noto Sans SC Black 64 px, Barlow Condensed 40 / 32 px, cream #FFF3E4. The "LemoLab × Claude Opus 5.5" sign-off belongs to this library's demo only; a user's film carries no LemoLab credit and no copy of this card.
+On the dark water at the lower left, word by word on the beat, each with a small ring under it: **HALF** (42.5) **A** (43.0) **BEAT** (43.75, half a beat late), 慢半拍 (44.2), *Silhouette Rhythm · 剪影律动* (44.6), *Auto-Video 样片* (45.0); held to 49.0 while the line keeps flying. Anton 136 px, Noto Sans SC Black 64 px, Barlow Condensed 40 / 32 px, cream #FFF3E4. The "Auto-Video 样片" sign-off belongs to this library's demo only; a user's film carries no such credit and no copy of this card.
 
 ## Build notes
 

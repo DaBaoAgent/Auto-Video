@@ -27,7 +27,7 @@ caiqian/
 | Node | 20+ | 跑 `render.mjs` |
 | ffmpeg / ffprobe | 5.1+（建议 7.x） | 编码、测量响度、质检 |
 | Python | 3.11+ | 跑 `caiqian.py`，只用标准库 |
-| playwright-core | 任意近期版本 | 渲染器会依次找 `$PLAYWRIGHT_CORE`、工程目录向上的 `node_modules`、`$LEMO_OPUSCAR_HOME`、`~/开源风格库`、`%APPDATA%/npm` |
+| playwright-core | 任意近期版本 | 渲染器会依次找 `$PLAYWRIGHT_CORE`、工程目录向上的 `node_modules`、`%APPDATA%/npm` |
 | chromium-headless-shell | — | `node node_modules/playwright-core/cli.js install chromium-headless-shell` |
 
 **不需要 npm install three**：`projects/*/lib/three.module.js` 随工程走，importmap 指向本地文件。

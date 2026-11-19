@@ -41,7 +41,7 @@ labi/
 | Python | 3.11+ | 跑 `labi.py`，只用标准库 |
 | playwright-core | 任意近期版本 | 渲染器优先 `$PLAYWRIGHT_CORE`，其次工程向上找 |
 | chromium-headless-shell | — | `node node_modules/playwright-core/cli.js install chromium-headless-shell` |
-| WebGL2 | SwiftShader 即可 | 无头默认软渲染；出现全黑帧用 `LEMO_ANGLE=swiftshader` |
+| WebGL2 | SwiftShader 即可 | 无头默认软渲染；出现全黑帧用 `STYLE_ANGLE=swiftshader` |
 | 7 款手写体 | OFL 1.1 | `python tools/sync_fonts.py --fetch` 现取 |
 
 **不依赖 three**：合成器是手写 WebGL2，画笔是 Canvas 2D。

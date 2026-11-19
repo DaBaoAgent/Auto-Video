@@ -1,5 +1,5 @@
-Four Seasons in Pomelo Town (柚子城的四季) — Memphis Diorama (Lemo-Opuscar)
-Style and demo by Eian (https://github.com/YIAN6557), contributed to Lemo-Opuscar in pull request #14.
+Four Seasons in Pomelo Town (柚子城的四季) — Memphis Diorama （开源风格库）
+Style and demo by Eian (https://github.com/YIAN6557), contributed to the open-source style library in pull request #14.
 
 No AI-generated images, no stock footage, no photographs, no samples. Every shape, colour, shadow, pattern, letter
 and sound is made by code in this folder: the scene is three.js geometry with a flat ShaderMaterial and an outline

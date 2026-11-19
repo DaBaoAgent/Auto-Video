@@ -199,8 +199,8 @@ function endCard(t) {
   ctx.font = '700 64px Shippori'; ctx.fillText('Toward the Mountain', W / 2, 250);
   ctx.font = '400 34px Yuji'; ctx.fillText('山へ五景', W / 2, 318);
   ctx.font = '700 40px Shippori'; ctx.fillText('U K I Y O - E', W / 2, 790);
-  ctx.font = '500 26px Shippori'; ctx.globalAlpha = a * .85; ctx.fillText('a Lemo-Opuscar demo', W / 2, 840);
-  ctx.font = '500 30px Shippori'; ctx.globalAlpha = a; ctx.fillText('LemoLab  ×  Claude Opus 5.5', W / 2, 920);
+  ctx.font = '500 26px Shippori'; ctx.globalAlpha = a * .85; ctx.fillText('an Auto-Video demo', W / 2, 840);
+  ctx.font = '500 30px Shippori'; ctx.globalAlpha = a; ctx.fillText('Auto-Video 样片', W / 2, 920);
   ctx.restore();
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); drawSeal(ctx, '山旅', W / 2 + 402, 250, 64, clamp((t - T.endcard - .5) / .3), { seed: 31, normal: true }); ctx.restore();
 }

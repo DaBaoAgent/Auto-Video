@@ -704,7 +704,7 @@ function drawTitle(t) {
   if (t >= TITLE.credit) {
     const u = eout(env(t, TITLE.credit, TITLE.credit + .4));
     octx.save(); octx.globalAlpha = u * .92; octx.fillStyle = '#FFF3E4'; octx.font = `500 ${32 * K}px BarlowC`;
-    octx.fillText('LemoLab × Claude Opus 5.5', x + 4 * K - (1 - u) * 24 * K, y + 106 * K); octx.restore();
+    octx.fillText('Auto-Video 样片', x + 4 * K - (1 - u) * 24 * K, y + 106 * K); octx.restore();
   }
 }
 window.TEXTS = t => {
@@ -713,7 +713,7 @@ window.TEXTS = t => {
   out.push({ id: 'title', text: 'HALF A BEAT', x0: x, y0: y - 110 * K, x1: x + L.wAll, y1: y + 6 * K });
   if (t >= TITLE.zh) out.push({ id: 'zh', text: '慢半拍', x0: x + L.wAll + 44 * K, y0: y - 70 * K, x1: x + L.wAll + 44 * K + 200 * K, y1: y + 6 * K });
   if (t >= TITLE.style) out.push({ id: 'style', text: 'Silhouette Rhythm · 剪影律动', x0: x, y0: y + 28 * K, x1: x + 520 * K, y1: y + 74 * K });
-  if (t >= TITLE.credit) out.push({ id: 'credit', text: 'LemoLab × Claude Opus 5.5', x0: x, y0: y + 80 * K, x1: x + 380 * K, y1: y + 116 * K });
+  if (t >= TITLE.credit) out.push({ id: 'credit', text: 'Auto-Video 样片', x0: x, y0: y + 80 * K, x1: x + 380 * K, y1: y + 116 * K });
   return out;
 };
 
@@ -747,6 +747,6 @@ function motionBlur(amount) {
   for (let i = 0; i < n; i++) { octx.globalAlpha = 1 / (i + 2); octx.drawImage(SM, -d / 2 + (i + .5) * d / n, 0); }
   octx.globalAlpha = 1;
 }
-Promise.all([document.fonts.load(`400 40px Anton`, 'HALF A BEAT'), document.fonts.load(`500 40px BarlowC`, 'Silhouette Rhythm LemoLab × Claude Opus 5.5'),
+Promise.all([document.fonts.load(`400 40px Anton`, 'HALF A BEAT'), document.fonts.load(`500 40px BarlowC`, 'Silhouette Rhythm Auto-Video 样片'),
   document.fonts.load(`900 40px SC9`, '慢半拍'), document.fonts.load(`500 40px SC5`, '剪影律动')]).then(() => { window.render(0); window.READY = true; });
 })();

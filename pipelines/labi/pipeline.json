@@ -124,7 +124,7 @@
       "jpeg_quality": 92,
       "crf": 18,
       "preset": "medium",
-      "webgl": "无头 Chromium 默认 SwiftShader；出现「WebGL 上下文丢了」的全黑帧时用 LEMO_ANGLE=swiftshader",
+      "webgl": "无头 Chromium 默认 SwiftShader；出现「WebGL 上下文丢了」的全黑帧时用 STYLE_ANGLE=swiftshader",
       "fps_real": "待实测（1920×1080，单 worker，WebGL2 合成）"
     },
     "delivery": {

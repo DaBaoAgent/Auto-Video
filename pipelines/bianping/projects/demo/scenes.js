@@ -706,7 +706,7 @@ function finale(t) {
 const SIGN_T = 49.1;   // fully written by 49.48 s, held to the end (2.5 s)
 
 // ---------- sign-off: the film's own label grammar (mist caps + cream line + sun line), wiped in line by line ----------
-const SIGN = 'LemoLab × Claude Opus 5.5';
+const SIGN = 'Auto-Video 样片';
 function signOff(p, t, t0, x, y, full = true) {
   if (t < t0) return;
   const A = { 'text-anchor': full ? 'end' : 'start' };

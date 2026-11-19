@@ -175,11 +175,11 @@ export function endCard(g, t) {
   const a = D.ss(D.seg(t, t0 + .6, t0 + 1.4));
   T.goldText(g, 'ART DECO', 960, 480, { size: 44, font: 'Limelight', track: 14, alpha: a });
   g.save(); g.globalAlpha = a; g.textAlign = 'center';
-  g.font = '600 26px Josefin'; if ('letterSpacing' in g) g.letterSpacing = '8px'; g.fillStyle = C.gold2; g.fillText('LEMO-OPUSCAR', 960, 545);
-  g.font = '400 24px Josefin'; if ('letterSpacing' in g) g.letterSpacing = '3px'; g.fillStyle = C.ivory; g.fillText('LemoLab × Claude Opus 5.5', 960, 590);
+  g.font = '600 26px Josefin'; if ('letterSpacing' in g) g.letterSpacing = '8px'; g.fillStyle = C.gold2; g.fillText('AUTO-VIDEO', 960, 545);
+  g.font = '400 24px Josefin'; if ('letterSpacing' in g) g.letterSpacing = '3px'; g.fillStyle = C.ivory; g.fillText('Auto-Video 样片', 960, 590);
   D.gline(g, [[760, 625], [1160, 625]], { w: 1.2 });
   g.font = '400 21px Josefin'; if ('letterSpacing' in g) g.letterSpacing = '1px'; g.fillStyle = C.ivoryD;
-  ['Original score & sound: Lemo-Opuscar · Voices: Kokoro (bm_fable, am_puck)',
+  ['Original score & sound: 开源风格库 · Voices: Kokoro (bm_fable, am_puck)',
     'Piano: “Salamander Grand Piano V3” by Alexander Holm, CC BY 3.0',
     'Samples (CC0): Versilian Studios VSCO 2 CE & VCSL, Karoryfer Samples',
     'Fonts (OFL): Limelight · Poiret One · Josefin Sans · Italiana'].forEach((s, i) => g.fillText(s, 960, 680 + i * 38));

@@ -44,7 +44,7 @@ projects/012_moon/
 | `music/score.py`、`mix.py`、`voices/`、`lines.json` 的 TTS 链 | 不迁（`lines.json` 留作旁白文本参考） | 依赖库内 Python 音频栈与 Kokoro；本管线只管画面与合片 |
 | `events.json`（库内事件导出物） | 不迁 | `film.js` 运行时就有 `EV` |
 | `stills/`、`crayon-book.srt`、`poster.jpg` | 不入库 | 产物可由 `render` / `srt` 重出 |
-| 结尾卡署名 `LemoLab × Claude Opus 5.5` | 改为 `Auto-Video · labi` | 上游 demo 的品牌署名不该出现在本仓库的样片里 |
+| 结尾卡署名 `Auto-Video 样片` | 改为 `Auto-Video · labi` | 上游 demo 的品牌署名不该出现在本仓库的样片里 |
 
 ## 新增
 

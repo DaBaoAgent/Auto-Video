@@ -87,7 +87,7 @@
     "crf": 18,
     "preset": "medium",
     "fps_real": "18–22 fps（1920×1080，单 worker）",
-    "gpu": "WebGL 必须真 GPU；虚拟机要 LEMO_ANGLE=swiftshader（慢 6×）"
+    "gpu": "WebGL 必须真 GPU；虚拟机要 STYLE_ANGLE=swiftshader（慢 6×）"
   },
   "audio": {
     "lufs": -14,
