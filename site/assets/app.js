@@ -70,6 +70,16 @@
       const pl = el("span", "play");
       pl.setAttribute("aria-hidden", "true");
       shot.appendChild(pl);
+    } else if (it.poster) {
+      /* 没有样片、但有封面：出封面卡（如配音前端） */
+      card.classList.add("has-cover");
+      const img = el("img");
+      img.src = it.poster;
+      img.alt = `${it.name_zh || it.title} 封面`;
+      img.loading = "lazy";
+      img.decoding = "async";
+      shot.appendChild(img);
+      shot.appendChild(el("span", "covertag", "封面预览"));
     } else {
       shot.appendChild(el("span", null, esc(it.note || "样片待补")));
     }
