@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/engraving.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "demo/engine/`: `burin.js` (`B.Ink` ordered stroke store + `schedule`, `B.hatch`, `B.engraveTone`, `B.contourHatch`, `B.o…"
+    "engine_note": "一刀一色：形状先定，再用排线造明暗，浅线压在深块上。",
+    "style": {
+      "family": "hatch",
+      "palette": "engrave",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/tongban/projects/demo"
+    }
   }
 }

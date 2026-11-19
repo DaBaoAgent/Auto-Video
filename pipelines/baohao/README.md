@@ -1,28 +1,25 @@
-# baohao —— 包豪斯几何（Bauhaus Shapes）
+# baohao · 包豪斯几何
 
-一个点每十年翻一倍：七十年后是 128，不复利只有 6.02，最后十年抵得上之前的全部。
+大色块 + 大字：几何压底，字按行进场，横线随进度长出来。
 
-| 项 | 值 |
-| --- | --- |
-| 工位 | 05 平面图形 |
-| 上游 | lemo-opuscar `styles/bauhaus-shapes`（包豪斯几何） |
-| 样片 | 《复利是怎么滚起来的》52.0 s，来源 `lemomo-ai/lemo-opuscar-films` |
-| 入口 | `pipelines/baohao/scripts/baohao.py` |
-| 画幅 | 16:9 |
+## 环境
 
-## 跑
+- Node ≥ 18，puppeteer-core（仓库内任意带它的管线即可，默认找 `dengju/node_modules`）
+- Edge 或 Chrome（`STYLE_EDGE` 可指定）
+- ffmpeg 在 PATH 里
+- 字体：`assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf`（仓库自带，OFL）
+
+## 快速开始
 
 ```bash
-python pipelines/baohao/scripts/baohao.py --check   # 体检
-python pipelines/baohao/scripts/baohao.py --plan    # 看步骤
-python pipelines/baohao/scripts/baohao.py           # 复现上游 demo
+python pipelines/baohao/scripts/baohao.py --check
+python pipelines/baohao/scripts/baohao.py --stills 1.2,3.4
+python pipelines/baohao/scripts/baohao.py --render
 ```
 
-上游 demo 在 Linux / WSL 上跑；Windows 原生缺 `.venv/bin/python`。
+产物：`projects/demo/out/baohao.mp4`（1920×1080 / 30 fps）。
 
-## 现状
+## 画面是怎么来的
 
-这条线是**登记 + 上游复现**，还没有搬成本仓库自己的渲染代码：
-画面、镜头、声音全部以 `styles/bauhaus-shapes/STYLE.md` 为准，样片先用上游的。
-要做成「一条文案直接出片」，得把 demo 的 `film.js` 拆成数据驱动的 `template/`，
-再按 `CONTRIBUTING.md` 补样片。
+`vendor/runtime/stylekit.js` 里 平面族的绘制原语 + 本管线 `SPEC` 的几何与色板。
+所有坐标在生成时就写死，运行时不掷骰子。

@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/oscilloscope-math.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "demo/film.py`: `frame(t)` returns the Manim mobjects for second `t` (world, camera `cam(t)`, `chain(t)`, `trace(s, t)`, …"
+    "engine_note": "黑底加色：描线分多遍叠加，亮芯压在光晕上，暗角收边。",
+    "style": {
+      "family": "neon",
+      "palette": "scope",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/shibo/projects/demo"
+    }
   }
 }

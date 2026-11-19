@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/news-package.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "1. **Facts first.** Every on-screen number and every sentence of the voice comes from an official source (the company's …"
+    "engine_note": "大色块 + 大字：几何压底，字按行进场，横线随进度长出来。",
+    "style": {
+      "family": "flat",
+      "palette": "news",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/baozhuang/projects/demo"
+    }
   }
 }

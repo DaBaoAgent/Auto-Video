@@ -1,67 +1,60 @@
 ---
 name: andiao
-description: 暗调励志（Dark Motivational）：几乎全黑的房间只留一盏动机光，方形头小人用眉眼演完熬夜、拖延与那个决定。 上游为 BB-Video styles/lumen，演示站暂用其样片；入口复现上游 demo。
+description: 暗调励志（Dark Motivational Short）：几乎全黑的房间里只有一盏有动机的灯；一个角色用眼睛和眉毛演完整个故事。 本地封装 BB-Video styles/lumen 运行时（runtime/ + template/ + render.mjs），new 建工程、check/stills 验画面、render 出片，不再依赖上游 checkout。
 ---
 
-# andiao：暗调励志（Dark Motivational）
+# andiao：暗调励志（Dark Motivational Short）
 
 | 项 | 值 |
 | --- | --- |
 | 工位 | 06 屏幕赛博 |
-| 上游风格 | BB-Video `skills/bb-video/styles/lumen` |
-| 上游样片 | 《再刷五分钟 · 报复性熬夜》165.3 s |
+| 上游风格 | BB-Video `skills/bb-video/styles/lumen`（运行时已入库） |
+| 演示片 | 《再刷五分钟 · 报复性熬夜》165.3 s（站点暂用上游成片） |
 | 画幅 | 16:9 |
 | 入口 | `pipelines/andiao/scripts/andiao.py` |
 
 ## 这条管线交什么
 
-几乎全黑的房间只留一盏动机光，方形头小人用眉眼演完熬夜、拖延与那个决定。
+几乎全黑的房间里只有一盏有动机的灯；一个角色用眼睛和眉毛演完整个故事。
 
-上游的一句话：A nearly black room lit by one motivated light, with one character acting the whole story through eyes and brows.
+这是一条 **promo 型**风格：默认不配旁白，信息写在画面上；配乐与音效由 `score.js` / `sound.js` 在页面里合成。画面语言、可用组件与禁止事项见 [`references/style.md`](references/style.md)，那是上游 `STYLE.md` 的原文。
 
 ## 入口命令
 
 ```bash
-# 1. 先看这台机器够不够（BB-Video 的 checkout + node 18+ + ffmpeg）
-python pipelines/andiao/scripts/andiao.py --check
+# 1. 建工程（复制 template + runtime 到工程的 lib/）
+python pipelines/andiao/scripts/andiao.py new projects/andiao_demo --title "片名"
 
-# 2. 只看要跑哪些步骤，不执行
-python pipelines/andiao/scripts/andiao.py --plan
+# 2. 改 brief.md / storyboard.md / index.html / score.js / sound.js
 
-# 3. 真跑：用上游 new.mjs 建工程，再 render.mjs 出片
-python pipelines/andiao/scripts/andiao.py
+# 3. 自检与抽帧（--check 0 error 才算过）
+python pipelines/andiao/scripts/andiao.py check projects/andiao_demo
+python pipelines/andiao/scripts/andiao.py stills projects/andiao_demo --times 2,5,8
 
-# 想少写一点画面，加 --quick（上游快速版）
-python pipelines/andiao/scripts/andiao.py --quick
+# 4. 出片（样片可 720p）
+python pipelines/andiao/scripts/andiao.py render projects/andiao_demo --scale 0.6667
+
+# 5. 交付
+python pipelines/andiao/scripts/andiao.py deliver projects/andiao_demo --chugao 出稿/andiao_片名 --name "andiao_片名_1080p"
 ```
 
-## 参数
+## 工程结构
 
-- `--check` 只体检不出片；
-- `--plan` 打印步骤；
-- `--out` 指定工程目录，默认 `out/bb-lumen`；
-- 上游库位置默认 `D:/@kaifa/BB-Video`，可用 `BB_VIDEO_DIR` 或 `--bb` 覆盖；
-- 上游要 Chrome / Edge；渲染器会自己找，也可按上游文档设 `CHROME_PATH`。
+| 路径 | 内容 |
+| --- | --- |
+| `runtime/` | 共享运行时 `core.js` / `promo.js` + 风格运行时 `lumen.js` + 渲染器 `render.mjs`；MIT，见 `runtime/LICENSE.BB-Video` |
+| `template/` | 起步工程：`index.html`、`score.js`、`sound.js`、`brief.md`、`assets/manifest.js` |
+| `references/` | `style.md`（上游风格规范原文）、`storyboard.md`、`qa.md` |
+| `scripts/` | 本管线编排：new / check / stills / render / probe / qa / deliver |
 
-## 引擎
+## 写法要点
 
-BB-Video 上游 promo 运行时（Chrome 逐帧）
+- **先读 `references/style.md` 再写画面**：上游明确要求选风格后先读 STYLE.md，组件名和镜头语法都在里面。
+- **每个屏幕文字都能回到 `brief.md`**：`--check` 会核对画面文字与事实表，没写进 brief 的字会被拦。
+- **promo 靠节拍**：用 `F.beat(n)` 排事件，不要用秒数硬写；镜头推进、字卡、音效都卡在同一张节奏表上。
+- **颜色/字体从 pipeline.json 的定版参数来**：不要在页面里随手改主题色；需要变体时在 `PROMO.compose({ theme })` 里显式声明。
+- **`--check` 报 error 不许出片**：先补 brief / 补信息画面，再 render。
 
-## 验收
+## 许可
 
-- `python tools/validate.py` 通过（catalog / pipeline.json / SKILL.md 三方一致）；
-- 站点卡片能播样片（样片取自 BB-Video `samples` release）；
-- 出片与上游《再刷五分钟 · 报复性熬夜》同画幅、同帧率，−16 LUFS。
-
-## 已知坑
-
-1. **这条线是登记 + 上游复现**：画法、镜头和声音都在 BB-Video，本仓库没有搬运行时代码。
-2. **样片是借的**：站点现在放的是 BB-Video 的 1080p 成片外链，不是本仓库渲的；真封装后换成本地 `projects/` 出片。
-3. **上游样片的手写画面不可 --quick 复刻**：快速版只保证同一套风格材质，分幕和美术是简版。
-4. **字体现取**：上游页面从 jsDelivr 拉 @fontsource，首次渲染要联网。
-
-## 上游文档
-
-- 风格不变量：`skills/bb-video/styles/lumen/STYLE.md`
-- 工作流：`skills/bb-video/promo/GUIDE.md`（本管线走 promo）
-- 风格表与适用题材：`skills/bb-video/SKILL.md`
+运行时代码来自 [BB-Video](https://github.com/BubbleBrainBB/BB-Video)（MIT），许可见 `runtime/LICENSE.BB-Video`；风格规范与起步工程整理自同一仓库，见 [CREDITS.md](CREDITS.md) 与 [MIGRATION.md](MIGRATION.md)。

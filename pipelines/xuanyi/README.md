@@ -1,28 +1,40 @@
-# xuanyi —— 悬疑探秘（Suspense Mystery）
+# xuanyi · 悬疑探秘管线
 
-冷面伪科学电视：4:3 蓝屏、编号症状、橡皮管贴纸演一遍，最后切到测试卡。
+一帧是一套悬疑探秘的画法：冷面伪科学电视：4:3 蓝屏、编号症状、橡皮管贴纸演一遍，最后切到测试卡。 运行时已完整入库，`new` 复制 `template/` 与 `runtime/` 到工程 `lib/`，`render` 直接调本地 `runtime/render.mjs`，不再需要上游 checkout。
 
-| 项 | 值 |
-| --- | --- |
-| 工位 | 06 屏幕赛博 |
-| 上游 | BB-Video `skills/bb-video/styles/mystery`（悬疑探秘） |
-| 样片 | 《为什么你的朋友该叫你爸爸》44.4 s，来源 BB-Video `samples` release |
-| 入口 | `pipelines/xuanyi/scripts/xuanyi.py` |
-| 画幅 | 16:9 |
+首个实例就是 `template/` 的起步工程（26 s / 1080p）。完整流程与已知坑见 [SKILL.md](SKILL.md)，风格规范见 [references/style.md](references/style.md)，定版参数见 [pipeline.json](pipeline.json)，来源与同步见 [MIGRATION.md](MIGRATION.md)。
 
-## 跑
+## 快速开始
 
 ```bash
-python pipelines/xuanyi/scripts/xuanyi.py --check   # 体检
-python pipelines/xuanyi/scripts/xuanyi.py --plan    # 看步骤
-python pipelines/xuanyi/scripts/xuanyi.py           # 建工程 + 出片（调上游 new.mjs / render.mjs）
+python scripts/xuanyi.py new projects/<名字> --title "片名"
+python scripts/xuanyi.py check projects/<名字>
+python scripts/xuanyi.py stills projects/<名字> --times 2,5,8
+python scripts/xuanyi.py render projects/<名字> --scale 0.6667
 ```
 
-要先把 BB-Video clone 到本机（默认 `D:/@kaifa/BB-Video`），或用 `BB_VIDEO_DIR` 指过去。
+## 环境
 
-## 现状
+- Node 18+、ffmpeg / ffprobe 在 PATH
+- Chrome 或 Edge（Windows 下脚本自动找；否则设 `CHROME_PATH`）
+- Python 3.9+（只用标准库）
 
-这条线是**登记 + 上游复现**，还没有搬成本仓库自己的渲染代码：
-画面、镜头、声音全部以 `styles/mystery/STYLE.md` 为准，样片先用 BB-Video 的。
-要做成「一条文案直接出片」，得把上游 starter 拆成数据驱动的 `template/`，
-再按 `CONTRIBUTING.md` 补样片。
+## 目录
+
+| 目录 | 内容 |
+|---|---|
+| `runtime/` | 浏览器运行时 + 渲染器（BB-Video MIT） |
+| `scripts/` | 建工程、自检、抽帧、渲染、QA、交付 |
+| `references/` | 风格规范、分镜模板、验收清单 |
+| `template/` | 起步工程（无音频与成片） |
+
+## 风格要点
+
+- **两套看法**：默认“症状清单”版；`look:'case'` 是案卷版（雾、划掉的猜测、证据板、红绳）。
+- **冷面电视感**：4:3 蓝屏、管状暗角、台标、底部“虚构内容”爬行条，一个都不能少。
+- **症状用贴纸演**：每个编号症状由一个橡皮管贴纸角色演出来，不要用真人或照片。
+- **最后切测试卡**：信号中断是风格的收尾，不是事故。
+
+## 许可
+
+运行时代码来自 [BB-Video](https://github.com/BubbleBrainBB/BB-Video)（MIT），见 `runtime/LICENSE.BB-Video` 与 [CREDITS.md](CREDITS.md)。

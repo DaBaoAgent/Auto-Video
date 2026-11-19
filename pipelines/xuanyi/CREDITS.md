@@ -1,6 +1,15 @@
-# CREDITS · xuanyi
+# 鸣谢与许可 · xuanyi（悬疑探秘）
 
-- **风格来源**：BB-Video `skills/bb-video/styles/mystery`（悬疑探秘 / Suspense Mystery），MIT，版权声明见 BB-Video 仓库 `LICENSE`。
-- **画法**：上游代码自己画；不搬运原片、不生成图。
-- **样片**：《为什么你的朋友该叫你爸爸》，来自 BB-Video `samples` release（https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/mystery.mp4），仅作演示站短片，未入库。
-- **本仓库代码**：入口 `scripts/xuanyi.py` 只做编排与体检，不含上游渲染代码。
+## 运行时代码
+
+- **BB-Video** — `runtime/core.js`、`runtime/promo.js`、`runtime/mystery.js` 及渲染链（`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/`）来自 BB-Video，MIT License，许可见 `runtime/LICENSE-upstream`。
+- 本管线的 `scripts/`、`references/`、`template/` 整理自 BB-Video 的 `mystery` 风格，MIT（与 Auto-Video 同许可）。
+
+## 字体（OFL）
+
+页面从 jsDelivr `@fontsource` 加载字体，渲染器缓存到 `~/.cache/auto-video/fonts`；具体字体清单见 `template/index.html` 的 `<link>`。
+
+## 样片
+
+- 演示站暂用 BB-Video 的 `mystery.mp4` 成片；本管线渲染的是 `template/` 起步工程，不含该成片。
+- 不虚构事实、数字或来源；所有屏幕文字以工程的 `brief.md` 为准。

@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/white-model.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "demo/studio.js` — `makeStudio(W, H, model)`: renderer, post, room, the projection material (`projMaterial(kind)` injects…"
+    "engine_note": "等轴测：体块按 x/y/z 投影，顶面提亮、左面中间调、右面压暗，落地投影跟着走。",
+    "style": {
+      "family": "iso",
+      "palette": "white",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/baimo/projects/demo"
+    }
   }
 }

@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/midcentury-toon.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "demo/engine/toon.js` (the style: `setClock`, `shape` for any shape in the style, `ink` ribbons, `plane`, two-plate `text…"
+    "engine_note": "平涂加描边：天空渐变、角色几何化剪影、速度线与地平线。",
+    "style": {
+      "family": "cel",
+      "palette": "midcentury",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/wushi/projects/demo"
+    }
   }
 }

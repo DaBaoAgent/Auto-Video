@@ -1,6 +1,6 @@
 {
-  "note": "BB-Video 的 37 个风格 → Auto-Video 处置表。disposition=import 的才生成管线；already 表示本仓库已直接迁移；equivalent 表示同族等价，指向已有的那条管线。id 按仓库传统取中文名的双拼，station 是交付工位，不是画法分类。",
-  "updated": "2026-11-19",
+  "note": "BB-Video 的 37 个风格 → Auto-Video 处置表。disposition=import 的已生成管线并完成本地封装（vendored=true）；already 表示本仓库已直接迁移；equivalent 表示同族等价，指向已有的那条管线。id 按仓库传统取中文名的双拼，station 是交付工位，不是画法分类。",
+  "updated": "2026-11-20",
   "source": "https://github.com/BubbleBrainBB/BB-Video",
   "styles": {
     "chat": {
@@ -11,7 +11,8 @@
       "tagline": "故事发生在聊天软件里：气泡、输入中、语音条与引用卡，镜头推进一条时其余变暗。",
       "disposition": "import",
       "sample_title": "一骑红尘妃子笑 · 聊天群",
-      "sample_seconds": 58.6
+      "sample_seconds": 58.6,
+      "vendored": true
     },
     "grain": {
       "id": "keli",
@@ -21,7 +22,8 @@
       "tagline": "两种专色印在暖纸上，体积与光全靠点状颗粒；一条地平线把时代一段段长出来。",
       "disposition": "import",
       "sample_title": "人类如何照亮夜晚",
-      "sample_seconds": 92.6
+      "sample_seconds": 92.6,
+      "vendored": true
     },
     "lumen": {
       "id": "andiao",
@@ -31,7 +33,8 @@
       "tagline": "几乎全黑的房间只留一盏动机光，方形头小人用眉眼演完熬夜、拖延与那个决定。",
       "disposition": "import",
       "sample_title": "再刷五分钟 · 报复性熬夜",
-      "sample_seconds": 165.3
+      "sample_seconds": 165.3,
+      "vendored": true
     },
     "mystery": {
       "id": "xuanyi",
@@ -41,7 +44,8 @@
       "tagline": "冷面伪科学电视：4:3 蓝屏、编号症状、橡皮管贴纸演一遍，最后切到测试卡。",
       "disposition": "import",
       "sample_title": "为什么你的朋友该叫你爸爸",
-      "sample_seconds": 44.4
+      "sample_seconds": 44.4,
+      "vendored": true
     },
     "op": {
       "id": "oupu",
@@ -51,7 +55,8 @@
       "tagline": "黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。",
       "disposition": "import",
       "sample_title": "Stripe · 官网",
-      "sample_seconds": 22.3
+      "sample_seconds": 22.3,
+      "vendored": true
     },
     "trailer": {
       "id": "yugao",
@@ -61,9 +66,9 @@
       "tagline": "2.39:1 遮幅的好莱坞预告：青橙调、黑底金属字卡、钢琴一记、BRAAM 与标题砸屏。",
       "disposition": "import",
       "sample_title": "Deep Space Echo · 预告",
-      "sample_seconds": 83.2
+      "sample_seconds": 83.2,
+      "vendored": true
     },
-
     "blueprint": {
       "disposition": "already",
       "id": "blueprint",
@@ -109,7 +114,6 @@
       "id": "tapestry",
       "reason": "2026-11-09 已直接迁移"
     },
-
     "ink": {
       "disposition": "equivalent",
       "id": "shuimo",

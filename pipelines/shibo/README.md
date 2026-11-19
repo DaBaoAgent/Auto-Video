@@ -1,28 +1,25 @@
-# shibo —— 示波器数学（Oscilloscope Math）
+# shibo · 示波器数学
 
-方方正正的波，怎么由圆滚出来？一个个圆叠成方波，直到镜头扎进一个角：那里有一个永远消不掉的 9% 尖角。
+黑底加色：描线分多遍叠加，亮芯压在光晕上，暗角收边。
 
-| 项 | 值 |
-| --- | --- |
-| 工位 | 06 屏幕赛博 |
-| 上游 | lemo-opuscar `styles/oscilloscope-math`（示波器数学） |
-| 样片 | 《吉布斯现象》51.1 s，来源 `lemomo-ai/lemo-opuscar-films` |
-| 入口 | `pipelines/shibo/scripts/shibo.py` |
-| 画幅 | 16:9 |
+## 环境
 
-## 跑
+- Node ≥ 18，puppeteer-core（仓库内任意带它的管线即可，默认找 `dengju/node_modules`）
+- Edge 或 Chrome（`STYLE_EDGE` 可指定）
+- ffmpeg 在 PATH 里
+- 字体：`assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf`（仓库自带，OFL）
+
+## 快速开始
 
 ```bash
-python pipelines/shibo/scripts/shibo.py --check   # 体检
-python pipelines/shibo/scripts/shibo.py --plan    # 看步骤
-python pipelines/shibo/scripts/shibo.py           # 复现上游 demo
+python pipelines/shibo/scripts/shibo.py --check
+python pipelines/shibo/scripts/shibo.py --stills 1.2,3.4
+python pipelines/shibo/scripts/shibo.py --render
 ```
 
-上游 demo 在 Linux / WSL 上跑；Windows 原生缺 `.venv/bin/python`。
+产物：`projects/demo/out/shibo.mp4`（1920×1080 / 30 fps）。
 
-## 现状
+## 画面是怎么来的
 
-这条线是**登记 + 上游复现**，还没有搬成本仓库自己的渲染代码：
-画面、镜头、声音全部以 `styles/oscilloscope-math/STYLE.md` 为准，样片先用上游的。
-要做成「一条文案直接出片」，得把 demo 的 `film.js` 拆成数据驱动的 `template/`，
-再按 `CONTRIBUTING.md` 补样片。
+`vendor/runtime/stylekit.js` 里 霓虹族的绘制原语 + 本管线 `SPEC` 的几何与色板。
+所有坐标在生成时就写死，运行时不掷骰子。

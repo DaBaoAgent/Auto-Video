@@ -1,28 +1,25 @@
-# chaijie —— 产品拆解（Exploded Teardown）
+# chaijie · 产品拆解
 
-开源键盘的一半在一次环绕中逐层拆开，看到主控再合拢，标上真实尺寸。
+先画线再标尺寸：主体、引线、图号分层出现，像一张正在被画完的图纸。
 
-| 项 | 值 |
-| --- | --- |
-| 工位 | 09 图纸说明 |
-| 上游 | lemo-opuscar `styles/teardown`（产品拆解） |
-| 样片 | 《二十一键》38.8 s，来源 `lemomo-ai/lemo-opuscar-films` |
-| 入口 | `pipelines/chaijie/scripts/chaijie.py` |
-| 画幅 | 16:9 |
+## 环境
 
-## 跑
+- Node ≥ 18，puppeteer-core（仓库内任意带它的管线即可，默认找 `dengju/node_modules`）
+- Edge 或 Chrome（`STYLE_EDGE` 可指定）
+- ffmpeg 在 PATH 里
+- 字体：`assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf`（仓库自带，OFL）
+
+## 快速开始
 
 ```bash
-python pipelines/chaijie/scripts/chaijie.py --check   # 体检
-python pipelines/chaijie/scripts/chaijie.py --plan    # 看步骤
-python pipelines/chaijie/scripts/chaijie.py           # 复现上游 demo
+python pipelines/chaijie/scripts/chaijie.py --check
+python pipelines/chaijie/scripts/chaijie.py --stills 1.2,3.4
+python pipelines/chaijie/scripts/chaijie.py --render
 ```
 
-上游 demo 在 Linux / WSL 上跑；Windows 原生缺 `.venv/bin/python`。
+产物：`projects/demo/out/chaijie.mp4`（1920×1080 / 30 fps）。
 
-## 现状
+## 画面是怎么来的
 
-这条线是**登记 + 上游复现**，还没有搬成本仓库自己的渲染代码：
-画面、镜头、声音全部以 `styles/teardown/STYLE.md` 为准，样片先用上游的。
-要做成「一条文案直接出片」，得把 demo 的 `film.js` 拆成数据驱动的 `template/`，
-再按 `CONTRIBUTING.md` 补样片。
+`vendor/runtime/stylekit.js` 里 图纸族的绘制原语 + 本管线 `SPEC` 的几何与色板。
+所有坐标在生成时就写死，运行时不掷骰子。

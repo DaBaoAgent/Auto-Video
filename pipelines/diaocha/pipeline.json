@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/visual-investigation.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "1. **Ask the user first.** Before searching: does the user have their own footage, photos, documents, recordings or data…"
+    "engine_note": "场 + 等值线 + 站点：先铺色斑，再压等高圈，最后点数据与线路。",
+    "style": {
+      "family": "map",
+      "palette": "crimson",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/diaocha/projects/demo"
+    }
   }
 }

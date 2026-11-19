@@ -1,16 +1,17 @@
-"""金箔彩绘 入口：复现 lemo-opuscar `styles/gilded-illumination` 的上游 demo 成片。
+""" 金箔彩绘（jinbo）：自研渲染入口。
 
-真正的画法在上游，这里只负责体检 / 打印步骤 / 调用 build.sh。
+画面由仓库自己的 vendor/runtime/stylekit.js 画，帧由 style-frames.mjs 抓，
+不调用任何外部仓库的脚本。
 """
 
 import sys
 from pathlib import Path
 
-# 入口可能在 pipelines/<id>/scripts/ 也可能在 <id>/scripts/，向上找带 tools/lemo_style.py 的那层
 for up in Path(__file__).resolve().parents:
-    if (up / "tools" / "lemo_style.py").exists():
+    if (up / "tools" / "av_style.py").exists():
         sys.path.insert(0, str(up / "tools"))
         break
-from lemo_style import main
 
-raise SystemExit(main("gilded-illumination"))
+from av_style import main  # noqa: E402
+
+raise SystemExit(main("jinbo"))

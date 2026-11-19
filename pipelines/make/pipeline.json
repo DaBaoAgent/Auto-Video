@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/marker-paper.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "demo/pen.js`: `Stroke` (resample, smooth, wobble, boil, corners), shapes (`line`, `poly`, `curve`, `arc`, `circle`, `rec…"
+    "engine_note": "逐笔写出来：每一笔有起笔时间，高亮带压在关键笔画上。",
+    "style": {
+      "family": "board",
+      "palette": "marker",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/make/projects/demo"
+    }
   }
 }

@@ -33,6 +33,13 @@
     },
     "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/silkscreen-poster.mp4",
     "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "demo/engine/silk.js` prints **any shape** in this style from a `Path2D`: `makeTextures`, `paperSheet`, `ink(ctx, {path, …"
+    "engine_note": "网点分色：同形状叠两三版网，套色故意偏 2–3 px，出印刷的错位感。",
+    "style": {
+      "family": "halftone",
+      "palette": "chrome",
+      "kit": "vendor/runtime/stylekit.js",
+      "harness": "vendor/runtime/style-frames.mjs",
+      "project": "pipelines/siyin/projects/demo"
+    }
   }
 }

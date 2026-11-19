@@ -8,7 +8,7 @@
     "station": "graphic",
     "station_no": "05",
     "tagline": "黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。",
-    "engine": "BB-Video styles/op · 上游 promo",
+    "engine": "Canvas · Chrome 逐帧（本地运行时）",
     "aspect": "16:9",
     "fps": 30,
     "entry": "scripts/oupu.py",
@@ -16,7 +16,9 @@
       "file": "oupu bb-op.mp4",
       "title": "Stripe · 官网",
       "seconds": 22.3
-    }
+    },
+    "status": "live",
+    "updated": "2026-11-20"
   },
   "spec": {
     "source": "BB-Video",
@@ -32,7 +34,19 @@
       "skill": "skills/bb-video/SKILL.md"
     },
     "sample_source": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/op.mp4",
-    "sample_note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片",
-    "engine_note": "BB-Video styles/WebGL 画法 · 上游 promo 运行时（Chrome 逐帧）"
+    "sample_note": "演示站暂用 BB-Video 成片；管线本身已本地封装，渲染走 runtime/render.mjs",
+    "engine_note": "本地 runtime/render.mjs，不依赖上游 checkout",
+    "vendored": true,
+    "runtime": {
+      "style": "runtime/op.js",
+      "shared": [
+        "runtime/core.js",
+        "runtime/promo.js",
+        "runtime/render.mjs"
+      ],
+      "license": "runtime/LICENSE.BB-Video"
+    },
+    "template": "template/",
+    "migration": "MIGRATION.md"
   }
 }
