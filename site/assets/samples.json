@@ -10,7 +10,7 @@
     "note": "逐帧统计 YDIF（运动）与 edgedetect 边缘密度，排除白屏 / 黑场 / 空镜后取动作最丰富的一帧；首尾各 0.7 秒不选",
     "overrides": "tools/poster_overrides.json，人工挑帧优先于自动选帧"
   },
-  "generated_from": "D:/@kaifa/lemo-film-cache + 原有清单",
+  "generated_from": "D:/@kaifa/lemo-film-cache + 原有清单 + BB-Video 6 条",
   "items": [
     {
       "key": "jianying",
@@ -1317,12 +1317,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 59.5,
-      "duration": "1:00",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 4.75,
         "motion": 14.34,
@@ -1334,7 +1334,7 @@
       "mp4": "media/zimu.mp4",
       "poster": "media/zimu.jpg",
       "source": "zimu caption-news.mp4",
-      "bytes": 2204273
+      "bytes": 847059
     },
     {
       "key": "xinwen",
@@ -1347,12 +1347,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 54.6,
-      "duration": "0:55",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 6.65,
         "motion": 14.52,
@@ -1364,7 +1364,7 @@
       "mp4": "media/xinwen.mp4",
       "poster": "media/xinwen.jpg",
       "source": "xinwen newsreel.mp4",
-      "bytes": 2358852
+      "bytes": 805086
     },
     {
       "key": "daoshu",
@@ -1377,12 +1377,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 59.5,
-      "duration": "1:00",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 10.09,
         "motion": 7.85,
@@ -1394,7 +1394,7 @@
       "mp4": "media/daoshu.mp4",
       "poster": "media/daoshu.jpg",
       "source": "daoshu countdown.mp4",
-      "bytes": 1340978
+      "bytes": 619253
     },
     {
       "key": "jiaoxiang",
@@ -1407,12 +1407,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 3.0,
         "motion": 31.75,
@@ -1424,7 +1424,7 @@
       "mp4": "media/jiaoxiang.mp4",
       "poster": "media/jiaoxiang.jpg",
       "source": "jiaoxiang city-symphony.mp4",
-      "bytes": 6237347
+      "bytes": 1983592
     },
     {
       "key": "diaocha",
@@ -1437,12 +1437,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 60.0,
-      "duration": "1:00",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 6.0,
         "motion": 15.44,
@@ -1454,7 +1454,7 @@
       "mp4": "media/diaocha.mp4",
       "poster": "media/diaocha.jpg",
       "source": "diaocha visual-investigation.mp4",
-      "bytes": 1319616
+      "bytes": 672843
     },
     {
       "key": "mengtai",
@@ -1467,12 +1467,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 60.0,
-      "duration": "1:00",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 5.86,
         "motion": 43.4,
@@ -1484,7 +1484,7 @@
       "mp4": "media/mengtai.mp4",
       "poster": "media/mengtai.jpg",
       "source": "mengtai kino-montage.mp4",
-      "bytes": 3664223
+      "bytes": 1490811
     },
     {
       "key": "zhanshu",
@@ -1497,12 +1497,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 54.4,
-      "duration": "0:54",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.06,
         "motion": 20.47,
@@ -1514,7 +1514,7 @@
       "mp4": "media/zhanshu.mp4",
       "poster": "media/zhanshu.jpg",
       "source": "zhanshu telestrator.mp4",
-      "bytes": 3473698
+      "bytes": 1228817
     },
     {
       "key": "baozhuang",
@@ -1527,12 +1527,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 53.5,
-      "duration": "0:54",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 6.66,
         "motion": 6.73,
@@ -1544,7 +1544,7 @@
       "mp4": "media/baozhuang.mp4",
       "poster": "media/baozhuang.jpg",
       "source": "baozhuang news-package.mp4",
-      "bytes": 1249890
+      "bytes": 585520
     },
     {
       "key": "dangan",
@@ -1557,12 +1557,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 40.0,
-      "duration": "0:40",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 4.97,
         "motion": 18.95,
@@ -1574,7 +1574,7 @@
       "mp4": "media/dangan.mp4",
       "poster": "media/dangan.jpg",
       "source": "dangan archive-lighttable.mp4",
-      "bytes": 2749710
+      "bytes": 1031344
     },
     {
       "key": "youhua",
@@ -1587,12 +1587,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 39.7,
-      "duration": "0:40",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.23,
         "motion": 10.58,
@@ -1604,7 +1604,7 @@
       "mp4": "media/youhua.mp4",
       "poster": "media/youhua.jpg",
       "source": "youhua impasto.mp4",
-      "bytes": 4298761
+      "bytes": 950223
     },
     {
       "key": "yibi",
@@ -1617,12 +1617,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 47.5,
-      "duration": "0:48",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "fallback": "no-valid-frame",
         "seconds": 2.0
@@ -1630,7 +1630,7 @@
       "mp4": "media/yibi.mp4",
       "poster": "media/yibi.jpg",
       "source": "yibi one-line.mp4",
-      "bytes": 1120243
+      "bytes": 511599
     },
     {
       "key": "baiban",
@@ -1643,12 +1643,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 111.0,
-      "duration": "1:51",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "fallback": "no-valid-frame",
         "seconds": 2.0
@@ -1656,7 +1656,7 @@
       "mp4": "media/baiban.mp4",
       "poster": "media/baiban.jpg",
       "source": "baiban whiteboard.mp4",
-      "bytes": 1660171
+      "bytes": 708553
     },
     {
       "key": "heiban",
@@ -1669,12 +1669,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 49.3,
-      "duration": "0:49",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 13.93,
         "motion": 9.06,
@@ -1686,7 +1686,7 @@
       "mp4": "media/heiban.mp4",
       "poster": "media/heiban.jpg",
       "source": "heiban chalkboard.mp4",
-      "bytes": 1410003
+      "bytes": 536279
     },
     {
       "key": "biji",
@@ -1699,12 +1699,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 51.0,
-      "duration": "0:51",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 8.16,
         "motion": 28.04,
@@ -1716,7 +1716,7 @@
       "mp4": "media/biji.mp4",
       "poster": "media/biji.jpg",
       "source": "biji sketchnote.mp4",
-      "bytes": 2811178
+      "bytes": 824563
     },
     {
       "key": "make",
@@ -1729,12 +1729,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "fallback": "no-valid-frame",
         "seconds": 2.0
@@ -1742,7 +1742,7 @@
       "mp4": "media/make.mp4",
       "poster": "media/make.jpg",
       "source": "make marker-paper.mp4",
-      "bytes": 1073894
+      "bytes": 557686
     },
     {
       "key": "jianzhi",
@@ -1755,12 +1755,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 49.0,
-      "duration": "0:49",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.78,
         "motion": 9.41,
@@ -1772,7 +1772,7 @@
       "mp4": "media/jianzhi.mp4",
       "poster": "media/jianzhi.jpg",
       "source": "jianzhi papercut-red.mp4",
-      "bytes": 1894770
+      "bytes": 835797
     },
     {
       "key": "boli",
@@ -1785,12 +1785,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 56.5,
-      "duration": "0:57",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 17.07,
         "motion": 11.06,
@@ -1802,7 +1802,7 @@
       "mp4": "media/boli.mp4",
       "poster": "media/boli.jpg",
       "source": "boli stained-glass.mp4",
-      "bytes": 1659057
+      "bytes": 680329
     },
     {
       "key": "jinbo",
@@ -1815,12 +1815,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 46.8,
-      "duration": "0:47",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 3.73,
         "motion": 12.22,
@@ -1832,7 +1832,7 @@
       "mp4": "media/jinbo.mp4",
       "poster": "media/jinbo.jpg",
       "source": "jinbo gilded-illumination.mp4",
-      "bytes": 2788814
+      "bytes": 1152815
     },
     {
       "key": "kongban",
@@ -1845,12 +1845,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 40.0,
-      "duration": "0:40",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.25,
         "motion": 13.53,
@@ -1862,7 +1862,7 @@
       "mp4": "media/kongban.mp4",
       "poster": "media/kongban.jpg",
       "source": "kongban risograph.mp4",
-      "bytes": 10222139
+      "bytes": 2373998
     },
     {
       "key": "wangdian",
@@ -1875,12 +1875,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 30.0,
-      "duration": "0:30",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 3.74,
         "motion": 16.73,
@@ -1892,7 +1892,7 @@
       "mp4": "media/wangdian.mp4",
       "poster": "media/wangdian.jpg",
       "source": "wangdian halftone-dossier.mp4",
-      "bytes": 4439276
+      "bytes": 1514522
     },
     {
       "key": "muke",
@@ -1905,12 +1905,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 58.5,
-      "duration": "0:59",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.57,
         "motion": 30.39,
@@ -1922,7 +1922,7 @@
       "mp4": "media/muke.mp4",
       "poster": "media/muke.jpg",
       "source": "muke woodcut.mp4",
-      "bytes": 7088968
+      "bytes": 2042464
     },
     {
       "key": "tongban",
@@ -1935,12 +1935,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 40.0,
-      "duration": "0:40",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 10.91,
         "motion": 32.02,
@@ -1952,7 +1952,7 @@
       "mp4": "media/tongban.mp4",
       "poster": "media/tongban.jpg",
       "source": "tongban engraving.mp4",
-      "bytes": 3402400
+      "bytes": 1224378
     },
     {
       "key": "siyin",
@@ -1965,12 +1965,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 50.0,
-      "duration": "0:50",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 3.56,
         "motion": 22.33,
@@ -1982,7 +1982,7 @@
       "mp4": "media/siyin.mp4",
       "poster": "media/siyin.jpg",
       "source": "siyin silkscreen-poster.mp4",
-      "bytes": 2474796
+      "bytes": 821172
     },
     {
       "key": "guaban",
@@ -1995,12 +1995,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 60.0,
-      "duration": "1:00",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.28,
         "motion": 49.03,
@@ -2012,7 +2012,7 @@
       "mp4": "media/guaban.mp4",
       "poster": "media/guaban.jpg",
       "source": "guaban printed-long-take.mp4",
-      "bytes": 10122559
+      "bytes": 3476004
     },
     {
       "key": "bopu",
@@ -2025,12 +2025,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.42,
         "motion": 28.88,
@@ -2042,7 +2042,7 @@
       "mp4": "media/bopu.mp4",
       "poster": "media/bopu.jpg",
       "source": "bopu pop-art.mp4",
-      "bytes": 3514345
+      "bytes": 1306184
     },
     {
       "key": "fugu",
@@ -2055,12 +2055,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 8.81,
         "motion": 33.27,
@@ -2072,7 +2072,7 @@
       "mp4": "media/fugu.mp4",
       "poster": "media/fugu.jpg",
       "source": "fugu vintage-collage.mp4",
-      "bytes": 2989962
+      "bytes": 1174167
     },
     {
       "key": "ruishi",
@@ -2085,12 +2085,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 44.0,
-      "duration": "0:44",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "fallback": "no-valid-frame",
         "seconds": 2.0
@@ -2098,7 +2098,7 @@
       "mp4": "media/ruishi.mp4",
       "poster": "media/ruishi.jpg",
       "source": "ruishi swiss-motion.mp4",
-      "bytes": 752814
+      "bytes": 397785
     },
     {
       "key": "jiandie",
@@ -2111,12 +2111,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 44.1,
-      "duration": "0:44",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 3.18,
         "motion": 19.26,
@@ -2128,7 +2128,7 @@
       "mp4": "media/jiandie.mp4",
       "poster": "media/jiandie.jpg",
       "source": "jiandie spy-titles.mp4",
-      "bytes": 1900076
+      "bytes": 751533
     },
     {
       "key": "xiangxing",
@@ -2141,12 +2141,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 50.0,
-      "duration": "0:50",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 8.16,
         "motion": 31.66,
@@ -2158,7 +2158,7 @@
       "mp4": "media/xiangxing.mp4",
       "poster": "media/xiangxing.jpg",
       "source": "xiangxing pictogram-motion.mp4",
-      "bytes": 2487223
+      "bytes": 1016616
     },
     {
       "key": "baohao",
@@ -2171,12 +2171,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 13.43,
         "motion": 17.97,
@@ -2188,7 +2188,7 @@
       "mp4": "media/baohao.mp4",
       "poster": "media/baohao.jpg",
       "source": "baohao bauhaus-shapes.mp4",
-      "bytes": 950285
+      "bytes": 509676
     },
     {
       "key": "wenzi",
@@ -2201,12 +2201,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 46.2,
-      "duration": "0:46",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 3.35,
         "motion": 42.73,
@@ -2218,7 +2218,7 @@
       "mp4": "media/wenzi.mp4",
       "poster": "media/wenzi.jpg",
       "source": "wenzi text-flash-cuts.mp4",
-      "bytes": 2808179
+      "bytes": 1178649
     },
     {
       "key": "xinxi",
@@ -2231,12 +2231,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 58.8,
-      "duration": "0:59",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 3.92,
         "motion": 16.06,
@@ -2248,7 +2248,7 @@
       "mp4": "media/xinxi.mp4",
       "poster": "media/xinxi.jpg",
       "source": "xinxi iso-infographic.mp4",
-      "bytes": 2575410
+      "bytes": 846800
     },
     {
       "key": "chaijie",
@@ -2261,12 +2261,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 38.8,
-      "duration": "0:39",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 7.86,
         "motion": 25.89,
@@ -2278,7 +2278,7 @@
       "mp4": "media/chaijie.mp4",
       "poster": "media/chaijie.jpg",
       "source": "chaijie teardown.mp4",
-      "bytes": 2516585
+      "bytes": 1054485
     },
     {
       "key": "poumian",
@@ -2291,12 +2291,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 5.54,
         "motion": 4.79,
@@ -2308,7 +2308,7 @@
       "mp4": "media/poumian.mp4",
       "poster": "media/poumian.jpg",
       "source": "poumian hardcore-info.mp4",
-      "bytes": 1561368
+      "bytes": 637399
     },
     {
       "key": "jixie",
@@ -2321,12 +2321,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 1.73,
         "motion": 7.76,
@@ -2338,7 +2338,7 @@
       "mp4": "media/jixie.mp4",
       "poster": "media/jixie.jpg",
       "source": "jixie precise-mechanism.mp4",
-      "bytes": 2420793
+      "bytes": 973920
     },
     {
       "key": "shuoming",
@@ -2351,12 +2351,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 50.6,
-      "duration": "0:51",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "fallback": "no-valid-frame",
         "seconds": 2.0
@@ -2364,7 +2364,7 @@
       "mp4": "media/shuoming.mp4",
       "poster": "media/shuoming.jpg",
       "source": "shuoming instruction-manual.mp4",
-      "bytes": 1853404
+      "bytes": 768283
     },
     {
       "key": "bishi",
@@ -2377,12 +2377,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 49.9,
-      "duration": "0:50",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 7.0,
         "motion": 45.12,
@@ -2394,7 +2394,7 @@
       "mp4": "media/bishi.mp4",
       "poster": "media/bishi.jpg",
       "source": "bishi pen-plotter.mp4",
-      "bytes": 5605658
+      "bytes": 2227337
     },
     {
       "key": "liushui",
@@ -2407,12 +2407,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 54.9,
-      "duration": "0:55",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 8.33,
         "motion": 35.96,
@@ -2424,7 +2424,7 @@
       "mp4": "media/liushui.mp4",
       "poster": "media/liushui.jpg",
       "source": "liushui assembly-line-diagram.mp4",
-      "bytes": 2802642
+      "bytes": 1128471
     },
     {
       "key": "xianwei",
@@ -2437,12 +2437,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 39.5,
-      "duration": "0:40",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 13.09,
         "motion": 44.88,
@@ -2454,7 +2454,7 @@
       "mp4": "media/xianwei.mp4",
       "poster": "media/xianwei.jpg",
       "source": "xianwei microscope.mp4",
-      "bytes": 5603639
+      "bytes": 1710062
     },
     {
       "key": "jianbao",
@@ -2467,12 +2467,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 40.0,
-      "duration": "0:40",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 1.82,
         "motion": 12.34,
@@ -2484,7 +2484,7 @@
       "mp4": "media/jianbao.mp4",
       "poster": "media/jianbao.jpg",
       "source": "jianbao briefing-board.mp4",
-      "bytes": 1796378
+      "bytes": 825815
     },
     {
       "key": "anjian",
@@ -2497,12 +2497,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 51.9,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.21,
         "motion": 8.08,
@@ -2514,7 +2514,7 @@
       "mp4": "media/anjian.mp4",
       "poster": "media/anjian.jpg",
       "source": "anjian security-xray.mp4",
-      "bytes": 1497854
+      "bytes": 667689
     },
     {
       "key": "sailu",
@@ -2527,12 +2527,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 59.0,
-      "duration": "0:59",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 4.44,
         "motion": 23.01,
@@ -2544,7 +2544,7 @@
       "mp4": "media/sailu.mp4",
       "poster": "media/sailu.jpg",
       "source": "sailu cel-anime-80s.mp4",
-      "bytes": 3515985
+      "bytes": 1169590
     },
     {
       "key": "kehuan",
@@ -2557,12 +2557,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 57.5,
-      "duration": "0:58",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 4.64,
         "motion": 17.68,
@@ -2574,7 +2574,7 @@
       "mp4": "media/kehuan.mp4",
       "poster": "media/kehuan.jpg",
       "source": "kehuan scifi-toon.mp4",
-      "bytes": 2786947
+      "bytes": 1010172
     },
     {
       "key": "wushi",
@@ -2587,12 +2587,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 40.0,
-      "duration": "0:40",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 11.71,
         "motion": 15.14,
@@ -2604,7 +2604,7 @@
       "mp4": "media/wushi.mp4",
       "poster": "media/wushi.jpg",
       "source": "wushi midcentury-toon.mp4",
-      "bytes": 1656497
+      "bytes": 702971
     },
     {
       "key": "gaoxiao",
@@ -2617,12 +2617,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 51.0,
-      "duration": "0:51",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 9.24,
         "motion": 26.76,
@@ -2634,7 +2634,7 @@
       "mp4": "media/gaoxiao.mp4",
       "poster": "media/gaoxiao.jpg",
       "source": "gaoxiao comic-history.mp4",
-      "bytes": 2078905
+      "bytes": 987854
     },
     {
       "key": "xiangsu2",
@@ -2647,12 +2647,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 76.5,
-      "duration": "1:17",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 3.23,
         "motion": 2.9,
@@ -2664,7 +2664,7 @@
       "mp4": "media/xiangsu2.mp4",
       "poster": "media/xiangsu2.jpg",
       "source": "xiangsu2 hd-2d.mp4",
-      "bytes": 1456681
+      "bytes": 583212
     },
     {
       "key": "weiyou",
@@ -2677,12 +2677,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 59.8,
-      "duration": "1:00",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 5.21,
         "motion": 30.92,
@@ -2694,7 +2694,7 @@
       "mp4": "media/weiyou.mp4",
       "poster": "media/weiyou.jpg",
       "source": "weiyou microgame.mp4",
-      "bytes": 3723907
+      "bytes": 957916
     },
     {
       "key": "jiezou",
@@ -2707,12 +2707,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 148.8,
-      "duration": "2:29",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 3.29,
         "motion": 11.29,
@@ -2724,7 +2724,7 @@
       "mp4": "media/jiezou.mp4",
       "poster": "media/jiezou.jpg",
       "source": "jiezou game-show.mp4",
-      "bytes": 2134439
+      "bytes": 998103
     },
     {
       "key": "zifu",
@@ -2737,12 +2737,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 59.8,
-      "duration": "1:00",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 66.57,
         "motion": 10.77,
@@ -2754,7 +2754,7 @@
       "mp4": "media/zifu.mp4",
       "poster": "media/zifu.jpg",
       "source": "zifu ascii-crt.mp4",
-      "bytes": 1162673
+      "bytes": 587519
     },
     {
       "key": "mopian",
@@ -2767,12 +2767,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 54.2,
-      "duration": "0:54",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.43,
         "motion": 16.16,
@@ -2784,7 +2784,7 @@
       "mp4": "media/mopian.mp4",
       "poster": "media/mopian.jpg",
       "source": "mopian silent-film.mp4",
-      "bytes": 5080932
+      "bytes": 1237970
     },
     {
       "key": "houshi",
@@ -2797,12 +2797,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 59.7,
-      "duration": "1:00",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 7.82,
         "motion": 12.75,
@@ -2814,7 +2814,7 @@
       "mp4": "media/houshi.mp4",
       "poster": "media/houshi.jpg",
       "source": "houshi backrooms.mp4",
-      "bytes": 2292199
+      "bytes": 854191
     },
     {
       "key": "zhike",
@@ -2827,12 +2827,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.21,
         "motion": 4.6,
@@ -2844,7 +2844,7 @@
       "mp4": "media/zhike.mp4",
       "poster": "media/zhike.jpg",
       "source": "zhike scratch-film.mp4",
-      "bytes": 5295489
+      "bytes": 1225484
     },
     {
       "key": "puguang",
@@ -2857,12 +2857,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 50.5,
-      "duration": "0:51",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.79,
         "motion": 9.15,
@@ -2874,7 +2874,7 @@
       "mp4": "media/puguang.mp4",
       "poster": "media/puguang.jpg",
       "source": "puguang double-exposure.mp4",
-      "bytes": 2573823
+      "bytes": 1018240
     },
     {
       "key": "fabu",
@@ -2887,12 +2887,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 42.0,
-      "duration": "0:42",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 4.74,
         "motion": 27.42,
@@ -2904,7 +2904,7 @@
       "mp4": "media/fabu.mp4",
       "poster": "media/fabu.jpg",
       "source": "fabu dark-keynote.mp4",
-      "bytes": 2587912
+      "bytes": 1104602
     },
     {
       "key": "luping",
@@ -2917,12 +2917,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 59.4,
-      "duration": "0:59",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 7.37,
         "motion": 10.12,
@@ -2934,7 +2934,7 @@
       "mp4": "media/luping.mp4",
       "poster": "media/luping.jpg",
       "source": "luping living-screencast.mp4",
-      "bytes": 1381956
+      "bytes": 657758
     },
     {
       "key": "zhuomian",
@@ -2947,12 +2947,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 60.0,
-      "duration": "1:00",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 5.28,
         "motion": 18.66,
@@ -2964,7 +2964,7 @@
       "mp4": "media/zhuomian.mp4",
       "poster": "media/zhuomian.jpg",
       "source": "zhuomian desktop-flythrough.mp4",
-      "bytes": 2343668
+      "bytes": 930803
     },
     {
       "key": "biaoge",
@@ -2977,12 +2977,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 6.68,
         "motion": 27.8,
@@ -2994,7 +2994,7 @@
       "mp4": "media/biaoge.mp4",
       "poster": "media/biaoge.jpg",
       "source": "biaoge spreadsheet.mp4",
-      "bytes": 3242334
+      "bytes": 1062802
     },
     {
       "key": "dianzhen",
@@ -3007,12 +3007,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 50.0,
-      "duration": "0:50",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 1.98,
         "motion": 53.58,
@@ -3024,7 +3024,7 @@
       "mp4": "media/dianzhen.mp4",
       "poster": "media/dianzhen.jpg",
       "source": "dianzhen one-bit-dither.mp4",
-      "bytes": 21775537
+      "bytes": 6549452
     },
     {
       "key": "dianlu",
@@ -3037,12 +3037,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 60.0,
-      "duration": "1:00",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 6.62,
         "motion": 18.69,
@@ -3054,7 +3054,7 @@
       "mp4": "media/dianlu.mp4",
       "poster": "media/dianlu.jpg",
       "source": "dianlu circuit-board.mp4",
-      "bytes": 2270274
+      "bytes": 965007
     },
     {
       "key": "yinghuo",
@@ -3067,12 +3067,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 50.6,
-      "duration": "0:51",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 4.62,
         "motion": 7.98,
@@ -3084,7 +3084,7 @@
       "mp4": "media/yinghuo.mp4",
       "poster": "media/yinghuo.jpg",
       "source": "yinghuo firefly-pointillism.mp4",
-      "bytes": 3515746
+      "bytes": 1227933
     },
     {
       "key": "liuchang",
@@ -3097,12 +3097,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 1.76,
         "motion": 23.37,
@@ -3114,7 +3114,7 @@
       "mp4": "media/liuchang.mp4",
       "poster": "media/liuchang.jpg",
       "source": "liuchang flow-field.mp4",
-      "bytes": 11077339
+      "bytes": 3424141
     },
     {
       "key": "shibo",
@@ -3127,12 +3127,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 51.1,
-      "duration": "0:51",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 4.48,
         "motion": 8.09,
@@ -3144,7 +3144,7 @@
       "mp4": "media/shibo.mp4",
       "poster": "media/shibo.jpg",
       "source": "shibo oscilloscope-math.mp4",
-      "bytes": 1897564
+      "bytes": 629747
     },
     {
       "key": "nihong",
@@ -3157,12 +3157,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 48.0,
-      "duration": "0:48",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 1.48,
         "motion": 13.23,
@@ -3174,7 +3174,7 @@
       "mp4": "media/nihong.mp4",
       "poster": "media/nihong.jpg",
       "source": "nihong neon-tubes.mp4",
-      "bytes": 2713263
+      "bytes": 926665
     },
     {
       "key": "leida",
@@ -3187,12 +3187,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 9.13,
         "motion": 6.09,
@@ -3204,7 +3204,7 @@
       "mp4": "media/leida.mp4",
       "poster": "media/leida.jpg",
       "source": "leida dark-documentary.mp4",
-      "bytes": 2188100
+      "bytes": 607231
     },
     {
       "key": "jimu",
@@ -3217,12 +3217,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 54.0,
-      "duration": "0:54",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.51,
         "motion": 8.28,
@@ -3234,7 +3234,7 @@
       "mp4": "media/jimu.mp4",
       "poster": "media/jimu.jpg",
       "source": "jimu brick-toy.mp4",
-      "bytes": 1563077
+      "bytes": 716857
     },
     {
       "key": "liti",
@@ -3247,12 +3247,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 133.0,
-      "duration": "2:13",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.44,
         "motion": 13.05,
@@ -3264,7 +3264,7 @@
       "mp4": "media/liti.mp4",
       "poster": "media/liti.jpg",
       "source": "liti paper-popup.mp4",
-      "bytes": 2625667
+      "bytes": 1074224
     },
     {
       "key": "yizhou",
@@ -3277,12 +3277,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 38.0,
-      "duration": "0:38",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 15.26,
         "motion": 30.31,
@@ -3294,7 +3294,7 @@
       "mp4": "media/yizhou.mp4",
       "poster": "media/yizhou.jpg",
       "source": "yizhou tilt-shift.mp4",
-      "bytes": 2508654
+      "bytes": 991607
     },
     {
       "key": "chanpin",
@@ -3307,12 +3307,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 32.0,
-      "duration": "0:32",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 5.94,
         "motion": 14.62,
@@ -3324,7 +3324,7 @@
       "mp4": "media/chanpin.mp4",
       "poster": "media/chanpin.jpg",
       "source": "chanpin glass-product.mp4",
-      "bytes": 2833947
+      "bytes": 1035355
     },
     {
       "key": "labi2",
@@ -3337,12 +3337,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 64.5,
-      "duration": "1:05",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 1.61,
         "motion": 15.07,
@@ -3354,7 +3354,7 @@
       "mp4": "media/labi2.mp4",
       "poster": "media/labi2.jpg",
       "source": "labi2 crayon-world.mp4",
-      "bytes": 15727058
+      "bytes": 4204991
     },
     {
       "key": "weixing",
@@ -3367,12 +3367,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 37.8,
-      "duration": "0:38",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 2.53,
         "motion": 17.99,
@@ -3384,7 +3384,7 @@
       "mp4": "media/weixing.mp4",
       "poster": "media/weixing.jpg",
       "source": "weixing satellite-briefing.mp4",
-      "bytes": 4890586
+      "bytes": 1543869
     },
     {
       "key": "cehui",
@@ -3397,12 +3397,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 40.0,
-      "duration": "0:40",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 4.9,
         "motion": 27.24,
@@ -3414,7 +3414,7 @@
       "mp4": "media/cehui.mp4",
       "poster": "media/cehui.jpg",
       "source": "cehui lidar-survey.mp4",
-      "bytes": 7546997
+      "bytes": 2665096
     },
     {
       "key": "recheng",
@@ -3427,12 +3427,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 49.0,
-      "duration": "0:49",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 3.48,
         "motion": 17.38,
@@ -3444,7 +3444,7 @@
       "mp4": "media/recheng.mp4",
       "poster": "media/recheng.jpg",
       "source": "recheng thermal-camera.mp4",
-      "bytes": 3257268
+      "bytes": 1210841
     },
     {
       "key": "shuju",
@@ -3457,12 +3457,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 50.0,
-      "duration": "0:50",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "fallback": "no-valid-frame",
         "seconds": 2.0
@@ -3470,7 +3470,7 @@
       "mp4": "media/shuju.mp4",
       "poster": "media/shuju.jpg",
       "source": "shuju dataviz.mp4",
-      "bytes": 1821977
+      "bytes": 612964
     },
     {
       "key": "baimo",
@@ -3483,12 +3483,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 40.0,
-      "duration": "0:40",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 1.76,
         "motion": 7.73,
@@ -3500,7 +3500,7 @@
       "mp4": "media/baimo.mp4",
       "poster": "media/baimo.jpg",
       "source": "baimo white-model.mp4",
-      "bytes": 3523991
+      "bytes": 1378062
     },
     {
       "key": "shiwu",
@@ -3513,12 +3513,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 39.4,
-      "duration": "0:39",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 1.82,
         "motion": 13.55,
@@ -3530,7 +3530,7 @@
       "mp4": "media/shiwu.mp4",
       "poster": "media/shiwu.jpg",
       "source": "shiwu data-physical.mp4",
-      "bytes": 3470380
+      "bytes": 1202440
     },
     {
       "key": "dietie",
@@ -3543,12 +3543,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 47.0,
-      "duration": "0:47",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 11.3,
         "motion": 24.78,
@@ -3560,7 +3560,7 @@
       "mp4": "media/dietie.mp4",
       "poster": "media/dietie.jpg",
       "source": "dietie transit-map.mp4",
-      "bytes": 1585628
+      "bytes": 809858
     },
     {
       "key": "moni",
@@ -3573,12 +3573,12 @@
       "long_edge": 1280,
       "max_seconds": 30.0,
       "crf": 30,
-      "seconds": 52.0,
-      "duration": "0:52",
-      "width": 1280,
-      "height": 720,
+      "seconds": 20.0,
+      "duration": "0:20",
+      "width": 960,
+      "height": 540,
       "aspect": "16:9",
-      "clip_seconds": 30.0,
+      "clip_seconds": 20.0,
       "poster_pick": {
         "score": 9.53,
         "motion": 12.99,
@@ -3590,7 +3590,115 @@
       "mp4": "media/moni.mp4",
       "poster": "media/moni.jpg",
       "source": "moni pip-simulation.mp4",
-      "bytes": 1441857
+      "bytes": 642087
+    },
+    {
+      "key": "liaotian",
+      "kind": "pipeline",
+      "pipeline": "liaotian",
+      "title": "一骑红尘妃子笑 · 聊天群",
+      "style": "聊天叙事",
+      "style_en": "Chat Narrative",
+      "station": "screen",
+      "badge": "BB-Video 样片",
+      "seconds": 58.6,
+      "duration": "0:59",
+      "aspect": "16:9",
+      "clip_seconds": null,
+      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/chat.mp4",
+      "poster": "media/liaotian.jpg",
+      "source": "BB-Video samples/chat.mp4",
+      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+    },
+    {
+      "key": "keli",
+      "kind": "pipeline",
+      "pipeline": "keli",
+      "title": "人类如何照亮夜晚",
+      "style": "扁平颗粒插画",
+      "style_en": "Flat Grain Illustration",
+      "station": "graphic",
+      "badge": "BB-Video 样片",
+      "seconds": 92.6,
+      "duration": "1:33",
+      "aspect": "16:9",
+      "clip_seconds": null,
+      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/grain.mp4",
+      "poster": "media/keli.jpg",
+      "source": "BB-Video samples/grain.mp4",
+      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+    },
+    {
+      "key": "andiao",
+      "kind": "pipeline",
+      "pipeline": "andiao",
+      "title": "再刷五分钟 · 报复性熬夜",
+      "style": "暗调励志",
+      "style_en": "Dark Motivational",
+      "station": "screen",
+      "badge": "BB-Video 样片",
+      "seconds": 165.3,
+      "duration": "2:45",
+      "aspect": "16:9",
+      "clip_seconds": null,
+      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/lumen.mp4",
+      "poster": "media/andiao.jpg",
+      "source": "BB-Video samples/lumen.mp4",
+      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+    },
+    {
+      "key": "xuanyi",
+      "kind": "pipeline",
+      "pipeline": "xuanyi",
+      "title": "为什么你的朋友该叫你爸爸",
+      "style": "悬疑探秘",
+      "style_en": "Suspense Mystery",
+      "station": "screen",
+      "badge": "BB-Video 样片",
+      "seconds": 44.4,
+      "duration": "0:44",
+      "aspect": "16:9",
+      "clip_seconds": null,
+      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/mystery.mp4",
+      "poster": "media/xuanyi.jpg",
+      "source": "BB-Video samples/mystery.mp4",
+      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+    },
+    {
+      "key": "oupu",
+      "kind": "pipeline",
+      "pipeline": "oupu",
+      "title": "Stripe · 官网",
+      "style": "欧普艺术",
+      "style_en": "Op Art",
+      "station": "graphic",
+      "badge": "BB-Video 样片",
+      "seconds": 22.3,
+      "duration": "0:22",
+      "aspect": "16:9",
+      "clip_seconds": null,
+      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/op.mp4",
+      "poster": "media/oupu.jpg",
+      "source": "BB-Video samples/op.mp4",
+      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
+    },
+    {
+      "key": "yugao",
+      "kind": "pipeline",
+      "pipeline": "yugao",
+      "title": "Deep Space Echo · 预告",
+      "style": "电影预告",
+      "style_en": "Movie Trailer",
+      "station": "graphic",
+      "badge": "BB-Video 样片",
+      "seconds": 83.2,
+      "duration": "1:23",
+      "aspect": "16:9",
+      "clip_seconds": null,
+      "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/trailer.mp4",
+      "poster": "media/yugao.jpg",
+      "source": "BB-Video samples/trailer.mp4",
+      "note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片"
     }
   ],
   "note": "2026-11-19：77 条 lemo 登记管线的样片取自 lemomo-ai/lemo-opuscar-films，原有 40 条与风格样片条目原样保留"
