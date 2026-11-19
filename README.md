@@ -36,6 +36,9 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 > **仓库结构（2026-11 起）**：41 条风格管线全部收在 `pipelines/` 下，根目录只留基础设施
 > （`assets` `catalog` `docs` `out` `tools` `vendor` `site` `demo` `docker` `frontend` `projects` `samples-v2` `schema`）。
 > 各管线入口一律按 `python pipelines/<管线名>/scripts/<管线名>.py ...` 调用；`out/<编号_片名>/` 放定稿的成片、字幕、封面与发布信息。
+>
+> **定稿归档**：用户说「定稿」后，成片 + 字幕 + 3:4 封面 + 4:3 封面 + 发布信息（只有一个标题、四个标签）统一搬进
+> `out/<编号_片名>/`，旧版下沉 `out/_archive/`。细则见 [`docs/交付规范.md`](docs/交付规范.md)。
 
 ## 30 秒先看到东西 ⏱️
 
