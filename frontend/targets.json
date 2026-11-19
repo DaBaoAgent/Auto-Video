@@ -183,6 +183,314 @@
     "qianhuang": {
       "render": null,
       "reason": "铅黄浓彩是 2–4 秒硬切的手绘分镜：十镜表、色片灯与音效点都要跟着口播手工排，只接 frontend 的配音与 srt"
+    },
+    "zimu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/caption-news/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "xinwen": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/newsreel/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "daoshu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/countdown/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "jiaoxiang": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/city-symphony/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "diaocha": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/visual-investigation/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "mengtai": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/kino-montage/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "zhanshu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/telestrator/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "baozhuang": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/news-package/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "dangan": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/archive-lighttable/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "youhua": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/impasto/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "yibi": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/one-line/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "baiban": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/whiteboard/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "heiban": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/chalkboard/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "biji": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/sketchnote/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "make": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/marker-paper/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "jianzhi": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/papercut-red/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "boli": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/stained-glass/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "jinbo": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/gilded-illumination/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "kongban": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/risograph/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "wangdian": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/halftone-dossier/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "muke": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/woodcut/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "tongban": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/engraving/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "siyin": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/silkscreen-poster/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "guaban": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/printed-long-take/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "bopu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/pop-art/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "fugu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/vintage-collage/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "ruishi": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/swiss-motion/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "jiandie": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/spy-titles/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "xiangxing": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/pictogram-motion/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "baohao": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/bauhaus-shapes/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "wenzi": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/text-flash-cuts/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "xinxi": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/iso-infographic/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "chaijie": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/teardown/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "poumian": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/hardcore-info/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "jixie": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/precise-mechanism/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "shuoming": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/instruction-manual/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "bishi": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/pen-plotter/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "liushui": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/assembly-line-diagram/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "xianwei": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/microscope/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "jianbao": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/briefing-board/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "anjian": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/security-xray/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "sailu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/cel-anime-80s/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "kehuan": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/scifi-toon/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "wushi": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/midcentury-toon/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "gaoxiao": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/comic-history/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "xiangsu2": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/hd-2d/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "weiyou": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/microgame/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "jiezou": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/game-show/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "zifu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/ascii-crt/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "mopian": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/silent-film/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "houshi": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/backrooms/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "zhike": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/scratch-film/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "puguang": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/double-exposure/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "fabu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/dark-keynote/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "luping": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/living-screencast/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "zhuomian": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/desktop-flythrough/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "biaoge": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/spreadsheet/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "dianzhen": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/one-bit-dither/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "dianlu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/circuit-board/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "yinghuo": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/firefly-pointillism/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "liuchang": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/flow-field/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "shibo": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/oscilloscope-math/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "nihong": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/neon-tubes/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "leida": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/dark-documentary/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "jimu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/brick-toy/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "liti": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/paper-popup/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "yizhou": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/tilt-shift/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "chanpin": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/glass-product/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "labi2": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/crayon-world/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "weixing": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/satellite-briefing/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "cehui": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/lidar-survey/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "recheng": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/thermal-camera/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "shuju": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/dataviz/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "baimo": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/white-model/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "shiwu": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/data-physical/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "dietie": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/transit-map/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "moni": {
+      "render": null,
+      "reason": "上游 demo 只出整片样片（styles/pip-simulation/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
     }
   }
 }
