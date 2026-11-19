@@ -13,7 +13,7 @@
 字体在渲染前必须到位：python tools/sync_fonts.py --fetch && python tools/sync_fonts.py --pipeline labi
 
 画面是 WebGL2（gl.js 合成器）+ Canvas 2D（crayon.js 画笔）。无头浏览器默认走 SwiftShader；
-若出现「WebGL 上下文丢了」的全黑帧，用 $env:LEMO_ANGLE="swiftshader" 重跑。
+若出现「WebGL 上下文丢了」的全黑帧，用 $env:STYLE_ANGLE="swiftshader" 重跑。
 """
 import argparse
 import json

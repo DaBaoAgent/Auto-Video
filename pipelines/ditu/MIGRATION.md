@@ -56,7 +56,7 @@ npx playwright-core install chromium-headless-shell
 - Node ≥ 20
 - Python ≥ 3.10（编排脚本只用标准库）
 - ffmpeg 7+ / ffprobe
-- 真 GPU（WebGL）；虚拟机用 `LEMO_ANGLE=swiftshader`
+- 真 GPU（WebGL）；虚拟机用 `STYLE_ANGLE=swiftshader`
 
 重建资产需要外网（AWS Terrain Tiles + EOX WMTS）。
 

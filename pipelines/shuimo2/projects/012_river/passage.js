@@ -142,7 +142,7 @@ function renderScroll(A, t) {
   if (ea > 0) {
     mk2.globalAlpha = ea; mk2.fillStyle = '#e8dfcc'; mk2.textAlign = 'center';
     mk2.font = '600 44px CormorantSC'; mk2.letterSpacing = '14px'; mk2.fillText('CHINESE INK WASH', 960, 870);
-    mk2.font = 'italic 500 30px Cormorant'; mk2.letterSpacing = '2px'; mk2.fillText('LemoLab × Claude Opus 5.5', 960, 925);
+    mk2.font = 'italic 500 30px Cormorant'; mk2.letterSpacing = '2px'; mk2.fillText('Auto-Video 样片', 960, 925);
   }
   mk2.restore();
   return { bleed: 5 * s, rim: 1, paper: [-tx, -ty, s], vig: .22 + .15 * ma };

@@ -209,7 +209,7 @@ function drawEnd(t) {
     ctx.fillText('MUSIC  “Wildflowers” by Scott Buckley  ·  CC BY 4.0  ·  scottbuckley.com.au', 960, 930);
     ctx.fillText('VOICE  Kokoro TTS   ·   COASTLINE  Natural Earth   ·   RAINFALL BANDS ARE SCHEMATIC', 960, 960);
     ctx.letterSpacing = '0px'; ctx.font = 'italic 500 30px "Cormorant Garamond"'; ctx.fillStyle = rgba(INK, .85);
-    ctx.fillText('LemoLab × Claude Opus 5.5', 960, 1010);
+    ctx.fillText('Auto-Video 样片', 960, 1010);
     ctx.restore();
   }
 }

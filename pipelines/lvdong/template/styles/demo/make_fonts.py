@@ -20,6 +20,6 @@ def make(src, out, text, wght=None):
     print(out, os.path.getsize(os.path.join(OUT, out)), 'bytes', 'missing: ' + ''.join(miss) if miss else '')
 
 make('Anton-Regular.ttf', 'Anton-sub.ttf', 'HALF A BEAT')
-make('BarlowCondensed-Medium.ttf', 'BarlowCondensed-500-sub.ttf', 'Silhouette Rhythm · LemoLab × Claude Opus 5.5 0123456789')
+make('BarlowCondensed-Medium.ttf', 'BarlowCondensed-500-sub.ttf', 'Silhouette Rhythm · Auto-Video 样片 0123456789')
 make('NotoSansSC-VF.ttf', 'NotoSansSC-900-title.ttf', cjk, 900)
 make('NotoSansSC-VF.ttf', 'NotoSansSC-500-title.ttf', cjk, 500)

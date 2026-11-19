@@ -73,8 +73,6 @@ const findUp = (name, start) => {
 const CANDIDATES = [
   process.env.PLAYWRIGHT_CORE,
   findUp('playwright-core', project),
-  process.env.LEMO_OPUSCAR_HOME && path.join(process.env.LEMO_OPUSCAR_HOME, 'node_modules', 'playwright-core'),
-  `C:/Users/${process.env.USERNAME}/开源风格库/node_modules/playwright-core`,
   path.join(process.env.APPDATA || '', 'npm', 'node_modules', 'playwright-core')
 ].filter(Boolean);
 let chromium = null, source = '';
@@ -109,7 +107,7 @@ async function main() {
   const port = server.address().port;
 
   const ARGS = ['--enable-gpu', '--ignore-gpu-blocklist', '--font-render-hinting=none', '--force-color-profile=srgb'];
-  if (process.env.LEMO_ANGLE && process.env.LEMO_ANGLE !== 'default') ARGS.push(`--use-angle=${process.env.LEMO_ANGLE}`);
+  if (process.env.STYLE_ANGLE && process.env.STYLE_ANGLE !== 'default') ARGS.push(`--use-angle=${process.env.STYLE_ANGLE}`);
 
   const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_CHROME || undefined, args: ARGS });
   const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
@@ -123,7 +121,7 @@ async function main() {
     await withTimeout(page.waitForFunction(() => window.READY === true, null, { timeout: FRAME_TIMEOUT, polling: 100 }), FRAME_TIMEOUT * 2, '等 window.READY');
     await page.evaluate(() => document.fonts && document.fonts.ready);
     const lost = await page.evaluate(() => window.__glLost || null);
-    if (lost) console.error(`! ${lost} 的 WebGL 上下文丢了，画面会全黑：用 LEMO_ANGLE=swiftshader 重跑。`);
+    if (lost) console.error(`! ${lost} 的 WebGL 上下文丢了，画面会全黑：用 STYLE_ANGLE=swiftshader 重跑。`);
 
     const DUR = await page.evaluate(() => window.DUR);
     const TO = Math.min(+opt('--to', DUR), DUR);

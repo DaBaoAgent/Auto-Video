@@ -426,7 +426,7 @@ const TEXT = [
   ['夏 · 一阵雨过去，荷花开了   Summer · a passing shower, lotus in bloom', '小暑 Minor Heat · 07.07     柚子城 · 河湾   Pomelo Town · River Bend'],
   ['秋 · 稻子黄了，大雁往南飞   Autumn · golden rice, geese flying south', '秋分 Autumn Equinox · 09.22     柚子城 · 河湾   Pomelo Town · River Bend'],
   ['冬 · 下雪了，窗户一盏盏亮起来   Winter · first snow, windows lighting up', '大雪 Major Snow · 12.07     柚子城 · 河湾   Pomelo Town · River Bend'],
-  ['Eian × LemoLab × Claude Opus 5.5', '孟菲斯微缩景观 · MEMPHIS DIORAMA'],  // end card: same three lines, over the lit village; the sign-off is line 2, drawn strong
+  ['Eian × Auto-Video', '孟菲斯微缩景观 · MEMPHIS DIORAMA'],  // end card: same three lines, over the lit village; the sign-off is line 2, drawn strong
 ];
 const TITLE = '柚子城的四季  Four Seasons in Pomelo Town';
 const SWAPS = [10.45, 20.45, 30.45, 39.3];  // lines 2 and 3 change halfway through each wave, then once more for the end card
