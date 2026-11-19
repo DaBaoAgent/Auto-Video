@@ -1,10 +1,10 @@
 # BB-Video 风格接入：37 → 6
 
 上游：[BubbleBrainBB/BB-Video](https://github.com/BubbleBrainBB/BB-Video)，37 个风格（`skills/bb-video/styles/`）。
-逐条对照本仓库原有 118 条管线后：**9 条已直接迁移、22 条同族等价、6 条新接入**。
+逐条对照本仓库原有 118 条管线后：**9 条已直接迁移、22 条同族等价、6 条新接入并已完成本地封装**。
 
 处置表是唯一事实来源：[`tools/bb_style_map.json`](../tools/bb_style_map.json)；
-新接入用 [`tools/import_bb_styles.py`](../tools/import_bb_styles.py) 生成，重复跑不会重复登记。
+6 条先用 [`tools/import_bb_styles.py`](../tools/import_bb_styles.py) 登记，随后把运行时、起步工程与编排脚本复制进 `pipelines/<id>/`，重复跑导入器不会重复登记。
 
 ## 计数
 
@@ -12,9 +12,9 @@
 | --- | ---: | --- |
 | 已迁移 | 9 | 2026-11-09 已把运行时和文档搬进 `pipelines/`，带 `LICENSE.BB-Video` |
 | 同族等价 | 22 | 画法/交付片型与已有管线重复，保留已有的那条，避免同一套画法两张卡 |
-| 新接入 | 6 | 原有 118 条里没有对应画法，登记成新管线 |
+| 新接入并封装 | 6 | 原有 118 条里没有对应画法；运行时、模板、编排脚本已入库 |
 
-## 新接入的 6 条
+## 新封装的 6 条
 
 | 管线 id | 上游风格 | 中文名 | 工位 | 命名的双拼来源 |
 | --- | --- | --- | --- | --- |
@@ -28,31 +28,45 @@
 命名沿用仓库传统：中文名取双音节/三音节拼音，全小写无分隔符；撞车时用既有 `shuimo2` / `labi2` 的做法加序号。
 这 6 个 id 与现有 118 条全部不撞车。
 
+## 封装内容
+
+每条管线现在都是自包含的，不再依赖 BB-Video checkout：
+
+| 目录 | 内容 |
+| --- | --- |
+| `runtime/` | 共享 `core.js` / `promo.js` / `autoscene.js` + 风格运行时 `<slug>.js` + `render.mjs` / `music.mjs` / `sound.mjs` / `bgm.mjs` / `lang.mjs` / `net.mjs` + `scores/`；MIT，随附 `LICENSE-upstream` / `LICENSE.BB-Video` |
+| `template/` | BB 起步工程：`index.html`、`score.js`、`sound.js`、`brief.md`、`assets/manifest.js` |
+| `references/` | 上游 `STYLE.md` 原文（`style.md`）、分镜模板、验收清单 |
+| `scripts/` | `new` / `check` / `stills` / `render` / `probe` / `qa` / `deliver` 七个动作，只走本地 `runtime/render.mjs` |
+| `MIGRATION.md` | 来源、入库/不入库清单、上游更新后的同步步骤 |
+
+风格运行时只改了注释里的上游名，绘图代码、组件 API、配色与镜头语法与上游一致；渲染链换成 Auto-Video 已统一的重写版（Chrome DevTools 逐帧、`AV_*` 环境变量、BT.709 输出）。
+
 ## 演示站
 
-站点的样片暂时用 BB-Video 的 `samples` release 外链（1080p 成片），封面从同一支片子第 3.2 秒抽帧，
-存在 `site/media/<id>.jpg`。等本仓库真封装后再换成本地 `projects/<编号>/out/*.mp4`。
+站点的样片暂时仍用 BB-Video 的 `samples` release 外链（1080p 成片），封面从同一支片子第 3.2 秒抽帧，
+存在 `site/media/<id>.jpg`。这 6 条现在已能本地出片，但演示站要等各自的正式工程渲完再换成本地 `projects/<编号>/out/*.mp4`。
 外链写在 `site/assets/samples.json` 的 `mp4` / `source` 字段，`tools/build_site.py` 会带进 `data.js`。
 
-复现上游样片：
+本地复现：
 
 ```bash
-# 先把 BB-Video clone 到本机（默认 D:/@kaifa/BB-Video）
-python pipelines/liaotian/scripts/liaotian.py --check
-python pipelines/liaotian/scripts/liaotian.py --plan
-python pipelines/liaotian/scripts/liaotian.py --out out/bb-chat
+python pipelines/liaotian/scripts/liaotian.py new projects/liaotian_demo --title "片名"
+python pipelines/liaotian/scripts/liaotian.py check projects/liaotian_demo
+python pipelines/liaotian/scripts/liaotian.py stills projects/liaotian_demo --times 2,6
+python pipelines/liaotian/scripts/liaotian.py render projects/liaotian_demo --scale 0.6667
 ```
 
 ## 37 条逐条对照
 
 | 上游风格 | 中文名 | 处置 | Auto-Video 管线 | 理由 |
 | --- | --- | --- | --- | --- |
-| `chat` | 聊天叙事 | **新接入** | `liaotian` |  |
-| `grain` | 扁平颗粒插画 | **新接入** | `keli` |  |
-| `lumen` | 暗调励志 | **新接入** | `andiao` |  |
-| `mystery` | 悬疑探秘 | **新接入** | `xuanyi` |  |
-| `op` | 欧普艺术 | **新接入** | `oupu` |  |
-| `trailer` | 电影预告 | **新接入** | `yugao` |  |
+| `chat` | 聊天叙事 | **新封装** | `liaotian` |  |
+| `grain` | 扁平颗粒插画 | **新封装** | `keli` |  |
+| `lumen` | 暗调励志 | **新封装** | `andiao` |  |
+| `mystery` | 悬疑探秘 | **新封装** | `xuanyi` |  |
+| `op` | 欧普艺术 | **新封装** | `oupu` |  |
+| `trailer` | 电影预告 | **新封装** | `yugao` |  |
 | `blueprint` | 工程蓝图 | 已迁移 | `blueprint`（工程蓝图） | 2026-11-09 已直接迁移（runtime/blueprint.js + LICENSE.BB-Video） |
 | `goldenage` | 黄金卡通 | 已迁移 | `goldenage`（黄金卡通） | 2026-11-09 已直接迁移；同族的 laolang 也复用它的运行时 |
 | `isometric` | 等距微缩 | 已迁移 | `isometric`（等距微缩） | 2026-11-09 已直接迁移；另有等轴 2.5D 的 dengju |

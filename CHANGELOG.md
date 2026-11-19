@@ -2,6 +2,22 @@
 
 版本口径：`MAJOR.MINOR.PATCH`。管线数量、契约字段这类会打断已有工程的变化走 MINOR；只修 bug 走 PATCH。
 
+## v1.2.0 · 2026-11-20
+
+6 条 BB-Video 管线从“登记 + 上游复现”转成**自研封装**：运行时、渲染链、起步工程与风格规范全部入库，入口不再依赖 BB-Video checkout。
+
+### 变更
+
+- **6 条管线自包含**：`liaotian` / `keli` / `andiao` / `xuanyi` / `oupu` / `yugao` 各补
+  `runtime/`（共享 `core.js` + `promo.js` + 风格 `<slug>.js` + `render.mjs` 等）、
+  `template/`（起步工程）、`references/`（上游 `STYLE.md` 原文）与 `MIGRATION.md`。
+- **入口改写**：每条管线统一的 `new → check → stills → render → probe → qa → deliver` 七动作，
+  渲染只调本地 `runtime/render.mjs`；`new` 把 runtime 复制进工程 `lib/`。
+- **QA 口径**：promo 默认 −14 LUFS；`andiao` / `yugao` 暗调片按 −16 LUFS，并允许长黑场。
+- **文档**：[`docs/BB-Video-管线接入.md`](docs/BB-Video-管线接入.md) 补“封装内容”与本地复现命令；
+  README 的 6 条说明从“登记 + 上游复现”改为“自研封装”。
+- **验证**：6 条 `--check` 均 0 error；各出 12–34 s 本地成片（960×540，AAC），`qa` 全 OK。
+
 ## v1.1.0 · 2026-11-19
 
 BB-Video 的 37 个风格逐条对照后，只接入 6 条真正缺的画法；其余 9 条已迁移、22 条同族等价，不重复登记。

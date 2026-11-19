@@ -1,28 +1,40 @@
-# oupu —— 欧普艺术（Op Art）
+# oupu · 欧普艺术管线
 
-黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。
+一帧是一套欧普艺术的画法：黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。 运行时已完整入库，`new` 复制 `template/` 与 `runtime/` 到工程 `lib/`，`render` 直接调本地 `runtime/render.mjs`，不再需要上游 checkout。
 
-| 项 | 值 |
-| --- | --- |
-| 工位 | 05 平面图形 |
-| 上游 | BB-Video `skills/bb-video/styles/op`（欧普艺术） |
-| 样片 | 《Stripe · 官网》22.3 s，来源 BB-Video `samples` release |
-| 入口 | `pipelines/oupu/scripts/oupu.py` |
-| 画幅 | 16:9 |
+首个实例就是 `template/` 的起步工程（24 s / 1080p）。完整流程与已知坑见 [SKILL.md](SKILL.md)，风格规范见 [references/style.md](references/style.md)，定版参数见 [pipeline.json](pipeline.json)，来源与同步见 [MIGRATION.md](MIGRATION.md)。
 
-## 跑
+## 快速开始
 
 ```bash
-python pipelines/oupu/scripts/oupu.py --check   # 体检
-python pipelines/oupu/scripts/oupu.py --plan    # 看步骤
-python pipelines/oupu/scripts/oupu.py           # 建工程 + 出片（调上游 new.mjs / render.mjs）
+python scripts/oupu.py new projects/<名字> --title "片名"
+python scripts/oupu.py check projects/<名字>
+python scripts/oupu.py stills projects/<名字> --times 2,5,8
+python scripts/oupu.py render projects/<名字> --scale 0.6667
 ```
 
-要先把 BB-Video clone 到本机（默认 `D:/@kaifa/BB-Video`），或用 `BB_VIDEO_DIR` 指过去。
+## 环境
 
-## 现状
+- Node 18+、ffmpeg / ffprobe 在 PATH
+- Chrome 或 Edge（Windows 下脚本自动找；否则设 `CHROME_PATH`）
+- Python 3.9+（只用标准库）
 
-这条线是**登记 + 上游复现**，还没有搬成本仓库自己的渲染代码：
-画面、镜头、声音全部以 `styles/op/STYLE.md` 为准，样片先用 BB-Video 的。
-要做成「一条文案直接出片」，得把上游 starter 拆成数据驱动的 `template/`，
-再按 `CONTRIBUTING.md` 补样片。
+## 目录
+
+| 目录 | 内容 |
+|---|---|
+| `runtime/` | 浏览器运行时 + 渲染器（BB-Video MIT） |
+| `scripts/` | 建工程、自检、抽帧、渲染、QA、交付 |
+| `references/` | 风格规范、分镜模板、验收清单 |
+| `template/` | 起步工程（无音频与成片） |
+
+## 风格要点
+
+- **场是条纹/环/棋盘**：`Q.field()` 定图案与速度，`f.lens()` 在场上鼓出透镜；字和卡都放在透镜里。
+- **变形即换场**：`f.morph(t, dur, 'rings'|'checker'|'spiral')` 做章节切换，不要用淡入淡出。
+- **只有黑白 + 一个强调色**：红只用在关键词或一个标记上。
+- **安全第一**：高频条纹可能引发不适，闪烁频率与对比度按 `STYLE.md` 第 0 节执行。
+
+## 许可
+
+运行时代码来自 [BB-Video](https://github.com/BubbleBrainBB/BB-Video)（MIT），见 `runtime/LICENSE.BB-Video` 与 [CREDITS.md](CREDITS.md)。

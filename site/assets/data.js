@@ -2698,7 +2698,7 @@ window.AV = {
    "name_zh": "聊天叙事",
    "name_en": "Chat Narrative",
    "title": "一骑红尘妃子笑 · 聊天群",
-   "engine": "BB-Video styles/chat · 上游 promo",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
    "tagline": "故事发生在聊天软件里：气泡、输入中、语音条与引用卡，镜头推进一条时其余变暗。",
    "aspect": "16:9",
    "seconds": 58.6,
@@ -2707,7 +2707,7 @@ window.AV = {
    "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/chat.mp4",
    "poster": "media/liaotian.jpg",
    "note": null,
-   "badge": "BB-Video styles/chat · 上游 promo",
+   "badge": "Canvas · Chrome 逐帧（本地运行时）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/liaotian/SKILL.md"
   },
   {
@@ -2720,7 +2720,7 @@ window.AV = {
    "name_zh": "扁平颗粒插画",
    "name_en": "Flat Grain Illustration",
    "title": "人类如何照亮夜晚",
-   "engine": "BB-Video styles/grain · 上游 promo",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
    "tagline": "两种专色印在暖纸上，体积与光全靠点状颗粒；一条地平线把时代一段段长出来。",
    "aspect": "16:9",
    "seconds": 92.6,
@@ -2729,7 +2729,7 @@ window.AV = {
    "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/grain.mp4",
    "poster": "media/keli.jpg",
    "note": null,
-   "badge": "BB-Video styles/grain · 上游 promo",
+   "badge": "Canvas · Chrome 逐帧（本地运行时）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/keli/SKILL.md"
   },
   {
@@ -2742,7 +2742,7 @@ window.AV = {
    "name_zh": "暗调励志",
    "name_en": "Dark Motivational",
    "title": "再刷五分钟 · 报复性熬夜",
-   "engine": "BB-Video styles/lumen · 上游 promo",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
    "tagline": "几乎全黑的房间只留一盏动机光，方形头小人用眉眼演完熬夜、拖延与那个决定。",
    "aspect": "16:9",
    "seconds": 165.3,
@@ -2751,7 +2751,7 @@ window.AV = {
    "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/lumen.mp4",
    "poster": "media/andiao.jpg",
    "note": null,
-   "badge": "BB-Video styles/lumen · 上游 promo",
+   "badge": "Canvas · Chrome 逐帧（本地运行时）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/andiao/SKILL.md"
   },
   {
@@ -2764,7 +2764,7 @@ window.AV = {
    "name_zh": "悬疑探秘",
    "name_en": "Suspense Mystery",
    "title": "为什么你的朋友该叫你爸爸",
-   "engine": "BB-Video styles/mystery · 上游 promo",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
    "tagline": "冷面伪科学电视：4:3 蓝屏、编号症状、橡皮管贴纸演一遍，最后切到测试卡。",
    "aspect": "16:9",
    "seconds": 44.4,
@@ -2773,7 +2773,7 @@ window.AV = {
    "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/mystery.mp4",
    "poster": "media/xuanyi.jpg",
    "note": null,
-   "badge": "BB-Video styles/mystery · 上游 promo",
+   "badge": "Canvas · Chrome 逐帧（本地运行时）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xuanyi/SKILL.md"
   },
   {
@@ -2786,7 +2786,7 @@ window.AV = {
    "name_zh": "欧普艺术",
    "name_en": "Op Art",
    "title": "Stripe · 官网",
-   "engine": "BB-Video styles/op · 上游 promo",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
    "tagline": "黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。",
    "aspect": "16:9",
    "seconds": 22.3,
@@ -2795,7 +2795,7 @@ window.AV = {
    "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/op.mp4",
    "poster": "media/oupu.jpg",
    "note": null,
-   "badge": "BB-Video styles/op · 上游 promo",
+   "badge": "Canvas · Chrome 逐帧（本地运行时）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/oupu/SKILL.md"
   },
   {
@@ -2808,7 +2808,7 @@ window.AV = {
    "name_zh": "电影预告",
    "name_en": "Movie Trailer",
    "title": "Deep Space Echo · 预告",
-   "engine": "BB-Video styles/trailer · 上游 promo",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
    "tagline": "2.39:1 遮幅的好莱坞预告：青橙调、黑底金属字卡、钢琴一记、BRAAM 与标题砸屏。",
    "aspect": "16:9",
    "seconds": 83.2,
@@ -2817,7 +2817,7 @@ window.AV = {
    "mp4": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/trailer.mp4",
    "poster": "media/yugao.jpg",
    "note": null,
-   "badge": "BB-Video styles/trailer · 上游 promo",
+   "badge": "Canvas · Chrome 逐帧（本地运行时）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/yugao/SKILL.md"
   }
  ]
