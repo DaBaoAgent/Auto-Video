@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "dianzhen",
+    "name_zh": "1-bit 点阵",
+    "name_en": "1-bit Dither",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "1966 年 2 月，月面的第一张近照被英国一座射电望远镜当成报社传真收下，一行一行印出来：早了一天，比例却拉高了。",
+    "engine": "lemo styles/one-bit-dither · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/dianzhen.py",
+    "sample": {
+      "file": "dianzhen one-bit-dither.mp4",
+      "title": "月亮的传真",
+      "seconds": 50.0
+    },
+    "no": "99"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "one-bit-dither",
+    "upstream_cn": "1-bit 点阵",
+    "upstream_en": "1-bit Dither",
+    "upstream_line": "February 1966: the first close-up of the Moon arrives at an English radio telescope as a newspaper fax, printed one line at a time in two inks, a day early and stretched too tall.",
+    "upstream_film": "The Moon's Fax",
+    "upstream_dur": 50.0,
+    "upstream_docs": {
+      "style": "styles/one-bit-dither/STYLE.md",
+      "demo": "styles/one-bit-dither/DEMO.md",
+      "build": "styles/one-bit-dither/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/one-bit-dither.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "pipe.js` — `Pipe(renderer, w, h).render(scene, camera, target, opts)`: shading, anchored G-buffer, 1-bit pass. `opts`: `…"
+  }
+}

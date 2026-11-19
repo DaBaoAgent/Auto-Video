@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "chanpin",
+    "name_zh": "玻璃质感产品",
+    "name_en": "Glass Product Render",
+    "station": "d3",
+    "station_no": "07",
+    "tagline": "虚构玻璃耳机 Aura 的开箱与特写。",
+    "engine": "lemo styles/glass-product · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/chanpin.py",
+    "sample": {
+      "file": "chanpin glass-product.mp4",
+      "title": "Aura：听见光",
+      "seconds": 32.0
+    },
+    "no": "109"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "glass-product",
+    "upstream_cn": "玻璃质感产品",
+    "upstream_en": "Glass Product Render",
+    "upstream_line": "Unboxing and close-ups of Aura, fictional glass earbuds, in strip-light sweeps and caustics.",
+    "upstream_film": "Aura — Hear the Light",
+    "upstream_dur": 32.0,
+    "upstream_docs": {
+      "style": "styles/glass-product/STYLE.md",
+      "demo": "styles/glass-product/DEMO.md",
+      "build": "styles/glass-product/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/glass-product.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/`: `studio.js` (strip env baked per frame, sweep, background, floor mirror + caustics + rings), `product.js` (g…"
+  }
+}

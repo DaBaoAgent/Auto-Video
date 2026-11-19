@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "heiban",
+    "name_zh": "黑板粉笔",
+    "name_en": "Chalkboard",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "粉笔写下网上的说法，再一擦，把「射」写回三千年前。",
+    "engine": "lemo styles/chalkboard · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/heiban.py",
+    "sample": {
+      "file": "heiban chalkboard.mp4",
+      "title": "汉字的故事",
+      "seconds": 49.3
+    },
+    "no": "54"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "chalkboard",
+    "upstream_cn": "黑板粉笔",
+    "upstream_en": "Chalkboard",
+    "upstream_line": "Chalk writes a popular claim about two characters, wipes it, and traces 射 back three thousand years.",
+    "upstream_film": "The Story of Chinese Characters",
+    "upstream_dur": 49.3,
+    "upstream_docs": {
+      "style": "styles/chalkboard/STYLE.md",
+      "demo": "styles/chalkboard/DEMO.md",
+      "build": "styles/chalkboard/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/chalkboard.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "The demo's code is a working engine; copy it into the project folder and write the film yourself."
+  }
+}

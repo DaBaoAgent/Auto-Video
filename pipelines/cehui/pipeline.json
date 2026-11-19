@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "cehui",
+    "name_zh": "点云测绘",
+    "name_en": "LiDAR Survey",
+    "station": "map",
+    "station_no": "08",
+    "tagline": "激光点云剥掉一片森林的树冠，露出当年农田的石墙：3.4 公里。",
+    "engine": "lemo styles/lidar-survey · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/cehui.py",
+    "sample": {
+      "file": "cehui lidar-survey.mp4",
+      "title": "林下的田",
+      "seconds": 40.0
+    },
+    "no": "112"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "lidar-survey",
+    "upstream_cn": "点云测绘",
+    "upstream_en": "LiDAR Survey",
+    "upstream_line": "A laser survey strips the canopy off a Connecticut forest and finds 3.4 km of old farm walls.",
+    "upstream_film": "The Fields Under the Forest",
+    "upstream_dur": 40.0,
+    "upstream_docs": {
+      "style": "styles/lidar-survey/STYLE.md",
+      "demo": "styles/lidar-survey/DEMO.md",
+      "build": "styles/lidar-survey/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/lidar-survey.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/film.js`: point shader (front, cutting plane, lift, ghost, window), surface shader (light, AO, contours, feature fi…"
+  }
+}

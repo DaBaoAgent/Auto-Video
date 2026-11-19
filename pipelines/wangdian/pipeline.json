@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "wangdian",
+    "name_zh": "网点档案",
+    "name_en": "Halftone Dossier",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "橘猫胖橘被立案审查：测试重力、凌晨跑酷，最后无罪释放。",
+    "engine": "lemo styles/halftone-dossier · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/wangdian.py",
+    "sample": {
+      "file": "wangdian halftone-dossier.mp4",
+      "title": "胖橘案卷",
+      "seconds": 30.0
+    },
+    "no": "61"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "halftone-dossier",
+    "upstream_cn": "网点档案",
+    "upstream_en": "Halftone Dossier",
+    "upstream_line": "A chubby orange cat stands trial for testing gravity and 4 a.m. parkour, and walks free.",
+    "upstream_film": "Case File: Chubby",
+    "upstream_dur": 30.0,
+    "upstream_docs": {
+      "style": "styles/halftone-dossier/STYLE.md",
+      "demo": "styles/halftone-dossier/DEMO.md",
+      "build": "styles/halftone-dossier/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/halftone-dossier.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "Everything lives in `demo/index.html`: helpers (`el`, `txt`, `tf`, `seg`, easings, `measure`), per-character text (`char…"
+  }
+}

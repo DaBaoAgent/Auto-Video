@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "moni",
+    "name_zh": "小人模拟实验",
+    "name_en": "Blob Simulation",
+    "station": "map",
+    "station_no": "08",
+    "tagline": "160 只植绒小人抢豆子：快的先抢到也先跑不动，跑完 20 代，整块台面都变蓝了。",
+    "engine": "lemo styles/pip-simulation · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/moni.py",
+    "sample": {
+      "file": "moni pip-simulation.mp4",
+      "title": "跑得快，就更好吗？",
+      "seconds": 52.0
+    },
+    "no": "118"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "pip-simulation",
+    "upstream_cn": "小人模拟实验",
+    "upstream_en": "Blob Simulation",
+    "upstream_line": "160 flocked Pips race for beans: the fast ones eat first and run dry first, and after 20 generations the board turns blue.",
+    "upstream_film": "Is Faster Better?",
+    "upstream_dur": 52.0,
+    "upstream_docs": {
+      "style": "styles/pip-simulation/STYLE.md",
+      "demo": "styles/pip-simulation/DEMO.md",
+      "build": "styles/pip-simulation/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/pip-simulation.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "three.js r170 with instanced parts; a deterministic simulation module that records every step; post from `core/three/pos…"
+  }
+}

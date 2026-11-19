@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "kongban",
+    "name_zh": "孔版印刷",
+    "name_en": "Risograph Print",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "周日早晨骑车穿过城市：面包店、公园、河边，每到一处加一版油墨，最后三版套印。",
+    "engine": "lemo styles/risograph · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/kongban.py",
+    "sample": {
+      "file": "kongban risograph.mp4",
+      "title": "周日骑行",
+      "seconds": 40.0
+    },
+    "no": "60"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "risograph",
+    "upstream_cn": "孔版印刷",
+    "upstream_en": "Risograph Print",
+    "upstream_line": "A Sunday-morning bike ride through the city — bakery, park, riverside — each stop adding an ink until three misregistered plates overprint.",
+    "upstream_film": "Sunday Ride",
+    "upstream_dur": 40.0,
+    "upstream_docs": {
+      "style": "styles/risograph/STYLE.md",
+      "demo": "styles/risograph/DEMO.md",
+      "build": "styles/risograph/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/risograph.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/`: `riso.js` (print shader: plates, halftone, grain, registration, kicks and drift, gates, roller sweeps, refle…"
+  }
+}

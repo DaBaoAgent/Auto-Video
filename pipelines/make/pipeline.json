@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "make",
+    "name_zh": "马克笔白纸速写",
+    "name_en": "Marker on Paper",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "一支马克笔在白纸上算出海边能看多远，再告诉你：爬高 100 倍，只能多看远 10 倍。",
+    "engine": "lemo styles/marker-paper · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/make.py",
+    "sample": {
+      "file": "make marker-paper.mp4",
+      "title": "你能看多远？",
+      "seconds": 52.0
+    },
+    "no": "56"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "marker-paper",
+    "upstream_cn": "马克笔白纸速写",
+    "upstream_en": "Marker on Paper",
+    "upstream_line": "A felt-tip marker works out how far the horizon is from a beach, then shows that climbing a hundred times higher only lets you see ten times farther.",
+    "upstream_film": "How Far Can You See?",
+    "upstream_dur": 52.0,
+    "upstream_docs": {
+      "style": "styles/marker-paper/STYLE.md",
+      "demo": "styles/marker-paper/DEMO.md",
+      "build": "styles/marker-paper/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/marker-paper.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/pen.js`: `Stroke` (resample, smooth, wobble, boil, corners), shapes (`line`, `poly`, `curve`, `arc`, `circle`, `rec…"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "dianlu",
+    "name_zh": "电路板",
+    "name_en": "Circuit Board",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "江河变成电路板上的走线，电流从水坝跑 2,080 公里进手机充电器。",
+    "engine": "lemo styles/circuit-board · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/dianlu.py",
+    "sample": {
+      "file": "dianlu circuit-board.mp4",
+      "title": "七毫秒",
+      "seconds": 60.0
+    },
+    "no": "100"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "circuit-board",
+    "upstream_cn": "电路板",
+    "upstream_en": "Circuit Board",
+    "upstream_line": "Rivers become copper traces as current runs 2,080 km from a dam to a phone charger.",
+    "upstream_film": "Seven Milliseconds",
+    "upstream_dur": 60.0,
+    "upstream_docs": {
+      "style": "styles/circuit-board/STYLE.md",
+      "demo": "styles/circuit-board/DEMO.md",
+      "build": "styles/circuit-board/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/circuit-board.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "Reference code in `demo/src/`. Copy what you use into the project's `src/` (never import from `styles/`); edit your copi…"
+  }
+}

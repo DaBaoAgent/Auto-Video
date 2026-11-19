@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xiangsu2",
+    "name_zh": "2.5D 像素",
+    "name_en": "2.5D Pixel Art",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "灯塔熄灭，孙女提着最后一簇火穿过夜林、爬上风暴悬崖。",
+    "engine": "lemo styles/hd-2d · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/xiangsu2.py",
+    "sample": {
+      "file": "xiangsu2 hd-2d.mp4",
+      "title": "守灯人",
+      "seconds": 76.5
+    },
+    "no": "87"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "hd-2d",
+    "upstream_cn": "2.5D 像素",
+    "upstream_en": "2.5D Pixel Art",
+    "upstream_line": "The lighthouse goes dark; a girl carries the last flame through a night forest and up the storm cliffs.",
+    "upstream_film": "The Lampbearer",
+    "upstream_dur": 76.5,
+    "upstream_docs": {
+      "style": "styles/hd-2d/STYLE.md",
+      "demo": "styles/hd-2d/DEMO.md",
+      "build": "styles/hd-2d/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/hd-2d.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/`: `px.js` (pixel canvas, Bayer ramps, surfaces, lit billboards, glow), `kit.js` (world UVs, materials, houses,…"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "shuoming",
+    "name_zh": "说明书插画",
+    "name_en": "Instruction Manual Art",
+    "station": "diagram",
+    "station_no": "09",
+    "tagline": "两个从没装过家具的新手照说明书装婴儿床，十步排在同一张 45° 说明书上；第十步，说明书里没有。",
+    "engine": "lemo styles/instruction-manual · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/shuoming.py",
+    "sample": {
+      "file": "shuoming instruction-manual.mp4",
+      "title": "第十步",
+      "seconds": 50.6
+    },
+    "no": "77"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "instruction-manual",
+    "upstream_cn": "说明书插画",
+    "upstream_en": "Instruction Manual Art",
+    "upstream_line": "Two first-timers build a crib from a flat-pack manual, ten steps on one 45° page; step ten was never in the manual.",
+    "upstream_film": "Step Ten",
+    "upstream_dur": 50.6,
+    "upstream_docs": {
+      "style": "styles/instruction-manual/STYLE.md",
+      "demo": "styles/instruction-manual/DEMO.md",
+      "build": "styles/instruction-manual/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/instruction-manual.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/iso.js`: `makeView` (orthographic 45°, depth sort, `flush(g)`), `box` and `cyl` (both take `o.xf`, a rigid transfor…"
+  }
+}

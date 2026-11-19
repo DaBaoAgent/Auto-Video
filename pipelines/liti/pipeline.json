@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "liti",
+    "name_zh": "纸片立体书",
+    "name_en": "Paper Pop-up Book",
+    "station": "d3",
+    "station_no": "07",
+    "tagline": "立体书在书桌上打开，小精灵 Pip 在纸片世界冒险，最后跳出书外。",
+    "engine": "lemo styles/paper-popup · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/liti.py",
+    "sample": {
+      "file": "liti paper-popup.mp4",
+      "title": "小精灵冒险记",
+      "seconds": 133.0
+    },
+    "no": "107"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "paper-popup",
+    "upstream_cn": "纸片立体书",
+    "upstream_en": "Paper Pop-up Book",
+    "upstream_line": "A pop-up book opens on a desk; a sprite named Pip adventures through paper worlds and jumps out into ours.",
+    "upstream_film": "Pip's Paper Adventure",
+    "upstream_dur": 133.0,
+    "upstream_docs": {
+      "style": "styles/paper-popup/STYLE.md",
+      "demo": "styles/paper-popup/DEMO.md",
+      "build": "styles/paper-popup/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/paper-popup.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/` (three.js r170 + Canvas2D): `paper.js` (cut finish, grain, crescent, blobs), `cutmesh.js` (cut mesh with pape…"
+  }
+}

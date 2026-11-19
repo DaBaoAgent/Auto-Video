@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "mopian",
+    "name_zh": "1920s 默片",
+    "name_en": "1920s Silent Film",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "面包店学徒追一个滚走的面包，最后掰成两半分给饿肚子的小女孩。",
+    "engine": "lemo styles/silent-film · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/mopian.py",
+    "sample": {
+      "file": "mopian silent-film.mp4",
+      "title": "逃跑的面包",
+      "seconds": 54.2
+    },
+    "no": "91"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "silent-film",
+    "upstream_cn": "1920s 默片",
+    "upstream_en": "1920s Silent Film",
+    "upstream_line": "A baker's boy chases a runaway loaf downhill, then breaks it in half for a hungry girl.",
+    "upstream_film": "The Runaway Loaf",
+    "upstream_dur": 54.2,
+    "upstream_docs": {
+      "style": "styles/silent-film/STYLE.md",
+      "demo": "styles/silent-film/DEMO.md",
+      "build": "styles/silent-film/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/silent-film.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/engine/`: `ink.js` (tonal forms, ink line, wash, hatch; `drawShape()` draws any path in this style), `redraw.js…"
+  }
+}

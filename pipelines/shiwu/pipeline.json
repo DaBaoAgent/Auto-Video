@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "shiwu",
+    "name_zh": "数据实物化",
+    "name_en": "Data Physicalization",
+    "station": "map",
+    "station_no": "08",
+    "tagline": "十二年风电和太阳能装机叠成实物，绕表盘升成两条螺旋，2021 年太阳能反超。",
+    "engine": "lemo styles/data-physical · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/shiwu.py",
+    "sample": {
+      "file": "shiwu data-physical.mp4",
+      "title": "两条螺旋",
+      "seconds": 39.4
+    },
+    "no": "116"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "data-physical",
+    "upstream_cn": "数据实物化",
+    "upstream_en": "Data Physicalization",
+    "upstream_line": "Twelve years of wind and solar stacked as real plates, spiralling round a walnut dial until solar overtakes.",
+    "upstream_film": "Two Spirals",
+    "upstream_dur": 39.4,
+    "upstream_docs": {
+      "style": "styles/data-physical/STYLE.md",
+      "demo": "styles/data-physical/DEMO.md",
+      "build": "styles/data-physical/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/data-physical.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/set.js` — `buildSet(scene)` (HDRI, warm key + cool rims, base with inlay canvas, instanced pieces per material, the…"
+  }
+}

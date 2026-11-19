@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "wushi",
+    "name_zh": "50s 扁平卡通",
+    "name_en": "Mid-century Cartoon",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "用 50 年代教育片的口吻，三步教你装好一台扫地机。",
+    "engine": "lemo styles/midcentury-toon · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/wushi.py",
+    "sample": {
+      "file": "wushi midcentury-toon.mp4",
+      "title": "认识一下 Pip",
+      "seconds": 40.0
+    },
+    "no": "85"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "midcentury-toon",
+    "upstream_cn": "50s 扁平卡通",
+    "upstream_en": "Mid-century Cartoon",
+    "upstream_line": "A robot vacuum set up in three steps, told like a 1950s classroom film.",
+    "upstream_film": "Meet Pip",
+    "upstream_dur": 40.0,
+    "upstream_docs": {
+      "style": "styles/midcentury-toon/STYLE.md",
+      "demo": "styles/midcentury-toon/DEMO.md",
+      "build": "styles/midcentury-toon/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/midcentury-toon.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/engine/toon.js` (the style: `setClock`, `shape` for any shape in the style, `ink` ribbons, `plane`, two-plate `text…"
+  }
+}

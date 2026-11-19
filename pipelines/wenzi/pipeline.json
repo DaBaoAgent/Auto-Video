@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "wenzi",
+    "name_zh": "文字闪切",
+    "name_en": "Text Flash Cuts",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "一封信、一通电话、一面窗墙、十三级台阶：叫他别回头的她每一话都更近一步，直到她自己猛地回头。",
+    "engine": "lemo styles/text-flash-cuts · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/wenzi.py",
+    "sample": {
+      "file": "wenzi text-flash-cuts.mp4",
+      "title": "身后",
+      "seconds": 46.2
+    },
+    "no": "72"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "text-flash-cuts",
+    "upstream_cn": "文字闪切",
+    "upstream_en": "Text Flash Cuts",
+    "upstream_line": "A letter, a phone call, a wall of windows, thirteen steps: the girl who told him not to look back is always one step closer, until she turns her head.",
+    "upstream_film": "Behind You",
+    "upstream_dur": 46.2,
+    "upstream_docs": {
+      "style": "styles/text-flash-cuts/STYLE.md",
+      "demo": "styles/text-flash-cuts/DEMO.md",
+      "build": "styles/text-flash-cuts/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/text-flash-cuts.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "RGB inversion turns red cyan → red-black swap (§3)."
+  }
+}

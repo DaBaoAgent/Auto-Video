@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "baimo",
+    "name_zh": "白模投影",
+    "name_en": "Projection-Mapped Model",
+    "station": "map",
+    "station_no": "08",
+    "tagline": "投影机把数据一层层刷上鹿特丹白模：从 1940 年的空洞到今天的塔楼。",
+    "engine": "lemo styles/white-model · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/baimo.py",
+    "sample": {
+      "file": "baimo white-model.mp4",
+      "title": "被炸平的城市怎样长回来",
+      "seconds": 40.0
+    },
+    "no": "115"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "white-model",
+    "upstream_cn": "白模投影",
+    "upstream_en": "Projection-Mapped Model",
+    "upstream_line": "A projector paints Rotterdam's white model layer by layer, from the 1940 gap to today's towers.",
+    "upstream_film": "How a Flattened City Grew Back",
+    "upstream_dur": 40.0,
+    "upstream_docs": {
+      "style": "styles/white-model/STYLE.md",
+      "demo": "styles/white-model/DEMO.md",
+      "build": "styles/white-model/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/white-model.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/studio.js` — `makeStudio(W, H, model)`: renderer, post, room, the projection material (`projMaterial(kind)` injects…"
+  }
+}

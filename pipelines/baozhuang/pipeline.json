@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "baozhuang",
+    "name_zh": "电视新闻包装",
+    "name_en": "Broadcast News Package",
+    "station": "live",
+    "station_no": "10",
+    "tagline": "一周四条 AI 新闻，一整套电视台包装：串联单、标题条、翻牌价格表、规格卡。",
+    "engine": "lemo styles/news-package · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/baozhuang.py",
+    "sample": {
+      "file": "baozhuang news-package.mp4",
+      "title": "本周 AI 四件事",
+      "seconds": 53.5
+    },
+    "no": "49"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "news-package",
+    "upstream_cn": "电视新闻包装",
+    "upstream_en": "Broadcast News Package",
+    "upstream_line": "Four AI stories from one week in a full on-air package: rundown, headline strap, price board, spec card.",
+    "upstream_film": "The Week in AI",
+    "upstream_dur": 53.5,
+    "upstream_docs": {
+      "style": "styles/news-package/STYLE.md",
+      "demo": "styles/news-package/DEMO.md",
+      "build": "styles/news-package/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/news-package.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "1. **Facts first.** Every on-screen number and every sentence of the voice comes from an official source (the company's …"
+  }
+}

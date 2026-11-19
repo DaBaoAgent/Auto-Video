@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "yibi",
+    "name_zh": "一笔画",
+    "name_en": "One-line Drawing",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "一根不离纸的线画完一个人的一生，再把笔交给孩子。",
+    "engine": "lemo styles/one-line · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/yibi.py",
+    "sample": {
+      "file": "yibi one-line.mp4",
+      "title": "笔不离纸",
+      "seconds": 47.5
+    },
+    "no": "52"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "one-line",
+    "upstream_cn": "一笔画",
+    "upstream_en": "One-line Drawing",
+    "upstream_line": "One unbroken line draws a whole life, then the pen passes to a child.",
+    "upstream_film": "The Line That Never Lifted",
+    "upstream_dur": 47.5,
+    "upstream_docs": {
+      "style": "styles/one-line/STYLE.md",
+      "demo": "styles/one-line/DEMO.md",
+      "build": "styles/one-line/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/one-line.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/`: `geom.js` (samples SVG paths by arc length in the browser, adds tangent-continuous connectors, assigns time …"
+  }
+}

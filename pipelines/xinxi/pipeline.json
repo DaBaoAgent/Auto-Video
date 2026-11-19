@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xinxi",
+    "name_zh": "等距信息图",
+    "name_en": "Isometric Infographic",
+    "station": "diagram",
+    "station_no": "09",
+    "tagline": "一杯咖啡从种植园到你手里的旅程。",
+    "engine": "lemo styles/iso-infographic · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/xinxi.py",
+    "sample": {
+      "file": "xinxi iso-infographic.mp4",
+      "title": "从豆到杯",
+      "seconds": 58.8
+    },
+    "no": "73"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "iso-infographic",
+    "upstream_cn": "等距信息图",
+    "upstream_en": "Isometric Infographic",
+    "upstream_line": "A coffee's journey from the plantation to your hands, across one isometric world.",
+    "upstream_film": "From Bean to Cup",
+    "upstream_dur": 58.8,
+    "upstream_docs": {
+      "style": "styles/iso-infographic/STYLE.md",
+      "demo": "styles/iso-infographic/DEMO.md",
+      "build": "styles/iso-infographic/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/iso-infographic.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/engine.js` is dependency-free Canvas 2D: `Iso` (projection, camera, depth-sorted queue: `box`, `prism`, `cyl`, `con…"
+  }
+}

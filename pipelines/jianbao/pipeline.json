@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "jianbao",
+    "name_zh": "工程简报板",
+    "name_en": "Engineering Briefing Board",
+    "station": "diagram",
+    "station_no": "09",
+    "tagline": "一条河要架桥，四种桥型在一面简报墙上逐个受检，拍板的是桥下要过的船。",
+    "engine": "lemo styles/briefing-board · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/jianbao.py",
+    "sample": {
+      "file": "jianbao briefing-board.mp4",
+      "title": "船说了算",
+      "seconds": 40.0
+    },
+    "no": "81"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "briefing-board",
+    "upstream_cn": "工程简报板",
+    "upstream_en": "Engineering Briefing Board",
+    "upstream_line": "Four bridge types are tested on one briefing wall, and the ship that must pass under picks the winner.",
+    "upstream_film": "The Ship Decides",
+    "upstream_dur": 40.0,
+    "upstream_docs": {
+      "style": "styles/briefing-board/STYLE.md",
+      "demo": "styles/briefing-board/DEMO.md",
+      "build": "styles/briefing-board/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/briefing-board.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "Photos**: Wikimedia Commons (read each file page's licence and author), national libraries and archives (e.g. the Librar…"
+  }
+}

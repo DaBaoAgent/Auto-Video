@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xiangxing",
+    "name_zh": "象形运动图形",
+    "name_en": "Pictogram Motion",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "一把被落在公交车上的黄伞，晴天里在失物招领的货架上等了一整天，暴雨回来时和另外 312 把一起撑开：物件、交通、天气和标识，都是卡着节拍的几何象形符号。",
+    "engine": "lemo styles/pictogram-motion · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/xiangxing.py",
+    "sample": {
+      "file": "xiangxing pictogram-motion.mp4",
+      "title": "被落下的伞",
+      "seconds": 50.0
+    },
+    "no": "70"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "pictogram-motion",
+    "upstream_cn": "象形运动图形",
+    "upstream_en": "Pictogram Motion",
+    "upstream_line": "A yellow umbrella left on a bus waits out a sunny day on the lost-property shelf, then opens with 312 others when the storm comes back: objects, vehicles, weather and signs as beat-locked geometric pictograms.",
+    "upstream_film": "Left Behind",
+    "upstream_dur": 50.0,
+    "upstream_docs": {
+      "style": "styles/pictogram-motion/STYLE.md",
+      "demo": "styles/pictogram-motion/DEMO.md",
+      "build": "styles/pictogram-motion/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/pictogram-motion.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "In `demo/`: `engine.js` (palette, `G.pattern` / `G.drawPattern` with whole-row offsets, `G.motif`, pictograms such as `G…"
+  }
+}

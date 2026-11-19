@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "bopu",
+    "name_zh": "波普艺术",
+    "name_en": "Pop Art",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "超市里几乎每根香蕉都是同一株植物的复制：一面一模一样的版画墙，一根被网点吃黑的老香蕉，最后一波换色翻出上千种香蕉。",
+    "engine": "lemo styles/pop-art · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/bopu.py",
+    "sample": {
+      "file": "bopu pop-art.mp4",
+      "title": "同一根香蕉",
+      "seconds": 52.0
+    },
+    "no": "66"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "pop-art",
+    "upstream_cn": "波普艺术",
+    "upstream_en": "Pop Art",
+    "upstream_line": "Almost every banana in the shops is one plant, copied: a wall of identical prints, an old banana eaten black by dots, and a wave of colour that turns into many bananas.",
+    "upstream_film": "The Same Banana",
+    "upstream_dur": 52.0,
+    "upstream_docs": {
+      "style": "styles/pop-art/STYLE.md",
+      "demo": "styles/pop-art/DEMO.md",
+      "build": "styles/pop-art/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/pop-art.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/engine/pop.js`: `createPop(canvas)` returns the printer. Drawing in page units: `begin(cam)`, `fill(shape, densitie…"
+  }
+}

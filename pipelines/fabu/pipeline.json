@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "fabu",
+    "name_zh": "暗色科技发布",
+    "name_en": "Dark Tech Keynote",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "虚构 app Tidy 的发布片：被埋掉的光标一键把几百个窗口归位。",
+    "engine": "lemo styles/dark-keynote · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/fabu.py",
+    "sample": {
+      "file": "fabu dark-keynote.mp4",
+      "title": "思考的空间",
+      "seconds": 42.0
+    },
+    "no": "95"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "dark-keynote",
+    "upstream_cn": "暗色科技发布",
+    "upstream_en": "Dark Tech Keynote",
+    "upstream_line": "Launch film for Tidy, a fictional app: one buried cursor snaps hundreds of windows back into place.",
+    "upstream_film": "Room to Think",
+    "upstream_dur": 42.0,
+    "upstream_docs": {
+      "style": "styles/dark-keynote/STYLE.md",
+      "demo": "styles/dark-keynote/DEMO.md",
+      "build": "styles/dark-keynote/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/dark-keynote.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/engine.js` (Canvas 2D ES module): `setAccent`, `bg`, `grid`, `panel`, `litShape` (any shape in this style), `trail`…"
+  }
+}

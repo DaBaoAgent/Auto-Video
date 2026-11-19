@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "baohao",
+    "name_zh": "包豪斯几何",
+    "name_en": "Bauhaus Shapes",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "一个点每十年翻一倍：七十年后是 128，不复利只有 6.02，最后十年抵得上之前的全部。",
+    "engine": "lemo styles/bauhaus-shapes · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/baohao.py",
+    "sample": {
+      "file": "baohao bauhaus-shapes.mp4",
+      "title": "复利是怎么滚起来的",
+      "seconds": 52.0
+    },
+    "no": "71"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "bauhaus-shapes",
+    "upstream_cn": "包豪斯几何",
+    "upstream_en": "Bauhaus Shapes",
+    "upstream_line": "One dot doubles every ten years: 128 after seventy, 6.02 without compounding, and the last ten years are worth all the rest.",
+    "upstream_film": "COMPOUND",
+    "upstream_dur": 52.0,
+    "upstream_docs": {
+      "style": "styles/bauhaus-shapes/STYLE.md",
+      "demo": "styles/bauhaus-shapes/DEMO.md",
+      "build": "styles/bauhaus-shapes/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/bauhaus-shapes.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "Topics: mechanisms that reduce to geometry (levers, gears, pulleys, supply and demand, orbits), shares and growth, title…"
+  }
+}

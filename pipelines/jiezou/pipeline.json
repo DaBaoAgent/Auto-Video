@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "jiezou",
+    "name_zh": "节奏综艺",
+    "name_en": "Rhythm Game Show",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "把 AI 发展史做成一局节奏游戏，模型踩着拍登场，最后发成绩单。",
+    "engine": "lemo styles/game-show · 上游 demo",
+    "aspect": "16:9",
+    "fps": null,
+    "entry": "scripts/jiezou.py",
+    "sample": {
+      "file": "jiezou game-show.mp4",
+      "title": "AI 进化节拍",
+      "seconds": 148.8
+    },
+    "no": "89"
+  },
+  "spec": {
+    "source": "lemo-opuscar",
+    "style_slug": "game-show",
+    "upstream_cn": "节奏综艺",
+    "upstream_en": "Rhythm Game Show",
+    "upstream_line": "The history of AI as a rhythm game: models take the stage on the beat, and a report card closes the show.",
+    "upstream_film": "Rhythm of AI, 1997 → 2026",
+    "upstream_dur": 148.8,
+    "upstream_docs": {
+      "style": "styles/game-show/STYLE.md",
+      "demo": "styles/game-show/DEMO.md",
+      "build": "styles/game-show/demo/build.sh"
+    },
+    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/game-show.mp4",
+    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "demo/frame_head.html` (SVG helpers: `el`, `txt`, `tf`, `op`, easing `E`, per-glyph `chars`/`charsPop`, `measure`), `demo…"
+  }
+}
