@@ -1,4 +1,4 @@
-# 管线清单：118 条，一条一个命令
+# 管线清单：124 条，一条一个命令
 
 这份清单由 `tools/build_pipeline_doc.py` 从 `catalog/pipelines.json` 生成，是目录的镜像；
 **入口与参数以各管线自己的 `SKILL.md` 为准**。这里回答的是「这条线现在能不能跑、从哪儿进、吃到什么输入」。
@@ -9,7 +9,7 @@
 - **beta** = 代码与文档在，样片还没补齐；
 - 命令都在仓库根目录执行，入口路径取 `pipeline.json` 的 `meta.entry`；不确定就 `--help`。
 
-当前：**117 条 live / 1 条待补样片 / 11 个工位**。
+当前：**123 条 live / 1 条待补样片 / 11 个工位**。
 
 ## 01 · 纸本叙事　*Paper & Chronicle*
 
@@ -64,9 +64,11 @@
 | `guaban` | 刮版画长镜头（Scratchboard Long Take） | live | lemo styles/printed-long-take · 上游 demo | `pipelines/guaban/scripts/guaban.py` | 60s |
 | `huixingzhen` | 回形针风（Paperclip Explainer） | live | HTML 逐帧 · 确定性渲染 | `pipelines/huixingzhen/scripts/gen_episode.py` | 597s |
 | `jiandie` | 60s 间谍片头（60s Spy Title Sequence） | live | lemo styles/spy-titles · 上游 demo | `pipelines/jiandie/scripts/jiandie.py` | 44s |
+| `keli` | 扁平颗粒插画（Flat Grain Illustration） | live | BB-Video styles/grain · 上游 promo | `pipelines/keli/scripts/keli.py` | 93s |
 | `kongban` | 孔版印刷（Risograph Print） | live | lemo styles/risograph · 上游 demo | `pipelines/kongban/scripts/kongban.py` | 40s |
 | `lvdong` | 剪影律动（Silhouette Rhythm） | live | Canvas + 着色器 · 代码合成配乐 | `pipelines/lvdong/scripts/lvdong.py` | 58s |
 | `muke` | 木刻版画（Woodcut Print） | live | lemo styles/woodcut · 上游 demo | `pipelines/muke/scripts/muke.py` | 58s |
+| `oupu` | 欧普艺术（Op Art） | live | BB-Video styles/op · 上游 promo | `pipelines/oupu/scripts/oupu.py` | 22s |
 | `ruishi` | 瑞士动态排版（Swiss Motion Graphics） | live | lemo styles/swiss-motion · 上游 demo | `pipelines/ruishi/scripts/ruishi.py` | 44s |
 | `shiliang` | 扁平矢量（Flat Vector） | live | SVG 单页 · 逐帧确定性渲染 | `pipelines/shiliang/scripts/shiliang.py` | 30s |
 | `siyin` | 丝印旅行海报（Silkscreen Travel Poster） | live | lemo styles/silkscreen-poster · 上游 demo | `pipelines/siyin/scripts/siyin.py` | 50s |
@@ -74,18 +76,21 @@
 | `wangdian` | 网点档案（Halftone Dossier） | live | lemo styles/halftone-dossier · 上游 demo | `pipelines/wangdian/scripts/wangdian.py` | 30s |
 | `wenzi` | 文字闪切（Text Flash Cuts） | live | lemo styles/text-flash-cuts · 上游 demo | `pipelines/wenzi/scripts/wenzi.py` | 46s |
 | `xiangxing` | 象形运动图形（Pictogram Motion） | live | lemo styles/pictogram-motion · 上游 demo | `pipelines/xiangxing/scripts/xiangxing.py` | 50s |
+| `yugao` | 电影预告（Movie Trailer） | live | BB-Video styles/trailer · 上游 promo | `pipelines/yugao/scripts/yugao.py` | 83s |
 | `zhuangshi` | 装饰艺术（Art Deco） | live | Canvas 2D · 金色渐变线 + 灯泡招牌 + 装饰字体排版 | `pipelines/zhuangshi/scripts/zhuangshi.py` | 39s |
 
 ## 06 · 屏幕赛博　*Screens & Neon*
 
 | id | 名称 | 状态 | 引擎 | 入口 | 样片 |
 | --- | --- | --- | --- | --- | --- |
+| `andiao` | 暗调励志（Dark Motivational） | live | BB-Video styles/lumen · 上游 promo | `pipelines/andiao/scripts/andiao.py` | 165s |
 | `biaoge` | 表格动画（Spreadsheet Film） | live | lemo styles/spreadsheet · 上游 demo | `pipelines/biaoge/scripts/biaoge.py` | 52s |
 | `dianlu` | 电路板（Circuit Board） | live | lemo styles/circuit-board · 上游 demo | `pipelines/dianlu/scripts/dianlu.py` | 60s |
 | `dianzhen` | 1-bit 点阵（1-bit Dither） | live | lemo styles/one-bit-dither · 上游 demo | `pipelines/dianzhen/scripts/dianzhen.py` | 50s |
 | `fabu` | 暗色科技发布（Dark Tech Keynote） | live | lemo styles/dark-keynote · 上游 demo | `pipelines/fabu/scripts/fabu.py` | 42s |
 | `houshi` | 后室录像带（Liminal Found Footage） | live | lemo styles/backrooms · 上游 demo | `pipelines/houshi/scripts/houshi.py` | 60s |
 | `leida` | 雷达扫描纪录片（Radar Sweep Documentary） | live | lemo styles/dark-documentary · 上游 demo | `pipelines/leida/scripts/leida.py` | 52s |
+| `liaotian` | 聊天叙事（Chat Narrative） | live | BB-Video styles/chat · 上游 promo | `pipelines/liaotian/scripts/liaotian.py` | 59s |
 | `liuchang` | 流场风线（Flow-field Wind Lines） | live | lemo styles/flow-field · 上游 demo | `pipelines/liuchang/scripts/liuchang.py` | 52s |
 | `luping` | 像素小人录屏（Mascot Screencast） | live | lemo styles/living-screencast · 上游 demo | `pipelines/luping/scripts/luping.py` | 59s |
 | `mopian` | 1920s 默片（1920s Silent Film） | live | lemo styles/silent-film · 上游 demo | `pipelines/mopian/scripts/mopian.py` | 54s |
@@ -93,6 +98,7 @@
 | `puguang` | 双重曝光（Double Exposure） | live | lemo styles/double-exposure · 上游 demo | `pipelines/puguang/scripts/puguang.py` | 50s |
 | `shibo` | 示波器数学（Oscilloscope Math） | live | lemo styles/oscilloscope-math · 上游 demo | `pipelines/shibo/scripts/shibo.py` | 51s |
 | `xianshiqi` | 赛博 HUD（Cyber HUD） | live | Three.js + Canvas FUI 覆盖层 | `pipelines/xianshiqi/scripts/xianshiqi.py` | 30s |
+| `xuanyi` | 悬疑探秘（Suspense Mystery） | live | BB-Video styles/mystery · 上游 promo | `pipelines/xuanyi/scripts/xuanyi.py` | 44s |
 | `xuni` | 合成波 VHS（Synthwave VHS） | live | Three.js + Canvas + VHS 后处理 | `pipelines/xuni/scripts/xuni.py` | 30s |
 | `yinghuo` | 萤火光点（Firefly Pointillism） | live | lemo styles/firefly-pointillism · 上游 demo | `pipelines/yinghuo/scripts/yinghuo.py` | 51s |
 | `zhike` | 胶片直刻（Scratch Film） | live | lemo styles/scratch-film · 上游 demo | `pipelines/zhike/scripts/zhike.py` | 52s |

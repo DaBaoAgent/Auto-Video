@@ -491,6 +491,30 @@
     "moni": {
       "render": null,
       "reason": "上游 demo 只出整片样片（styles/pip-simulation/demo/build.sh），还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "liaotian": {
+      "render": null,
+      "reason": "上游用 promo/scripts/new.mjs --style chat 建工程、render.mjs 出片，还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "keli": {
+      "render": null,
+      "reason": "上游用 promo/scripts/new.mjs --style grain 建工程、render.mjs 出片，还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "andiao": {
+      "render": null,
+      "reason": "上游用 promo/scripts/new.mjs --style lumen 建工程、render.mjs 出片，还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "xuanyi": {
+      "render": null,
+      "reason": "上游用 promo/scripts/new.mjs --style mystery 建工程、render.mjs 出片，还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "oupu": {
+      "render": null,
+      "reason": "上游用 promo/scripts/new.mjs --style op 建工程、render.mjs 出片，还没拆成数据驱动模板；frontend 只灌文案与配音"
+    },
+    "yugao": {
+      "render": null,
+      "reason": "上游用 promo/scripts/new.mjs --style trailer 建工程、render.mjs 出片，还没拆成数据驱动模板；frontend 只灌文案与配音"
     }
   }
 }

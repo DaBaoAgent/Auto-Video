@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "andiao",
+    "no": "121",
+    "name_zh": "暗调励志",
+    "name_en": "Dark Motivational",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "几乎全黑的房间只留一盏动机光，方形头小人用眉眼演完熬夜、拖延与那个决定。",
+    "engine": "BB-Video styles/lumen · 上游 promo",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/andiao.py",
+    "sample": {
+      "file": "andiao bb-lumen.mp4",
+      "title": "再刷五分钟 · 报复性熬夜",
+      "seconds": 165.3
+    }
+  },
+  "spec": {
+    "source": "BB-Video",
+    "style_slug": "lumen",
+    "upstream_cn": "暗调励志",
+    "upstream_en": "Dark Motivational",
+    "upstream_line": "A nearly black room lit by one motivated light, with one character acting the whole story through eyes and brows.",
+    "upstream_film": "再刷五分钟 · 报复性熬夜",
+    "upstream_dur": 165.3,
+    "upstream_docs": {
+      "style": "skills/bb-video/styles/lumen/STYLE.md",
+      "guide": "skills/bb-video/promo/GUIDE.md",
+      "skill": "skills/bb-video/SKILL.md"
+    },
+    "sample_source": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/lumen.mp4",
+    "sample_note": "演示站暂用 BB-Video 的 1080p 成片外链；真封装后换成本仓库 projects/ 出片",
+    "engine_note": "BB-Video 上游 promo 运行时（Chrome 逐帧）"
+  }
+}
