@@ -1,6 +1,6 @@
 # Style: op art (`op`)
 
-> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`, `templates/…`) are relative to the `promo/` folder of bb-video.
+> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`, `templates/…`) are relative to the `promo/` folder of 开源风格包.
 
 > Black-and-white stripes, concentric rings, checkerboards and spirals fill the frame, bulging, squeezing and bending around "lenses" — the picture is flat, yet the eye feels it moving. The product is the thing that bulges out of the pattern: a card pushes the stripes apart, a button makes the rings circle around it, a transition is the stripes thickening until they swallow the frame.
 > Reference (grammar only): 1960s op art (black-and-white stripe illusions, bulging checkerboards, rhythms of coloured stripes). Never copy the composition or pattern of any particular work.

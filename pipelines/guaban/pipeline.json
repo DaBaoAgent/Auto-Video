@@ -7,7 +7,7 @@
     "station": "graphic",
     "station_no": "05",
     "tagline": "刮版画的北海道河谷一镜到底，丹顶鹤从 33 只数回到 1,927 只。",
-    "engine": "lemo styles/printed-long-take · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/guaban.py",
@@ -16,23 +16,19 @@
       "title": "三十三只",
       "seconds": 60.0
     },
-    "no": "65"
+    "no": "65",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "printed-long-take",
     "upstream_cn": "刮版画长镜头",
     "upstream_en": "Scratchboard Long Take",
     "upstream_line": "Red-crowned cranes in a Hokkaido valley, one scratchboard take, counted back from 33 to 1,927.",
     "upstream_film": "Thirty-Three Cranes",
     "upstream_dur": 60.0,
-    "upstream_docs": {
-      "style": "styles/printed-long-take/STYLE.md",
-      "demo": "styles/printed-long-take/DEMO.md",
-      "build": "styles/printed-long-take/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/printed-long-take.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/guaban.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "一刀一色：形状先定，再用排线造明暗，浅线压在深块上。",
     "style": {
       "family": "hatch",

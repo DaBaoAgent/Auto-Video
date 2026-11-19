@@ -7,7 +7,7 @@
     "station": "toon",
     "station_no": "04",
     "tagline": "阿尔萨斯-洛林在 1871 到 1945 年间四次换主人：每次都有人撕下那块纸、贴上新的，住在上面的她一步没挪。",
-    "engine": "lemo styles/comic-history · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/gaoxiao.py",
@@ -16,23 +16,19 @@
       "title": "一块纸",
       "seconds": 51.0
     },
-    "no": "86"
+    "no": "86",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "comic-history",
     "upstream_cn": "搞笑历史卡通",
     "upstream_en": "Comic History Cartoon",
     "upstream_line": "Alsace-Lorraine changed hands four times between 1871 and 1945: each time someone tore off the paper and pasted a new piece, and the woman living on it never moved.",
     "upstream_film": "One Piece of Paper",
     "upstream_dur": 51.0,
-    "upstream_docs": {
-      "style": "styles/comic-history/STYLE.md",
-      "demo": "styles/comic-history/DEMO.md",
-      "build": "styles/comic-history/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/comic-history.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/gaoxiao.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "平涂加描边：天空渐变、角色几何化剪影、速度线与地平线。",
     "style": {
       "family": "cel",

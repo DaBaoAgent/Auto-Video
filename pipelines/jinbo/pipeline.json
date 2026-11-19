@@ -7,7 +7,7 @@
     "station": "craft",
     "station_no": "03",
     "tagline": "画里的世界只有金子会发光，可太阳熄了；一个女孩提着最后一盏灯上山，把光还给了太阳。",
-    "engine": "lemo styles/gilded-illumination · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jinbo.py",
@@ -16,23 +16,19 @@
       "title": "借来的光",
       "seconds": 46.8
     },
-    "no": "59"
+    "no": "59",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "gilded-illumination",
     "upstream_cn": "金箔彩绘",
     "upstream_en": "Gilded Illumination",
     "upstream_line": "In a painted world where only gold shines, the sun goes out; a girl carries the last lamp up the mountain and gives it its light back.",
     "upstream_film": "Borrowed Light",
     "upstream_dur": 46.8,
-    "upstream_docs": {
-      "style": "styles/gilded-illumination/STYLE.md",
-      "demo": "styles/gilded-illumination/DEMO.md",
-      "build": "styles/gilded-illumination/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/gilded-illumination.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/jinbo.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "背光镂空：纸色分层叠上，孔洞透出背光，金线勾边。",
     "style": {
       "family": "paper",

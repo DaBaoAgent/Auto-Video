@@ -7,7 +7,7 @@
     "station": "d3",
     "station_no": "07",
     "tagline": "玩具城的早高峰，一切都像模型。",
-    "engine": "lemo styles/tilt-shift · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/yizhou.py",
@@ -16,23 +16,19 @@
       "title": "玩具城早高峰",
       "seconds": 38.0
     },
-    "no": "108"
+    "no": "108",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "tilt-shift",
     "upstream_cn": "移轴微缩",
     "upstream_en": "Tilt-Shift Miniature",
     "upstream_line": "Morning rush hour in a town that looks like a model: traffic, trains and tiny people.",
     "upstream_film": "Toy Town Rush Hour",
     "upstream_dur": 38.0,
-    "upstream_docs": {
-      "style": "styles/tilt-shift/STYLE.md",
-      "demo": "styles/tilt-shift/DEMO.md",
-      "build": "styles/tilt-shift/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/tilt-shift.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/yizhou.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "等轴测：体块按 x/y/z 投影，顶面提亮、左面中间调、右面压暗，落地投影跟着走。",
     "style": {
       "family": "iso",

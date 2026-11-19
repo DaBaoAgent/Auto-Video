@@ -7,7 +7,7 @@
     "station": "map",
     "station_no": "08",
     "tagline": "十二年风电和太阳能装机叠成实物，绕表盘升成两条螺旋，2021 年太阳能反超。",
-    "engine": "lemo styles/data-physical · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/shiwu.py",
@@ -16,23 +16,19 @@
       "title": "两条螺旋",
       "seconds": 39.4
     },
-    "no": "116"
+    "no": "116",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "data-physical",
     "upstream_cn": "数据实物化",
     "upstream_en": "Data Physicalization",
     "upstream_line": "Twelve years of wind and solar stacked as real plates, spiralling round a walnut dial until solar overtakes.",
     "upstream_film": "Two Spirals",
     "upstream_dur": 39.4,
-    "upstream_docs": {
-      "style": "styles/data-physical/STYLE.md",
-      "demo": "styles/data-physical/DEMO.md",
-      "build": "styles/data-physical/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/data-physical.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/shiwu.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "场 + 等值线 + 站点：先铺色斑，再压等高圈，最后点数据与线路。",
     "style": {
       "family": "map",

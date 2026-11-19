@@ -7,7 +7,7 @@
     "station": "hand",
     "station_no": "02",
     "tagline": "一支马克笔在白纸上算出海边能看多远，再告诉你：爬高 100 倍，只能多看远 10 倍。",
-    "engine": "lemo styles/marker-paper · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/make.py",
@@ -16,23 +16,19 @@
       "title": "你能看多远？",
       "seconds": 52.0
     },
-    "no": "56"
+    "no": "56",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "marker-paper",
     "upstream_cn": "马克笔白纸速写",
     "upstream_en": "Marker on Paper",
     "upstream_line": "A felt-tip marker works out how far the horizon is from a beach, then shows that climbing a hundred times higher only lets you see ten times farther.",
     "upstream_film": "How Far Can You See?",
     "upstream_dur": 52.0,
-    "upstream_docs": {
-      "style": "styles/marker-paper/STYLE.md",
-      "demo": "styles/marker-paper/DEMO.md",
-      "build": "styles/marker-paper/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/marker-paper.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/make.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "逐笔写出来：每一笔有起笔时间，高亮带压在关键笔画上。",
     "style": {
       "family": "board",

@@ -54,9 +54,9 @@ def find_puppeteer(root: Path) -> Path | None:
     env = os.environ.get("STYLE_PUPPETEER")
     cands = [Path(env)] if env else []
     cands += [
+        root / "vendor" / "node_modules" / "puppeteer-core",
         root / "dengju" / "node_modules" / "puppeteer-core",
         root / "piying" / "node_modules" / "puppeteer-core",
-        root / "vendor" / "mg-styles-15" / "node_modules" / "puppeteer-core",
     ]
     for c in cands:
         if (c / "package.json").exists():

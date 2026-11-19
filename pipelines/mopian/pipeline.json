@@ -7,7 +7,7 @@
     "station": "screen",
     "station_no": "06",
     "tagline": "面包店学徒追一个滚走的面包，最后掰成两半分给饿肚子的小女孩。",
-    "engine": "lemo styles/silent-film · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/mopian.py",
@@ -16,23 +16,19 @@
       "title": "逃跑的面包",
       "seconds": 54.2
     },
-    "no": "91"
+    "no": "91",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "silent-film",
     "upstream_cn": "1920s 默片",
     "upstream_en": "1920s Silent Film",
     "upstream_line": "A baker's boy chases a runaway loaf downhill, then breaks it in half for a hungry girl.",
     "upstream_film": "The Runaway Loaf",
     "upstream_dur": 54.2,
-    "upstream_docs": {
-      "style": "styles/silent-film/STYLE.md",
-      "demo": "styles/silent-film/DEMO.md",
-      "build": "styles/silent-film/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/silent-film.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/mopian.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "灰阶构图：亮块、剪影、胶片颗粒与齿孔，暗角压住边缘。",
     "style": {
       "family": "photo",

@@ -22,7 +22,7 @@
   },
   "spec": {
     "source": {
-      "repo": "lemomo-ai/lemo-opuscar",
+      "repo": "公开样片库/开源风格库",
       "path": "styles/memphis-diorama/demo",
       "style": "Memphis Diorama（孟菲斯微缩）",
       "demo_film": "Four Seasons in Pomelo Town / 柚子镇四季"
@@ -84,7 +84,7 @@
     "credits": [
       "PICTURE: 本仓库代码自己画（Four Seasons in Pomelo Town 的上游引擎迁入），无生成图、无第三方素材",
       "FONT: three.js（MIT）随工程 lib/ 入库",
-      "STYLE: Memphis Diorama，技法取自 lemo-opuscar styles/memphis-diorama/demo",
+      "STYLE: Memphis Diorama，技法取自 开源风格库 styles/memphis-diorama/demo",
       "SOUND: 上游配乐与拟音不迁；需要声音时用项目自带 voice/voice.wav 走 mux"
     ]
   }

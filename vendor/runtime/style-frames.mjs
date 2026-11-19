@@ -46,9 +46,9 @@ if (!fs.existsSync(PROJECT)) {
 function findPuppeteer() {
   const cands = [
     process.env.STYLE_PUPPETEER,
+    path.join(REPO, 'vendor', 'node_modules', 'puppeteer-core'),
     path.join(REPO, 'dengju', 'node_modules', 'puppeteer-core'),
     path.join(REPO, 'piying', 'node_modules', 'puppeteer-core'),
-    path.join(REPO, 'vendor', 'mg-styles-15', 'node_modules', 'puppeteer-core'),
   ].filter(Boolean);
   for (const c of cands) {
     if (fs.existsSync(path.join(c, 'package.json'))) return c;
@@ -100,12 +100,15 @@ const dbgPort = await new Promise((res) => {
 const udd = fs.mkdtempSync(path.join(os.tmpdir(), 'stylekit-edge-'));
 const proc = spawn(EDGE, [
   '--headless=new', `--remote-debugging-port=${dbgPort}`, `--user-data-dir=${udd}`,
-  '--use-angle=d3d11', '--no-sandbox', '--disable-gpu-watchdog',
+  '--use-angle=swiftshader', '--no-sandbox', '--disable-gpu-watchdog',
+  // WebGL 页面（lvdong 的 sky.js）在无显示器的 headless 里需要软件光栅，否则上下文秒掉、整帧变白
+  '--enable-unsafe-swiftshader',
   '--font-render-hinting=none', '--disable-lcd-text', '--force-color-profile=srgb',
   '--disable-background-timer-throttling', '--disable-gpu-vsync', '--disable-frame-rate-limit',
   '--disable-renderer-backgrounding', '--hide-scrollbars', '--mute-audio',
-  '--no-first-run', '--no-default-browser-check', '--disable-extensions', 'about:blank',
-], { stdio: 'ignore' });
+  '--no-first-run', '--no-default-browser-check', '--disable-extensions',
+].concat((process.env.STYLE_EXTRA || '').split(' ').filter(Boolean), ['about:blank']),
+  { stdio: 'ignore' });
 
 const wsUrl = await new Promise((res, rej) => {
   const t0 = Date.now();
@@ -123,13 +126,19 @@ const wsUrl = await new Promise((res, rej) => {
 const browser = await puppeteer.connect({ browserWSEndpoint: wsUrl, protocolTimeout: 600000 });
 const page = await browser.newPage();
 page.on('pageerror', (e) => console.log('[page error]', e.message));
+if (process.env.STYLE_DEBUG) {
+  page.on('response', (r) => { if (r.status() >= 400) console.log('[http]', r.status(), r.url()); });
+  page.on('requestfailed', (r) => console.log('[reqfail]', r.failure()?.errorText, r.url()));
+}
 page.on('console', (m) => {
   if (m.type() === 'error' || m.type() === 'warn') console.log('[console]', m.text());
 });
 await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
 await page.goto(url, { waitUntil: 'load', timeout: 120000 });
-await page.waitForFunction('window.__ready === true', { timeout: 180000, polling: 100 });
+await page.waitForFunction('window.__ready === true || window.READY === true', { timeout: 180000, polling: 100 });
 await page.evaluate(() => document.fonts && document.fonts.ready);
+// 两种页面协议都认：新版 __ready/renderAt，旧版 READY/render
+const drawAt = (tt) => page.evaluate((t) => (window.renderAt ? window.renderAt(t) : window.render(t)), tt);
 
 const shot = (p) => page.screenshot(FMT === 'jpeg'
   ? { path: p, type: 'jpeg', quality: QUALITY }
@@ -144,7 +153,7 @@ if (stills) {
   const ts = String(stills).split(',').map(Number).filter((n) => !Number.isNaN(n));
   const t0 = Date.now();
   for (const t of ts) {
-    await page.evaluate((tt) => window.renderAt(tt), t);
+    await drawAt(t);
     const f = path.join(outDir, `t${t.toFixed(2).padStart(6, '0')}.${ext}`);
     await shot(f);
     console.log(f);
@@ -157,7 +166,7 @@ if (stills) {
   const f0 = Math.round(FROM * FPS), f1 = Math.round(TO * FPS);
   const t0 = Date.now();
   for (let f = f0; f < f1; f++) {
-    await page.evaluate((tt) => window.renderAt(tt), f / FPS);
+    await drawAt(f / FPS);
     await shot(path.join(outDir, `${String(f).padStart(4, '0')}.${ext}`));
     if ((f - f0) % 30 === 0 || f === f1 - 1) {
       const el = (Date.now() - t0) / 1000;

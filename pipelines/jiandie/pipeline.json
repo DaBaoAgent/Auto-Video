@@ -7,7 +7,7 @@
     "station": "graphic",
     "station_no": "05",
     "tagline": "虚构 1964 年间谍片的片头：追一把被偷的钥匙，几何碎片最后拼成片名。",
-    "engine": "lemo styles/spy-titles · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jiandie.py",
@@ -16,23 +16,19 @@
       "title": "天鹅绒密码",
       "seconds": 44.1
     },
-    "no": "69"
+    "no": "69",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "spy-titles",
     "upstream_cn": "60s 间谍片头",
     "upstream_en": "60s Spy Title Sequence",
     "upstream_line": "Opening titles for an imaginary 1964 spy film: a chase for a stolen key until the shapes lock into the title.",
     "upstream_film": "The Velvet Cipher",
     "upstream_dur": 44.1,
-    "upstream_docs": {
-      "style": "styles/spy-titles/STYLE.md",
-      "demo": "styles/spy-titles/DEMO.md",
-      "build": "styles/spy-titles/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/spy-titles.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/jiandie.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "大色块 + 大字：几何压底，字按行进场，横线随进度长出来。",
     "style": {
       "family": "flat",

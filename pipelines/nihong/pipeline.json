@@ -7,7 +7,7 @@
     "station": "screen",
     "station_no": "06",
     "tagline": "一只霓虹猫去街尾招牌上偷金鱼当夜宵，一爪子拍漏了鱼缸，又叼着快灭的鱼冒雨跑回家，放进自家招牌上的冰饮杯。",
-    "engine": "lemo styles/neon-tubes · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/nihong.py",
@@ -16,23 +16,19 @@
       "title": "夜宵",
       "seconds": 48.0
     },
-    "no": "104"
+    "no": "104",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "neon-tubes",
     "upstream_cn": "霓虹灯管",
     "upstream_en": "Neon Tubes",
     "upstream_line": "A neon cat goes out for the goldfish on the sign at the end of the street, cracks its bowl, and runs the fading fish home through the rain to the goblet on its own sign.",
     "upstream_film": "Midnight Snack",
     "upstream_dur": 48.0,
-    "upstream_docs": {
-      "style": "styles/neon-tubes/STYLE.md",
-      "demo": "styles/neon-tubes/DEMO.md",
-      "build": "styles/neon-tubes/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/neon-tubes.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/nihong.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "黑底加色：描线分多遍叠加，亮芯压在光晕上，暗角收边。",
     "style": {
       "family": "neon",

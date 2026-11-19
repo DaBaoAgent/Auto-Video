@@ -12,7 +12,7 @@
 ## 技法
 
 Watercolor Brush（水彩笔刷）的画法与工程实现迁自
-[lemo-opuscar](https://github.com/lemomo-ai/lemo-opuscar) 的 `styles/watercolor`。
+[开源风格库](https://github.com/公开样片库/开源风格库) 的 `styles/watercolor`。
 不变量完整写进 `pipeline.json` 的 `spec`，改动前先读它。
 
 ## 音频

@@ -10,11 +10,12 @@
 
 | 组件 | 用途 | 许可 |
 |---|---|---|
-| [lemo-opuscar](https://github.com/lemomo-ai/lemo-opuscar) `styles/silhouette-rhythm` | 天空/日轮/水面/倒影/光线的着色器（`demo/sky.js`）与渲染器（`core/render/still.mjs`、`video.mjs`） | 见该库 LICENSE（本仓库不复制其源码，只作为外部依赖调用） |
+| 本仓库 `styles/sky.js`（WebGL 天空合成） | 天空/日轮/水面/倒影/光线 | MIT（随仓库，工程内自带） |
 | [faster-whisper](https://github.com/SYSTRAN/faster-whisper) + CTranslate2 | 中文逐词转写（`small` int8 CPU） | MIT |
 | [NumPy](https://numpy.org/) / [SciPy](https://scipy.org/) | 合成器、滤波、卷积混响 | BSD-3 |
 | [soundfile](https://github.com/bastibe/python-soundfile)（libsndfile） | 读写 44.1 kHz float wav | BSD-3 / LGPL-2.1（libsndfile） |
-| [Node.js](https://nodejs.org/) | 渲染器的运行时 | MIT |
+| `vendor/runtime/style-frames.mjs` + puppeteer-core | 逐帧抓取 | MIT（本仓库自带） |
+| [Node.js](https://nodejs.org/) | 抓帧器运行时 | MIT |
 | ffmpeg / ffprobe | 混流、两遍 loudnorm、抽封面、探测 | LGPL / GPL（视构建） |
 
 ## 字体
@@ -24,7 +25,7 @@
 | Noto Sans SC（可变权重） | 字幕 `SCBold` 46 px、标签 34 px | SIL OFL 1.1 | **不分发**：放 `assets/fonts/`，不入库 |
 | Anton | 画面大字 `17′28″` 96 px | SIL OFL 1.1 | **不分发**：同上 |
 
-字体只在本机使用；要换字体改 `pipeline.json` 的 `fonts` 与 `film.js` 的 `@font-face`。
+字体只在本机使用：页面 `@font-face` 先试系统字体，再取 `assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf`，两条都没有才回退默认。
 
 ## 素材
 

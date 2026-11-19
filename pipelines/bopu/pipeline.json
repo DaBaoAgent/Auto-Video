@@ -7,7 +7,7 @@
     "station": "graphic",
     "station_no": "05",
     "tagline": "超市里几乎每根香蕉都是同一株植物的复制：一面一模一样的版画墙，一根被网点吃黑的老香蕉，最后一波换色翻出上千种香蕉。",
-    "engine": "lemo styles/pop-art · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/bopu.py",
@@ -16,23 +16,19 @@
       "title": "同一根香蕉",
       "seconds": 52.0
     },
-    "no": "66"
+    "no": "66",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "pop-art",
     "upstream_cn": "波普艺术",
     "upstream_en": "Pop Art",
     "upstream_line": "Almost every banana in the shops is one plant, copied: a wall of identical prints, an old banana eaten black by dots, and a wave of colour that turns into many bananas.",
     "upstream_film": "The Same Banana",
     "upstream_dur": 52.0,
-    "upstream_docs": {
-      "style": "styles/pop-art/STYLE.md",
-      "demo": "styles/pop-art/DEMO.md",
-      "build": "styles/pop-art/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/pop-art.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/bopu.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "大色块 + 大字：几何压底，字按行进场，横线随进度长出来。",
     "style": {
       "family": "flat",

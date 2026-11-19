@@ -7,7 +7,7 @@
     "station": "hand",
     "station_no": "02",
     "tagline": "粉笔写下网上的说法，再一擦，把「射」写回三千年前。",
-    "engine": "lemo styles/chalkboard · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/heiban.py",
@@ -16,23 +16,19 @@
       "title": "汉字的故事",
       "seconds": 49.3
     },
-    "no": "54"
+    "no": "54",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "chalkboard",
     "upstream_cn": "黑板粉笔",
     "upstream_en": "Chalkboard",
     "upstream_line": "Chalk writes a popular claim about two characters, wipes it, and traces 射 back three thousand years.",
     "upstream_film": "The Story of Chinese Characters",
     "upstream_dur": 49.3,
-    "upstream_docs": {
-      "style": "styles/chalkboard/STYLE.md",
-      "demo": "styles/chalkboard/DEMO.md",
-      "build": "styles/chalkboard/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/chalkboard.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/heiban.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "逐笔写出来：每一笔有起笔时间，高亮带压在关键笔画上。",
     "style": {
       "family": "board",

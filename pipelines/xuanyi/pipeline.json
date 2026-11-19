@@ -21,20 +21,15 @@
     "updated": "2026-11-20"
   },
   "spec": {
-    "source": "BB-Video",
+    "source": "自研渲染（本地运行时）",
     "style_slug": "mystery",
     "upstream_cn": "悬疑探秘",
     "upstream_en": "Suspense Mystery",
     "upstream_line": "A deadpan mock-science TV programme on a blue 4:3 CRT, with numbered symptoms acted out by rubber-hose stickers.",
     "upstream_film": "为什么你的朋友该叫你爸爸",
     "upstream_dur": 44.4,
-    "upstream_docs": {
-      "style": "skills/bb-video/styles/mystery/STYLE.md",
-      "guide": "skills/bb-video/promo/GUIDE.md",
-      "skill": "skills/bb-video/SKILL.md"
-    },
-    "sample_source": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/mystery.mp4",
-    "sample_note": "演示站暂用 BB-Video 成片；管线本身已本地封装，渲染走 runtime/render.mjs",
+    "sample_source": "site/media/xuanyi.mp4",
+    "sample_note": "演示站短片为早期外部成片，管线本身已本地封装",
     "engine_note": "本地 runtime/render.mjs，不依赖上游 checkout",
     "vendored": true,
     "runtime": {
@@ -44,7 +39,7 @@
         "runtime/promo.js",
         "runtime/render.mjs"
       ],
-      "license": "runtime/LICENSE.BB-Video"
+      "license": "runtime/LICENSE"
     },
     "template": "template/",
     "migration": "MIGRATION.md"

@@ -10,7 +10,7 @@
 weisuo/
 ├── SKILL.md              入口命令、画面语法、已知坑、验收清单
 ├── README.md             本文件
-├── MIGRATION.md          从 lemo-opuscar 迁入的来源与差异
+├── MIGRATION.md          从 开源风格库 迁入的来源与差异
 ├── CREDITS.md            字体 / 引擎 / 技法许可
 ├── pipeline.json         契约（schema + meta + spec 定版参数）
 ├── scripts/
@@ -60,7 +60,7 @@ python weisuo/scripts/weisuo.py new 013_xxx
 |---|---|
 | 画面 | 全部由本仓库代码生成，无生成图、无第三方素材 |
 | 字体 | 见 `CREDITS.md`（均 SIL OFL 1.1） |
-| 技法 | lemo-opuscar `styles/memphis-diorama/demo`，见 `MIGRATION.md` |
+| 技法 | 开源风格库 `styles/memphis-diorama/demo`，见 `MIGRATION.md` |
 
 ## 许可
 

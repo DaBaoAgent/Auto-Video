@@ -19,7 +19,7 @@ RAW = os.path.join(D, 'raw'); os.makedirs(RAW, exist_ok=True)
 W, S, E, N = 111.955, 31.945, 112.330, 32.165
 # backdrop: the Nanyang basin from the Funiu foothills down to the Han, ~150 x 110 km
 WB, SB, EB, NB = 111.30, 31.60, 112.90, 32.55
-UA = {'User-Agent': 'lemo-opuscar/1.0 (research)'}
+UA = {'User-Agent': 'Auto-Video/1.0 (research)'}
 LOG = open(os.path.join(RAW, 'manifest.jsonl'), 'a')
 
 

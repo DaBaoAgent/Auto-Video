@@ -2,7 +2,7 @@
 // 一个 render(t)。开局先照 references/style.md 定下天空/日轮/水平线的走向，再照 references/score.md
 // 把拍点排进 SEC；完整的工作片见 projects/004_玛雅巨人文明/film.js（58.0 s / 12 段 / 15 镜）。
 //
-// 三层：LF 剪影、LR 倒影、LX 水面光，由 sky.js（lemo-opuscar styles/silhouette-rhythm/demo）合成。
+// 三层：LF 剪影、LR 倒影、LX 水面光，由 sky.js（本仓库 styles/demo）合成。
 window.DUR = 30.0;
 const DUR = 30.0, B = 2 / 3, PI = Math.PI, TAU = PI * 2;   // 90 BPM：一拍 0.6667 s
 const W = innerWidth, H = innerHeight, K = H / 1080;

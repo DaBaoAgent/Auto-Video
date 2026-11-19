@@ -112,5 +112,6 @@
   "credits": [
     "FONTS: Caveat (SIL OFL 1.1), Long Cang (SIL OFL 1.1), Noto Serif SC (SIL OFL 1.1)",
     "ENGINE: 自研 2D canvas 手写引擎（无第三方依赖），本仓库 MIT"
-  ]
+  ],
+  "spec": {}
 }

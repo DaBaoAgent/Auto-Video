@@ -20,7 +20,7 @@
 
 - 四张 G-buffer（albedo+id / light+depth+normal / 排线方向 / 锚点+露出时间）+ 后处理排线，
   锚定坐标防漂移（笔画黏在物体上，只有轮廓按 2 帧一换的节奏抖），纸齿与颜料阈值合成。
-  这套做法来自 lemo-opuscar 的 `styles/colored-pencil`，本仓库迁入并固化为管线。
+  这套做法来自 开源风格库 的 `styles/colored-pencil`，本仓库迁入并固化为管线。
 
 ## 示例配音
 

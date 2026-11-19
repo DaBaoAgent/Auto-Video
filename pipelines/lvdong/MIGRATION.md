@@ -2,7 +2,7 @@
 
 ## 来源
 
-这一支片子的全部工作发生在 lemo-opuscar 库的 `films/004_maya_part1/`（该目录被库的 gitignore 排除）。管线是把它拆开重排的结果。
+这一支片子的全部工作发生在 仓库内抓帧的 `films/004_maya_part1/`（该目录被库的 gitignore 排除）。管线是把它拆开重排的结果。
 
 | 源文件（`films/004_maya_part1/`） | 去向 | 做了什么 |
 |---|---|---|
@@ -25,7 +25,7 @@
 2. **谱是数据**：音乐与 foley 不进代码，进 `score.json`；改一支片子的声音只改 JSON。
 3. **拍点是一等公民**：90 BPM、`B = 2/3`、段界取拍界；`beats` 子命令随时打表。
 4. **工程自带演员表与时间轴**：`template/` 是可跑的骨架，不是空文档。
-5. **不用 bash、不依赖自我复制引擎**：渲染走 `$LVDONG_LIB`，混流走 ffmpeg。
+5. **不用 bash、不依赖自我复制引擎**：渲染走 仓库根，混流走 ffmpeg。
 
 ## 入库内容
 
@@ -52,7 +52,7 @@ lvdong/projects/004_玛雅巨人文明/voice/words_full.json     # 116 KB，为�
 
 | 依赖 | 版本 | 说明 |
 |---|---|---|
-| lemo-opuscar | 2026-11 的 `main` | `core/render/{still,video}.mjs`、`styles/silhouette-rhythm/demo/sky.js` |
+| 仓库内抓帧 | 2026-11 的 `main` | `core/render/{still,video}.mjs`、`styles/silhouette-rhythm/demo/sky.js` |
 | node | v22.23.2 | 渲染器 |
 | python | 3.11+（实测库 venv） | numpy 2.x / scipy 1.x / soundfile 0.12 |
 | faster-whisper | 库 venv 内 | `small` int8 CPU |

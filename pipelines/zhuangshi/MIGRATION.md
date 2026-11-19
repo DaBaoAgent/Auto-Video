@@ -4,7 +4,7 @@
 
 | 项 | 值 |
 |---|---|
-| 上游仓库 | `lemomo-ai/lemo-opuscar`（本地 `D:\@kaifa\lemo-opuscar`） |
+| 上游仓库 | `公开样片库/开源风格库`（本地 `开源风格库`） |
 | 上游位置 | `styles/art-deco/demo` |
 | 上游样片 | 《星光酒店午夜》Midnight at the Starlight Hotel，39.0 s |
 | 迁入日期 | 2026-11-18 |
@@ -48,4 +48,4 @@
 ## 运行环境
 
 Windows / Linux / macOS 均可。实测：Windows 11 + Node 20 + ffmpeg 7.x
-+ `D:/@kaifa/lemo-opuscar/node_modules/playwright-core`（按 `$PLAYWRIGHT_CORE` → 工程向上 → 全局的顺序找）。
++ `开源风格库/node_modules/playwright-core`（按 `$PLAYWRIGHT_CORE` → 工程向上 → 全局的顺序找）。

@@ -21,20 +21,15 @@
     "updated": "2026-11-20"
   },
   "spec": {
-    "source": "BB-Video",
+    "source": "自研渲染（本地运行时）",
     "style_slug": "grain",
     "upstream_cn": "扁平颗粒插画",
     "upstream_en": "Flat Grain Illustration",
     "upstream_line": "A flat vector illustration in two spot colours, with light and volume built from stipple grain.",
     "upstream_film": "人类如何照亮夜晚",
     "upstream_dur": 92.6,
-    "upstream_docs": {
-      "style": "skills/bb-video/styles/grain/STYLE.md",
-      "guide": "skills/bb-video/promo/GUIDE.md",
-      "skill": "skills/bb-video/SKILL.md"
-    },
-    "sample_source": "https://github.com/BubbleBrainBB/BB-Video/releases/download/samples/grain.mp4",
-    "sample_note": "演示站暂用 BB-Video 成片；管线本身已本地封装，渲染走 runtime/render.mjs",
+    "sample_source": "site/media/keli.mp4",
+    "sample_note": "演示站短片为早期外部成片，管线本身已本地封装",
     "engine_note": "本地 runtime/render.mjs，不依赖上游 checkout",
     "vendored": true,
     "runtime": {
@@ -44,7 +39,7 @@
         "runtime/promo.js",
         "runtime/render.mjs"
       ],
-      "license": "runtime/LICENSE.BB-Video"
+      "license": "runtime/LICENSE"
     },
     "template": "template/",
     "migration": "MIGRATION.md"

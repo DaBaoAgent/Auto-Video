@@ -7,7 +7,7 @@
     "station": "hand",
     "station_no": "02",
     "tagline": "一根不离纸的线画完一个人的一生，再把笔交给孩子。",
-    "engine": "lemo styles/one-line · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/yibi.py",
@@ -16,23 +16,19 @@
       "title": "笔不离纸",
       "seconds": 47.5
     },
-    "no": "52"
+    "no": "52",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "one-line",
     "upstream_cn": "一笔画",
     "upstream_en": "One-line Drawing",
     "upstream_line": "One unbroken line draws a whole life, then the pen passes to a child.",
     "upstream_film": "The Line That Never Lifted",
     "upstream_dur": 47.5,
-    "upstream_docs": {
-      "style": "styles/one-line/STYLE.md",
-      "demo": "styles/one-line/DEMO.md",
-      "build": "styles/one-line/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/one-line.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/yibi.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "逐笔写出来：每一笔有起笔时间，高亮带压在关键笔画上。",
     "style": {
       "family": "board",

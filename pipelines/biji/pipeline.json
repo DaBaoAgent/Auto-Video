@@ -7,7 +7,7 @@
     "station": "hand",
     "station_no": "02",
     "tagline": "一只蜜蜂一辈子只酿 1/12 茶匙蜜；笔跟着一滴黄从花走到罐子，最后整页成了一张海报。",
-    "engine": "lemo styles/sketchnote · 上游 demo",
+    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/biji.py",
@@ -16,23 +16,19 @@
       "title": "蜜蜂怎样酿蜜",
       "seconds": 51.0
     },
-    "no": "55"
+    "no": "55",
+    "updated": "2026-11-20"
   },
   "spec": {
-    "source": "lemo-opuscar",
+    "source": "自研渲染",
     "style_slug": "sketchnote",
     "upstream_cn": "视觉笔记",
     "upstream_en": "Sketchnote",
     "upstream_line": "One bee makes 1/12 of a teaspoon of honey in her life; the pen follows one yellow drop from flower to jar until the whole page is a poster.",
     "upstream_film": "How Bees Make Honey",
     "upstream_dur": 51.0,
-    "upstream_docs": {
-      "style": "styles/sketchnote/STYLE.md",
-      "demo": "styles/sketchnote/DEMO.md",
-      "build": "styles/sketchnote/demo/build.sh"
-    },
-    "sample_source": "https://lemomo-ai.github.io/lemo-opuscar-films/sketchnote.mp4",
-    "sample_note": "演示站暂用上游 720p 网络版；真封装后换成本仓库 projects/ 出片",
+    "sample_source": "site/media/biji.mp4",
+    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
     "engine_note": "逐笔写出来：每一笔有起笔时间，高亮带压在关键笔画上。",
     "style": {
       "family": "board",

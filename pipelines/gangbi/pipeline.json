@@ -22,13 +22,22 @@
   },
   "spec": {
     "source": {
-      "repo": "lemomo-ai/lemo-opuscar",
+      "repo": "公开样片库/开源风格库",
       "path": "styles/urban-sketch/demo",
       "style": "Urban Sketch · Pen & Wash（钢笔淡彩）",
       "demo_film": "Where the Wind Went / 风去了哪里"
     },
-    "canvas": { "width": 1920, "height": 1080, "fps": 24, "page": "5120×2880 的大纸面，镜头在纸上走" },
-    "duration": { "default": 33.4, "min": 6, "max": 120 },
+    "canvas": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 24,
+      "page": "5120×2880 的大纸面，镜头在纸上走"
+    },
+    "duration": {
+      "default": 33.4,
+      "min": 6,
+      "max": 120
+    },
     "paper": {
       "base": "#F5EEDE",
       "mottling": "两层 fbm（±3%），大块云斑",
@@ -60,9 +69,24 @@
     },
     "palette": {
       "notes": "墨只有一个色；水彩是本地色，少颜料、在纸上混。阴影统一往冷紫灰混，远景往一层雾色混。",
-      "summer_park": { "lawn": "#C3C96F", "leaf": "#7FA04A", "sky": "#9FBCD6", "limestone": "#D8C6A0" },
-      "harbour_morning": { "sea": "#7FA6B8", "hull": "#C9573F", "rope": "#C8A86B", "sky": "#BCD0DC" },
-      "winter_market": { "roof": "#8B93A6", "light": "#E2B04A", "awning": "#B8483E", "snow": "纸白" },
+      "summer_park": {
+        "lawn": "#C3C96F",
+        "leaf": "#7FA04A",
+        "sky": "#9FBCD6",
+        "limestone": "#D8C6A0"
+      },
+      "harbour_morning": {
+        "sea": "#7FA6B8",
+        "hull": "#C9573F",
+        "rope": "#C8A86B",
+        "sky": "#BCD0DC"
+      },
+      "winter_market": {
+        "roof": "#8B93A6",
+        "light": "#E2B04A",
+        "awning": "#B8483E",
+        "snow": "纸白"
+      },
       "shared_shadow": "本地色 × 45% 混冷紫",
       "haze": "远处 × 50% 混雾色"
     },
@@ -115,13 +139,16 @@
     "delivery": {
       "sample_dir": "projects/012_wind/out/",
       "final": "projects/012_wind/out/wind.mp4",
-      "files": ["<名>.mp4", "<名>.srt"],
+      "files": [
+        "<名>.mp4",
+        "<名>.srt"
+      ],
       "qa": "分辨率 / 帧率 / 帧数 / 时长 / 音轨 / −14 LUFS"
     },
     "credits": [
       "PICTURE: 本仓库代码自己画（engine.js / world.js / poses.js / film.js），无生成图、无第三方素材",
       "FONT: Caveat（Impallari Type）、Reenie Beanie（James Grieshaber），均为 SIL OFL 1.1",
-      "STYLE: Urban Sketch · Pen & Wash，技法取自 lemo-opuscar styles/urban-sketch",
+      "STYLE: Urban Sketch · Pen & Wash，技法取自 开源风格库 styles/urban-sketch",
       "SOUND: 原 demo 的配乐与拟音由 audio/score.py、audio/foley.py 生成（采样 CC0），本管线不迁音频引擎"
     ]
   }

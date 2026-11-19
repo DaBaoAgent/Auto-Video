@@ -136,7 +136,7 @@ ffmpeg -y -i raw.mp4 -i samples-v2/audio/<id>.wav ^
 - map 额外：d3.min.js、topojson-client.min.js 本地化；`const CDN='./lib/atlas/'`，把 `countries-110m.json` 放到 `lib/atlas/world-atlas@2.0.2/`；`G.world({detail:'110m',states:false})`；设置 `AV_CDP_TIMEOUT=600000`，否则 544 秒工程的 setup 会 120 秒超时；map 的 out 目录要先建。
 
 **第五批（8 条：仓库工程缺件，改用同款风格库 demo 出片）**
-- lvdong → `D:\@kaifa\lemo-opuscar\styles\silhouette-rhythm`（旧核心 `core/render/video.mjs` 渲染，`/styles/...` 改成相对路径）。
+- lvdong → `开源风格库\styles\silhouette-rhythm`（旧核心 `core/render/video.mjs` 渲染，`/styles/...` 改成相对路径）。
 - caiqian → 旧核心直接渲 `caiqian\projects\913_sample`（仓库无 runtime）。
 - bianping → flat-space-explainer、shouhui → sketchnote、zhidiao → papercut-red、xiangsu → pixel-rpg、huixingzhen → hardcore-info、lishi → engraving、piying → shadow-puppet、jianying → printed-long-take。
 - 老库 demo 的坑：① 字体 gitignore，`@font-face` 的 `url(fonts/…)` 一律换 `local('Georgia')`；② 有的字体在 JS 里 `new FontFace(...)`，要 try/catch；③ 字幕有的是 DOM 选择器（CSS 隐藏即可）、有的是 canvas 画（`drawSub` 首行 `return;`）、有的支持 `nosub` 参数（改成 `NOSUB = true`）；④ paper-popup 要 `node_modules/three`，缺 HDR 素材跑不起来，改用 printed-long-take。

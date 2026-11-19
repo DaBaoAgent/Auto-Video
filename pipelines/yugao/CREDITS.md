@@ -2,8 +2,8 @@
 
 ## 运行时代码
 
-- **BB-Video** — `runtime/core.js`、`runtime/promo.js`、`runtime/trailer.js` 及渲染链（`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/`）来自 BB-Video，MIT License，许可见 `runtime/LICENSE-upstream`。
-- 本管线的 `scripts/`、`references/`、`template/` 整理自 BB-Video 的 `trailer` 风格，MIT（与 Auto-Video 同许可）。
+- **开源风格包** — `runtime/core.js`、`runtime/promo.js`、`runtime/trailer.js` 及渲染链（`render.mjs`、`music.mjs`、`bgm.mjs`、`sound.mjs`、`lang.mjs`、`net.mjs`、`scores/`）来自 开源风格包，MIT License，许可见 `runtime/LICENSE-upstream`。
+- 本管线的 `scripts/`、`references/`、`template/` 整理自 开源风格包 的 `trailer` 风格，MIT（与 Auto-Video 同许可）。
 
 ## 字体（OFL）
 
@@ -11,5 +11,5 @@
 
 ## 样片
 
-- 演示站暂用 BB-Video 的 `trailer.mp4` 成片；本管线渲染的是 `template/` 起步工程，不含该成片。
+- 演示站暂用 开源风格包 的 `trailer.mp4` 成片；本管线渲染的是 `template/` 起步工程，不含该成片。
 - 不虚构事实、数字或来源；所有屏幕文字以工程的 `brief.md` 为准。

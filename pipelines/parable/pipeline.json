@@ -95,5 +95,6 @@
     "duration": "3 分钟样片 178.3 s / 1280×720 / 30 fps；短寓言 15–45 s",
     "path": "template/",
     "media_committed": false
-  }
+  },
+  "spec": {}
 }

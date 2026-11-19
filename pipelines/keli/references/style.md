@@ -1,6 +1,6 @@
 # Style: flat grain illustration (扁平颗粒插画, `grain`)
 
-> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to bb-video's `promo/` folder.
+> Relative paths in this file (`scripts/…`, `references/…`, `runtime/…`) are relative to 开源风格包's `promo/` folder.
 
 A frame is a flat vector illustration on warm off-white paper, in two spot colours (coral and navy by default) and their tints. Shapes have no outlines: buildings, hills, trees, vehicles and simple figures are plain geometry. Volume and light come from **stipple grain**, never from smooth gradients. Where a colour fades into its tint, into its shade or into the paper, it breaks up into dots. A thin coral ground line runs under everything. There is very little text: years, a sign, a readout, and a timeline ruler at the bottom whose year ticks over in coral.
 

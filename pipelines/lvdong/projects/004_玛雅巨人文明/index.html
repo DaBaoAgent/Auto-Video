@@ -2,8 +2,8 @@
 <html><head><meta charset="utf-8">
 <title>剪影律动 · 被托管过的文明（第一段）</title>
 <style>
-  @font-face { font-family: 'SCBold'; src: url('fonts/NotoSansSC.ttf'); font-weight: 100 900; }
-  @font-face { font-family: 'Anton'; src: url('fonts/Anton-Regular.ttf'); }
+  @font-face { font-family: 'SCBold'; src: local('Microsoft YaHei'), local('Source Han Sans SC'), url('/assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf') format('truetype'); font-weight: 100 900; }
+  @font-face { font-family: 'Anton'; src: local('Arial Black'), local('Arial'), url('/assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf') format('truetype'); }
   html, body { margin: 0; background: #000; overflow: hidden; }
   canvas { position: absolute; left: 0; top: 0; width: 100vw; height: 100vh; display: block; }
   #g { z-index: 1 } #o { z-index: 2; pointer-events: none }
@@ -11,7 +11,11 @@
 <body>
 <canvas id="g"></canvas>
 <canvas id="o"></canvas>
-<script src="/styles/silhouette-rhythm/demo/sky.js"></script>
+<script src="styles/sky.js"></script>
 <script src="cast.js"></script>
 <script src="film.js"></script>
+<script>
+window.renderAt = (t) => window.render(t);
+document.fonts.ready.then(() => { window.__ready = true; });
+</script>
 </body></html>

@@ -60,7 +60,7 @@ python labi/scripts/labi.py new    013_xxx                       # 复制骨架
 | `crayon.js` | 画笔：`line`（带收尖/细纹/boil 的带）、`fill`（锯齿排线，越界）、`text`、形状 |
 | `gl.js` | WebGL2 合成：纸齿、蜡附着、knock-out、水彩 + 抗拒、浮雕/晕影/灯光 |
 | `end.js` | 桌上的书、翻页、「The End」那张 |
-| `pal.js` / `lib.js` | 调色板常量 / 数学工具（从 lemo 的 core/lib.js 落下，工程内自包含） |
+| `pal.js` / `lib.js` | 调色板常量 / 数学工具（从外部引擎 core/lib.js 落下，工程内自包含） |
 
 改文案就改三处：`film.js` 的 `LINES`（旁白，`SUBS` 从它派生）、`film.js` 里 `ev(...)` 事件、`end.js` 结尾字；
 字幕时间行改 `subs.json`，改完跑 `srt` 核对。

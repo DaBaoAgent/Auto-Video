@@ -115,11 +115,9 @@
     ]
   },
   "engine": {
-    "renderer": "lemo-opuscar core/render/{still,video}.mjs",
-    "shader": "lemo-opuscar styles/silhouette-rhythm/demo/sky.js",
-    "lib": "$LVDONG_LIB（默认 D:\\@kaifa\\lemo-opuscar）",
-    "staging": "工程被复制到 $LVDONG_LIB/films/<slug>/ 后渲染（字体随之落位）",
-    "not_packaged": "不复制 core/ 与 styles/ 源码"
+    "renderer": "vendor/runtime/style-frames.mjs",
+    "shader": "styles/sky.js（随工程复制）",
+    "project": "直接在工程目录内抓帧，不往外部目录铺 films/"
   },
   "project_layout": {
     "index.html": "三层 canvas + @font-face(fonts/) + sky.js/cast.js/film.js",
@@ -153,5 +151,6 @@
     "bpm": 90,
     "lufs": -14.0,
     "note": "口播稿第 1–3 段；原配音缺「只差十七分二十八秒」一句，该句只做画面字"
-  }
+  },
+  "spec": {}
 }
