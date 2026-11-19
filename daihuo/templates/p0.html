@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>daihuo · 价签货架 P0</title>
+<style>
+@font-face {
+  font-family: DH;
+  src: url("../assets/fonts/NotoSansSC-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: block;
+}
+:root { --ink: #14110F; --cream: #FFF6E9; --price: #FFD400; --hot: #FF6A3D; --mint: #2EE6A8; }
+html, body { margin: 0; padding: 0; background: var(--ink); }
+#stage {
+  position: relative; width: 1080px; height: 1920px; overflow: hidden;
+  background: var(--ink); font-family: DH; color: var(--cream);
+}
+#stage::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(900px 900px at 22% 18%, rgba(255,106,61,.16), transparent 62%),
+    radial-gradient(700px 800px at 78% 82%, rgba(255,212,0,.08), transparent 60%);
+}
+[data-stroke] {
+  text-shadow:
+    calc(var(--sw) * 1) 0 0 #000, calc(var(--sw) * -1) 0 0 #000,
+    0 calc(var(--sw) * 1) 0 #000, 0 calc(var(--sw) * -1) 0 #000,
+    calc(var(--sw) * .72) calc(var(--sw) * .72) 0 #000,
+    calc(var(--sw) * -.72) calc(var(--sw) * .72) 0 #000,
+    calc(var(--sw) * .72) calc(var(--sw) * -.72) 0 #000,
+    calc(var(--sw) * -.72) calc(var(--sw) * -.72) 0 #000;
+}
+.scene { position: absolute; inset: 0; opacity: 0; }
+.scene.on { opacity: 1; }
+
+#hook { display: flex; flex-direction: column; justify-content: center; padding: 0 72px; }
+#hook .brand { position: absolute; top: 116px; left: 72px; font-size: 62px; letter-spacing: 2px; --sw: 4px; }
+#hook .band { position: absolute; left: -90px; top: 742px; width: 1320px; height: 168px; background: var(--hot); transform: rotate(-4deg); }
+#hookWrap { position: relative; margin-top: 250px; }
+#hookPrice { font-size: 244px; line-height: .96; color: var(--price); --sw: 13px; letter-spacing: -4px; transform-origin: 0% 60%; }
+#hook .what { margin-top: 40px; font-size: 100px; --sw: 7px; }
+#hook .place { margin-top: 26px; font-size: 60px; color: #FFE9C4; --sw: 4px; }
+
+#store { display: flex; flex-direction: column; justify-content: center; padding: 0 96px; }
+.sign { border: 8px solid var(--cream); border-radius: 28px; padding: 54px 48px; background: #1E1A17; box-shadow: 0 24px 0 rgba(0,0,0,.55); }
+.sign h1 { margin: 0; font-size: 84px; line-height: 1.18; --sw: 5px; }
+.sign p { margin: 22px 0 0; font-size: 52px; color: #FFE9C4; --sw: 4px; }
+#store .pin { margin-top: 48px; display: flex; align-items: center; gap: 20px; font-size: 50px; color: var(--mint); --sw: 4px; }
+#store .dot { width: 26px; height: 26px; border-radius: 50%; background: var(--mint); }
+
+#tray { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.trayBox { width: 860px; height: 620px; border-radius: 46px; background: #241E1A; border: 6px solid #3A2F28; position: relative; }
+.bucket {
+  position: absolute; left: 92px; top: 90px; width: 300px; height: 380px;
+  background: linear-gradient(180deg, #FF8A5C 0%, #FF5A2B 100%);
+  border-radius: 34px 34px 22px 22px;
+  clip-path: polygon(6% 0, 94% 0, 82% 100%, 18% 100%);
+  box-shadow: inset 0 -26px 0 rgba(0,0,0,.22);
+}
+.bucket::after { content: ""; position: absolute; left: 14%; right: 14%; top: 30px; height: 46px; border-top: 12px solid #FFF6E9; border-radius: 40px; opacity: .9; }
+.nugs { position: absolute; right: 84px; top: 132px; width: 330px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+.nug { width: 138px; height: 112px; border-radius: 46% 54% 48% 52%; background: #E8A94F; box-shadow: inset 0 -14px 0 rgba(0,0,0,.18), 0 10px 0 rgba(0,0,0,.35); }
+#tray .label { margin-top: 52px; font-size: 96px; --sw: 6px; }
+#tray .sub { margin-top: 20px; font-size: 52px; color: #FFE9C4; --sw: 4px; }
+
+#info { display: flex; flex-direction: column; justify-content: center; padding: 0 116px; gap: 52px; }
+.chip { display: flex; align-items: center; gap: 28px; border: 6px solid var(--cream); border-radius: 999px; padding: 38px 50px; font-size: 66px; --sw: 5px; background: #1C1815; }
+.chip i { width: 52px; height: 52px; border-radius: 50%; background: var(--mint); flex: 0 0 auto; }
+
+#price { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+#price .big { font-size: 300px; color: var(--price); line-height: .9; --sw: 15px; letter-spacing: -6px; }
+#price .row { margin-top: 44px; font-size: 64px; --sw: 5px; }
+#price .note { margin-top: 20px; font-size: 44px; color: #B7ABA0; }
+
+#cta { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+#cta svg { width: 280px; height: 280px; }
+#cta .txt { margin-top: 26px; font-size: 76px; --sw: 6px; }
+#cta .line2 { margin-top: 22px; font-size: 46px; color: #FFE9C4; }
+
+#cap { position: absolute; left: 0; right: 0; bottom: 336px; text-align: center; font-size: 52px; line-height: 1.3; --sw: 4px; padding: 0 60px; }
+#cap span { background: rgba(0,0,0,.38); padding: 8px 20px; border-radius: 12px; }
+#sweep {
+  position: absolute; inset: -260px; pointer-events: none;
+  background: radial-gradient(660px 660px at var(--sx, 30%) var(--sy, 30%), rgba(255,186,132,.17), rgba(255,186,132,.06) 45%, transparent 70%);
+}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <div class="scene" id="hook" data-stroke>
+    <div class="brand">华莱士</div>
+    <div class="band" id="hookBand"></div>
+    <div id="hookWrap">
+      <div id="hookPrice">12.8</div>
+      <div class="what">双拼6块</div>
+      <div class="place">苏州新桃源店</div>
+    </div>
+  </div>
+
+  <div class="scene" id="store" data-stroke>
+    <div class="sign" id="sign1">
+      <h1>华莱士<br>全鸡汉堡</h1>
+      <p>苏州新桃源店</p>
+    </div>
+    <div class="pin"><span class="dot"></span><span>门店可直接用团购</span></div>
+  </div>
+
+  <div class="scene" id="tray" data-stroke>
+    <div class="trayBox" id="trayBox">
+      <div class="bucket"></div>
+      <div class="nugs" id="nugs">
+        <div class="nug"></div><div class="nug"></div><div class="nug"></div>
+        <div class="nug"></div><div class="nug"></div><div class="nug"></div>
+      </div>
+    </div>
+    <div class="label">6块 · 双拼两样</div>
+    <div class="sub">翅根 + 香骨鸡</div>
+  </div>
+
+  <div class="scene" id="info" data-stroke>
+    <div class="chip" id="chip1"><i></i><span>支持配送</span></div>
+    <div class="chip" id="chip2"><i></i><span>团购价 12.8</span></div>
+    <div class="chip" id="chip3"><i></i><span>门店 苏州新桃源</span></div>
+  </div>
+
+  <div class="scene" id="price" data-stroke>
+    <div class="big" id="priceBig">12.8</div>
+    <div class="row">双拼6块，一个价</div>
+    <div class="note">价格以商详页为准</div>
+  </div>
+
+  <div class="scene" id="cta" data-stroke>
+    <svg id="ctaArrow" viewBox="0 0 100 100" fill="none">
+      <path d="M80 18 L28 70" stroke="#FF6A3D" stroke-width="9" stroke-linecap="round"/>
+      <path d="M28 30 L28 70 L68 70" stroke="#FF6A3D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="txt">团购在左下角</div>
+    <div class="line2">点开就能看套餐</div>
+  </div>
+
+  <div id="cap"><span id="capText"></span></div>
+  <div id="sweep"></div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const easeOutBack = (x) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, p) => a + (b - a) * p;
+
+window.CUES = window.CUES || { duration: 15, scenes: [], lines: [] };
+
+function p(scene, t) { return clamp((t - scene.start) / Math.max(0.001, scene.end - scene.start), 0, 1); }
+
+function renderAt(t) {
+  const cues = window.CUES;
+  // 背景光斑缓慢游走：保证任意 0.5s 内都有像素变化，压掉静止帧
+  const sw = $('sweep');
+  if (sw) {
+    sw.style.setProperty('--sx', `${50 + 34 * Math.sin(t * 0.9)}%`);
+    sw.style.setProperty('--sy', `${46 + 26 * Math.cos(t * 0.7)}%`);
+  }
+  for (const sc of cues.scenes) {
+    const el = $(sc.id);
+    if (!el) continue;
+    const on = t >= sc.start && t < sc.end;
+    el.classList.toggle('on', on);
+    if (!on) continue;
+    const q = p(sc, t);
+    // 全场景缓慢推近：消灭 0.5s 以上的静止帧
+    el.style.transform = `scale(${1 + 0.038 * q})`;
+
+    if (sc.id === 'hook') {
+      $('hookPrice').style.transform = `scale(${lerp(1.22, 1, easeOutBack(clamp(q / 0.28, 0, 1)))}) translateY(${lerp(-18, 0, easeOut(clamp(q / 0.28, 0, 1)))}px)`;
+      $('hookBand').style.transform = `rotate(-4deg) translateX(${lerp(-980, 0, easeOutBack(clamp(q / 0.35, 0, 1)))}px)`;
+    }
+    if (sc.id === 'store') {
+      $('sign1').style.transform = `translateY(${lerp(120, 0, easeOutBack(clamp(q / 0.4, 0, 1)))}px)`;
+      $('sign1').style.opacity = String(easeOut(clamp(q / 0.3, 0, 1)));
+    }
+    if (sc.id === 'tray') {
+      $('trayBox').style.transform = `translateY(${lerp(90, 0, easeOutBack(clamp(q / 0.4, 0, 1)))}px)`;
+      const nugs = $('nugs').children;
+      for (let i = 0; i < nugs.length; i++) {
+        const k = clamp((q - 0.08 - i * 0.045) / 0.3, 0, 1);
+        nugs[i].style.transform = `scale(${lerp(0.4, 1, easeOutBack(k))})`;
+        nugs[i].style.opacity = String(clamp(k * 2, 0, 1));
+      }
+    }
+    if (sc.id === 'info') {
+      const chips = [$('chip1'), $('chip2'), $('chip3')];
+      for (let i = 0; i < chips.length; i++) {
+        const k = clamp((q - i * 0.16) / 0.28, 0, 1);
+        chips[i].style.transform = `translateX(${lerp(160, 0, easeOutBack(k))}px)`;
+        chips[i].style.opacity = String(easeOut(k));
+      }
+    }
+    if (sc.id === 'price') {
+      const k = clamp(q / 0.3, 0, 1);
+      const pulse = 1 + 0.012 * Math.sin(q * Math.PI * 6);
+      $('priceBig').style.transform = `scale(${lerp(0.62, 1, easeOutBack(k)) * pulse})`;
+      $('priceBig').style.opacity = String(clamp(k * 1.6, 0, 1));
+    }
+    if (sc.id === 'cta') {
+      const k = clamp(q / 0.35, 0, 1);
+      const bob = 7 * Math.sin(q * Math.PI * 8);
+      $('ctaArrow').style.opacity = String(easeOut(k));
+      $('ctaArrow').style.transform = `translate(${lerp(60, 0, easeOut(k)) + bob * 0.5}px, ${lerp(60, 0, easeOut(k)) + bob}px)`;
+    }
+  }
+
+  const line = cues.lines.find((l) => t >= l.start && t < l.end);
+  $('capText').textContent = line ? line.text : '';
+  $('cap').style.opacity = line ? '1' : '0';
+}
+window.renderAt = renderAt;
+</script>
+</body>
+</html>

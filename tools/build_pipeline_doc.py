@@ -58,7 +58,7 @@ def main() -> int:
             lines += ["| id | 名称 | 状态 | 引擎 | 入口 | 样片 |", "| --- | --- | --- | --- | --- | --- |"]
         sm = p.get("sample") or {}
         status = "live" if sm.get("file") else "beta"
-        entry = f"`{p.get('entry')}`" if p.get("entry") else "—"
+        entry = f"`pipelines/{p['id']}/{p.get('entry')}`" if p.get("entry") else "—"
         sample = f"{sm.get('seconds'):.0f}s" if sm.get("seconds") else "—"
         lines.append(
             f"| `{p['id']}` | {p.get('name_zh') or p['id']}（{p.get('name_en') or ''}） | {status} | "

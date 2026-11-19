@@ -1,0 +1,47 @@
+{
+  "wav": "D:\\@kaifa\\Auto-Video\\daihuo\\projects\\000_p0_smoke\\narration.wav",
+  "duration": 12.681,
+  "threshold_db": -31.4,
+  "lines": [
+    {
+      "text": "12块8，双拼6块。",
+      "start": 0.04,
+      "end": 1.42
+    },
+    {
+      "text": "苏州新桃源这家华莱士。",
+      "start": 1.62,
+      "end": 3.28
+    },
+    {
+      "text": "一共6块，两种拼法。",
+      "start": 3.4,
+      "end": 4.64
+    },
+    {
+      "text": "翅根加香骨鸡，装一盒。",
+      "start": 4.76,
+      "end": 6.26
+    },
+    {
+      "text": "支持配送，不用专门跑一趟。",
+      "start": 6.38,
+      "end": 7.98
+    },
+    {
+      "text": "一顿饭，一个价。",
+      "start": 8.18,
+      "end": 9.3
+    },
+    {
+      "text": "团购价，12块8。",
+      "start": 9.49,
+      "end": 10.71
+    },
+    {
+      "text": "团购在左下角，点开看套餐。",
+      "start": 10.89,
+      "end": 12.63
+    }
+  ]
+}

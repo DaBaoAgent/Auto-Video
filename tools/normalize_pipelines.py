@@ -48,7 +48,7 @@ def build_meta(p: dict, station: dict, no: str, updated: str) -> dict:
 
 
 def normalize_pipeline_json(p: dict, meta: dict, dry: bool) -> str:
-    path = REPO / p["id"] / "pipeline.json"
+    path = REPO / "pipelines" / p["id"] / "pipeline.json"
     if path.exists():
         try:
             old = read_json(path)
@@ -69,7 +69,7 @@ def normalize_pipeline_json(p: dict, meta: dict, dry: bool) -> str:
 
 
 def normalize_skill(p: dict, dry: bool) -> str:
-    path = REPO / p["id"] / "SKILL.md"
+    path = REPO / "pipelines" / p["id"] / "SKILL.md"
     if not path.exists():
         return f"MISSING SKILL.md {p['id']}"
     text = path.read_text(encoding="utf-8")
@@ -116,7 +116,7 @@ def main() -> int:
         if not st:
             problems.append(f"catalog 里 {p['id']} 的 station={p['station']} 不在 stations.json")
             continue
-        d = REPO / p["id"]
+        d = REPO / "pipelines" / p["id"]
         if not d.is_dir():
             problems.append(f"目录缺失：{p['id']}")
             continue
@@ -127,7 +127,7 @@ def main() -> int:
     # 反向检查：仓库里有、catalog 里没有（可选模块 frontend/ 与 fengmian/ 不算管线）
     known = {p["id"] for p in pipelines}
     modules = {m["path"] for m in (read_json(CATALOG_DIR / "pipelines.json").get("modules") or [])}
-    for p in sorted(REPO.iterdir()):
+    for p in sorted((REPO / "pipelines").iterdir()):
         if not p.is_dir() or p.name in {".git", "catalog", "schema", "site", "tools", "docs", "showcase", "projects"}:
             continue
         if p.name.startswith(".") or p.name in modules:
@@ -140,7 +140,7 @@ def main() -> int:
         for x in problems:
             print("  - " + x)
         return 1
-    print(f"\n{len(pipelines)} 条管线已对齐（{sum(1 for p in pipelines if p.get('sample') and (REPO / p['id']).is_dir())} 条带样片）。")
+    print(f"\n{len(pipelines)} 条管线已对齐（{sum(1 for p in pipelines if p.get('sample') and (REPO / "pipelines" / p['id']).is_dir())} 条带样片）。")
     return 0
 
 

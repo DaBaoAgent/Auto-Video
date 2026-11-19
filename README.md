@@ -33,6 +33,10 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 
 **目录**：[三张入场券](#start) · [工位地图](#stations) · [统一契约](#contract) · [样片](#showcase) · [怎么生产一条片](#flow) · [快速开始](#quickstart) · [仓库结构](#layout) · [技术栈](#stack) · [常见问题](#faq) · [路线图](#roadmap) · [鸣谢与许可](#credits)
 
+> **仓库结构（2026-11 起）**：41 条风格管线全部收在 `pipelines/` 下，根目录只留基础设施
+> （`assets` `catalog` `docs` `out` `tools` `vendor` `site` `demo` `docker` `frontend` `projects` `samples-v2` `schema`）。
+> 各管线入口一律按 `python pipelines/<管线名>/scripts/<管线名>.py ...` 调用；`out/<编号_片名>/` 放定稿的成片、字幕、封面与发布信息。
+
 ## 30 秒先看到东西 ⏱️
 
 ```bash

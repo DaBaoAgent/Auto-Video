@@ -1,0 +1,7 @@
+/* 用简体中文屏显字：NotoSerifSC 走正文，MaShanZheng 走题签与大字 */
+@font-face { font-family: 'Shippori'; font-weight: 400; font-display: block; src: url(NotoSerifSC.ttf) format('truetype'); }
+@font-face { font-family: 'Shippori'; font-weight: 500; font-display: block; src: url(NotoSerifSC.ttf) format('truetype'); }
+@font-face { font-family: 'Shippori'; font-weight: 700; font-display: block; src: url(NotoSerifSC.ttf) format('truetype'); }
+@font-face { font-family: 'ShipporiK'; font-weight: 600; font-display: block; src: url(NotoSerifSC.ttf) format('truetype'); }
+@font-face { font-family: 'Yuji'; font-weight: 400; font-display: block; src: url(MaShanZheng-Regular.ttf) format('truetype'); }
+@font-face { font-family: 'NotoSerifSC'; font-weight: 400 700; font-display: block; src: url(NotoSerifSC.ttf) format('truetype'); }

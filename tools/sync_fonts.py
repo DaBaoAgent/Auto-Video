@@ -239,7 +239,7 @@ def resolve(key):
 
 def sync_one(pipeline, dest_rel, key, check, verbose=True):
     src, note = resolve(key)
-    dst = ROOT / pipeline / dest_rel
+    dst = ROOT / "pipelines" / pipeline / dest_rel
     if src is None:
         return ["missing-source", f"{pipeline}/{dest_rel}: {note}"]
     if dst.exists() and dst.stat().st_size == src.stat().st_size and filecmp.cmp(src, dst, shallow=False):

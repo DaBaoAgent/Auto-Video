@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from av import (CONTRACT, REPO, load_modules, load_pipelines, load_stations, read_json,
-                parse_frontmatter, utf8_stdout, pipeline_dirs)
+                parse_frontmatter, utf8_stdout, pipeline_dirs, pipeline_path)
 
 ERRORS: list[str] = []
 WARNS: list[str] = []
@@ -68,7 +68,7 @@ def main() -> int:
     # 2. 逐条管线 ------------------------------------------------------
     for i, p in enumerate(pipelines, start=1):
         pid = p["id"]
-        d = REPO / pid
+        d = pipeline_path(pid)
         if not d.is_dir():
             err(f"{pid}: 目录不存在")
             continue

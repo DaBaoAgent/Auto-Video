@@ -55,7 +55,7 @@ def sha(path: Path) -> str:
 def targets() -> list[Path]:
     """带 runtime/ 且有 pipeline.json 的管线目录。"""
     out = []
-    for child in sorted(ROOT.iterdir()):
+    for child in sorted((ROOT / "pipelines").iterdir()):
         if not child.is_dir():
             continue
         if (child / "pipeline.json").is_file() and (child / "runtime").is_dir():

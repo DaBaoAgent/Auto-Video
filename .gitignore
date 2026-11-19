@@ -10,76 +10,76 @@ __pycache__/
 
 # Remotion 与构建缓存
 .remotion/
-zhidiao/.hyperframes/
+pipelines/zhidiao/.hyperframes/
 
 # 可重新生成的大体积成片
 out/**/*.mp4
 projects/*/work/out/*.mp4
-zhidiao/renders/
-zhidiao/output/
-zhidiao/**/*.mp3
-zhidiao/**/*.wav
-zhidiao/**/*.mp4
-zhidiao/**/*.mov
-zhidiao/**/*.mkv
-zhidiao/**/*.webm
+pipelines/zhidiao/renders/
+pipelines/zhidiao/output/
+pipelines/zhidiao/**/*.mp3
+pipelines/zhidiao/**/*.wav
+pipelines/zhidiao/**/*.mp4
+pipelines/zhidiao/**/*.mov
+pipelines/zhidiao/**/*.mkv
+pipelines/zhidiao/**/*.webm
 
 # zhidiao 外部运行时与大模型
-zhidiao/vendor/
+pipelines/zhidiao/vendor/
 
 # tuiyan 成片与可再生成中间产物（发布信息/封面/分镜表保留入库）
-tuiyan/content/**/视频输出/
-tuiyan/content/**/*.mp4
-tuiyan/content/**/*.mov
-tuiyan/content/**/*.mkv
-tuiyan/content/**/*.webm
-tuiyan/content/**/*.mp3
-tuiyan/content/**/*.wav
-tuiyan/vendor/battlefield-editor/docs/screenshots/
-tuiyan/vendor/battlefield-editor/tools/render-out/
+pipelines/tuiyan/content/**/视频输出/
+pipelines/tuiyan/content/**/*.mp4
+pipelines/tuiyan/content/**/*.mov
+pipelines/tuiyan/content/**/*.mkv
+pipelines/tuiyan/content/**/*.webm
+pipelines/tuiyan/content/**/*.mp3
+pipelines/tuiyan/content/**/*.wav
+pipelines/tuiyan/vendor/battlefield-editor/docs/screenshots/
+pipelines/tuiyan/vendor/battlefield-editor/tools/render-out/
 
 # jilupian 成片与可再生成产物（代码与配置入库；配音/模型/字体不入库见 MIGRATION）
-jilupian/output/
-jilupian/**/成片.mp4
-jilupian/config.local.yaml
+pipelines/jilupian/output/
+pipelines/jilupian/**/成片.mp4
+pipelines/jilupian/config.local.yaml
 
 # xuni/shiliang/xianshiqi/dengju 渲染产物与再生成输出（工程输入 cue/页面/字体入库）
-xuni/projects/*/out/
-xuni/projects/*/frames/
-xuni/projects/*/audio/
-xuni/projects/*/*.wav
-shiliang/projects/*/out/
-shiliang/projects/*/frames/
-shiliang/projects/*/audio/
-shiliang/projects/*/*.wav
-xianshiqi/projects/*/out/
-xianshiqi/projects/*/frames/
-xianshiqi/projects/*/audio/
-xianshiqi/projects/*/*.wav
-dengju/projects/*/out/
-dengju/projects/*/frames/
-dengju/projects/*/audio/
-dengju/projects/*/*.wav
+pipelines/xuni/projects/*/out/
+pipelines/xuni/projects/*/frames/
+pipelines/xuni/projects/*/audio/
+pipelines/xuni/projects/*/*.wav
+pipelines/shiliang/projects/*/out/
+pipelines/shiliang/projects/*/frames/
+pipelines/shiliang/projects/*/audio/
+pipelines/shiliang/projects/*/*.wav
+pipelines/xianshiqi/projects/*/out/
+pipelines/xianshiqi/projects/*/frames/
+pipelines/xianshiqi/projects/*/audio/
+pipelines/xianshiqi/projects/*/*.wav
+pipelines/dengju/projects/*/out/
+pipelines/dengju/projects/*/frames/
+pipelines/dengju/projects/*/audio/
+pipelines/dengju/projects/*/*.wav
 
 # huixingzhen/shuimo 渲染产物与再生成输出（工程输入 cue/页面/字体入库）
-huixingzhen/projects/*/out/
-huixingzhen/projects/*/frames/
-huixingzhen/projects/*/audio/
-huixingzhen/projects/*/*.wav
-shuimo/projects/*/out/
-shuimo/projects/*/frames/
-shuimo/projects/*/audio/
-shuimo/projects/*/*.wav
+pipelines/huixingzhen/projects/*/out/
+pipelines/huixingzhen/projects/*/frames/
+pipelines/huixingzhen/projects/*/audio/
+pipelines/huixingzhen/projects/*/*.wav
+pipelines/shuimo/projects/*/out/
+pipelines/shuimo/projects/*/frames/
+pipelines/shuimo/projects/*/audio/
+pipelines/shuimo/projects/*/*.wav
 
 # jianying 渲染产物
-jianying/template/out/
-jianying/projects/*/work/out/*.mp4
-jianying/projects/*/out/*.mp4
+pipelines/jianying/template/out/
+pipelines/jianying/projects/*/work/out/*.mp4
+pipelines/jianying/projects/*/out/*.mp4
 
 # shouhui 可重新生成的中间产物
-shouhui/projects/*/out/stills/
-shouhui/projects/*/out/check_*.png
-shouhui/projects/*/assets/vid/
+pipelines/shouhui/projects/*/out/stills/
+pipelines/shouhui/projects/*/out/check_*.png
+pipelines/shouhui/projects/*/assets/vid/
 
 # 工作区内部数据和临时文件
 .workbuddy/
@@ -89,22 +89,22 @@ Thumbs.db
 .DS_Store
 
 # peiyin 本地环境与大体积内容（权重/音色/运行时由 scripts/setup.ps1 引导下载，见 peiyin/MIGRATION.md）
-peiyin/GPT-SoVITS/.venv/
-peiyin/GPT-SoVITS/.cache/
-peiyin/GPT-SoVITS/runtime/
-peiyin/GPT-SoVITS/logs/
-peiyin/GPT-SoVITS/voices/
-peiyin/GPT-SoVITS/tts_server.log
-peiyin/GPT-SoVITS/GPT_SoVITS/pretrained_models/
-peiyin/GPT-SoVITS/GPT_SoVITS/text/G2PWModel/
-peiyin/GPT-SoVITS/GPT_SoVITS/text/ja_userdic/
-peiyin/GPT-SoVITS/TEMP/
+pipelines/peiyin/GPT-SoVITS/.venv/
+pipelines/peiyin/GPT-SoVITS/.cache/
+pipelines/peiyin/GPT-SoVITS/runtime/
+pipelines/peiyin/GPT-SoVITS/logs/
+pipelines/peiyin/GPT-SoVITS/voices/
+pipelines/peiyin/GPT-SoVITS/tts_server.log
+pipelines/peiyin/GPT-SoVITS/GPT_SoVITS/pretrained_models/
+pipelines/peiyin/GPT-SoVITS/GPT_SoVITS/text/G2PWModel/
+pipelines/peiyin/GPT-SoVITS/GPT_SoVITS/text/ja_userdic/
+pipelines/peiyin/GPT-SoVITS/TEMP/
 
 # chengshi（城市年轮）渲染产物与再生成输出（数据/脚本入库；字体、成片、音轨不入库）
-chengshi/render/out/
-chengshi/template/out/
-chengshi/render/public/fonts/
-chengshi/template/public/
+pipelines/chengshi/render/out/
+pipelines/chengshi/template/out/
+pipelines/chengshi/render/public/fonts/
+pipelines/chengshi/template/public/
 projects/suzhou/out/
 projects/suzhou/**/*.mp4
 projects/suzhou/**/*.mov
@@ -121,147 +121,147 @@ projects/suzhou/**/*.m4a
 *.p12
 
 # map 渲染产物与再生成输出（工程代码/贴纸/时间轴入库；音频与成片不入库）
-map/projects/*/out/
-map/projects/*/review/
-map/projects/*/frames/
-map/projects/*/audio/*.wav
-map/projects/*/audio/*.m4a
-map/projects/*/review$n.png
+pipelines/map/projects/*/out/
+pipelines/map/projects/*/review/
+pipelines/map/projects/*/frames/
+pipelines/map/projects/*/audio/*.wav
+pipelines/map/projects/*/audio/*.m4a
+pipelines/map/projects/*/review$n.png
 
 # goldenage/manga/tapestry/pencil/isometric/parable/shadow/blueprint 八组 模板库 风格管线
 # 工程内的运行时副本、配音、抽帧与成片都可重新生成，不入库；template 只保留代码/文案/分镜/参数
-goldenage/template/out/
-goldenage/template/audio/
-goldenage/template/review/
-goldenage/template/lib/
-goldenage/projects/*/out/
-goldenage/projects/*/audio/
-goldenage/projects/*/review/
-goldenage/projects/*/lib/
-manga/template/out/
-manga/template/audio/
-manga/template/review/
-manga/template/lib/
-manga/projects/*/out/
-manga/projects/*/audio/
-manga/projects/*/review/
-manga/projects/*/lib/
-tapestry/template/out/
-tapestry/template/audio/
-tapestry/template/review/
-tapestry/template/lib/
-tapestry/projects/*/out/
-tapestry/projects/*/audio/
-tapestry/projects/*/review/
-tapestry/projects/*/lib/
-pencil/template/out/
-pencil/template/audio/
-pencil/template/review/
-pencil/template/lib/
-pencil/projects/*/out/
-pencil/projects/*/audio/
-pencil/projects/*/review/
-pencil/projects/*/lib/
-isometric/template/out/
-isometric/template/audio/
-isometric/template/review/
-isometric/template/lib/
-isometric/projects/*/out/
-isometric/projects/*/audio/
-isometric/projects/*/review/
-isometric/projects/*/lib/
-parable/template/out/
-parable/template/audio/
-parable/template/review/
-parable/template/lib/
-parable/projects/*/out/
-parable/projects/*/audio/
-parable/projects/*/review/
-parable/projects/*/lib/
-goldenage/projects/*/*.wav
-manga/projects/*/*.wav
-tapestry/projects/*/*.wav
-pencil/projects/*/*.wav
-isometric/projects/*/*.wav
-parable/projects/*/*.wav
-shadow/template/out/
-shadow/template/audio/
-shadow/template/review/
-shadow/template/lib/
-shadow/projects/*/out/
-shadow/projects/*/audio/
-shadow/projects/*/review/
-shadow/projects/*/lib/
-shadow/projects/*/*.wav
-blueprint/template/out/
-blueprint/template/audio/
-blueprint/template/review/
-blueprint/template/lib/
-blueprint/projects/*/out/
-blueprint/projects/*/audio/
-blueprint/projects/*/review/
-blueprint/projects/*/lib/
-blueprint/projects/*/*.wav
+pipelines/goldenage/template/out/
+pipelines/goldenage/template/audio/
+pipelines/goldenage/template/review/
+pipelines/goldenage/template/lib/
+pipelines/goldenage/projects/*/out/
+pipelines/goldenage/projects/*/audio/
+pipelines/goldenage/projects/*/review/
+pipelines/goldenage/projects/*/lib/
+pipelines/manga/template/out/
+pipelines/manga/template/audio/
+pipelines/manga/template/review/
+pipelines/manga/template/lib/
+pipelines/manga/projects/*/out/
+pipelines/manga/projects/*/audio/
+pipelines/manga/projects/*/review/
+pipelines/manga/projects/*/lib/
+pipelines/tapestry/template/out/
+pipelines/tapestry/template/audio/
+pipelines/tapestry/template/review/
+pipelines/tapestry/template/lib/
+pipelines/tapestry/projects/*/out/
+pipelines/tapestry/projects/*/audio/
+pipelines/tapestry/projects/*/review/
+pipelines/tapestry/projects/*/lib/
+pipelines/pencil/template/out/
+pipelines/pencil/template/audio/
+pipelines/pencil/template/review/
+pipelines/pencil/template/lib/
+pipelines/pencil/projects/*/out/
+pipelines/pencil/projects/*/audio/
+pipelines/pencil/projects/*/review/
+pipelines/pencil/projects/*/lib/
+pipelines/isometric/template/out/
+pipelines/isometric/template/audio/
+pipelines/isometric/template/review/
+pipelines/isometric/template/lib/
+pipelines/isometric/projects/*/out/
+pipelines/isometric/projects/*/audio/
+pipelines/isometric/projects/*/review/
+pipelines/isometric/projects/*/lib/
+pipelines/parable/template/out/
+pipelines/parable/template/audio/
+pipelines/parable/template/review/
+pipelines/parable/template/lib/
+pipelines/parable/projects/*/out/
+pipelines/parable/projects/*/audio/
+pipelines/parable/projects/*/review/
+pipelines/parable/projects/*/lib/
+pipelines/goldenage/projects/*/*.wav
+pipelines/manga/projects/*/*.wav
+pipelines/tapestry/projects/*/*.wav
+pipelines/pencil/projects/*/*.wav
+pipelines/isometric/projects/*/*.wav
+pipelines/parable/projects/*/*.wav
+pipelines/shadow/template/out/
+pipelines/shadow/template/audio/
+pipelines/shadow/template/review/
+pipelines/shadow/template/lib/
+pipelines/shadow/projects/*/out/
+pipelines/shadow/projects/*/audio/
+pipelines/shadow/projects/*/review/
+pipelines/shadow/projects/*/lib/
+pipelines/shadow/projects/*/*.wav
+pipelines/blueprint/template/out/
+pipelines/blueprint/template/audio/
+pipelines/blueprint/template/review/
+pipelines/blueprint/template/lib/
+pipelines/blueprint/projects/*/out/
+pipelines/blueprint/projects/*/audio/
+pipelines/blueprint/projects/*/review/
+pipelines/blueprint/projects/*/lib/
+pipelines/blueprint/projects/*/*.wav
 
 # laolang（上海美影手绘赛璐璐）工程产物；template/lib/story.js 是项目专属文件，保留入库
-laolang/template/out/
-laolang/template/audio/
-laolang/template/review/
-laolang/projects/*/out/
-laolang/projects/*/audio/
-laolang/projects/*/review/
-laolang/projects/*/lib/
-laolang/projects/*/*.wav
+pipelines/laolang/template/out/
+pipelines/laolang/template/audio/
+pipelines/laolang/template/review/
+pipelines/laolang/projects/*/out/
+pipelines/laolang/projects/*/audio/
+pipelines/laolang/projects/*/review/
+pipelines/laolang/projects/*/lib/
+pipelines/laolang/projects/*/*.wav
 # 成片与旧交付（单文件 295MB 超 GitHub 上限，可重跑）、审片缩略图不入库
-laolang/out/
-laolang/projects/*/assets/*/_review/
+pipelines/laolang/out/
+pipelines/laolang/projects/*/assets/*/_review/
 
 # ditu（立体地图解说）、pingban（平板速写）、caiqian（彩铅科普插画）的工程产物
 # 项目内 lib/（three）、fonts/、glyphs.json 随工程入库，不忽略
-ditu/projects/*/out/
-ditu/projects/*/voice/*.wav
-pingban/projects/*/out/
-pingban/projects/*/voice/*.wav
-caiqian/projects/*/out/
-caiqian/projects/*/voice/*.wav
-caiqian/projects/*/fonts/src/
+pipelines/ditu/projects/*/out/
+pipelines/ditu/projects/*/voice/*.wav
+pipelines/pingban/projects/*/out/
+pipelines/pingban/projects/*/voice/*.wav
+pipelines/caiqian/projects/*/out/
+pipelines/caiqian/projects/*/voice/*.wav
+pipelines/caiqian/projects/*/fonts/src/
 
 # shipai（实拍素材口播竖屏短片）工程产物：配音/切段/素材/底片/成片/日志都可重新生成
 # 只保留 project.json、script.txt、timeline.json、materials/*.json
-shipai/projects/*/voice.wav
-shipai/projects/*/audio/
-shipai/projects/*/logs/
-shipai/projects/*/subs/
-shipai/projects/*/materials/*.mp4
-shipai/projects/*/materials/*.mov
-shipai/projects/*/base-*.mp4
-shipai/projects/*/final-*.mp4
-shipai/projects/*/*.log
+pipelines/shipai/projects/*/voice.wav
+pipelines/shipai/projects/*/audio/
+pipelines/shipai/projects/*/logs/
+pipelines/shipai/projects/*/subs/
+pipelines/shipai/projects/*/materials/*.mp4
+pipelines/shipai/projects/*/materials/*.mov
+pipelines/shipai/projects/*/base-*.mp4
+pipelines/shipai/projects/*/final-*.mp4
+pipelines/shipai/projects/*/*.log
 
 # lvdong（剪影律动）工程产物：配音/成片/母版/抽查帧/封面/字体都能重新生成
 # 进库的是 project.json、script.txt、score.json、cues.json、treatment.md、index.html、film.js、cast.js、voice/words_full.json
-lvdong/projects/*/voice/*.wav
-lvdong/projects/*/out/
-lvdong/projects/*/stills/
-lvdong/projects/*/poster.jpg
-lvdong/projects/*/*.mp4
-lvdong/assets/fonts/
+pipelines/lvdong/projects/*/voice/*.wav
+pipelines/lvdong/projects/*/out/
+pipelines/lvdong/projects/*/stills/
+pipelines/lvdong/projects/*/poster.jpg
+pipelines/lvdong/projects/*/*.mp4
+pipelines/lvdong/assets/fonts/
 
 # tianshu（天书本地大模型出片）：只入库脚本/文档/参数与 work 里的作业单
 # 底图、片段、纹理层、成片、交付包都能重跑出来，且单工程 40 MB 起
-tianshu/projects/_*/
-tianshu/projects/*/plates/
-tianshu/projects/*/post/
-tianshu/projects/*/i2v/
-tianshu/projects/*/anchored/
-tianshu/projects/*/cam/
-tianshu/projects/*/out/
-tianshu/projects/*/publish/
-tianshu/projects/*/logs/
-tianshu/projects/*/source/*.wav
-tianshu/projects/*/work/state_*.json
-tianshu/projects/*/work/texture/
-tianshu/projects/*/work/wf_*.json
+pipelines/tianshu/projects/_*/
+pipelines/tianshu/projects/*/plates/
+pipelines/tianshu/projects/*/post/
+pipelines/tianshu/projects/*/i2v/
+pipelines/tianshu/projects/*/anchored/
+pipelines/tianshu/projects/*/cam/
+pipelines/tianshu/projects/*/out/
+pipelines/tianshu/projects/*/publish/
+pipelines/tianshu/projects/*/logs/
+pipelines/tianshu/projects/*/source/*.wav
+pipelines/tianshu/projects/*/work/state_*.json
+pipelines/tianshu/projects/*/work/texture/
+pipelines/tianshu/projects/*/work/wf_*.json
 
 # 样片与预览媒体：站点用的压缩样片在 site/media/ 入库（Pages 要直接读），
 # 原片 / 长片 / 预览 GIF 一律走 Release assets，不占 git。
@@ -276,20 +276,20 @@ demo/out/
 
 # 字体：仓库只留 assets/fonts 单份（tools/sync_fonts.py 在渲染前复制到工程目录）
 # 下面这些是复制出来的产物，不入库；KaiTi 一律从系统字体取，从不入库
-jianying/template/public/fonts/KaiTi.ttf
-lishi/template/public/fonts/KaiTi.ttf
-jianying/template/public/fonts/NotoSerifSC.ttf
-lishi/template/public/fonts/NotoSerifSC.ttf
-shouhui/projects/012_shangzhouwang/assets/font/KaiTi.ttf
-shouhui/projects/012_shangzhouwang/assets/font/LongCang-Regular.ttf
-shouhui/projects/012_shangzhouwang/assets/font/LXGWMarkerGothic-Regular.ttf
-shuimo/projects/yuren30/assets/font/KaiTi.ttf
-shuimo/projects/yuren30/assets/font/LongCang-Regular.ttf
-dengju/projects/yuren30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
-shiliang/projects/010_shengming30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
-xianshiqi/projects/UAP30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
-xuni/projects/009_prion30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
-xuni/projects/009_prion_full/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
+pipelines/jianying/template/public/fonts/KaiTi.ttf
+pipelines/lishi/template/public/fonts/KaiTi.ttf
+pipelines/jianying/template/public/fonts/NotoSerifSC.ttf
+pipelines/lishi/template/public/fonts/NotoSerifSC.ttf
+pipelines/shouhui/projects/012_shangzhouwang/assets/font/KaiTi.ttf
+pipelines/shouhui/projects/012_shangzhouwang/assets/font/LongCang-Regular.ttf
+pipelines/shouhui/projects/012_shangzhouwang/assets/font/LXGWMarkerGothic-Regular.ttf
+pipelines/shuimo/projects/yuren30/assets/font/KaiTi.ttf
+pipelines/shuimo/projects/yuren30/assets/font/LongCang-Regular.ttf
+pipelines/dengju/projects/yuren30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
+pipelines/shiliang/projects/010_shengming30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
+pipelines/xianshiqi/projects/UAP30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
+pipelines/xuni/projects/009_prion30/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
+pipelines/xuni/projects/009_prion_full/assets/font/AlibabaPuHuiTi-3-85-Bold.ttf
 
 # 字体本体不进仓库（assets/fonts/fonts.json 记地址，tools/sync_fonts.py --fetch 下载）
 assets/fonts/*.ttf
@@ -302,33 +302,33 @@ assets/fonts/*.part
 !assets/fonts/AlibabaPuHuiTi-3-85-Bold.ttf
 
 # gangbi（钢笔淡彩）的工程产物与字体落点（字体由 tools/sync_fonts.py 放进来，Code 与配置入库）
-gangbi/projects/*/out/
-gangbi/projects/*/voice/*.wav
-gangbi/projects/*/fonts/*.ttf
+pipelines/gangbi/projects/*/out/
+pipelines/gangbi/projects/*/voice/*.wav
+pipelines/gangbi/projects/*/fonts/*.ttf
 
 # labi（蜡笔儿童绘本）同上
-labi/projects/*/out/
-labi/projects/*/voice/*.wav
-labi/projects/*/fonts/*.ttf
+pipelines/labi/projects/*/out/
+pipelines/labi/projects/*/voice/*.wav
+pipelines/labi/projects/*/fonts/*.ttf
 
 # weisuo（孟菲斯微缩）/ shuicai（水彩笔刷）：字体是按片子文本裁出的子集，没有稳定来源，随工程入库
-weisuo/projects/*/out/
-weisuo/projects/*/voice/*.wav
-shuicai/projects/*/out/
-shuicai/projects/*/voice/*.wav
+pipelines/weisuo/projects/*/out/
+pipelines/weisuo/projects/*/voice/*.wav
+pipelines/shuicai/projects/*/out/
+pipelines/shuicai/projects/*/voice/*.wav
 
 # fushihui / shuimo2 / zhuangshi：字体由 tools/sync_fonts.py 放进来
-fushihui/projects/*/out/
-fushihui/projects/*/voice/*.wav
-fushihui/projects/*/fonts/*.woff2
-shuimo2/projects/*/out/
-shuimo2/projects/*/voice/*.wav
-shuimo2/projects/*/fonts/*.ttf
-zhuangshi/projects/*/out/
-zhuangshi/projects/*/voice/*.wav
-zhuangshi/projects/*/fonts/*.ttf
+pipelines/fushihui/projects/*/out/
+pipelines/fushihui/projects/*/voice/*.wav
+pipelines/fushihui/projects/*/fonts/*.woff2
+pipelines/shuimo2/projects/*/out/
+pipelines/shuimo2/projects/*/voice/*.wav
+pipelines/shuimo2/projects/*/fonts/*.ttf
+pipelines/zhuangshi/projects/*/out/
+pipelines/zhuangshi/projects/*/voice/*.wav
+pipelines/zhuangshi/projects/*/fonts/*.ttf
 
 # qianhuang（千黄 · 铅黄浓彩）：字体由 tools/sync_fonts.py 放进来；音效脚本入库，音轨不入库
-qianhuang/projects/*/out/
-qianhuang/projects/*/voice/*.wav
-qianhuang/projects/*/fonts/*.ttf
+pipelines/qianhuang/projects/*/out/
+pipelines/qianhuang/projects/*/voice/*.wav
+pipelines/qianhuang/projects/*/fonts/*.ttf

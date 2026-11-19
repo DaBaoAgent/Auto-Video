@@ -1,0 +1,59 @@
+{
+  "video": "D:\\@kaifa\\Auto-Video\\daihuo\\projects\\000_p0_smoke\\out\\华莱士-双拼6块-CV-01.mp4",
+  "cues": "D:\\@kaifa\\Auto-Video\\daihuo\\projects\\000_p0_smoke\\cues.json",
+  "ok": true,
+  "duration": 15.0,
+  "fps": 30.0,
+  "checks": [
+    {
+      "name": "尺寸 1080x1920",
+      "ok": true,
+      "detail": "1080x1920"
+    },
+    {
+      "name": "30fps",
+      "ok": true,
+      "detail": "30.00"
+    },
+    {
+      "name": "帧数=时长×30",
+      "ok": true,
+      "detail": "450 vs 450"
+    },
+    {
+      "name": "时长≥15s",
+      "ok": true,
+      "detail": "15.00s"
+    },
+    {
+      "name": "有音轨 48k",
+      "ok": true,
+      "detail": "{'codec_name': 'aac', 'codec_type': 'audio', 'sample_rate': '48000', 'channels': 1, 'r_frame_rate': '0/0', 'nb_frames': '705'}"
+    },
+    {
+      "name": "无黑帧",
+      "ok": true,
+      "detail": "blackdetect clean"
+    },
+    {
+      "name": "无>0.5s冻帧",
+      "ok": true,
+      "detail": "freezedetect clean"
+    },
+    {
+      "name": "响度 -14±1 LUFS",
+      "ok": true,
+      "detail": "I=-14.47 TP=-1.4"
+    },
+    {
+      "name": "真峰值 ≤ -1.0",
+      "ok": true,
+      "detail": "TP=-1.4"
+    },
+    {
+      "name": "首帧有钩子价格色块",
+      "ok": true,
+      "detail": "yellow=2.47%"
+    }
+  ]
+}

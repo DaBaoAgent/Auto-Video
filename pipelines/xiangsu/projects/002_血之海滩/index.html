@@ -1,0 +1,20 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>血之海滩 · 第一大段</title>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block;width:1920px;height:1080px}</style>
+</head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script type="module">
+  // 字符集从 cue sheet 里现取，避免字幕出现豆腐块
+  const cues = await (await fetch('./cues.json')).json();
+  const extra = '你看过十三号星期五吗湖边营地戴面具杰森一个接倒下年轻多少人童年阴影但你不知的是这部片子抄它那原版一九七一年意大利老片血之海滩铅黄名导马里奥巴瓦作我为期把翻出来又盘好几遍越觉后恐怖全欠句谢' +
+                '意大利年月日秒啦等等我他她你们这那什么怎么就还有没可以要不都会能想说到做过被让给和对从同跟以及于是但如果虽然因为所以然后现在当时以前之后之前已经正在准备开始结束最后第一二三四五六七八九十百千万零' +
+                '0123456789·《》，。、？！：；—…ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const chars = [...new Set(cues.subs.map(s => s.text).join('') + extra)].join('');
+  await document.fonts.load('12px "Fusion Pixel 12"', chars);
+  await document.fonts.ready;
+  await import('./film.js');
+  window.__ready = true;
+</script>
+</body></html>

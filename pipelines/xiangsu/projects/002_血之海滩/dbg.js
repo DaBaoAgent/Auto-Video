@@ -1,0 +1,937 @@
+// 血之海滩 · 第一大段（0:00–0:21.46）— xiangsu 640×360 索引色帧缓冲 → ×3 最近邻 → 输出级 CRT
+// 全部逐像素代码绘制（无生图模型）；每个镜头都是可重放的纯函数 renderAt(t)。
+import CUES from './cues.json' with { type: 'json' };
+
+const W = 640, H = 360, FPS = 30;
+const cues = CUES;
+window.DEMO = { width: 1920, height: 1080, fps: FPS, duration: cues.duration };
+const F = t => Math.round(t * FPS);
+
+const MP = CUES.pal.map(h => [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]);
+const P = {
+  ink: 0, n1: 1, n2: 2, n3: 3, n4: 4, n5: 5, n6: 6, n7: 7, n8: 8,
+  e0: 9, e1: 10, e2: 11, e3: 12, e4: 13, tan: 14, gold: 15, gold2: 16,
+  b0: 17, b1: 18, b2: 19,
+  t0: 20, t1: 21, t2: 22, t3: 23,
+  p0: 24, p1: 25, g0: 26, g1: 27, cream: 28, brown: 29, green: 30, dusk: 31,
+};
+
+// ---------------------------------------------------------------- buffer + primitives
+const IB = new Uint8Array(W * H);
+const JB = new Uint8Array(W * H);
+let GX = 0, GY = 0;
+const px = (x, y, c) => { x = (x | 0) + GX; y = (y | 0) + GY; if (x >= 0 && x < W && y >= 0 && y < H) IB[y * W + x] = c; };
+const get = (x, y) => (x >= 0 && x < W && y >= 0 && y < H) ? IB[y * W + x] : 0;
+const rect = (x, y, w, h, c) => { for (let j = y; j < y + h; j++) for (let i = x; i < x + w; i++) px(i, j, c); };
+const hline = (x, y, w, c) => { for (let i = 0; i < w; i++) px(x + i, y, c); };
+const vline = (x, y, h, c) => { for (let j = 0; j < h; j++) px(x, y + j, c); };
+const BAY8 = [0, 32, 8, 40, 2, 34, 10, 42, 48, 16, 56, 24, 50, 18, 58, 26,
+  12, 44, 4, 36, 14, 46, 6, 38, 60, 28, 52, 20, 62, 30, 54, 22,
+  3, 35, 11, 43, 1, 33, 9, 41, 51, 19, 59, 27, 49, 17, 57, 25,
+  15, 47, 7, 39, 13, 45, 5, 37, 63, 31, 55, 23, 61, 29, 53, 21];
+const bay = (x, y) => (BAY8[((y & 7) << 3) + (x & 7)] + 0.5) / 64;
+function hash(x, y) { let h = (x * 374761393 + y * 668265263) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
+function rng(a) { return () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+function line(x0, y0, x1, y1, c) {
+  x0 |= 0; y0 |= 0; x1 |= 0; y1 |= 0;
+  const dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1;
+  let e = dx - dy;
+  for (;;) { px(x0, y0, c); if (x0 === x1 && y0 === y1) break; const e2 = 2 * e; if (e2 > -dy) { e -= dy; x0 += sx; } if (e2 < dx) { e += dx; y0 += sy; } }
+}
+function poly(pts, c) {
+  let y0 = 1e9, y1 = -1e9;
+  for (const p of pts) { y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
+  for (let y = Math.floor(y0); y <= Math.ceil(y1); y++) {
+    const xs = [];
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i], b = pts[(i + 1) % pts.length];
+      if ((a[1] <= y && b[1] > y) || (b[1] <= y && a[1] > y)) xs.push(a[0] + (y - a[1]) * (b[0] - a[0]) / (b[1] - a[1]));
+    }
+    xs.sort((p, q) => p - q);
+    for (let k = 0; k + 1 < xs.length; k += 2) { const xa = Math.ceil(xs[k]), xb = Math.floor(xs[k + 1]); if (xb >= xa) hline(xa, y, xb - xa + 1, c); }
+  }
+}
+function polyLine(pts, c, closed = true) {
+  const n = pts.length, m = closed ? n : n - 1;
+  for (let i = 0; i < m; i++) line(pts[i][0], pts[i][1], pts[(i + 1) % n][0], pts[(i + 1) % n][1], c);
+}
+function disc(cx, cy, r, c) {
+  for (let j = -r; j <= r; j++) { const w = Math.floor(Math.sqrt(Math.max(0, r * r - j * j))); hline(cx - w, cy + j, w * 2 + 1, c); }
+}
+function ring(cx, cy, r, c, phase = 0) {
+  const n = Math.max(10, Math.round(r * 6.28));
+  for (let i = 0; i < n; i++) { const a = (i / n) * 6.283 + phase; px(cx + Math.round(Math.cos(a) * r), cy + Math.round(Math.sin(a) * r), c); }
+}
+function ellipseFill(cx, cy, rx, ry, c) {
+  for (let j = -ry; j <= ry; j++) {
+    const w = Math.round(rx * Math.sqrt(Math.max(0, 1 - (j * j) / (ry * ry))));
+    hline(cx - w, cy + j, w * 2 + 1, c);
+  }
+}
+function skyRamp(y0, y1, cols) {
+  const n = cols.length - 1;
+  for (let y = y0; y < y1; y++) {
+    const t = (y - y0) / Math.max(1, y1 - y0 - 1) * n;
+    const i = Math.min(n - 1, Math.floor(t));
+    // 只在色带末段做抖动过渡，其余保持干净，避免整屏雪花
+    const k = clamp((t - i - 0.62) / 0.38, 0, 1);
+    const cA = cols[i], cB = cols[i + 1];
+    for (let x = 0; x < W; x++) px(x, y, bay(x + (y >> 2), y) < k ? cB : cA);
+  }
+}
+function dith(x, y, w, h, c, den) {
+  for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) if (hash(x + i, y + j) < den) px(x + i, y + j, c);
+}
+function stars(f, n = 80) {
+  for (let i = 0; i < n; i++) {
+    const x = Math.floor(hash(i, 7) * W), y = Math.floor(hash(i, 13) * 150);
+    const ph = (f / 26 + hash(i, 21)) % 1;
+    if (ph < 0.5) px(x, y, ph < 0.12 ? P.n6 : P.n4);
+  }
+}
+function haloCol(cx, cy, rx, ry, ramp, amt = 1, p = 1.8) {
+  const cOut = ramp[ramp.length - 1];
+  const cIn = ramp[Math.max(0, ramp.length - 2)];
+  for (let y = Math.floor(cy - ry); y <= Math.ceil(cy + ry); y++) for (let x = Math.floor(cx - rx); x <= Math.ceil(cx + rx); x++) {
+    const dx = (x - cx) / rx, dy = (y - cy) / ry;
+    const d = Math.sqrt(dx * dx + dy * dy);
+    if (d >= 1) continue;
+    const q = Math.pow(1 - d, p) * amt * 0.55;
+    if (hash(x, y) < q) px(x, y, cOut);
+    if (Math.pow(1 - d, p * 1.7) * amt * 0.5 > hash(x + 1, y)) px(x, y, cIn);
+  }
+}
+function inTri(pxx, pyy, a, b, c) {
+  const s = (a[0] - c[0]) * (pyy - c[1]) - (a[1] - c[1]) * (pxx - c[0]);
+  const t = (b[0] - a[0]) * (pyy - a[1]) - (b[1] - a[1]) * (pxx - a[0]);
+  const u = (c[0] - b[0]) * (pyy - b[1]) - (c[1] - b[1]) * (pxx - b[0]);
+  return (s >= 0 && t >= 0 && u >= 0) || (s <= 0 && t <= 0 && u <= 0);
+}
+function coneLight(bx, by, tx, ty, half, den, c) {
+  const a = [bx, by], b = [tx - half, ty - Math.round(half * 0.55)], d = [tx + half, ty + Math.round(half * 0.55)];
+  const minX = bx, maxX = Math.max(b[0], d[0]), minY = Math.min(b[1], ty), maxY = Math.max(by, ty + half);
+  for (let y = Math.floor(minY); y <= Math.ceil(maxY); y++) for (let x = Math.floor(minX); x <= Math.ceil(maxX); x++) {
+    if (!inTri(x, y, a, b, d)) continue;
+    const k = (x - bx) / Math.max(1, tx - bx);
+    if (hash(x * 3 + y, y * 5 + 7) < den * (0.35 + k)) px(x, y, c);
+  }
+}
+function rain(t, n, c1, c2, slant = 1, speed = 1) {
+  for (let i = 0; i < n; i++) {
+    const sp = (240 + hash(i, 401) * 320) * speed;
+    const y = ((hash(i, 403) * (H + 40) + t * sp) % (H + 40)) - 20;
+    const x = (hash(i, 405) * W + y * slant + t * 10) % W;
+    const len = 2 + Math.floor(hash(i, 407) * 4);
+    for (let k = 0; k < len; k++) px(x + k * slant, y + k, k === 0 ? c2 : c1);
+  }
+}
+function fogBand(y0, h, t, c, den = 0.22, spd = 8) {
+  for (let j = 0; j < h; j++) {
+    const y = y0 + j;
+    const fade = Math.sin((j / h) * Math.PI);
+    for (let x = -10; x < W + 10; x++) {
+      const drift = ((x + t * spd + Math.sin((x * 0.03) + t * 0.6) * 12) / 10) | 0;
+      if (hash(drift, y * 3 + 1) < den * fade) px(x, y, c);
+    }
+  }
+}
+
+// ---------------------------------------------------------------- pixel font（12px 原生渲染 → 二值化，笔画不断）
+const TC = new Map();
+const _tc = document.createElement('canvas');
+_tc.width = 640; _tc.height = 24;
+const _tx = _tc.getContext('2d', { willReadFrequently: true });
+const FS = 12;
+function bmp(str) {
+  let o = TC.get(str);
+  if (o) return o;
+  _tx.font = `${FS}px "Fusion Pixel 12"`;
+  const mw = Math.max(1, Math.min(640, Math.ceil(_tx.measureText(str).width) + 4));
+  _tc.width = mw; _tc.height = 24;
+  _tx.font = `${FS}px "Fusion Pixel 12"`;
+  _tx.textBaseline = 'top';
+  _tx.fillStyle = '#fff';
+  _tx.clearRect(0, 0, mw, 24);
+  _tx.fillText(str, 1, 1);
+  const d = _tx.getImageData(0, 0, mw, 24).data;
+  const m = new Uint8Array(mw * 24);
+  for (let i = 0; i < mw * 24; i++) m[i] = d[i * 4 + 3] >= 80 ? 1 : 0;
+  o = { w: mw, h: 24, m };
+  TC.set(str, o);
+  return o;
+}
+function textW(str) { return Math.ceil(_tx.measureText(str).width) + 1; }
+function text(str, x, y, c, scale = 1) {
+  const b = bmp(str);
+  for (let j = 0; j < b.h; j++) for (let i = 0; i < b.w; i++) if (b.m[j * b.w + i]) {
+    if (scale === 1) px(x + i, y + j, c);
+    else for (let sy = 0; sy < scale; sy++) for (let sx = 0; sx < scale; sx++) px(x + i * scale + sx, y + j * scale + sy, c);
+  }
+  return textW(str) * scale;
+}
+function textC(str, cx, y, c, scale = 1) { return text(str, Math.round(cx - textW(str) * scale / 2), y, c, scale); }
+function textSC(str, cx, y, c, sc = 2, shadow = 0, shc = P.ink) {
+  const b = bmp(str), w = textW(str);
+  const x0 = Math.round(cx - w * sc / 2);
+  if (shadow) for (let j = 0; j < b.h; j++) for (let i = 0; i < b.w; i++) if (b.m[j * b.w + i])
+    for (let sy = 0; sy < sc; sy++) for (let sx = 0; sx < sc; sx++) px(x0 + i * sc + sx + sc, y + j * sc + sy + sc, shc);
+  for (let j = 0; j < b.h; j++) for (let i = 0; i < b.w; i++) if (b.m[j * b.w + i])
+    for (let sy = 0; sy < sc; sy++) for (let sx = 0; sx < sc; sx++) px(x0 + i * sc + sx, y + j * sc + sy, c);
+  return w * sc;
+}
+function chipZh(zh, x, y, fg = P.cream, bg = P.ink, bd = P.gold) {
+  const w = textW(zh) + 12, h = 20;
+  rect(x + 2, y + 2, w, h, P.ink);
+  rect(x, y, w, h, bg);
+  hline(x, y, w, bd); hline(x, y + h - 1, w, bd);
+  vline(x, y, h, bd); vline(x + w - 1, y, h, bd);
+  text(zh, x + 6, y + 3, fg, 1);
+  return w;
+}
+
+// ---------------------------------------------------------------- scenery
+function pine(x, gy, h, cd, cm, mottle = true) {
+  const q = Math.round;
+  const tiers = 5;
+  const top = gy - h;
+  for (let i = 0; i < tiers; i++) {
+    const f0 = i / tiers, f1 = (i + 1) / tiers;
+    const yTop = top + h * f0 * 0.9;
+    const yBot = top + h * f1 * 1.0;
+    const halfW = q(h * 0.26 * (0.28 + f1 * 1.05));
+    for (let y = q(yTop); y <= q(yBot); y++) {
+      const k = (y - yTop) / Math.max(1, (yBot - yTop));
+      const w = q(halfW * Math.pow(k, 0.7)) + 1;
+      hline(x - w, y, w * 2, cm);
+      if (mottle) {
+        const sp = 2 - (i & 1);
+        for (let xx = x - w; xx <= x + w; xx++) if (hash(xx, y + i * 13) < 0.10 && sp) px(xx, y, cd);
+      }
+      const jag = hash(y, x) < 0.32 ? 1 : 0;
+      hline(x + w - jag, y, 2, cd);
+      hline(x - w, y, 1, cd);
+    }
+  }
+  vline(x - 1, gy - q(h * 0.09), q(h * 0.09), cd);
+  vline(x, gy - q(h * 0.09), q(h * 0.09), cd);
+}
+function ridge(y, amp, seed, c) {
+  for (let x = -10; x < W + 10; x++) {
+    const n = Math.sin(x * 0.011 + seed) * amp + Math.sin(x * 0.031 + seed * 2) * amp * 0.4 + Math.sin(x * 0.07 + seed * 3) * amp * 0.18;
+    const top = Math.round(y + n);
+    vline(x, top, H - top, c);
+  }
+}
+function moonAt(cx, cy, r) {
+  haloCol(cx, cy, r * 4.2, r * 3.4, [P.n3, P.n4, P.n5, P.n6], 0.5, 1.1);
+  disc(cx, cy, r, P.cream);
+  for (let i = 0; i < 6; i++) {
+    const a = hash(i, 91) * 6.28, d = hash(i, 93) * r * 0.6;
+    disc(cx + Math.round(Math.cos(a) * d), cy + Math.round(Math.sin(a) * d), 1 + (i % 2), P.g1);
+  }
+  // 右下暗缘，让月亮不是一块纯白饼
+  for (let j = -r; j <= r; j++) {
+    const w = Math.round(Math.sqrt(Math.max(0, r * r - (j + 1) * (j + 1))));
+    px(cx + w, cy + j, P.g1);
+  }
+}
+function arc(cx, cy, r, a0, a1, c) {
+  const n = Math.max(6, Math.round(Math.abs(a1 - a0) * r));
+  for (let i = 0; i <= n; i++) { const a = a0 + (a1 - a0) * (i / n); px(cx + Math.round(Math.cos(a) * r), cy + Math.round(Math.sin(a) * r), c); }
+}
+function lakeBand(y0, y1, t) {
+  rect(-10, y0, 660, y1 - y0, P.t1);
+  // 近岸三条整线，其余用水波碎段，不做满屏条纹
+  hline(-10, y0, 660, P.t2);
+  hline(-10, y0 + 4, 660, P.t2);
+  hline(-10, y1 - 6, 660, P.t1);
+  for (let y = y0 + (y1 - y0) * 0.55; y < y1; y++) {
+    if (hash(0, y) < 0.8) dith(-10, y, 660, 1, P.t0, 0.55);
+  }
+  for (let i = 0; i < 110; i++) {
+    const y = y0 + 4 + Math.floor(hash(i, 301) * (y1 - y0 - 8));
+    const x = Math.round(((hash(i, 303) * 700 + t * (5 + hash(i, 305) * 8)) % 700) - 30);
+    hline(x, y, 2 + Math.floor(hash(i, 307) * 7), hash(i, 309) < 0.3 ? P.t3 : P.t2);
+  }
+}
+function moonPath(cx, y0, y1, t) {
+  for (let y = y0 + 2; y < y1; y += 2) {
+    const k = (y - y0) / Math.max(1, y1 - y0);
+    const wid = 4 + Math.round(k * 20);
+    const wob = Math.round(Math.sin(t * 1.8 + y * 0.3) * 2);
+    const segs = 3 + Math.floor(hash(y, 3) * 3);
+    for (let s = 0; s < segs; s++) {
+      const x = cx - wid + wob + Math.round(hash(y + s, 11 + (t * 6 | 0)) * wid * 2);
+      const len = 2 + Math.floor(hash(y + s, 17) * (2 + wid * 0.4));
+      hline(clamp(x, cx - wid - 4, cx + wid + 4), y, len, k < 0.4 ? P.cream : (k < 0.7 ? P.n7 : P.n6));
+    }
+  }
+}
+function grassTufts(y, t, c, n = 60, seed = 0) {
+  for (let i = 0; i < n; i++) {
+    const x = Math.floor(hash(i + seed, 601) * W);
+    const hgt = 2 + Math.floor(hash(i + seed, 603) * 5);
+    const sway = Math.round(Math.sin(t * 1.6 + i) * 1);
+    for (let k = 0; k < hgt; k++) px(x + sway + Math.round(k * 0.3), y - k, c);
+  }
+}
+function figureMasked(cx, gy, h, coat, rim) {
+  const q = Math.round;
+  const hip = gy - q(h * 0.26);
+  const sh = gy - q(h * 0.86);
+  // 腿
+  rect(cx - q(h * 0.09), hip, Math.max(3, q(h * 0.07)), q(h * 0.26), P.ink);
+  rect(cx + q(h * 0.02), hip, Math.max(3, q(h * 0.07)), q(h * 0.26), P.ink);
+  // 大衣
+  poly([[cx - q(h * 0.16), hip + 2], [cx + q(h * 0.16), hip + 2],
+    [cx + q(h * 0.13), sh + q(h * 0.10)], [cx + q(h * 0.15), sh],
+    [cx - q(h * 0.15), sh], [cx - q(h * 0.13), sh + q(h * 0.10)]], coat);
+  // 双臂
+  poly([[cx - q(h * 0.15), sh + 2], [cx - q(h * 0.10), sh + 2],
+    [cx - q(h * 0.08), hip - q(h * 0.02)], [cx - q(h * 0.14), hip - q(h * 0.02)]], coat);
+  poly([[cx + q(h * 0.10), sh + 2], [cx + q(h * 0.15), sh + 2],
+    [cx + q(h * 0.15), hip - q(h * 0.02)], [cx + q(h * 0.09), hip - q(h * 0.02)]], coat);
+  // 右侧月光轮廓
+  for (let y = sh; y < hip; y++) {
+    const u = (y - sh) / Math.max(1, hip - sh);
+    const w = q(h * 0.15) - Math.round(u * h * 0.02);
+    px(cx + w, y, rim);
+    if (u < 0.4) px(cx + w - 1, y, rim);
+    if (u > 0.72) px(cx + w - 2, y, rim);
+  }
+  // 领口
+  hline(cx - q(h * 0.06), sh + 1, q(h * 0.12), P.ink);
+  // 头 + 麻布面具
+  const hy = gy - q(h * 0.99);
+  const rx = Math.max(6, q(h * 0.082)), ry = Math.max(8, q(h * 0.108));
+  ellipseFill(cx, hy, rx, ry, P.g1);
+  for (let j = -ry; j <= ry; j++) for (let i = -rx; i <= rx; i++) {
+    if ((i * i) / (rx * rx) + (j * j) / (ry * ry) > 1) continue;
+    const n = hash(cx + i * 5, hy + j * 5);
+    if (n < 0.16) px(cx + i, hy + j, P.g0);
+    else if (n > 0.92) px(cx + i, hy + j, P.cream);
+  }
+  for (let j = -ry; j <= ry; j++) {
+    const w = Math.round(rx * Math.sqrt(Math.max(0, 1 - (j * j) / (ry * ry))));
+    px(cx + w, hy + j, P.cream);
+  }
+  // 眼窝（黑孔 + 一颗红光）
+  const ex = Math.max(2, Math.round(rx * 0.34)), ey = Math.max(2, Math.round(ry * 0.20));
+  ellipseFill(cx - Math.round(rx * 0.40), hy - Math.round(ry * 0.14), ex, ey, P.ink);
+  ellipseFill(cx + Math.round(rx * 0.40), hy - Math.round(ry * 0.14), ex, ey, P.ink);
+  // 缝线
+  for (let j = -ry + 2; j < ry - 1; j += 3) px(cx, hy + j, P.ink);
+  hline(cx - rx + 2, hy + Math.round(ry * 0.42), rx * 2 - 4, P.ink);
+  hline(cx - rx + 2, hy - Math.round(ry * 0.54), rx * 2 - 4, P.ink);
+}
+function silhouetteFall(cx, gy, h, k, c, rim) {
+  const q = Math.round, ang = k * Math.PI / 2;
+  const s = Math.sin(ang), co = Math.cos(ang);
+  const PT = (x, y) => [q(cx + x * co - y * s), q(gy + x * s + y * co)];
+  const hipL = PT(-h * 0.09, -h * 0.30), hipR = PT(h * 0.09, -h * 0.30);
+  const shL = PT(-h * 0.14, -h * 0.82), shR = PT(h * 0.14, -h * 0.82);
+  const ftL = PT(-h * 0.07, 0), ftR = PT(h * 0.07, 0);
+  poly([hipL, hipR, shR, shL], c);
+  line(ftL[0], ftL[1], hipL[0], hipL[1], c);
+  line(ftR[0], ftR[1], hipR[0], hipR[1], c);
+  const hd = PT(0, -h * 0.95);
+  disc(hd[0], hd[1], Math.max(3, q(h * 0.075)), c);
+  const arL = PT(-h * 0.20, -h * 0.55), arR = PT(h * 0.20, -h * 0.55);
+  line(shL[0], shL[1], arL[0], arL[1], c);
+  line(shR[0], shR[1], arR[0], arR[1], c);
+  // 受光侧
+  for (let i = 0; i < 4; i++) px(shR[0] + i, shR[1] + i, rim);
+  px(hd[0] + Math.max(2, q(h * 0.06)), hd[1] - 1, rim);
+}
+function bloodPool(cx, cy, r, k) {
+  const rr = Math.max(1, Math.round(r * k));
+  ellipseFill(cx, cy, rr, Math.max(1, Math.round(rr * 0.42)), P.b0);
+  ellipseFill(cx, cy, Math.round(rr * 0.78), Math.max(1, Math.round(rr * 0.30)), P.b1);
+  for (let i = 0; i < 12; i++) {
+    const a = hash(i, 701) * 6.28, d = rr * (0.55 + hash(i, 703) * 0.7);
+    px(cx + Math.round(Math.cos(a) * d), cy + Math.round(Math.sin(a) * d * 0.42), P.b2);
+  }
+  if (r * k > 4) ellipseFill(cx - Math.round(rr * 0.5), cy, 1, 1, P.b2);
+}
+function reelAt(cx, cy, r, ang, cRim, cFace, cHole) {
+  disc(cx, cy, r, cFace);
+  ring(cx, cy, r, cRim, 0.1);
+  ring(cx, cy, r - 1, cRim, 0.1);
+  ring(cx, cy, Math.round(r * 0.60), cRim, 0.1);
+  const spokes = 6;
+  for (let i = 0; i < spokes; i++) {
+    const a = ang + i * 6.283 / spokes;
+    line(cx + Math.round(Math.cos(a) * r * 0.16), cy + Math.round(Math.sin(a) * r * 0.16),
+      cx + Math.round(Math.cos(a) * r * 0.84), cy + Math.round(Math.sin(a) * r * 0.84), cRim);
+    disc(cx + Math.round(Math.cos(a) * r * 0.72), cy + Math.round(Math.sin(a) * r * 0.72), Math.max(2, Math.round(r * 0.13)), cHole);
+  }
+  disc(cx, cy, Math.max(2, Math.round(r * 0.14)), cRim);
+  disc(cx, cy, Math.max(1, Math.round(r * 0.06)), P.cream);
+}
+function sprocketRow(x, y, w, cHole, cBg) {
+  rect(x, y, w, 8, cBg);
+  for (let i = 0; i < w - 8; i += 12) rect(x + i + 3, y + 2, 5, 4, cHole);
+}
+
+// ---------------------------------------------------------------- 通用
+function band(y0, y1, c) { if (y1 > y0) rect(-10, y0, 660, y1 - y0, c); }
+function glowRad(cx, cy, r, c, den = 0.4, pw = 2.0) {
+  for (let y = Math.floor(cy - r); y <= Math.ceil(cy + r); y++) for (let x = Math.floor(cx - r); x <= Math.ceil(cx + r); x++) {
+    const d = Math.sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy)) / r;
+    if (d >= 1) continue;
+    if (hash(x, y) < Math.pow(1 - d, pw) * den) px(x, y, c);
+  }
+}
+function glowEll(cx, cy, rx, ry, c, den = 0.4, pw = 2.0) {
+  for (let y = Math.floor(cy - ry); y <= Math.ceil(cy + ry); y++) for (let x = Math.floor(cx - rx); x <= Math.ceil(cx + rx); x++) {
+    const dx = (x - cx) / rx, dy = (y - cy) / ry;
+    const d = Math.sqrt(dx * dx + dy * dy);
+    if (d >= 1) continue;
+    if (hash(x, y) < Math.pow(1 - d, pw) * den) px(x, y, c);
+  }
+}
+function scatter(n, y0, y1, c1, c2, seed = 0) {
+  for (let i = 0; i < n; i++) {
+    const x = Math.floor(hash(i + seed, 1001) * W), y = y0 + Math.floor(hash(i + seed, 1003) * (y1 - y0));
+    px(x, y, hash(i + seed, 1005) < 0.5 ? c1 : c2);
+  }
+}
+function reflectPath(cx, y0, y1, t, halfMax) {
+  for (let y = y0; y < y1; y += 2) {
+    const k = (y - y0) / Math.max(1, y1 - y0);
+    const half = 3 + Math.round(k * halfMax);
+    const rows = hash(y, 77) < 0.5 ? 2 : 1;
+    for (let i = 0; i < rows; i++) {
+      const x0 = cx - half + Math.round(hash(y + i, 79) * half * 0.6);
+      const len = Math.max(2, Math.round(half * (0.8 + hash(y + i, 81) * 0.7)));
+      const shift = Math.round(Math.sin(t * 1.6 + y * 0.25) * 1.5);
+      for (let x = x0 + shift; x < x0 + shift + len * 2; x += 2) {
+        if (hash(x, y) < 0.55) px(x, y, k < 0.4 ? P.cream : (k < 0.75 ? P.n7 : P.n6));
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------- 镜头 1 湖岸营地
+function shotCamp(lt, f) {
+  band(-10, 26, P.ink);
+  band(26, 62, P.n1);
+  band(62, 100, P.n2);
+  band(100, 132, P.n3);
+  band(132, 158, P.n3);
+  stars(f, 40);
+  const mx = 486, my = 52, mr = 16;
+  glowRad(mx, my, 38, P.n4, 0.34, 2.6);
+  disc(mx, my, mr, P.cream);
+  disc(mx - 6, my - 5, 3, P.g1); disc(mx + 5, my + 4, 3, P.g1); disc(mx + 9, my - 7, 2, P.g1);
+  for (let j = -mr; j <= mr; j++) { const w = Math.round(Math.sqrt(Math.max(0, mr * mr - j * j))); px(mx + w, my + j, P.g1); }
+  ridge(150, 5, 0.3, P.n2);
+  ridge(158, 4, 2.2, P.n1);
+  pine(36, 168, 62, P.ink, P.ink, false);
+  pine(74, 168, 44, P.ink, P.ink, false);
+  pine(108, 168, 28, P.ink, P.ink, false);
+  pine(600, 168, 56, P.ink, P.ink, false);
+  pine(628, 168, 82, P.ink, P.ink, false);
+  // 湖
+  band(168, 250, P.t1);
+  band(232, 250, P.t0);
+  hline(-10, 168, 660, P.t2);
+  for (let i = 0; i < 14; i++) {
+    const y = 174 + Math.floor(hash(i, 361) * 70);
+    const x = Math.floor(hash(i, 363) * W);
+    hline(x, y, 3 + Math.floor(hash(i, 365) * 9), P.t2);
+  }
+  reflectPath(mx, 170, 248, lt, 26);
+  // 岸
+  band(250, 360, P.e0);
+  hline(-10, 250, 660, P.e1);
+  scatter(50, 252, 300, P.e1, P.e2, 11);
+  grassTufts(252, lt, P.e1, 50, 4);
+  // 码头
+  rect(498, 246, 64, 3, P.e2);
+  hline(498, 246, 64, P.e3);
+  for (let x = 502; x < 560; x += 16) vline(x, 249, 11, P.e1);
+  // 篝火
+  const fx = 96, fy = 291;
+  glowEll(fx, fy - 8, 40, 26, P.e1, 0.5, 2.2);
+  glowEll(fx, fy - 12, 20, 14, P.gold2, 0.35, 2.0);
+  line(fx - 18, fy, fx + 18, fy - 5, P.e1);
+  line(fx - 18, fy - 5, fx + 18, fy, P.e2);
+  const fh = 9 + Math.round((Math.sin(lt * 7) + 1) * 3);
+  poly([[fx - 9, fy - 2], [fx - 3, fy - 2 - fh], [fx + 2, fy - 2]], P.tan);
+  poly([[fx - 3, fy - 2], [fx + 2, fy - 4 - fh - 4], [fx + 6, fy - 2]], P.gold);
+  poly([[fx - 1, fy - 2], [fx + 1, fy - 8 - fh], [fx + 3, fy - 2]], P.gold2);
+  for (let i = 0; i < 16; i++) {
+    const up = (lt * (12 + hash(i, 909) * 30) + hash(i, 911) * 40) % 56;
+    const x = fx + Math.round(Math.sin(lt * 1.1 + i * 0.6) * (2 + up * 0.25));
+    px(x, fy - 6 - up, up > 42 ? P.b1 : (up > 22 ? P.gold : P.tan));
+  }
+}
+
+// ---------------------------------------------------------------- 镜头 2 戴面具的杰森
+function shotMask(lt, f) {
+  band(-10, 44, P.ink);
+  band(44, 100, P.n1);
+  band(100, 160, P.n2);
+  stars(f, 26);
+  const mx = 570, my = 40;
+  glowRad(mx, my, 30, P.n4, 0.3, 2.4);
+  disc(mx, my, 10, P.cream);
+  disc(mx - 3, my - 3, 2, P.g1);
+  ridge(162, 5, 1.0, P.n2);
+  pine(22, 206, 210, P.ink, P.ink, false);
+  pine(78, 210, 150, P.ink, P.ink, false);
+  pine(614, 204, 220, P.ink, P.ink, false);
+  pine(556, 210, 152, P.ink, P.ink, false);
+  band(168, 206, P.t0);
+  hline(-10, 168, 660, P.t1);
+  for (let i = 0; i < 10; i++) hline(Math.floor(hash(i, 371) * W), 174 + Math.floor(hash(i, 373) * 26), 3 + Math.floor(hash(i, 375) * 7), P.t1);
+  // 地面 + 土路
+  band(206, 360, P.e0);
+  hline(-10, 206, 660, P.e1);
+  poly([[-10, 360], [180, 236], [520, 238], [660, 268], [660, 360]], P.e1);
+  scatter(60, 210, 340, P.e1, P.e0, 21);
+  grassTufts(208, lt, P.e1, 44, 9);
+  // 人物
+  const step = Math.min(1, Math.max(0, (lt - 0.5) / 1.5));
+  const cx = 442 - Math.round(step * 10);
+  const gy = 314 + Math.round(step * 4);
+  const h = 172 + Math.round(step * 6);
+  // 手电锥
+  const tx = cx - Math.round(h * 0.10), ty = gy - Math.round(h * 0.58);
+  coneLight(150, 334, tx, ty, 26, 0.3, P.gold2);
+  coneLight(150, 334, tx, ty, 12, 0.45, P.gold);
+  line(150, 334, tx, ty, P.gold2);
+  disc(150, 334, 3, P.cream);
+  figureMasked(cx, gy, h, P.n1, P.n3);
+  if (lt > 0.78) {
+    const hy = gy - Math.round(h * 0.99);
+    const rx = Math.max(7, Math.round(h * 0.082));
+    px(cx - Math.round(rx * 0.4), hy - 3, P.b2);
+    px(cx + Math.round(rx * 0.4), hy - 3, P.b2);
+  }
+  for (let i = 0; i < 30; i++) {
+    const y = ((hash(i, 401) * (H + 30) - lt * (170 + hash(i, 403) * 120)) % (H + 30) + H + 30) % (H + 30) - 15;
+    const x = (hash(i, 405) * W + lt * 5) % W;
+    vline(x, y, 2 + Math.floor(hash(i, 407) * 3), i % 4 === 0 ? P.n4 : P.n3);
+  }
+}
+
+// ---------------------------------------------------------------- 镜头 3 一个接一个倒下
+function shotFalls(lt, f) {
+  band(-10, 36, P.ink);
+  band(36, 88, P.n2);
+  band(88, 136, P.n3);
+  stars(f, 18);
+  const mx = 96, my = 40;
+  glowRad(mx, my, 34, P.n5, 0.28, 2.2);
+  disc(mx, my, 11, P.cream);
+  disc(mx - 3, my - 2, 2, P.g1);
+  pine(6, 150, 118, P.ink, P.ink, false);
+  pine(54, 152, 80, P.ink, P.ink, false);
+  pine(620, 150, 130, P.ink, P.ink, false);
+  pine(578, 152, 88, P.ink, P.ink, false);
+  // 空地：暗底 + 月光亮块，剪影才立得住
+  band(140, 300, P.e1);
+  band(300, 360, P.e0);
+  glowEll(392, 250, 190, 74, P.e2, 0.85, 1.6);
+  glowEll(392, 258, 120, 52, P.e3, 0.7, 1.8);
+  scatter(46, 150, 296, P.e2, P.tan, 31);
+  grassTufts(200, lt, P.e2, 40, 13);
+  poly([[516, 208], [560, 166], [604, 208]], P.ink);
+  line(560, 166, 560, 208, P.e0);
+  const h = 106;
+  const gys = [300, 297, 294];
+  const xs = [372, 424, 476];
+  const k = [clamp((lt - 0.06) / 0.5, 0, 1), clamp((lt - 0.44) / 0.5, 0, 1), clamp((lt - 0.82) / 0.5, 0, 1)];
+  for (let i = 0; i < 3; i++) if (k[i] >= 0.98) bloodPool(xs[i] + 14, gys[i] + 2, 14, Math.min(1, (lt - (0.06 + i * 0.38) - 0.42) * 2.6));
+  for (let i = 2; i >= 0; i--) silhouetteFall(xs[i], gys[i], h, k[i], P.ink, P.tan);
+}
+
+// ---------------------------------------------------------------- 镜头 4 胶片撕口
+function shotTear(lt, f) {
+  band(-10, 380, P.ink);
+  rect(26, 88, 590, 20, P.e0);
+  rect(26, 268, 590, 18, P.e0);
+  rect(26, 92, 590, 188, P.brown);
+  for (let y = 96; y < 276; y += 3) hline(26, y, 590, P.e0);
+  sprocketRow(30, 94, 580, P.ink, P.e1);
+  sprocketRow(30, 266, 580, P.ink, P.e1);
+  miniCamp(58, 106, 210, 156, lt);
+  miniBay(300, 106, 210, 156, lt);
+  const tearT = Math.min(1, Math.max(0, (lt - 0.40) / 0.45));
+  if (tearT < 1) {
+    const cy2 = Math.round(94 + tearT * 172);
+    for (let y = 94; y < cy2; y++) {
+      px(296 + Math.round(Math.sin(y * 0.8) * 1.6), y, P.n8);
+      px(298 + Math.round(Math.sin(y * 0.8) * 1.6), y, P.cream);
+    }
+  } else {
+    for (let y = 94; y < 266; y++) {
+      const w = 2 + Math.round(Math.abs(Math.sin(y * 0.7)) * 3);
+      for (let x = 296 - w; x <= 296 + w; x++) if (hash(x, y) < 0.8) px(x, y, hash(x, y * 3) < 0.55 ? P.cream : P.n8);
+    }
+  }
+  const st = Math.max(0, lt - 1.02);
+  if (st > 0) {
+    const scl = st < 0.1 ? 1.15 : 1;
+    const cw = Math.round(86 * scl), ch = Math.round(66 * scl);
+    stampBox("抄", 462 - cw / 2, 214 - ch / 2, cw, ch);
+  }
+  for (let i = 0; i < 9; i++) vline(36 + Math.floor(hash(i, 861) * 560), 98 + Math.floor(hash(i, 863) * 168), 2 + Math.floor(hash(i, 865) * 9), P.e1);
+}
+function stampBox(zh, x, y, w, h) {
+  const bw = Math.max(2, Math.round(h / 20));
+  rect(x, y, w, h, P.ink);
+  rect(x + bw, y + bw, w - bw * 2, h - bw * 2, P.b2);
+  textSC(zh, x + w / 2 + 1, y + Math.round((h - 30) / 2), P.cream, 2, 1, P.ink);
+  for (let i = 0; i < 8; i++) {
+    const ex = x + Math.floor(hash(i, 971) * w), ey = y + Math.floor(hash(i, 973) * h);
+    rect(ex, ey, 2 + Math.floor(hash(i, 975) * 3), 2, P.b1);
+  }
+}
+function miniCamp(x, y, w, h, lt) {
+  rect(x, y, w, h, P.n1);
+  rect(x, y, w, Math.round(h * 0.42), P.n2);
+  const hz = y + Math.round(h * 0.58);
+  rect(x, hz, w, y + h - hz, P.t0);
+  hline(x, hz, w, P.t1);
+  const mx = x + w - 42, my = y + 26;
+  disc(mx, my, 7, P.cream);
+  glowRad(mx, my, 22, P.n4, 0.3, 2.2);
+  disc(mx, my, 7, P.cream);
+  for (let i = 0; i < 5; i++) {
+    const bx = x + 20 + i * 24;
+    poly([[bx - 10, hz], [bx, hz - 40], [bx + 10, hz]], P.ink);
+  }
+  rect(x, hz, w, y + h - hz, P.e0);
+  hline(x, hz, w, P.e1);
+  const fx = x + 38, fy = hz + 40;
+  glowEll(fx, fy - 6, 18, 14, P.e2, 0.4, 2.0);
+  disc(fx, fy, 3, P.gold2);
+  disc(fx, fy, 1, P.cream);
+  for (let i = 0; i < 5; i++) px(fx + Math.round(Math.sin(lt * 4 + i) * 2), fy - 5 - i * 2, P.gold);
+}
+function miniBay(x, y, w, h, lt) {
+  const hz = y + Math.round(h * 0.58);
+  rect(x, y, w, Math.round(h * 0.30), P.n5);
+  rect(x, y + Math.round(h * 0.30), w, Math.round(h * 0.28), P.tan);
+  rect(x, hz, w, y + h - hz, P.t2);
+  hline(x, hz, w, P.t3);
+  const sx = x + 40, sy = hz - 4;
+  glowRad(sx, sy, 26, P.gold, 0.3, 2.0);
+  disc(sx, sy, 7, P.cream);
+  disc(sx, sy, 5, P.n8);
+  for (let yy = hz + 2; yy < y + h; yy += 2) {
+    const wid = 2 + Math.round((yy - hz) * 0.55);
+    for (let i = 0; i < 2; i++) hline(sx - wid + i * wid, yy, Math.max(2, wid), P.gold2);
+  }
+  poly([[x, y + h], [x + 30, hz + 10], [x + 66, y + h]], P.e0);
+  poly([[x + w, y + h], [x + w - 36, hz + 14], [x + w - 70, y + h]], P.e0);
+  const bx = x + w * 0.60, by = hz + 16;
+  poly([[bx - 11, by], [bx + 11, by], [bx + 8, by + 5], [bx - 8, by + 5]], P.e1);
+  line(bx, by - 13, bx, by, P.e2);
+  poly([[bx, by - 13], [bx, by - 3], [bx + 6, by - 5]], P.cream);
+}
+
+// ---------------------------------------------------------------- 镜头 5 一九七一 意大利 海湾
+function shotBay(lt, f) {
+  band(-10, 34, P.dusk);
+  band(34, 62, P.n3);
+  band(62, 90, P.n4);
+  band(90, 118, P.n5);
+  band(118, 146, P.tan);
+  band(146, 170, P.gold);
+  band(170, 188, P.gold2);
+  // 云：短段堆叠，不画长直线
+  for (let c = 0; c < 3; c++) {
+    const y0 = 44 + c * 24, x0 = 40 + c * 120 + Math.round(Math.sin(lt * 0.2 + c) * 8);
+    for (let i = 0; i < 9; i++) {
+      const yy = y0 + Math.floor(hash(c * 9 + i, 381) * 8);
+      hline(x0 + i * 16 + Math.floor(hash(c * 9 + i, 383) * 6), yy, 8 + Math.floor(hash(c * 9 + i, 385) * 12), c < 2 ? P.n4 : P.n6);
+    }
+  }
+  const sx = 100, sy = 180 - Math.round(lt * 1.2);
+  glowRad(sx, sy, 62, P.gold, 0.3, 2.2);
+  disc(sx, sy, 13, P.cream);
+  disc(sx, sy, 11, P.n8);
+  ring(sx, sy, 14, P.gold);
+  // 海
+  band(188, 244, P.t2);
+  band(244, 252, P.t1);
+  hline(-10, 188, 660, P.t3);
+  for (let i = 0; i < 20; i++) {
+    const y = 194 + Math.floor(hash(i, 391) * 52);
+    const x = Math.round(hash(i, 393) * W + Math.sin(lt * 1.2 + i) * 5);
+    hline(x, y, 4 + Math.floor(hash(i, 395) * 12), hash(i, 397) < 0.4 ? P.t3 : P.t1);
+  }
+  reflectPath(sx, 190, 250, lt, 30);
+  cliffLeft();
+  cliffRight();
+  boat(398, 214);
+  for (let i = 0; i < 3; i++) {
+    const x = 258 + i * 40 + Math.round(Math.sin(lt * 0.7 + i) * 5);
+    const y = 86 + i * 8 + Math.round(Math.sin(lt * 1.0 + i * 2) * 2);
+    px(x - 2, y, P.ink); px(x - 1, y - 1, P.ink); px(x, y - 1, P.ink); px(x + 1, y, P.ink);
+  }
+  chipZh("1971 · 意大利", 26, 24, P.cream, P.ink, P.gold);
+  // 前景左下角草丛
+  for (let i = 0; i < 20; i++) {
+    const x = 4 + Math.floor(hash(i, 881) * 150);
+    const hgt = 8 + Math.floor(hash(i, 883) * 30);
+    line(x, 350, x + Math.round((hash(i, 885) - 0.3) * 14), 350 - hgt, P.ink);
+  }
+}
+function cliffLeft() {
+  poly([[-20, 340], [-6, 272], [22, 252], [46, 226], [78, 222], [102, 238], [128, 262], [140, 300], [146, 340]], P.e0);
+  poly([[-6, 272], [22, 252], [46, 226], [78, 222], [72, 240], [40, 262], [18, 288]], P.e1);
+  poly([[78, 222], [102, 238], [128, 262], [140, 300], [120, 296], [96, 250]], P.e2);
+  for (let i = 0; i < 6; i++) line(2 + i * 18, 320 - i * 10, 22 + i * 16, 274 - i * 8, P.e1);
+  for (let i = 0; i < 18; i++) px(Math.floor(hash(i, 891) * 120), 246 + Math.floor(hash(i, 893) * 60), hash(i, 897) < 0.5 ? P.e2 : P.e1);
+  for (let i = 0; i < 7; i++) px(8 + i * 16, 252 - i * 6, P.tan);
+  for (let y = 300; y < 340; y += 4) hline(-10, y, 150, P.e1);
+}
+function cliffRight() {
+  poly([[466, 340], [478, 276], [498, 250], [530, 240], [562, 246], [592, 262], [660, 262], [660, 340]], P.e0);
+  poly([[478, 276], [498, 250], [530, 240], [562, 246], [552, 258], [512, 268], [492, 288]], P.e1);
+  poly([[562, 246], [592, 262], [660, 262], [660, 316], [588, 306]], P.e2);
+  for (let i = 0; i < 4; i++) line(486 + i * 17, 320 - i * 10, 506 + i * 17, 268 - i * 6, P.e1);
+  // 崖顶别墅
+  rect(508, 208, 66, 26, P.cream);
+  rect(508, 208, 66, 3, P.g1);
+  for (let i = 0; i < 3; i++) rect(514 + i * 19, 213, 11, 8, P.n8);
+  rect(504, 203, 74, 6, P.b1);
+  vline(566, 188, 15, P.e0);
+  for (let i = 0; i < 8; i++) px(510 + Math.floor(hash(i, 911) * 62), 236 + Math.floor(hash(i, 913) * 4), P.e1);
+}
+function boat(x, y) {
+  poly([[x - 19, y], [x + 19, y], [x + 13, y + 7], [x - 13, y + 7]], P.e0);
+  hline(x - 17, y, 34, P.cream);
+  poly([[x - 1, y - 24], [x - 1, y - 3], [x + 9, y - 7]], P.cream);
+  line(x - 1, y - 24, x - 1, y - 3, P.e2);
+  for (let i = 0; i < 3; i++) hline(x - 9 + i * 7, y + 2, 5, P.b1);
+}
+
+// ---------------------------------------------------------------- 镜头 6 铅黄书封
+function shotBook(lt, f) {
+  band(-10, 380, P.ink);
+  const cx0 = 60, cy0 = 62, cw = 248, ch = 232;
+  rect(cx0 + 6, cy0 + 6, cw, ch, P.ink);
+  rect(cx0, cy0, cw, ch, P.gold);
+  for (let y = cy0; y < cy0 + ch; y += 4) hline(cx0, y, cw, P.gold2);
+  rect(cx0 + 10, cy0 + 10, cw - 20, ch - 20, P.ink);
+  rect(cx0 + 13, cy0 + 13, cw - 26, ch - 26, P.gold);
+  for (let y = cy0 + 13; y < cy0 + ch - 13; y += 4) hline(cx0 + 13, y, cw - 26, P.gold2);
+  const d1 = [cx0 + 54, cy0 + 158], d2 = [cx0 + 168, cy0 + 42];
+  for (let i = -4; i <= 4; i++) line(d1[0], d1[1] + i, d2[0], d2[1] + i, i === 0 ? P.n8 : (i === 1 ? P.cream : P.ink));
+  line(d1[0] - 2, d1[1] + 1, d1[0] - 22, d1[1] + 18, P.e0);
+  line(d1[0] - 6, d1[1] - 6, d1[0] + 8, d1[1] + 8, P.e2);
+  ellipseFill(d1[0] + 34, cy0 + 72, 3, 5, P.b2);
+  ellipseFill(d1[0] + 34, cy0 + 84, 2, 3, P.b1);
+  rect(cx0 + 8, cy0 + ch - 56, cw - 16, 38, P.cream);
+  hline(cx0 + 8, cy0 + ch - 56, cw - 16, P.e1);
+  textSC("血之海滩", cx0 + cw / 2, cy0 + ch - 50, P.ink, 1, 0);
+  textC("1971", cx0 + cw / 2, cy0 + ch - 30, P.b1, 1);
+  const rx0 = 348;
+  text("马里奥·巴瓦", rx0, 126, P.cream, 2);
+  hline(rx0, 162, 182, P.gold);
+  text("铅黄名导", rx0, 180, P.gold2, 1);
+  text("意大利 · 1971", rx0, 200, P.n7, 1);
+  text("REAZIONE", rx0, 230, P.n6, 1);
+  text("A CATENA", rx0, 248, P.n6, 1);
+  textSC("血之海滩", 320, 16, P.cream, 2, 1, P.ink);
+  chipZh("铅黄 · 1971", 348, 274, P.cream, P.ink, P.b1);
+}
+
+// ---------------------------------------------------------------- 镜头 7 倒带盘片
+function shotReels(lt, f) {
+  band(-10, 248, P.dusk);
+  band(248, 360, P.e0);
+  hline(-10, 248, 660, P.e2);
+  const lx = 70, ly = 96;
+  glowRad(lx, ly + 26, 70, P.e2, 0.26, 2.4);
+  glowRad(lx, ly + 22, 34, P.gold2, 0.2, 2.6);
+  poly([[lx - 15, ly], [lx + 15, ly], [lx + 21, ly + 13], [lx - 21, ly + 13]], P.e2);
+  hline(lx - 20, ly + 12, 41, P.e3);
+  rect(lx - 2, ly + 13, 4, 42, P.e1);
+  rect(lx - 11, ly + 54, 22, 4, P.e2);
+  disc(lx, ly + 10, 2, P.cream);
+  const ang = lt * 3.2;
+  reelAt(268, 148, 58, ang, P.e2, P.e1, P.ink);
+  reelAt(428, 142, 40, -ang * 1.5, P.e2, P.e1, P.ink);
+  for (let i = 0; i < 3; i++) {
+    const a0 = ang * 0.6 + i * 2.1;
+    for (let k = 0; k < 30; k++) {
+      const a = a0 + k * 0.06;
+      px(268 + Math.round(Math.cos(a) * (60 + i)), 148 + Math.round(Math.sin(a) * (60 + i)), P.e3);
+    }
+  }
+  line(326, 148, 388, 142, P.e3);
+  line(326, 150, 388, 144, P.ink);
+  for (let i = 0; i < 38; i++) {
+    const x = 470 + i * 3, y = 232 + Math.round(Math.sin(i * 0.4 + lt * 2) * 2) + Math.floor(i / 9) * 3;
+    rect(x, y, 3, 9, P.e1);
+    px(x + 1, y + 4, P.ink);
+  }
+}
+
+// ---------------------------------------------------------------- 镜头 8 尾卡
+function shotTail(lt, f) {
+  band(-10, 380, P.ink);
+  const ang = lt * 1.1;
+  for (let i = 0; i < 3; i++) ring(320, 118, 66 + i * 5, i === 0 ? P.n3 : P.n2, ang + i * 0.2);
+  for (let i = 0; i < 6; i++) {
+    const a = ang + i * 1.047;
+    line(320 + Math.round(Math.cos(a) * 12), 118 + Math.round(Math.sin(a) * 12),
+      320 + Math.round(Math.cos(a) * 62), 118 + Math.round(Math.sin(a) * 62), P.n2);
+  }
+  disc(320, 118, 6, P.n3);
+  const k = Math.min(1, lt / 0.5);
+  textSC("血之海滩", 320, 182 + Math.round((1 - k) * 8), P.cream, 2, 1, P.ink);
+  hline(196, 224, 248, P.gold);
+  textC("1971 · 马里奥·巴瓦", 320, 236, P.gold2, 1);
+  textC("口播 徐艾伦 · xiangsu 像素管线", 320, 262, P.n6, 1);
+}
+// ---------------------------------------------------------------- subtitle + transition + CRT
+function subtitleAt(t) {
+  for (const s of cues.subs) {
+    if (t >= s.t0 && t <= s.t1 + 0.18) {
+      const vis = s.text.slice(0, Math.max(1, Math.floor((t - s.t0) / 0.026)));
+      const full = s.text;
+      const hl = s.hl && full.indexOf(s.hl) >= 0 ? full.indexOf(s.hl) : -1;
+      const hlW = hl >= 0 ? textW(s.hl) : 0;
+      // 逐字定宽，保证不糊不叠
+      let tw = 0; const adv = [];
+      for (const ch of full) { const w = textW(ch); adv.push(w + 1); tw += w + 1; }
+      tw -= 1;
+      const x0 = Math.round(320 - tw * 2 / 2);
+      let x = x0;
+      let hlX0 = 0, hlX1 = 0, acc = 0;
+      const idxOf = [...full];
+      for (let i = 0; i < full.length; i++) {
+        if (i >= vis.length) break;
+        if (hl >= 0 && i === hl) hlX0 = x;
+        if (hl >= 0 && i >= hl && i < hl + s.hl.length) hlX1 = x + adv[i] * 2;
+        const c = (hl >= 0 && i >= hl && i < hl + s.hl.length) ? P.gold2 : P.cream;
+        text(full[i], x, 314, P.ink, 2);
+        text(full[i], x, 314, c, 2);
+        x += adv[i] * 2;
+        acc += adv[i];
+      }
+      return;
+    }
+  }
+  return;
+}
+function transition(t, cut, i) {
+  const d = t - cut;
+  if (d < 0 || d > 0.16) return;
+  const k = 1 - d / 0.16;
+  dith(-10, -10, 660, 380, P.cream, 0.42 * k);
+  dith(-10, -10, 660, 380, P.ink, 0.25 * k);
+}
+function ambient(t) {
+  for (let i = 0; i < 22; i++) {
+    const y = Math.floor((hash(i, 961) * H + t * (3 + hash(i, 963) * 8)) % H);
+    const x = Math.floor((hash(i, 965) * W + Math.sin(t * 0.6 + i) * 16) % W);
+    if (hash(i, 969) < 0.5) px(x, y, P.n4);
+  }
+}
+function crt(t) {
+  // 暗角（只在最外侧稀疏压暗，避免全屏雪花）
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const dx = (x - W / 2) / (W / 2), dy = (y - H / 2) / (H / 2);
+    const d = Math.sqrt(dx * dx * 1.05 + dy * dy * 1.3);
+    if (d > 0.86 && hash(x, y) < (d - 0.86) * 0.75) px(x, y, P.ink);
+  }
+}
+
+// ---------------------------------------------------------------- main
+const SC = document.getElementById('c').getContext('2d');
+const IMG = SC.createImageData(W, H);
+const C31 = new Uint8Array(32);
+for (let i = 0; i < 32; i++) C31[i] = MP[i] ? 1 : 0;
+const PAL32 = new Uint32Array(32);
+for (let i = 0; i < 32; i++) PAL32[i] = (255 << 24) | (MP[i][2] << 16) | (MP[i][1] << 8) | MP[i][0];
+
+function renderScene(t) {
+  const cuts = cues.cuts;
+  let si = 0;
+  for (let i = cuts.length - 1; i >= 0; i--) if (t >= cuts[i]) { si = i; break; }
+  const lt = t - cuts[si];
+  GX = 0; GY = 0;
+  IB.fill(0);
+  const f = F(t);
+  if (si === 0) shotCamp(lt, f);
+  else if (si === 1) shotMask(lt, f);
+  else if (si === 2) shotFalls(lt, f);
+  else if (si === 3) shotTear(lt, f);
+  else if (si === 4) shotBay(lt, f);
+  else if (si === 5) shotBook(lt, f);
+  else if (si === 6) shotReels(lt, f);
+  else shotTail(lt, f);
+  // 转场（切点后 0.16s 闪）
+  if (si > 0) transition(t, cuts[si], si);
+  // 字幕条
+  rect(-10, 300, 660, 60, P.ink);
+  for (let x = -10; x < 660; x++) if (hash(x, 3) < 0.5) px(x, 301, P.dusk);
+  for (let x = -10; x < 660; x++) if (hash(x, 5) < 0.35) px(x, 359, P.dusk);
+  subtitleAt(t);
+}
+
+function blit() {
+  const g = SC;
+  g.imageSmoothingEnabled = false;
+  const img = new ImageData(new Uint8ClampedArray(IMG.data));
+  for (let i = 0; i < W * H; i++) {
+    const c = IB[i];
+    const o = i * 4;
+    IMG.data[o] = MP[c][0]; IMG.data[o + 1] = MP[c][1]; IMG.data[o + 2] = MP[c][2]; IMG.data[o + 3] = 255;
+  }
+  g.putImageData(IMG, 0, 0);
+}
+
+// 642×360 小画布 → 1920×1080（×3 最近邻）
+const small = document.createElement('canvas');
+small.width = W; small.height = H;
+const smc = small.getContext('2d');
+function present() {
+  const g = SC;
+  g.fillStyle = '#000'; g.fillRect(0, 0, 1920, 1080);
+  g.imageSmoothingEnabled = false;
+  g.drawImage(small, 0, 0, 1920, 1080);
+  // 输出级 CRT 扫描线（在 1920×1080 上做，不破坏索引色画面）
+  const sx = small.width && 0;
+  g.fillStyle = 'rgba(0,0,0,0.13)';
+  for (let y = 0; y < 1080; y += 3) g.fillRect(0, y, 1920, 1);
+  g.fillStyle = 'rgba(0,0,0,0.06)';
+  for (let y = 1; y < 1080; y += 3) g.fillRect(0, y, 1920, 1);
+}
+
+window.renderAt = t => {
+  renderScene(t);
+  const d = smc.createImageData(W, H);
+  for (let i = 0; i < W * H; i++) {
+    const c = IB[i]; const o = i * 4;
+    d.data[o] = MP[c][0]; d.data[o + 1] = MP[c][1]; d.data[o + 2] = MP[c][2]; d.data[o + 3] = 255;
+  }
+  smc.putImageData(d, 0, 0);
+  present();
+};
+window.__stats = () => ({
+  cuts: cues.cuts.length - 1,
+  shots: cues.cuts.length,
+  subs: cues.subs.length,
+  hits: cues.hits.length,
+  duration: cues.duration,
+});
+window.__small = () => {
+  const c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const g = c.getContext('2d');
+  g.putImageData(smc.getImageData(0, 0, W, H), 0, 0);
+  return c.toDataURL('image/png');
+};
+window.__inputUrl = './index.html';

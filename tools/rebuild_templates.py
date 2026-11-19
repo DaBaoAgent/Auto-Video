@@ -93,7 +93,7 @@ def rewrite(path: Path) -> str:
 
 def main() -> int:
     for p in PIPES:
-        f = ROOT / p / "template" / "index.html"
+        f = ROOT / "pipelines" / p / "template" / "index.html"
         if not f.exists():
             print(f"  {p:<10} 缺 template/index.html")
             continue

@@ -55,16 +55,29 @@ def load_modules() -> list[dict]:
 
 
 def pipeline_dirs() -> list[Path]:
-    """仓库里像管线的目录：有 SKILL.md 或 pipeline.json，且不是工具目录或可选模块。"""
-    skip = {".git", "catalog", "schema", "site", "tools", "docs", "showcase", "projects"}
+    """pipelines/ 下像管线的目录：有 SKILL.md 或 pipeline.json。
+    兼容旧布局：pipelines/ 不存在时退回扫仓库根。"""
+    skip = {".git", "catalog", "schema", "site", "tools", "docs", "showcase", "projects", "out", "pipelines"}
     skip |= {m["path"] for m in load_modules() if m.get("path")}
+    base, only_pipes = REPO, False
+    if (REPO / "pipelines").is_dir():
+        base, only_pipes = REPO / "pipelines", True
+        skip = {m["path"] for m in load_modules() if m.get("path")}
     out = []
-    for p in sorted(REPO.iterdir()):
-        if not p.is_dir() or p.name in skip or p.name.startswith("."):
+    for p in sorted(base.iterdir()):
+        if not p.is_dir() or p.name.startswith("."):
+            continue
+        if not only_pipes and p.name in skip:
             continue
         if (p / "SKILL.md").exists() or (p / "pipeline.json").exists():
             out.append(p)
     return out
+
+
+def pipeline_path(pid: str) -> Path:
+    """按管线 id 取目录：优先 pipelines/<id>，退回旧布局 <id>/。"""
+    p = REPO / "pipelines" / pid
+    return p if p.is_dir() else REPO / pid
 
 
 # ------------------------------------------------------------------ ffmpeg
