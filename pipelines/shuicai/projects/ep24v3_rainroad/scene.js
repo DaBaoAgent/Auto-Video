@@ -173,72 +173,102 @@ function buildBg() {
 
 const BG = buildBg();
 
-// ── 自行车 + 骑手（背影视角，会蹬）──
+// ── 自行车 + 骑手（侧视，自左往右骑；脚蹬慢）──
 function drawBike(x, cx, baseY, s, t) {
-  const wheelR = 78 * s;
-  const rear = [cx - 78 * s, baseY - wheelR];
-  const front = [cx + 100 * s, baseY - wheelR];
-  const spin = t * 3.6;                              // 轮子转
-  // 轮：外圈 + 转动的辐条
+  const wheelR = 74 * s;
+  const rear = [cx - 86 * s, baseY - wheelR];
+  const front = [cx + 98 * s, baseY - wheelR];
+  const spin = t * 1.55;                                 // 轮子转（跟行进速度走）
+  const pedalA = t * 2.55;                               // 脚蹬：约 0.4 转/秒，慢
+  const ax = x.measureText ? null : null;
+
+  // 轮：外圈 + 转动的辐条 + 花鼓
   for (const c of [rear, front]) {
-    drawList(x, [mk(arcPts(c[0], c[1], wheelR, 0, Math.PI * 2, 30).slice(1), 5.2 * s, PAL_R.metal, { prof: 'even', a: .75, nb: 0 })], 1);
-    drawList(x, [mk(arcPts(c[0], c[1], wheelR * .93, 0, Math.PI * 2, 26).slice(1), 2.2 * s, '#7d858c', { prof: 'even', a: .5, nb: 0 })], 1);
+    drawList(x, [mk(arcPts(c[0], c[1], wheelR, 0, Math.PI * 2, 32).slice(1), 5.4 * s, PAL_R.metal, { prof: 'even', a: .8, nb: 0 })], 1);
+    drawList(x, [mk(arcPts(c[0], c[1], wheelR * .93, 0, Math.PI * 2, 28).slice(1), 2.1 * s, '#7d858c', { prof: 'even', a: .5, nb: 0 })], 1);
     const L = [];
-    for (let i = 0; i < 9; i++) {
-      const a = spin + i / 9 * Math.PI * 2;
-      L.push(mk([[c[0] + Math.cos(a) * wheelR * .1, c[1] + Math.sin(a) * wheelR * .1], [c[0] + Math.cos(a) * wheelR * .9, c[1] + Math.sin(a) * wheelR * .9]], 1.8 * s, '#6f767c', { prof: 'even', a: .55, nb: 0, rough: .12 }));
+    for (let i = 0; i < 8; i++) {
+      const a = spin + i / 8 * Math.PI * 2;
+      L.push(mk([[c[0] + Math.cos(a) * wheelR * .12, c[1] + Math.sin(a) * wheelR * .12], [c[0] + Math.cos(a) * wheelR * .88, c[1] + Math.sin(a) * wheelR * .88]], 1.8 * s, '#6f767c', { prof: 'even', a: .55, nb: 0, rough: .1 }));
     }
     drawList(x, L, 1);
-    drawList(x, [mk(arcPts(c[0], c[1], wheelR * .14, 0, Math.PI * 2, 10).slice(1), 5 * s, PAL_R.metal, { prof: 'even', a: .6, nb: 0 })], 1);
+    drawList(x, [mk(arcPts(c[0], c[1], wheelR * .13, 0, Math.PI * 2, 10).slice(1), 5 * s, PAL_R.metal, { prof: 'even', a: .6, nb: 0 })], 1);
   }
-  // 车架
-  const seat = [rear[0] + 26 * s, rear[1] - 52 * s];
-  const bb = [cx + 4 * s, baseY - wheelR * .86];
-  const head = [front[0] - 12 * s, front[1] - 30 * s];
+
+  // 车架（侧视）：座管、后下叉、上管、下管、前叉
+  const bb = [cx + 2 * s, baseY - 50 * s];
+  const seat = [cx - 46 * s, baseY - 162 * s];
+  const headT = [cx + 74 * s, baseY - 168 * s];
+  const bar = [cx + 86 * s, baseY - 176 * s];
   drawList(x, [
-    mk([rear, seat], 7 * s, PAL_R.clothD, { prof: 'trunk', a: .72, nb: 2 }),
-    mk([seat, bb], 7 * s, PAL_R.clothD, { prof: 'trunk', a: .72, nb: 2 }),
-    mk([bb, head], 7 * s, PAL_R.clothD, { prof: 'trunk', a: .72, nb: 2 }),
-    mk([seat, head], 6.5 * s, PAL_R.clothD, { prof: 'trunk', a: .66, nb: 2 }),
-    mk([head, front], 6 * s, PAL_R.clothD, { prof: 'trunk', a: .62, nb: 1 }),
-    mk([head, [head[0] - 4 * s, head[1] - 30 * s]], 5 * s, PAL_R.clothD, { prof: 'trunk', a: .55, nb: 1 }),
+    mk([rear, seat], 6.5 * s, PAL_R.clothD, { prof: 'trunk', a: .72, nb: 2 }),
+    mk([seat, bb], 7 * s, PAL_R.clothD, { prof: 'trunk', a: .74, nb: 2 }),
+    mk([bb, headT], 7.5 * s, PAL_R.clothD, { prof: 'trunk', a: .74, nb: 2 }),
+    mk([seat, headT], 6.5 * s, PAL_R.clothD, { prof: 'trunk', a: .70, nb: 2 }),
+    mk([headT, front], 5.5 * s, PAL_R.clothD, { prof: 'trunk', a: .68, nb: 1 }),
+    mk([headT, bar], 4.5 * s, PAL_R.clothD, { prof: 'trunk', a: .6, nb: 1 }),
+    mk([rear, bb], 4.5 * s, PAL_R.clothD, { prof: 'trunk', a: .55, nb: 1 }),
   ], 1);
   // 车座与后架
-  drawList(x, [mk([[seat[0] - 16 * s, seat[1] - 4 * s], [seat[0] + 12 * s, seat[1] - 8 * s]], 10 * s, '#4a3d33', { prof: 'brush', a: .6, rough: .2 })], 1);
-  drawList(x, [mk([[rear[0] - 6 * s, rear[1] - 44 * s], [rear[0] + 52 * s, rear[1] - 48 * s]], 7 * s, PAL_R.metal, { prof: 'even', a: .5, nb: 1 })], 1);
-  // 车把
-  drawList(x, [mk([[head[0] - 26 * s, head[1] - 26 * s], [head[0] + 18 * s, head[1] - 30 * s]], 6 * s, PAL_R.metal, { prof: 'even', a: .6, nb: 1 })], 1);
+  drawList(x, [mk([[seat[0] - 20 * s, seat[1] - 6 * s], [seat[0] + 12 * s, seat[1] - 9 * s]], 9 * s, '#4a3d33', { prof: 'brush', a: .62, rough: .2 })], 1);
+  drawList(x, [mk([[rear[0] + 6 * s, rear[1] - 46 * s], [rear[0] + 60 * s, rear[1] - 50 * s]], 6.5 * s, PAL_R.metal, { prof: 'even', a: .5, nb: 1 })], 1);
+  // 车把（弯把一只）
+  drawList(x, [mk([[bar[0] - 6 * s, bar[1] + 4 * s], [bar[0] + 10 * s, bar[1] - 6 * s]], 6 * s, PAL_R.metal, { prof: 'even', a: .6, nb: 1 })], 1);
+  // 牙盘与链条
+  drawList(x, [mk(arcPts(bb[0], bb[1], 20 * s, 0, Math.PI * 2, 14).slice(1), 4 * s, PAL_R.metal, { prof: 'even', a: .55, nb: 0 }),
+    mk([[bb[0], bb[1] + 18 * s], [rear[0], rear[1] + 6 * s]], 2 * s, '#6d747a', { prof: 'even', a: .4, nb: 0 })], 1);
 
-  // 骑手：背影（雨衣、帽、背）
-  const hip = [seat[0] + 2 * s, seat[1] - 14 * s];
-  const shoulder = [hip[0] - 6 * s, hip[1] - 86 * s];
-  const headC = [shoulder[0] - 2 * s, shoulder[1] - 26 * s];
-  // 躯干（雨衣，背向）
-  drawList(x, [mk([[shoulder[0] - 30 * s, shoulder[1] + 6 * s], [shoulder[0] + 28 * s, shoulder[1] + 2 * s],
-    [hip[0] + 22 * s, hip[1] - 4 * s], [hip[0] - 26 * s, hip[1]], [shoulder[0] - 30 * s, shoulder[1] + 6 * s]],
-    76 * s, PAL_R.cloth, { prof: 'brush', a: .78, rough: .26, nb: 3 })], 1);
-  // 雨衣的两道褶
-  drawList(x, [mk([[shoulder[0] - 14 * s, shoulder[1] + 26 * s], [hip[0] - 10 * s, hip[1] - 10 * s]], 5 * s, PAL_R.clothD, { prof: 'even', a: .35, nb: 0, rough: .2 }),
-    mk([[shoulder[0] + 16 * s, shoulder[1] + 22 * s], [hip[0] + 12 * s, hip[1] - 14 * s]], 5 * s, PAL_R.clothD, { prof: 'even', a: .3, nb: 0, rough: .2 })], 1);
-  // 头与帽
-  drawList(x, [mk(arcPts(headC[0], headC[1], 21 * s, 0, Math.PI * 2, 16).slice(1), 34 * s, PAL_R.skin, { prof: 'brush', a: .72, rough: .22 }),
-    mk([[headC[0] - 30 * s, headC[1] - 12 * s], [headC[0] + 28 * s, headC[1] - 16 * s]], 26 * s, '#3d4a55', { prof: 'brush', a: .78, rough: .2 }),
-    mk([[headC[0] - 34 * s, headC[1] - 12 * s], [headC[0] + 20 * s, headC[1] - 15 * s]], 8 * s, '#2c3741', { prof: 'even', a: .6, nb: 1 })], 1);
-  // 手臂到车把
-  drawList(x, [mk([[shoulder[0] + 24 * s, shoulder[1] + 12 * s], [head[0] - 18 * s, head[1] - 22 * s]], 18 * s, PAL_R.cloth, { prof: 'trunk', a: .72, nb: 2 }),
-    mk([[shoulder[0] - 24 * s, shoulder[1] + 14 * s], [head[0] + 6 * s, head[1] - 26 * s]], 16 * s, PAL_R.clothD, { prof: 'trunk', a: .6, nb: 2 })], 1);
-  // 腿（蹬踏：相位差半圈）
-  const crank = 26 * s;
+  // 骑手（侧视，面朝右）：髋、肩、头
+  const hip = [seat[0] + 4 * s, seat[1] - 4 * s];
+  const shoulder = [hip[0] + 34 * s, hip[1] - 96 * s];
+  const headC = [shoulder[0] + 16 * s, shoulder[1] - 22 * s];
+  // 躯干（雨衣，前倾）
+  drawList(x, [mk([[shoulder[0] - 8 * s, shoulder[1] - 8 * s], [shoulder[0] + 20 * s, shoulder[1] + 2 * s],
+    [hip[0] + 18 * s, hip[1] + 4 * s], [hip[0] - 18 * s, hip[1] - 2 * s], [shoulder[0] - 24 * s, shoulder[1] + 10 * s]],
+    62 * s, PAL_R.cloth, { prof: 'brush', a: .82, rough: .24, nb: 3 })], 1);
+  // 雨衣下摆（被风往后拽）
+  drawList(x, [mk([[hip[0] - 18 * s, hip[1] - 6 * s], [hip[0] - 44 * s, hip[1] + 12 * s], [hip[0] - 20 * s, hip[1] + 16 * s]], 26 * s, PAL_R.clothD, { prof: 'brush', a: .6, rough: .3, nb: 2 })], 1);
+  // 头（profile）+ 帽檐朝右
+  drawList(x, [mk(arcPts(headC[0], headC[1], 21 * s, 0, Math.PI * 2, 18).slice(1), 32 * s, PAL_R.skin, { prof: 'brush', a: .78, rough: .2 })], 1);
+  // 鼻、下巴（朝右的侧脸）
+  drawList(x, [mk([[headC[0] + 18 * s, headC[1] + 2 * s], [headC[0] + 25 * s, headC[1] + 8 * s], [headC[0] + 17 * s, headC[1] + 12 * s]], 7 * s, PAL_R.skin, { prof: 'even', a: .6, nb: 0, rough: .12 })], 1);
+  // 帽子
+  drawList(x, [mk([[headC[0] - 26 * s, headC[1] - 8 * s], [headC[0] + 18 * s, headC[1] - 14 * s]], 22 * s, '#3d4a55', { prof: 'brush', a: .8, rough: .18 }),
+    mk([[headC[0] + 2 * s, headC[1] - 14 * s], [headC[0] + 36 * s, headC[1] - 8 * s]], 8 * s, '#2c3741', { prof: 'even', a: .65, nb: 1 })], 1);
+  // 眼睛一条（侧面）
+  drawList(x, [mk([[headC[0] + 12 * s, headC[1] - 2 * s], [headC[0] + 20 * s, headC[1] - 2 * s]], 2.4 * s, '#2a2320', { prof: 'even', a: .5, nb: 0 })], 1);
+
+  // 手臂：肩 → 车把（前伸）
+  drawList(x, [mk([[shoulder[0] + 16 * s, shoulder[1] + 10 * s], [lerp(shoulder[0], bar[0], .55) + 4 * s, lerp(shoulder[1], bar[1], .55) + 12 * s], [bar[0], bar[1]]],
+    17 * s, PAL_R.cloth, { prof: 'trunk', a: .78, nb: 2 })], 1);
+
+  // 腿：髋 → 膝 → 脚踏（左右腿相位差半圈，膝盖向前顶）
   for (const ph of [0, Math.PI]) {
-    const a = spin * .9 + ph;
-    const foot = [bb[0] + Math.cos(a) * crank, bb[1] + Math.sin(a) * crank * .7];
-    const knee = [lerp(hip[0], foot[0], .5) + Math.cos(a + 1.2) * 10 * s, lerp(hip[1], foot[1], .5) - 22 * s * Math.abs(Math.sin(a))];
+    const a = pedalA + ph;
+    const pedal = [bb[0] + Math.cos(a) * 26 * s, bb[1] + Math.sin(a) * 26 * s];
+    const knee = [lerp(hip[0], pedal[0], .46) + 22 * s, lerp(hip[1], pedal[1], .46) - 6 * s];
     drawList(x, [
-      mk([hip, knee], 16 * s, '#2f4a63', { prof: 'trunk', a: .78, nb: 2 }),
-      mk([knee, foot], 11 * s, '#3b586f', { prof: 'trunk', a: .78, nb: 2 }),
+      mk([hip, knee], 18 * s, '#2f4a63', { prof: 'trunk', a: .8, nb: 2 }),
+      mk([knee, pedal], 12 * s, '#3b586f', { prof: 'trunk', a: .8, nb: 1 }),
     ], 1);
-    // 鞋
-    drawList(x, [mk([[foot[0] - 9 * s, foot[1] + 4 * s], [foot[0] + 11 * s, foot[1] + 2 * s]], 9 * s, '#2a2320', { prof: 'brush', a: .8, rough: .2 })], 1);
+    // 鞋 + 脚踏
+    drawList(x, [mk([[pedal[0] - 12 * s, pedal[1] - 4 * s], [pedal[0] + 12 * s, pedal[1] - 6 * s]], 9 * s, '#2a2320', { prof: 'brush', a: .82, rough: .18 })], 1);
+    drawList(x, [mk([[pedal[0] - 10 * s, pedal[1]], [pedal[0] + 10 * s, pedal[1] + 2 * s]], 3 * s, '#565c61', { prof: 'even', a: .45, nb: 0 })], 1);
+  }
+
+  // 前后轮溅起的水花（步进 12fps，跟行进方向往后甩）
+  const stp = Math.floor(t * 12) / 12;
+  for (let i = 0; i < 7; i++) {
+    const k = ((stp * 3 + i * .37) % 1);
+    const sx = rear[0] - 6 * s - k * 54 * s, sy = baseY - 8 * s - Math.sin(k * Math.PI) * 26 * s;
+    x.strokeStyle = `rgba(200,212,214,${(1 - k) * .5})`; x.lineWidth = 2.2 * s;
+    x.beginPath(); x.moveTo(sx, sy); x.lineTo(sx - 10 * s, sy - 8 * s); x.stroke();
+  }
+  for (let i = 0; i < 5; i++) {
+    const k = ((stp * 3 + i * .41 + .5) % 1);
+    const sx = front[0] + 14 * s + k * 30 * s, sy = baseY - 6 * s - Math.sin(k * Math.PI) * 14 * s;
+    x.strokeStyle = `rgba(200,212,214,${(1 - k) * .4})`; x.lineWidth = 1.8 * s;
+    x.beginPath(); x.moveTo(sx, sy); x.lineTo(sx + 6 * s, sy - 6 * s); x.stroke();
   }
 }
 
@@ -272,11 +302,11 @@ window.render = function render(t) {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, W, H);
   ctx.drawImage(BG, 0, 0);
-  // 车：10 s 从近处骑向远处（沿路收进）
+  // 车：10 s 自左往右骑过画面（匀速带一点缓起缓停）
   const q = clamp(t / DUR10);
-  const bx = lerp(ROAD.nearX - 40, HB.x + 34, EaseInOut(q) * .86);
-  const by = lerp(ROAD.near + 40, HB.y + 96, EaseInOut(q) * .88);
-  const bs = lerp(1.5, .62, EaseInOut(q) * .9);
+  const bx = lerp(-240, W + 260, clamp(q * 1.02));
+  const by = 1706 + Math.sin(t * 6.2) * 2.4;
+  const bs = 1.12;
   // 车轮下的湿地影
   ctx.save();
   ctx.globalAlpha = .22; ctx.fillStyle = '#3b3128';
@@ -301,6 +331,8 @@ function EaseInOut(x) { x = clamp(x); return x < .5 ? 2 * x * x : 1 - Math.pow(-
 
 window.render(0);
 window.READY = true;
+
+
 
 
 
