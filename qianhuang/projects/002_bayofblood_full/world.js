@@ -3,6 +3,7 @@
 // 水彩的规矩：先留白（reserve），再上洗（wash）；洗是乘上去的，永远压不白，所以白要留出来。
 import { rng, fbm, n2, hex, mix3, lerp, clamp, ellipse, spline, penStroke, rasterPen, wash, reserve, dab, foliage, figure, drawPrims, TAU } from './engine.js';
 import { stand, prone, walk } from './poses.js';
+import { CAST } from './cards.js';
 
 export const W = 5120, H = 2880;
 export const HZ = 1490;
@@ -390,11 +391,21 @@ export function buildWorld() {
   const victims = G.bodies.map((b, k) => ({
     prims: figure(VICTIM, VPOSE[k], { x: b.x, y: b.y, S: b.s * 216, yaw: (1.02 + k * .16) * b.d }, { seed: 1900 + k }),
     t0: T0_V + k * .10,
+    b,
   }));
   const killer = { prims: figure(KILLER, stand({ lean: .04, headYaw: .1, armL: .18, armR: -.12 }), { x: G.maskman.x, y: G.maskman.y, S: G.maskman.h, yaw: Math.PI }, { seed: 2000 }), t0: T0_K };
   for (const c of [cx, cx2]) clipPage(c, path);
+  // 沙滩上的三具女尸直接贴立绘（横卧，长约身高的 1.5 倍，脚那头压在沙里）
   for (const f of victims) {
-    for (const c of [cx, cx2]) drawPrims(c, f.prims.filter(p => p.k !== 'ink'), { color: 1 });
+    const w0 = f.b.s * 216 * 1.08, h0 = w0 * 1254 / 1881;
+    for (const c of [cx, cx2]) {
+      c.save();
+      c.translate(f.b.x, f.b.y);
+      c.scale(f.b.d < 0 ? -1 : 1, 1);
+      c.globalAlpha = .96;
+      c.drawImage(CAST.cast_corpse, -w0 / 2, -h0 * .62, w0, h0);
+      c.restore();
+    }
   }
   cx.restore(); cx2.restore();
 

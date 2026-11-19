@@ -4,7 +4,7 @@
 import { clamp, lerp, ss, TAU, rng, n2, fbm, hex, mix3, INK, PAPER, rgba, rough, arrivalField, sampleField, compositor, figure, drawPrims, penStroke, drawPen, dab, handwrite, ellipse, projector, skeleton, R3 } from './engine.js';
 import { LOOK, stand, walk } from './poses.js';
 import { buildWorld, W, H, HZ, WIN_A, KILLER } from './world.js';
-import { cards } from './cards.js';
+import { cards, preloadCast, preloadCards, CAST } from './cards.js';
 
 const seg = (t, a, b) => clamp((t - a) / ((b - a) || 1e-6));
 const eio = t => { t = clamp(t); return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
@@ -16,6 +16,8 @@ await Promise.all([
 ].map(f => document.fonts.load(f).catch(() => null)));
 await document.fonts.ready;
 const DUR = 219.48;
+// 立绘要先解码好——世界层里沙滩上的三具女尸是直接贴位图的，buildWorld 不能跑在图片之前
+await Promise.all([preloadCast(), preloadCards()]);
 const world = buildWorld();
 
 // ---------------- 颜色什么时候到 ----------------
@@ -82,8 +84,8 @@ const C = (t0, t1, id, slot, o = {}) => {
 SHOTS.push(
   // 段2 铅黄是什么
   C(21.48, 24.55, null, 0, { cam: [2500, 1980, .58], fg: 'reeds', crush: .86, mv: [70, 30, 1.08] }),
-  C(24.55, 27.61, 'glove', 0, { z: 1.30, mv: [30, -10, 1.10, .02] }),
-  C(27.61, 30.68, 'books', 1, { mv: [-40, 10, 1.08] }),
+  C(24.55, 27.61, 'cast_jason', 0, { z: 1.30, mv: [30, -10, 1.10, .02] }),
+  C(27.61, 30.68, 'cast_girl1', 1, { mv: [-40, 10, 1.08] }),
   C(30.68, 33.74, 'books', 1, { z: 1.46, mv: [10, -18, 1.12, -.02], snap: [31.60, .10, .14] }),
   C(33.74, 36.81, 'books', 4, { z: 1.52, mv: [-60, 0, 1.05] }),
   // 段3 巴瓦
@@ -102,7 +104,7 @@ SHOTS.push(
   // 段5 连锁反应、四个年轻人、海里、镰刀
   C(71.84, 75.16, 'chain', 3, { mv: [0, 0, 1.12, .03] }),
   C(75.16, 78.48, 'chain', 3, { z: 1.56, mv: [20, 14, 1.06, -.02] }),
-  C(78.48, 81.79, 'kids', 0, { mv: [50, 0, 1.06] }),
+  C(78.48, 81.79, 'cast_girl3', 0, { mv: [50, 0, 1.06] }),
   C(81.79, 85.11, 'swim', 1, { z: 1.30, mv: [-30, 0, 1.10] }),
   C(85.11, 88.43, 'scythe', 2, { mv: [10, 20, 1.12, -.03], snap: [86.60, .10, .13] }),
   // 段6 结尾：夫妻、孩子、没人活着出去
@@ -121,9 +123,9 @@ SHOTS.push(
   C(122.17, 125.34, 'fx', 1, { z: 1.55, mv: [0, -14, 1.11], snap: [123.70, .12, .13] }),
   C(125.34, 128.51, 'cinema', 2, { mv: [-30, 0, 1.06] }),
   // 段8 沙发音乐、改名海报
-  C(128.53, 131.72, 'lounge', 3, { mv: [20, -10, 1.09] }),
+  C(128.53, 131.72, 'cast_girl2', 3, { mv: [20, -10, 1.09] }),
   C(131.72, 134.90, 'fx', 0, { z: 1.40, mv: [-16, 0, 1.08, .02] }),
-  C(134.90, 138.09, 'lounge', 1, { z: 1.50, mv: [24, 10, 1.07] }),
+  C(134.90, 138.09, 'cast_girl4', 1, { z: 1.50, mv: [24, 10, 1.07] }),
   C(138.09, 141.28, 'lounge', 1, { z: 1.16, mv: [0, 0, .97] }),
   C(141.28, 144.46, 'poster', 2, { mv: [0, -12, 1.10] }),
   C(144.46, 147.65, 'poster', 2, { z: 1.56, mv: [-20, 0, 1.07, -.02] }),
@@ -449,10 +451,29 @@ function director(t) {
   const u = seg(t, 12.88, 15.0);
   const x = 2622 - 34 * eio(seg(t, 12.95, 15.0)), y = 2524, S = 300;
   const pose = walk(Math.PI * 2 * seg(t, 12.95, 15.0) * 1.2, { lean: .06 });
-  const look = { skin: hex('#f0c196'), top: hex('#2a1230'), bottom: hex('#3a0f18'), hair: hex('#221c18'), shoe: hex('#1a1018'), sleeve: 'long' };
-  const prims = figure(look, pose, { x: x + 52, y, S, yaw: -1.9 }, { seed: 700, boil: Math.floor(t * 8) });
   const p = eo(seg(t, 12.88, 13.45));
-  drawPrims(ctx, prims, { color: .85, ink: pr => clamp(p * 2 - (prims.indexOf(pr) / prims.length)) });
+  // 这一镜沙滩上站的人：铅黄的卖点是美女，所以这里站的是女主角，不是导演
+  const bv = CAST.cast_girl1 || CAST.cast_bava;
+  if (bv) {
+    const h = S * 1.32, w = h * bv.width / bv.height;
+    const sway = Math.sin(Math.PI * 2 * seg(t, 12.95, 15.0) * 1.2) * 5;
+    const rise = .86 + .14 * p;
+    // 脚下一块影子，要不他整个人是浮在沙上的
+    ctx.save();
+    ctx.globalAlpha = .40 * clamp(p * 1.15);
+    ctx.fillStyle = 'rgba(46,10,10,.9)';
+    ctx.beginPath(); ctx.ellipse(x + 52 + sway, y + 3, w * .36, 26, 0, 0, TAU); ctx.fill();
+    ctx.restore();
+    ctx.save();
+    ctx.globalAlpha = clamp(p * 1.15);
+    // 注意这里是世界纸坐标（5120×2880），不是屏幕坐标：裁剪框只取他身边那一条
+    ctx.beginPath(); ctx.rect(x + 52 - 520, y - h * rise, 1040, h * rise + 8); ctx.clip();
+    ctx.translate(x + 52 + sway, y);
+    ctx.rotate(.012 * Math.sin(t * 2.2));
+    ctx.filter = 'saturate(1.20) sepia(.10) contrast(1.05)';   // 把他压进这张铅黄纸的暖调
+    ctx.drawImage(bv, -w / 2, -h, w, h);
+    ctx.restore();
+  }
   // 推车：一个板 + 四只小轮 + 一台摄影机
   const cx = x - 62, cy = y - 26;
   const ink = (pts, w = 3.2, o = {}) => { const st = penStroke(pts, { w, wob: 1.4, over: 6, ...o }); drawPen(ctx, st, eo(seg(t, 13.10, 13.65)), hex('#241c18'), .86); };
@@ -623,8 +644,76 @@ function halo(t) {
 
 // 杰森：走七步，然后站在三具旁边一刀一刀地劈
 const KE = { h: 232, yaw: Math.PI - .17 };
+
+// 位图杰森：身体整张钉死不动（只有行走时的位移和一点呼吸），
+// 刀是他右手挥的——立绘给的是"空手举臂"，刀用代码画，绕手腕转。
+const KNIFE = { hx: .275, hy: .143, len: .62, wid: .062 };   // 图内拳头位置（归一化）与刀长宽（按身高）
+function jasonCast(t, o) {
+  const arm = CAST.cast_jason_arm || CAST.cast_jason_mask || CAST.cast_jason;
+  if (!arm) return false;
+  const moving = o.walk ? t < o.t1 - .02 : 0;
+  const x = o.walk ? lerp(o.x0, o.x1, eio(seg(t, o.t0, o.t1 - .02))) : o.x0;
+  const y = SHORE(x) + KE.h * .09;
+  const ph = (t - o.t0) * 3.8;
+  const cyc = 1.00, p = ((t - o.t0) % cyc) / cyc;
+  let chop = 0;
+  if (!moving && !o.still) { if (p > .56 && p < .82) chop = ss((p - .56) / .26); else if (p >= .82) chop = 1 - ss((p - .82) / .18); }
+  const hgt = KE.h * 1.12, wid = hgt * arm.width / arm.height;
+  const colorK = clamp((t - T(x, y - KE.h * .5)) / .30);
+  // 落影：没有它人物会浮在沙上
+  ctx.save();
+  ctx.globalAlpha = .40 * colorK;
+  ctx.fillStyle = 'rgba(14,10,12,.9)';
+  ctx.beginPath(); ctx.ellipse(x + KE.h * .12, y + 2, wid * .46, KE.h * .050, 0, 0, TAU); ctx.fill();
+  ctx.restore();
+  // 身体：不动。走路才有几像素的上下颠，站定只留一丝呼吸
+  const bob = moving ? Math.sin(ph) * KE.h * .008 : 0;
+  const breatheRot = moving ? Math.sin(ph) * .006 : .0035 * Math.sin(t * 1.1);
+  ctx.save();
+  ctx.globalAlpha = .14 + .86 * colorK;
+  ctx.translate(x, y - bob);
+  ctx.rotate(breatheRot);
+  ctx.filter = 'saturate(1.14) contrast(1.05)';
+  ctx.drawImage(arm, -wid / 2, -hgt, wid, hgt);
+  ctx.restore();
+  // 刀：从拳头上长出来，绕手腕转——只有它在动
+  if (!o.still) {
+    const px = x - wid / 2 + wid * KNIFE.hx, py = y - bob - hgt + hgt * KNIFE.hy;
+    const L = KE.h * KNIFE.len, wd = KE.h * KNIFE.wid;
+    // 举着时刀尖朝右上；劈下时扫到右下
+    const ang = (-1.02 + 1.62 * chop) + (moving ? .05 * Math.sin(ph) : .035 * Math.sin(t * 1.7));
+    const dx = Math.cos(ang), dy = Math.sin(ang), nx = -dy, ny = dx;
+    const w0 = wd * .30, w1 = wd;
+    const Pp = (u, off) => [px + dx * L * u + nx * off, py + dy * L * u + ny * off];
+    ctx.save();
+    ctx.globalAlpha = colorK;
+    ctx.strokeStyle = 'rgba(26,22,18,.92)'; ctx.lineWidth = wd * .34;   // 刀柄
+    ctx.beginPath(); ctx.moveTo(...Pp(-.14, 0)); ctx.lineTo(...Pp(.03, 0)); ctx.stroke();
+    const blade = [Pp(.02, -w0), Pp(.36, -w1), Pp(.78, -w1 * .52), Pp(.97, -w1 * .05), Pp(.995, w1 * .10), Pp(.80, w1 * .46), Pp(.38, w1 * .88), Pp(.02, w0)];
+    ctx.fillStyle = 'rgba(231,227,214,.97)';
+    ctx.beginPath(); blade.forEach(([qx, qy], i) => i ? ctx.lineTo(qx, qy) : ctx.moveTo(qx, qy)); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = 'rgba(18,14,12,.92)'; ctx.lineWidth = Math.max(1.4, wd * .10); ctx.stroke();
+    ctx.strokeStyle = 'rgba(90,92,96,.55)'; ctx.lineWidth = Math.max(1.0, wd * .06);
+    ctx.beginPath(); ctx.moveTo(...Pp(.08, w1 * .28)); ctx.quadraticCurveTo(...Pp(.5, w1 * .60), ...Pp(.94, w1 * .06)); ctx.stroke();
+    ctx.strokeStyle = 'rgba(236,26,96,.36)'; ctx.lineWidth = wd * .30;
+    ctx.beginPath(); ctx.moveTo(...Pp(.12, w1 * .66)); ctx.quadraticCurveTo(...Pp(.55, w1 * .62), ...Pp(.90, w1 * .30)); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,214,120,.32)'; ctx.lineWidth = wd * .12;
+    ctx.beginPath(); ctx.moveTo(...Pp(.16, w1 * .76)); ctx.quadraticCurveTo(...Pp(.52, w1 * .74), ...Pp(.87, w1 * .40)); ctx.stroke();
+    // 劈下去的三道风
+    if (chop > .12 && p > .4 && p < .95) {
+      ctx.strokeStyle = rgba([246, 242, 232], .55 * chop); ctx.lineWidth = 1.5;
+      for (let k = 0; k < 3; k++) {
+        const rr = L * (.72 + k * .16), aa = ang - .35;
+        ctx.beginPath(); ctx.arc(px, py, rr, aa - .24, aa + .12); ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+  return true;
+}
 function jason(t, o) {
   if (!o) return;
+  if (jasonCast(t, o)) return;
   const moving = o.walk ? t < o.t1 - .02 : 0;
   const x = o.walk ? lerp(o.x0, o.x1, eio(seg(t, o.t0, o.t1 - .02))) : o.x0;
   const y = SHORE(x) + KE.h * .09;
@@ -1171,6 +1260,85 @@ function foreground(t) {
 }
 
 window.DUR = DUR;
+// 铅黄的卖点是美女：第一帧纸上就得站着一个，海湾页沙滩上也站一个
+function openingWoman(t) {
+  const g = CAST.cast_girl2 || CAST.cast_girl1;
+  if (!g) return;
+  const ar = g.width / g.height;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  // ① 片头 0–2.28：右侧前景，第 0 帧就满强度，慢推
+  if (t <= 2.28) {
+    const u = eio(seg(t, 0, 2.28));
+    const h = 740 * (1 + .05 * u), w = h * ar;
+    const bx = 1452 - 26 * u;
+    // 身后先压一块酒红暗底，要不她在浅色纸上是个水印
+    ctx.save();
+    const bg = ctx.createRadialGradient(bx, 770, 30, bx, 770, 560);
+    bg.addColorStop(0, 'rgba(78,12,24,.58)');
+    bg.addColorStop(.55, 'rgba(42,10,30,.34)');
+    bg.addColorStop(1, 'rgba(42,10,30,0)');
+    ctx.fillStyle = bg; ctx.fillRect(bx - 620, 60, 1240, 1020);
+    ctx.restore();
+    ctx.save();
+    ctx.translate(bx, 1108);
+    ctx.rotate(-.014);
+    ctx.filter = 'saturate(1.38) contrast(1.20) brightness(.95)';
+    ctx.drawImage(g, -w / 2, -h, w, h);
+    ctx.restore();
+    ctx.save();
+    ctx.globalAlpha = .34;
+    ctx.fillStyle = 'rgba(40,14,14,.9)';
+    ctx.beginPath(); ctx.ellipse(1452 - 26 * u, 1104, w * .40, 16, 0, 0, TAU); ctx.fill();
+    ctx.restore();
+    return;
+  }
+  // ② 海湾页（21.48–24.55）：沙滩右侧站一个，随镜头推进慢慢挪
+  const k = seg(t, 21.48, 24.55);
+  if (k > 0 && k < 1) {
+    const h = 268 * (1 + .10 * k), w = h * ar;
+    ctx.save();
+    ctx.globalAlpha = clamp(k * 2.4) * clamp((1 - k) * 3.2);
+    ctx.translate(1600 - 34 * k, 866);
+    ctx.filter = 'saturate(1.18) sepia(.16) contrast(1.04)';
+    ctx.drawImage(CAST.cast_girl3 || g, -w / 2, -h, w, h);
+    ctx.restore();
+  }
+}
+
+// 铅黄片的卖点是美女：除了已经安排好人的镜头，剩下的每一镜都往画面里排一位女主角
+const WOMEN = ['cast_girl5', 'cast_girl1', 'cast_girl6', 'cast_girl3', 'cast_girl7', 'cast_girl2', 'cast_girl8', 'cast_girl4'];
+function shotWoman(t, SH, idx) {
+  if (t < 2.30) return;                       // 片头已有
+  if (SH.bava) return;                        // 14s 那镜已经换成人
+  if (SH.split) return;
+  if (SH.card && /^cast_/.test(SH.card.id || '')) return;
+  if (t > 21.48 && t < 24.58) return;         // 海湾页已有
+  const g = CAST[WOMEN[idx % WOMEN.length]];
+  if (!g) return;
+  const h = 396 + (idx % 3) * 44, w = h * g.width / g.height;
+  // 一律站到画面右边缘（多半压在框上、只露八成身子）——那是字幕绝对不会去的地方
+  const x = 1792 - (idx % 2) * 54;
+  const y = 1040;
+  const bob = 1 + .012 * Math.sin(t * 1.1 + idx * 1.7);
+  ctx.save();
+  const bg = ctx.createRadialGradient(x, y - h * .55, 20, x, y - h * .55, h * .95);
+  bg.addColorStop(0, 'rgba(70,10,22,.34)');
+  bg.addColorStop(1, 'rgba(70,10,22,0)');
+  ctx.fillStyle = bg; ctx.fillRect(x - h, y - h * 1.5, h * 2, h * 1.8);
+  ctx.restore();
+  ctx.save();
+  ctx.globalAlpha = .93;
+  ctx.translate(x, y);
+  ctx.filter = 'saturate(1.18) sepia(.10) contrast(1.05)';
+  ctx.drawImage(g, -w / 2, -h * bob, w, h * bob);
+  ctx.restore();
+  ctx.save();
+  ctx.globalAlpha = .30;
+  ctx.fillStyle = 'rgba(30,8,10,.9)';
+  ctx.beginPath(); ctx.ellipse(x, y - 2, w * .36, 14, 0, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+
 window.render = t => {
   SH = shotAt(t);
   CV = SH.cut === -1e5 ? 0 : SH.cut === 'reveal' ? clamp((t - SH.t0) / 1.1) : 1;
@@ -1216,6 +1384,8 @@ window.render = t => {
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.translate(-pdx * 1.5, -pdy * 1.5);
   foreground(t);
   ctx.restore();
+  openingWoman(t);
+  shotWoman(t, SH, Math.max(0, SHOTS.indexOf(SH)));
   // 纸纹（压在整页上，包括后画的笔与字）
   ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = toothPat;
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillRect(0, 0, 1920, 1080); ctx.restore();

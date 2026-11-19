@@ -14,11 +14,11 @@
     "entry": "scripts/qianhuang.py",
     "status": "live",
     "sample": {
-      "file": "qianhuang 血之海滩.mp4",
-      "title": "血之海滩 · 第一段",
-      "seconds": 21.5
+      "file": "血之海滩_全片_插图重画版.mp4",
+      "title": "血之海滩 · 全片",
+      "seconds": 219.5
     },
-    "updated": "2026-11-18"
+    "updated": "2026-11-19"
   },
   "spec": {
     "source": {
@@ -27,7 +27,7 @@
       "demo_film": "Blood and Black Beach / 血之海滩（第一段）"
     },
     "canvas": { "width": 1920, "height": 1080, "fps": 30, "page": "5120×2880 的大纸面，镜头在纸上走" },
-    "duration": { "default": 21.46, "min": 6, "max": 120 },
+    "duration": { "default": 21.46, "min": 6, "max": 260 },
     "paper": {
       "base": "#F5EEDE",
       "mottling": "两层 fbm 云斑",
@@ -107,18 +107,43 @@
       "engine": "vendor/runtime/render-legacy.mjs（playwright-core + ffmpeg）",
       "format": "jpeg",
       "jpeg_quality": 92,
-      "crf": 20,
+      "crf": "20（短样片）/ 24（全片交付：219 s → 145 MB）",
       "preset": "slow",
       "fps_real": "约 11–12 fps（1920×1080，单 worker）"
     },
+    "assets": {
+      "cast": {
+        "dir": "assets/cast/",
+        "format": "PNG rgba 真透明，1254×1881（横卧尸体 1881×1254）",
+        "members": "girl1–girl8（八位女主轮换）、jason、jason_mask、jason_arm、bava、corpse",
+        "card": "castCard()：钴蓝冷光 + 金柱 + 背后金光 + 暗地面 + 椭圆投影 + 金边细框；KIT.portrait 也用 cast_bava",
+        "verify": "ffmpeg -vf alphaextract,signalstats 查 alpha YMIN=0 / YMAX=255"
+      },
+      "cards": {
+        "dir": "assets/cards/",
+        "format": "真 JPEG（ffmpeg -q:v 2），1700×1060 满版比例",
+        "count": 22,
+        "ids": "books gothic tax set interior stabbed thirteen chain swim scythe couple kidsgun fx cinema lounge poster festival lee f13 copy killgrid rank",
+        "draw": "CARD_SRC + preloadCards()（与 preloadCast 同一次 Promise.all，必须早于 buildWorld）",
+        "fit": "drawImage 放大 8% 居中，裁掉插图自带的旧纸白边",
+        "fallback": "缺图只 warn，回退老 KIT 代码卡"
+      },
+      "women": {
+        "rule": "未排过人的镜头一律在画面右边缘站一位女主（右边缘是字幕不去的地方）",
+        "pos": "x = 1792 - (idx%2)*54, y = 1040, h = 396 + (idx%3)*44",
+        "grade": "背后 rgba(70,10,22,.34) 径向暗底 + 脚下椭圆影 + saturate(1.18) sepia(.10)",
+        "open": "openingWoman()：0–2.28 s 右侧前景、第 0 帧就有人"
+      }
+    },
     "delivery": {
-      "sample_dir": "projects/001_bayofblood/out/",
-      "final": "projects/001_bayofblood/out/bayofblood.mp4",
+      "sample_dir": "projects/002_bayofblood_full/out/",
+      "final": "projects/002_bayofblood_full/out/bayofblood_full_crf24.mp4",
       "files": ["<名>.mp4", "<名>.srt"],
       "qa": "分辨率 / 帧率 30 / 帧数 / 时长 / 音轨 / −14.6 LUFS / 峰值 −1.6"
     },
     "credits": [
-      "PICTURE: 本仓库代码自己画（engine.js / world.js / poses.js / film.js），无生成图、无第三方素材",
+      "PICTURE: 页面、光、字、镜头全部由本仓库代码逐帧画（engine.js / world.js / poses.js / film.js）",
+      "ASSETS: 人物立绘（透明 PNG）与 22 张场景/道具插图由 AI 图像生成后落盘复用，统一为 70 年代铅黄平涂浓彩；卡片里不再有代码画的简笔画",
       "SOUND: voice/make_sfx.py 纯 Python 合成（wave + struct），无采样素材",
       "FONT: MaShanZheng（马善政毛笔楷书）、LongCang（龙藏）、Caveat（Impallari Type）、Reenie Beanie（James Grieshaber），均 SIL OFL 1.1",
       "STYLE: Giallo · 70 年代意大利铅黄，依据 Bava《Black Sunday》《Blood and Black Lace》与 Argento《Suspiria》的用光方法"

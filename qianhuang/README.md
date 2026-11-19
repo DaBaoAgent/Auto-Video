@@ -5,6 +5,9 @@
 
 示例工程 `projects/001_bayofblood/`：《血之海滩》Blood and Black Beach 第一段，21.46 s / 1920×1080 / 30 fps / −14.6 LUFS。
 
+定版长片 `projects/002_bayofblood_full/`：《血之海滩》全片，219.47 s / 6584 帧 / 74 镜 / 121 条字幕；
+卡片区的人与物不再用代码简笔画，全部是 `assets/cast/*.png` 立绘与 `assets/cards/*.jpg` 插图（22 张，一张卡一整张满版画）。
+
 ## 结构
 
 ```
@@ -61,3 +64,12 @@ $env:PLAYWRIGHT_CHROME = '<chromium-headless-shell.exe 的完整路径>'
 
 `qianhuang 血之海滩.mp4`（21.46 s）：19 条字幕、10 个硬切分镜、4 个落刀点、9 个切点音效。
 样片站点用的压缩版在 `site/media/qianhuang.mp4`（1280 长边 / CRF 30）与同名封面 `qianhuang.jpg`。
+
+## 全片资产
+
+| 目录 | 内容 | 规矩 |
+|---|---|---|
+| `projects/002_bayofblood_full/assets/cast/` | 13 张透明立绘：girl1–girl8、jason、jason_mask、jason_arm、bava、corpse | rgba 真透明、1254×1881；`CAST_SRC` + `preloadCast()`；统一走 `castCard()` |
+| `projects/002_bayofblood_full/assets/cards/` | 22 张场景/道具插图 | 1700×1060 满版、真 JPEG；`CARD_SRC` + `preloadCards()`；`drawImage` 放大 8% 裁白边；缺图回退旧 kit |
+
+新增立绘或插图时，只改 `cards.js` 顶部的 `CAST_SRC` / `CARD_SRC` 两张表，别在 `KIT` 里继续写绘图函数。
