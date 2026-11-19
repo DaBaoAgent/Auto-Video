@@ -158,6 +158,18 @@ function buildBg() {
 
 const BG = buildBg();
 
+// 骑手画在一块固定大小的离屏画布上（局部坐标不动），每帧只按整数像素把整块贴上去：
+// 身体边缘因此不会因为亚像素重绘而发颤，只有位移在动
+const BIKE_SPR = { w: 620, h: 470, ox: 300, oy: 400 };
+const bikeCv = document.createElement('canvas');
+bikeCv.width = BIKE_SPR.w; bikeCv.height = BIKE_SPR.h;
+const bikeCx = bikeCv.getContext('2d');
+function paintBike(t) {
+  bikeCx.setTransform(1, 0, 0, 1, 0, 0);
+  bikeCx.clearRect(0, 0, BIKE_SPR.w, BIKE_SPR.h);
+  withSeed(9001, () => drawBike(bikeCx, BIKE_SPR.ox, BIKE_SPR.oy, 1.12, t));
+}
+
 // ── 自行车 + 骑手（侧视，自左往右骑；脚蹬慢）──
 function drawBike(x, cx, baseY, s, t) {
   const wheelR = 74 * s;
@@ -206,39 +218,73 @@ function drawBike(x, cx, baseY, s, t) {
   // 骑手（侧视，面朝右）：髋、肩、头
   const hip = [seat[0] + 4 * s, seat[1] - 4 * s];
   const shoulder = [hip[0] + 34 * s, hip[1] - 96 * s];
-  const headC = [shoulder[0] + 16 * s, shoulder[1] - 22 * s];
-  // 躯干（雨衣，前倾）
-  drawList(x, [mk([[shoulder[0] - 8 * s, shoulder[1] - 8 * s], [shoulder[0] + 20 * s, shoulder[1] + 2 * s],
-    [hip[0] + 18 * s, hip[1] + 4 * s], [hip[0] - 18 * s, hip[1] - 2 * s], [shoulder[0] - 24 * s, shoulder[1] + 10 * s]],
-    62 * s, PAL_R.cloth, { prof: 'brush', a: .82, rough: .24, nb: 3 })], 1);
-  // 雨衣下摆（被风往后拽）
-  drawList(x, [mk([[hip[0] - 18 * s, hip[1] - 6 * s], [hip[0] - 44 * s, hip[1] + 12 * s], [hip[0] - 20 * s, hip[1] + 16 * s]], 26 * s, PAL_R.clothD, { prof: 'brush', a: .6, rough: .3, nb: 2 })], 1);
-  // 头（profile）+ 帽檐朝右
-  drawList(x, [mk(arcPts(headC[0], headC[1], 21 * s, 0, Math.PI * 2, 18).slice(1), 32 * s, PAL_R.skin, { prof: 'brush', a: .78, rough: .2 })], 1);
-  // 鼻、下巴（朝右的侧脸）
-  drawList(x, [mk([[headC[0] + 18 * s, headC[1] + 2 * s], [headC[0] + 25 * s, headC[1] + 8 * s], [headC[0] + 17 * s, headC[1] + 12 * s]], 7 * s, PAL_R.skin, { prof: 'even', a: .6, nb: 0, rough: .12 })], 1);
-  // 帽子
-  drawList(x, [mk([[headC[0] - 26 * s, headC[1] - 8 * s], [headC[0] + 18 * s, headC[1] - 14 * s]], 22 * s, '#3d4a55', { prof: 'brush', a: .8, rough: .18 }),
-    mk([[headC[0] + 2 * s, headC[1] - 14 * s], [headC[0] + 36 * s, headC[1] - 8 * s]], 8 * s, '#2c3741', { prof: 'even', a: .65, nb: 1 })], 1);
-  // 眼睛一条（侧面）
-  drawList(x, [mk([[headC[0] + 12 * s, headC[1] - 2 * s], [headC[0] + 20 * s, headC[1] - 2 * s]], 2.4 * s, '#2a2320', { prof: 'even', a: .5, nb: 0 })], 1);
+  const headC = [shoulder[0] + 16 * s, shoulder[1] - 24 * s];
+  const fill = (pts, col, a = .84) => {
+    x.save(); x.globalAlpha = a; x.fillStyle = col;
+    x.beginPath(); x.moveTo(pts[0][0], pts[0][1]);
+    for (const p of pts.slice(1)) x.lineTo(p[0], p[1]); x.closePath(); x.fill(); x.restore();
+  };
+  const outline = (pts, w = 2.2, a = .7) => {
+    x.save(); x.globalAlpha = a; x.strokeStyle = '#22303c'; x.lineWidth = w; x.lineJoin = 'round';
+    x.beginPath(); x.moveTo(pts[0][0], pts[0][1]);
+    for (const p of pts.slice(1)) x.lineTo(p[0], p[1]); x.closePath(); x.stroke(); x.restore();
+  };
 
-  // 手臂：肩 → 车把（前伸）
-  drawList(x, [mk([[shoulder[0] + 16 * s, shoulder[1] + 10 * s], [lerp(shoulder[0], bar[0], .55) + 4 * s, lerp(shoulder[1], bar[1], .55) + 12 * s], [bar[0], bar[1]]],
-    17 * s, PAL_R.cloth, { prof: 'trunk', a: .78, nb: 2 })], 1);
+  // 躯干（雨衣，前倾）：实填 + 薄描边
+  const torso = [
+    [shoulder[0] - 26 * s, shoulder[1] + 6 * s], [shoulder[0] + 4 * s, shoulder[1] - 10 * s],
+    [shoulder[0] + 20 * s, shoulder[1] + 10 * s], [hip[0] + 20 * s, hip[1] + 2 * s],
+    [hip[0] - 12 * s, hip[1] + 6 * s], [hip[0] - 26 * s, hip[1] - 14 * s],
+  ];
+  fill(torso, PAL_R.cloth, .86);
+  outline(torso, 2.0, .55);
+  // 雨衣的褶：两道淡色的竖擦
+  drawList(x, [mk([[shoulder[0] - 14 * s, shoulder[1] + 16 * s], [hip[0] - 6 * s, hip[1] - 6 * s]], 4 * s, PAL_R.clothD, { prof: 'even', a: .35, nb: 0, rough: .2 }),
+    mk([[shoulder[0] + 8 * s, shoulder[1] + 18 * s], [hip[0] + 10 * s, hip[1] - 10 * s]], 3.5 * s, '#7a9ab5', { prof: 'even', a: .22, nb: 0, rough: .2 })], 1);
+  // 下摆（被风往后拽）
+  const hem = [[hip[0] - 12 * s, hip[1] - 2 * s], [hip[0] - 46 * s, hip[1] + 16 * s], [hip[0] - 18 * s, hip[1] + 20 * s]];
+  fill(hem, PAL_R.clothD, .6);
 
-  // 腿：髋 → 膝 → 脚踏（左右腿相位差半圈，膝盖向前顶）
+  // 头：实填的脸 + 帽
+  const headPts = arcPts(headC[0], headC[1], 21 * s, 0, Math.PI * 2, 20);
+  fill(headPts, PAL_R.skin, .9);
+  outline(headPts, 1.8, .5);
+  // 侧脸：鼻子与下巴各一小块
+  fill([[headC[0] + 15 * s, headC[1] + 1 * s], [headC[0] + 25 * s, headC[1] + 9 * s], [headC[0] + 14 * s, headC[1] + 13 * s]], PAL_R.skin, .9);
+  outline([[headC[0] + 15 * s, headC[1] + 1 * s], [headC[0] + 25 * s, headC[1] + 9 * s], [headC[0] + 14 * s, headC[1] + 13 * s]], 1.4, .55);
+  // 帽子（帽顶 + 朝前的帽檐）
+  const crown = [[headC[0] - 24 * s, headC[1] - 6 * s], [headC[0] - 12 * s, headC[1] - 22 * s],
+    [headC[0] + 12 * s, headC[1] - 24 * s], [headC[0] + 20 * s, headC[1] - 12 * s], [headC[0] - 22 * s, headC[1] + 2 * s]];
+  fill(crown, '#3d4a55', .9);
+  outline(crown, 1.8, .5);
+  const brim = [[headC[0] + 18 * s, headC[1] - 14 * s], [headC[0] + 38 * s, headC[1] - 9 * s], [headC[0] + 36 * s, headC[1] - 3 * s], [headC[0] + 16 * s, headC[1] - 6 * s]];
+  fill(brim, '#2c3741', .92);
+  outline(brim, 1.6, .5);
+  // 眼睛一条
+  drawList(x, [mk([[headC[0] + 10 * s, headC[1] - 1 * s], [headC[0] + 19 * s, headC[1] - 1 * s]], 2.6 * s, '#2a2320', { prof: 'even', a: .55, nb: 0, rough: .1 })], 1);
+
+  // 手臂：肩 → 车把（前伸），实填一条
+  const elbow = [lerp(shoulder[0], bar[0], .52) + 6 * s, lerp(shoulder[1], bar[1], .52) + 14 * s];
+  const armPts = [
+    [shoulder[0] + 8 * s, shoulder[1] + 2 * s], [shoulder[0] + 24 * s, shoulder[1] + 14 * s],
+    [bar[0] + 6 * s, bar[1] + 6 * s], [bar[0] - 6 * s, bar[1] - 6 * s], [elbow[0] - 8 * s, elbow[1] - 10 * s],
+  ];
+  fill(armPts, PAL_R.cloth, .82);
+  outline(armPts, 1.8, .5);
+
+  // 腿：髋 → 膝 → 脚踏（相位差半圈，膝盖向前顶）
   for (const ph of [0, Math.PI]) {
     const a = pedalA + ph;
     const pedal = [bb[0] + Math.cos(a) * 26 * s, bb[1] + Math.sin(a) * 26 * s];
     const knee = [lerp(hip[0], pedal[0], .46) + 22 * s, lerp(hip[1], pedal[1], .46) - 6 * s];
-    drawList(x, [
-      mk([hip, knee], 18 * s, '#2f4a63', { prof: 'trunk', a: .8, nb: 2 }),
-      mk([knee, pedal], 12 * s, '#3b586f', { prof: 'trunk', a: .8, nb: 1 }),
-    ], 1);
+    const thigh = [[hip[0] - 8 * s, hip[1] - 6 * s], [hip[0] + 10 * s, hip[1] - 2 * s], [knee[0] + 7 * s, knee[1]], [knee[0] - 6 * s, knee[1] + 4 * s]];
+    fill(thigh, '#2f4a63', .86); outline(thigh, 1.6, .45);
+    const shin = [[knee[0] - 5 * s, knee[1] - 4 * s], [knee[0] + 6 * s, knee[1] + 2 * s], [pedal[0] + 4 * s, pedal[1] - 2 * s], [pedal[0] - 5 * s, pedal[1] + 2 * s]];
+    fill(shin, '#3b586f', .86); outline(shin, 1.5, .45);
     // 鞋 + 脚踏
-    drawList(x, [mk([[pedal[0] - 12 * s, pedal[1] - 4 * s], [pedal[0] + 12 * s, pedal[1] - 6 * s]], 9 * s, '#2a2320', { prof: 'brush', a: .82, rough: .18 })], 1);
-    drawList(x, [mk([[pedal[0] - 10 * s, pedal[1]], [pedal[0] + 10 * s, pedal[1] + 2 * s]], 3 * s, '#565c61', { prof: 'even', a: .45, nb: 0 })], 1);
+    const shoe = [[pedal[0] - 13 * s, pedal[1] - 7 * s], [pedal[0] + 13 * s, pedal[1] - 8 * s], [pedal[0] + 11 * s, pedal[1] + 2 * s], [pedal[0] - 12 * s, pedal[1] + 2 * s]];
+    fill(shoe, '#2a2320', .88); outline(shoe, 1.4, .5);
+    drawList(x, [mk([[pedal[0] - 10 * s, pedal[1] + 3 * s], [pedal[0] + 10 * s, pedal[1] + 4 * s]], 3 * s, '#565c61', { prof: 'even', a: .45, nb: 0 })], 1);
   }
 
   // 前后轮溅起的水花（步进 12fps，跟行进方向往后甩）
@@ -294,10 +340,13 @@ window.render = function render(t) {
   const bs = 1.12;
   // 车轮下的湿地影
   ctx.save();
-  ctx.globalAlpha = .22; ctx.fillStyle = '#3b3128';
-  ctx.beginPath(); ctx.ellipse(bx + 12 * bs, by + 6, 190 * bs, 22 * bs, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.globalAlpha = .20; ctx.fillStyle = '#3b3128';
+  const shx = Math.round(bx + 12 * bs);
+  ctx.beginPath(); ctx.ellipse(shx, by + 6, 190 * bs, 22 * bs, 0, 0, Math.PI * 2); ctx.fill();
   ctx.restore();
-  drawBike(ctx, bx, by, bs, t);
+  // 整块贴上去（只落整数像素）
+  paintBike(t);
+  ctx.drawImage(bikeCv, Math.round(bx - BIKE_SPR.ox), Math.round(by - BIKE_SPR.oy));
   drawPuddles(ctx, t);
   drawRain(ctx, t);
   // 湿雾：底边一层淡淡的雨幕
@@ -316,6 +365,9 @@ function EaseInOut(x) { x = clamp(x); return x < .5 ? 2 * x * x : 1 - Math.pow(-
 
 window.render(0);
 window.READY = true;
+
+
+
 
 
 
