@@ -21,13 +21,18 @@
     "updated": "2026-11-20"
   },
   "spec": {
-    "source": "huashu-art-motion v1.3.1",
+    "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
     "upstream": "https://github.com/alchaincyf/huashu-art-motion",
     "style_slug": "29_seurat",
     "film": "gallery",
     "quality": "★★",
-    "engine": "vendor/huashu-art-motion/engine",
+    "engine": "runtime/render.py",
     "license": "MIT（角色帧与总览图不在授权范围，未收录）",
-    "sample_source": "site/media/xiula.mp4"
+    "sample_source": "site/media/xiula.mp4",
+    "runtime": "pipelines/xiula/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
   }
 }

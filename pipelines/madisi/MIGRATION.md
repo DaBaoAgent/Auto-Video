@@ -1,34 +1,34 @@
-# 迁移说明 · madisi（马蒂斯剪纸）
+# 封装说明 · madisi（马蒂斯剪纸）
 
-## 来源
+## 结构
 
-- 上游仓库：[huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) v1.3.1
-- 风格配方：`references/风格配方/30_matisse.md` → `references/style.md`
-- 场景代码：`scripts/engine/scenes/30_matisse.js` → `vendor/huashu-art-motion/engine/scenes/30_matisse.js`
-- 渲染器：`scripts/engine/render.py` → `vendor/huashu-art-motion/engine/render.py`
-- 引擎库、转场、字体：`scripts/engine/lib/`、`transitions.js`、`lib/fonts/` 原样入库
+`pipelines/madisi/runtime/` 是一个完整可跑的画布舞台：
 
-## 入库内容
+- `render.py`：自研画帧器。起本地静态服务 → 打开 `stage.html` → 逐帧 `renderAt(t)` → canvas PNG 走 image2pipe 进 ffmpeg。
+- `stage.html` / `player.js`：自研舞台与协议，负责尺寸、字体加载、场景初始化与逐帧清屏。
+- `scene.js`：画法脚本，文件头保留 MIT 来源说明。
+- `lib/`：该场景真正用到的绘制库（约 230 KB）与按需字体子集，`lib/fonts/LICENSES.md` 记 OFL 清单。
+- `scripts/madisi.py`：只拼参数并调用本地 `runtime/render.py`。
 
-- `scripts/madisi.py`：本管线入口，固定 `--film gallery --solo 30_matisse`，其余参数透传给上游 render.py。
-- `references/style.md`：配方卡原文，只改路径表述，不改参数。
-- 引擎为**全仓库共享**：所有 huashu 管线共用 `vendor/huashu-art-motion/engine`，不在每条管线里复制一份。
+## 自研边界
 
-## 不入库
+| 部分 | 归属 | 说明 |
+| --- | --- | --- |
+| 画帧器 / 舞台 / 播放协议 / 入口 / 参数 / 文档 | 本仓库自研 | 不复制上游 render 管线 |
+| 画法脚本 `scene.js` | MIT 移植 | 来源 huashu-art-motion v1.3.1 `30_matisse`，文件头注明 |
+| 绘制库 `lib/` | MIT 移植 | 只带该场景用到的模块 |
+| 字体 `lib/fonts/` | SIL OFL 1.1 | 按场景裁剪，不全量随仓库 |
 
-- `demos/`（含花叔角色帧，上游明确不随 MIT 授权）、`reference_films/`（示范工程，体积大且与风格无关）、Clawd 相关素材。
-- 成片 `out/*.mp4`、抽帧 `review/*.png`。
+## 不依赖上游
 
-## 本地补丁
+- 入口只调 `runtime/render.py`，路径相对本管线解析；删掉仓库外任何目录也能跑。
+- 不读 `vendor/`、不读 `~/huashu-art-motion`、不调外部 `render.py`。
+- 字体、库、场景全部在 `runtime/` 内，离线可渲染。
 
-`vendor/huashu-art-motion/engine/render.py` 加了一个环境变量入口：`CHROME_PATH` 指本机 Chrome/Edge 可执行文件，`CHROME_CHANNEL` 走 Playwright channel；都没有时退回 Playwright 自带 chromium。其余逻辑与上游逐字一致。
+## 更新画法
 
-## 更新方式
-
-上游升版本后，重新复制 `scripts/engine/` 到 `vendor/huashu-art-motion/engine/`（排除 demos / reference_films），再跑一遍：
+改 `runtime/scene.js` 即可；舞台与画帧器不用动。改了场景后至少抽一帧验收：
 
 ```bash
-uv run --with playwright python pipelines/madisi/scripts/madisi.py --stills 0.5,2.5 --out review/madisi
+python pipelines/madisi/scripts/madisi.py --stills 0.5,2.5 --out review/madisi
 ```
-
-抽帧与上游配方卡视觉一致才算同步完成。

@@ -1,6 +1,17 @@
 # 来源与许可
 
-- 上游：[huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion)，作者花叔（[@AlchainHust](https://x.com/AlchainHust)），MIT License。
-- 本管线使用其中的 `29_seurat` 场景与配方卡；引擎、转场、绘画库、字体随仓库 vendored 在 `vendor/huashu-art-motion/`。
-- 上游的角色帧（花叔形象）、总览图与示范视频不随 MIT 授权，本仓库未收录。
-- 字体为 SIL OFL 1.1，清单见 `vendor/huashu-art-motion/engine/lib/fonts/LICENSES.md`。
+## 本仓库自研
+
+- `runtime/render.py`、`runtime/stage.html`、`runtime/player.js`、`scripts/xiula.py`、参数、验收与文档。
+
+## 移植部分
+
+- 画法脚本：huashu-art-motion v1.3.1 的 `29_seurat`（作者花叔，MIT License），文件头保留来源。
+- 绘制库：同上仓库的 `lib/` 模块，按场景裁剪后随管线内联。
+- 字体：SIL OFL 1.1，清单见 `runtime/lib/fonts/LICENSES.md` 与 `OFL.txt`。
+- 上游角色帧（花叔形象）、总览图、示范视频不随 MIT 授权，本仓库未收录。
+
+## 参考
+
+- 上游仓库：<https://github.com/alchaincyf/huashu-art-motion>
+- 配方卡：`references/style.md`（资料，不参与渲染）

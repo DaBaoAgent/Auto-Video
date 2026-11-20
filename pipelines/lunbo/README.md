@@ -2,13 +2,13 @@
 
 光照图整幅相乘，窗光加烛光；光柱里浮尘，云影让窗光一明一暗。
 
-画法来自 huashu-art-motion v1.3.1 的 `32_rembrandt`，引擎已完整 vendored 进 `vendor/huashu-art-motion/engine`，入口只调本仓库内的 `render.py`，不依赖任何外部 checkout。首个实例是 6 秒风格段；完整流程见 [SKILL.md](SKILL.md)，画法原文见 [references/style.md](references/style.md)，来源与同步见 [MIGRATION.md](MIGRATION.md)。
+自包含封装：渲染器、舞台、画法脚本、字体、入口都在本管线内，`runtime/` 之外不依赖任何仓库。完整流程见 [SKILL.md](SKILL.md)，画法原文见 [references/style.md](references/style.md)，移植与许可见 [MIGRATION.md](MIGRATION.md) / [CREDITS.md](CREDITS.md)。
 
 ## 快速开始
 
 ```bash
-uv run --with playwright python scripts/lunbo.py --stills 0.5,2.5 --out review/lunbo
-uv run --with playwright python scripts/lunbo.py --out out/lunbo_试片.mp4 --seconds 6
+python scripts/lunbo.py --stills 0.5,2.5 --out review/lunbo
+python scripts/lunbo.py --out out/lunbo_试片.mp4 --seconds 6
 ```
 
 ## 环境
@@ -19,16 +19,15 @@ uv run --with playwright python scripts/lunbo.py --out out/lunbo_试片.mp4 --se
 
 ## 目录
 
-| 目录 | 内容 |
-|---|---|
-| `scripts/` | 本管线入口（抽帧 / 出片） |
-| `references/` | 上游风格配方卡原文 |
-| `vendor/`（仓库根） | huashu 引擎、场景、转场、字体，MIT |
+| 目录 | 内容 | 归属 |
+|---|---|---|
+| `scripts/` | 本管线入口 | 自研 |
+| `runtime/render.py` | 本地画帧器（HTTP + Chromium + ffmpeg） | 自研 |
+| `runtime/player.js` | 舞台协议 `renderAt(t)` | 自研 |
+| `runtime/scene.js` | 画法实现 | MIT 移植 |
+| `runtime/lib/` | 绘制库 + 字体子集 | MIT / OFL |
+| `references/` | 画法配方卡 | 资料 |
 
 ## 画法要点
 
 光照图整幅相乘，窗光加烛光；光柱里浮尘，云影让窗光一明一暗。
-
-## 许可
-
-引擎与配方卡来自 [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion)（MIT），见 [CREDITS.md](CREDITS.md)。

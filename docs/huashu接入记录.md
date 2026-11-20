@@ -92,16 +92,25 @@
 动态文字、发布会、财经图表、尺度漫游这几种交付形态，仓库已有 `baiban`、`huixingzhen`、`wenzi`、
 `fabu`、`shuju`、`bianping` 对应。本批只接风格，语法按需后续单独接。
 
-## 引擎与样片
+## 封装与样片
 
-- 引擎：`vendor/huashu-art-motion/engine/`（场景、转场、绘画库、字体），全仓库共享；入口只调本地
-  `render.py`，不依赖外部 checkout。`render.py` 加了一个环境变量补丁：`CHROME_PATH` 指本机
-  Chrome/Edge；两个都没设时退回 Playwright 自带 chromium。
+- 封装：每条管线 `pipelines/<id>/runtime/` 自带 `render.py`（自研画帧器：静态服务 + Chromium 逐帧 +
+  ffmpeg 管道）、`stage.html` / `player.js`（自研舞台与 `renderAt(t)` 协议）、`scene.js`（画法脚本，
+  MIT 移植，文件头注明）、按需 `lib/` 与字体子集。入口只调本地 `runtime/render.py`，仓库内不再有
+  `vendor/huashu-art-motion`，运行时不读上游。
+- 画帧器浏览器三级回退：`CHROME_PATH` → `CHROME_CHANNEL` → Playwright 自带 chromium。
 - 样片：23 条实做从上游 Release 的 `art-motion-35-styles.mp4` 按段切（每段 5 个八分音符 ≈ 1.17 s），
   进 `site/media/<id>.mp4` + 同名封面；8 条研究配方上游没有成片，只取原型单帧作封面，站点卡片
   显示「研究配方」。
-- 不入库：`demos/`（含花叔角色帧，上游明确不随 MIT 授权）、`reference_films/`、Clawd 素材、
+- 不入库：上游 `demos/`（含花叔角色帧，上游明确不随 MIT 授权）、`reference_films/`、Clawd 素材、
   上游总览图与示范视频。
+
+## 验收
+
+- 31 条逐条跑 `--stills 1,3`：62 帧全出、退出码 0、无页面报错（`D:\tmp\verify` 本地留存）。
+- 抽帧覆盖三类最挑剔的场景：纯 Canvas（`dongxue`）、中文字体（`kelimu`）、Three.js（`pikesi`）。
+- `fangao` 走完整 ffmpeg 管道出 2 秒 960×540 试片，`ffprobe` 回报 2.000 s / 1.6 MB。
+- `validate` 155 条契约一致，`check_links` 文档与站点引用全部存在。
 
 ## 已知限制
 

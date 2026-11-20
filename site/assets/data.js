@@ -2830,7 +2830,7 @@ window.AV = {
    "name_zh": "洞穴岩画",
    "name_en": "Cave Painting",
    "title": "洞穴岩画 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "噪声岩壁作底、炭点毛边勾形，赭石真的吃进岩面；野牛两姿态交替跑，火光一直在摇。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -2839,7 +2839,7 @@ window.AV = {
    "mp4": "media/dongxue.mp4",
    "poster": "media/dongxue.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/dongxue/SKILL.md"
   },
   {
@@ -2852,7 +2852,7 @@ window.AV = {
    "name_zh": "埃及墓室壁画",
    "name_en": "Egyptian Wall Painting",
    "title": "埃及墓室壁画 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "侧脸正面眼、平涂细勾线、手写象形字；圣甲虫推着太阳，阿顿的光线一开一合。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -2861,7 +2861,7 @@ window.AV = {
    "mp4": "media/aiji.mp4",
    "poster": "media/aiji.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/aiji/SKILL.md"
   },
   {
@@ -2874,7 +2874,7 @@ window.AV = {
    "name_zh": "古希腊黑绘陶",
    "name_en": "Attic Black-Figure",
    "title": "古希腊黑绘陶 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "黑剪影配陶土色刻线，紫红带点白；回纹带反向滚动，陶瓶像滚筒一样转面。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -2883,7 +2883,7 @@ window.AV = {
    "mp4": "media/xila.mp4",
    "poster": "media/xila.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xila/SKILL.md"
   },
   {
@@ -2896,7 +2896,7 @@ window.AV = {
    "name_zh": "庞贝马赛克",
    "name_en": "Pompeii Mosaic",
    "title": "庞贝马赛克 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "距离场沿轮廓排石块，灰浆按加权 Voronoi 长出来；颜色顺着波浪纹一圈圈流过。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -2905,7 +2905,7 @@ window.AV = {
    "mp4": "media/pangbei.mp4",
    "poster": "media/pangbei.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/pangbei/SKILL.md"
   },
   {
@@ -2918,7 +2918,7 @@ window.AV = {
    "name_zh": "文艺复兴晕涂",
    "name_en": "High Renaissance Sfumato",
    "title": "文艺复兴晕涂 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "整层轻模糊压一层清晰层，龟裂纹与黄釉都在；窗口神光里，扑翼机飞过河面碎光。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -2927,7 +2927,7 @@ window.AV = {
    "mp4": "media/wenyi.mp4",
    "poster": "media/wenyi.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/wenyi/SKILL.md"
   },
   {
@@ -2940,7 +2940,7 @@ window.AV = {
    "name_zh": "印象派",
    "name_en": "Impressionism",
    "title": "印象派 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "区域粉彩短笔触、位置固定；光斑漂移明灭，罂粟在摇，云在走，丝带在飘。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -2949,7 +2949,7 @@ window.AV = {
    "mp4": "media/yinxiang.mp4",
    "poster": "media/yinxiang.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/yinxiang/SKILL.md"
   },
   {
@@ -2962,7 +2962,7 @@ window.AV = {
    "name_zh": "梵高后印象",
    "name_en": "Van Gogh Post-Impressionism",
    "title": "梵高后印象 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "流场笔触分三遍铺，墙竖长、地透视；星空漩涡、灯晕外扩，方向场像火苗一样摇曳。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -2971,7 +2971,7 @@ window.AV = {
    "mp4": "media/fangao.mp4",
    "poster": "media/fangao.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/fangao/SKILL.md"
   },
   {
@@ -2984,7 +2984,7 @@ window.AV = {
    "name_zh": "慕夏新艺术",
    "name_en": "Mucha Art Nouveau",
    "title": "慕夏新艺术 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "可变线宽外粗内细、剪影错位垫底；太阳升起、光环转、卷发成波。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -2993,7 +2993,7 @@ window.AV = {
    "mp4": "media/muxia.mp4",
    "poster": "media/muxia.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/muxia/SKILL.md"
   },
   {
@@ -3006,7 +3006,7 @@ window.AV = {
    "name_zh": "立体主义",
    "name_en": "Analytical Cubism",
    "title": "立体主义 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "半透明渐变面叠出空间，切面器不裁剪三角；CAFÉ 字母跳换、窗格碎面滑动。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3015,7 +3015,7 @@ window.AV = {
    "mp4": "media/liti2.mp4",
    "poster": "media/liti2.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/liti2/SKILL.md"
   },
   {
@@ -3028,7 +3028,7 @@ window.AV = {
    "name_zh": "光追 CGI",
    "name_en": "Ray-traced CGI",
    "title": "光追 CGI · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "统一塑料着色、逐像素棋盘倒影、铬球环境映射；绿色线框扫成渲染线。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3037,7 +3037,7 @@ window.AV = {
    "mp4": "media/guangzhui.mp4",
    "poster": "media/guangzhui.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/guangzhui/SKILL.md"
   },
   {
@@ -3050,7 +3050,7 @@ window.AV = {
    "name_zh": "克里姆特金色",
    "name_en": "Klimt Golden Phase",
    "title": "克里姆特金色 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "金箔逐像素拉丝压花，螺旋与眼形纹样铺满；袍上的眼睛轮流眨，金屑在飘。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3059,7 +3059,7 @@ window.AV = {
    "mp4": "media/kelimu.mp4",
    "poster": "media/kelimu.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/kelimu/SKILL.md"
   },
   {
@@ -3072,7 +3072,7 @@ window.AV = {
    "name_zh": "蒙克表现主义",
    "name_en": "Munch Expressionism",
    "title": "蒙克表现主义 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "长弯流线笔沿流场走二三十步，整幅按行正弦扭曲；血色天空从上往下压。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3081,7 +3081,7 @@ window.AV = {
    "mp4": "media/mengke.mp4",
    "poster": "media/mengke.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/mengke/SKILL.md"
   },
   {
@@ -3094,7 +3094,7 @@ window.AV = {
    "name_zh": "敦煌壁画",
    "name_en": "Dunhuang Mural",
    "title": "敦煌壁画 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "土红底、矿物色，剥落只发生在背景；飞天飘带扫过，旧画一层层往下落。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3103,7 +3103,7 @@ window.AV = {
    "mp4": "media/dunhuang.mp4",
    "poster": "media/dunhuang.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/dunhuang/SKILL.md"
   },
   {
@@ -3116,7 +3116,7 @@ window.AV = {
    "name_zh": "草间弥生波点",
    "name_en": "Kusama Polka Dots",
    "title": "草间弥生波点 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "手绘不规则圆按六角网格取模；波点从猫身上一圈圈胀缩，镜屋一直往外长。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3125,7 +3125,7 @@ window.AV = {
    "mp4": "media/caojian.mp4",
    "poster": "media/caojian.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/caojian/SKILL.md"
   },
   {
@@ -3138,7 +3138,7 @@ window.AV = {
    "name_zh": "达利超现实",
    "name_en": "Dali Surrealism",
    "title": "达利超现实 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "软钟变形、长影子剪切仿射；钟往下流，长腿象走，蚂蚁绕着表盘转。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3147,7 +3147,7 @@ window.AV = {
    "mp4": "media/dali.mp4",
    "poster": "media/dali.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/dali/SKILL.md"
   },
   {
@@ -3160,7 +3160,7 @@ window.AV = {
    "name_zh": "霍普美国现实主义",
    "name_en": "Hopper American Realism",
    "title": "霍普美国现实主义 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "亮版与暗版两套光影按光块裁切，硬边光斑缓慢扫过；墙上的人影同步喝茶。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3169,7 +3169,7 @@ window.AV = {
    "mp4": "media/huopu.mp4",
    "poster": "media/huopu.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/huopu/SKILL.md"
   },
   {
@@ -3182,7 +3182,7 @@ window.AV = {
    "name_zh": "吉卜力水彩",
    "name_en": "Ghibli Watercolor",
    "title": "吉卜力水彩 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "水彩洗染透明叠色、留水痕边，角色走赛璐璐月牙影；纱帘被风鼓起，草叶成片摆。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3191,7 +3191,7 @@ window.AV = {
    "mp4": "media/jibuli.mp4",
    "poster": "media/jibuli.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jibuli/SKILL.md"
   },
   {
@@ -3204,7 +3204,7 @@ window.AV = {
    "name_zh": "修拉点彩",
    "name_en": "Seurat Pointillism",
    "title": "修拉点彩 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "21 色纯色板按比例并置，补色点等大；画面结晶成圆点，点自己在呼吸。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3213,7 +3213,7 @@ window.AV = {
    "mp4": "media/xiula.mp4",
    "poster": "media/xiula.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xiula/SKILL.md"
   },
   {
@@ -3226,7 +3226,7 @@ window.AV = {
    "name_zh": "马蒂斯剪纸",
    "name_en": "Matisse Paper Cut-outs",
    "title": "马蒂斯剪纸 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "剪刀边故意不规则，钉纸投影、饱和平涂；纸片飘动，海藻摆动。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3235,7 +3235,7 @@ window.AV = {
    "mp4": "media/madisi.mp4",
    "poster": "media/madisi.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/madisi/SKILL.md"
   },
   {
@@ -3248,7 +3248,7 @@ window.AV = {
    "name_zh": "凯斯·哈林",
    "name_en": "Keith Haring",
    "title": "凯斯·哈林 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "粗黑等宽线配放射动作线；小人按 8fps 硬切跳舞，一切都跟 BPM 弹跳。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3257,7 +3257,7 @@ window.AV = {
    "mp4": "media/halin.mp4",
    "poster": "media/halin.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/halin/SKILL.md"
   },
   {
@@ -3270,7 +3270,7 @@ window.AV = {
    "name_zh": "伦勃朗明暗",
    "name_en": "Rembrandt Chiaroscuro",
    "title": "伦勃朗明暗 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "光照图整幅相乘，窗光加烛光；光柱里浮尘，云影让窗光一明一暗。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3279,7 +3279,7 @@ window.AV = {
    "mp4": "media/lunbo.mp4",
    "poster": "media/lunbo.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/lunbo/SKILL.md"
   },
   {
@@ -3292,7 +3292,7 @@ window.AV = {
    "name_zh": "新海诚光影",
    "name_en": "Makoto Shinkai Light",
    "title": "新海诚光影 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "积雨云、丁达尔光柱、赛璐璐硬阴影带；光粒在飘，云在移，斜向扫光进场。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3301,7 +3301,7 @@ window.AV = {
    "mp4": "media/xinhai.mp4",
    "poster": "media/xinhai.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xinhai/SKILL.md"
   },
   {
@@ -3314,7 +3314,7 @@ window.AV = {
    "name_zh": "毕加索蓝色时期",
    "name_en": "Picasso Blue Period",
    "title": "毕加索蓝色时期 · 上游样片",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "单色蓝调、宽笔触、普鲁士蓝粗轮廓；人体拉长，颜色被抽成蓝再宽刷一遍。",
    "aspect": "16:9",
    "seconds": 1.072,
@@ -3323,7 +3323,7 @@ window.AV = {
    "mp4": "media/bijia.mp4",
    "poster": "media/bijia.jpg",
    "note": null,
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/bijia/SKILL.md"
   },
   {
@@ -3336,7 +3336,7 @@ window.AV = {
    "name_zh": "瓜尔迪威尼斯",
    "name_en": "Guardi Venetian Atmosphere",
    "title": "",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "短促松动的亮笔、断续轮廓，银灰空气把建筑、水与远景连成一体。",
    "aspect": "16:9",
    "seconds": null,
@@ -3345,7 +3345,7 @@ window.AV = {
    "mp4": null,
    "poster": "media/guaerdi.jpg",
    "note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧",
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/guaerdi/SKILL.md"
   },
   {
@@ -3358,7 +3358,7 @@ window.AV = {
    "name_zh": "洛伦采蒂空间",
    "name_en": "Lorenzetti Civic Space",
    "title": "",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "可阅读的社会空间：街道、院落与人群在同一画面里各做各的事。",
    "aspect": "16:9",
    "seconds": null,
@@ -3367,7 +3367,7 @@ window.AV = {
    "mp4": null,
    "poster": "media/luolun.jpg",
    "note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧",
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/luolun/SKILL.md"
   },
   {
@@ -3380,7 +3380,7 @@ window.AV = {
    "name_zh": "科尔托纳巴洛克",
    "name_en": "Cortona Baroque",
    "title": "",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "巴洛克体量与流动群组：人群沿对角线卷上去，像天顶画一样翻涌。",
    "aspect": "16:9",
    "seconds": null,
@@ -3389,7 +3389,7 @@ window.AV = {
    "mp4": null,
    "poster": "media/keer.jpg",
    "note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧",
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/keer/SKILL.md"
   },
   {
@@ -3402,7 +3402,7 @@ window.AV = {
    "name_zh": "高更象征色",
    "name_en": "Gauguin Synthetism",
    "title": "",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "平面、粗轮廓与象征色；色块不解释光，只解释情绪。",
    "aspect": "16:9",
    "seconds": null,
@@ -3411,7 +3411,7 @@ window.AV = {
    "mp4": null,
    "poster": "media/gaogeng.jpg",
    "note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧",
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/gaogeng/SKILL.md"
   },
   {
@@ -3424,7 +3424,7 @@ window.AV = {
    "name_zh": "夏加尔记忆空间",
    "name_en": "Chagall Dream Space",
    "title": "",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "记忆空间与情感色彩：人和房子飘起来，颜色比透视更重要。",
    "aspect": "16:9",
    "seconds": null,
@@ -3433,7 +3433,7 @@ window.AV = {
    "mp4": null,
    "poster": "media/xiajia.jpg",
    "note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧",
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xiajia/SKILL.md"
   },
   {
@@ -3446,7 +3446,7 @@ window.AV = {
    "name_zh": "波斯细密画",
    "name_en": "Persian Miniature",
    "title": "",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "层叠空间与精密叙事：平面分层、纹样铺满，每一格都在讲同一件事。",
    "aspect": "16:9",
    "seconds": null,
@@ -3455,7 +3455,7 @@ window.AV = {
    "mp4": null,
    "poster": "media/bosi.jpg",
    "note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧",
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/bosi/SKILL.md"
   },
   {
@@ -3468,7 +3468,7 @@ window.AV = {
    "name_zh": "南方公园剪纸",
    "name_en": "South Park Cutout",
    "title": "",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "数字剪纸与有限表演：扁平的纸片人，只靠眉眼的有限动作演戏。",
    "aspect": "16:9",
    "seconds": null,
@@ -3477,7 +3477,7 @@ window.AV = {
    "mp4": null,
    "poster": "media/nanfang.jpg",
    "note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧",
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/nanfang/SKILL.md"
   },
   {
@@ -3490,7 +3490,7 @@ window.AV = {
    "name_zh": "皮克斯三维",
    "name_en": "Pixar 3D",
    "title": "",
-   "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D + Three.js 逐帧）",
    "tagline": "形体、材质与表演：圆润造型、次表面散射，加上挤压拉伸的表演。",
    "aspect": "16:9",
    "seconds": null,
@@ -3499,7 +3499,7 @@ window.AV = {
    "mp4": null,
    "poster": "media/pikesi.jpg",
    "note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧",
-   "badge": "自研渲染 · huashu 引擎（本地 vendored）",
+   "badge": "自研封装 · 本地 runtime（Canvas 2D + Three.js 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/pikesi/SKILL.md"
   }
  ]

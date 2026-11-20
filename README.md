@@ -16,10 +16,11 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 > 运行时、共享内核、渲染链、起步工程与风格规范都已复制进 `pipelines/<id>/`，入口只调本地 `runtime/render.mjs`，
 > 不依赖任何外部 checkout。
 >
-> **31 条 huashu 引擎封装（2026-11-20）**：从 [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) 的 53 张风格配方里，
+> **31 条自包含封装（2026-11-20）**：从 [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) 的 53 张风格配方里，
 > 逐条去掉 12 条同族等价与 10 条同族变体，接进 31 条（23 条实做 + 8 条研究配方），id 按仓库传统取中文名双拼
-> （撞车只有 `liti2`）。引擎、场景、转场、字体已 vendored 到 `vendor/huashu-art-motion/engine`，入口是
-> `python pipelines/<id>/scripts/<id>.py --stills 0.5,2.5 --out review/<id>` 或 `--seconds 6`；
+> （撞车只有 `liti2`）。每条管线自带 `runtime/`：自研画帧器、舞台、播放协议，加画法脚本、按需库与字体子集；
+> 入口只调本地 `runtime/render.py`，运行时不读 `vendor/`、不读上游仓库。画法脚本按 MIT 移植并在 `CREDITS.md` 注明。
+> 入口是 `python pipelines/<id>/scripts/<id>.py --stills 0.5,2.5 --out review/<id>` 或 `--seconds 6`；
 > 去重表见 [`tools/huashu_style_map.json`](tools/huashu_style_map.json)，记录见 [`docs/huashu接入记录.md`](docs/huashu接入记录.md)。
 
 [![stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
