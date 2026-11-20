@@ -679,6 +679,10 @@
     "huazi": {
       "render": null,
       "reason": "综艺花字：huazi/scripts/huazi.py 出 1080×1920 竖屏，底画+花字一起渲"
+    },
+    "qianhuang2": {
+      "render": null,
+      "reason": "铅黄剪影按配音时间码排镜头表：每段的舞台光池、人物 base 与回头延迟都要手工对拍，只接 frontend 的配音"
     }
   }
 }

@@ -1,0 +1,161 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "qianhuang2",
+    "no": "166",
+    "name_zh": "铅黄剪影",
+    "name_en": "Giallo Silhouette Stage",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "全黑剪影站进一池舞台光，回头只靠发丝晚两帧与一道月白弧。",
+    "engine": "Canvas 2D 单页 · seek(t) 纯函数逐帧（剪影 + 双缘光 + 光池舞台）",
+    "aspect": "16:9",
+    "fps": 30,
+    "entry": "scripts/qianhuang2.py",
+    "status": "live",
+    "sample": {
+      "file": "qianhuang2 血之海滩·剪影舞台.mp4",
+      "title": "血之海滩·剪影舞台",
+      "seconds": 21.5
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": {
+      "style": "Giallo · 1970s Italian horror（铅黄），但画法从浓彩转成剪影舞台",
+      "references": "Mario Bava《Black Sunday》的单点硬光与暗部塌陷、《Blood and Black Lace》的色片侧光；Argento《Suspiria》的红绿污染",
+      "demo_film": "Blood and Black Beach / 血之海滩（第一段，21.462 s）",
+      "relation": "与 qianhuang（浓彩手绘页 + 色片灯）同一世界观、不同画法：这条线不画颜料，只画黑剪影、缘光与地上的一池光"
+    },
+    "canvas": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "page": "单页 1920×1080，镜头不动纸；推近与横移都在画布里用坐标缩放做"
+    },
+    "duration": {
+      "default": 21.462,
+      "min": 6,
+      "max": 260
+    },
+    "stage": {
+      "stage_y": 872,
+      "head_y": 540,
+      "rule": "所有出场人物脚底压 STAGE_Y=872，头顶落 HEAD_Y=540±40；y≳870 一律不放人物、道具、光池，留给上游字幕带（底部约 200 px）",
+      "heights": {
+        "woman": 372,
+        "man": 350,
+        "lying": 330,
+        "background_woman": 324
+      },
+      "proof": "抽帧量头顶：营地她 510 / 三名男 528 / 群像女 541 / 海湾她 496 / 收束底影 504",
+      "bay_base": "海湾她 base 880（礁石顶面），营地 base 872",
+      "end_base": "收束底影 base 1002、h 524"
+    },
+    "palette": {
+      "ink": "#050406",
+      "blood": "#B3121F",
+      "blood2": "#E3232C",
+      "teal": "#0F6F63",
+      "amber": "#D89B3C",
+      "amber2": "#F2B24A",
+      "magenta": "#7A1E4B",
+      "bone": "#EFE3C8",
+      "night": [
+        "#04060A",
+        "#0A1420",
+        "#102331"
+      ],
+      "lake": [
+        "#061619",
+        "#0C3030"
+      ],
+      "sand": [
+        "#0D0A08",
+        "#050505"
+      ],
+      "rule": "血红面积 ≤8%、墨黑 ≥55%、骨白替纯白；暗部只用 night/lake 的冷黑，永不用灰"
+    },
+    "figure": {
+      "build": "三维骨架正交投影的二维剪影：躯干/裙摆一条闭合轮廓，四肢按姿势表连线",
+      "head_ratio": "7.5 头身，细腰 0.034h，裙摆 −0.382h（膝上），细高跟",
+      "rim": "整副轮廓偏移一层：左冷青 #0F6F63 alpha 0.30、右血红 #B3121F alpha 0.24，偏移 0.0042h；本体 #05060A 最后压上",
+      "man_rim": "同一做法：冷青 0.26 偏移 +8.5、血红 0.17 偏移 −8.5，不用 shadowBlur 的光团",
+      "belt": "血红腰带 rgba(179,18,31,0.58) 是全片唯一穿在身上的红，只给她；陪衬人物 belt:false",
+      "shadow": "每只脚一枚接触影 0.038h×0.009h（alpha 0.52，落在踝前 0.014h）+ 脚跟点 0.010h×0.014h（alpha 0.34）"
+    },
+    "poses": {
+      "back": "spine 0 / hip 0 / headYaw 0 / headTilt 0.04 / hem 0 / wScale 1.00；armL elbow[-0.106,-0.654] hand[-0.100,-0.522]；armR elbow[0.118,-0.660] hand[0.066,-0.508]；legL knee[0.042,-0.252] ankle[0.048,-0.006]；legR knee[-0.006,-0.242] ankle[-0.036,-0.020]",
+      "glance": "spine -0.032 / hip 0.014 / headYaw 0.36 / headTilt 0.08 / hem -0.010 / wScale 0.80；armL elbow[-0.136,-0.724] hand[-0.082,-0.844]（抬手别到颈后发际）；armR 同 back；腿同 back",
+      "read_back": "剪影里读“半转回头”：抬手别发 + 头发摆动 + 肩宽收缩 + headYaw>0.04 时一道 2.4 px 月白弧（alpha 0.17×k）",
+      "mix": "lerpVal/mixPose 按 m 插值，smoothPath 把肘-腕、胯-膝-踝连成柔线"
+    },
+    "delay": {
+      "camp": "body 3.50 / 0.62 s、head 3.76 / 0.52 s、hip 3.64 / 0.58 s（easeInOut）",
+      "bay": "body 11.05 / 0.66 s、head 11.30 / 0.52 s",
+      "hair_lag": "摆发量用 p.headYawLag（晚 0.066 s ≈ 两帧），头先转、头发后到；未定义时退回 headYaw"
+    },
+    "rig": {
+      "light_pool": "lightPool(cx,cy,rx,ry,rgb,a)：椭圆径向渐变 + 一圈更亮的内芯，压在地上当舞台",
+      "fire_bowl": "三脚架 + 铜碗 + 碗口膛火 0.40 + 碗沿 1.6 px 暖反光 + 火星；没碗沿反光会读成浮在空中的蜡烛",
+      "ring_edge": "暗红细环 ringEdge（lighter，1.6 px），标出“这里是一个台”",
+      "ground_shadow": "大椭圆 groundShadow 压整体，脚的接触影另画在 woman() 里",
+      "camp": "光池 (1604,862,292,62) / 火盆 (1456,878,130) (1750,876,124) / 细环 (1604,864,208,44) / 影 (1604,876,96,13)；火堆 (430,856)；帐篷 tent(650,880,108,146) tent(860,868,84,104)",
+      "bay": "光池 (1756,872,292,62) / 环 (1756,872,198,44) / 影 (1756,884,94,13) + 礁石承重面（1650,950→1724,876→1836,890→1866,952，顶面浅青高光）"
+    },
+    "scenes": {
+      "mask": "0–1.89 s：面具特写，污化/霉斑/血痕全用 hash 生成，眼窝两道冷光",
+      "camp": "1.89–6.68 s：营地三人侧倒（2.35 / 3.55 / 4.45），每次倒地一道血色扫光",
+      "rift": "6.68–9.20 s：裂口两次跳动涨到六成；外层焦炭 2.0–3.4 px 断续 + 熔橙内芯（shadowBlur 12–34、sin(t*6.1) 抖）+ 14 处白心熔孔；内层起点 1.78 锚在她胸背（zay 706）退回 (960,540) 的 1.16",
+      "bay": "9.20–13.20 s：落日核 58 px @(660,700) + 柔光椭圆 340×250（blur 64）/ 116×92（blur 38）+ 26 条水面倒影；帆船、红顶白屋三扇百叶窗；11.80 起压台标「1971 · 意大利 / G I A L L O」",
+      "title": "13.20–15.09 s：拱门 + 片名 116 px + 副题 44 px + 28 px 铅黄字样",
+      "reel": "15.09–21.462 s：三条 35 mm 带（y 232/466/700，齿孔 34 px 节距、画格 286 px、302 px 步进、150 px/s 滚动），18.20 起收拢到 486/612/738 并留三成残影，她 524 高做底影 + 片名 76 px"
+    },
+    "sweep": {
+      "blood_beam": "每次倒地一道窄光柱自左向右掠全屏：中心 x −300→W+300，0.85 s easeOut；横向 5 档（0/0.42/0.55/0.68/1 → 透明/0.14a/a/0.12a/透明）；峰值 a=0.30*(1-q)^2 + 0.10a 全屏红压",
+      "beam_width": "wb = 290 + hash(i*7.7)*330（290–620），亮度 a = (0.24 + hash(i*3.3)*0.12)*(1-q)^2，避免三根一样粗的红激光"
+    },
+    "post": {
+      "grade": "先 multiply #D2D2DA 全屏压一遍（去艳、压成旧胶片色）",
+      "dirt": "320 px 污渍贴图源-over 一层",
+      "grain": "320 px 颗粒贴图 overlay，alpha 0.17，按 hash(t) 抖动错位",
+      "scratches": "3 条竖向亮划痕（screen，1–2 px，alpha 0.03–0.09），随机位置",
+      "sparkle": "hash(t*13)>0.7 时一颗 3×3 白点",
+      "vignette": "四角 rgba(0,0,0,0.86) 的径向暗角",
+      "exposure": "每 12 帧压一格 0.10 黑（模拟曝光抖动）"
+    },
+    "audio": {
+      "mode": "不合成音效：画面吃上游配音（qianhuang 那条线自带合成音效床，这条线没有）",
+      "lufs": -14.6,
+      "true_peak": -1.6,
+      "limiter": "alimiter limit=-1.8 dB（AAC 解码会过冲 0.15–0.25 dB，留余量）",
+      "sample_rate": 48000,
+      "channels": 2,
+      "codec": "aac 192k",
+      "voice_pre": "acompressor threshold=-18dB:ratio=3:attack=5:release=60 后按实测补增益"
+    },
+    "render": {
+      "engine": "vendor/runtime/render-legacy.mjs（playwright-core + ffmpeg）",
+      "format": "jpeg",
+      "jpeg_quality": 92,
+      "crf": 18,
+      "preset": "medium（母版）/ slow（交付）",
+      "range_fix": "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p：逐帧 JPEG 是 full range，不再转一次暗场就发灰",
+      "fps_real": "约 10–11 fps（1920×1080，单 worker）"
+    },
+    "delivery": {
+      "sample_dir": "projects/001_bayofblood_stage/out/",
+      "final": "projects/001_bayofblood_stage/out/bayofblood_stage.mp4",
+      "files": [
+        "<名>.mp4"
+      ],
+      "qa": "分辨率 / 帧率 30 / 帧数 / 时长 / 音轨 / −14.6 LUFS / 峰值 −1.6 / 色彩范围 tv"
+    },
+    "credits": [
+      "PICTURE: 全部由本仓库代码逐帧画（engine.js 光与后处理 / cast.js 骨架 / world.js 场景 / film.js 时间轴），无 AI 生图、无原片帧",
+      "TYPE: 片名与副题用系统字体（Microsoft YaHei / PingFang SC），不随仓库分发字体文件",
+      "SOUND: 画面不自带声音，用的是上游配音；本机样片取自《血之海滩》第一段口播",
+      "STYLE: Giallo · 70 年代意大利铅黄，用光方法参考 Bava 与 Argento"
+    ]
+  }
+}

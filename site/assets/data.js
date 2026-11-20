@@ -167,7 +167,7 @@ window.AV = {
    "no": "04",
    "name_zh": "逐帧手绘",
    "name_en": "Hand-drawn Cel",
-   "title": "商纣王",
+   "title": "鼓阵开场",
    "engine": "Canvas 逐帧 · 浏览器渲染",
    "tagline": "纸纹、墨线 boil、墨字书写，cel 火焰与火星，24 fps 线条沸腾。",
    "aspect": "16:9",
@@ -177,7 +177,7 @@ window.AV = {
    "mp4": "media/shouhui.mp4",
    "poster": "media/shouhui.jpg",
    "note": null,
-   "badge": "Canvas 逐帧 · 浏览器渲染",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/shouhui/SKILL.md"
   },
   {
@@ -189,7 +189,7 @@ window.AV = {
    "no": "05",
    "name_zh": "铅笔测试",
    "name_en": "Pencil Test",
-   "title": "阿努纳奇",
+   "title": "跃栏试画",
    "engine": "Canvas · Chrome 逐帧",
    "tagline": "蓝线起稿、石墨勾线、橡皮修改，画与画之间 morph。",
    "aspect": "16:9",
@@ -199,7 +199,7 @@ window.AV = {
    "mp4": "media/pencil.mp4",
    "poster": "media/pencil.jpg",
    "note": null,
-   "badge": "Canvas · Chrome 逐帧",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/pencil/SKILL.md"
   },
   {
@@ -211,7 +211,7 @@ window.AV = {
    "no": "06",
    "name_zh": "彩铅科普",
    "name_en": "Colored-pencil Science",
-   "title": "鳕鱼",
+   "title": "雨林弹射",
    "engine": "G-buffer + 后处理",
    "tagline": "四张 G-buffer 由后处理叠成彩铅排线，锚定坐标防漂移。",
    "aspect": "16:9",
@@ -221,7 +221,7 @@ window.AV = {
    "mp4": "media/caiqian.mp4",
    "poster": "media/caiqian.jpg",
    "note": null,
-   "badge": "G-buffer + 后处理",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/caiqian/SKILL.md"
   },
   {
@@ -233,7 +233,7 @@ window.AV = {
    "no": "07",
    "name_zh": "平板速写",
    "name_en": "Tablet Sketch",
-   "title": "关羽",
+   "title": "海獭开贝",
    "engine": "纯 Canvas · 零依赖",
    "tagline": "六格手卷，铅笔一笔一笔现场画，镜头跟着笔尖走。",
    "aspect": "16:9",
@@ -243,7 +243,7 @@ window.AV = {
    "mp4": "media/pingban.mp4",
    "poster": "media/pingban.jpg",
    "note": null,
-   "badge": "纯 Canvas · 零依赖",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/pingban/SKILL.md"
   },
   {
@@ -255,7 +255,7 @@ window.AV = {
    "no": "08",
    "name_zh": "钢笔淡彩",
    "name_en": "Pen & Wash Sketch",
-   "title": "风去了哪里",
+   "title": "花市一早",
    "engine": "Canvas 逐帧 · 钢笔 + 水彩双层",
    "tagline": "钢笔线先走，水彩跟着到；镜头在整页纸上跟着草帽走。",
    "aspect": "16:9",
@@ -265,7 +265,7 @@ window.AV = {
    "mp4": "media/gangbi.mp4",
    "poster": "media/gangbi.jpg",
    "note": null,
-   "badge": "Canvas 逐帧 · 钢笔 + 水彩双层",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/gangbi/SKILL.md"
   },
   {
@@ -277,7 +277,7 @@ window.AV = {
    "no": "09",
    "name_zh": "蜡笔儿童绘本",
    "name_en": "Crayon Picture Book",
-   "title": "月亮睡不着",
+   "title": "松鼠接栗子",
    "engine": "WebGL2 合成 + Canvas 逐帧 · 纸齿 / 蜡附着 / 水彩抗拒",
    "tagline": "一页绘本当着你的面画出来：蜡笔先走，水彩最后把藏起来的星星洗出来。",
    "aspect": "16:9",
@@ -287,7 +287,7 @@ window.AV = {
    "mp4": "media/labi.mp4",
    "poster": "media/labi.jpg",
    "note": null,
-   "badge": "WebGL2 合成 + Canvas 逐帧 · 纸齿 / 蜡附着 / 水彩抗拒",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/labi/SKILL.md"
   },
   {
@@ -299,7 +299,7 @@ window.AV = {
    "no": "10",
    "name_zh": "水彩笔刷",
    "name_en": "Watercolor Brush",
-   "title": "从旱到涝",
+   "title": "白鹭掠溪",
    "engine": "Canvas 2D · 湿画法笔刷 + 纸张吸收",
    "tagline": "一笔一笔湿接湿的水彩，颜色在纸上自己走、自己干、自己留边。",
    "aspect": "16:9",
@@ -309,7 +309,7 @@ window.AV = {
    "mp4": "media/shuicai.mp4",
    "poster": "media/shuicai.jpg",
    "note": null,
-   "badge": "Canvas 2D · 湿画法笔刷 + 纸张吸收",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/shuicai/SKILL.md"
   },
   {
@@ -321,7 +321,7 @@ window.AV = {
    "no": "11",
    "name_zh": "皮影卡片",
    "name_en": "Shadow-puppet Cards",
-   "title": "波斯湾伊甸园",
+   "title": "元宵灯会",
    "engine": "Playwright + Canvas 逐帧",
    "tagline": "皮影剪影配卡片式讲解，分镜生成与四查门禁。",
    "aspect": "16:9",
@@ -331,7 +331,7 @@ window.AV = {
    "mp4": "media/piying.mp4",
    "poster": "media/piying.jpg",
    "note": null,
-   "badge": "Playwright + Canvas 逐帧",
+   "badge": "10 秒样片",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/piying/SKILL.md"
   },
   {
@@ -981,17 +981,17 @@ window.AV = {
    "no": "41",
    "name_zh": "铅黄浓彩",
    "name_en": "Giallo Gouache",
-   "title": "血之海滩 · 第一段",
+   "title": "剧场里的第三声",
    "engine": "Canvas 逐帧 · 钢笔浓彩 + 彩色色片光 + 合成音效",
    "tagline": "一页手绘浓彩被红蓝两盏色片灯夹住，刀落下去有声音。",
    "aspect": "16:9",
-   "seconds": 21.47,
-   "duration": "0:21",
-   "clip": 21.47,
+   "seconds": 10.0,
+   "duration": "0:10",
+   "clip": 10.0,
    "mp4": "media/qianhuang.mp4",
    "poster": "media/qianhuang.jpg",
    "note": null,
-   "badge": "Canvas 逐帧 · 钢笔浓彩 + 彩色色片光 + 合成音效",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/qianhuang/SKILL.md"
   },
   {
@@ -1201,7 +1201,7 @@ window.AV = {
    "no": "51",
    "name_zh": "油画厚涂",
    "name_en": "Impasto Oil Painting",
-   "title": "雨的颜色",
+   "title": "赤土牧归",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
    "tagline": "灰色雨中广场，第一把红伞撑开，圆舞曲把整个广场刷上颜色。",
    "aspect": "16:9",
@@ -1211,7 +1211,7 @@ window.AV = {
    "mp4": "media/youhua.mp4",
    "poster": "media/youhua.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/youhua/SKILL.md"
   },
   {
@@ -1223,7 +1223,7 @@ window.AV = {
    "no": "52",
    "name_zh": "一笔画",
    "name_en": "One-line Drawing",
-   "title": "笔不离纸",
+   "title": "一线追球",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
    "tagline": "一根不离纸的线画完一个人的一生，再把笔交给孩子。",
    "aspect": "16:9",
@@ -1233,7 +1233,7 @@ window.AV = {
    "mp4": "media/yibi.mp4",
    "poster": "media/yibi.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/yibi/SKILL.md"
   },
   {
@@ -3721,6 +3721,28 @@ window.AV = {
    "note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲",
    "badge": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/huazi/SKILL.md"
+  },
+  {
+   "key": "qianhuang2",
+   "kind": "pipeline",
+   "pipeline": "qianhuang2",
+   "station": "hand",
+   "station_name": "手绘笔触",
+   "no": "166",
+   "name_zh": "铅黄剪影",
+   "name_en": "Giallo Silhouette Stage",
+   "title": "血之海滩·剪影舞台",
+   "engine": "Canvas 2D 单页 · seek(t) 纯函数逐帧（剪影 + 双缘光 + 光池舞台）",
+   "tagline": "全黑剪影站进一池舞台光，回头只靠发丝晚两帧与一道月白弧。",
+   "aspect": "16:9",
+   "seconds": 21.5,
+   "duration": "0:21",
+   "clip": 21.5,
+   "mp4": "media/qianhuang2.mp4",
+   "poster": "media/qianhuang2.jpg",
+   "note": null,
+   "badge": "21 秒样片 · 自渲",
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/qianhuang2/SKILL.md"
   }
  ]
 };

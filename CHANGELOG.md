@@ -2,6 +2,41 @@
 
 版本口径：`MAJOR.MINOR.PATCH`。管线数量、契约字段这类会打断已有工程的变化走 MINOR；只修 bug 走 PATCH。
 
+## v1.4.0 · 2026-11-20
+
+管线 155 → 166，站点上 165 条有可播片子；这一版同时把门面（README / About / 站点计数）和 CI 恢复到「新人第一次打开就能判断这是什么」。
+
+### 新增
+
+- **11 条管线**
+  - anidoodle 6 条自研画法：`tanbi` 炭笔擦画 / `youcai` 梦境釉彩 / `cixiu` 刺绣 / `minjian` 民间故事绘本 / `diduo` 低多边形 / `yuanzhu` 圆珠笔；
+  - mg 4 条：`pintie` 拼贴剪贴 / `yetai` 液态流动 / `xingbian` 形变动画 / `huazi` 综艺花字；
+  - `qianhuang2` 铅黄剪影：全黑人物 + 双缘光 + 光池舞台，`STAGE_Y=872`、头顶压中线 540±40。
+- **站点样片换代**：`site/media/` 换成仓库自渲的 10 秒风格段（163 段），另有两段取完整成片片头（22 s / 30 s）；
+  165 张卡有片子可播，只剩 `peiyin`（配音前端，不出片）。
+
+### 变更
+
+- **README 重写**：592 行 / 48 KB → 311 行 / 20.5 KB。首屏 = 一句话定位 + 徽章 + 8 秒 teaser + `python demo/run.py` / `docker compose run --rm demo`；
+  工位表压成 11 行，完整清单交给 `docs/pipelines.md`；删除更新日志块、50 行样片表与内部路径。
+- **新增 `README-en.md`**（216 行），两份 README 顶栏互相切换。
+- **About 重写**：描述由「33 条 / 32 条可直接出片」改成 165 + 1 双语定位；topics 换掉 4 个过时项，
+  补 `deterministic-rendering`、`procedural-animation`、`motion-graphics`、`threejs`、`animation`。
+- **`docs/pipelines.md` 生成器**：工位名与编号改从 `catalog/stations.json` 取（修 04 / 07 因 id 写成 `cartoon` / `space` 而掉进「99 其它」），
+  样片列合并 `site/assets/samples.json`，无原片登记的显示 `10s（切片）`；口径变为 165 live / 0 待补。
+- **`site/index.html` 计数**：154 / 155 / 146 三处写死数字改成 165 / 166 / 165，并重跑 `build_site.py`（`qianhuang2` 之前漏卡）。
+
+### 修复
+
+- `tools/normalize_pipelines.py`：f-string 里嵌套同引号只有 3.12+ 允许，CI 的 3.11 直接语法失败；改为先算变量。
+- `tools/sync_runtime.py`：只把**持有 `runtime/core.js`** 的管线算作共享运行时参与者（47 条自包含管线不再被误判为「文件缺失」）；
+  比对改按内容、忽略 CRLF / LF，修掉 10 条模板管线因换行差异长期报「漂移」。
+
+### 验证
+
+- `validate.py` → `OK 契约一致`（166 条 / 11 工位 / 147 条登记原片）；`check_links.py` → `OK`；`check_syntax.py` 在 Python 3.11 下 `失败 0 个`。
+- GitHub Actions：`contract` 与 `site`（Pages）均通过；线上站点 kicker 显示 `166 条管线 · 11 个工位`。
+
 ## v1.3.1 · 2026-11-20
 
 31 条 huashu 管线从「共享 vendor 引擎 + 薄入口」改成**自包含封装**：运行时不依赖上游仓库，也不再有

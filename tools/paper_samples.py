@@ -103,13 +103,17 @@ async def synthesize(plan: dict, work: Path) -> list[dict]:
     return cues
 
 
-def prepare(key: str, plan: dict, work: Path) -> list[dict]:
+def prepare(key: str, plan: dict, work: Path, source_dir: Path = SOURCE) -> list[dict]:
     stage = work / "stage"
     (stage / "lib").mkdir(parents=True, exist_ok=True)
     for name in ("render.py", "player.js", "lib/util.js"):
         shutil.copyfile(RUNTIME / name, stage / name)
-    for name in ("common.js", f"{key}.js"):
-        shutil.copyfile(SOURCE / name, stage / name)
+    shutil.copyfile(SOURCE / "common.js", stage / "common.js")
+    scripts = (*plan.get("scripts", ()), f"{key}.js")
+    for name in scripts:
+        shutil.copyfile(source_dir / name, stage / name)
+    for asset in plan.get("assets", ()):
+        shutil.copyfile(REPO / asset, stage / Path(asset).name)
     fonts = {"Kai": "KaiTi.ttf", "Brush": "MaShanZheng-Regular.ttf",
              "Serif": "NotoSerifSC.ttf", "Bold": "AlibabaPuHuiTi-3-85-Bold.ttf"}
     faces = []
@@ -120,20 +124,23 @@ def prepare(key: str, plan: dict, work: Path) -> list[dict]:
         shutil.copyfile(source, stage / source.name)
         faces.append({"family": family, "url": source.name})
     cues = asyncio.run(synthesize(plan, work)) if plan.get("lines") else []
-    config = {"SCENES": {}, "FONT_FACES": faces, "SHOTS": {key: SHOTS}, "VOICE_CUES": {key: cues}}
+    beats = [at for at, kind in plan.get("effects", ()) if kind == "drum"]
+    config = {"SCENES": {}, "FONT_FACES": faces, "SHOTS": {key: SHOTS},
+              "VOICE_CUES": {key: cues}, "SAMPLE_BEATS": {key: beats}}
     setup = "".join(f"window.{k}={json.dumps(v, ensure_ascii=True)};" for k, v in config.items())
+    scene_scripts = "".join(f'<script src="{name}"></script>' for name in scripts)
     (stage / "stage.html").write_text(
         '<!doctype html><meta charset="utf-8"><link rel="icon" href="data:,">'
         '<style>html,body{margin:0;overflow:hidden}canvas{display:block}</style><canvas id="c"></canvas>'
         f'<script>{setup}</script><script src="lib/util.js"></script>'
-        f'<script src="common.js"></script><script src="{key}.js"></script>'
+        f'<script src="common.js"></script>{scene_scripts}'
         '<script src="player.js"></script>',
         encoding="utf-8",
     )
     return cues
 
 
-def render(key: str, work: Path, stills: str) -> None:
+def render(key: str, work: Path, stills: str, fps: int = FPS) -> None:
     stage = work / "stage"
     env = os.environ.copy()
     edge = Path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
@@ -142,7 +149,7 @@ def render(key: str, work: Path, stills: str) -> None:
     output = work / ("stills" if stills else "master.mp4")
     size = (1280, 720) if stills else (1920, 1080)
     run(sys.executable, stage / "render.py", "--scene", key, "--out", output,
-        "--seconds", DURATION, "--fps", FPS, "--width", size[0], "--height", size[1],
+        "--seconds", DURATION, "--fps", fps, "--width", size[0], "--height", size[1],
         *(("--stills", stills) if stills else ()), env=env)
 
 
@@ -166,6 +173,20 @@ def package(key: str, plan: dict, work: Path, cues: list[dict], music: Path) -> 
                           "0.15*sin(1490*t)*exp(-t*92)':s=48000:d=0.14,"
                           f"adelay={stamp_at}:all=1[stamp]")
         tracks.append("[stamp]")
+    effects = {
+        "drum": "0.36*sin(390*t-110*t*t)*exp(-t*19)+0.11*sin(1760*t)*exp(-t*74)",
+        "step": "0.14*sin(430*t-180*t*t)*exp(-t*32)+0.05*sin(1260*t)*exp(-t*82)",
+        "shell": "0.13*sin(3700*t)*exp(-t*70)+0.10*sin(2190*t)*exp(-t*49)",
+        "bell": "0.12*sin(11600*t)*exp(-t*22)+0.045*sin(25160*t)*exp(-t*40)",
+        "acorn": "0.18*sin(2520*t)*exp(-t*42)+0.11*sin(1240*t)*exp(-t*25)",
+        "water": "0.085*sin((2050+1270*t)*t)*exp(-t*14)+0.05*sin(3970*t)*exp(-t*27)",
+        "cut": "0.24*sin(520*t-290*t*t)*exp(-t*18)+0.12*sin(2510*t)*exp(-t*88)",
+        "tick": "0.12*sin(7320*t)*exp(-t*80)+0.07*sin(3820*t)*exp(-t*45)",
+    }
+    for i, (at, name) in enumerate(plan.get("effects", ())):
+        mix_filter.append(f"aevalsrc=exprs='{effects[name]}':s=48000:d=0.31,"
+                          f"adelay={round(at * 1000)}:all=1[effect{i}]")
+        tracks.append(f"[effect{i}]")
     level = "loudnorm=I=-20:TP=-2:LRA=7,aresample=48000" if cues else "anull"
     mix_filter.append(f"{''.join(tracks)}amix=inputs={len(tracks)}:duration=first:"
                       f"normalize=0,{level}[a]")
@@ -175,32 +196,31 @@ def package(key: str, plan: dict, work: Path, cues: list[dict], music: Path) -> 
         "-movflags", "+faststart", output)
     run("ffmpeg", "-y", "-v", "error", "-ss", plan["poster"], "-i", output,
         "-frames:v", 1, "-q:v", 3, work / f"{key}.jpg")
-    verify(key)
+    verify(key, work, plan.get("fps", FPS))
 
 
-def verify(key: str) -> None:
-    work = WORK / key
+def verify(key: str, work: Path, fps: int) -> None:
     data = probe(work / f"{key}.mp4")
     video = next(s for s in data["streams"] if s["codec_type"] == "video")
     audio = next(s for s in data["streams"] if s["codec_type"] == "audio")
     poster = probe(work / f"{key}.jpg")["streams"][0]
     if (float(data["format"]["duration"]) != DURATION or
             float(video["duration"]) != DURATION or float(audio["duration"]) < 9.95 or
-            (video["width"], video["height"], video["r_frame_rate"]) != (1024, 576, f"{FPS}/1") or
+            (video["width"], video["height"], video["r_frame_rate"]) != (1024, 576, f"{fps}/1") or
             (poster["width"], poster["height"]) != (1024, 576)):
         raise ValueError(f"{key} 的音视频规格不符")
 
 
-def install(keys: list[str]) -> None:
+def install(keys: list[str], plan_by_key: dict, root: Path) -> None:
     for key in keys:
-        verify(key)
+        verify(key, root / key, plan_by_key[key].get("fps", FPS))
     manifest = SITE_DIR / "assets" / "samples.json"
     samples = read_json(manifest)
     overrides_file = REPO / "tools" / "poster_overrides.json"
     overrides = read_json(overrides_file)
     entries = {item["key"]: item for item in samples["items"]}
     for key in keys:
-        plan, work = PLAN[key], WORK / key
+        plan, work = plan_by_key[key], root / key
         poster_pick = {"seconds": plan["poster"], "note": plan["poster_note"]}
         overrides["by_key"][key] = poster_pick
         entry = entries[key]
@@ -216,6 +236,9 @@ def install(keys: list[str]) -> None:
         if plan.get("lines"):
             entry.update(voice=plan["voice"], rate=VOICE_RATE, subtitle=True,
                          narration="".join(plan["lines"]))
+        else:
+            for field in ("voice", "rate", "subtitle", "narration"):
+                entry.pop(field, None)
         for ext in ("mp4", "jpg"):
             name = f"{key}.{ext}"
             shutil.copyfile(work / name, SITE_DIR / "media" / name)
@@ -224,28 +247,29 @@ def install(keys: list[str]) -> None:
                         encoding="utf-8", newline="\n")
 
 
-def main() -> None:
+def main(plan_by_key: dict = PLAN, source_dir: Path = SOURCE, root: Path = WORK,
+         description: str | None = __doc__) -> None:
     utf8_stdout()
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--only", choices=PLAN)
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument("--only", choices=plan_by_key, action="append")
     parser.add_argument("--stills", default="")
     parser.add_argument("--bgm-root", type=Path, default=BGM)
     parser.add_argument("--install", action="store_true")
     args = parser.parse_args()
-    keys = [args.only] if args.only else list(PLAN)
+    keys = list(dict.fromkeys(args.only)) if args.only else list(plan_by_key)
     if args.install:
         if args.stills:
             parser.error("--install 与 --stills 不能同时使用")
-        install(keys)
+        install(keys, plan_by_key, root)
         return
     for key in keys:
-        plan, work = PLAN[key], WORK / key
+        plan, work = plan_by_key[key], root / key
         music = args.bgm_root / plan["music"]
         if not args.stills and not music.is_file():
             raise FileNotFoundError(music)
         print(f"[{key}] {plan['title']}", flush=True)
-        cues = prepare(key, plan, work)
-        render(key, work, args.stills)
+        cues = prepare(key, plan, work, source_dir)
+        render(key, work, args.stills, plan.get("fps", FPS))
         if not args.stills:
             package(key, plan, work, cues, music)
 

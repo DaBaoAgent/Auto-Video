@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 """Demo-site sample audit: per-item frame metrics + poster duplicate scan."""
-import json, os, subprocess, sys
+import argparse
+import json
+import os
+import subprocess
 from concurrent.futures import ThreadPoolExecutor
+from itertools import combinations
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
@@ -91,7 +95,6 @@ def audit(item):
         rec["hash"] = dhash(fr[len(fr) // 2][1])
         rec["first"] = rec["frames"][0]
         # opening blankness: first frame near-flat and near-uniform
-        f0 = fr[0][1]
         rec["open_flat"] = bool(rec["frames"][0]["contrast"] < 12 or rec["frames"][0]["uniq"] < 12)
     if os.path.exists(jpg):
         import numpy as np
@@ -105,24 +108,47 @@ def audit(item):
 
 
 def main():
-    items = json.load(open(os.path.join(SITE, "assets", "samples.json"), encoding="utf-8"))["items"]
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--only", nargs="+", help="check these sample IDs")
+    parser.add_argument("--check", action="store_true", help="fail on an empty opening or weak/near-duplicate cover")
+    args = parser.parse_args()
+    if args.check and not args.only:
+        parser.error("--check requires --only so legacy samples do not block a new batch")
+    with open(os.path.join(SITE, "assets", "samples.json"), encoding="utf-8") as f:
+        items = json.load(f)["items"]
+    if args.only:
+        known = {r["key"]: r for r in items}
+        unknown = set(args.only) - known.keys()
+        if unknown:
+            parser.error("unknown samples: " + ", ".join(sorted(unknown)))
+        items = [known[key] for key in dict.fromkeys(args.only)]
     with ThreadPoolExecutor(max_workers=8) as ex:
         res = list(ex.map(audit, items))
-    # duplicate scan among posters
     dups = []
-    for i in range(len(res)):
-        for j in range(i + 1, len(res)):
-            a, b = res[i], res[j]
-            if a.get("poster_hash") and b.get("poster_hash"):
-                d = hamming(a["poster_hash"], b["poster_hash"])
-                if d <= 6:
-                    dups.append([a["key"], b["key"], d])
-    json.dump({"items": res, "dups": dups}, open(os.path.join(OUT, "audit.json"), "w", encoding="utf-8"),
-              ensure_ascii=False, indent=1)
+    for a, b in combinations(res, 2):
+        if a.get("poster_hash") and b.get("poster_hash"):
+            d = hamming(a["poster_hash"], b["poster_hash"])
+            if d <= (10 if args.check else 6):
+                dups.append([a["key"], b["key"], d])
+    report = "selected.json" if args.only else "audit.json"
+    with open(os.path.join(OUT, report), "w", encoding="utf-8") as f:
+        json.dump({"items": res, "dups": dups}, f, ensure_ascii=False, indent=1)
     print("items", len(res), "dups", len(dups))
     for d in dups[:20]:
         print("DUP", d)
+    if not args.check:
+        return 0
+    failures = []
+    for row in res:
+        key, poster = row["key"], row.get("poster", {})
+        if row.get("open_flat", True):
+            failures.append(f"{key}: missing/near-flat opening")
+        if not poster or not (20 < poster["bright"] < 232 and poster["white"] < 85):
+            failures.append(f"{key}: missing/near-flat poster")
+    for failure in failures:
+        print(failure)
+    return 1 if failures or dups else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

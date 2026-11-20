@@ -140,7 +140,12 @@ def main() -> int:
         for x in problems:
             print("  - " + x)
         return 1
-    print(f"\n{len(pipelines)} 条管线已对齐（{sum(1 for p in pipelines if p.get('sample') and (REPO / "pipelines" / p['id']).is_dir())} 条带样片）。")
+    with_sample = sum(
+        1
+        for p in pipelines
+        if p.get("sample") and (REPO / "pipelines" / p["id"]).is_dir()
+    )
+    print(f"\n{len(pipelines)} 条管线已对齐（{with_sample} 条带样片）。")
     return 0
 
 
