@@ -1,4 +1,4 @@
-"""Render the first five Hand & Pencil station samples.
+"""Render the original Hand & Pencil station samples.
 
     uv run --with playwright --with edge-tts python tools/hand_samples.py
     uv run --with playwright --with edge-tts python tools/hand_samples.py --only caiqian --stills 0,3.8,7.1
@@ -42,6 +42,41 @@ PLAN = {
         "poster_note": "水彩铺过两处花摊，车轮、人群与街面留白俱全",
         "music": "乡村/乡村 Juneberry_Junction.mp3", "music_at": 27,
         "scripts": ["hand.js"], "effects": [(4.08, "bell"), (4.22, "bell")],
+    },
+    "labi": {
+        "title": "松鼠接栗子", "poster": 7.85, "fps": 24,
+        "poster_note": "两只松鼠、栗子篮和湿染后显出的白蜡叶脉同框",
+        "music": "搞笑/搞笑 Funny Quirky Comedy (Free Download Background Music).mp3",
+        "music_at": 22, "scripts": ["hand.js"],
+        "effects": [(3.8, "acorn"), (4.52, "acorn"), (5.2, "acorn"), (7.0, "acorn")],
+    },
+    "shuicai": {
+        "title": "白鹭掠溪", "poster": 6.65, "fps": 60,
+        "poster_note": "振翅的白鹭、脚下涟漪和水彩晕开的芦苇同框",
+        "music": "自然/自然-静谧 Invisible_Beauty.mp3", "music_at": 46,
+        "scripts": ["hand.js"], "effects": [(1.3, "water"), (4.64, "water"), (6.28, "water")],
+    },
+    "qianhuang": {
+        "title": "剧场里的第三声", "poster": 7.60,
+        "poster_note": "演员与现身的猫被红蓝两束硬光分开，剧场道具完整",
+        "music": "未解/未解 02_Myst_on_the_Moor_迷雾未解之谜_Kevin_MacLeod.mp3",
+        "music_at": 18, "scripts": ["hand.js"],
+        "effects": [(1.04, "tick"), (2.32, "tick"), (3.33, "cut"), (4.48, "step"),
+                    (5.64, "tick"), (6.67, "cut"), (7.38, "tick"), (8.13, "step")],
+    },
+    "youhua": {
+        "title": "赤土牧归", "poster": 6.15, "fps": 24,
+        "poster_note": "前后马匹的不同奔跑相位、夕阳侧光与厚涂草地同框",
+        "music": "阿拉伯/阿拉伯 Desert_Caravan.mp3", "music_at": 31,
+        "scripts": ["hand.js"],
+        "effects": [(t, "step") for t in (1.32, 1.69, 2.41, 3.1, 3.54, 4.25, 4.74, 5.5, 6.04, 6.58, 7.1, 7.52, 8.0)],
+    },
+    "yibi": {
+        "title": "一线追球", "poster": 7.55,
+        "poster_note": "一条线串起长椅、奔跑中的狗和正在落下的球",
+        "music": "搞笑/搞笑 Funny Quirky Comical  Comedy Clarinet Royalty Free Stock Music.mp3",
+        "music_at": 29, "scripts": ["hand.js"],
+        "effects": [(1.44, "acorn"), (3.68, "acorn"), (5.58, "acorn"), (7.6, "acorn")],
     },
 }
 

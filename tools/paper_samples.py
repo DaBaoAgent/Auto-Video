@@ -178,6 +178,10 @@ def package(key: str, plan: dict, work: Path, cues: list[dict], music: Path) -> 
         "step": "0.14*sin(430*t-180*t*t)*exp(-t*32)+0.05*sin(1260*t)*exp(-t*82)",
         "shell": "0.13*sin(3700*t)*exp(-t*70)+0.10*sin(2190*t)*exp(-t*49)",
         "bell": "0.12*sin(11600*t)*exp(-t*22)+0.045*sin(25160*t)*exp(-t*40)",
+        "acorn": "0.18*sin(2520*t)*exp(-t*42)+0.11*sin(1240*t)*exp(-t*25)",
+        "water": "0.085*sin((2050+1270*t)*t)*exp(-t*14)+0.05*sin(3970*t)*exp(-t*27)",
+        "cut": "0.24*sin(520*t-290*t*t)*exp(-t*18)+0.12*sin(2510*t)*exp(-t*88)",
+        "tick": "0.12*sin(7320*t)*exp(-t*80)+0.07*sin(3820*t)*exp(-t*45)",
     }
     for i, (at, name) in enumerate(plan.get("effects", ())):
         mix_filter.append(f"aevalsrc=exprs='{effects[name]}':s=48000:d=0.31,"
@@ -247,12 +251,12 @@ def main(plan_by_key: dict = PLAN, source_dir: Path = SOURCE, root: Path = WORK,
          description: str | None = __doc__) -> None:
     utf8_stdout()
     parser = argparse.ArgumentParser(description=description)
-    parser.add_argument("--only", choices=plan_by_key)
+    parser.add_argument("--only", choices=plan_by_key, action="append")
     parser.add_argument("--stills", default="")
     parser.add_argument("--bgm-root", type=Path, default=BGM)
     parser.add_argument("--install", action="store_true")
     args = parser.parse_args()
-    keys = [args.only] if args.only else list(plan_by_key)
+    keys = list(dict.fromkeys(args.only)) if args.only else list(plan_by_key)
     if args.install:
         if args.stills:
             parser.error("--install 与 --stills 不能同时使用")

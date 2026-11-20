@@ -277,7 +277,7 @@ window.AV = {
    "no": "09",
    "name_zh": "蜡笔儿童绘本",
    "name_en": "Crayon Picture Book",
-   "title": "月亮睡不着",
+   "title": "松鼠接栗子",
    "engine": "WebGL2 合成 + Canvas 逐帧 · 纸齿 / 蜡附着 / 水彩抗拒",
    "tagline": "一页绘本当着你的面画出来：蜡笔先走，水彩最后把藏起来的星星洗出来。",
    "aspect": "16:9",
@@ -287,7 +287,7 @@ window.AV = {
    "mp4": "media/labi.mp4",
    "poster": "media/labi.jpg",
    "note": null,
-   "badge": "WebGL2 合成 + Canvas 逐帧 · 纸齿 / 蜡附着 / 水彩抗拒",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/labi/SKILL.md"
   },
   {
@@ -299,7 +299,7 @@ window.AV = {
    "no": "10",
    "name_zh": "水彩笔刷",
    "name_en": "Watercolor Brush",
-   "title": "从旱到涝",
+   "title": "白鹭掠溪",
    "engine": "Canvas 2D · 湿画法笔刷 + 纸张吸收",
    "tagline": "一笔一笔湿接湿的水彩，颜色在纸上自己走、自己干、自己留边。",
    "aspect": "16:9",
@@ -309,7 +309,7 @@ window.AV = {
    "mp4": "media/shuicai.mp4",
    "poster": "media/shuicai.jpg",
    "note": null,
-   "badge": "Canvas 2D · 湿画法笔刷 + 纸张吸收",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/shuicai/SKILL.md"
   },
   {
@@ -981,17 +981,17 @@ window.AV = {
    "no": "41",
    "name_zh": "铅黄浓彩",
    "name_en": "Giallo Gouache",
-   "title": "血之海滩 · 第一段",
+   "title": "剧场里的第三声",
    "engine": "Canvas 逐帧 · 钢笔浓彩 + 彩色色片光 + 合成音效",
    "tagline": "一页手绘浓彩被红蓝两盏色片灯夹住，刀落下去有声音。",
    "aspect": "16:9",
-   "seconds": 21.47,
-   "duration": "0:21",
-   "clip": 21.47,
+   "seconds": 10.0,
+   "duration": "0:10",
+   "clip": 10.0,
    "mp4": "media/qianhuang.mp4",
    "poster": "media/qianhuang.jpg",
    "note": null,
-   "badge": "Canvas 逐帧 · 钢笔浓彩 + 彩色色片光 + 合成音效",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/qianhuang/SKILL.md"
   },
   {
@@ -1201,7 +1201,7 @@ window.AV = {
    "no": "51",
    "name_zh": "油画厚涂",
    "name_en": "Impasto Oil Painting",
-   "title": "雨的颜色",
+   "title": "赤土牧归",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
    "tagline": "灰色雨中广场，第一把红伞撑开，圆舞曲把整个广场刷上颜色。",
    "aspect": "16:9",
@@ -1211,7 +1211,7 @@ window.AV = {
    "mp4": "media/youhua.mp4",
    "poster": "media/youhua.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/youhua/SKILL.md"
   },
   {
@@ -1223,7 +1223,7 @@ window.AV = {
    "no": "52",
    "name_zh": "一笔画",
    "name_en": "One-line Drawing",
-   "title": "笔不离纸",
+   "title": "一线追球",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
    "tagline": "一根不离纸的线画完一个人的一生，再把笔交给孩子。",
    "aspect": "16:9",
@@ -1233,7 +1233,7 @@ window.AV = {
    "mp4": "media/yibi.mp4",
    "poster": "media/yibi.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/yibi/SKILL.md"
   },
   {
