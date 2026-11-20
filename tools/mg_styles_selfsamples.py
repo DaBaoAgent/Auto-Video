@@ -34,7 +34,7 @@ PLAN = {
     },
     "yetai": {
         "title": "液态流动 · 墨落进牛奶里",
-        "size": (1024, 576), "poster": 7.9,
+        "size": (1024, 576), "poster": 8.7,
         "bgm": r"未解\未解 Spacetime_Blues.mp3",
         "music_at": 58,
     },
