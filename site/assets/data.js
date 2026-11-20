@@ -3721,6 +3721,28 @@ window.AV = {
    "note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲",
    "badge": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/huazi/SKILL.md"
+  },
+  {
+   "key": "qianhuang2",
+   "kind": "pipeline",
+   "pipeline": "qianhuang2",
+   "station": "hand",
+   "station_name": "手绘笔触",
+   "no": "166",
+   "name_zh": "铅黄剪影",
+   "name_en": "Giallo Silhouette Stage",
+   "title": "",
+   "engine": "Canvas 2D 单页 · seek(t) 纯函数逐帧（剪影 + 双缘光 + 光池舞台）",
+   "tagline": "全黑剪影站进一池舞台光，回头只靠发丝晚两帧与一道月白弧。",
+   "aspect": "16:9",
+   "seconds": null,
+   "duration": "—",
+   "clip": null,
+   "mp4": null,
+   "poster": null,
+   "note": "样片《血之海滩 · 剪影舞台》已在本机出片（projects/001_bayofblood_stage/out/bayofblood_stage.mp4，21.47 s），待同步到 $SAMPLES_DIR 后跑 tools/build_samples.py",
+   "badge": "Canvas 2D 单页 · seek(t) 纯函数逐帧（剪影 + 双缘光 + 光池舞台）",
+   "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/qianhuang2/SKILL.md"
   }
  ]
 };
