@@ -20,19 +20,28 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 MEDIA = REPO / "site" / "media"
 TMP = REPO / "review" / "anidoodle_samples"
+BGM_ROOT = Path(r"D:\@kaifa\@\BGM")
 BGM_CANDIDATES = [
+    BGM_ROOT / "宇宙" / "宇宙-氛围 Royalty Free Ambient Space Music (promo video) For Documentary & Film by Simon Wilkinson.mp3",
     Path(r"D:\@kaifa\@\@风格动画BGM\宇宙-氛围 Royalty Free Ambient Space Music (promo video) For Documentary & Film by Simon Wilkinson.mp3"),
 ]
 BGM_VOLUME = "-24dB"
+BGM_LOUDNORM = "loudnorm=I=-23:TP=-2:LRA=11"
 
 # id: 画法内容长度 → retime；封面取哪一秒；标题
 PLAN = {
-    "tanbi":    {"content": 8.0, "poster": 7.0, "title": "炭笔擦画 · 坡上一棵枯树"},
-    "youcai":   {"content": 7.0, "poster": 7.6, "title": "梦境釉彩 · 陶罐与梨"},
-    "cixiu":    {"content": 6.0, "poster": 9.4, "title": "刺绣 · 绣绷里的花枝"},
-    "minjian":  {"content": 7.0, "poster": 7.5, "title": "民间故事绘本 · 坡路上的狐狸"},
-    "diduo":    {"content": 6.0, "poster": 7.0, "title": "低多边形 · 湖与落日"},
-    "yuanzhu":  {"content": 7.0, "poster": 7.0, "title": "圆珠笔 · 一块怀表"},
+    "tanbi":    {"content": 8.0, "poster": 7.0, "title": "炭笔擦画 · 坡上一棵枯树",
+                 "bgm": r"自然\自然-静谧 Invisible_Beauty.mp3", "music_at": 26},
+    "youcai":   {"content": 7.0, "poster": 7.6, "title": "梦境釉彩 · 陶罐与梨",
+                 "bgm": r"人文\人文-情感 Documentary Cinematic (Inspiring Emotional Ambient Background)No Copyright Background Music.mp3", "music_at": 24},
+    "cixiu":    {"content": 6.0, "poster": 9.4, "title": "刺绣 · 绣绷里的花枝",
+                 "bgm": r"自然\自然 Liquid_Time.mp3", "music_at": 34},
+    "minjian":  {"content": 7.0, "poster": 7.5, "title": "民间故事绘本 · 坡路上的狐狸",
+                 "bgm": r"乡村\乡村 Juneberry_Junction.mp3", "music_at": 10},
+    "diduo":    {"content": 6.0, "poster": 7.0, "title": "低多边形 · 湖与落日",
+                 "bgm": r"宇宙\宇宙-氛围 Space Cinematic Ambient Music For Videos ｜ Free Download.mp3", "music_at": 18},
+    "yuanzhu":  {"content": 7.0, "poster": 7.0, "title": "圆珠笔 · 一块怀表",
+                 "bgm": r"悬疑\悬疑 BGM_ambient.mp3", "music_at": 8},
 }
 SHOT_SECONDS = 10.0
 
@@ -44,7 +53,13 @@ def run(cmd: list[str]) -> None:
         raise SystemExit(f"命令失败：{cmd[0]}")
 
 
-def bgm() -> Path | None:
+def bgm(pid: str = "") -> Path | None:
+    rel = PLAN.get(pid, {}).get("bgm")
+    if rel:
+        p = BGM_ROOT / rel
+        if p.exists():
+            return p
+        print(f"  ! 定点曲子缺失，回退：{rel}", flush=True)
     for p in BGM_CANDIDATES:
         if p.exists():
             return p
@@ -77,11 +92,13 @@ def render_master(pid: str, content: float) -> Path:
 def pack(master: Path, pid: str, at: float) -> None:
     MEDIA.mkdir(parents=True, exist_ok=True)
     out = MEDIA / f"{pid}.mp4"
-    music = bgm()
+    music = bgm(pid)
+    at_music = float(PLAN[pid].get("music_at", 0))
     if music:
         fc = (f"[0:v]scale=1024:576:flags=lanczos,setsar=1[v];"
-              f"[1:a]volume={BGM_VOLUME},afade=t=in:st=0:d=0.8,afade=t=out:st=9.1:d=0.9[a]")
-        run(["ffmpeg", "-y", "-v", "error", "-i", master, "-i", music,
+              f"[1:a]{BGM_LOUDNORM},afade=t=in:st=0:d=0.9,afade=t=out:st=9.0:d=1.0[a]")
+        run(["ffmpeg", "-y", "-v", "error", "-i", master,
+             "-ss", f"{at_music:.2f}", "-t", str(SHOT_SECONDS), "-i", music,
              "-filter_complex", fc, "-map", "[v]", "-map", "[a]",
              "-t", str(SHOT_SECONDS), "-c:v", "libx264", "-preset", "slow", "-crf", "30",
              "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "96k",
@@ -120,7 +137,8 @@ def write_samples(names: dict[str, str]) -> None:
             "mp4": f"media/{pid}.mp4",
             "poster": f"media/{pid}.jpg",
             "source": f"Auto-Video 本地 runtime 自渲（内容 {plan['content']:.0f}s 拉伸到 10s）",
-            "note": names.get(pid, "本仓库自渲 10 秒样片"),
+            "music": Path(plan["bgm"]).stem if plan.get("bgm") else "",
+            "note": "本仓库自渲 10 秒样片",
         })
         if pid not in by_key:
             sp["items"].append(entry)
