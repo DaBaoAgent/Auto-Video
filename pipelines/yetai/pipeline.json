@@ -1,0 +1,34 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "yetai",
+    "no": "163",
+    "name_zh": "液态流动",
+    "name_en": "Liquid Motion",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "糖浆色的液体滴落、拉丝、融合，一泼漫过屏幕，最后聚成字标。",
+    "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/yetai.py",
+    "status": "live",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "mg-styles-15 2026-10 快照（MIT）（风格参考，代码自研，运行时不依赖上游）",
+    "upstream": "https://github.com/vincentwei1021/mg-styles-15",
+    "style_slug": "07-liquid",
+    "medium": "高光糖浆液体：厚、亮、有表面张力；重叠处接成一片，边缘是波浪，不是几何圆。",
+    "workflow": "液体的工序：落滴压扁 → 两团靠近拉颈 → 断裂回弹 → 一泼漫过 → 聚成字 → 最后一滴。",
+    "quality": "★★★",
+    "engine": "runtime/render.py",
+    "license": "MIT（仅读风格描述，未复制上游代码与素材）",
+    "runtime": "pipelines/yetai/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

@@ -663,6 +663,22 @@
     "yuanzhu": {
       "render": null,
       "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "pintie": {
+      "render": null,
+      "reason": "拼贴剪贴：pintie/scripts/pintie.py 直接出片（报底/剪片/定格 12fps），题材换成句子表即可"
+    },
+    "yetai": {
+      "render": null,
+      "reason": "液态流动：yetai/scripts/yetai.py 直接出片（落滴/融合/波浪/字标）"
+    },
+    "xingbian": {
+      "render": null,
+      "reason": "形变动画：xingbian/scripts/xingbian.py 直接出片（A→圆→B 轮廓插值）"
+    },
+    "huazi": {
+      "render": null,
+      "reason": "综艺花字：huazi/scripts/huazi.py 出 1080×1920 竖屏，底画+花字一起渲"
     }
   }
 }

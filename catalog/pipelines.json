@@ -2758,6 +2758,62 @@
       "status": "live",
       "sample": null,
       "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
+    },
+    {
+      "id": "pintie",
+      "station": "graphic",
+      "name_zh": "拼贴剪贴",
+      "name_en": "Collage Cutout",
+      "tagline": "报纸底上贴半调网点人像，白剪边、关节纸片、12 fps 定格，脑袋开盖露出深空。",
+      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+      "aspect": "16:9",
+      "fps": 24,
+      "entry": "scripts/pintie.py",
+      "status": "live",
+      "sample": null,
+      "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
+    },
+    {
+      "id": "yetai",
+      "station": "graphic",
+      "name_zh": "液态流动",
+      "name_en": "Liquid Motion",
+      "tagline": "糖浆色的液体滴落、拉丝、融合，一泼漫过屏幕，最后聚成字标。",
+      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+      "aspect": "16:9",
+      "fps": 24,
+      "entry": "scripts/yetai.py",
+      "status": "live",
+      "sample": null,
+      "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
+    },
+    {
+      "id": "xingbian",
+      "station": "graphic",
+      "name_zh": "形变动画",
+      "name_en": "Shape Morph",
+      "tagline": "一个轮廓连续变成下一个：圆、太阳、星、心、水滴、纸飞机、方标。",
+      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+      "aspect": "16:9",
+      "fps": 24,
+      "entry": "scripts/xingbian.py",
+      "status": "live",
+      "sample": null,
+      "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
+    },
+    {
+      "id": "huazi",
+      "station": "screen",
+      "name_zh": "综艺花字",
+      "name_en": "Variety Show Captions",
+      "tagline": "竖屏萌宠 vlog 上压多层描边胖体花字：弹性 pop、逐字错帧、爆炸框与印章。",
+      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+      "aspect": "9:16",
+      "fps": 24,
+      "entry": "scripts/huazi.py",
+      "status": "live",
+      "sample": null,
+      "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
     }
   ]
 }

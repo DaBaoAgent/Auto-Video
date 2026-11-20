@@ -1,0 +1,34 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "pintie",
+    "no": "162",
+    "name_zh": "拼贴剪贴",
+    "name_en": "Collage Cutout",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "报纸底上贴半调网点人像，白剪边、关节纸片、12 fps 定格，脑袋开盖露出深空。",
+    "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/pintie.py",
+    "status": "live",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "mg-styles-15 2026-10 快照（MIT）（风格参考，代码自研，运行时不依赖上游）",
+    "upstream": "https://github.com/vincentwei1021/mg-styles-15",
+    "style_slug": "06-collage",
+    "medium": "旧报纸、牛皮纸、半调网点与剪下来的照片纸片拼在同一页上；白剪边是剪刀留下的，不是描边。",
+    "workflow": "拼贴的工序：铺纸 → 剪人像 → 贴上去 → 开一个口让里面的东西喷出来；运动一律 12 fps 定格，手摆位置带抖动。",
+    "quality": "★★★",
+    "engine": "runtime/render.py",
+    "license": "MIT（仅读风格描述，未复制上游代码与素材）",
+    "runtime": "pipelines/pintie/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

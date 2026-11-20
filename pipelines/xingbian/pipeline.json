@@ -1,0 +1,34 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xingbian",
+    "no": "164",
+    "name_zh": "形变动画",
+    "name_en": "Shape Morph",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "一个轮廓连续变成下一个：圆、太阳、星、心、水滴、纸飞机、方标。",
+    "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/xingbian.py",
+    "status": "live",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "mg-styles-15 2026-10 快照（MIT）（风格参考，代码自研，运行时不依赖上游）",
+    "upstream": "https://github.com/vincentwei1021/mg-styles-15",
+    "style_slug": "08-morph",
+    "medium": "纯色几何形在色块背景上连续变形；轮廓总数一致，顶点按弧长一一对应。",
+    "workflow": "形变的工序：先亮住一个形 → 收成中介圆 → 展开成下一个形 → 色块斜切擦入。",
+    "quality": "★★★",
+    "engine": "runtime/render.py",
+    "license": "MIT（仅读风格描述，未复制上游代码与素材）",
+    "runtime": "pipelines/xingbian/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

@@ -1,4 +1,4 @@
-# 管线清单：161 条，一条一个命令
+# 管线清单：165 条，一条一个命令
 
 这份清单由 `tools/build_pipeline_doc.py` 从 `catalog/pipelines.json` 生成，是目录的镜像；
 **入口与参数以各管线自己的 `SKILL.md` 为准**。这里回答的是「这条线现在能不能跑、从哪儿进、吃到什么输入」。
@@ -9,7 +9,7 @@
 - **beta** = 代码与文档在，样片还没补齐；
 - 命令都在仓库根目录执行，入口路径取 `pipeline.json` 的 `meta.entry`；不确定就 `--help`。
 
-当前：**146 条 live / 15 条待补样片 / 11 个工位**。
+当前：**146 条 live / 19 条待补样片 / 11 个工位**。
 
 ## 01 · 纸本叙事　*Paper & Chronicle*
 
@@ -100,6 +100,7 @@
 | `muke` | 木刻版画（Woodcut Print） | live | 自研渲染 · vendor/runtime/stylekit.js（刻印族） | `pipelines/muke/scripts/muke.py` | 58s |
 | `muxia` | 慕夏新艺术（Mucha Art Nouveau） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/muxia/scripts/muxia.py` | 1s |
 | `oupu` | 欧普艺术（Op Art） | live | Canvas · Chrome 逐帧（本地运行时） | `pipelines/oupu/scripts/oupu.py` | 22s |
+| `pintie` | 拼贴剪贴（Collage Cutout） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/pintie/scripts/pintie.py` | — |
 | `ruishi` | 瑞士动态排版（Swiss Motion Graphics） | live | 自研渲染 · vendor/runtime/stylekit.js（平面族） | `pipelines/ruishi/scripts/ruishi.py` | 44s |
 | `shiliang` | 扁平矢量（Flat Vector） | live | SVG 单页 · 逐帧确定性渲染 | `pipelines/shiliang/scripts/shiliang.py` | 30s |
 | `siyin` | 丝印旅行海报（Silkscreen Travel Poster） | live | 自研渲染 · vendor/runtime/stylekit.js（网点族） | `pipelines/siyin/scripts/siyin.py` | 50s |
@@ -107,6 +108,8 @@
 | `wangdian` | 网点档案（Halftone Dossier） | live | 自研渲染 · vendor/runtime/stylekit.js（网点族） | `pipelines/wangdian/scripts/wangdian.py` | 30s |
 | `wenzi` | 文字闪切（Text Flash Cuts） | live | 自研渲染 · vendor/runtime/stylekit.js（平面族） | `pipelines/wenzi/scripts/wenzi.py` | 46s |
 | `xiangxing` | 象形运动图形（Pictogram Motion） | live | 自研渲染 · vendor/runtime/stylekit.js（平面族） | `pipelines/xiangxing/scripts/xiangxing.py` | 50s |
+| `xingbian` | 形变动画（Shape Morph） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xingbian/scripts/xingbian.py` | — |
+| `yetai` | 液态流动（Liquid Motion） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/yetai/scripts/yetai.py` | — |
 | `yugao` | 电影预告（Movie Trailer） | live | Canvas · Chrome 逐帧（本地运行时） | `pipelines/yugao/scripts/yugao.py` | 83s |
 | `zhuangshi` | 装饰艺术（Art Deco） | live | Canvas 2D · 金色渐变线 + 灯泡招牌 + 装饰字体排版 | `pipelines/zhuangshi/scripts/zhuangshi.py` | 39s |
 
@@ -121,6 +124,7 @@
 | `fabu` | 暗色科技发布（Dark Tech Keynote） | live | 自研渲染 · vendor/runtime/stylekit.js（平面族） | `pipelines/fabu/scripts/fabu.py` | 42s |
 | `guangzhui` | 光追 CGI（Ray-traced CGI） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/guangzhui/scripts/guangzhui.py` | 1s |
 | `houshi` | 后室录像带（Liminal Found Footage） | live | 自研渲染 · vendor/runtime/stylekit.js（屏幕族） | `pipelines/houshi/scripts/houshi.py` | 60s |
+| `huazi` | 综艺花字（Variety Show Captions） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/huazi/scripts/huazi.py` | — |
 | `leida` | 雷达扫描纪录片（Radar Sweep Documentary） | live | 自研渲染 · vendor/runtime/stylekit.js（摄影族） | `pipelines/leida/scripts/leida.py` | 52s |
 | `liaotian` | 聊天叙事（Chat Narrative） | live | Canvas · Chrome 逐帧（本地运行时） | `pipelines/liaotian/scripts/liaotian.py` | 59s |
 | `liuchang` | 流场风线（Flow-field Wind Lines） | live | 自研渲染 · vendor/runtime/stylekit.js（霓虹族） | `pipelines/liuchang/scripts/liuchang.py` | 52s |
