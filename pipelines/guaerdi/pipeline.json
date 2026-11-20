@@ -1,0 +1,29 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "guaerdi",
+    "no": "148",
+    "name_zh": "瓜尔迪威尼斯",
+    "name_en": "Guardi Venetian Atmosphere",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "短促松动的亮笔、断续轮廓，银灰空气把建筑、水与远景连成一体。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/guaerdi.py",
+    "status": "beta",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "42_guardi",
+    "film": "style_studies",
+    "quality": "研究配方",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/guaerdi.mp4"
+  }
+}

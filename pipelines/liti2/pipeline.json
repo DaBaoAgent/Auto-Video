@@ -1,0 +1,33 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "liti2",
+    "no": "133",
+    "name_zh": "立体主义",
+    "name_en": "Analytical Cubism",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "半透明渐变面叠出空间，切面器不裁剪三角；CAFÉ 字母跳换、窗格碎面滑动。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/liti2.py",
+    "status": "live",
+    "sample": {
+      "file": "liti2 huashu-立体主义.mp4",
+      "title": "立体主义 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "11_cubism",
+    "film": "gallery",
+    "quality": "★★",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/liti2.mp4"
+  }
+}

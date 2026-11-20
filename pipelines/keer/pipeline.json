@@ -1,0 +1,29 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "keer",
+    "no": "150",
+    "name_zh": "科尔托纳巴洛克",
+    "name_en": "Cortona Baroque",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "巴洛克体量与流动群组：人群沿对角线卷上去，像天顶画一样翻涌。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/keer.py",
+    "status": "beta",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "44_cortona",
+    "film": "style_studies",
+    "quality": "研究配方",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/keer.mp4"
+  }
+}

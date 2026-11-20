@@ -1,0 +1,29 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "luolun",
+    "no": "149",
+    "name_zh": "洛伦采蒂空间",
+    "name_en": "Lorenzetti Civic Space",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "可阅读的社会空间：街道、院落与人群在同一画面里各做各的事。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/luolun.py",
+    "status": "beta",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "43_lorenzetti",
+    "film": "style_studies",
+    "quality": "研究配方",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/luolun.mp4"
+  }
+}

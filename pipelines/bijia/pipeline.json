@@ -1,0 +1,33 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "bijia",
+    "no": "147",
+    "name_zh": "毕加索蓝色时期",
+    "name_en": "Picasso Blue Period",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "单色蓝调、宽笔触、普鲁士蓝粗轮廓；人体拉长，颜色被抽成蓝再宽刷一遍。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/bijia.py",
+    "status": "live",
+    "sample": {
+      "file": "bijia huashu-毕加索蓝色时期.mp4",
+      "title": "毕加索蓝色时期 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "36_picasso_blue",
+    "film": "gallery",
+    "quality": "★★",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/bijia.mp4"
+  }
+}

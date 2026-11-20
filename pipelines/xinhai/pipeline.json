@@ -1,0 +1,33 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xinhai",
+    "no": "146",
+    "name_zh": "新海诚光影",
+    "name_en": "Makoto Shinkai Light",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "积雨云、丁达尔光柱、赛璐璐硬阴影带；光粒在飘，云在移，斜向扫光进场。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/xinhai.py",
+    "status": "live",
+    "sample": {
+      "file": "xinhai huashu-新海诚光影.mp4",
+      "title": "新海诚光影 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "35_shinkai",
+    "film": "gallery",
+    "quality": "★★",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/xinhai.mp4"
+  }
+}

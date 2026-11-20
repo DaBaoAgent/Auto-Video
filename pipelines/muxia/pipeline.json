@@ -1,0 +1,33 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "muxia",
+    "no": "132",
+    "name_zh": "慕夏新艺术",
+    "name_en": "Mucha Art Nouveau",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "可变线宽外粗内细、剪影错位垫底；太阳升起、光环转、卷发成波。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/muxia.py",
+    "status": "live",
+    "sample": {
+      "file": "muxia huashu-慕夏新艺术.mp4",
+      "title": "慕夏新艺术 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "10_nouveau",
+    "film": "gallery",
+    "quality": "★★★",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/muxia.mp4"
+  }
+}

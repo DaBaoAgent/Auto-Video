@@ -1,0 +1,33 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "caojian",
+    "no": "138",
+    "name_zh": "草间弥生波点",
+    "name_en": "Kusama Polka Dots",
+    "station": "graphic",
+    "station_no": "05",
+    "tagline": "手绘不规则圆按六角网格取模；波点从猫身上一圈圈胀缩，镜屋一直往外长。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/caojian.py",
+    "status": "live",
+    "sample": {
+      "file": "caojian huashu-草间弥生波点.mp4",
+      "title": "草间弥生波点 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "21_kusama",
+    "film": "gallery",
+    "quality": "★★★",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/caojian.mp4"
+  }
+}

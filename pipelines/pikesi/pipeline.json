@@ -1,0 +1,29 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "pikesi",
+    "no": "155",
+    "name_zh": "皮克斯三维",
+    "name_en": "Pixar 3D",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "形体、材质与表演：圆润造型、次表面散射，加上挤压拉伸的表演。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/pikesi.py",
+    "status": "beta",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "53_pixar",
+    "film": "style_studies",
+    "quality": "研究配方",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/pikesi.mp4"
+  }
+}

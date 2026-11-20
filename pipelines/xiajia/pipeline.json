@@ -1,0 +1,29 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xiajia",
+    "no": "152",
+    "name_zh": "夏加尔记忆空间",
+    "name_en": "Chagall Dream Space",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "记忆空间与情感色彩：人和房子飘起来，颜色比透视更重要。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/xiajia.py",
+    "status": "beta",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "49_chagall",
+    "film": "style_studies",
+    "quality": "研究配方",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/xiajia.mp4"
+  }
+}

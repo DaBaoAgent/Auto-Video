@@ -1,0 +1,33 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "kelimu",
+    "no": "135",
+    "name_zh": "克里姆特金色",
+    "name_en": "Klimt Golden Phase",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "金箔逐像素拉丝压花，螺旋与眼形纹样铺满；袍上的眼睛轮流眨，金屑在飘。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/kelimu.py",
+    "status": "live",
+    "sample": {
+      "file": "kelimu huashu-克里姆特金色.mp4",
+      "title": "克里姆特金色 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "18_klimt",
+    "film": "gallery",
+    "quality": "★★★",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/kelimu.mp4"
+  }
+}

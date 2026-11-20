@@ -515,6 +515,130 @@
     "yugao": {
       "render": null,
       "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
+    },
+    "dongxue": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "aiji": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "xila": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "pangbei": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "wenyi": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "yinxiang": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "fangao": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "muxia": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "liti2": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "guangzhui": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "kelimu": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "mengke": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "dunhuang": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "caojian": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "dali": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "huopu": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "jibuli": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "xiula": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "madisi": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "halin": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "lunbo": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "xinhai": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "bijia": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "guaerdi": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "luolun": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "keer": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "gaogeng": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "xiajia": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "bosi": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "nanfang": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
+    },
+    "pikesi": {
+      "render": null,
+      "reason": "单风格段：入口直接调 vendor/huashu-art-motion/engine，frontend 只灌文案与配音"
     }
   }
 }

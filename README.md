@@ -2,9 +2,9 @@
 
 # Auto-Video 🎬
 
-### 一个想法 → 124 条管线 · 11 个工位 · 一部能发的片
+### 一个想法 → 155 条管线 · 11 个工位 · 一部能发的片
 
-Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本地克隆音色配音、123 条成片管线出片（40 条本仓库自研 + 77 条自研内核渲染 + 6 条本地运行时封装），外加 1 个配音前端（[peiyin](pipelines/peiyin/SKILL.md)）。每条管线是一套**画法 + 镜头语法 + 交付门禁**，参数写死在 `pipeline.json` 里可复现，画面由代码、模板或本机模型确定性渲染，不依赖云端生图 / 生视频 API，也没有按次调用费用。
+Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本地克隆音色配音、154 条成片管线出片（40 条本仓库自研 + 77 条自研内核渲染 + 6 条本地运行时封装 + 31 条 huashu 引擎封装），外加 1 个配音前端（[peiyin](pipelines/peiyin/SKILL.md)）。每条管线是一套**画法 + 镜头语法 + 交付门禁**，参数写死在 `pipeline.json` 里可复现，画面由代码、模板或本机模型确定性渲染，不依赖云端生图 / 生视频 API，也没有按次调用费用。
 
 > **77 条自研内核渲染（2026-11-20）**：绘制内核是仓库自己的 `vendor/runtime/stylekit.js`，14 个风格族——刻印 / 网点 / 霓虹 / 屏幕 / 像素 / 立体 / 图纸 / 地图 / 摄影 / 纸艺 / 板写 / 平面 / 赛璐珞 / 场。
 > 每条管线的形状坐标、色板、节拍写在 `pipelines/<id>/projects/demo/main.js` 的 `SPEC` 里（生成时按 id 播种定死），
@@ -15,13 +15,19 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 > **6 条本地运行时封装（2026-11-20）**：聊天叙事 / 扁平颗粒插画 / 暗调励志 / 悬疑探秘 / 欧普艺术 / 电影预告。
 > 运行时、共享内核、渲染链、起步工程与风格规范都已复制进 `pipelines/<id>/`，入口只调本地 `runtime/render.mjs`，
 > 不依赖任何外部 checkout。
+>
+> **31 条 huashu 引擎封装（2026-11-20）**：从 [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) 的 53 张风格配方里，
+> 逐条去掉 12 条同族等价与 10 条同族变体，接进 31 条（23 条实做 + 8 条研究配方），id 按仓库传统取中文名双拼
+> （撞车只有 `liti2`）。引擎、场景、转场、字体已 vendored 到 `vendor/huashu-art-motion/engine`，入口是
+> `python pipelines/<id>/scripts/<id>.py --stills 0.5,2.5 --out review/<id>` 或 `--seconds 6`；
+> 去重表见 [`tools/huashu_style_map.json`](tools/huashu_style_map.json)，记录见 [`docs/huashu接入记录.md`](docs/huashu接入记录.md)。
 
 [![stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
 [![release](https://img.shields.io/github/v/release/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/releases)
-![pipelines](https://img.shields.io/badge/pipelines-123%20films%20%2B%201%20frontend-111111?style=flat-square)
+![pipelines](https://img.shields.io/badge/pipelines-154%20films%20%2B%201%20frontend-111111?style=flat-square)
 ![stations](https://img.shields.io/badge/stations-11-111111?style=flat-square)
-![samples](https://img.shields.io/badge/samples-123%20clips-e9b47c?style=flat-square)
+![samples](https://img.shields.io/badge/samples-146%20clips-e9b47c?style=flat-square)
 ![roadmap](https://img.shields.io/badge/roadmap-99%20styles-c43b32?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
@@ -43,7 +49,7 @@ Auto-Video 是一套**把想法变成成片的工程**：原创口播稿、本�
 
 **目录**：[三张入场券](#start) · [工位地图](#stations) · [统一契约](#contract) · [样片](#showcase) · [怎么生产一条片](#flow) · [快速开始](#quickstart) · [仓库结构](#layout) · [技术栈](#stack) · [常见问题](#faq) · [路线图](#roadmap) · [鸣谢与许可](#credits)
 
-> **仓库结构（2026-11 起）**：124 条管线全部收在 `pipelines/` 下，根目录只留基础设施
+> **仓库结构（2026-11 起）**：155 条管线全部收在 `pipelines/` 下，根目录只留基础设施
 > （`assets` `catalog` `docs` `out` `tools` `vendor` `site` `demo` `docker` `frontend` `projects` `samples-v2` `schema`）。
 > 各管线入口一律按 `python pipelines/<管线名>/scripts/<管线名>.py ...` 调用；`out/<编号_片名>/` 放定稿的成片、字幕、封面与发布信息。
 >
@@ -77,12 +83,12 @@ docker compose run --rm demo
 
 | 你想干什么 | 从哪儿进 | 一句话说明 |
 | --- | --- | --- |
-| 先看看长什么样 | [在线样片站](https://dabaoagent.github.io/Auto-Video/) | 124 张管线卡、123 段可播样片，按工位排开；鼠标停住就播，点开插入灯箱有声播放 |
+| 先看看长什么样 | [在线样片站](https://dabaoagent.github.io/Auto-Video/) | 155 张管线卡、146 段可播样片，按工位排开；鼠标停住就播，点开插入灯箱有声播放 |
 | 想做一条片 | 下面的[工位地图](#stations) → 点管线 → 读 `SKILL.md` | 每条 SKILL.md 是完整流程：入口脚本、参数、验收条件、已知坑 |
 | 想加 / 改一条管线 | [统一契约](#contract) | `catalog/pipelines.json` 是唯一事实来源，`tools/validate.py` 负责不许走样 |
 
 <a id="stations"></a>
-## 工位地图 🗺️ 123 条成片 + 1 个前端
+## 工位地图 🗺️ 154 条成片 + 1 个前端
 
 管线按**工位**分组：工位是「同一套画法血统」的一族，编号即站点与文档中的排序。
 
@@ -226,7 +232,7 @@ docker compose run --rm demo
 
 | 文件 | 作用 |
 | --- | --- |
-| [`catalog/pipelines.json`](catalog/pipelines.json) | 124 条管线的登记表：id / 工位 / 中英名 / 一句话 / 引擎 / 画幅 / 帧率 / 入口 / 状态 / 样片。站点的数据从它生成 |
+| [`catalog/pipelines.json`](catalog/pipelines.json) | 155 条管线的登记表：id / 工位 / 中英名 / 一句话 / 引擎 / 画幅 / 帧率 / 入口 / 状态 / 样片。站点的数据从它生成 |
 | [`catalog/stations.json`](catalog/stations.json) | 11 个工位：编号、中英名、说明、段末诗意句 |
 | [`schema/pipeline.schema.json`](schema/pipeline.schema.json) | JSON Schema（draft 2020-12）：`schema` + `meta` 必填；顶层 `additionalProperties: true`，历史扁平键合法 |
 | `*/pipeline.json` | 每条管线自己的定版参数：新增 `schema` + `meta`，其余键原样保留 |
@@ -245,7 +251,7 @@ docker compose run --rm demo
 
 ### 单一入口：一条管线一个命令
 
-124 条管线里 124 条都有 `entry`，`tools/validate.py` 会验证它真实存在。约定是 `python <管线>/scripts/<管线>.py <阶段>`，任何一条都能先 `check` 再 `--plan` 看命令：
+155 条管线里 155 条都有 `entry`，`tools/validate.py` 会验证它真实存在。约定是 `python <管线>/scripts/<管线>.py <阶段>`，任何一条都能先 `check` 再 `--plan` 看命令：
 
 | 管线 | 入口 | 最常用的三步 |
 | --- | --- | --- |
@@ -314,19 +320,19 @@ python frontend/frontend.py run \
 
 - **不接 peiyin 也能用**：03 阶段用的是免费的 edge-tts / 系统音色，克隆音色（peiyin、GPT-SoVITS）是可选的加分项，不是前置条件；
 - **`fengmian/` 是上游原样导入**（`DaBaoAgent/fengmian`，见 `fengmian/VENDORED.md`），本仓库只改调用方式，不改它的规则：标题两段式、≤25 字、含阿拉伯数字、恰好 4 个话题，任一不过就直接报错；
-- **哪些管线能被 04 自动出片**：`frontend/targets.json` 逐条登记。现在是 **10 / 124 一条龙**：`pencil`、`shadow`、`tapestry`、`laolang`、`goldenage`、`manga`、`isometric`、`map`、`blueprint`、`parable`。这几条的模板已改成**数据驱动分幕**（`vendor/runtime/autoscene.js`：一句旁白一张卡，片头卡 + 序号 + 强调线，5 句、12 句都能渲），所以 `new → vo → render` 可以一口气走完，不再出现「文案行数一变就报 `timeline: narration line id "l2" not found`」。模板保底的是排版，不是原来那支片的手绘美术——要原画级的片子，仍走 `projects/` 里手写的 `index.html`；
+- **哪些管线能被 04 自动出片**：`frontend/targets.json` 逐条登记。现在是 **10 / 155 一条龙**：`pencil`、`shadow`、`tapestry`、`laolang`、`goldenage`、`manga`、`isometric`、`map`、`blueprint`、`parable`。这几条的模板已改成**数据驱动分幕**（`vendor/runtime/autoscene.js`：一句旁白一张卡，片头卡 + 序号 + 强调线，5 句、12 句都能渲），所以 `new → vo → render` 可以一口气走完，不再出现「文案行数一变就报 `timeline: narration line id "l2" not found`」。模板保底的是排版，不是原来那支片的手绘美术——要原画级的片子，仍走 `projects/` 里手写的 `index.html`；
 - 剩下 31 条在 `targets.json` 里写明为什么不能自动接最后一步：要真实素材（`shipai`、`jilupian`）、要高程与路线（`chengshi`、`ditu`）、要本地模型（`zhidiao` 的 ComfyUI、`tianshu`）、要管线内 TTS 时间轴（`shiliang`、`xuni`、`dengju`、`xianshiqi`），或者输入根本不是文案（`tuiyan` 的兵棋、`huixingzhen` 的剧本）；
-- 校验：`python tools/validate.py` 会检查 `modules` 登记、`frontend.json` 契约、`targets.json` 是否覆盖全部管线，并打印「frontend 覆盖 124 条管线，可直接渲染 10 条」；
+- 校验：`python tools/validate.py` 会检查 `modules` 登记、`frontend.json` 契约、`targets.json` 是否覆盖全部管线，并打印「frontend 覆盖 155 条管线，可直接渲染 10 条」；
 - 实跑记录（2026-11-17）：`laolang` 一条 33 字短稿从 01 跑到 05，exit 0，拿到 `04-成片/工程/out/video-16x9.mp4`（1920×1080 / 6.2 s / 带旁白）与 `05-发布/发布信息.txt`（标题两段式 + 4 个话题）。
 
 <a id="showcase"></a>
-## 样片 🖼️ 123 段，全部可在站点播
+## 样片 🖼️ 146 段，可在站点播
 
 `site/media/` 里是压过的网页短片（**每部样片只取片头前 30 秒**，片短于 30 秒就整条；管线 1280 长边，风格 640），原片不动，仍留在作者的同步盘里。
 
 **封面不是片头截图**：早期统一抽第 2 秒，结果一堆卡片是空镜、白屏、纯文字卡。现在的规则是「样片里人物动作最丰富的一幕」——逐帧统计运动（YDIF）与边缘密度，排除 `YAVG>205 且 SATAVG<12`（白屏）、`YAVG<16`（黑场）、边缘密度低于全片中位 35% 分位的帧（空镜），首尾各 0.7 秒不选，评分 `0.68·z(运动) + 0.32·z(边缘)`。对整片空镜 / 白屏 / 纯文字卡的样片（地图、极简、品牌卡这类），自动算法挑不出来，用 `tools/poster_overrides.json` 人工钉秒。46 条已逐张目视复核过一遍；新登记的 77 条用上游封面 + 自动选帧，本次 6 条 BB 样片已逐张目视，**其余尚未逐张复核**。
 
-**管线样片 123 条**（点管线看文档，点片名去站点看）：
+**管线样片 146 条**（点管线看文档，点片名去站点看）：
 
 | 工位 | 管线 | 样片 | 原片时长 |
 | --- | --- | --- | --- |
@@ -371,9 +377,9 @@ python frontend/frontend.py run \
 | 10 实拍混剪 | [shipai](pipelines/shipai/SKILL.md) | 《玛雅》 | 0:18（1080×1920） |
 | 10 实拍混剪 | [jilupian](pipelines/jilupian/SKILL.md) | 《一口气看完日本3000年》 | 13:38（1920×1080） |
 
-上表是 40 条本仓库自研管线的样片；其余 77 条（自研内核渲染）与 6 条本地运行时封装的样片在站点对应卡片里，不在这张表里重复。
+上表是 40 条本仓库自研管线的样片；其余 77 条（自研内核渲染）、6 条本地运行时封装与 31 条 huashu 引擎封装的样片在站点对应卡片里，不在这张表里重复。
 
-**可播 123 条**：123 条成片管线每条都有可播样片，最短 12 秒（`blueprint`《玄奘 · 前 10 秒》），最长 13:38（`jilupian`《一口气看完日本3000年》）。
+**可播 146 条**：155 条管线里 146 条有可播样片，最短 1.07 秒（huashu 上游速通节选），最长 13:38（`jilupian`《一口气看完日本3000年》）；8 条 huashu 研究配方上游没有成片，站点只出封面卡。
 
 另有一条 [`peiyin`](pipelines/peiyin/SKILL.md) **不算缺样片**：它是配音前端，只出口播稿与配音，不出片，所以本来就不该有片子可播；站点上它的卡片标「配音模块 · 无样片」并直接指向文档。
 
@@ -401,7 +407,7 @@ python frontend/frontend.py run \
 <a id="quickstart"></a>
 ## 跑一条真片 🚀
 
-124 条管线的入口、引擎、样片时长都在 **[docs/pipelines.md](docs/pipelines.md)**；每条管线一条命令，参数与验收条件写在各自的 `SKILL.md`。
+155 条管线的入口、引擎、样片时长都在 **[docs/pipelines.md](docs/pipelines.md)**；每条管线一条命令，参数与验收条件写在各自的 `SKILL.md`。
 
 最短的一条（不配音、不出封面，只为确认链路通）：
 
@@ -411,7 +417,7 @@ node pipelines/pencil/runtime/render.mjs projects/demo --scale 0.6 --no-audio
 ```
 
 > 渲染需要 Chrome/Chromium（`CHROME_PATH` 可指定）和 `ffmpeg`；`python tools/validate.py` 会一次性告诉你
-> 这台机器上哪 124 条管线、11 个工位、123 份样片是否对齐。
+> 这台机器上哪 155 条管线、11 个工位、146 份样片是否对齐。
 
 
 ## 仓库结构 🗂️
@@ -423,7 +429,7 @@ Auto-Video/
 ├── .github/workflows/
 │   └── pages.yml             # 校验 + 建站 + 部署 GitHub Pages
 ├── catalog/
-│   ├── pipelines.json        # 124 条管线的登记表（唯一事实来源）
+│   ├── pipelines.json        # 155 条管线的登记表（唯一事实来源）
 │   └── stations.json         # 11 个工位
 ├── schema/
 │   └── pipeline.schema.json  # pipeline.json 的 JSON Schema（schema + meta 必填）
@@ -441,10 +447,10 @@ Auto-Video/
 │   ├── index.html
 │   ├── assets/               # app.css / app.js / data.js / samples.json
 │   ├── fonts/                # 思源宋 600 + 思源黑 400 子集
-│   └── media/                # 123 段网页短片 + 封面
+│   └── media/                # 146 段网页短片 + 封面
 ├── frontend/                 # 可选前端：选题 → 文案 → 免费 TTS → 管线 → 封面与发布信息
 │   ├── frontend.json         # 模块契约（五阶段 + 目标管线声明）
-│   ├── targets.json          # 124 条管线逐条登记：new / ingest / render 命令或跳过理由
+│   ├── targets.json          # 155 条管线逐条登记：new / ingest / render 命令或跳过理由
 │   ├── frontend.py           # 一条命令跑完闭环（check / plan / run）
 │   ├── prompts/script.md     # 02 阶段的口播稿模板
 │   ├── SKILL.md              # 给 Agent 用的入口说明
@@ -458,7 +464,7 @@ Auto-Video/
 │   └── *_30s.mp4             # 早先的 30 秒原片（站点已改用 site/media/ 的压片）
 │   └── frames/               # 样片抽帧与 README 配图
 ├── samples-v2/               # 10 秒站点样片源片、字幕与制作进度（压片进 site/media/）
-└── pipelines/                # 124 条管线，一条一个目录：SKILL.md + pipeline.json + scripts/ + references/ + projects/
+└── pipelines/                # 155 条管线，一条一个目录：SKILL.md + pipeline.json + scripts/ + references/ + projects/
     ├── paper/                # 01 纸本叙事：jianying · lishi · zhidiao
     ├── hand/                 # 02 手绘笔触：shouhui · pencil · caiqian · pingban · gangbi · labi · shuicai · qianhuang
     ├── craft/                # 03 传统工艺：piying · shuimo · shadow · tapestry · laolang · fushihui · shuimo2
@@ -480,12 +486,12 @@ Auto-Video/
 
 | 维度 | 同类（MoneyPrinterTurbo / 剪映类自动化） | 本项目 |
 | --- | --- | --- |
-| 产出 | 一条通用解说片 | 123 种**画法血统**（40 种自研 + 77 种自研内核渲染 + 6 种本地运行时封装）（剪影 / 皮影 / 彩铅 / 挂毯 / 三维城市 / 蓝图……） |
+| 产出 | 一条通用解说片 | 154 种**画法血统**（40 种自研 + 77 种自研内核渲染 + 6 种本地运行时封装 + 31 种 huashu 引擎封装）（剪影 / 皮影 / 彩铅 / 挂毯 / 三维城市 / 蓝图……） |
 | 画面来源 | 素材库检索拼接 | 代码绘制、模板渲染、本地模型；**不搬原片** |
 | 可复现性 | 每次结果有随机性 | 同稿同版 → 同像素（禁 `Date.now` / `Math.random`） |
 | 质量门禁 | 基本没有 | 契约校验 + 动效检查 + 事实核对 + 节奏扫描 + 字幕全量 |
 | 上手成本 | `pip install` 一条命令 | 要 Chrome/ffmpeg/本地模型 —— 所以有 `demo/run.py` 与 Docker 兜第一公里 |
-| 规模 | 单管线 | 124 条管线 / 11 工位，共用一套运行时与契约 |
+| 规模 | 单管线 | 155 条管线 / 11 工位，共用一套运行时与契约 |
 
 **差距也要说清楚**：真正的高星标项目（Remotion 7.3 万★、MoneyPrinterTurbo 14 万★）靠的是「任何人 10 分钟能出片」的
 最低门槛 + 生态（模板市场、API、Colab、镜像、插件）。本仓库内容层已经很硬，但包装层还在补：默认分支体积、
@@ -538,7 +544,7 @@ Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星�
 <details>
 <summary>样片和完整成片有什么区别？</summary>
 
-`site/media/` 里是 123 段网页样片（GitHub Pages 直接播放，每段取片头前 30 秒）；原片与完整成片只在作者本地归档、或挂到 Release assets，不随仓库提交（早先的 `showcase/` 已从仓库删除，见 `docs/素材与体积.md`）。需要原片时从归档取，不必重渲染；`zhidiao`《鲤鱼》只有 21 秒，所以整条都在。
+`site/media/` 里是 146 段网页样片（GitHub Pages 直接播放，每段取片头前 30 秒）；原片与完整成片只在作者本地归档、或挂到 Release assets，不随仓库提交（早先的 `showcase/` 已从仓库删除，见 `docs/素材与体积.md`）。需要原片时从归档取，不必重渲染；`zhidiao`《鲤鱼》只有 21 秒，所以整条都在。
 
 </details>
 
@@ -559,7 +565,7 @@ Release 与版本、英文门面、贡献漏斗。这些正在按 `docs/高星�
 <a id="roadmap"></a>
 ## 路线图 🧭
 
-当前：`123 / 99` 成片管线（40 条自研 + 77 条自研内核渲染 + 6 条本地运行时封装）（`peiyin` 是前端模块，不计入风格数）。
+当前：`154 / 99` 成片管线（40 条自研 + 77 条自研内核渲染 + 6 条本地运行时封装 + 31 条 huashu 引擎封装）（`peiyin` 是前端模块，不计入风格数）。
 
 Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管线必须带自己的流程说明、脚本、可复用资源和验收条件，才算完成迁移。
 
@@ -578,7 +584,7 @@ Auto-Video 会按「完成一条，迁移一条」的方式持续扩展。新管
 
 ## English
 
-Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 123 styles (40 built in this repo, 77 rendered by the in-repo style kernel, 6 self-vendored with a local runtime), plus an optional `frontend/` module that runs topic → script → free edge-tts voice-over (with SRT) → any style lane → covers and publish copy through the vendored `fengmian/` project, so a clone of your own voice (`peiyin`, GPT-SoVITS) is optional rather than required. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) — or, in the `tianshu` lane, generates plates and ambient motion with local ComfyUI models (Qwen-Image 2.1 + Wan2.2 TI2V-5B) — without calling any cloud image or video API. The 40 built-in film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, pencil test, colored-pencil science, tablet sketch, pen-and-wash, crayon picture book, wet-brush watercolor, and giallo gouache; shadow-puppet crafts, ink wash, Bayeux tapestry, Shanghai-era hand-drawn cel, ukiyo-e woodblock, and a second Chinese ink-wash lane; golden-age toon, manga panels, pixel art, and a local-model cel lane; flat vector, silhouette rhythm, paperclip explainer, scale-zoom, and Art Deco; cyberpunk HUD and synthwave VHS; 3D battle sim, city growth, isometric 2.5D, isometric diorama, and Memphis diorama; sticker maps and real-terrain maps; blueprint and stick-figure parable; plus footage-based vertical shorts and a documentary pipeline. 123 pipeline samples are playable online; full films are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
+Auto-Video is a one-stop video production workflow that turns an idea — or a reference video link — into finished animation in 154 styles (40 built in this repo, 77 rendered by the in-repo style kernel, 6 self-vendored with a local runtime, 31 vendored from huashu-art-motion), plus an optional `frontend/` module that runs topic → script → free edge-tts voice-over (with SRT) → any style lane → covers and publish copy through the vendored `fengmian/` project, so a clone of your own voice (`peiyin`, GPT-SoVITS) is optional rather than required. It writes original voice-over scripts, clones your voice locally, and renders every frame deterministically (Remotion / Canvas / Three.js / 3D battle engine) — or, in the `tianshu` lane, generates plates and ambient motion with local ComfyUI models (Qwen-Image 2.1 + Wan2.2 TI2V-5B) — without calling any cloud image or video API. The 40 built-in film pipelines cover paper-style historical shorts (Remotion), paper-style historical explainers, paper-cut silhouette videos (HyperFrames), frame-by-frame hand-drawn animation, pencil test, colored-pencil science, tablet sketch, pen-and-wash, crayon picture book, wet-brush watercolor, and giallo gouache; shadow-puppet crafts, ink wash, Bayeux tapestry, Shanghai-era hand-drawn cel, ukiyo-e woodblock, and a second Chinese ink-wash lane; golden-age toon, manga panels, pixel art, and a local-model cel lane; flat vector, silhouette rhythm, paperclip explainer, scale-zoom, and Art Deco; cyberpunk HUD and synthwave VHS; 3D battle sim, city growth, isometric 2.5D, isometric diorama, and Memphis diorama; sticker maps and real-terrain maps; blueprint and stick-figure parable; plus footage-based vertical shorts and a documentary pipeline. 146 pipeline samples are playable online; full films are archived locally and not committed. More visual and production styles are on the way, with a long-term roadmap of 99 pipelines.
 
 ## 关注更新
 

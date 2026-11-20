@@ -1,0 +1,33 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "yinxiang",
+    "no": "130",
+    "name_zh": "印象派",
+    "name_en": "Impressionism",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "区域粉彩短笔触、位置固定；光斑漂移明灭，罂粟在摇，云在走，丝带在飘。",
+    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/yinxiang.py",
+    "status": "live",
+    "sample": {
+      "file": "yinxiang huashu-印象派.mp4",
+      "title": "印象派 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "08_impressionism",
+    "film": "gallery",
+    "quality": "★★",
+    "engine": "vendor/huashu-art-motion/engine",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/yinxiang.mp4"
+  }
+}
