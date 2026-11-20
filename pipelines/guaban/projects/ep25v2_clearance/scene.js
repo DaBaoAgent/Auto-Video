@@ -126,7 +126,7 @@ export function paint(c, t, W, H) {
   const glow = (.28 + ss(seg(t, 0, 2.0)) * .10 + Math.sin(t * 2.5) * .012) * on;
 
   // ---- 地面：一道亮的地平线，往下黑掉 ----
-  const gy = H * .845;
+  const gy = H * .870;
   c.save(); c.globalAlpha = .16; c.fillStyle = CREAM;
   c.fillRect(-W * .05, gy, W * 1.1, H * .008); c.restore();
   scr(c, [[-W * .05, gy], [W * 1.05, gy]], 3.6, 'rgba(243,232,210,.62)', 5, 1);
@@ -134,8 +134,8 @@ export function paint(c, t, W, H) {
     { gap: 20, ang: .02, w: 1.4, al: .05, jit: 8 });
 
   // ---- 脚踏板：一块斜着的板，两根小腿管从上面下来 ----
-  const pL = W * .175, pR = W * .755;      // 板左右
-  const pY = H * .605, tilt = H * .022;    // 板前缘更低
+  const pL = W * .140, pR = W * .860;      // 板左右
+  const pY = H * .545, tilt = H * .022;    // 板前缘更低
   const plateTop = [[pL, pY], [pR, pY - H * .012], [pR, pY - H * .012 + H * .046], [pL, pY + H * .046]];
   c.save(); c.globalAlpha = .34; c.fillStyle = CREAM; path(c, plateTop); c.fill(); c.restore();
   hatch(c, plateTop, { gap: 14, ang: .02, w: 1.5, al: .13, jit: 4 });
@@ -146,19 +146,17 @@ export function paint(c, t, W, H) {
     const x = pL + (pR - pL) * (.10 + i * .115);
     scr(c, [[x, pY + H * .006], [x + W * .012, pY + H * .040]], 1.8, 'rgba(243,232,210,.55)', 2);
   }
-  // 小腿管：两根从板上缘往上，到画面外
-  for (const x of [pL + W * .075, pR - W * .085]) {
+  // 小腿管：两根短支架从板上缘往上，不出画太远
+  for (const x of [pL + W * .105, pR - W * .115]) {
     c.save(); c.globalAlpha = .26; c.fillStyle = CREAM;
-    c.fillRect(x - W * .016, H * .30, W * .032, pY - H * .30); c.restore();
-    scr(c, [[x + W * .016, H * .30], [x + W * .016, pY]], 2.6, 'rgba(243,232,210,.60)', 1.6, 1);
-    scr(c, [[x - W * .016, H * .30], [x - W * .016, pY]], 2.0, 'rgba(9,8,7,.8)', 1.6, 1);
+    c.fillRect(x - W * .016, H * .395, W * .032, pY - H * .395); c.restore();
+    scr(c, [[x + W * .016, H * .395], [x + W * .016, pY]], 2.6, 'rgba(243,232,210,.60)', 1.6, 1);
+    scr(c, [[x - W * .016, H * .395], [x - W * .016, pY]], 2.0, 'rgba(9,8,7,.8)', 1.6, 1);
   }
-  // 支架到车轮的一截横管（交代这是台车，不是桌面）
-  scr(c, [[pR + W * .01, H * .30], [W * .96, H * .245]], 3.0, 'rgba(243,232,210,.45)', 2, 1);
 
   // ---- 电机：从下面升上来，挂在踏板底面 ----
   const rise = spring(seg(t, 1.0, 3.0), 6, .38);
-  const mx = W * .315, myBase = H * .708;
+  const mx = W * .405, myBase = H * .700;
   const my = lerp(myBase + H * .13, myBase, rise);
   const mr = W * .112;
   c.save(); c.globalAlpha = clamp(.25 + rise * .70);
@@ -191,7 +189,7 @@ export function paint(c, t, W, H) {
   }
 
   // ---- 那道空隙：地面到电机底，一根双箭头 ----
-  const arX = mx - mr - W * .105;
+  const arX = mx + mr + W * .075;
   const aGrow = eio(seg(t, 3.1, 4.4));
   const yTop = my + mr, yBot = gy;
   const yMid = yTop + (yBot - yTop) * .5;
@@ -204,14 +202,14 @@ export function paint(c, t, W, H) {
     scr(c, [[arX - tip, yMid - h + tip * 1.5], [arX, yMid - h], [arX + tip, yMid - h + tip * 1.5]], 3.0, 'rgba(243,232,210,.78)', 1.4, 1);
     scr(c, [[arX - tip, yMid + h - tip * 1.5], [arX, yMid + h], [arX + tip, yMid + h - tip * 1.5]], 3.0, 'rgba(243,232,210,.78)', 1.4, 1);
     // 两条横向的对位虚线，标出量的是哪一段
-    scr(c, [[arX - W * .03, yTop], [mx - mr * .9, yTop]], 1.8, 'rgba(243,232,210,.40)', 5, 1);
-    scr(c, [[arX - W * .03, yBot], [W * .98, yBot]], 1.8, 'rgba(243,232,210,.40)', 7, 1);
+    scr(c, [[mx + mr * .92, yTop], [arX + W * .03, yTop]], 1.8, 'rgba(243,232,210,.40)', 5, 1);
+    scr(c, [[mx + mr * .92, yBot], [W * .98, yBot]], 1.8, 'rgba(243,232,210,.40)', 7, 1);
   }
 
   // ---- 读数 6 cm ----
   const k = back(seg(t, 4.5, 5.0));
   if (k > .01) {
-    const y = H * .245;
+    const y = H * .225;
     c.save();
     c.globalAlpha = clamp(k);
     c.translate(W * .5, y); c.scale(k, k); c.translate(-W * .5, -y);
@@ -234,3 +232,4 @@ export function paint(c, t, W, H) {
   vg.addColorStop(1, 'rgba(0,0,0,.76)');
   c.fillStyle = vg; c.fillRect(0, 0, W, H);
 }
+
