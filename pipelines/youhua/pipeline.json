@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "youhua",
+    "no": "51",
     "name_zh": "油画厚涂",
     "name_en": "Impasto Oil Painting",
     "station": "hand",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/youhua.py",
+    "status": "live",
     "sample": {
       "file": "youhua impasto.mp4",
       "title": "雨的颜色",
       "seconds": 39.7
     },
-    "no": "51",
     "updated": "2026-11-20"
   },
   "spec": {

@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "dunhuang",
+    "no": "137",
+    "name_zh": "敦煌壁画",
+    "name_en": "Dunhuang Mural",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "土红底、矿物色，剥落只发生在背景；飞天飘带扫过，旧画一层层往下落。",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/dunhuang.py",
+    "status": "live",
+    "sample": {
+      "file": "dunhuang huashu-敦煌壁画.mp4",
+      "title": "敦煌壁画 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "20_dunhuang",
+    "film": "gallery",
+    "quality": "★★",
+    "engine": "runtime/render.py",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/dunhuang.mp4",
+    "runtime": "pipelines/dunhuang/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

@@ -2,6 +2,59 @@
 
 版本口径：`MAJOR.MINOR.PATCH`。管线数量、契约字段这类会打断已有工程的变化走 MINOR；只修 bug 走 PATCH。
 
+## v1.3.1 · 2026-11-20
+
+31 条 huashu 管线从「共享 vendor 引擎 + 薄入口」改成**自包含封装**：运行时不依赖上游仓库，也不再有
+`vendor/huashu-art-motion`。
+
+### 变更
+
+- **每条管线自带 runtime**：`runtime/render.py`（自研画帧器：本地静态服务 + Chromium 逐帧 +
+  image2pipe 进 ffmpeg）、`runtime/stage.html`、`runtime/player.js`（自研舞台与 `renderAt(t)` 协议）、
+  `runtime/scene.js`（画法脚本，MIT 移植并注明来源）、`runtime/lib/`（只带该场景用到的库与字体子集）。
+- **入口改写**：`scripts/<id>.py` 只拼参数并调本地 `runtime/render.py --scene <id>`，不再出现
+  `--film gallery`、`--solo` 这类上游参数，也不读 `vendor/`。
+- **目录瘦身**：删除 `vendor/huashu-art-motion`（约 18 MB）与一次性导入脚本 `tools/import_huashu_styles.py`；
+  新增 `tools/package_huashu_runtimes.py` 记录打包口径。
+- **口径更新**：`catalog` 的 `engine` 改为「自研封装 · 本地 runtime（Canvas 2D 逐帧）」；`pipeline.json`
+  记 `runtime / stage / player / drawing_script / self_contained`；README、`docs/huashu接入记录.md` 同步。
+- **自研边界**：画帧器、舞台、播放协议、入口、参数与文档自研；画法脚本与绘制库按 MIT 移植，字体为
+  SIL OFL 1.1 子集，全部内联在管线内。
+
+### 验证
+
+- `dongxue` / `kelimu`（中文字体）/ `pikesi`（Three.js）抽帧通过；31 条逐条抽帧见 `docs/huashu接入记录.md`。
+- `validate` 155 条契约一致、`check_links` 全部存在。
+
+## v1.3.0 · 2026-11-20
+
+把 [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) v1.3.1 的 53 张风格配方逐条过了一遍：
+去掉 12 条同族等价、10 条同族变体，接进 31 条；引擎 vendored 进仓库，入口不再依赖外部 checkout。
+
+### 新增
+
+- **31 条管线**：23 条实做（`dongxue` `aiji` `xila` `pangbei` `wenyi` `yinxiang` `fangao` `muxia` `liti2`
+  `guangzhui` `kelimu` `mengke` `dunhuang` `caojian` `dali` `huopu` `jibuli` `xiula` `madisi` `halin`
+  `lunbo` `xinhai` `bijia`）+ 8 条研究配方（`guaerdi` `luolun` `keer` `gaogeng` `xiajia` `bosi` `nanfang` `pikesi`）。
+  id 按仓库传统取中文名双拼，撞车只有 `liti2`（`liti` 是纸片立体书）。
+- **`vendor/huashu-art-motion/engine/`**：场景 01–55、转场库、绘画/骨架/相机/图表库、字体（SIL OFL）；
+  全仓库共享一份，入口统一 `python pipelines/<id>/scripts/<id>.py --stills ... / --seconds ...`。
+- **`tools/huashu_style_map.json`**：53 张配方逐条记 `import / equivalent / family`，是这批管线的唯一事实来源。
+- **`tools/import_huashu_styles.py`**：按处置表落地目录、文档、catalog、frontend targets、站点样片，可重跑。
+- **`docs/huashu接入记录.md`**：计数、31 条清单、12 条等价与 10 条同族变体的理由、样片与许可说明。
+
+### 变更
+
+- `catalog/pipelines.json` 124 → 155 条；站点 155 张卡 / 146 支可播样片；README 与站点计数同步。
+- 23 条实做样片取自上游 Release 的 `art-motion-35-styles.mp4`，按段切（≈1.17 s/段）进 `site/media/`；
+  8 条研究配方上游没有成片，只取原型单帧作封面，卡片标「研究配方」。
+- `frontend/targets.json` 补齐 31 条：`render: null` + 单风格段交接理由。
+
+### 不入库
+
+- 上游 `demos/`（含花叔角色帧，不随 MIT 授权）、`reference_films/`、Clawd 素材、总览图与示范视频。
+- 本批未接 9 种解说语法：它们是「怎么讲」的语法不是「怎么画」的风格，且主要交付形态已有对应管线。
+
 ## v1.2.0 · 2026-11-20
 
 两件事同时落地：77 条管线从「转调外部 `build.sh`」改成**仓库内自研渲染**；6 条管线从「登记 + 外部复现」转成**本地运行时封装**。两边都不再依赖外部 checkout，本地能自己出帧。

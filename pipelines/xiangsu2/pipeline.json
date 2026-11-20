@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "xiangsu2",
+    "no": "87",
     "name_zh": "2.5D 像素",
     "name_en": "2.5D Pixel Art",
     "station": "toon",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/xiangsu2.py",
+    "status": "live",
     "sample": {
       "file": "xiangsu2 hd-2d.mp4",
       "title": "守灯人",
       "seconds": 76.5
     },
-    "no": "87",
     "updated": "2026-11-20"
   },
   "spec": {

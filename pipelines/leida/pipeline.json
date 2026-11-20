@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "leida",
+    "no": "105",
     "name_zh": "雷达扫描纪录片",
     "name_en": "Radar Sweep Documentary",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/leida.py",
+    "status": "live",
     "sample": {
       "file": "leida dark-documentary.mp4",
       "title": "狂风里接住登月直播",
       "seconds": 52.0
     },
-    "no": "105",
     "updated": "2026-11-20"
   },
   "spec": {

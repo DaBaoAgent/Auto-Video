@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "moni",
+    "no": "118",
     "name_zh": "小人模拟实验",
     "name_en": "Blob Simulation",
     "station": "map",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/moni.py",
+    "status": "live",
     "sample": {
       "file": "moni pip-simulation.mp4",
       "title": "跑得快，就更好吗？",
       "seconds": 52.0
     },
-    "no": "118",
     "updated": "2026-11-20"
   },
   "spec": {

@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "jiezou",
+    "no": "89",
     "name_zh": "节奏综艺",
     "name_en": "Rhythm Game Show",
     "station": "toon",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jiezou.py",
+    "status": "live",
     "sample": {
       "file": "jiezou game-show.mp4",
       "title": "AI 进化节拍",
       "seconds": 148.8
     },
-    "no": "89",
     "updated": "2026-11-20"
   },
   "spec": {

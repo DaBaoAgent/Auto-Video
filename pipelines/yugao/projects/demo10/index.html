@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>应龙</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/900.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cinzel@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cinzel@5/700.css">
+<style>html,body{margin:0;background:#000}#stage{position:relative;overflow:hidden}</style>
+<script src="assets/manifest.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/trailer.js"></script>
+</head><body><div id="stage"></div><script>
+PROMO.compose({
+  bpm: 120, offset: 0, duration: 10, grain: false,
+  theme: { bg: '#000', fg: '#e9e6e0', ink: '#e9e6e0', muted: '#a8a39b', accent: '#e9e6e0', paper: '#060606', fonts: { display: '"Noto Serif SC", serif', serif: '"Noto Serif SC", serif', sans: '"Noto Sans SC", sans-serif' } },
+  build: (F) => {
+    const b = (n) => F.beat(n), R = PROMO.trailer(F, { grade: 'teal-orange' }), P2 = R.paint;
+    R.ident({ a: 0, b: b(2), name: '远灯影业' });
+    F.section(0, 0, { name: 'open' });
+
+    F.section(b(2), 1, { name: 'world' });
+    { const S = R.shot(b(2), b(6)); S.cam({ s: 1.0, x: -0.01 }, { s: 1.08, x: 0.01 });
+      S.layer({ z: 6, paint: (c, U) => { P2.sky(c, U, { stops: [[0, '#070d18'], [0.7, '#33384a'], [1, '#a86a48']] }); P2.sun(c, U, { x: U.W * 0.58, y: 770, r: 30 }); } });
+      S.layer({ z: 3, paint: (c, U) => P2.ridge(c, U, { y: 780, amp: 100, seed: 6, color: '#12161e' }) });
+      S.layer({ z: 1, paint: (c, U) => { P2.ridge(c, U, { y: 880, amp: 56, seed: 11, color: '#06070a' }); P2.figure(c, U, { x: U.W * 0.46, y: 880, h: 250, rim: 'rgba(255,180,110,.65)', rimSide: 1 }); } }); }
+    R.card(b(6), b(7.5), '海水倒灌的那一年');
+
+    F.section(b(7.5), 1, { name: 'turn' });
+    { const S = R.shot(b(7.5), b(11)); S.cam({ s: 1.12 }, { s: 1.0 });
+      S.layer({ z: 4, paint: (c, U) => P2.sky(c, U, { stops: [[0, '#03060c'], [1, '#0a1420']] }) });
+      S.layer({ z: 1, draw: (c, U, t) => P2.particles(c, U, { t, kind: 'stream', n: 160, seed: 5 }) });
+      S.text('它还记得海', { x: R.GU / 2, y: 500, size: 64, a: b(8), b: b(11), type: true, glow: 8, color: '#cfe8ff' }); }
+
+    F.section(b(11), 2, { name: 'rise' }); F.section(b(14), 3, { name: 'climax' });
+    R.ramp(b(11), b(15), { first: 1.0, last: 0.3, snap: F.B / 2 }).forEach(([a2, b2], i) => {
+      const S = R.shot(a2, b2); S.cam({ s: 1.0 }, { s: 1.08 });
+      S.layer({ z: 3, paint: (c, U) => { P2.sky(c, U, { stops: [[0, '#04070d'], [1, i % 2 ? '#243044' : '#3a2216']] }); P2.stars(c, U, { n: 360, seed: i + 2 }); } });
+      S.layer({ z: 1, draw: (c, U, t) => P2.particles(c, U, { t, kind: i % 2 ? 'stream' : 'embers', n: 150, seed: i + 7 }) });
+      if (i > 0) R.flash(a2, { dur: 0.08, peak: 0.6 });
+    });
+
+    R.title({ a: b(15), b: b(18), main: '应龙', en: 'YINGLONG', silence: 0.4 });
+    F.section(b(18), 0, { name: 'tail' });
+    R.release({ a: b(18), b: F.duration, line: '下一个春天', date: '惊蛰' });
+  },
+});
+</script></body></html>

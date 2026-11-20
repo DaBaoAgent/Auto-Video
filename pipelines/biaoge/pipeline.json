@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "biaoge",
+    "no": "98",
     "name_zh": "表格动画",
     "name_en": "Spreadsheet Film",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/biaoge.py",
+    "status": "live",
     "sample": {
       "file": "biaoge spreadsheet.mp4",
       "title": "藏起来的那一列",
       "seconds": 52.0
     },
-    "no": "98",
     "updated": "2026-11-20"
   },
   "spec": {

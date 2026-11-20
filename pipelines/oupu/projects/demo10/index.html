@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>圆 · 呼吸</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/unbounded@5/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/700.css">
+<style>html,body{margin:0;background:#111}#stage{position:relative;overflow:hidden}</style>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/op.js"></script>
+</head><body><div id="stage"></div><script>
+PROMO.compose({
+  bpm: 120, offset: 0.5, duration: 10, grain: false,
+  theme: { bg: '#F2EFE9', fg: '#111111', ink: '#111111', paper: '#F2EFE9', accent: '#E8312A', muted: '#555555', fonts: { display: '"Unbounded", sans-serif', serif: '"Unbounded", sans-serif', sans: 'Inter, sans-serif', script: '"Unbounded", sans-serif' } },
+  build: async (F) => {
+    const b = (n) => F.beat(n);
+    const Q = PROMO.op(F);
+    F.section(0, 1); F.section(b(8), 2, { hit: true }); F.section(F.duration - 3, 1);
+
+    const f = Q.field(F.layer('', 0), { pattern: 'stripes', period: F.px(38), amp: F.px(28), speed: 1.4, angle: -8 });
+    f.lens(0, { x: F.W / 2, y: F.H / 2, r: 0, s: 0.6 }); f.lensTo(0, b(1), 0.6, { r: F.px(430) });
+    Q.word(F.layer('', 2), { at: b(2), until: b(7), text: '圆', size: 210 });
+    f.morph(b(7), 0.8, 'rings');
+    Q.word(F.layer('', 2), { at: b(8), until: F.duration, text: '呼吸', size: 150 });
+  },
+});
+</script></body></html>

@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "guangzhui",
+    "no": "134",
+    "name_zh": "光追 CGI",
+    "name_en": "Ray-traced CGI",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "统一塑料着色、逐像素棋盘倒影、铬球环境映射；绿色线框扫成渲染线。",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/guangzhui.py",
+    "status": "live",
+    "sample": {
+      "file": "guangzhui huashu-光追 CGI.mp4",
+      "title": "光追 CGI · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "15_raytrace",
+    "film": "gallery",
+    "quality": "★★",
+    "engine": "runtime/render.py",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/guangzhui.mp4",
+    "runtime": "pipelines/guangzhui/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

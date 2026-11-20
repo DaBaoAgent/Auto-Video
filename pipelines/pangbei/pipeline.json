@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "pangbei",
+    "no": "128",
+    "name_zh": "庞贝马赛克",
+    "name_en": "Pompeii Mosaic",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "距离场沿轮廓排石块，灰浆按加权 Voronoi 长出来；颜色顺着波浪纹一圈圈流过。",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/pangbei.py",
+    "status": "live",
+    "sample": {
+      "file": "pangbei huashu-庞贝马赛克.mp4",
+      "title": "庞贝马赛克 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "04_roman",
+    "film": "gallery",
+    "quality": "★★★",
+    "engine": "runtime/render.py",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/pangbei.mp4",
+    "runtime": "pipelines/pangbei/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

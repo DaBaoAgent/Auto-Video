@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "wenzi",
+    "no": "72",
     "name_zh": "文字闪切",
     "name_en": "Text Flash Cuts",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/wenzi.py",
+    "status": "live",
     "sample": {
       "file": "wenzi text-flash-cuts.mp4",
       "title": "身后",
       "seconds": 46.2
     },
-    "no": "72",
     "updated": "2026-11-20"
   },
   "spec": {

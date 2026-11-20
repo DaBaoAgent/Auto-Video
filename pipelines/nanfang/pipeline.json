@@ -1,0 +1,34 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "nanfang",
+    "no": "154",
+    "name_zh": "南方公园剪纸",
+    "name_en": "South Park Cutout",
+    "station": "toon",
+    "station_no": "04",
+    "tagline": "数字剪纸与有限表演：扁平的纸片人，只靠眉眼的有限动作演戏。",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/nanfang.py",
+    "status": "beta",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "52_south_park",
+    "film": "style_studies",
+    "quality": "研究配方",
+    "engine": "runtime/render.py",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/nanfang.mp4",
+    "runtime": "pipelines/nanfang/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

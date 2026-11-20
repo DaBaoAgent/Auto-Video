@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "dietie",
+    "no": "117",
     "name_zh": "地铁线路图",
     "name_en": "Transit Map",
     "station": "map",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/dietie.py",
+    "status": "live",
     "sample": {
       "file": "dietie transit-map.mp4",
       "title": "6 公里",
       "seconds": 47.0
     },
-    "no": "117",
     "updated": "2026-11-20"
   },
   "spec": {

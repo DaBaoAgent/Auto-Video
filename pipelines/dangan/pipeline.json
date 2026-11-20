@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "dangan",
+    "no": "50",
     "name_zh": "档案看片台",
     "name_en": "Archive Light Table",
     "station": "live",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/dangan.py",
+    "status": "live",
     "sample": {
       "file": "dangan archive-lighttable.mp4",
       "title": "差两秒",
       "seconds": 40.0
     },
-    "no": "50",
     "updated": "2026-11-20"
   },
   "spec": {

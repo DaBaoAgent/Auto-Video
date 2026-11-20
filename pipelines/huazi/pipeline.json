@@ -1,0 +1,34 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "huazi",
+    "no": "165",
+    "name_zh": "综艺花字",
+    "name_en": "Variety Show Captions",
+    "station": "screen",
+    "station_no": "06",
+    "tagline": "竖屏宵夜：台灯下的面碗与热气，上面压多层描边胖体花字、弹性 pop 与认证章。",
+    "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "9:16",
+    "fps": 24,
+    "entry": "scripts/huazi.py",
+    "status": "live",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "mg-styles-15 2026-10 快照（MIT）（风格参考，代码自研，运行时不依赖上游）",
+    "upstream": "https://github.com/vincentwei1021/mg-styles-15",
+    "style_slug": "18-hanazi",
+    "medium": "综艺后期的情绪化字幕：填充色 + 粗白边 + 彩色外描边 + 投影，圆体胖字，高饱和撞色。",
+    "workflow": "花字的工序：先有画面（手持抖动 + 推镜）→ 按情绪出字 → 每字 pop 0→1.15→1 → 驻留时轻微 wiggle。",
+    "quality": "★★★",
+    "engine": "runtime/render.py",
+    "license": "MIT（仅读风格描述，未复制上游代码与素材）",
+    "runtime": "pipelines/huazi/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

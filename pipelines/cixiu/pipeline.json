@@ -1,0 +1,34 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "cixiu",
+    "no": "158",
+    "name_zh": "刺绣",
+    "name_en": "Hand Embroidery",
+    "station": "craft",
+    "station_no": "03",
+    "tagline": "棉线在平纹亚麻上一针针走过：枝用轮廓绣、叶用缎面绣、花心最后打结。",
+    "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/cixiu.py",
+    "status": "live",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "anidoodle v0.9.x（2026-11 快照，Apache-2.0）（画法参考，代码自研，运行时不依赖上游）",
+    "upstream": "https://github.com/alexgreensh/anidoodle",
+    "style_slug": "embroidery",
+    "medium": "棉线绣在平纹亚麻上，绷在榉木绣绷里；针脚方向决定形体，线本身带丝光。",
+    "workflow": "绣法分工：枝是轮廓绣（针针相连往前拱），叶是缎面绣（平行针铺满），花心是结粒绣。",
+    "quality": "★★★",
+    "engine": "runtime/render.py",
+    "license": "Apache-2.0（仅读媒介描述，未复制上游代码与素材）",
+    "runtime": "pipelines/cixiu/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

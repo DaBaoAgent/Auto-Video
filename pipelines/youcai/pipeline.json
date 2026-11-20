@@ -1,0 +1,34 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "youcai",
+    "no": "157",
+    "name_zh": "梦境釉彩",
+    "name_en": "Dream Glaze",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "树脂稀释的油彩一层层罩上去，看不见笔触，边缘一律硬，只有一束很低的光。",
+    "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/youcai.py",
+    "status": "live",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "anidoodle v0.9.x（2026-11 快照，Apache-2.0）（画法参考，代码自研，运行时不依赖上游）",
+    "upstream": "https://github.com/alexgreensh/anidoodle",
+    "style_slug": "dreamGlaze",
+    "medium": "树脂稀释的油画罩染，极软的细笔在白底上薄涂；每个形体像被逐像素修过，边缘硬。",
+    "workflow": "罩染的逻辑：不是画一笔颜色，而是同一块地方反复罩不同透明的层，让色自己长出来。",
+    "quality": "★★★",
+    "engine": "runtime/render.py",
+    "license": "Apache-2.0（仅读媒介描述，未复制上游代码与素材）",
+    "runtime": "pipelines/youcai/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

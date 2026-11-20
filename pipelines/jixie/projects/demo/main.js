@@ -23,28 +23,28 @@ const SPEC = {
     },
     {
       "kind": "rect",
-      "x": 324.5,
+      "x": 288.4,
       "y": 590.5,
-      "w": 503.0,
+      "w": 575.2,
       "h": 84.7,
       "fill": true,
       "lw": 2
     },
     {
       "kind": "rect",
-      "x": 432.7,
-      "y": 318.1,
-      "w": 286.5,
-      "h": 272.4,
+      "x": 458.4,
+      "y": 335.0,
+      "w": 235.3,
+      "h": 255.5,
       "fill": false,
       "lw": 2.6
     },
     {
       "kind": "circle",
-      "x": 476.5,
-      "y": 89.3,
-      "w": 199.0,
-      "h": 199.0,
+      "x": 507.0,
+      "y": 176.3,
+      "w": 138.0,
+      "h": 138.0,
       "fill": false,
       "lw": 2
     },
@@ -52,31 +52,31 @@ const SPEC = {
       "kind": "circle",
       "x": 1190.4,
       "y": 108.0,
-      "w": 274.0,
-      "h": 274.0,
+      "w": 244.5,
+      "h": 244.5,
       "fill": false,
       "lw": 2
     },
     {
       "kind": "gear",
-      "x": 1327.4,
-      "y": 245.0,
-      "r": 63.0
+      "x": 1312.7,
+      "y": 230.3,
+      "r": 56.2
     },
     {
       "kind": "trace",
       "pts": [
         [
-          1163.0,
-          277.9
+          1165.9,
+          259.6
         ],
         [
-          1075.3,
-          360.1
+          1087.7,
+          332.9
         ],
         [
           929.3,
-          440.7
+          450.0
         ]
       ],
       "color": "#9be8a0",
@@ -113,7 +113,7 @@ const SPEC = {
       "kind": "label",
       "x": 1204.4,
       "y": 599.4,
-      "text": "TOL ±0.2",
+      "text": "SCALE 1:12",
       "size": 20,
       "color": "#d8ecff"
     },
@@ -121,7 +121,7 @@ const SPEC = {
       "kind": "label",
       "x": 1204.4,
       "y": 691.2,
-      "text": "C-03",
+      "text": "B-02",
       "size": 20,
       "color": "#d8ecff"
     },
@@ -129,7 +129,7 @@ const SPEC = {
       "kind": "label",
       "x": 1204.4,
       "y": 783.0,
-      "text": "REF 04",
+      "text": "REF 11",
       "size": 20,
       "color": "#d8ecff"
     },
@@ -139,18 +139,18 @@ const SPEC = {
       "y": 799.2,
       "w": 883.2,
       "h": 0,
-      "text": "670 mm"
+      "text": "870 mm"
     },
     {
       "kind": "label",
       "x": 134.4,
       "y": 1026.0,
-      "text": "DETAIL C",
+      "text": "SECTION B-B",
       "size": 22
     }
   ],
   "gridGap": 80,
-  "sheet": "AV·DWG 03",
+  "sheet": "AV·DWG 01",
   "paperMode": false,
   "scan": false,
   "label": {

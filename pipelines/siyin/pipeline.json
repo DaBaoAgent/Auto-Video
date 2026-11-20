@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "siyin",
+    "no": "64",
     "name_zh": "丝印旅行海报",
     "name_en": "Silkscreen Travel Poster",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/siyin.py",
+    "status": "live",
     "sample": {
       "file": "siyin silkscreen-poster.mp4",
       "title": "绕远路回家",
       "seconds": 50.0
     },
-    "no": "64",
     "updated": "2026-11-20"
   },
   "spec": {

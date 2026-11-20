@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "boli",
+    "no": "58",
     "name_zh": "彩色玻璃窗",
     "name_en": "Stained Glass",
     "station": "craft",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/boli.py",
+    "status": "live",
     "sample": {
       "file": "boli stained-glass.mp4",
       "title": "东窗之龙",
       "seconds": 56.5
     },
-    "no": "58",
     "updated": "2026-11-20"
   },
   "spec": {

@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "anjian",
+    "no": "82",
     "name_zh": "安检 X 光",
     "name_en": "Security X-ray",
     "station": "diagram",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/anjian.py",
+    "status": "live",
     "sample": {
       "file": "anjian security-xray.mp4",
       "title": "安检口的夜班",
       "seconds": 51.9
     },
-    "no": "82",
     "updated": "2026-11-20"
   },
   "spec": {

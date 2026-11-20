@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "mengtai",
+    "no": "47",
     "name_zh": "构成主义蒙太奇",
     "name_en": "Constructivist Montage",
     "station": "live",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/mengtai.py",
+    "status": "live",
     "sample": {
       "file": "mengtai kino-montage.mp4",
       "title": "410 天",
       "seconds": 60.0
     },
-    "no": "47",
     "updated": "2026-11-20"
   },
   "spec": {

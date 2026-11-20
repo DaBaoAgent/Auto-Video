@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "shiwu",
+    "no": "116",
     "name_zh": "数据实物化",
     "name_en": "Data Physicalization",
     "station": "map",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/shiwu.py",
+    "status": "live",
     "sample": {
       "file": "shiwu data-physical.mp4",
       "title": "两条螺旋",
       "seconds": 39.4
     },
-    "no": "116",
     "updated": "2026-11-20"
   },
   "spec": {

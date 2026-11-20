@@ -1,0 +1,120 @@
+{
+  "schema": "auto-video/mg-styles-map@1",
+  "upstream": "https://github.com/vincentwei1021/mg-styles-15",
+  "ver": "2026-10 快照（MIT）",
+  "license": "MIT",
+  "note": "唯一判定口径：已迁移 / 同族等价 / 新接入。同族指媒介与手法都能被现有管线覆盖。",
+  "styles": [
+    {
+      "slug": "05-cel-boil",
+      "name_zh": "逐帧手绘 / 线条沸腾",
+      "name_en": "Cel boil",
+      "verdict": "migrated",
+      "match": "shouhui 逐帧手绘（纸纹、墨线 boil 已覆盖）"
+    },
+    {
+      "slug": "03-isometric",
+      "name_zh": "等轴 2.5D",
+      "name_en": "Isometric",
+      "verdict": "migrated",
+      "match": "dengju 等轴 2.5D / isometric 等距微缩"
+    },
+    {
+      "slug": "01-flat-vector",
+      "name_zh": "扁平矢量",
+      "name_en": "Flat vector",
+      "verdict": "migrated",
+      "match": "shiliang 扁平矢量"
+    },
+    {
+      "slug": "02-line-art",
+      "name_zh": "线条动画（一笔画）",
+      "name_en": "Line art",
+      "verdict": "migrated",
+      "match": "yibi 一笔画"
+    },
+    {
+      "slug": "04-3d-render",
+      "name_zh": "3D 渲染系",
+      "name_en": "3D render",
+      "verdict": "same-family",
+      "match": "chanpin 玻璃质感产品 / pikesi 皮克斯三维（三维材质与灯光已覆盖）"
+    },
+    {
+      "slug": "08-morph",
+      "name_zh": "形变动画",
+      "name_en": "Morph",
+      "verdict": "new",
+      "match": "xingbian"
+    },
+    {
+      "slug": "19-paperclip",
+      "name_zh": "粗描边贴纸人科普",
+      "name_en": "Sticker explainer",
+      "verdict": "same-family",
+      "match": "huixingzhen 回形针风（贴纸化 + 图表 + 科普同一族）"
+    },
+    {
+      "slug": "22-hud",
+      "name_zh": "赛博朋克 HUD / FUI",
+      "name_en": "Cyber HUD",
+      "verdict": "migrated",
+      "match": "xianshiqi 赛博 HUD"
+    },
+    {
+      "slug": "06-collage",
+      "name_zh": "拼贴剪贴",
+      "name_en": "Collage cutout",
+      "verdict": "new",
+      "match": "pintie"
+    },
+    {
+      "slug": "12-aurora-glass",
+      "name_zh": "弥散渐变 / 玻璃拟态",
+      "name_en": "Aurora glassmorphism",
+      "verdict": "same-family",
+      "match": "fabu 暗色科技发布（玻璃卡片 + 渐变底同一族）"
+    },
+    {
+      "slug": "09-bauhaus",
+      "name_zh": "几何构成 / 包豪斯",
+      "name_en": "Bauhaus",
+      "verdict": "migrated",
+      "match": "baohao 包豪斯几何"
+    },
+    {
+      "slug": "10-synthwave",
+      "name_zh": "复古 80s Synthwave / VHS",
+      "name_en": "Synthwave VHS",
+      "verdict": "migrated",
+      "match": "xuni 合成波 VHS"
+    },
+    {
+      "slug": "20-pixel",
+      "name_zh": "像素风",
+      "name_en": "Pixel art",
+      "verdict": "migrated",
+      "match": "xiangsu 像素风 / xiangsu2 2.5D 像素 / luping 像素小人"
+    },
+    {
+      "slug": "07-liquid",
+      "name_zh": "液态流动",
+      "name_en": "Liquid motion",
+      "verdict": "new",
+      "match": "yetai"
+    },
+    {
+      "slug": "18-hanazi",
+      "name_zh": "综艺花字（9:16）",
+      "name_en": "Variety show captions",
+      "verdict": "new",
+      "match": "huazi"
+    }
+  ],
+  "new": [
+    "pintie",
+    "yetai",
+    "xingbian",
+    "huazi"
+  ]
+}

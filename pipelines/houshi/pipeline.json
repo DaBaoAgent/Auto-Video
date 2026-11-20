@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "houshi",
+    "no": "92",
     "name_zh": "后室录像带",
     "name_en": "Liminal Found Footage",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/houshi.py",
+    "status": "live",
     "sample": {
       "file": "houshi backrooms.mp4",
       "title": "夜班入职培训",
       "seconds": 59.7
     },
-    "no": "92",
     "updated": "2026-11-20"
   },
   "spec": {

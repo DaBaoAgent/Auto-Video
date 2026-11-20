@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "weixing",
+    "no": "111",
     "name_zh": "卫星简报",
     "name_en": "Satellite Briefing",
     "station": "map",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/weixing.py",
+    "status": "live",
     "sample": {
       "file": "weixing satellite-briefing.mp4",
       "title": "地图上还写着海",
       "seconds": 37.8
     },
-    "no": "111",
     "updated": "2026-11-20"
   },
   "spec": {

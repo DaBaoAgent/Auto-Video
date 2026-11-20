@@ -42,7 +42,7 @@ def main() -> int:
             "no": f"{i:02d}",
             "name_zh": p["name_zh"],
             "name_en": p["name_en"],
-            "title": (p.get("sample") or {}).get("title", ""),
+            "title": m.get("display_title") or (p.get("sample") or {}).get("title", ""),
             "engine": p["engine"],
             "tagline": p["tagline"],
             "aspect": m.get("aspect") or p["aspect"] or "16:9",
@@ -51,8 +51,8 @@ def main() -> int:
             "clip": m.get("clip_seconds"),
             "mp4": m.get("mp4"),
             "poster": m.get("poster"),
-            "note": p.get("sample_note"),
-            "badge": p["engine"],
+            "note": None if m.get("display_title") and m.get("mp4") else p.get("sample_note"),
+            "badge": (m.get("badge") if m.get("display_title") else None) or p["engine"],
             "doc": DOC_URL.format(id=p["id"]),
         })
 

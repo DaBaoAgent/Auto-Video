@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "xiangxing",
+    "no": "70",
     "name_zh": "象形运动图形",
     "name_en": "Pictogram Motion",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/xiangxing.py",
+    "status": "live",
     "sample": {
       "file": "xiangxing pictogram-motion.mp4",
       "title": "被落下的伞",
       "seconds": 50.0
     },
-    "no": "70",
     "updated": "2026-11-20"
   },
   "spec": {

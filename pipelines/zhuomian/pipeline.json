@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "zhuomian",
+    "no": "97",
     "name_zh": "桌面卡片穿梭",
     "name_en": "Tabletop App Flythrough",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/zhuomian.py",
+    "status": "live",
     "sample": {
       "file": "zhuomian desktop-flythrough.mp4",
       "title": "叮之前",
       "seconds": 60.0
     },
-    "no": "97",
     "updated": "2026-11-20"
   },
   "spec": {

@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "chaijie",
+    "no": "74",
     "name_zh": "产品拆解",
     "name_en": "Exploded Teardown",
     "station": "diagram",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/chaijie.py",
+    "status": "live",
     "sample": {
       "file": "chaijie teardown.mp4",
       "title": "二十一键",
       "seconds": 38.8
     },
-    "no": "74",
     "updated": "2026-11-20"
   },
   "spec": {

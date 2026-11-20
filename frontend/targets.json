@@ -515,6 +515,170 @@
     "yugao": {
       "render": null,
       "reason": "已本地封装 runtime/ 与 template/，可直接 new → render；尚未拆成数据驱动模板，frontend 只灌文案与配音"
+    },
+    "dongxue": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "aiji": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "xila": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "pangbei": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "wenyi": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "yinxiang": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "fangao": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "muxia": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "liti2": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "guangzhui": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "kelimu": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "mengke": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "dunhuang": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "caojian": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "dali": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "huopu": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "jibuli": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "xiula": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "madisi": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "halin": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "lunbo": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "xinhai": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "bijia": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "guaerdi": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "luolun": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "keer": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "gaogeng": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "xiajia": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "bosi": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "nanfang": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "pikesi": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "tanbi": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "youcai": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "cixiu": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "minjian": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "diduo": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "yuanzhu": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "pintie": {
+      "render": null,
+      "reason": "拼贴剪贴：pintie/scripts/pintie.py 直接出片（报底/剪片/定格 12fps），题材换成句子表即可"
+    },
+    "yetai": {
+      "render": null,
+      "reason": "液态流动：yetai/scripts/yetai.py 直接出片（落滴/融合/波浪/字标）"
+    },
+    "xingbian": {
+      "render": null,
+      "reason": "形变动画：xingbian/scripts/xingbian.py 直接出片（A→圆→B 轮廓插值）"
+    },
+    "huazi": {
+      "render": null,
+      "reason": "综艺花字：huazi/scripts/huazi.py 出 1080×1920 竖屏，底画+花字一起渲"
     }
   }
 }

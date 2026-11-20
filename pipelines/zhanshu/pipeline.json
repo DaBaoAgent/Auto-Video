@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "zhanshu",
+    "no": "48",
     "name_zh": "体育战术板",
     "name_en": "Sports Telestrator",
     "station": "live",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/zhanshu.py",
+    "status": "live",
     "sample": {
       "file": "zhanshu telestrator.mp4",
       "title": "定格",
       "seconds": 54.4
     },
-    "no": "48",
     "updated": "2026-11-20"
   },
   "spec": {

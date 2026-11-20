@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "shuju",
+    "no": "114",
     "name_zh": "数据叙事",
     "name_en": "Data Storytelling",
     "station": "map",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/shuju.py",
+    "status": "live",
     "sample": {
       "file": "shuju dataviz.mp4",
       "title": "一百个夏天",
       "seconds": 50.0
     },
-    "no": "114",
     "updated": "2026-11-20"
   },
   "spec": {

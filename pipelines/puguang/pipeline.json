@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "puguang",
+    "no": "94",
     "name_zh": "双重曝光",
     "name_en": "Double Exposure",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/puguang.py",
+    "status": "live",
     "sample": {
       "file": "puguang double-exposure.mp4",
       "title": "山海",
       "seconds": 50.5
     },
-    "no": "94",
     "updated": "2026-11-20"
   },
   "spec": {

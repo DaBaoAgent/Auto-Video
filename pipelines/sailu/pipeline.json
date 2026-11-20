@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "sailu",
+    "no": "83",
     "name_zh": "80 年代赛璐璐动画",
     "name_en": "80s Cel Anime",
     "station": "toon",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/sailu.py",
+    "status": "live",
     "sample": {
       "file": "sailu cel-anime-80s.mp4",
       "title": "城市灯火，1987",
       "seconds": 59.0
     },
-    "no": "83",
     "updated": "2026-11-20"
   },
   "spec": {

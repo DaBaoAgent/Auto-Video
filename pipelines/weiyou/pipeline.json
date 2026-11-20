@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "weiyou",
+    "no": "88",
     "name_zh": "微游戏快闪",
     "name_en": "Microgame Frenzy",
     "station": "toon",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/weiyou.py",
+    "status": "live",
     "sample": {
       "file": "weiyou microgame.mp4",
       "title": "五秒宇航员",
       "seconds": 59.8
     },
-    "no": "88",
     "updated": "2026-11-20"
   },
   "spec": {

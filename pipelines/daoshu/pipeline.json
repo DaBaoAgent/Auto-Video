@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "daoshu",
+    "no": "44",
     "name_zh": "实时倒计时分屏",
     "name_en": "Live Countdown Split-screen",
     "station": "live",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/daoshu.py",
+    "status": "live",
     "sample": {
       "file": "daoshu countdown.mp4",
       "title": "自己倒数",
       "seconds": 59.5
     },
-    "no": "44",
     "updated": "2026-11-20"
   },
   "spec": {

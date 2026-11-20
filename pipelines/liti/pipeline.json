@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "liti",
+    "no": "107",
     "name_zh": "纸片立体书",
     "name_en": "Paper Pop-up Book",
     "station": "d3",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/liti.py",
+    "status": "live",
     "sample": {
       "file": "liti paper-popup.mp4",
       "title": "小精灵冒险记",
       "seconds": 133.0
     },
-    "no": "107",
     "updated": "2026-11-20"
   },
   "spec": {

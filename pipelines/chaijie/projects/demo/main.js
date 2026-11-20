@@ -23,28 +23,28 @@ const SPEC = {
     },
     {
       "kind": "rect",
-      "x": 315.3,
+      "x": 331.3,
       "y": 590.5,
-      "w": 521.4,
+      "w": 489.3,
       "h": 84.7,
       "fill": true,
       "lw": 2
     },
     {
       "kind": "rect",
-      "x": 459.8,
-      "y": 342.9,
-      "w": 232.4,
-      "h": 247.6,
+      "x": 464.6,
+      "y": 319.2,
+      "w": 222.8,
+      "h": 271.4,
       "fill": false,
       "lw": 2.6
     },
     {
       "kind": "circle",
-      "x": 498.3,
-      "y": 164.1,
-      "w": 155.5,
-      "h": 155.5,
+      "x": 508.9,
+      "y": 164.8,
+      "w": 134.2,
+      "h": 134.2,
       "fill": false,
       "lw": 2
     },
@@ -52,31 +52,31 @@ const SPEC = {
       "kind": "circle",
       "x": 1190.4,
       "y": 108.0,
-      "w": 229.0,
-      "h": 229.0,
+      "w": 279.1,
+      "h": 279.1,
       "fill": false,
       "lw": 2
     },
     {
       "kind": "gear",
-      "x": 1304.9,
-      "y": 222.5,
-      "r": 52.7
+      "x": 1330.0,
+      "y": 247.6,
+      "r": 64.2
     },
     {
       "kind": "trace",
       "pts": [
         [
-          1167.5,
-          250.0
+          1162.5,
+          281.0
         ],
         [
-          1094.2,
-          318.7
+          1073.2,
+          364.8
         ],
         [
           929.3,
-          454.3
+          441.3
         ]
       ],
       "color": "#ffb36b",
@@ -129,7 +129,7 @@ const SPEC = {
       "kind": "label",
       "x": 1204.4,
       "y": 783.0,
-      "text": "REF 11",
+      "text": "REF 04",
       "size": 20,
       "color": "#d6e9ff"
     },
@@ -139,20 +139,20 @@ const SPEC = {
       "y": 799.2,
       "w": 883.2,
       "h": 0,
-      "text": "635 mm"
+      "text": "382 mm"
     },
     {
       "kind": "label",
       "x": 134.4,
       "y": 1026.0,
-      "text": "DETAIL C",
+      "text": "PLAN 01",
       "size": 22
     }
   ],
   "gridGap": 110,
-  "sheet": "AV·DWG 02",
+  "sheet": "AV·DWG 03",
   "paperMode": false,
-  "scan": true,
+  "scan": false,
   "label": {
     "zh": "产品拆解",
     "en": "Exploded Teardown",

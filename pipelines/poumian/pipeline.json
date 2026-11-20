@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "poumian",
+    "no": "75",
     "name_zh": "线稿剖面图解",
     "name_en": "Line-Art Cutaway",
     "station": "diagram",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/poumian.py",
+    "status": "live",
     "sample": {
       "file": "poumian hardcore-info.mp4",
       "title": "你手机的天线在哪",
       "seconds": 52.0
     },
-    "no": "75",
     "updated": "2026-11-20"
   },
   "spec": {

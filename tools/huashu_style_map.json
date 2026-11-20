@@ -1,0 +1,517 @@
+{
+  "note": "huashu-art-motion 53 张风格配方 → Auto-Video 处置表（唯一事实来源）。import = 新建管线，id 取中文名头两个字双拼，撞车按仓库习惯加序号（liti2）；already = 本仓库已有同一条画法的管线；equivalent = 画法/交付片型与已有管线重复；family = 上游自己就是同族变体，只保留代表那条。station 是交付工位，不是画法分类。",
+  "source": "https://github.com/alchaincyf/huashu-art-motion",
+  "source_version": "v1.3.1",
+  "engine_path": "vendor/huashu-art-motion/engine",
+  "updated": "2026-11-20",
+  "styles": {
+    "01_cave": {
+      "id": "dongxue",
+      "station": "craft",
+      "name_zh": "洞穴岩画",
+      "name_en": "Cave Painting",
+      "scene": "01_cave",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "噪声岩壁作底、炭点毛边勾形，赭石真的吃进岩面；野牛两姿态交替跑，火光一直在摇。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "02_egypt": {
+      "id": "aiji",
+      "station": "craft",
+      "name_zh": "埃及墓室壁画",
+      "name_en": "Egyptian Wall Painting",
+      "scene": "02_egypt",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "侧脸正面眼、平涂细勾线、手写象形字；圣甲虫推着太阳，阿顿的光线一开一合。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "03_greek": {
+      "id": "xila",
+      "station": "craft",
+      "name_zh": "古希腊黑绘陶",
+      "name_en": "Attic Black-Figure",
+      "scene": "03_greek",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "黑剪影配陶土色刻线，紫红带点白；回纹带反向滚动，陶瓶像滚筒一样转面。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "04_roman": {
+      "id": "pangbei",
+      "station": "craft",
+      "name_zh": "庞贝马赛克",
+      "name_en": "Pompeii Mosaic",
+      "scene": "04_roman",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "距离场沿轮廓排石块，灰浆按加权 Voronoi 长出来；颜色顺着波浪纹一圈圈流过。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "05_gothic": {
+      "disposition": "equivalent",
+      "target": "jinbo",
+      "name_zh": "哥特泥金手抄本",
+      "reason": "逐像素金箔＋压花高光的泥金手抄本，与 jinbo（金箔彩绘）同一条画法；保留 jinbo。"
+    },
+    "06_renaissance": {
+      "id": "wenyi",
+      "station": "hand",
+      "name_zh": "文艺复兴晕涂",
+      "name_en": "High Renaissance Sfumato",
+      "scene": "06_renaissance",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "整层轻模糊压一层清晰层，龟裂纹与黄釉都在；窗口神光里，扑翼机飞过河面碎光。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "08_impressionism": {
+      "id": "yinxiang",
+      "station": "hand",
+      "name_zh": "印象派",
+      "name_en": "Impressionism",
+      "scene": "08_impressionism",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "区域粉彩短笔触、位置固定；光斑漂移明灭，罂粟在摇，云在走，丝带在飘。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "09_postimp": {
+      "id": "fangao",
+      "station": "hand",
+      "name_zh": "梵高后印象",
+      "name_en": "Van Gogh Post-Impressionism",
+      "scene": "09_postimp",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "流场笔触分三遍铺，墙竖长、地透视；星空漩涡、灯晕外扩，方向场像火苗一样摇曳。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "10_nouveau": {
+      "id": "muxia",
+      "station": "graphic",
+      "name_zh": "慕夏新艺术",
+      "name_en": "Mucha Art Nouveau",
+      "scene": "10_nouveau",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "可变线宽外粗内细、剪影错位垫底；太阳升起、光环转、卷发成波。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "11_cubism": {
+      "id": "liti2",
+      "station": "hand",
+      "name_zh": "立体主义",
+      "name_en": "Analytical Cubism",
+      "scene": "11_cubism",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "半透明渐变面叠出空间，切面器不裁剪三角；CAFÉ 字母跳换、窗格碎面滑动。",
+      "status": "live",
+      "disposition": "import",
+      "id_note": "liti 已被纸片立体书占用，按 shuimo2 / labi2 的习惯加 2。"
+    },
+    "12_bauhaus": {
+      "disposition": "equivalent",
+      "target": "baohao",
+      "name_zh": "包豪斯",
+      "reason": "纯几何构成＋施莱默人偶，与 baohao（包豪斯几何）同族等价；保留 baohao。"
+    },
+    "13_pop": {
+      "disposition": "equivalent",
+      "target": "bopu",
+      "name_zh": "波普艺术",
+      "reason": "本戴点＋粗黑描边的利希滕斯坦波普，与 bopu（波普艺术）同族等价；保留 bopu。"
+    },
+    "14_8bit": {
+      "disposition": "equivalent",
+      "target": "xiangsu",
+      "name_zh": "8-bit 像素",
+      "reason": "240×135 逐像素、14 色板，与 xiangsu / xiangsu2 / weiyou 同族等价；保留 xiangsu。"
+    },
+    "15_raytrace": {
+      "id": "guangzhui",
+      "station": "screen",
+      "name_zh": "光追 CGI",
+      "name_en": "Ray-traced CGI",
+      "scene": "15_raytrace",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "统一塑料着色、逐像素棋盘倒影、铬球环境映射；绿色线框扫成渲染线。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "16_2026": {
+      "disposition": "equivalent",
+      "target": "keli",
+      "name_zh": "当代扁平插画",
+      "reason": "颗粒点彩密度＋无描边色块的当代扁平插画，与 keli（扁平颗粒插画）同族等价；保留 keli。"
+    },
+    "17_ink": {
+      "disposition": "equivalent",
+      "target": "shuimo",
+      "name_zh": "中国水墨写意",
+      "reason": "毛笔飞白＋墨晕＋留白＋钤印，与 shuimo / shuimo2 同族等价；保留 shuimo。"
+    },
+    "18_klimt": {
+      "id": "kelimu",
+      "station": "craft",
+      "name_zh": "克里姆特金色",
+      "name_en": "Klimt Golden Phase",
+      "scene": "18_klimt",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "金箔逐像素拉丝压花，螺旋与眼形纹样铺满；袍上的眼睛轮流眨，金屑在飘。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "19_munch": {
+      "id": "mengke",
+      "station": "hand",
+      "name_zh": "蒙克表现主义",
+      "name_en": "Munch Expressionism",
+      "scene": "19_munch",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "长弯流线笔沿流场走二三十步，整幅按行正弦扭曲；血色天空从上往下压。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "20_dunhuang": {
+      "id": "dunhuang",
+      "station": "craft",
+      "name_zh": "敦煌壁画",
+      "name_en": "Dunhuang Mural",
+      "scene": "20_dunhuang",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "土红底、矿物色，剥落只发生在背景；飞天飘带扫过，旧画一层层往下落。",
+      "status": "live",
+      "disposition": "import",
+      "id_note": "55_dunhuang 是同一风格的重做研究版，同族只留这张实做。"
+    },
+    "21_kusama": {
+      "id": "caojian",
+      "station": "graphic",
+      "name_zh": "草间弥生波点",
+      "name_en": "Kusama Polka Dots",
+      "scene": "21_kusama",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "手绘不规则圆按六角网格取模；波点从猫身上一圈圈胀缩，镜屋一直往外长。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "22_constructivism": {
+      "disposition": "equivalent",
+      "target": "mengtai",
+      "name_zh": "俄国构成主义",
+      "reason": "灰度网点＋红楔黑圆＋西里尔方块字，与 mengtai（构成主义蒙太奇）同族等价；保留 mengtai。"
+    },
+    "23_dali": {
+      "id": "dali",
+      "station": "hand",
+      "name_zh": "达利超现实",
+      "name_en": "Dali Surrealism",
+      "scene": "23_dali",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "软钟变形、长影子剪切仿射；钟往下流，长腿象走，蚂蚁绕着表盘转。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "24_hopper": {
+      "id": "huopu",
+      "station": "hand",
+      "name_zh": "霍普美国现实主义",
+      "name_en": "Hopper American Realism",
+      "scene": "24_hopper",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "亮版与暗版两套光影按光块裁切，硬边光斑缓慢扫过；墙上的人影同步喝茶。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "25_ghibli": {
+      "id": "jibuli",
+      "station": "toon",
+      "name_zh": "吉卜力水彩",
+      "name_en": "Ghibli Watercolor",
+      "scene": "25_ghibli",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "水彩洗染透明叠色、留水痕边，角色走赛璐璐月牙影；纱帘被风鼓起，草叶成片摆。",
+      "status": "live",
+      "disposition": "import",
+      "id_note": "54_ghibli_lab 是同一方向的研究版，同族只留这张实做。"
+    },
+    "26_vaporwave": {
+      "disposition": "equivalent",
+      "target": "xuni",
+      "name_zh": "蒸汽波 / 赛博霓虹",
+      "reason": "霓虹双色辉光＋透视网格＋VHS 通道分离，与 xuni（合成波 VHS）同族等价；保留 xuni。"
+    },
+    "27_kirby": {
+      "disposition": "equivalent",
+      "target": "bopu",
+      "name_zh": "漫威 Kirby 漫画",
+      "reason": "四色网点、套色错位、黑块羽化排线的美式漫画印刷，与 bopu / wangdian 同族；保留 bopu。"
+    },
+    "28_monet": {
+      "disposition": "family",
+      "target": "08_impressionism",
+      "name_zh": "莫奈睡莲",
+      "reason": "短笔触水面倒影仍是印象派同一画法，08_impressionism 已收；不按画家再开一张卡。"
+    },
+    "29_seurat": {
+      "id": "xiula",
+      "station": "hand",
+      "name_zh": "修拉点彩",
+      "name_en": "Seurat Pointillism",
+      "scene": "29_seurat",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "21 色纯色板按比例并置，补色点等大；画面结晶成圆点，点自己在呼吸。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "30_matisse": {
+      "id": "madisi",
+      "station": "craft",
+      "name_zh": "马蒂斯剪纸",
+      "name_en": "Matisse Paper Cut-outs",
+      "scene": "30_matisse",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "剪刀边故意不规则，钉纸投影、饱和平涂；纸片飘动，海藻摆动。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "31_haring": {
+      "id": "halin",
+      "station": "graphic",
+      "name_zh": "凯斯·哈林",
+      "name_en": "Keith Haring",
+      "scene": "31_haring",
+      "film": "gallery",
+      "quality": "★★★",
+      "tagline": "粗黑等宽线配放射动作线；小人按 8fps 硬切跳舞，一切都跟 BPM 弹跳。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "32_rembrandt": {
+      "id": "lunbo",
+      "station": "hand",
+      "name_zh": "伦勃朗明暗",
+      "name_en": "Rembrandt Chiaroscuro",
+      "scene": "32_rembrandt",
+      "film": "gallery",
+      "quality": "★",
+      "tagline": "光照图整幅相乘，窗光加烛光；光柱里浮尘，云影让窗光一明一暗。",
+      "status": "beta",
+      "disposition": "import",
+      "id_note": "上游自评 ★（人物扁平），先按 beta 入库，等角色过同一套明暗再升 live。"
+    },
+    "33_rubberhose": {
+      "disposition": "equivalent",
+      "target": "goldenage",
+      "name_zh": "1930 橡皮管卡通",
+      "reason": "派切眼、面条臂、白手套、12fps 步进，与 goldenage（黄金卡通）同族等价；保留 goldenage。"
+    },
+    "34_shadowpuppet": {
+      "disposition": "equivalent",
+      "target": "shadow",
+      "name_zh": "中国皮影",
+      "reason": "半透明牛皮镂空、铆钉关节、幕后油灯，与 shadow / piying 同族等价；保留 shadow。"
+    },
+    "35_shinkai": {
+      "id": "xinhai",
+      "station": "toon",
+      "name_zh": "新海诚光影",
+      "name_en": "Makoto Shinkai Light",
+      "scene": "35_shinkai",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "积雨云、丁达尔光柱、赛璐璐硬阴影带；光粒在飘，云在移，斜向扫光进场。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "36_picasso_blue": {
+      "id": "bijia",
+      "station": "hand",
+      "name_zh": "毕加索蓝色时期",
+      "name_en": "Picasso Blue Period",
+      "scene": "36_picasso_blue",
+      "film": "gallery",
+      "quality": "★★",
+      "tagline": "单色蓝调、宽笔触、普鲁士蓝粗轮廓；人体拉长，颜色被抽成蓝再宽刷一遍。",
+      "status": "live",
+      "disposition": "import"
+    },
+    "37_rick_morty": {
+      "disposition": "equivalent",
+      "target": "kehuan",
+      "name_zh": "Rick & Morty 风格",
+      "reason": "圆角深灰细描边、平涂、斑驳背景的科幻情景喜剧卡通，与 kehuan 同族等价；保留 kehuan。"
+    },
+    "38_giotto": {
+      "disposition": "family",
+      "target": "06_renaissance",
+      "name_zh": "乔托：体块与叙事",
+      "reason": "文艺复兴前夜的体块与叙事，与 06_renaissance 同族；研究配方不单独开卡。"
+    },
+    "39_piero": {
+      "disposition": "family",
+      "target": "06_renaissance",
+      "name_zh": "皮耶罗：几何秩序",
+      "reason": "同一文艺复兴线索里的几何秩序，与 06_renaissance 同族；研究配方不单独开卡。"
+    },
+    "40_raphael": {
+      "disposition": "family",
+      "target": "06_renaissance",
+      "name_zh": "拉斐尔：和谐组织",
+      "reason": "盛期文艺复兴的和谐组织，与 06_renaissance 同族；研究配方不单独开卡。"
+    },
+    "41_michelangelo": {
+      "disposition": "family",
+      "target": "06_renaissance",
+      "name_zh": "米开朗基罗：雕塑性",
+      "reason": "盛期文艺复兴的雕塑性人体，与 06_renaissance 同族；研究配方不单独开卡。"
+    },
+    "42_guardi": {
+      "id": "guaerdi",
+      "station": "hand",
+      "name_zh": "瓜尔迪威尼斯",
+      "name_en": "Guardi Venetian Atmosphere",
+      "scene": "42_guardi",
+      "film": "style_studies",
+      "quality": "研究配方",
+      "tagline": "短促松动的亮笔、断续轮廓，银灰空气把建筑、水与远景连成一体。",
+      "status": "beta",
+      "disposition": "import"
+    },
+    "43_lorenzetti": {
+      "id": "luolun",
+      "station": "hand",
+      "name_zh": "洛伦采蒂空间",
+      "name_en": "Lorenzetti Civic Space",
+      "scene": "43_lorenzetti",
+      "film": "style_studies",
+      "quality": "研究配方",
+      "tagline": "可阅读的社会空间：街道、院落与人群在同一画面里各做各的事。",
+      "status": "beta",
+      "disposition": "import"
+    },
+    "44_cortona": {
+      "id": "keer",
+      "station": "hand",
+      "name_zh": "科尔托纳巴洛克",
+      "name_en": "Cortona Baroque",
+      "scene": "44_cortona",
+      "film": "style_studies",
+      "quality": "研究配方",
+      "tagline": "巴洛克体量与流动群组：人群沿对角线卷上去，像天顶画一样翻涌。",
+      "status": "beta",
+      "disposition": "import"
+    },
+    "45_renoir": {
+      "disposition": "family",
+      "target": "08_impressionism",
+      "name_zh": "雷诺阿：暖冷交织",
+      "reason": "同一印象派短笔触画法，08_impressionism 已收；不按画家再开一张卡。"
+    },
+    "46_pissarro": {
+      "disposition": "family",
+      "target": "08_impressionism",
+      "name_zh": "毕沙罗：生活流动",
+      "reason": "同一印象派短笔触画法，08_impressionism 已收；不按画家再开一张卡。"
+    },
+    "47_sisley": {
+      "disposition": "family",
+      "target": "08_impressionism",
+      "name_zh": "西斯莱：空气与天气",
+      "reason": "同一印象派短笔触画法，08_impressionism 已收；不按画家再开一张卡。"
+    },
+    "48_gauguin": {
+      "id": "gaogeng",
+      "station": "hand",
+      "name_zh": "高更象征色",
+      "name_en": "Gauguin Synthetism",
+      "scene": "48_gauguin",
+      "film": "style_studies",
+      "quality": "研究配方",
+      "tagline": "平面、粗轮廓与象征色；色块不解释光，只解释情绪。",
+      "status": "beta",
+      "disposition": "import"
+    },
+    "49_chagall": {
+      "id": "xiajia",
+      "station": "hand",
+      "name_zh": "夏加尔记忆空间",
+      "name_en": "Chagall Dream Space",
+      "scene": "49_chagall",
+      "film": "style_studies",
+      "quality": "研究配方",
+      "tagline": "记忆空间与情感色彩：人和房子飘起来，颜色比透视更重要。",
+      "status": "beta",
+      "disposition": "import"
+    },
+    "50_ma_yuan": {
+      "disposition": "family",
+      "target": "17_ink",
+      "name_zh": "马远：留白与精练笔墨",
+      "reason": "同一中国水墨画法，17_ink 已判给 shuimo；研究配方不单独开卡。"
+    },
+    "51_persian_miniature": {
+      "id": "bosi",
+      "station": "craft",
+      "name_zh": "波斯细密画",
+      "name_en": "Persian Miniature",
+      "scene": "51_persian_miniature",
+      "film": "style_studies",
+      "quality": "研究配方",
+      "tagline": "层叠空间与精密叙事：平面分层、纹样铺满，每一格都在讲同一件事。",
+      "status": "beta",
+      "disposition": "import"
+    },
+    "52_south_park": {
+      "id": "nanfang",
+      "station": "toon",
+      "name_zh": "南方公园剪纸",
+      "name_en": "South Park Cutout",
+      "scene": "52_south_park",
+      "film": "style_studies",
+      "quality": "研究配方",
+      "tagline": "数字剪纸与有限表演：扁平的纸片人，只靠眉眼的有限动作演戏。",
+      "status": "beta",
+      "disposition": "import"
+    },
+    "53_pixar": {
+      "id": "pikesi",
+      "station": "toon",
+      "name_zh": "皮克斯三维",
+      "name_en": "Pixar 3D",
+      "scene": "53_pixar",
+      "film": "style_studies",
+      "quality": "研究配方",
+      "tagline": "形体、材质与表演：圆润造型、次表面散射，加上挤压拉伸的表演。",
+      "status": "beta",
+      "disposition": "import"
+    },
+    "55_dunhuang": {
+      "disposition": "family",
+      "target": "20_dunhuang",
+      "name_zh": "敦煌壁画（北朝重做）",
+      "reason": "同一敦煌壁画的重做研究版，同族只留 20_dunhuang 的实做。"
+    }
+  }
+}

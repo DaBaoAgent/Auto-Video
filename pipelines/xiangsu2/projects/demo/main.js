@@ -13,24 +13,31 @@ const SPEC = {
   "hero": "#f2c14e",
   "layers": [
     {
-      "base": 269.2,
-      "amp": 66.0,
-      "wave": 220,
+      "base": 179.2,
+      "amp": 81.5,
+      "wave": 180,
       "color": "#dbe9ff",
-      "speed": 5.5
+      "speed": 9.9
     },
     {
-      "base": 223.1,
-      "amp": 98.2,
+      "base": 134.5,
+      "amp": 81.2,
+      "wave": 260,
+      "color": "#122039",
+      "speed": 7.1
+    },
+    {
+      "base": 280.9,
+      "amp": 112.4,
       "wave": 140,
       "color": "#f2c14e",
-      "speed": 12.5
+      "speed": 11.6
     }
   ],
-  "px": 17,
-  "heroX": 0.51,
+  "px": 13,
+  "heroX": 0.47,
   "ground": "#f2c14e",
-  "levels": 8,
+  "levels": 10,
   "label": {
     "zh": "2.5D 像素",
     "en": "2.5D Pixel Art",

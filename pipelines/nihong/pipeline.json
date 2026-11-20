@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "nihong",
+    "no": "104",
     "name_zh": "霓虹灯管",
     "name_en": "Neon Tubes",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/nihong.py",
+    "status": "live",
     "sample": {
       "file": "nihong neon-tubes.mp4",
       "title": "夜宵",
       "seconds": 48.0
     },
-    "no": "104",
     "updated": "2026-11-20"
   },
   "spec": {

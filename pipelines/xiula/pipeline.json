@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "xiula",
+    "no": "142",
+    "name_zh": "修拉点彩",
+    "name_en": "Seurat Pointillism",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "21 色纯色板按比例并置，补色点等大；画面结晶成圆点，点自己在呼吸。",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/xiula.py",
+    "status": "live",
+    "sample": {
+      "file": "xiula huashu-修拉点彩.mp4",
+      "title": "修拉点彩 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "29_seurat",
+    "film": "gallery",
+    "quality": "★★",
+    "engine": "runtime/render.py",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/xiula.mp4",
+    "runtime": "pipelines/xiula/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

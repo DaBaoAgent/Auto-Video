@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "dianlu",
+    "no": "100",
     "name_zh": "电路板",
     "name_en": "Circuit Board",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/dianlu.py",
+    "status": "live",
     "sample": {
       "file": "dianlu circuit-board.mp4",
       "title": "七毫秒",
       "seconds": 60.0
     },
-    "no": "100",
     "updated": "2026-11-20"
   },
   "spec": {

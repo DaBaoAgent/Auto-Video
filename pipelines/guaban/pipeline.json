@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "guaban",
+    "no": "65",
     "name_zh": "刮版画长镜头",
     "name_en": "Scratchboard Long Take",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/guaban.py",
+    "status": "live",
     "sample": {
       "file": "guaban printed-long-take.mp4",
       "title": "三十三只",
       "seconds": 60.0
     },
-    "no": "65",
     "updated": "2026-11-20"
   },
   "spec": {

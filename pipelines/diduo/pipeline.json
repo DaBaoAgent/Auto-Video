@@ -1,0 +1,34 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "diduo",
+    "no": "160",
+    "name_zh": "低多边形",
+    "name_en": "Low-poly",
+    "station": "d3",
+    "station_no": "07",
+    "tagline": "手算的三角网格与一束低阳，面片从远到近长出来，不用任何三维引擎。",
+    "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/diduo.py",
+    "status": "live",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "anidoodle v0.9.x（2026-11 快照，Apache-2.0）（画法参考，代码自研，运行时不依赖上游）",
+    "upstream": "https://github.com/alexgreensh/anidoodle",
+    "style_slug": "lowPoly",
+    "medium": "手工投影的三角网格，每个面按法线与低光夹角平涂；近大远小，面与面互相遮挡。",
+    "workflow": "低多边形的全部表现力在法线：面朝光就亮、背光就冷，不需要贴图也不需要雾。",
+    "quality": "★★★",
+    "engine": "runtime/render.py",
+    "license": "Apache-2.0（仅读媒介描述，未复制上游代码与素材）",
+    "runtime": "pipelines/diduo/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "dianzhen",
+    "no": "99",
     "name_zh": "1-bit 点阵",
     "name_en": "1-bit Dither",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/dianzhen.py",
+    "status": "live",
     "sample": {
       "file": "dianzhen one-bit-dither.mp4",
       "title": "月亮的传真",
       "seconds": 50.0
     },
-    "no": "99",
     "updated": "2026-11-20"
   },
   "spec": {

@@ -1,0 +1,241 @@
+{
+  "schema": "auto-video/anidoodle-map@1",
+  "upstream": "https://github.com/alexgreensh/anidoodle",
+  "ver": "v0.9.x（2026-11 快照，Apache-2.0）",
+  "license": "Apache-2.0",
+  "note": "唯一判定口径：已迁移 / 同族等价 / 新接入。同族指媒介与手法都能被现有管线覆盖，不再单开一条。",
+  "styles": [
+    {
+      "slug": "balloon",
+      "name_zh": "蜡笔",
+      "name_en": "Crayon",
+      "verdict": "migrated",
+      "match": "labi 蜡笔儿童绘本"
+    },
+    {
+      "slug": "blueprint",
+      "name_zh": "蓝晒蓝图",
+      "name_en": "Cyanotype blueprint",
+      "verdict": "migrated",
+      "match": "blueprint 蓝晒工程图"
+    },
+    {
+      "slug": "brokenColour",
+      "name_zh": "分色笔触",
+      "name_en": "Broken colour",
+      "verdict": "same-family",
+      "match": "yinxiang 印象派短笔触（同族：不调匀的并置色）"
+    },
+    {
+      "slug": "charcoalErasure",
+      "name_zh": "炭笔擦画",
+      "name_en": "Charcoal, erased and redrawn",
+      "verdict": "new",
+      "match": "tanbi"
+    },
+    {
+      "slug": "colouredPencil",
+      "name_zh": "彩色铅笔",
+      "name_en": "Coloured pencil",
+      "verdict": "migrated",
+      "match": "caiqian 彩铅科普"
+    },
+    {
+      "slug": "dreamGlaze",
+      "name_zh": "梦境釉彩",
+      "name_en": "Dream glaze",
+      "verdict": "new",
+      "match": "youcai"
+    },
+    {
+      "slug": "embroidery",
+      "name_zh": "刺绣",
+      "name_en": "Hand embroidery",
+      "verdict": "new",
+      "match": "cixiu"
+    },
+    {
+      "slug": "flatVector",
+      "name_zh": "扁平矢量",
+      "name_en": "Flat vector",
+      "verdict": "migrated",
+      "match": "shiliang 扁平矢量"
+    },
+    {
+      "slug": "folkTale",
+      "name_zh": "民间故事绘本",
+      "name_en": "Folk-tale storybook",
+      "verdict": "new",
+      "match": "minjian"
+    },
+    {
+      "slug": "fox",
+      "name_zh": "剪纸拼贴",
+      "name_en": "Cut-paper collage",
+      "verdict": "same-family",
+      "match": "jianzhi 红色窗花剪纸（同族：撕纸剪纸上贴）"
+    },
+    {
+      "slug": "halftone",
+      "name_zh": "报纸网点",
+      "name_en": "Newsprint halftone",
+      "verdict": "migrated",
+      "match": "wangdian 网点档案"
+    },
+    {
+      "slug": "isometric",
+      "name_zh": "等距剖视",
+      "name_en": "Isometric cutaway",
+      "verdict": "migrated",
+      "match": "isometric 等距世界"
+    },
+    {
+      "slug": "koi",
+      "name_zh": "马克笔漫画",
+      "name_en": "Marker comic",
+      "verdict": "same-family",
+      "match": "make 马克笔速写（同族：酒精马克平涂＋粗轮廓）"
+    },
+    {
+      "slug": "lighthouse",
+      "name_zh": "孔版印刷",
+      "name_en": "Risograph",
+      "verdict": "migrated",
+      "match": "kongban 孔版印刷"
+    },
+    {
+      "slug": "lowPoly",
+      "name_zh": "低多边形",
+      "name_en": "Low-poly",
+      "verdict": "new",
+      "match": "diduo"
+    },
+    {
+      "slug": "mellan",
+      "name_zh": "单线雕版",
+      "name_en": "Single-line engraving",
+      "verdict": "same-family",
+      "match": "yibi 一笔画（同族：一笔不断的螺旋线）"
+    },
+    {
+      "slug": "midCentury",
+      "name_zh": "世纪中期水粉",
+      "name_en": "Mid-century gouache",
+      "verdict": "same-family",
+      "match": "wushi 50s 扁平卡通（同族：哑光平涂＋干笔边）"
+    },
+    {
+      "slug": "moonPhases",
+      "name_zh": "粉笔黑板",
+      "name_en": "Chalkboard",
+      "verdict": "migrated",
+      "match": "heiban 黑板粉笔"
+    },
+    {
+      "slug": "paintedOil",
+      "name_zh": "油画",
+      "name_en": "Oil on canvas",
+      "verdict": "migrated",
+      "match": "youhua 油画厚涂"
+    },
+    {
+      "slug": "paperCraft",
+      "name_zh": "纸艺玩具剧场",
+      "name_en": "Toy-theatre paper collage",
+      "verdict": "same-family",
+      "match": "jianzhi 剪纸拼贴（同族：剪纸＋彩绘纸片逐格）"
+    },
+    {
+      "slug": "pixelArt",
+      "name_zh": "像素画",
+      "name_en": "Pixel art",
+      "verdict": "migrated",
+      "match": "xiangsu 像素风"
+    },
+    {
+      "slug": "pocketWatch",
+      "name_zh": "圆珠笔",
+      "name_en": "Ballpoint sketch",
+      "verdict": "new",
+      "match": "yuanzhu"
+    },
+    {
+      "slug": "ranunculus",
+      "name_zh": "铅笔与水彩",
+      "name_en": "Pencil & watercolour",
+      "verdict": "same-family",
+      "match": "pencil 铅笔测试（同族：石墨＋水彩不填满轮廓）"
+    },
+    {
+      "slug": "rubberHose",
+      "name_zh": "橡皮管动画",
+      "name_en": "Rubber hose",
+      "verdict": "same-family",
+      "match": "goldenage 黄金卡通（同族：1930s 墨线＋胶片颗粒）"
+    },
+    {
+      "slug": "scrapbook",
+      "name_zh": "复古剪贴簿",
+      "name_en": "Archival scrapbook",
+      "verdict": "same-family",
+      "match": "fugu 复古版画拼贴"
+    },
+    {
+      "slug": "scratchboard",
+      "name_zh": "刮画",
+      "name_en": "Scratchboard",
+      "verdict": "migrated",
+      "match": "guaban 刮版画"
+    },
+    {
+      "slug": "stipple",
+      "name_zh": "点描",
+      "name_en": "Pen-and-ink stipple",
+      "verdict": "same-family",
+      "match": "xiula 修拉点彩（同族：只有点，没有线）"
+    },
+    {
+      "slug": "storybook",
+      "name_zh": "绘本",
+      "name_en": "Storybook pencil + watercolour",
+      "verdict": "same-family",
+      "match": "shouhui 手绘插画（同族：铅笔＋淡彩角色）"
+    },
+    {
+      "slug": "sumiE",
+      "name_zh": "水墨画",
+      "name_en": "Sumi-e ink painting",
+      "verdict": "migrated",
+      "match": "shuimo 纸本水墨"
+    },
+    {
+      "slug": "toyBrick",
+      "name_zh": "玩具积木",
+      "name_en": "Toy brick",
+      "verdict": "migrated",
+      "match": "jimu 积木玩具"
+    },
+    {
+      "slug": "woodcut",
+      "name_zh": "木刻／浮世绘",
+      "name_en": "Ukiyo-e colour woodblock",
+      "verdict": "migrated",
+      "match": "muke 木刻版画"
+    },
+    {
+      "slug": "wren",
+      "name_zh": "墨线淡彩",
+      "name_en": "Ink & line-wash",
+      "verdict": "same-family",
+      "match": "gangbi 钢笔淡彩（同族：湿洗漫过线再勾）"
+    }
+  ],
+  "new": [
+    "tanbi",
+    "youcai",
+    "cixiu",
+    "minjian",
+    "diduo",
+    "yuanzhu"
+  ]
+}

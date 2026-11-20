@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "jianbao",
+    "no": "81",
     "name_zh": "工程简报板",
     "name_en": "Engineering Briefing Board",
     "station": "diagram",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jianbao.py",
+    "status": "live",
     "sample": {
       "file": "jianbao briefing-board.mp4",
       "title": "船说了算",
       "seconds": 40.0
     },
-    "no": "81",
     "updated": "2026-11-20"
   },
   "spec": {

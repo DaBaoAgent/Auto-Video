@@ -1,0 +1,38 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "fangao",
+    "no": "131",
+    "name_zh": "梵高后印象",
+    "name_en": "Van Gogh Post-Impressionism",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "流场笔触分三遍铺，墙竖长、地透视；星空漩涡、灯晕外扩，方向场像火苗一样摇曳。",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/fangao.py",
+    "status": "live",
+    "sample": {
+      "file": "fangao huashu-梵高后印象.mp4",
+      "title": "梵高后印象 · 上游样片",
+      "seconds": 1.07
+    },
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
+    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+    "style_slug": "09_postimp",
+    "film": "gallery",
+    "quality": "★★★",
+    "engine": "runtime/render.py",
+    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+    "sample_source": "site/media/fangao.mp4",
+    "runtime": "pipelines/fangao/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

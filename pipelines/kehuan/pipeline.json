@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "kehuan",
+    "no": "84",
     "name_zh": "科幻情景喜剧卡通",
     "name_en": "Sci-Fi Sitcom Toon",
     "station": "toon",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/kehuan.py",
+    "status": "live",
     "sample": {
       "file": "kehuan scifi-toon.mp4",
       "title": "跑腿买咖啡",
       "seconds": 57.5
     },
-    "no": "84",
     "updated": "2026-11-20"
   },
   "spec": {

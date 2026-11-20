@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "jiandie",
+    "no": "69",
     "name_zh": "60s 间谍片头",
     "name_en": "60s Spy Title Sequence",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jiandie.py",
+    "status": "live",
     "sample": {
       "file": "jiandie spy-titles.mp4",
       "title": "天鹅绒密码",
       "seconds": 44.1
     },
-    "no": "69",
     "updated": "2026-11-20"
   },
   "spec": {

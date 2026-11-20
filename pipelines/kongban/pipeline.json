@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "kongban",
+    "no": "60",
     "name_zh": "孔版印刷",
     "name_en": "Risograph Print",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/kongban.py",
+    "status": "live",
     "sample": {
       "file": "kongban risograph.mp4",
       "title": "周日骑行",
       "seconds": 40.0
     },
-    "no": "60",
     "updated": "2026-11-20"
   },
   "spec": {

@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "liuchang",
+    "no": "102",
     "name_zh": "流场风线",
     "name_en": "Flow-field Wind Lines",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/liuchang.py",
+    "status": "live",
     "sample": {
       "file": "liuchang flow-field.mp4",
       "title": "摩羯过琼州",
       "seconds": 52.0
     },
-    "no": "102",
     "updated": "2026-11-20"
   },
   "spec": {
