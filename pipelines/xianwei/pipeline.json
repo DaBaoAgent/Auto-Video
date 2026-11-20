@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "xianwei",
+    "no": "80",
     "name_zh": "显微镜下",
     "name_en": "Under the Microscope",
     "station": "diagram",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/xianwei.py",
+    "status": "live",
     "sample": {
       "file": "xianwei microscope.mp4",
       "title": "量出来的蓝",
       "seconds": 39.5
     },
-    "no": "80",
     "updated": "2026-11-20"
   },
   "spec": {

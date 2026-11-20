@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "ruishi",
+    "no": "68",
     "name_zh": "瑞士动态排版",
     "name_en": "Swiss Motion Graphics",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/ruishi.py",
+    "status": "live",
     "sample": {
       "file": "ruishi swiss-motion.mp4",
       "title": "海报的五条规则",
       "seconds": 44.0
     },
-    "no": "68",
     "updated": "2026-11-20"
   },
   "spec": {

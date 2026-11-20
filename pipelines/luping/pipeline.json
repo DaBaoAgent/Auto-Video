@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "luping",
+    "no": "96",
     "name_zh": "像素小人录屏",
     "name_en": "Mascot Screencast",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/luping.py",
+    "status": "live",
     "sample": {
       "file": "luping living-screencast.mp4",
       "title": "Clawd 搬进来了",
       "seconds": 59.4
     },
-    "no": "96",
     "updated": "2026-11-20"
   },
   "spec": {

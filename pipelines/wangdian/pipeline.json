@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "wangdian",
+    "no": "61",
     "name_zh": "网点档案",
     "name_en": "Halftone Dossier",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/wangdian.py",
+    "status": "live",
     "sample": {
       "file": "wangdian halftone-dossier.mp4",
       "title": "胖橘案卷",
       "seconds": 30.0
     },
-    "no": "61",
     "updated": "2026-11-20"
   },
   "spec": {

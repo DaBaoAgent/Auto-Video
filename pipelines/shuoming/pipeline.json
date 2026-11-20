@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "shuoming",
+    "no": "77",
     "name_zh": "说明书插画",
     "name_en": "Instruction Manual Art",
     "station": "diagram",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/shuoming.py",
+    "status": "live",
     "sample": {
       "file": "shuoming instruction-manual.mp4",
       "title": "第十步",
       "seconds": 50.6
     },
-    "no": "77",
     "updated": "2026-11-20"
   },
   "spec": {

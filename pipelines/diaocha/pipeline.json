@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "diaocha",
+    "no": "46",
     "name_zh": "视觉调查",
     "name_en": "Visual Investigation",
     "station": "live",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/diaocha.py",
+    "status": "live",
     "sample": {
       "file": "diaocha visual-investigation.mp4",
       "title": "兴登堡号：四分钟与三十二秒",
       "seconds": 60.0
     },
-    "no": "46",
     "updated": "2026-11-20"
   },
   "spec": {

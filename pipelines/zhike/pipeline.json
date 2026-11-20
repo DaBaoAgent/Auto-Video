@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "zhike",
+    "no": "93",
     "name_zh": "胶片直刻",
     "name_en": "Scratch Film",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/zhike.py",
+    "status": "live",
     "sample": {
       "file": "zhike scratch-film.mp4",
       "title": "夜里往上游",
       "seconds": 52.0
     },
-    "no": "93",
     "updated": "2026-11-20"
   },
   "spec": {

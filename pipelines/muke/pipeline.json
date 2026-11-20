@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "muke",
+    "no": "62",
     "name_zh": "木刻版画",
     "name_en": "Woodcut Print",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/muke.py",
+    "status": "live",
     "sample": {
       "file": "muke woodcut.mp4",
       "title": "铸钟人",
       "seconds": 58.5
     },
-    "no": "62",
     "updated": "2026-11-20"
   },
   "spec": {

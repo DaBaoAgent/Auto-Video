@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "mopian",
+    "no": "91",
     "name_zh": "1920s 默片",
     "name_en": "1920s Silent Film",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/mopian.py",
+    "status": "live",
     "sample": {
       "file": "mopian silent-film.mp4",
       "title": "逃跑的面包",
       "seconds": 54.2
     },
-    "no": "91",
     "updated": "2026-11-20"
   },
   "spec": {

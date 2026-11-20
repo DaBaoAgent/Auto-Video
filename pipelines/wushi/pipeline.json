@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "wushi",
+    "no": "85",
     "name_zh": "50s 扁平卡通",
     "name_en": "Mid-century Cartoon",
     "station": "toon",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/wushi.py",
+    "status": "live",
     "sample": {
       "file": "wushi midcentury-toon.mp4",
       "title": "认识一下 Pip",
       "seconds": 40.0
     },
-    "no": "85",
     "updated": "2026-11-20"
   },
   "spec": {

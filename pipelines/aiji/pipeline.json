@@ -8,7 +8,7 @@
     "station": "craft",
     "station_no": "03",
     "tagline": "侧脸正面眼、平涂细勾线、手写象形字；圣甲虫推着太阳，阿顿的光线一开一合。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/aiji.py",

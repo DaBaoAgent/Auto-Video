@@ -639,6 +639,30 @@
     "pikesi": {
       "render": null,
       "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "tanbi": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "youcai": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "cixiu": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "minjian": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "diduo": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
+    },
+    "yuanzhu": {
+      "render": null,
+      "reason": "自包含单风格段：入口只调本管线 runtime/render.py，frontend 只灌文案与配音"
     }
   }
 }

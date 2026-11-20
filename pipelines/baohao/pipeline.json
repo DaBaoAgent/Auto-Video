@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "baohao",
+    "no": "71",
     "name_zh": "包豪斯几何",
     "name_en": "Bauhaus Shapes",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/baohao.py",
+    "status": "live",
     "sample": {
       "file": "baohao bauhaus-shapes.mp4",
       "title": "复利是怎么滚起来的",
       "seconds": 52.0
     },
-    "no": "71",
     "updated": "2026-11-20"
   },
   "spec": {

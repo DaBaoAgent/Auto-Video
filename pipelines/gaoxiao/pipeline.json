@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "gaoxiao",
+    "no": "86",
     "name_zh": "搞笑历史卡通",
     "name_en": "Comic History Cartoon",
     "station": "toon",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/gaoxiao.py",
+    "status": "live",
     "sample": {
       "file": "gaoxiao comic-history.mp4",
       "title": "一块纸",
       "seconds": 51.0
     },
-    "no": "86",
     "updated": "2026-11-20"
   },
   "spec": {

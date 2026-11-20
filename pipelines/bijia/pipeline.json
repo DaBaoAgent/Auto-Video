@@ -8,7 +8,7 @@
     "station": "hand",
     "station_no": "02",
     "tagline": "单色蓝调、宽笔触、普鲁士蓝粗轮廓；人体拉长，颜色被抽成蓝再宽刷一遍。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/bijia.py",

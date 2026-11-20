@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "jinbo",
+    "no": "59",
     "name_zh": "金箔彩绘",
     "name_en": "Gilded Illumination",
     "station": "craft",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jinbo.py",
+    "status": "live",
     "sample": {
       "file": "jinbo gilded-illumination.mp4",
       "title": "借来的光",
       "seconds": 46.8
     },
-    "no": "59",
     "updated": "2026-11-20"
   },
   "spec": {

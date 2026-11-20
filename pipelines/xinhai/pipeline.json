@@ -8,7 +8,7 @@
     "station": "toon",
     "station_no": "04",
     "tagline": "积雨云、丁达尔光柱、赛璐璐硬阴影带；光粒在飘，云在移，斜向扫光进场。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/xinhai.py",

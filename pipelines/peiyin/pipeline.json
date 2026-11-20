@@ -14,7 +14,7 @@
     "entry": "scripts/synthesize_dabao_paragraphs.py",
     "status": "beta",
     "sample": null,
-    "updated": "2026-11-15"
+    "updated": "2026-11-20"
   },
   "spec": {
     "source": "SKILL.md",

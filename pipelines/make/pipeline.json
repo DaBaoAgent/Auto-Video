@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "make",
+    "no": "56",
     "name_zh": "马克笔白纸速写",
     "name_en": "Marker on Paper",
     "station": "hand",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/make.py",
+    "status": "live",
     "sample": {
       "file": "make marker-paper.mp4",
       "title": "你能看多远？",
       "seconds": 52.0
     },
-    "no": "56",
     "updated": "2026-11-20"
   },
   "spec": {

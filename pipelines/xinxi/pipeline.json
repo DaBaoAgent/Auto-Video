@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "xinxi",
+    "no": "73",
     "name_zh": "等距信息图",
     "name_en": "Isometric Infographic",
     "station": "diagram",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/xinxi.py",
+    "status": "live",
     "sample": {
       "file": "xinxi iso-infographic.mp4",
       "title": "从豆到杯",
       "seconds": 58.8
     },
-    "no": "73",
     "updated": "2026-11-20"
   },
   "spec": {

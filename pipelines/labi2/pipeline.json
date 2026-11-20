@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "labi2",
+    "no": "110",
     "name_zh": "蜡笔立体世界",
     "name_en": "Crayon World 3D",
     "station": "d3",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/labi2.py",
+    "status": "live",
     "sample": {
       "file": "labi2 crayon-world.mp4",
       "title": "蝴蝶",
       "seconds": 64.5
     },
-    "no": "110",
     "updated": "2026-11-20"
   },
   "spec": {

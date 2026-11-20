@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "fugu",
+    "no": "67",
     "name_zh": "复古版画拼贴",
     "name_en": "Vintage Engraving Collage",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/fugu.py",
+    "status": "live",
     "sample": {
       "file": "fugu vintage-collage.mp4",
       "title": "倒置的珍妮",
       "seconds": 52.0
     },
-    "no": "67",
     "updated": "2026-11-20"
   },
   "spec": {

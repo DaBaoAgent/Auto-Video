@@ -8,7 +8,7 @@
     "station": "hand",
     "station_no": "02",
     "tagline": "可阅读的社会空间：街道、院落与人群在同一画面里各做各的事。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/luolun.py",

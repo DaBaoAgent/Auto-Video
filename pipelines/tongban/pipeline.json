@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "tongban",
+    "no": "63",
     "name_zh": "铜版画",
     "name_en": "Copperplate Engraving",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/tongban.py",
+    "status": "live",
     "sample": {
       "file": "tongban engraving.mp4",
       "title": "蜜蜂，图版七",
       "seconds": 40.0
     },
-    "no": "63",
     "updated": "2026-11-20"
   },
   "spec": {

@@ -8,7 +8,7 @@
     "station": "screen",
     "station_no": "06",
     "tagline": "统一塑料着色、逐像素棋盘倒影、铬球环境映射；绿色线框扫成渲染线。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/guangzhui.py",

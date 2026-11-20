@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "fabu",
+    "no": "95",
     "name_zh": "暗色科技发布",
     "name_en": "Dark Tech Keynote",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/fabu.py",
+    "status": "live",
     "sample": {
       "file": "fabu dark-keynote.mp4",
       "title": "思考的空间",
       "seconds": 42.0
     },
-    "no": "95",
     "updated": "2026-11-20"
   },
   "spec": {

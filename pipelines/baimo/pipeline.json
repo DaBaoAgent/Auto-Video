@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "baimo",
+    "no": "115",
     "name_zh": "白模投影",
     "name_en": "Projection-Mapped Model",
     "station": "map",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/baimo.py",
+    "status": "live",
     "sample": {
       "file": "baimo white-model.mp4",
       "title": "被炸平的城市怎样长回来",
       "seconds": 40.0
     },
-    "no": "115",
     "updated": "2026-11-20"
   },
   "spec": {

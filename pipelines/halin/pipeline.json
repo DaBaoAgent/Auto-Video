@@ -8,7 +8,7 @@
     "station": "graphic",
     "station_no": "05",
     "tagline": "粗黑等宽线配放射动作线；小人按 8fps 硬切跳舞，一切都跟 BPM 弹跳。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/halin.py",

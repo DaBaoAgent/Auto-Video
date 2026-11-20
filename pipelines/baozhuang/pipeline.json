@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "baozhuang",
+    "no": "49",
     "name_zh": "电视新闻包装",
     "name_en": "Broadcast News Package",
     "station": "live",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/baozhuang.py",
+    "status": "live",
     "sample": {
       "file": "baozhuang news-package.mp4",
       "title": "本周 AI 四件事",
       "seconds": 53.5
     },
-    "no": "49",
     "updated": "2026-11-20"
   },
   "spec": {

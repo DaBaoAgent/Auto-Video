@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "jixie",
+    "no": "76",
     "name_zh": "分色机械图解",
     "name_en": "Color-Coded Mechanism",
     "station": "diagram",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jixie.py",
+    "status": "live",
     "sample": {
       "file": "jixie precise-mechanism.mp4",
       "title": "三套系统走时",
       "seconds": 52.0
     },
-    "no": "76",
     "updated": "2026-11-20"
   },
   "spec": {

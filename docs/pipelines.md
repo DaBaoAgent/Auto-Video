@@ -1,4 +1,4 @@
-# 管线清单：155 条，一条一个命令
+# 管线清单：161 条，一条一个命令
 
 这份清单由 `tools/build_pipeline_doc.py` 从 `catalog/pipelines.json` 生成，是目录的镜像；
 **入口与参数以各管线自己的 `SKILL.md` 为准**。这里回答的是「这条线现在能不能跑、从哪儿进、吃到什么输入」。
@@ -9,7 +9,7 @@
 - **beta** = 代码与文档在，样片还没补齐；
 - 命令都在仓库根目录执行，入口路径取 `pipeline.json` 的 `meta.entry`；不确定就 `--help`。
 
-当前：**146 条 live / 9 条待补样片 / 11 个工位**。
+当前：**146 条 live / 15 条待补样片 / 11 个工位**。
 
 ## 01 · 纸本叙事　*Paper & Chronicle*
 
@@ -17,6 +17,7 @@
 | --- | --- | --- | --- | --- | --- |
 | `jianying` | 纸本卡片（Paper-card Chronicle） | live | Remotion | `pipelines/jianying/scripts/jianying_shotcraft.py` | 211s |
 | `lishi` | 纸本史话（Paper History） | live | Remotion | `pipelines/lishi/scripts/lishi.py` | 145s |
+| `minjian` | 民间故事绘本（Folk-tale Storybook） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/minjian/scripts/minjian.py` | — |
 | `zhidiao` | 纸雕剪影（Paper-cut Lightbox） | live | HyperFrames | `pipelines/zhidiao/scripts/zhidiao_assemble.py` | 21s |
 
 ## 02 · 手绘笔触　*Hand & Pencil*
@@ -46,12 +47,15 @@
 | `qianhuang` | 铅黄浓彩（Giallo Gouache） | live | Canvas 逐帧 · 钢笔浓彩 + 彩色色片光 + 合成音效 | `pipelines/qianhuang/scripts/qianhuang.py` | 22s |
 | `shouhui` | 逐帧手绘（Hand-drawn Cel） | live | Canvas 逐帧 · 浏览器渲染 | `pipelines/shouhui/scripts/shouhui.py` | 206s |
 | `shuicai` | 水彩笔刷（Watercolor Brush） | live | Canvas 2D · 湿画法笔刷 + 纸张吸收 | `pipelines/shuicai/scripts/shuicai.py` | 114s |
+| `tanbi` | 炭笔擦画（Charcoal, Erased and Redrawn） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/tanbi/scripts/tanbi.py` | — |
 | `wenyi` | 文艺复兴晕涂（High Renaissance Sfumato） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/wenyi/scripts/wenyi.py` | 1s |
 | `xiajia` | 夏加尔记忆空间（Chagall Dream Space） | beta | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xiajia/scripts/xiajia.py` | — |
 | `xiula` | 修拉点彩（Seurat Pointillism） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xiula/scripts/xiula.py` | 1s |
 | `yibi` | 一笔画（One-line Drawing） | live | 自研渲染 · vendor/runtime/stylekit.js（板写族） | `pipelines/yibi/scripts/yibi.py` | 48s |
 | `yinxiang` | 印象派（Impressionism） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/yinxiang/scripts/yinxiang.py` | 1s |
+| `youcai` | 梦境釉彩（Dream Glaze） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/youcai/scripts/youcai.py` | — |
 | `youhua` | 油画厚涂（Impasto Oil Painting） | live | 自研渲染 · vendor/runtime/stylekit.js（板写族） | `pipelines/youhua/scripts/youhua.py` | 40s |
+| `yuanzhu` | 圆珠笔（Ballpoint Sketch） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/yuanzhu/scripts/yuanzhu.py` | — |
 
 ## 03 · 传统工艺　*Traditional Crafts*
 
@@ -60,6 +64,7 @@
 | `aiji` | 埃及墓室壁画（Egyptian Wall Painting） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/aiji/scripts/aiji.py` | 1s |
 | `boli` | 彩色玻璃窗（Stained Glass） | live | 自研渲染 · vendor/runtime/stylekit.js（纸艺族） | `pipelines/boli/scripts/boli.py` | 56s |
 | `bosi` | 波斯细密画（Persian Miniature） | beta | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/bosi/scripts/bosi.py` | — |
+| `cixiu` | 刺绣（Hand Embroidery） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/cixiu/scripts/cixiu.py` | — |
 | `dongxue` | 洞穴岩画（Cave Painting） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/dongxue/scripts/dongxue.py` | 1s |
 | `dunhuang` | 敦煌壁画（Dunhuang Mural） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/dunhuang/scripts/dunhuang.py` | 1s |
 | `fushihui` | 浮世绘（Ukiyo-e） | live | Canvas 2D · 分色版块 + 错版套印 | `pipelines/fushihui/scripts/fushihui.py` | 44s |
@@ -193,6 +198,7 @@
 | `chanpin` | 玻璃质感产品（Glass Product Render） | live | 自研渲染 · vendor/runtime/stylekit.js（立体族） | `pipelines/chanpin/scripts/chanpin.py` | 32s |
 | `chengshi` | 城市年轮（City Rings） | live | Three.js + Remotion | `pipelines/chengshi/scripts/chengshi.py` | 161s |
 | `dengju` | 等轴 2.5D（Isometric 2.5D） | live | Three.js 正交场景 | `pipelines/dengju/scripts/dengju.py` | 30s |
+| `diduo` | 低多边形（Low-poly） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/diduo/scripts/diduo.py` | — |
 
 ## 99 · toon　**
 

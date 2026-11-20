@@ -8,7 +8,7 @@
     "station": "toon",
     "station_no": "04",
     "tagline": "水彩洗染透明叠色、留水痕边，角色走赛璐璐月牙影；纱帘被风鼓起，草叶成片摆。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/jibuli.py",

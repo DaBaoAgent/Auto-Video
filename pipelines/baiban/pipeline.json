@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "baiban",
+    "no": "53",
     "name_zh": "白板讲解",
     "name_en": "Whiteboard Explainer",
     "station": "hand",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/baiban.py",
+    "status": "live",
     "sample": {
       "file": "baiban whiteboard.mp4",
       "title": "口袋里的爱因斯坦",
       "seconds": 111.0
     },
-    "no": "53",
     "updated": "2026-11-20"
   },
   "spec": {

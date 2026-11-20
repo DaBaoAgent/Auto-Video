@@ -1,0 +1,34 @@
+{
+  "schema": "auto-video/pipeline@2",
+  "meta": {
+    "id": "yuanzhu",
+    "no": "161",
+    "name_zh": "圆珠笔",
+    "name_en": "Ballpoint Sketch",
+    "station": "hand",
+    "station_no": "02",
+    "tagline": "一支蓝圆珠笔，线宽不变，明暗全靠排线，收笔处积一点墨。",
+    "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+    "aspect": "16:9",
+    "fps": 24,
+    "entry": "scripts/yuanzhu.py",
+    "status": "live",
+    "sample": null,
+    "updated": "2026-11-20"
+  },
+  "spec": {
+    "source": "anidoodle v0.9.x（2026-11 快照，Apache-2.0）（画法参考，代码自研，运行时不依赖上游）",
+    "upstream": "https://github.com/alexgreensh/anidoodle",
+    "style_slug": "pocketWatch",
+    "medium": "蓝色圆珠笔在奶油卡纸上；线宽几乎不变，没有中间调，只有线的密度。",
+    "workflow": "圆珠笔不能调宽，所以明暗只能靠排线角度与间距；收笔积墨是它唯一的表现性。",
+    "quality": "★★★",
+    "engine": "runtime/render.py",
+    "license": "Apache-2.0（仅读媒介描述，未复制上游代码与素材）",
+    "runtime": "pipelines/yuanzhu/runtime",
+    "stage": "runtime/stage.html",
+    "player": "runtime/player.js",
+    "drawing_script": "runtime/scene.js",
+    "self_contained": true
+  }
+}

@@ -8,7 +8,7 @@
     "station": "hand",
     "station_no": "02",
     "tagline": "记忆空间与情感色彩：人和房子飘起来，颜色比透视更重要。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/xiajia.py",

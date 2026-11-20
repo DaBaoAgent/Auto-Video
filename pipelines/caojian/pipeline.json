@@ -8,7 +8,7 @@
     "station": "graphic",
     "station_no": "05",
     "tagline": "手绘不规则圆按六角网格取模；波点从猫身上一圈圈胀缩，镜屋一直往外长。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/caojian.py",

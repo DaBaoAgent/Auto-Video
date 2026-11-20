@@ -8,7 +8,7 @@
     "station": "hand",
     "station_no": "02",
     "tagline": "短促松动的亮笔、断续轮廓，银灰空气把建筑、水与远景连成一体。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/guaerdi.py",

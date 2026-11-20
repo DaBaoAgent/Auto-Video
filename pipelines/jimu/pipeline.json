@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "jimu",
+    "no": "106",
     "name_zh": "积木玩具",
     "name_en": "Brick Toy",
     "station": "d3",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jimu.py",
+    "status": "live",
     "sample": {
       "file": "jimu brick-toy.mp4",
       "title": "零件拼出的火箭",
       "seconds": 54.0
     },
-    "no": "106",
     "updated": "2026-11-20"
   },
   "spec": {

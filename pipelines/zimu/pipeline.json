@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "zimu",
+    "no": "42",
     "name_zh": "字幕新闻",
     "name_en": "Caption News",
     "station": "live",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/zimu.py",
+    "status": "live",
     "sample": {
       "file": "zimu caption-news.mp4",
       "title": "蜜蜂账本",
       "seconds": 59.5
     },
-    "no": "42",
     "updated": "2026-11-20"
   },
   "spec": {

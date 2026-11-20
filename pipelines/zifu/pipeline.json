@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "zifu",
+    "no": "90",
     "name_zh": "CRT 字符终端",
     "name_en": "CRT ASCII Terminal",
     "station": "screen",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/zifu.py",
+    "status": "live",
     "sample": {
       "file": "zifu ascii-crt.mp4",
       "title": "静海日志",
       "seconds": 59.8
     },
-    "no": "90",
     "updated": "2026-11-20"
   },
   "spec": {

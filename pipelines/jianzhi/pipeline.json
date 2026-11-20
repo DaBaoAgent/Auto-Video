@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "jianzhi",
+    "no": "57",
     "name_zh": "红色窗花剪纸",
     "name_en": "Red Paper-cut",
     "station": "craft",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jianzhi.py",
+    "status": "live",
     "sample": {
       "file": "jianzhi papercut-red.mp4",
       "title": "年兽进村",
       "seconds": 49.0
     },
-    "no": "57",
     "updated": "2026-11-20"
   },
   "spec": {

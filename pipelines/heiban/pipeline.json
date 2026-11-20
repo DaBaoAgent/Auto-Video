@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "heiban",
+    "no": "54",
     "name_zh": "黑板粉笔",
     "name_en": "Chalkboard",
     "station": "hand",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/heiban.py",
+    "status": "live",
     "sample": {
       "file": "heiban chalkboard.mp4",
       "title": "汉字的故事",
       "seconds": 49.3
     },
-    "no": "54",
     "updated": "2026-11-20"
   },
   "spec": {

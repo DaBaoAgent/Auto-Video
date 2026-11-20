@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "xinwen",
+    "no": "43",
     "name_zh": "1920s 新闻影片",
     "name_en": "1920s Newsreel",
     "station": "live",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/xinwen.py",
+    "status": "live",
     "sample": {
       "file": "xinwen newsreel.mp4",
       "title": "膝盖警报",
       "seconds": 54.6
     },
-    "no": "43",
     "updated": "2026-11-20"
   },
   "spec": {

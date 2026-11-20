@@ -18,7 +18,7 @@
       "title": "苏州 · 城长",
       "seconds": 160.7
     },
-    "updated": "2026-11-15"
+    "updated": "2026-11-20"
   },
   "_note": "chengshi 现行规格（苏州实例，2026-11-03 清理后固化）。渲染工程目录原名 template_v2，后改名 sz，2026-11-04 归一到 chengshi 名下、统一叫 render/（管线对外只叫 chengshi）。镜头细节以 render/src/camera.ts 的 CHAPTER_SHOTS 为准；改机位先渲 still 复验。",
   "version": "2.0",

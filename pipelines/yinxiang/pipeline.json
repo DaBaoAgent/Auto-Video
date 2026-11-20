@@ -8,7 +8,7 @@
     "station": "hand",
     "station_no": "02",
     "tagline": "区域粉彩短笔触、位置固定；光斑漂移明灭，罂粟在摇，云在走，丝带在飘。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/yinxiang.py",

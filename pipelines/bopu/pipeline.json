@@ -2,6 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "bopu",
+    "no": "66",
     "name_zh": "波普艺术",
     "name_en": "Pop Art",
     "station": "graphic",
@@ -11,12 +12,12 @@
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/bopu.py",
+    "status": "live",
     "sample": {
       "file": "bopu pop-art.mp4",
       "title": "同一根香蕉",
       "seconds": 52.0
     },
-    "no": "66",
     "updated": "2026-11-20"
   },
   "spec": {

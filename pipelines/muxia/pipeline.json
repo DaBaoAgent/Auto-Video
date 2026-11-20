@@ -8,7 +8,7 @@
     "station": "graphic",
     "station_no": "05",
     "tagline": "可变线宽外粗内细、剪影错位垫底；太阳升起、光环转、卷发成波。",
-    "engine": "自研渲染 · huashu 引擎（本地 vendored）",
+    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
     "entry": "scripts/muxia.py",
