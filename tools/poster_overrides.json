@@ -2,39 +2,157 @@
   "schema": "auto-video/poster-overrides@1",
   "note": "人工挑帧表：自动选帧（运动+边缘密度）在这些片子上只会挑到空镜、白屏或纯文字卡，逐帧审查后手工钉到指定秒。优先级高于自动选帧；值为站内 clip 内的秒数。",
   "by_key": {
-    "jianying": { "seconds": 27.0, "note": "前段全是字卡与空城墙，27s 有行走人物" },
-    "pencil": { "seconds": 19.0, "note": "铅笔线稿多为图表，19s 有人物与整叠图纸" },
-    "piying": { "seconds": 3.0, "note": "全片多为字卡，3s 是皮影人物+鱼的道具特写" },
-    "shuimo": { "seconds": 7.0, "note": "空镜山水为主，7s 有主体与日轮" },
-    "xiangsu": { "seconds": 27.0, "note": "像素地图多为空镜，27s 有两位古装人物对谈" },
-    "lvdong": { "seconds": 7.0, "note": "剪影人物动作段，避开夕阳空镜" },
-    "bianping": { "seconds": 15.0, "note": "星球空镜，取信息最密的彩色地球一帧" },
-    "map": { "seconds": 15.0, "note": "避开标题卡，取有行军图标与路线的地图" },
-    "shipai": { "seconds": 19.0, "note": "实拍土路空镜多，19s 有骑马人物" },
-    "jilupian": { "seconds": 27.0, "note": "避开云层空镜，27s 有黄袍人物与士兵群像" },
-    "pingban": { "seconds": 15.0, "note": "白底极简，15s 有举牌小人" },
-    "lishi": { "seconds": 19.0, "note": "档案字卡为主，19s 门内有人影" },
-    "dengju": { "seconds": 19.0, "note": "等距灯场，19s 有操作者与楼上被围" },
-    "goldenage": { "seconds": 7.0, "note": "避开 1978 标题卡，7s 有角色+徽章" },
-    "style-07": { "seconds": 7.0, "note": "白纸草图近空白，7s 圆环装置最完整" },
-    "style-13": { "seconds": 15.0, "note": "原 0.73s 是标题卡，15s 城楼上有皮影人物动作" },
-    "style-14": { "seconds": 15.0, "note": "罗盘空镜，15s 有圆盘+窗口人物" },
-    "style-18": { "seconds": 19.0, "note": "霓虹 BAR 标题卡，19s 门内有剪影人物" },
-    "style-20": { "seconds": 15.0, "note": "白底极简，15s 半圆碗结构最完整" },
-    "style-21": { "seconds": 23.0, "note": "ASCII 点阵近白屏，23s 有条形图与文字" },
-    "style-24": { "seconds": 19.0, "note": "白底 UI，19s 对话含表情图标最生动" },
-    "style-27": { "seconds": 19.0, "note": "财报文字页，19s 有数据表与卡片" },
-    "style-31": { "seconds": 7.0, "note": "扁平建筑空镜，7s 有红色标记与箭头" },
-    "style-32": { "seconds": 15.0, "note": "水墨山水空镜，15s 有日轮与竖排书法" },
-    "style-35": { "seconds": 15.0, "note": "英文 UI 截图，15s 多卡片列表信息最密" },
-    "style-36": { "seconds": 3.0, "note": "紫色模糊抽象，3s 有黄衣角色" },
-    "style-40": { "seconds": 11.0, "note": "卫星空镜，11s 有两人对谈实拍" },
-    "style-42": { "seconds": 11.0, "note": "白底文字卡，11s 有红黑图解块" },
-    "style-46": { "seconds": 15.0, "note": "深色噪点，15s 像素人物+色板" },
-    "style-48": { "seconds": 3.0, "note": "粉色空镜/字卡，3s 品牌构图最完整" },
-    "style-51": { "seconds": 27.0, "note": "白底 UI，27s 有小角色与纸箱动作" },
-    "style-52": { "seconds": 15.0, "note": "标题字墙，15s 多卡片信息最密" },
-    "style-54": { "seconds": 15.0, "note": "避开 Linear logo 卡，15s 是构建界面" },
-    "style-55": { "seconds": 19.0, "note": "黑底文字卡，19s 有人物剪影站在光环中" }
+    "jianying": {
+      "seconds": 27.0,
+      "note": "前段全是字卡与空城墙，27s 有行走人物"
+    },
+    "pencil": {
+      "seconds": 19.0,
+      "note": "铅笔线稿多为图表，19s 有人物与整叠图纸"
+    },
+    "piying": {
+      "seconds": 3.0,
+      "note": "全片多为字卡，3s 是皮影人物+鱼的道具特写"
+    },
+    "shuimo": {
+      "seconds": 7.0,
+      "note": "空镜山水为主，7s 有主体与日轮"
+    },
+    "xiangsu": {
+      "seconds": 27.0,
+      "note": "像素地图多为空镜，27s 有两位古装人物对谈"
+    },
+    "lvdong": {
+      "seconds": 7.0,
+      "note": "剪影人物动作段，避开夕阳空镜"
+    },
+    "bianping": {
+      "seconds": 15.0,
+      "note": "星球空镜，取信息最密的彩色地球一帧"
+    },
+    "map": {
+      "seconds": 15.0,
+      "note": "避开标题卡，取有行军图标与路线的地图"
+    },
+    "shipai": {
+      "seconds": 19.0,
+      "note": "实拍土路空镜多，19s 有骑马人物"
+    },
+    "jilupian": {
+      "seconds": 27.0,
+      "note": "避开云层空镜，27s 有黄袍人物与士兵群像"
+    },
+    "pingban": {
+      "seconds": 15.0,
+      "note": "白底极简，15s 有举牌小人"
+    },
+    "lishi": {
+      "seconds": 19.0,
+      "note": "档案字卡为主，19s 门内有人影"
+    },
+    "dengju": {
+      "seconds": 19.0,
+      "note": "等距灯场，19s 有操作者与楼上被围"
+    },
+    "goldenage": {
+      "seconds": 7.0,
+      "note": "避开 1978 标题卡，7s 有角色+徽章"
+    },
+    "style-07": {
+      "seconds": 7.0,
+      "note": "白纸草图近空白，7s 圆环装置最完整"
+    },
+    "style-13": {
+      "seconds": 15.0,
+      "note": "原 0.73s 是标题卡，15s 城楼上有皮影人物动作"
+    },
+    "style-14": {
+      "seconds": 15.0,
+      "note": "罗盘空镜，15s 有圆盘+窗口人物"
+    },
+    "style-18": {
+      "seconds": 19.0,
+      "note": "霓虹 BAR 标题卡，19s 门内有剪影人物"
+    },
+    "style-20": {
+      "seconds": 15.0,
+      "note": "白底极简，15s 半圆碗结构最完整"
+    },
+    "style-21": {
+      "seconds": 23.0,
+      "note": "ASCII 点阵近白屏，23s 有条形图与文字"
+    },
+    "style-24": {
+      "seconds": 19.0,
+      "note": "白底 UI，19s 对话含表情图标最生动"
+    },
+    "style-27": {
+      "seconds": 19.0,
+      "note": "财报文字页，19s 有数据表与卡片"
+    },
+    "style-31": {
+      "seconds": 7.0,
+      "note": "扁平建筑空镜，7s 有红色标记与箭头"
+    },
+    "style-32": {
+      "seconds": 15.0,
+      "note": "水墨山水空镜，15s 有日轮与竖排书法"
+    },
+    "style-35": {
+      "seconds": 15.0,
+      "note": "英文 UI 截图，15s 多卡片列表信息最密"
+    },
+    "style-36": {
+      "seconds": 3.0,
+      "note": "紫色模糊抽象，3s 有黄衣角色"
+    },
+    "style-40": {
+      "seconds": 11.0,
+      "note": "卫星空镜，11s 有两人对谈实拍"
+    },
+    "style-42": {
+      "seconds": 11.0,
+      "note": "白底文字卡，11s 有红黑图解块"
+    },
+    "style-46": {
+      "seconds": 15.0,
+      "note": "深色噪点，15s 像素人物+色板"
+    },
+    "style-48": {
+      "seconds": 3.0,
+      "note": "粉色空镜/字卡，3s 品牌构图最完整"
+    },
+    "style-51": {
+      "seconds": 27.0,
+      "note": "白底 UI，27s 有小角色与纸箱动作"
+    },
+    "style-52": {
+      "seconds": 15.0,
+      "note": "标题字墙，15s 多卡片信息最密"
+    },
+    "style-54": {
+      "seconds": 15.0,
+      "note": "避开 Linear logo 卡，15s 是构建界面"
+    },
+    "style-55": {
+      "seconds": 19.0,
+      "note": "黑底文字卡，19s 有人物剪影站在光环中"
+    },
+    "baiban": {
+      "seconds": 6.0,
+      "note": "白板讲解：取瓶+气泡+两颗圆点画全的时刻，避开 1s 前的空板"
+    },
+    "biji": {
+      "seconds": 6.0,
+      "note": "视觉笔记：同上，取箭头与双圆点齐备的一帧"
+    },
+    "yuanzhu": {
+      "seconds": 8.6,
+      "note": "圆珠笔：取表盘刻度与排线阴影都画完的一帧，避开起稿空纸"
+    },
+    "huixingzhen": {
+      "seconds": 1.0,
+      "note": "回形针风：取爆炸视图刚展开、零件全在的一帧"
+    }
   }
 }

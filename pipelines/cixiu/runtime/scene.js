@@ -75,6 +75,42 @@
     return out;
   }
 
+  // 椭圆取点（可旋转），用来生成翅形
+  function ellipsePts(cx, cy, rx, ry, rot) {
+    const p = [];
+    for (let i = 0; i < 44; i++) {
+      const a = Math.PI * 2 * (i / 44);
+      const x = Math.cos(a) * rx, y = Math.sin(a) * ry;
+      p.push([cx + x * Math.cos(rot) - y * Math.sin(rot), cy + x * Math.sin(rot) + y * Math.cos(rot)]);
+    }
+    return p;
+  }
+
+  // 区域铺针：按扫描线在形状内排满平行针脚，得到圆润的缎面块
+  function regionStitches(pts, col, step, w) {
+    const out = [];
+    const ys = pts.map(p => p[1]);
+    const y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const ang = -0.32;
+    for (let y = y0 + step * 0.5, row = 0; y < y1; y += step, row++) {
+      const xs = [];
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i], b = pts[(i + 1) % pts.length];
+        if ((a[1] <= y && b[1] > y) || (b[1] <= y && a[1] > y)) {
+          xs.push(a[0] + (y - a[1]) / (b[1] - a[1]) * (b[0] - a[0]));
+        }
+      }
+      xs.sort((m, n) => m - n);
+      for (let k = 0; k + 1 < xs.length; k += 2) {
+        const xa = xs[k] + 2 + (row % 3), xb = xs[k + 1] - 3 - (row % 4);
+        if (xb - xa < 4) continue;
+        const dy = Math.tan(ang) * (xb - xa);
+        out.push({ a: [xa, y], b: [xb, y + dy], col, w });
+      }
+    }
+    return out;
+  }
+
   function build() {
     const list = [];
 
@@ -113,28 +149,68 @@
 
     // 花：五瓣放射，每瓣一梭形针组；花心结粒
     const flowers = [
-      { c: [588, 806], len: 132, wid: 46, col: '#c2534c', pet: 5 },
-      { c: [962, 636], len: 158, wid: 54, col: '#d0736a', pet: 6 },
-      { c: [1272, 462], len: 136, wid: 48, col: '#b64a4b', pet: 5 },
-      { c: [1462, 356], len: 108, wid: 38, col: '#d9a252', pet: 5 },
+      { c: [566, 828], len: 108, wid: 40, col: '#c2534c', pet: 5 },
+      { c: [902, 706], len: 124, wid: 44, col: '#d0736a', pet: 6 },
+      { c: [1236, 516], len: 112, wid: 42, col: '#b64a4b', pet: 5 },
+      { c: [1442, 372], len: 94, wid: 34, col: '#d9a252', pet: 5 },
     ];
     flowers.forEach(F => {
       for (let p = 0; p < F.pet; p++) {
         const a = -Math.PI * 0.5 + (Math.PI * 2 * p) / F.pet;
-        const cc = [F.c[0] + Math.cos(a) * F.len * 0.42, F.c[1] + Math.sin(a) * F.len * 0.42];
-        satinLeaf(cc, a, F.len * 0.86, F.wid, F.col, 13, 0).forEach(s => list.push(s));
-        // 瓣尖一道深色收边
-        list.push({
-          a: [cc[0] + Math.cos(a) * F.len * 0.30, cc[1] + Math.sin(a) * F.len * 0.30],
-          b: [cc[0] + Math.cos(a) * F.len * 0.38 - Math.sin(a) * 12, cc[1] + Math.sin(a) * F.len * 0.38 + Math.cos(a) * 12],
-          col: '#8d3230', w: 6,
-        });
+        const rr = F.len * 0.44;
+        const cc = [F.c[0] + Math.cos(a) * rr, F.c[1] + Math.sin(a) * rr];
+        // 瓣：椭圆铺针，圆润不变多边形
+        regionStitches(ellipsePts(cc[0], cc[1], F.len * 0.33, F.wid * 0.52, a), F.col, 8, 8.2)
+          .forEach(t => list.push(t));
+        // 瓣缘一道深色收边（沿椭圆描一圈短针）
+        const rim = ellipsePts(cc[0], cc[1], F.len * 0.33, F.wid * 0.52, a);
+        for (let i = 0; i < rim.length; i += 2) {
+          const q = rim[(i + 2) % rim.length];
+          list.push({ a: [rim[i][0], rim[i][1]], b: [q[0], q[1]], col: '#8d3230', w: 3.4 });
+        }
       }
       for (let i = 0; i < 8; i++) {
         const a = (Math.PI * 2 * i) / 8;
         list.push({ knot: [F.c[0] + Math.cos(a) * F.wid * 0.5, F.c[1] + Math.sin(a) * F.wid * 0.5], r: 8.5, col: '#e8be63' });
       }
       list.push({ knot: F.c, r: 11, col: '#f0cd7c' });
+    });
+
+    // 蝶：翅形按椭圆铺满乱针，身体一列渐小结粒
+    const BF = [806, 468];
+    [[-58, -40, 66, 44, -0.55, '#d78c58'], [60, -42, 70, 44, 0.55, '#e2a066'],
+     [-44, 44, 48, 32, 0.52, '#c97a4c'], [46, 46, 50, 32, -0.52, '#dda163']].forEach(([dx, dy, rx, ry, rot, col]) => {
+      regionStitches(ellipsePts(BF[0] + dx, BF[1] + dy, rx, ry, rot), col, 8, 8.4).forEach(t => list.push(t));
+    });
+    // 翅上一道浅色脉与几点斑点
+    list.push({ a: [BF[0] - 96, BF[1] - 52], b: [BF[0] - 18, BF[1] - 30], col: '#f2d0a8', w: 3.4 });
+    list.push({ a: [BF[0] + 22, BF[1] - 32], b: [BF[0] + 104, BF[1] - 58], col: '#f6dcb8', w: 3.4 });
+    [[-72, -34], [-56, -52], [70, -46], [86, -30]].forEach(([x, y], i) => {
+      list.push({ knot: [BF[0] + x, BF[1] + y], r: 5.6 - (i % 2), col: '#7a4a2a' });
+    });
+    for (let i = 0; i < 5; i++) {
+      list.push({ knot: [BF[0] + 2, BF[1] - 30 + i * 15], r: 9 - i * 1.1, col: i % 2 ? '#5e3a22' : '#6c4326' });
+    }
+    list.push({ a: [BF[0] - 3, BF[1] - 34], b: [BF[0] - 20, BF[1] - 72], col: '#5e3a22', w: 3 });
+    list.push({ a: [BF[0] + 4, BF[1] - 34], b: [BF[0] + 22, BF[1] - 70], col: '#5e3a22', w: 3 });
+    list.push({ knot: [BF[0] - 21, BF[1] - 74], r: 4, col: '#5e3a22' });
+    list.push({ knot: [BF[0] + 23, BF[1] - 72], r: 4, col: '#5e3a22' });
+
+    // 左下角两枚花苞：把空着的角补上
+    [[[496, 872], -0.6, '#b8695f'], [[566, 846], -0.35, '#c9766a']].forEach(([c, ang, col]) => {
+      satinLeaf(c, ang, 56, 26, col, 8, 0).forEach(s => list.push(s));
+      list.push({ knot: [c[0] + Math.cos(ang) * 26, c[1] + Math.sin(ang) * 26], r: 6.2, col: '#e8be63' });
+      list.push({ a: [c[0] - Math.cos(ang) * 30, c[1] - Math.sin(ang) * 30], b: [c[0] - Math.cos(ang) * 52, c[1] - Math.sin(ang) * 46], col: '#6f8a3d', w: 3.2 });
+    });
+
+    // 三片落瓣：补空，也让画面有"正在绣"的动作感
+    [[1072, 322, 0.5, '#d98f86'], [700, 742, -0.7, '#cf7a72'], [1156, 800, 0.9, '#e0a094']].forEach(([x, y, rot, col]) => {
+      regionStitches(ellipsePts(x, y, 34, 17, rot), col, 7, 7.2).forEach(t => list.push(t));
+      const rim = ellipsePts(x, y, 34, 17, rot);
+      for (let i = 0; i < rim.length; i += 3) {
+        const q = rim[(i + 3) % rim.length];
+        list.push({ a: [rim[i][0], rim[i][1]], b: [q[0], q[1]], col: '#9c3f3a', w: 2.8 });
+      }
     });
 
     return list;

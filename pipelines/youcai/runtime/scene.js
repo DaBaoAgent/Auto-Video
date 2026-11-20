@@ -140,6 +140,52 @@
         ctx.restore();
       }
 
+      // 背景一层暖罩：物件后头一团极淡的光，把纵深拉开
+      const wash = U.easeInOut(U.p(t, 0.4, 1.2));
+      if (wash > 0) {
+        ctx.save();
+        ctx.globalAlpha = 0.55 * wash;
+        const wg = ctx.createRadialGradient(760, 470, 40, 760, 470, 720);
+        wg.addColorStop(0, 'rgba(255,238,206,0.85)');
+        wg.addColorStop(0.55, 'rgba(246,226,196,0.30)');
+        wg.addColorStop(1, 'rgba(246,226,196,0)');
+        ctx.fillStyle = wg;
+        ctx.fillRect(0, 0, W, TABLE_Y);
+        ctx.restore();
+      }
+
+      // 桌布：物件底下铺一条亚麻桌旗，几处折面，落到桌沿外
+      const cloth = U.easeInOut(U.p(t, 0.5, 0.9));
+      if (cloth > 0) {
+        ctx.save();
+        ctx.globalAlpha = cloth;
+        const L = 0, Rr = W, top = TABLE_Y + 1, bot = H;
+        const cg = ctx.createLinearGradient(0, top, 0, bot);
+        cg.addColorStop(0, '#f4ecdd');
+        cg.addColorStop(0.35, '#e9dfcc');
+        cg.addColorStop(1, '#d2c5ae');
+        ctx.fillStyle = cg;
+        ctx.fillRect(L, top, Rr - L, bot - top);
+        // 折面：三处不齐的竖折，暗面只压一半，不做等距排布
+        const folds = [[620, 150, 0.20], [1180, 118, 0.16], [1520, 96, 0.13]];
+        folds.forEach(([fx, wd, a]) => {
+          const fg = ctx.createLinearGradient(fx - wd, 0, fx + wd, 0);
+          fg.addColorStop(0, 'rgba(150,130,104,0)');
+          fg.addColorStop(0.35, `rgba(150,130,104,${a})`);
+          fg.addColorStop(0.62, 'rgba(255,252,242,0.10)');
+          fg.addColorStop(1, 'rgba(150,130,104,0)');
+          ctx.fillStyle = fg;
+          ctx.fillRect(fx - wd, top, wd * 2, bot - top);
+        });
+        ctx.strokeStyle = 'rgba(120,103,82,0.34)';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(0, top + 2);
+        ctx.lineTo(W, top + 2);
+        ctx.stroke();
+        ctx.restore();
+      }
+
       // 投影：硬边，一律往右下
       const sh = U.easeInOut(U.p(t, 2.5, 0.9));
       if (sh > 0) {
@@ -149,6 +195,7 @@
         castShadow(ctx, 1180, TABLE_Y + 4, 140, 18, 150, 0.26);
         castShadow(ctx, 1420, TABLE_Y + 2, 88, 12, 84, 0.24);
         castShadow(ctx, 1530, TABLE_Y + 2, 74, 10, 70, 0.22);
+        castShadow(ctx, 352, TABLE_Y + 2, 70, 10, 58, 0.24);
         ctx.restore();
       }
 
@@ -190,6 +237,70 @@
         { kind: 'grad', x0: 1450, y0: 750, x1: 1580, y1: 868, c0: '#9d465c', c1: '#722a42', c2: '#3c1325', a: 0.96 },
         { kind: 'solid', c: '#ffffff', a: 0.08 },
       ], U.p(t, 3.6, 0.8));
+
+      // 左侧小陶杯：给画面一个轻一点的对位
+      const CUP_CX = 352, CUP_TOP = 806, CUP_R = 62, CUP_BOT = 888;
+      const cupPts = [];
+      for (let i = 0; i <= 40; i++) { const a = Math.PI * (i / 40); cupPts.push([CUP_CX + Math.cos(a) * CUP_R, CUP_TOP + Math.sin(a) * 16]); }
+      for (let i = 40; i >= 0; i--) { const a = Math.PI * (i / 40); cupPts.push([CUP_CX + Math.cos(a) * (CUP_R * 0.82), CUP_BOT + Math.sin(a) * 12]); }
+      glaze(ctx, cupPts, [
+        { kind: 'grad', x0: CUP_CX - CUP_R, y0: CUP_TOP, x1: CUP_CX + CUP_R, y1: CUP_BOT, c0: '#dcd2c0', c1: '#bfb29b', c2: '#8d7f68', a: 0.95 },
+        { kind: 'solid', c: '#5a4c3a', a: 0.14 },
+      ], U.p(t, 3.9, 0.9));
+      const cupRim = U.easeOut(U.p(t, 4.6, 0.4));
+      if (cupRim > 0) {
+        ctx.save();
+        ctx.globalAlpha = cupRim;
+        ctx.strokeStyle = 'rgba(255,251,240,0.9)';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.ellipse(CUP_CX, CUP_TOP, CUP_R, 16, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.strokeStyle = 'rgba(120,104,84,0.5)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(CUP_CX, CUP_TOP + 4, CUP_R - 6, 12, 0, 0.15, Math.PI * 1.2);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // 右侧一枝橄榄叶：几片叶子从桌沿外探进来
+      const sprig = U.easeInOut(U.p(t, 4.2, 1.0));
+      if (sprig > 0) {
+        ctx.save();
+        ctx.globalAlpha = sprig;
+        const stemPts = [[1876, 906], [1810, 886], [1744, 862], [1688, 838]];
+        ctx.strokeStyle = 'rgba(92,86,44,0.95)';
+        ctx.lineWidth = 6;
+        ctx.lineCap = 'round';
+        U.tracePartial(ctx, stemPts, sprig);
+        const leaves = [[1840, 892, 0.55, 80, 26], [1782, 872, -0.55, 86, 28],
+                        [1724, 852, 0.6, 78, 24], [1676, 834, -0.5, 70, 22]];
+        leaves.forEach(([lx, ly, ang, lw, lh], i) => {
+          const k = U.clamp(sprig * 1.6 - i * 0.12);
+          if (k <= 0) return;
+          ctx.save();
+          ctx.translate(lx, ly);
+          ctx.rotate(ang);
+          ctx.scale(k, k);
+          const lg = ctx.createLinearGradient(-lw * 0.5, -lh, lw * 0.5, lh);
+          lg.addColorStop(0, '#93a05a');
+          lg.addColorStop(0.55, '#77883f');
+          lg.addColorStop(1, '#4e5a26');
+          ctx.fillStyle = lg;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, lw * 0.5, lh * 0.44, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(56,64,28,0.55)';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(-lw * 0.42, 0);
+          ctx.lineTo(lw * 0.44, 0);
+          ctx.stroke();
+          ctx.restore();
+        });
+        ctx.restore();
+      }
 
       // 硬高光：一处不多，边缘清
       const hi = U.easeOut(U.p(t, 4.3, 0.6));
@@ -238,9 +349,16 @@
         ctx.restore();
       }
 
+      // 暗角：把注意力收回到物件上
+      const vg = ctx.createRadialGradient(W * 0.5, 620, 320, W * 0.5, 600, 1180);
+      vg.addColorStop(0, 'rgba(60,44,32,0)');
+      vg.addColorStop(0.62, 'rgba(60,44,32,0.05)');
+      vg.addColorStop(1, 'rgba(48,34,24,0.16)');
+      ctx.fillStyle = vg;
+      ctx.fillRect(0, 0, W, H);
+
       // 桌面边缘的一根落款线
-      const sg = U.easeOut(U.p(t, 6.1, 0.5));
-      if (sg > 0) {
+      const sg = U.easeOut(U.p(t, 6.1, 0.5));      if (sg > 0) {
         ctx.save();
         ctx.globalAlpha = 0.3 * sg;
         ctx.strokeStyle = 'rgba(80,62,50,1)';

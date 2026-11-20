@@ -91,6 +91,15 @@
     ];
   }
 
+  // 按地形参数落一个点，给出屏幕位置与缩放，用来挂树和船
+  function place(u, v) {
+    const h = heightAt(u, v);
+    const x = U.lerp(X0, X1, u);
+    const z = U.lerp(Z0, Z1, Math.pow(v, 0.82));
+    const pr = project([x, h, z]);
+    return [pr[0], pr[1], pr[3]];
+  }
+
   window.SCENES.diduo = {
     init: async () => {},
     draw(ctx, t) {
@@ -140,6 +149,106 @@
         ctx.stroke();
       }
       ctx.restore();
+
+      // 坡上的松：三个三角面叠起来，每面亮暗对分，跟地形一个色系
+      const treeIn = U.easeOut(U.p(t, 4.2, 1.1));
+      if (treeIn > 0) {
+        const spots = [[0.63, 0.58, 0.95], [0.7, 0.61, 0.8], [0.77, 0.65, 0.7],
+                       [0.58, 0.6, 0.62], [0.84, 0.7, 0.55], [0.9, 0.76, 0.4]];
+        ctx.save();
+        spots.forEach(([u, v2, k], idx) => {
+          const p0 = place(u, v2);
+          if (!p0) return;
+          const s2 = p0[2] * 130 * k;
+          const gk = U.clamp(treeIn * 1.4 - idx * 0.07);
+          if (gk <= 0) return;
+          ctx.globalAlpha = gk;
+          // 树干
+          ctx.fillStyle = 'rgb(72,52,46)';
+          ctx.beginPath();
+          ctx.moveTo(p0[0] - s2 * 0.1, p0[1]);
+          ctx.lineTo(p0[0] + s2 * 0.1, p0[1]);
+          ctx.lineTo(p0[0] + s2 * 0.07, p0[1] - s2 * 0.55);
+          ctx.lineTo(p0[0] - s2 * 0.07, p0[1] - s2 * 0.55);
+          ctx.closePath();
+          ctx.fill();
+          // 三层冠
+          for (let L = 0; L < 3; L++) {
+            const bw = s2 * (1.46 - L * 0.34), bh = s2 * (0.98 - L * 0.14);
+            const by = p0[1] - s2 * (0.42 + L * 0.5);
+            const lx = 46 + L * 9, ly = 78 + L * 7;
+            ctx.fillStyle = `rgb(${lx},${ly},${58})`;
+            ctx.beginPath();
+            ctx.moveTo(p0[0] - bw * 0.5, by);
+            ctx.lineTo(p0[0], by - bh);
+            ctx.lineTo(p0[0], by);
+            ctx.closePath();
+            ctx.fill();
+            ctx.fillStyle = `rgb(${lx + 44},${ly + 30},${52})`;
+            ctx.beginPath();
+            ctx.moveTo(p0[0], by);
+            ctx.lineTo(p0[0], by - bh);
+            ctx.lineTo(p0[0] + bw * 0.5, by);
+            ctx.closePath();
+            ctx.fill();
+          }
+        });
+        ctx.restore();
+      }
+
+      // 水上一条小帆船：躯干一个梯形，帆两面亮暗
+      const boatIn = U.easeOut(U.p(t, 4.9, 0.9));
+      if (boatIn > 0) {
+        const bp = place(0.3, 0.24);
+        if (bp) {
+          const s2 = bp[2] * 74;
+          ctx.save();
+          ctx.globalAlpha = boatIn;
+          ctx.fillStyle = 'rgb(58,44,40)';
+          ctx.beginPath();
+          ctx.moveTo(bp[0] - s2 * 0.52, bp[1]);
+          ctx.lineTo(bp[0] + s2 * 0.52, bp[1]);
+          ctx.lineTo(bp[0] + s2 * 0.32, bp[1] + s2 * 0.16);
+          ctx.lineTo(bp[0] - s2 * 0.32, bp[1] + s2 * 0.16);
+          ctx.closePath();
+          ctx.fill();
+          ctx.fillStyle = 'rgb(246,232,208)';
+          ctx.beginPath();
+          ctx.moveTo(bp[0] - s2 * 0.04, bp[1] - s2 * 0.04);
+          ctx.lineTo(bp[0] - s2 * 0.04, bp[1] - s2 * 1.05);
+          ctx.lineTo(bp[0] - s2 * 0.62, bp[1] - s2 * 0.04);
+          ctx.closePath();
+          ctx.fill();
+          ctx.fillStyle = 'rgb(206,164,132)';
+          ctx.beginPath();
+          ctx.moveTo(bp[0] + s2 * 0.02, bp[1] - s2 * 0.04);
+          ctx.lineTo(bp[0] + s2 * 0.02, bp[1] - s2 * 0.86);
+          ctx.lineTo(bp[0] + s2 * 0.5, bp[1] - s2 * 0.04);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      // 天上一行鸟：四个折角，越飞越淡
+      const birdIn = U.easeOut(U.p(t, 5.2, 1.1));
+      if (birdIn > 0) {
+        ctx.save();
+        for (let i = 0; i < 4; i++) {
+          const bx = W * 0.52 + i * 62 + Math.sin(t * 0.8 + i) * 8;
+          const by = H * 0.2 - i * 16;
+          ctx.globalAlpha = birdIn * (0.9 - i * 0.14);
+          ctx.fillStyle = 'rgb(44,36,52)';
+          ctx.beginPath();
+          ctx.moveTo(bx - 13, by);
+          ctx.lineTo(bx, by - 7);
+          ctx.lineTo(bx + 13, by);
+          ctx.lineTo(bx, by - 2.5);
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.restore();
+      }
 
       // 倒影：太阳正下方的一串横向碎光，只在水面
       const refl = U.easeInOut(U.p(t, 3.9, 1.5));
