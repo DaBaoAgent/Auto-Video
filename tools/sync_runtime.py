@@ -49,16 +49,22 @@ SHARED = [
 
 
 def sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    """按内容取摘要：CRLF / LF 只是检出平台的差异，不算漂移。"""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
 
 
 def targets() -> list[Path]:
-    """带 runtime/ 且有 pipeline.json 的管线目录。"""
+    """参与共享运行时的管线目录。
+
+    只有真正持有共享内核的管线才算：以 `runtime/core.js` 为标记。自包含管线
+    （huashu 33 条、自研 Canvas 画帧、stylekit 那批）各自带自己的画帧器，
+    runtime/ 里没有、也不该有 core.js / render.mjs / scores，不在同步范围内。
+    """
     out = []
     for child in sorted((ROOT / "pipelines").iterdir()):
         if not child.is_dir():
             continue
-        if (child / "pipeline.json").is_file() and (child / "runtime").is_dir():
+        if (child / "runtime" / "core.js").is_file():
             out.append(child)
     return out
 
