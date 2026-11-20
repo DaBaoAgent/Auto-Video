@@ -425,7 +425,7 @@ def main() -> int:
             "schema": "auto-video/pipeline@2",
             "meta": {
                 "id": n["id"],
-                "no": "000",
+                "no": "000",   # 占位：若已有 pipeline.json，则沿用其既有编号（见下）
                 "name_zh": n["name_zh"],
                 "name_en": n["name_en"],
                 "station": n["station"],
@@ -436,7 +436,7 @@ def main() -> int:
                 "entry": f"scripts/{n['id']}.py",
                 "status": "live",
                 "sample": None,
-                "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲",
+                "sample_note": "演示站封面/样片为本仓库自渲 10 秒成片（1024×576、crf 30、配底乐）",
                 "updated": "2026-11-20",
             },
             "spec": {
@@ -455,7 +455,17 @@ def main() -> int:
                 "self_contained": True,
             },
         }
-        write(d / "pipeline.json", json.dumps(pj, ensure_ascii=False, indent=2) + "\n", dry)
+        # 已存在的编号（no / station_no）不能被重置，否则站点排序与索引会错位
+        pj_path = d / "pipeline.json"
+        if pj_path.exists():
+            try:
+                old = json.loads(pj_path.read_text(encoding="utf-8")).get("meta", {})
+                for k in ("no", "station_no"):
+                    if old.get(k):
+                        pj["meta"][k] = old[k]
+            except Exception:
+                pass
+        write(pj_path, json.dumps(pj, ensure_ascii=False, indent=2) + "\n", dry)
 
         write(d / "SKILL.md", SKILL.format(
             id=n["id"], name_zh=n["name_zh"], name_en=n["name_en"], tagline=n["tagline"],

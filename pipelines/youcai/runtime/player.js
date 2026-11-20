@@ -5,6 +5,7 @@
   const qs = new URLSearchParams(location.search);
   const W = +qs.get('w') || 1920, H = +qs.get('h') || 1080;
   const id = qs.get('scene');
+  const RT = +(qs.get('retime') || 1);  // 内容时间 = 帧时间 × RT
   const cv = document.getElementById('c');
   const ctx = cv.getContext('2d');
   window.__canvas = cv;
@@ -30,7 +31,7 @@
         ctx.globalAlpha = 1;
         ctx.globalCompositeOperation = 'source-over';
         ctx.clearRect(0, 0, W, H);
-        s.draw(ctx, t);
+        s.draw(ctx, t * RT);
         ctx.restore();
       };
       window.renderAt(0);

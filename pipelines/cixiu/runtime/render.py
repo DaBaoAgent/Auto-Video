@@ -68,6 +68,8 @@ def main() -> int:
     ap.add_argument("--crf", type=int, default=18)
     ap.add_argument("--width", type=int, default=1920)
     ap.add_argument("--height", type=int, default=1080)
+    ap.add_argument("--retime", type=float, default=1.0,
+                    help="时间缩放：内容时间 = 帧时间 × retime。1.0 原速；出 10 秒样片时用 0.7 把 7 秒画法拉长")
     a = ap.parse_args()
 
     from playwright.sync_api import sync_playwright
@@ -82,7 +84,7 @@ def main() -> int:
             pg.on("pageerror", lambda e: errors.append("pageerror: " + str(e)))
             pg.on("console", lambda m: errors.append("console: " + m.text) if m.type == "error" else None)
             url = (f"http://127.0.0.1:{port}/stage.html?scene={a.scene}"
-                   f"&w={a.width}&h={a.height}&fps={a.fps}")
+                   f"&w={a.width}&h={a.height}&fps={a.fps}&retime={a.retime}")
             pg.goto(url)
             pg.wait_for_function("window.__ready === true || !!window.__bootFailed", timeout=120000)
             fail = pg.evaluate("window.__bootFailed || null")
