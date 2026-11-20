@@ -12,7 +12,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 ![pipelines](https://img.shields.io/badge/pipelines-165%20films%20%2B%201%20frontend-111111?style=flat-square)
 ![stations](https://img.shields.io/badge/stations-11-111111?style=flat-square)
-![samples](https://img.shields.io/badge/samples-164%20clips-e9b47c?style=flat-square)
+![samples](https://img.shields.io/badge/samples-165%20clips-e9b47c?style=flat-square)
 
 **简体中文 | [English](README-en.md)**
 
@@ -195,8 +195,8 @@ python frontend/frontend.py run --pipeline laolang --topic "玄奘为什么要�
 
 ## 样片
 
-**[在线样片站](https://dabaoagent.github.io/Auto-Video/)** 上 166 张管线卡、**164 段可播短片**：162 段是 10 秒风格段（绝大多数由本仓库自渲，
-少数取自上游公开样片），另两段取自完整成片的片头（21 秒 / 30 秒）。悬停即播，按工位分组，按横屏 / 竖屏和时长筛，点开在灯箱里带声播放。
+**[在线样片站](https://dabaoagent.github.io/Auto-Video/)** 上 166 张管线卡、**165 段可播短片**：163 段是 10 秒风格段（绝大多数由本仓库自渲，
+少数取自上游公开样片），另两段取自完整成片的片头（22 秒 / 30 秒）。悬停即播，按工位分组，按横屏 / 竖屏和时长筛，点开在灯箱里带声播放。
 
 - 短片是**风格段**，不是预告片：一段只演示这条管线的一两个镜头语言，看完就能判断它适不适合你的选题；
 - **封面不是「第 2 秒截图」**：逐帧统计运动与边缘密度，排除白屏 / 黑场 / 空镜，取动作最丰富的一帧，确需人挑的
@@ -248,7 +248,7 @@ Auto-Video/
 <details>
 <summary>样片和完整成片有什么区别？</summary>
 
-`site/media/` 里是为站点压过的**风格段**（162 段是 10 秒短片，另两段取完整成片的片头）；
+`site/media/` 里是为站点压过的**风格段**（163 段是 10 秒短片，另两段取完整成片的片头）；
 完整成片（2 分钟到 13 分钟那种）只在本地归档或 Release 资产里，不随仓库提交。需要原片时从归档取，不必重渲染。
 
 </details>
@@ -272,12 +272,12 @@ Auto-Video/
 
 ## 项目状态与下一步
 
-**现在**：166 条管线 / 11 个工位 / 164 段可播短片 / 契约校验 `OK`。CI 每次 push 都跑语法、契约、共享运行时一致性与文档断链。
+**现在**：166 条管线 / 11 个工位 / 165 段可播短片 / 契约校验 `OK`。CI 每次 push 都跑语法、契约、共享运行时一致性与文档断链。
 
 **下一步**，按投入产出排：
 
-1. 补齐还没出片的管线（`qianhuang2` 等），让 166 张卡都有片子可播；
-2. 把「一条命令从选题跑到成片」从 10 条往上扩，先解决模板写死分幕的那几条；
+1. 把「一条命令从选题跑到成片」从 10 条往上扩，先解决模板写死分幕的那几条；
+2. 给站点上多数只有一段 10 秒镜头的管线补第二段，让人能看出运镜差异；
 3. 把 77 条共用的风格内核与 47 条本地运行时收敛成可安装的包，让「165 条」变成「165 个可调用能力」；
 4. 站点与文档的英文面继续补齐，让工艺文档被中文圈之外看到。
 

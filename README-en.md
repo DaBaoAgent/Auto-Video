@@ -12,7 +12,7 @@ No cloud image or video generation API, no per-render billing. Same script, same
 [![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 ![pipelines](https://img.shields.io/badge/pipelines-165%20films%20%2B%201%20frontend-111111?style=flat-square)
 ![stations](https://img.shields.io/badge/stations-11-111111?style=flat-square)
-![samples](https://img.shields.io/badge/samples-164%20clips-e9b47c?style=flat-square)
+![samples](https://img.shields.io/badge/samples-165%20clips-e9b47c?style=flat-square)
 
 **[简体中文](README.md) | English**
 
@@ -144,11 +144,11 @@ Honest caveat: **10 of 166** pipelines can currently run end-to-end from a topic
 
 ## Samples
 
-**[The sample site](https://dabaoagent.github.io/Auto-Video/)** holds 166 pipeline cards and **164 playable clips**: 162 are 10-second style sections (mostly rendered by this repo, a few taken from upstream public samples), two are 21 s / 30 s openings cut from full films. Grouped by station, hover-to-play, filterable by orientation and length, with audio in a lightbox.
+**[The sample site](https://dabaoagent.github.io/Auto-Video/)** holds 166 pipeline cards and **165 playable clips**: 163 are 10-second style sections (mostly rendered by this repo, a few taken from upstream public samples), two are 22 s / 30 s openings cut from full films. Grouped by station, hover-to-play, filterable by orientation and length, with audio in a lightbox.
 
 - A clip is a **style section**, not a trailer — it demonstrates one or two camera behaviours so you can judge whether the lane fits your topic;
 - **Posters are not frame-2 screenshots**: frames are scored by motion and edge density, white/black/empty frames are rejected, and hand-picked timestamps win via [`tools/poster_overrides.json`](tools/poster_overrides.json);
-- Only two cards have no video: `qianhuang2` (newest lane, sample not rendered yet) and `peiyin` (voice-over frontend, which never produces a film).
+- Only one card has no video: `peiyin` is the voice-over frontend and never produces a film, so its card points straight at its docs.
 
 Full films are archived locally under `out/<no_title>/` (film, subtitles, 3:4 and 4:3 covers, publish copy) and are not committed.
 
@@ -189,9 +189,9 @@ They share deterministic rendering but differ in medium and camera grammar — e
 
 ## Status and next steps
 
-**Now:** 166 pipelines · 11 stations · 164 playable clips · contract check green on every push (syntax, contract, shared-runtime consistency, dead links).
+**Now:** 166 pipelines · 11 stations · 165 playable clips · contract check green on every push (syntax, contract, shared-runtime consistency, dead links).
 
-**Next:** fill the 20 missing samples; widen one-command production beyond 10 pipelines; collapse the shared kernel and local runtimes into installable packages so "165 pipelines" becomes "165 callable capabilities"; grow the English docs.
+**Next:** widen one-command production beyond 10 pipelines; give lanes that show only one 10-second shot a second clip so camera differences become visible; collapse the shared kernel and local runtimes into installable packages so "165 pipelines" becomes "165 callable capabilities"; grow the English docs.
 
 ## Contributing
 
