@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "chaijie",
-    "no": "74",
+    "no": "75",
     "name_zh": "产品拆解",
     "name_en": "Exploded Teardown",
     "station": "diagram",

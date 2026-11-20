@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "zhuomian",
-    "no": "97",
+    "no": "98",
     "name_zh": "桌面卡片穿梭",
     "name_en": "Tabletop App Flythrough",
     "station": "screen",

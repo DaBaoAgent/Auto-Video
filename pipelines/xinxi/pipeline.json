@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "xinxi",
-    "no": "73",
+    "no": "74",
     "name_zh": "等距信息图",
     "name_en": "Isometric Infographic",
     "station": "diagram",

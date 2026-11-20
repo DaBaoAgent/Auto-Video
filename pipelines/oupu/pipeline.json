@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "oupu",
-    "no": "123",
+    "no": "124",
     "name_zh": "欧普艺术",
     "name_en": "Op Art",
     "station": "graphic",
@@ -12,12 +12,12 @@
     "aspect": "16:9",
     "fps": 30,
     "entry": "scripts/oupu.py",
+    "status": "live",
     "sample": {
       "file": "oupu bb-op.mp4",
       "title": "Stripe · 官网",
       "seconds": 22.3
     },
-    "status": "live",
     "updated": "2026-11-20"
   },
   "spec": {

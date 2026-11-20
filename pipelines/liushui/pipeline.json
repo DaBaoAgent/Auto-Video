@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "liushui",
-    "no": "79",
+    "no": "80",
     "name_zh": "流水线图解",
     "name_en": "Assembly-Line Diagram",
     "station": "diagram",

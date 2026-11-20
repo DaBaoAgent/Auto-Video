@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "zimu",
-    "no": "42",
+    "no": "43",
     "name_zh": "字幕新闻",
     "name_en": "Caption News",
     "station": "live",

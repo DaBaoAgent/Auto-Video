@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "poumian",
-    "no": "75",
+    "no": "76",
     "name_zh": "线稿剖面图解",
     "name_en": "Line-Art Cutaway",
     "station": "diagram",

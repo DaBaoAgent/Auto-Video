@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "pangbei",
-    "no": "128",
+    "no": "129",
     "name_zh": "庞贝马赛克",
     "name_en": "Pompeii Mosaic",
     "station": "craft",

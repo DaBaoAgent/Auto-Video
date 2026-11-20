@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "huazi",
-    "no": "165",
+    "no": "166",
     "name_zh": "综艺花字",
     "name_en": "Variety Show Captions",
     "station": "screen",

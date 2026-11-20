@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "xingbian",
-    "no": "164",
+    "no": "165",
     "name_zh": "形变动画",
     "name_en": "Shape Morph",
     "station": "graphic",

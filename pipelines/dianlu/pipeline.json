@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "dianlu",
-    "no": "100",
+    "no": "101",
     "name_zh": "电路板",
     "name_en": "Circuit Board",
     "station": "screen",

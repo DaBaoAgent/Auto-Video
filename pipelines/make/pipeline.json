@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "make",
-    "no": "56",
+    "no": "57",
     "name_zh": "马克笔白纸速写",
     "name_en": "Marker on Paper",
     "station": "hand",

@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "baiban",
-    "no": "53",
+    "no": "54",
     "name_zh": "白板讲解",
     "name_en": "Whiteboard Explainer",
     "station": "hand",

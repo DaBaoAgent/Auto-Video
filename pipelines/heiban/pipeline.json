@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "heiban",
-    "no": "54",
+    "no": "55",
     "name_zh": "黑板粉笔",
     "name_en": "Chalkboard",
     "station": "hand",

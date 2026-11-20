@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "nihong",
-    "no": "104",
+    "no": "105",
     "name_zh": "霓虹灯管",
     "name_en": "Neon Tubes",
     "station": "screen",

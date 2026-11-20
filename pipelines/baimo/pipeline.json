@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "baimo",
-    "no": "115",
+    "no": "116",
     "name_zh": "白模投影",
     "name_en": "Projection-Mapped Model",
     "station": "map",

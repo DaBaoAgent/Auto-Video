@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "guaban",
-    "no": "65",
+    "no": "66",
     "name_zh": "刮版画长镜头",
     "name_en": "Scratchboard Long Take",
     "station": "graphic",

@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "andiao",
-    "no": "121",
+    "no": "122",
     "name_zh": "暗调励志",
     "name_en": "Dark Motivational",
     "station": "screen",
@@ -12,12 +12,12 @@
     "aspect": "16:9",
     "fps": 30,
     "entry": "scripts/andiao.py",
+    "status": "live",
     "sample": {
       "file": "andiao bb-lumen.mp4",
       "title": "再刷五分钟 · 报复性熬夜",
       "seconds": 165.3
     },
-    "status": "live",
     "updated": "2026-11-20"
   },
   "spec": {

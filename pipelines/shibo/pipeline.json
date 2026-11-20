@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "shibo",
-    "no": "103",
+    "no": "104",
     "name_zh": "示波器数学",
     "name_en": "Oscilloscope Math",
     "station": "screen",

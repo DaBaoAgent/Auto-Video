@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "diduo",
-    "no": "160",
+    "no": "161",
     "name_zh": "低多边形",
     "name_en": "Low-poly",
     "station": "d3",

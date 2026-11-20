@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "yizhou",
-    "no": "108",
+    "no": "109",
     "name_zh": "移轴微缩",
     "name_en": "Tilt-Shift Miniature",
     "station": "d3",
