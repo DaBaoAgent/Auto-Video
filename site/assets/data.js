@@ -321,7 +321,7 @@ window.AV = {
    "no": "11",
    "name_zh": "皮影卡片",
    "name_en": "Shadow-puppet Cards",
-   "title": "波斯湾伊甸园",
+   "title": "元宵灯会",
    "engine": "Playwright + Canvas 逐帧",
    "tagline": "皮影剪影配卡片式讲解，分镜生成与四查门禁。",
    "aspect": "16:9",
@@ -331,7 +331,7 @@ window.AV = {
    "mp4": "media/piying.mp4",
    "poster": "media/piying.jpg",
    "note": null,
-   "badge": "Playwright + Canvas 逐帧",
+   "badge": "10 秒样片",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/piying/SKILL.md"
   },
   {
