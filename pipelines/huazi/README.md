@@ -2,7 +2,7 @@
 
 Variety Show Captions
 
-竖屏萌宠 vlog 上压多层描边胖体花字：弹性 pop、逐字错帧、爆炸框与印章。
+竖屏宵夜：台灯下的面碗与热气，上面压多层描边胖体花字、弹性 pop 与认证章。
 
 - 入口：`python pipelines/huazi/scripts/huazi.py --out out/huazi.mp4 --seconds 8`
 - 画法卡：[references/style.md](references/style.md)

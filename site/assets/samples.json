@@ -5036,8 +5036,8 @@
       "key": "pintie",
       "kind": "pipeline",
       "pipeline": "pintie",
-      "title": "拼贴剪贴 · 脑洞大开",
-      "badge": "10 秒样片 · 上游官方",
+      "title": "拼贴剪贴 · 旧报纸上的纸上城",
+      "badge": "10 秒样片 · 自渲",
       "long_edge": 1024,
       "max_seconds": 10.0,
       "crf": 30,
@@ -5049,21 +5049,21 @@
       "clip_seconds": 10.0,
       "poster_pick": {
         "by": "fixed",
-        "note": "取 5.2 秒处",
-        "seconds": 5.2
+        "note": "取 9.1 秒处",
+        "seconds": 9.1
       },
       "mp4": "media/pintie.mp4",
       "poster": "media/pintie.jpg",
-      "source": "mg-styles-15 官方样片（06-collage，暂用；管线本地可重渲）",
-      "music": "上游自带音轨",
-      "note": "演示站暂用上游官方样片"
+      "source": "Auto-Video 本地 runtime 自渲（10 s，题材与画法均为本仓库重写）",
+      "music": "搞笑 Funny Quirky Comedy (Free Download Background Music)",
+      "note": "本仓库自渲 10 秒样片"
     },
     {
       "key": "yetai",
       "kind": "pipeline",
       "pipeline": "yetai",
-      "title": "液态流动 · 一泼糖浆",
-      "badge": "10 秒样片 · 上游官方",
+      "title": "液态流动 · 墨落进牛奶里",
+      "badge": "10 秒样片 · 自渲",
       "long_edge": 1024,
       "max_seconds": 10.0,
       "crf": 30,
@@ -5075,21 +5075,21 @@
       "clip_seconds": 10.0,
       "poster_pick": {
         "by": "fixed",
-        "note": "取 3.2 秒处",
-        "seconds": 3.2
+        "note": "取 7.9 秒处",
+        "seconds": 7.9
       },
       "mp4": "media/yetai.mp4",
       "poster": "media/yetai.jpg",
-      "source": "mg-styles-15 官方样片（07-liquid，暂用；管线本地可重渲）",
-      "music": "上游自带音轨",
-      "note": "演示站暂用上游官方样片"
+      "source": "Auto-Video 本地 runtime 自渲（10 s，题材与画法均为本仓库重写）",
+      "music": "未解 Spacetime_Blues",
+      "note": "本仓库自渲 10 秒样片"
     },
     {
       "key": "xingbian",
       "kind": "pipeline",
       "pipeline": "xingbian",
-      "title": "形变动画 · 圆到心",
-      "badge": "10 秒样片 · 上游官方",
+      "title": "形变动画 · 一条线的旅行",
+      "badge": "10 秒样片 · 自渲",
       "long_edge": 1024,
       "max_seconds": 10.0,
       "crf": 30,
@@ -5101,21 +5101,21 @@
       "clip_seconds": 10.0,
       "poster_pick": {
         "by": "fixed",
-        "note": "取 2.4 秒处",
-        "seconds": 2.4
+        "note": "取 9.4 秒处",
+        "seconds": 9.4
       },
       "mp4": "media/xingbian.mp4",
       "poster": "media/xingbian.jpg",
-      "source": "mg-styles-15 官方样片（08-morph，暂用；管线本地可重渲）",
-      "music": "上游自带音轨",
-      "note": "演示站暂用上游官方样片"
+      "source": "Auto-Video 本地 runtime 自渲（10 s，题材与画法均为本仓库重写）",
+      "music": "宇宙 Magnetic_Lullaby",
+      "note": "本仓库自渲 10 秒样片"
     },
     {
       "key": "huazi",
       "kind": "pipeline",
       "pipeline": "huazi",
-      "title": "综艺花字 · 喵呜日记",
-      "badge": "10 秒样片 · 上游官方",
+      "title": "综艺花字 · 深夜一碗面",
+      "badge": "10 秒样片 · 自渲",
       "long_edge": 1024,
       "max_seconds": 10.0,
       "crf": 30,
@@ -5127,14 +5127,14 @@
       "clip_seconds": 10.0,
       "poster_pick": {
         "by": "fixed",
-        "note": "取 6.8 秒处",
-        "seconds": 6.8
+        "note": "取 5.6 秒处",
+        "seconds": 5.6
       },
       "mp4": "media/huazi.mp4",
       "poster": "media/huazi.jpg",
-      "source": "mg-styles-15 官方样片（18-hanazi，暂用；管线本地可重渲）",
-      "music": "上游自带音轨",
-      "note": "演示站暂用上游官方样片"
+      "source": "Auto-Video 本地 runtime 自渲（10 s，题材与画法均为本仓库重写）",
+      "music": "搞笑-节日 Playful & Quirky Music (royalty free background music) - Halloween",
+      "note": "本仓库自渲 10 秒样片"
     }
   ],
   "note": "2026-11-19：77 条 外部登记管线的样片取自 公开样片库，原有 40 条与风格样片条目原样保留"

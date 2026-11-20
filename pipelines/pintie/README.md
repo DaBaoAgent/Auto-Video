@@ -2,7 +2,7 @@
 
 Collage Cutout
 
-报纸底上贴半调网点人像，白剪边、关节纸片、12 fps 定格，脑袋开盖露出深空。
+旧报纸上剪出的一座城：纸楼房、纸太阳、纸火车、撕边云，12 fps 定格，白剪边与落影。
 
 - 入口：`python pipelines/pintie/scripts/pintie.py --out out/pintie.mp4 --seconds 8`
 - 画法卡：[references/style.md](references/style.md)

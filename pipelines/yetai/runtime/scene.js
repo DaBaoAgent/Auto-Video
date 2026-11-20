@@ -1,180 +1,281 @@
-/* 液态流动 · 液态创世（自研）
-   液体用"同一支全幅渐变"填球体，重叠处颜色自然接成一片，读作一大团液体而不是几个球；
-   两球靠近时在两心之间拉细颈，断丝后次级液滴延迟跟随；结尾字标从液体里聚出来。 */
+/* 液态流动 · 墨入奶（自研）
+   俯拍的浅盘牛奶，墨滴从上方落下：撞击成环 → 指状扩散 → 两色交融 → 打旋 → 收成一枚墨印。
+   刻意与上游"3D 玻璃团块"分开：这里没有球体高光，只有俯视的平面墨迹、涟漪与丝状边缘。 */
 (() => {
-  const C = [
-    [0.00, '#ffb45c'],
-    [0.22, '#ff7a1e'],
-    [0.55, '#ff2d78'],
-    [0.82, '#b02be0'],
-    [1.00, '#5f22ff'],
-  ];
+  const CREAM = '#f2ece0';
+  const MILK = '#fcf8ef';
+  const INKS = { indigo: '#1d2b6e', coral: '#cf4034', teal: '#28665c' };
+
+  // 泼墨轮廓的路径（只建路径，填色/裁切各自来）
+  function blotPath(ctx, cx, cy, R, seed, t) {
+    const n = 160;
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) {
+      const a = (i / n) * Math.PI * 2;
+      const wob = 0.62
+        + 0.26 * Math.sin(3.1 * a + seed * 2.1 + t * 0.9)
+        + 0.12 * Math.sin(6.7 * a - seed * 1.3 + t * 1.4)
+        + 0.08 * U.noise(Math.cos(a) * 1.6 + seed, Math.sin(a) * 1.6 + seed * 0.7);
+      const r = R * wob;
+      const x = cx + Math.cos(a) * r;
+      const y = cy + Math.sin(a) * r;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+  }
+
+  // 泼墨轮廓：极坐标半径被人为扰动，边缘永远是波浪，不是几何圆
+  function blot(ctx, cx, cy, R, seed, t, color, alpha) {
+    blotPath(ctx, cx, cy, R, seed, t);
+    ctx.fillStyle = U.rgba(color, alpha);
+    ctx.fill();
+  }
+
+  // 奶纹：在墨块里面留几道奶白的丝，墨才像"淌进奶里"而不是一块色
+  function milkVeins(ctx, cx, cy, R, seed, t, alpha) {
+    if (alpha <= 0) return;
+    ctx.save();
+    blotPath(ctx, cx, cy, R * 0.96, seed, t);
+    ctx.clip();
+    ctx.strokeStyle = U.rgba(MILK, alpha);
+    ctx.lineCap = 'round';
+    for (let i = 0; i < 5; i++) {
+      const yy = cy + (i - 2) * R * 0.28;
+      ctx.lineWidth = 4 + U.hash(seed + i) * 6;
+      ctx.beginPath();
+      ctx.moveTo(cx - R * 1.1, yy);
+      ctx.bezierCurveTo(
+        cx - R * 0.4, yy - R * 0.35 + Math.sin(t * 0.8 + i) * 8,
+        cx + R * 0.3, yy + R * 0.40,
+        cx + R * 1.1, yy - R * 0.18
+      );
+      ctx.stroke();
+    }
+    // 两颗没被墨盖住的奶泡
+    ctx.fillStyle = U.rgba(MILK, alpha * 1.2);
+    for (let i = 0; i < 3; i++) {
+      ctx.beginPath();
+      ctx.arc(cx + (U.hash(seed + i * 4) - 0.5) * R * 1.1, cy + (U.hash(seed + i * 9) - 0.5) * R * 0.8,
+        R * (0.03 + U.hash(seed + i * 7) * 0.05), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // 丝：从墨心甩出去的细线，像奶里被拉开的墨
+  function filaments(ctx, cx, cy, R, seed, t, color, count, alpha) {
+    ctx.save();
+    ctx.strokeStyle = U.rgba(color, alpha);
+    ctx.lineCap = 'round';
+    for (let i = 0; i < count; i++) {
+      const a = (i / count) * Math.PI * 2 + U.hash(seed + i) * 0.4;
+      const len = R * (0.9 + U.hash(seed + i * 3) * 0.8);
+      const wob = 0.22 * Math.sin(t * 1.2 + i);
+      ctx.lineWidth = 2 + U.hash(seed + i * 5) * 3;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(a) * R * 0.45, cy + Math.sin(a) * R * 0.45);
+      ctx.quadraticCurveTo(
+        cx + Math.cos(a + wob) * len * 0.7, cy + Math.sin(a + wob) * len * 0.7,
+        cx + Math.cos(a + wob * 1.8) * len, cy + Math.sin(a + wob * 1.8) * len
+      );
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function ripple(ctx, cx, cy, r, alpha, w = 2) {
+    if (alpha <= 0 || r <= 0) return;
+    ctx.save();
+    ctx.strokeStyle = `rgba(30,36,60,${alpha})`;
+    ctx.lineWidth = w;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  }
 
   window.SCENES = window.SCENES || {};
   window.SCENES.yetai = {
     init: async () => {},
     draw(ctx, t) {
       const W = U.W, H = U.H;
-      const cx = W * 0.5, cy = H * 0.52;
-      const ground = cy + H * 0.20;
+      U.paper(ctx, W, H, CREAM, 3, 0.5);
 
-      ctx.fillStyle = '#24072b';
-      ctx.fillRect(0, 0, W, H);
-      const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, W * 0.62);
-      bg.addColorStop(0, 'rgba(146,44,140,0.30)');
-      bg.addColorStop(1, 'rgba(20,4,26,0)');
-      ctx.fillStyle = bg;
-      ctx.fillRect(0, 0, W, H);
+      const cx = W * 0.5, cy = H * 0.48;
+      const dishR = H * 0.43;
 
-      const fade = 1 - U.easeInOut(U.p(t, 5.25, 0.65));   // 5.25s 后液体让位给字标
+      // 定机位：缓慢推近 + 轻微旋转，像俯拍支架在动
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(0.004 * Math.sin(t * 0.35));
+      const cam = 1.06 + 0.08 * U.smooth(U.p(t, 0, 10));
+      ctx.scale(cam, cam);
+      ctx.translate(-cx, -cy);
 
-      // 全幅渐变：所有液体共用，重叠处无缝
-      const lg = ctx.createLinearGradient(W * 0.16, cy - H * 0.30, W * 0.84, cy + H * 0.34);
-      C.forEach(([p, c]) => lg.addColorStop(p, c));
+      // 盘子的影
+      U.softShadow(ctx, cx + 8, cy + 14, dishR * 1.12, dishR * 1.12, 0.22);
 
-      const drawBall = (x, y, r, sx = 1, sy = 1) => {
-        ctx.save();
-        ctx.globalAlpha = fade;
-        ctx.translate(x, y);
-        ctx.scale(sx, sy);
-        ctx.fillStyle = lg;
+      // 盘
+      ctx.fillStyle = '#eae2d2';
+      ctx.beginPath();
+      ctx.arc(cx, cy, dishR, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = MILK;
+      ctx.beginPath();
+      ctx.arc(cx, cy, dishR * 0.965, 0, Math.PI * 2);
+      ctx.fill();
+      // 盘沿
+      ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.arc(cx, cy, dishR * 0.975, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // 奶面：淡淡的既有涟漪（开场第 0 帧就有画面）
+      for (let i = 0; i < 3; i++) {
+        ripple(ctx, cx, cy, dishR * (0.55 + i * 0.13), 0.10 - i * 0.02, 1.5);
+      }
+      ctx.fillStyle = 'rgba(210,200,180,0.18)';
+      ctx.beginPath();
+      ctx.arc(cx - dishR * 0.2, cy - dishR * 0.22, dishR * 0.35, 0, Math.PI * 2);
+      ctx.fill();
+
+      // ---- 墨滴 1（靛蓝，主笔）----
+      const d1 = 1.05, hit1 = 1.42;
+      if (t < hit1) {
+        const p = U.clamp((t - d1) / (hit1 - d1));
+        const y = U.lerp(-H * 0.05, cy - H * 0.02, p * p);
+        const r = H * 0.020;
+        ctx.fillStyle = INKS.indigo;
         ctx.beginPath();
-        ctx.arc(0, 0, r, 0, Math.PI * 2);
+        ctx.arc(cx, y, r, 0, Math.PI * 2);
         ctx.fill();
-        // 顶面一道镜面高光（窄条，不是球体渐变）
-        ctx.globalAlpha = fade * 0.55;
-        ctx.save();
-        ctx.rotate(-0.55);
-        const hg = ctx.createLinearGradient(-r * 0.5, 0, -r * 0.1, 0);
-        hg.addColorStop(0, 'rgba(255,255,255,0)');
-        hg.addColorStop(0.5, 'rgba(255,255,255,0.75)');
-        hg.addColorStop(1, 'rgba(255,255,255,0)');
-        ctx.fillStyle = hg;
+        ctx.strokeStyle = 'rgba(29,43,110,0.55)';
+        ctx.lineWidth = 5;
         ctx.beginPath();
-        ctx.ellipse(-r * 0.30, -r * 0.44, r * 0.34, r * 0.10, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-        ctx.restore();
-      };
-
-      // 落滴（两个，落地压扁）
-      const drops = [
-        { t0: 0.18, x: cx - W * 0.13, r: H * 0.10 },
-        { t0: 0.52, x: cx + W * 0.12, r: H * 0.085 },
-      ];
-      for (const d of drops) {
-        const k = U.p(t, d.t0, 0.52);
-        if (k <= 0) continue;
-        if (k < 1) {
-          const y = -d.r + (ground + d.r) * (k * k);
-          drawBall(d.x, y, d.r * (1 - 0.08 * k), 1, 1 + 0.28 * k);
-        } else {
-          const l = U.p(t, d.t0 + 0.52, 0.45);
-          const sq = Math.sin(Math.min(1, l) * Math.PI);
-          drawBall(d.x, ground, d.r * (1 + sq * 0.4), 1 + sq * 0.45, 1 - sq * 0.55);
-          if (l > 0.2 && l < 0.9) {
-            drawBall(d.x + (d.x < cx ? -1 : 1) * d.r * (0.8 + l), ground - d.r * (0.5 + l * 0.9), d.r * 0.22);
-          }
+        ctx.moveTo(cx, y - r);
+        ctx.lineTo(cx - 2, y - r - H * 0.06 * p);
+        ctx.stroke();
+      }
+      if (t > hit1) {
+        const gt = U.clamp((t - hit1) / 2.1);
+        const grow = U.easeOut(gt);
+        const R1 = dishR * 0.46 * (0.22 + 0.78 * grow);
+        // 撞击环
+        for (let i = 0; i < 3; i++) {
+          const rt = U.p(t, hit1 + i * 0.12, 1.4);
+          if (rt > 0 && rt < 1) ripple(ctx, cx, cy, dishR * 0.14 + rt * dishR * 0.34, 0.28 * (1 - rt), 2.5);
         }
+        blot(ctx, cx, cy, R1, 1.3, t, INKS.indigo, 0.94);
+        blot(ctx, cx + R1 * 0.12, cy - R1 * 0.06, R1 * 0.72, 2.6, t, INKS.indigo, 0.55);
+        milkVeins(ctx, cx, cy, R1 * 1.02, 5.5, t, 0.30 * U.clamp(grow * 2));
+        if (grow > 0.4) filaments(ctx, cx, cy, R1 * 1.25, 5, t, INKS.indigo, 18, 0.32 * U.clamp((grow - 0.4) * 3));
       }
 
-      // 两团融合
-      if (t > 1.15 && fade > 0.05) {
-        const m = U.easeInOut(U.p(t, 1.3, 1.15));
-        const lx = U.lerp(cx - W * 0.20, cx - W * 0.055, m);
-        const rx = U.lerp(cx + W * 0.20, cx + W * 0.06, m);
-        const rl = H * 0.155, rr = H * 0.135;
-        const gap = (rx - lx) - (rl + rr);
-        if (gap < H * 0.09) {
-          const w = Math.max(0, H * 0.055 * (1 - gap / (H * 0.09)));
-          ctx.save();
-          ctx.globalAlpha = fade;
-          ctx.translate(lx, cy);
-          const len = rx - lx;
-          const ng = ctx.createLinearGradient(0, 0, len, 0);
-          C.forEach(([p, c]) => ng.addColorStop(p, c));
-          ctx.fillStyle = ng;
+      // ---- 墨滴 2（朱红，落在侧边与蓝交融）----
+      const d2 = 2.55, hit2 = 2.92;
+      const c2x = cx + dishR * 0.20, c2y = cy + dishR * 0.12;
+      if (t > d2 && t < hit2) {
+        const p = U.clamp((t - d2) / (hit2 - d2));
+        ctx.fillStyle = INKS.coral;
+        ctx.beginPath();
+        ctx.arc(c2x, U.lerp(-H * 0.06, c2y, p * p), H * 0.014, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      if (t > hit2) {
+        const gt = U.clamp((t - hit2) / 1.9);
+        const R2 = dishR * 0.20 * (0.2 + 0.8 * U.easeOut(gt));
+        ripple(ctx, c2x, c2y, R2 * 2.4 + dishR * 0.05, 0.22 * (1 - gt), 2);
+        blot(ctx, c2x, c2y, R2, 3.7, t, INKS.coral, 0.62);
+        blot(ctx, c2x - R2 * 0.1, c2y + R2 * 0.08, R2 * 0.6, 4.1, t, INKS.coral, 0.40);
+        filaments(ctx, c2x, c2y, R2 * 1.5, 9, t, INKS.coral, 10, 0.26 * U.clamp(gt * 2));
+      }
+
+      // ---- 墨滴 3（青，细，二次落点带来第三层网纹）----
+      const d3 = 4.1, hit3 = 4.42;
+      const c3x = cx - dishR * 0.16, c3y = cy - dishR * 0.18;
+      if (t > d3 && t < hit3) {
+        const p = U.clamp((t - d3) / (hit3 - d3));
+        ctx.fillStyle = INKS.teal;
+        ctx.beginPath();
+        ctx.arc(c3x, U.lerp(-H * 0.02, c3y, p * p), H * 0.010, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      if (t > hit3) {
+        const gt = U.clamp((t - hit3) / 1.6);
+        blot(ctx, c3x, c3y, dishR * 0.13 * (0.2 + 0.8 * U.easeOut(gt)), 6.2, t, INKS.teal, 0.5);
+        filaments(ctx, c3x, c3y, dishR * 0.22, 12, t, INKS.teal, 8, 0.24 * gt);
+      }
+
+      // ---- 打旋：整盘墨迹在 5.4–7.4 之间被搅动 ----
+      const sw = U.p(t, 5.4, 2.0);
+      if (sw > 0) {
+        ctx.save();
+        ctx.strokeStyle = `rgba(29,43,110,${0.30 * Math.sin(sw * Math.PI)})`;
+        ctx.lineWidth = 3;
+        for (let s = 0; s < 4; s++) {
           ctx.beginPath();
-          ctx.moveTo(0, -w);
-          ctx.quadraticCurveTo(len * 0.5, -w * 0.30, len, -w);
-          ctx.lineTo(len, w);
-          ctx.quadraticCurveTo(len * 0.5, w * 0.30, 0, w);
-          ctx.closePath();
-          ctx.fill();
-          ctx.restore();
+          const rr = dishR * (0.30 + s * 0.06);
+          for (let i = 0; i <= 60; i++) {
+            const a = (i / 60) * Math.PI * 2 * 1.15 + sw * 2.2 + s * 0.7;
+            const rad = rr * (1 + 0.06 * Math.sin(a * 3));
+            const x = cx + Math.cos(a) * rad;
+            const y = cy + Math.sin(a) * rad;
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
         }
-        drawBall(lx, cy, rl);
-        drawBall(rx, cy, rr);
-        // 回弹
-        const s = U.p(t, 2.4, 0.5);
-        if (s > 0 && s < 1) {
-          const b = Math.sin(s * Math.PI * 1.6) * 0.16;
-          drawBall((lx + rx) / 2, cy, (rl + rr) * 0.88, 1 + b, 1 - b);
-        }
-      }
-
-      // 主球合一
-      const grow = U.easeInOut(U.p(t, 3.15, 1.1));
-      if (grow > 0) drawBall(cx, cy, H * 0.185 * grow, 1.06, 0.94);
-
-      // 波浪转场 2.9–3.8
-      const wv = U.p(t, 2.9, 0.9);
-      if (wv > 0 && wv < 1) {
-        const front = U.easeInOut(wv) * 1.5 - 0.30;
-        const grd = ctx.createLinearGradient(0, 0, W, H);
-        C.forEach(([p, c]) => grd.addColorStop(p, c));
-        ctx.save();
-        ctx.globalAlpha = 0.9 - 0.5 * wv;
-        ctx.fillStyle = grd;
-        ctx.beginPath();
-        ctx.moveTo(-0.1 * W, 0);
-        for (let i = 0; i <= 26; i++) {
-          const y = (i / 26) * H;
-          const wave = Math.sin(i * 0.78 + wv * 6.2) * H * 0.034;
-          ctx.lineTo((front + wave / W) * W, y);
-        }
-        ctx.lineTo(-0.1 * W, H);
-        ctx.closePath();
-        ctx.fill();
         ctx.restore();
       }
 
-      // 字标 FLUX
-      const wm = U.easeOut(U.p(t, 5.35, 0.7));
-      if (wm > 0) {
-        const fs = Math.round(H * 0.28);
+      // ---- 收成一枚墨印 ----
+      const seal = U.p(t, 6.8, 1.1);
+      if (seal > 0) {
+        const bias = U.easeInOut(seal);
+        const sr = dishR * (0.34 + 0.02 * bias);
         ctx.save();
-        ctx.globalAlpha = wm;
+        ctx.globalAlpha = 0.96;
+        ctx.translate(cx, cy);
+        blot(ctx, 0, 0, sr, 2.1, 0.4, INKS.indigo, 0.97);
+        ctx.strokeStyle = U.rgba(MILK, 0.9);
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(0, 0, sr * 0.80, 0, Math.PI * 2);
+        ctx.stroke();
+        // 印里的奶白字
+        ctx.globalAlpha = U.clamp((seal - 0.35) / 0.5);
+        ctx.fillStyle = MILK;
+        ctx.font = '900 ' + Math.round(sr * 0.62) + 'px "STSong", "SimSun", "Microsoft YaHei", serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        const tg = ctx.createLinearGradient(cx - W * 0.2, cy - H * 0.16, cx + W * 0.2, cy + H * 0.16);
-        C.forEach(([p, c]) => tg.addColorStop(p, c));
-        ctx.font = '800 ' + fs + 'px "Segoe UI", Arial, sans-serif';
-        ctx.fillStyle = tg;
-        ctx.fillText('FLUX', cx, cy);
-        // 液体边缘：白色细描边压一点高光
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = 'rgba(255,255,255,0.20)';
-        ctx.strokeText('FLUX', cx, cy);
+        ctx.fillText('墨', 0, sr * 0.02);
         ctx.restore();
       }
 
-      // 片尾一滴
-      if (t > 6.5) {
-        const dt = U.p(t, 6.55, 0.5);
-        drawBall(cx + W * 0.012, cy + H * 0.11 + dt * dt * (ground - cy - H * 0.11), H * 0.04 * (1 - 0.15 * dt), 1, 1.1);
-        const rp = U.p(t, 7.05, 0.9);
-        if (rp > 0 && rp < 1) {
-          ctx.save();
-          ctx.strokeStyle = 'rgba(255,170,205,0.45)';
-          ctx.lineWidth = 2.5;
-          const rr = (1 - Math.pow(1 - rp, 3)) * W * 0.09;
+      // 片尾那一小滴（8.9 秒）
+      const dd = 8.9;
+      if (t > dd) {
+        const p = U.p(t, dd, 0.4);
+        if (p < 1) {
+          ctx.fillStyle = INKS.coral;
           ctx.beginPath();
-          ctx.ellipse(cx + W * 0.012, ground, rr, rr * 0.13, 0, 0, Math.PI * 2);
-          ctx.stroke();
-          ctx.restore();
+          ctx.arc(cx + dishR * 0.02, cy - H * 0.02 - p * H * 0.02, H * 0.008, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          const rt = U.p(t, dd + 0.4, 0.9);
+          ripple(ctx, cx, cy - H * 0.02, dishR * 0.10 + rt * dishR * 0.10, 0.18 * (1 - rt), 2);
         }
       }
+
+      // 角标
+      ctx.save();
+      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = '#3a3226';
+      ctx.font = '600 ' + Math.round(H * 0.018) + 'px "Segoe UI", sans-serif';
+      ctx.fillText('INK IN MILK   ·   07', W * 0.055, H * 0.945);
+      ctx.restore();
+
+      ctx.restore();
     },
   };
 })();

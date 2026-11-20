@@ -42,8 +42,8 @@ def main() -> int:
     p.add_argument("--stills", default="")
     p.add_argument("--fps", type=int, default=DEFAULT_FPS)
     p.add_argument("--crf", type=int, default=18)
-    p.add_argument("--width", type=int, default=1080)
-    p.add_argument("--height", type=int, default=1920)
+    p.add_argument("--width", type=int, default=1920)
+    p.add_argument("--height", type=int, default=1080)
     a = p.parse_args()
 
     ensure_playwright()

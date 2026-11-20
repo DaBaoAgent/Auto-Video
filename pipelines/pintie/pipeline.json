@@ -7,7 +7,7 @@
     "name_en": "Collage Cutout",
     "station": "graphic",
     "station_no": "05",
-    "tagline": "报纸底上贴半调网点人像，白剪边、关节纸片、12 fps 定格，脑袋开盖露出深空。",
+    "tagline": "旧报纸上剪出的一座城：纸楼房、纸太阳、纸火车、撕边云，12 fps 定格，白剪边与落影。",
     "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
     "aspect": "16:9",
     "fps": 24,
