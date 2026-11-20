@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "bishi",
-    "no": "78",
+    "no": "79",
     "name_zh": "笔式绘图仪",
     "name_en": "Pen Plotter",
     "station": "diagram",

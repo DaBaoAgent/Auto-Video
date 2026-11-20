@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "zhike",
-    "no": "93",
+    "no": "94",
     "name_zh": "胶片直刻",
     "name_en": "Scratch Film",
     "station": "screen",

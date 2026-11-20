@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "wangdian",
-    "no": "61",
+    "no": "62",
     "name_zh": "网点档案",
     "name_en": "Halftone Dossier",
     "station": "graphic",

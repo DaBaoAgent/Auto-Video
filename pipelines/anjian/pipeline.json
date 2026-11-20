@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "anjian",
-    "no": "82",
+    "no": "83",
     "name_zh": "安检 X 光",
     "name_en": "Security X-ray",
     "station": "diagram",

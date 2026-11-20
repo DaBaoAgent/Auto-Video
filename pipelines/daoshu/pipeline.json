@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "daoshu",
-    "no": "44",
+    "no": "45",
     "name_zh": "实时倒计时分屏",
     "name_en": "Live Countdown Split-screen",
     "station": "live",

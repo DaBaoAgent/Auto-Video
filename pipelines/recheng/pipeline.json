@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "recheng",
-    "no": "113",
+    "no": "114",
     "name_zh": "热成像",
     "name_en": "Thermal Camera",
     "station": "map",

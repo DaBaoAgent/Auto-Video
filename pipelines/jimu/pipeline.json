@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "jimu",
-    "no": "106",
+    "no": "107",
     "name_zh": "积木玩具",
     "name_en": "Brick Toy",
     "station": "d3",

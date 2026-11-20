@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "siyin",
-    "no": "64",
+    "no": "65",
     "name_zh": "丝印旅行海报",
     "name_en": "Silkscreen Travel Poster",
     "station": "graphic",

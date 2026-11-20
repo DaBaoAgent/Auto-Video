@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "liti",
-    "no": "107",
+    "no": "108",
     "name_zh": "纸片立体书",
     "name_en": "Paper Pop-up Book",
     "station": "d3",

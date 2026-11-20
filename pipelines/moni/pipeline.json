@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "moni",
-    "no": "118",
+    "no": "119",
     "name_zh": "小人模拟实验",
     "name_en": "Blob Simulation",
     "station": "map",

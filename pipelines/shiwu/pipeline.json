@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "shiwu",
-    "no": "116",
+    "no": "117",
     "name_zh": "数据实物化",
     "name_en": "Data Physicalization",
     "station": "map",

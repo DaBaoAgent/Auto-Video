@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "shuju",
-    "no": "114",
+    "no": "115",
     "name_zh": "数据叙事",
     "name_en": "Data Storytelling",
     "station": "map",

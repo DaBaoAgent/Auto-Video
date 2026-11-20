@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "pintie",
-    "no": "162",
+    "no": "163",
     "name_zh": "拼贴剪贴",
     "name_en": "Collage Cutout",
     "station": "graphic",

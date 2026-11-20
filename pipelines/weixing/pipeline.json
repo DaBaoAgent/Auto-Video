@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "weixing",
-    "no": "111",
+    "no": "112",
     "name_zh": "卫星简报",
     "name_en": "Satellite Briefing",
     "station": "map",

@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "zhanshu",
-    "no": "48",
+    "no": "49",
     "name_zh": "体育战术板",
     "name_en": "Sports Telestrator",
     "station": "live",

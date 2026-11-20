@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "dunhuang",
-    "no": "137",
+    "no": "138",
     "name_zh": "敦煌壁画",
     "name_en": "Dunhuang Mural",
     "station": "craft",

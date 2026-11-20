@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "kongban",
-    "no": "60",
+    "no": "61",
     "name_zh": "孔版印刷",
     "name_en": "Risograph Print",
     "station": "graphic",

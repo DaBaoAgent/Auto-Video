@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "keli",
-    "no": "120",
+    "no": "121",
     "name_zh": "扁平颗粒插画",
     "name_en": "Flat Grain Illustration",
     "station": "graphic",
@@ -12,12 +12,12 @@
     "aspect": "16:9",
     "fps": 30,
     "entry": "scripts/keli.py",
+    "status": "live",
     "sample": {
       "file": "keli bb-grain.mp4",
       "title": "人类如何照亮夜晚",
       "seconds": 92.6
     },
-    "status": "live",
     "updated": "2026-11-20"
   },
   "spec": {

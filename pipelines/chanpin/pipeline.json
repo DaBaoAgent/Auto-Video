@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "chanpin",
-    "no": "109",
+    "no": "110",
     "name_zh": "玻璃质感产品",
     "name_en": "Glass Product Render",
     "station": "d3",

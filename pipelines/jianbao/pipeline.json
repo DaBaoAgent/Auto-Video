@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "jianbao",
-    "no": "81",
+    "no": "82",
     "name_zh": "工程简报板",
     "name_en": "Engineering Briefing Board",
     "station": "diagram",

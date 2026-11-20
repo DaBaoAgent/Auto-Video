@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "dietie",
-    "no": "117",
+    "no": "118",
     "name_zh": "地铁线路图",
     "name_en": "Transit Map",
     "station": "map",

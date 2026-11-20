@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "cehui",
-    "no": "112",
+    "no": "113",
     "name_zh": "点云测绘",
     "name_en": "LiDAR Survey",
     "station": "map",

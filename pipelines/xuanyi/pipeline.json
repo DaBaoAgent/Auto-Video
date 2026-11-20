@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "xuanyi",
-    "no": "122",
+    "no": "123",
     "name_zh": "悬疑探秘",
     "name_en": "Suspense Mystery",
     "station": "screen",
@@ -12,12 +12,12 @@
     "aspect": "16:9",
     "fps": 30,
     "entry": "scripts/xuanyi.py",
+    "status": "live",
     "sample": {
       "file": "xuanyi bb-mystery.mp4",
       "title": "为什么你的朋友该叫你爸爸",
       "seconds": 44.4
     },
-    "status": "live",
     "updated": "2026-11-20"
   },
   "spec": {

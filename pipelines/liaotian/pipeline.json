@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "liaotian",
-    "no": "119",
+    "no": "120",
     "name_zh": "聊天叙事",
     "name_en": "Chat Narrative",
     "station": "screen",
@@ -12,12 +12,12 @@
     "aspect": "16:9",
     "fps": 30,
     "entry": "scripts/liaotian.py",
+    "status": "live",
     "sample": {
       "file": "liaotian bb-chat.mp4",
       "title": "一骑红尘妃子笑 · 聊天群",
       "seconds": 58.6
     },
-    "status": "live",
     "updated": "2026-11-20"
   },
   "spec": {

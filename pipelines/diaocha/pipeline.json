@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "diaocha",
-    "no": "46",
+    "no": "47",
     "name_zh": "视觉调查",
     "name_en": "Visual Investigation",
     "station": "live",

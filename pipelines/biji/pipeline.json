@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "biji",
-    "no": "55",
+    "no": "56",
     "name_zh": "视觉笔记",
     "name_en": "Sketchnote",
     "station": "hand",

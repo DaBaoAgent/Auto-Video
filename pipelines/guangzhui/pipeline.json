@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "guangzhui",
-    "no": "134",
+    "no": "135",
     "name_zh": "光追 CGI",
     "name_en": "Ray-traced CGI",
     "station": "screen",

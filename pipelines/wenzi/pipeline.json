@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "wenzi",
-    "no": "72",
+    "no": "73",
     "name_zh": "文字闪切",
     "name_en": "Text Flash Cuts",
     "station": "graphic",

@@ -2,7 +2,7 @@
   "schema": "auto-video/pipeline@2",
   "meta": {
     "id": "zifu",
-    "no": "90",
+    "no": "91",
     "name_zh": "CRT 字符终端",
     "name_en": "CRT ASCII Terminal",
     "station": "screen",
