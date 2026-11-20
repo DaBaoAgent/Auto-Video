@@ -101,7 +101,7 @@ window.AV = {
    "no": "01",
    "name_zh": "纸本卡片",
    "name_en": "Paper-card Chronicle",
-   "title": "刘秀·位面之子",
+   "title": "一纸交子",
    "engine": "Remotion",
    "tagline": "绢本纸本美术 + 卡片运动语法，2–4 秒一镜，字幕贴着从句走。",
    "aspect": "16:9",
@@ -111,7 +111,7 @@ window.AV = {
    "mp4": "media/jianying.mp4",
    "poster": "media/jianying.jpg",
    "note": null,
-   "badge": "Remotion",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jianying/SKILL.md"
   },
   {
@@ -123,7 +123,7 @@ window.AV = {
    "no": "02",
    "name_zh": "纸本史话",
    "name_en": "Paper History",
-   "title": "朱元璋·碽妃疑案",
+   "title": "圭表量影",
    "engine": "Remotion",
    "tagline": "AI 静帧底图 + 代码运镜，句级全量字幕与纸色衬底常驻。",
    "aspect": "16:9",
@@ -133,7 +133,7 @@ window.AV = {
    "mp4": "media/lishi.mp4",
    "poster": "media/lishi.jpg",
    "note": null,
-   "badge": "Remotion",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/lishi/SKILL.md"
   },
   {
@@ -145,7 +145,7 @@ window.AV = {
    "no": "03",
    "name_zh": "纸雕剪影",
    "name_en": "Paper-cut Lightbox",
-   "title": "鲤鱼",
+   "title": "雾港引航",
    "engine": "HyperFrames",
    "tagline": "词级转写与拼音 DP 对齐，HyperFrames 渲一张会动的纸雕灯箱。",
    "aspect": "16:9",
@@ -155,7 +155,7 @@ window.AV = {
    "mp4": "media/zhidiao.mp4",
    "poster": "media/zhidiao.jpg",
    "note": null,
-   "badge": "HyperFrames",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/zhidiao/SKILL.md"
   },
   {
@@ -3577,7 +3577,7 @@ window.AV = {
    "no": "159",
    "name_zh": "民间故事绘本",
    "name_en": "Folk-tale Storybook",
-   "title": "",
+   "title": "蜗牛送伞",
    "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "水粉压在铅笔稿上，前景不透明，越往远越薄，最后只剩没盖住的那几根线。",
    "aspect": "16:9",
@@ -3586,8 +3586,8 @@ window.AV = {
    "clip": 10.0,
    "mp4": "media/minjian.mp4",
    "poster": "media/minjian.jpg",
-   "note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲",
-   "badge": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "note": null,
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/minjian/SKILL.md"
   },
   {

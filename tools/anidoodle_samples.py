@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""给 6 条 anidoodle 画法管线出自渲的 10 秒样片，替换演示站上的上游封面。
+"""给 5 条 anidoodle 画法管线出自渲的 10 秒样片。
+
+minjian 的站点样片由 tools/paper_samples.py 维护。
 
 做法：本管线 runtime/render.py 出 1920x1080 母版（--retime 把 6–8 秒的画法拉长到 10 秒），
 再压成站点规格 1024x576 / crf 30 / 10.000 秒，配一段很轻的氛围底乐，取一帧做封面。
@@ -36,8 +38,6 @@ PLAN = {
                  "bgm": r"人文\人文-情感 Documentary Cinematic (Inspiring Emotional Ambient Background)No Copyright Background Music.mp3", "music_at": 24},
     "cixiu":    {"content": 6.0, "poster": 9.4, "title": "刺绣 · 绣绷里的花枝",
                  "bgm": r"自然\自然 Liquid_Time.mp3", "music_at": 34},
-    "minjian":  {"content": 7.0, "poster": 7.5, "title": "民间故事绘本 · 坡路上的狐狸",
-                 "bgm": r"乡村\乡村 Juneberry_Junction.mp3", "music_at": 10},
     "diduo":    {"content": 6.0, "poster": 9.4, "title": "低多边形 · 湖与落日",
                  "bgm": r"宇宙\宇宙-氛围 Space Cinematic Ambient Music For Videos ｜ Free Download.mp3", "music_at": 18},
     "yuanzhu":  {"content": 7.0, "poster": 7.0, "title": "圆珠笔 · 一块怀表",
@@ -149,7 +149,7 @@ def write_samples(names: dict[str, str]) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--only", default="")
+    ap.add_argument("--only", choices=PLAN)
     ap.add_argument("--skip-render", action="store_true")
     a = ap.parse_args()
 
