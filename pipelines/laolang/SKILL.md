@@ -190,6 +190,36 @@ python scripts/laolang.py deliver projects/<名字> --name "片名" --title "片
 画面验收标准见 [`references/qa.md`](references/qa.md)：1920×1080 / 30 fps；无黑帧、无 ≥1.2 s 冻结、
 无意外闪帧；-16 LUFS / 真峰值 -1.5 dBTP。
 
+## 竖屏 9:16 与字幕安全区（2026-11-17 固化）
+
+`stills` / `render` 都支持 `--aspect 9:16`，实测（`projects/ip_pc_demo/probe.mjs` 读 `window.__DIM`）：
+
+- 设计空间 **W=720 / H=1280**，输出 **1080×1920**，缩放 1.5×；片门圆角内缩约 18 px。
+- `stills` 输出 `review/still-<t>-9x16.png`，`render` 输出 `out/video-9x16.mp4`。
+- 相机投影：`screen_x = (design_x - cx) * z + 360`、`screen_y = (design_y - cy) * z + 640`。
+  `camPush` 的 y 是**屏幕中心对应的设计 y**，不是设计画布中心；换位置先套这个公式，不要按直觉推。
+- **字幕安全区 = 屏幕设计 y 1080…1280**（输出 300 px，对应字幕 MarginV 300）。人物不能进这一条。
+
+人物脚位换算（脚位一律按屏幕 y 反解，别直接沿用 16:9 的 `gy≈1184`）：
+
+```text
+gy = cy + (1035 - 640) / z        // 目标：脚落在屏幕设计 y≈1020–1060，底部留 ≥200 给字幕
+shadow(gy - 2, ...)；actor(slot, outfit, x, gy, s, opts, true, dir)
+```
+
+- 竖屏里人物 s 用 **0.52–0.60**；抬脚位后要同步抬影子，否则人浮/影错位。
+- 抬人后若脚下是桌面平面（`table(y)` 从 y 画到 H），人读作「站在桌后」，可接受；若明显穿帮再把桌子整体下移。
+- 同一场景里，人物 x 以屏幕 x≈430–520 为好（`x = cx + (430 - 360) / z` 起算），别贴右缘。
+
+**竖屏避坑（都是本轮踩过的）**：
+
+- `lampDesk` 这类灯，灯杆必须从 `yBase - h` 向上画；画反会插进桌面以下，看着灯罩浮空。
+- 大范围暖光别用硬边椭圆（会读成「一块面饼」）；用 `glowPatch` 低透明度大半径，再单独给桌面加 `rgba` 横向提亮。
+- `vband(0, wallBottom, ...)` 的 `wallBottom` 别设太高：竖屏里墙面超过 60% 画面就空；用货架、旧机箱、挂历、工具板、挂钟压住。
+- 定稿 18 人全是古装/1953 造型；现代题材只能换服装色值 + 关道具（`lantern:false` / `satchel:false` / `glasses:true`），**绝不能设 `lao:false`**（抛 `toon.js` face 配置 TypeError）。
+- 同帧两人必须用不同 slot 索引（同一 slot 会共用并清空同一 canvas）。
+- 绘制顺序：背景 → 桌面/道具 → 灯光 → 人物；灯光画在人物前面才不会盖脸。
+
 ## 已知坑
 
 - **4:3 左右黑边不是黑帧**：`qa` 只把整帧黑 >2 s 当问题。
