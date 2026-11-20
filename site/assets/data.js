@@ -167,7 +167,7 @@ window.AV = {
    "no": "04",
    "name_zh": "逐帧手绘",
    "name_en": "Hand-drawn Cel",
-   "title": "商纣王",
+   "title": "鼓阵开场",
    "engine": "Canvas 逐帧 · 浏览器渲染",
    "tagline": "纸纹、墨线 boil、墨字书写，cel 火焰与火星，24 fps 线条沸腾。",
    "aspect": "16:9",
@@ -177,7 +177,7 @@ window.AV = {
    "mp4": "media/shouhui.mp4",
    "poster": "media/shouhui.jpg",
    "note": null,
-   "badge": "Canvas 逐帧 · 浏览器渲染",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/shouhui/SKILL.md"
   },
   {
@@ -189,7 +189,7 @@ window.AV = {
    "no": "05",
    "name_zh": "铅笔测试",
    "name_en": "Pencil Test",
-   "title": "阿努纳奇",
+   "title": "跃栏试画",
    "engine": "Canvas · Chrome 逐帧",
    "tagline": "蓝线起稿、石墨勾线、橡皮修改，画与画之间 morph。",
    "aspect": "16:9",
@@ -199,7 +199,7 @@ window.AV = {
    "mp4": "media/pencil.mp4",
    "poster": "media/pencil.jpg",
    "note": null,
-   "badge": "Canvas · Chrome 逐帧",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/pencil/SKILL.md"
   },
   {
@@ -211,7 +211,7 @@ window.AV = {
    "no": "06",
    "name_zh": "彩铅科普",
    "name_en": "Colored-pencil Science",
-   "title": "鳕鱼",
+   "title": "雨林弹射",
    "engine": "G-buffer + 后处理",
    "tagline": "四张 G-buffer 由后处理叠成彩铅排线，锚定坐标防漂移。",
    "aspect": "16:9",
@@ -221,7 +221,7 @@ window.AV = {
    "mp4": "media/caiqian.mp4",
    "poster": "media/caiqian.jpg",
    "note": null,
-   "badge": "G-buffer + 后处理",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/caiqian/SKILL.md"
   },
   {
@@ -233,7 +233,7 @@ window.AV = {
    "no": "07",
    "name_zh": "平板速写",
    "name_en": "Tablet Sketch",
-   "title": "关羽",
+   "title": "海獭开贝",
    "engine": "纯 Canvas · 零依赖",
    "tagline": "六格手卷，铅笔一笔一笔现场画，镜头跟着笔尖走。",
    "aspect": "16:9",
@@ -243,7 +243,7 @@ window.AV = {
    "mp4": "media/pingban.mp4",
    "poster": "media/pingban.jpg",
    "note": null,
-   "badge": "纯 Canvas · 零依赖",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/pingban/SKILL.md"
   },
   {
@@ -255,7 +255,7 @@ window.AV = {
    "no": "08",
    "name_zh": "钢笔淡彩",
    "name_en": "Pen & Wash Sketch",
-   "title": "风去了哪里",
+   "title": "花市一早",
    "engine": "Canvas 逐帧 · 钢笔 + 水彩双层",
    "tagline": "钢笔线先走，水彩跟着到；镜头在整页纸上跟着草帽走。",
    "aspect": "16:9",
@@ -265,7 +265,7 @@ window.AV = {
    "mp4": "media/gangbi.mp4",
    "poster": "media/gangbi.jpg",
    "note": null,
-   "badge": "Canvas 逐帧 · 钢笔 + 水彩双层",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/gangbi/SKILL.md"
   },
   {
