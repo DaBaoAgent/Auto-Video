@@ -144,7 +144,7 @@ Honest caveat: **10 of 166** pipelines can currently run end-to-end from a topic
 
 ## Samples
 
-**[The sample site](https://dabaoagent.github.io/Auto-Video/)** holds 166 pipeline cards and **164 playable clips**: 162 are 10-second style sections rendered by this repo, two are 21 s / 30 s openings cut from full films. Grouped by station, hover-to-play, filterable by orientation and length, with audio in a lightbox.
+**[The sample site](https://dabaoagent.github.io/Auto-Video/)** holds 166 pipeline cards and **164 playable clips**: 162 are 10-second style sections (mostly rendered by this repo, a few taken from upstream public samples), two are 21 s / 30 s openings cut from full films. Grouped by station, hover-to-play, filterable by orientation and length, with audio in a lightbox.
 
 - A clip is a **style section**, not a trailer — it demonstrates one or two camera behaviours so you can judge whether the lane fits your topic;
 - **Posters are not frame-2 screenshots**: frames are scored by motion and edge density, white/black/empty frames are rejected, and hand-picked timestamps win via [`tools/poster_overrides.json`](tools/poster_overrides.json);
@@ -158,7 +158,7 @@ Full films are archived locally under `out/<no_title>/` (film, subtitles, 3:4 an
 Auto-Video/
 ├── demo/                # 15 s zero-dependency demo
 ├── docker/              # demo image: chromium + ffmpeg + CJK fonts
-├── pipelines/           # 166 folders: SKILL.md + pipeline.json + scripts/ + runtime/ + projects/
+├── pipelines/           # 166 folders: SKILL.md + pipeline.json + scripts/ + runtime/ or template/
 ├── catalog/             # pipelines.json (single source of truth) + stations.json
 ├── schema/              # JSON Schema for pipeline.json
 ├── vendor/runtime/      # shared drawing kernel for the 77 style pipelines

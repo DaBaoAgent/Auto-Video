@@ -195,8 +195,8 @@ python frontend/frontend.py run --pipeline laolang --topic "玄奘为什么要�
 
 ## 样片
 
-**[在线样片站](https://dabaoagent.github.io/Auto-Video/)** 上 166 张管线卡、**164 段可播短片**：162 段是本仓库自渲的
-10 秒风格段，另两段取自完整成片的片头（21 秒 / 30 秒）。悬停即播，按工位分组，按横屏 / 竖屏和时长筛，点开在灯箱里带声播放。
+**[在线样片站](https://dabaoagent.github.io/Auto-Video/)** 上 166 张管线卡、**164 段可播短片**：162 段是 10 秒风格段（绝大多数由本仓库自渲，
+少数取自上游公开样片），另两段取自完整成片的片头（21 秒 / 30 秒）。悬停即播，按工位分组，按横屏 / 竖屏和时长筛，点开在灯箱里带声播放。
 
 - 短片是**风格段**，不是预告片：一段只演示这条管线的一两个镜头语言，看完就能判断它适不适合你的选题；
 - **封面不是「第 2 秒截图」**：逐帧统计运动与边缘密度，排除白屏 / 黑场 / 空镜，取动作最丰富的一帧，确需人挑的
@@ -211,7 +211,7 @@ python frontend/frontend.py run --pipeline laolang --topic "玄奘为什么要�
 Auto-Video/
 ├── demo/                    # 15 秒零依赖 demo（run.py）
 ├── docker/                  # demo 镜像：chromium + ffmpeg + 中文字体
-├── pipelines/               # 166 个目录：SKILL.md + pipeline.json + scripts/ + runtime/ + projects/
+├── pipelines/               # 166 个目录：SKILL.md + pipeline.json + scripts/ + runtime/ 或 template/
 ├── catalog/                 # pipelines.json（唯一事实来源）+ stations.json（11 工位）
 ├── schema/                  # pipeline.json 的 JSON Schema
 ├── vendor/runtime/          # 77 条风格管线共用的绘制内核（stylekit + 抓帧 + 合流）
@@ -248,7 +248,7 @@ Auto-Video/
 <details>
 <summary>样片和完整成片有什么区别？</summary>
 
-`site/media/` 里是为站点压过的**风格段**（当前 162 段是 10 秒自渲短片，另两段取完整成片的片头）；
+`site/media/` 里是为站点压过的**风格段**（162 段是 10 秒短片，另两段取完整成片的片头）；
 完整成片（2 分钟到 13 分钟那种）只在本地归档或 Release 资产里，不随仓库提交。需要原片时从归档取，不必重渲染。
 
 </details>
