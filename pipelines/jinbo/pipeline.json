@@ -7,16 +7,16 @@
     "name_en": "Gilded Illumination",
     "station": "craft",
     "station_no": "03",
-    "tagline": "画里的世界只有金子会发光，可太阳熄了；一个女孩提着最后一盏灯上山，把光还给了太阳。",
+    "tagline": "羊皮纸上贴满金箔，蓝色首字母里藏着一句「光」：抄一页，就要一整天的灯。",
     "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/jinbo.py",
     "status": "live",
     "sample": {
-      "file": "jinbo gilded-illumination.mp4",
-      "title": "借来的光",
-      "seconds": 46.8
+      "file": "site/media/jinbo.mp4",
+      "title": "金箔抄本",
+      "seconds": 10.0
     },
     "updated": "2026-11-20"
   },
@@ -29,7 +29,7 @@
     "upstream_film": "Borrowed Light",
     "upstream_dur": 46.8,
     "sample_source": "site/media/jinbo.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+    "sample_note": "本仓库 projects/ 自渲 10 秒片（2026-11-20 重制：泥金抄本页，金箔边框 + 首字母 + 圆形小像，口播 + BGM）",
     "engine_note": "背光镂空：纸色分层叠上，孔洞透出背光，金线勾边。",
     "style": {
       "family": "paper",

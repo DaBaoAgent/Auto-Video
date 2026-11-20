@@ -988,15 +988,15 @@
       "station": "craft",
       "name_zh": "彩色玻璃窗",
       "name_en": "Stained Glass",
-      "tagline": "阳光从清晨移到黄昏，照到哪一格花窗，哪一格的故事就动起来。",
+      "tagline": "铅条是骨架，光是血：十一块彩玻璃拼成孔雀尾羽，阳光从清晨移到黄昏。",
       "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
       "aspect": "16:9",
       "fps": null,
       "entry": "scripts/boli.py",
       "sample": {
-        "file": "boli stained-glass.mp4",
-        "title": "东窗之龙",
-        "seconds": 56.5
+        "file": "site/media/boli.mp4",
+        "title": "孔雀窗",
+        "seconds": 10.0
       },
       "status": "live",
       "style_slug": "stained-glass"
@@ -1006,15 +1006,15 @@
       "station": "craft",
       "name_zh": "金箔彩绘",
       "name_en": "Gilded Illumination",
-      "tagline": "画里的世界只有金子会发光，可太阳熄了；一个女孩提着最后一盏灯上山，把光还给了太阳。",
+      "tagline": "羊皮纸上贴满金箔，蓝色首字母里藏着一句「光」：抄一页，就要一整天的灯。",
       "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
       "aspect": "16:9",
       "fps": null,
       "entry": "scripts/jinbo.py",
       "sample": {
-        "file": "jinbo gilded-illumination.mp4",
-        "title": "借来的光",
-        "seconds": 46.8
+        "file": "site/media/jinbo.mp4",
+        "title": "金箔抄本",
+        "seconds": 10.0
       },
       "status": "live",
       "style_slug": "gilded-illumination"

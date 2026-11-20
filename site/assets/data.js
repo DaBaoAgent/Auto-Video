@@ -1377,9 +1377,9 @@ window.AV = {
    "no": "59",
    "name_zh": "彩色玻璃窗",
    "name_en": "Stained Glass",
-   "title": "东窗之龙",
+   "title": "孔雀窗",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
-   "tagline": "阳光从清晨移到黄昏，照到哪一格花窗，哪一格的故事就动起来。",
+   "tagline": "铅条是骨架，光是血：十一块彩玻璃拼成孔雀尾羽，阳光从清晨移到黄昏。",
    "aspect": "16:9",
    "seconds": 10.0,
    "duration": "0:10",
@@ -1387,7 +1387,7 @@ window.AV = {
    "mp4": "media/boli.mp4",
    "poster": "media/boli.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
+   "badge": "10 秒样片 · 本仓库重渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/boli/SKILL.md"
   },
   {
@@ -1399,9 +1399,9 @@ window.AV = {
    "no": "60",
    "name_zh": "金箔彩绘",
    "name_en": "Gilded Illumination",
-   "title": "借来的光",
+   "title": "金箔抄本",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
-   "tagline": "画里的世界只有金子会发光，可太阳熄了；一个女孩提着最后一盏灯上山，把光还给了太阳。",
+   "tagline": "羊皮纸上贴满金箔，蓝色首字母里藏着一句「光」：抄一页，就要一整天的灯。",
    "aspect": "16:9",
    "seconds": 10.0,
    "duration": "0:10",
@@ -1409,7 +1409,7 @@ window.AV = {
    "mp4": "media/jinbo.mp4",
    "poster": "media/jinbo.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
+   "badge": "10 秒样片 · 本仓库重渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/jinbo/SKILL.md"
   },
   {

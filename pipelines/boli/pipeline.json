@@ -7,16 +7,16 @@
     "name_en": "Stained Glass",
     "station": "craft",
     "station_no": "03",
-    "tagline": "阳光从清晨移到黄昏，照到哪一格花窗，哪一格的故事就动起来。",
+    "tagline": "铅条是骨架，光是血：十一块彩玻璃拼成孔雀尾羽，阳光从清晨移到黄昏。",
     "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
     "aspect": "16:9",
     "fps": null,
     "entry": "scripts/boli.py",
     "status": "live",
     "sample": {
-      "file": "boli stained-glass.mp4",
-      "title": "东窗之龙",
-      "seconds": 56.5
+      "file": "site/media/boli.mp4",
+      "title": "孔雀窗",
+      "seconds": 10.0
     },
     "updated": "2026-11-20"
   },
@@ -29,7 +29,7 @@
     "upstream_film": "The Dragon of the East Window",
     "upstream_dur": 56.5,
     "sample_source": "site/media/boli.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+    "sample_note": "本仓库 projects/ 自渲 10 秒片（2026-11-20 重制：彩绘玻璃孔雀窗，程序化画面 + 口播 + BGM）",
     "engine_note": "背光镂空：纸色分层叠上，孔洞透出背光，金线勾边。",
     "style": {
       "family": "paper",
