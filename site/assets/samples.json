@@ -84,7 +84,7 @@
    "key": "zhidiao",
    "kind": "pipeline",
    "pipeline": "zhidiao",
-   "title": "雾港引航",
+   "title": "雪夜邮车",
    "style": "纸雕剪影",
    "style_en": "Paper-cut Lightbox",
    "station": "paper",
@@ -100,18 +100,18 @@
    "clip_seconds": 10.0,
    "poster_pick": {
     "by": "manual-override",
-    "seconds": 8.8,
-    "note": "船、海浪纸层、礁岸与亮灯同框"
+    "seconds": 9.0,
+    "note": "邮车、雪松、亮灯的邮站同框，冷暖纸层完整"
    },
    "mp4": "media/zhidiao.mp4",
    "poster": "media/zhidiao.jpg",
    "source": "本仓库 runtime 自渲（10 s，题材与画法均为本仓库重写）",
-   "bytes": 421979,
+   "bytes": 494926,
    "voice": "zh-CN-XiaoxiaoNeural",
    "rate": "+16%",
    "subtitle": true,
-   "narration": "浓雾里，小船迷了路。灯塔亮了，照见礁石。小船循光，驶入港湾。",
-   "display_title": "雾港引航",
+   "narration": "大雪里，邮车还在走。山里的邮站亮了灯。一车信，终于到了。",
+   "display_title": "雪夜邮车",
    "music": "自然-静谧 Invisible_Beauty"
   },
   {

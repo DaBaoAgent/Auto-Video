@@ -45,11 +45,11 @@ PLAN = {
         "lines": ["一根表，立在石圭一端。", "正午，影子落上刻度。", "夏至影短，冬至影长。"],
     },
     "zhidiao": {
-        "title": "雾港引航", "poster": 8.8,
-        "poster_note": "船、海浪纸层、礁岸与亮灯同框",
+        "title": "雪夜邮车", "poster": 9.0,
+        "poster_note": "邮车、雪松、亮灯的邮站同框，冷暖纸层完整",
         "music": "自然/自然-静谧 Invisible_Beauty.mp3", "music_at": 37,
         "voice": "zh-CN-XiaoxiaoNeural",
-        "lines": ["浓雾里，小船迷了路。", "灯塔亮了，照见礁石。", "小船循光，驶入港湾。"],
+        "lines": ["大雪里，邮车还在走。", "山里的邮站亮了灯。", "一车信，终于到了。"],
     },
     "minjian": {
         "title": "蜗牛送伞", "poster": 8.65,
