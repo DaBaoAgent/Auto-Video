@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""从 catalog/pipelines.json + 各管线 pipeline.json 生成 docs/pipelines.md。
+"""从 catalog/pipelines.json + site/assets/samples.json 生成 docs/pipelines.md。
 
-README 只留入口与最短命令，33 条的完整清单由这个脚本产出，避免「文档写 32、
-目录里 33」这类漂移。改了 catalog 就重跑一次。
+README 只留入口与最短命令，完整清单由这个脚本产出，避免「文档写 155、
+目录里 166」这类漂移。改了 catalog 或站点样片就重跑一次。
 """
 from __future__ import annotations
 
@@ -12,54 +12,77 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "pipelines.md"
-STATIONS = {
-    "paper": ("01", "纸本叙事", "Paper & Chronicle"),
-    "hand": ("02", "手绘笔触", "Hand & Pencil"),
-    "craft": ("03", "传统工艺", "Traditional Crafts"),
-    "cartoon": ("04", "卡通动画", "Cartoons"),
-    "graphic": ("05", "平面图形", "Graphic & Motion"),
-    "screen": ("06", "屏幕赛博", "Screens & Neon"),
-    "space": ("07", "三维推演", "3D & Diorama"),
-    "map": ("08", "地图地理", "Maps & Terrain"),
-    "diagram": ("09", "图纸说明", "Diagram & Blueprint"),
-    "live": ("10", "实拍混剪", "Live Footage"),
-    "front": ("11", "前端工位", "Front of House"),
-}
+
+
+def load_stations() -> dict[str, tuple[str, str, str]]:
+    data = json.loads((ROOT / "catalog" / "stations.json").read_text(encoding="utf-8"))
+    return {s["id"]: (s["no"], s["name_zh"], s["name_en"]) for s in data["stations"]}
+
+
+def load_clips() -> dict[str, dict]:
+    path = ROOT / "site" / "assets" / "samples.json"
+    if not path.exists():
+        return {}
+    items = json.loads(path.read_text(encoding="utf-8")).get("items") or []
+    return {
+        s["pipeline"]: s
+        for s in items
+        if s.get("kind") == "pipeline" and s.get("mp4")
+    }
 
 
 def main() -> int:
     cat = json.loads((ROOT / "catalog" / "pipelines.json").read_text(encoding="utf-8"))
     pipes = cat["pipelines"]
-    mods = cat.get("modules") or []
-    live = sum(1 for p in pipes if (p.get("sample") or {}).get("file"))
+    stations = load_stations()
+    clips = load_clips()
+
+    def is_live(p: dict) -> bool:
+        return bool((p.get("sample") or {}).get("file")) or p["id"] in clips
+
+    live = sum(1 for p in pipes if is_live(p))
+    pending = sum(1 for p in pipes if not is_live(p) and p.get("station") != "front")
     lines = [
         "# 管线清单：%d 条，一条一个命令" % len(pipes),
         "",
-        "这份清单由 `tools/build_pipeline_doc.py` 从 `catalog/pipelines.json` 生成，是目录的镜像；",
+        "这份清单由 `tools/build_pipeline_doc.py` 从 `catalog/pipelines.json` 与 "
+        "`site/assets/samples.json` 生成，是目录的镜像；",
         "**入口与参数以各管线自己的 `SKILL.md` 为准**。这里回答的是「这条线现在能不能跑、从哪儿进、吃到什么输入」。",
         "",
         "约定：",
         "",
-        "- **live** = 仓库里已有样片、入口脚本存在、`python tools/validate.py` 通过；",
-        "- **beta** = 代码与文档在，样片还没补齐；",
+        "- **live** = 已有可播片子（原片或站点切片）、入口脚本存在、`python tools/validate.py` 通过；",
+        "- **beta** = 代码与文档在，片子还没补齐；",
+        "- 样片列：`211s` 是原片时长，`10s（切片）` 是站点上那段 10 秒风格段；",
         "- 命令都在仓库根目录执行，入口路径取 `pipeline.json` 的 `meta.entry`；不确定就 `--help`。",
         "",
-        "当前：**%d 条 live / %d 条待补样片 / %d 个工位**。" % (live, len(pipes) - live, len({p.get("station") for p in pipes})),
+        "当前：**%d 条 live / %d 条待补样片 / %d 个工位**（`peiyin` 是配音前端，不出片，不计入 live）。"
+        % (live, pending, len(stations)),
         "",
     ]
-    order = sorted(pipes, key=lambda p: (STATIONS.get(p.get("station"), ("99",))[0], p["id"]))
+    order = sorted(pipes, key=lambda p: (stations.get(p.get("station"), ("99",))[0], p["id"]))
     cur = None
     for p in order:
         st = p.get("station")
-        num, zh, en = STATIONS.get(st, ("99", st or "其它", ""))
+        num, zh, en = stations.get(st, ("99", st or "其它", ""))
         if st != cur:
             cur = st
             lines += [f"## {num} · {zh}　*{en}*", ""]
             lines += ["| id | 名称 | 状态 | 引擎 | 入口 | 样片 |", "| --- | --- | --- | --- | --- | --- |"]
         sm = p.get("sample") or {}
-        status = "live" if sm.get("file") else "beta"
+        clip = clips.get(p["id"]) or {}
+        live_now = is_live(p)
+        if st == "front":
+            status, sample = "前端", "—（不出片）"
+        else:
+            status = "live" if live_now else "beta"
+            if sm.get("seconds"):
+                sample = f"{sm.get('seconds'):.0f}s"
+            elif clip:
+                sample = f"{(clip.get('clip_seconds') or clip.get('seconds') or 0):.0f}s（切片）"
+            else:
+                sample = "—"
         entry = f"`pipelines/{p['id']}/{p.get('entry')}`" if p.get("entry") else "—"
-        sample = f"{sm.get('seconds'):.0f}s" if sm.get("seconds") else "—"
         lines.append(
             f"| `{p['id']}` | {p.get('name_zh') or p['id']}（{p.get('name_en') or ''}） | {status} | "
             f"{p.get('engine') or '—'} | {entry} | {sample} |"

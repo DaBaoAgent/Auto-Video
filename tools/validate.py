@@ -181,7 +181,11 @@ def main() -> int:
                     err(f"{p['id']}: 样片缺失 {s['file']}")
 
     # 报告 --------------------------------------------------------------
-    print(f"管线 {len(pipelines)} 条 / 工位 {len(stations)} 个 / 带样片 {sum(1 for p in pipelines if p.get('sample'))} 条")
+    print(
+        f"管线 {len(pipelines)} 条 / 工位 {len(stations)} 个 / "
+        f"登记原片 {sum(1 for p in pipelines if (p.get('sample') or {}).get('file'))} 条"
+        "（站点切片另见 docs/pipelines.md 的样片列）"
+    )
     for sid, st in stations.items():
         names = [p["id"] for p in pipelines if p["station"] == sid]
         print(f"  {st['no']} {st['name_zh']:<6} {counts[sid]:>2} 条  {' '.join(names)}")

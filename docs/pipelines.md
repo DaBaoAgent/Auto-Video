@@ -1,15 +1,16 @@
 # 管线清单：166 条，一条一个命令
 
-这份清单由 `tools/build_pipeline_doc.py` 从 `catalog/pipelines.json` 生成，是目录的镜像；
+这份清单由 `tools/build_pipeline_doc.py` 从 `catalog/pipelines.json` 与 `site/assets/samples.json` 生成，是目录的镜像；
 **入口与参数以各管线自己的 `SKILL.md` 为准**。这里回答的是「这条线现在能不能跑、从哪儿进、吃到什么输入」。
 
 约定：
 
-- **live** = 仓库里已有样片、入口脚本存在、`python tools/validate.py` 通过；
-- **beta** = 代码与文档在，样片还没补齐；
+- **live** = 已有可播片子（原片或站点切片）、入口脚本存在、`python tools/validate.py` 通过；
+- **beta** = 代码与文档在，片子还没补齐；
+- 样片列：`211s` 是原片时长，`10s（切片）` 是站点上那段 10 秒风格段；
 - 命令都在仓库根目录执行，入口路径取 `pipeline.json` 的 `meta.entry`；不确定就 `--help`。
 
-当前：**147 条 live / 19 条待补样片 / 11 个工位**。
+当前：**165 条 live / 0 条待补样片 / 11 个工位**（`peiyin` 是配音前端，不出片，不计入 live）。
 
 ## 01 · 纸本叙事　*Paper & Chronicle*
 
@@ -17,7 +18,7 @@
 | --- | --- | --- | --- | --- | --- |
 | `jianying` | 纸本卡片（Paper-card Chronicle） | live | Remotion | `pipelines/jianying/scripts/jianying_shotcraft.py` | 211s |
 | `lishi` | 纸本史话（Paper History） | live | Remotion | `pipelines/lishi/scripts/lishi.py` | 145s |
-| `minjian` | 民间故事绘本（Folk-tale Storybook） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/minjian/scripts/minjian.py` | — |
+| `minjian` | 民间故事绘本（Folk-tale Storybook） | live | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/minjian/scripts/minjian.py` | 10s（切片） |
 | `zhidiao` | 纸雕剪影（Paper-cut Lightbox） | live | HyperFrames | `pipelines/zhidiao/scripts/zhidiao_assemble.py` | 21s |
 
 ## 02 · 手绘笔触　*Hand & Pencil*
@@ -31,15 +32,15 @@
 | `dali` | 达利超现实（Dali Surrealism） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/dali/scripts/dali.py` | 1s |
 | `fangao` | 梵高后印象（Van Gogh Post-Impressionism） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/fangao/scripts/fangao.py` | 1s |
 | `gangbi` | 钢笔淡彩（Pen & Wash Sketch） | live | Canvas 逐帧 · 钢笔 + 水彩双层 | `pipelines/gangbi/scripts/gangbi.py` | 33s |
-| `gaogeng` | 高更象征色（Gauguin Synthetism） | beta | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/gaogeng/scripts/gaogeng.py` | — |
-| `guaerdi` | 瓜尔迪威尼斯（Guardi Venetian Atmosphere） | beta | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/guaerdi/scripts/guaerdi.py` | — |
+| `gaogeng` | 高更象征色（Gauguin Synthetism） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/gaogeng/scripts/gaogeng.py` | 10s（切片） |
+| `guaerdi` | 瓜尔迪威尼斯（Guardi Venetian Atmosphere） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/guaerdi/scripts/guaerdi.py` | 10s（切片） |
 | `heiban` | 黑板粉笔（Chalkboard） | live | 自研渲染 · vendor/runtime/stylekit.js（板写族） | `pipelines/heiban/scripts/heiban.py` | 49s |
 | `huopu` | 霍普美国现实主义（Hopper American Realism） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/huopu/scripts/huopu.py` | 1s |
-| `keer` | 科尔托纳巴洛克（Cortona Baroque） | beta | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/keer/scripts/keer.py` | — |
+| `keer` | 科尔托纳巴洛克（Cortona Baroque） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/keer/scripts/keer.py` | 10s（切片） |
 | `labi` | 蜡笔儿童绘本（Crayon Picture Book） | live | WebGL2 合成 + Canvas 逐帧 · 纸齿 / 蜡附着 / 水彩抗拒 | `pipelines/labi/scripts/labi.py` | 52s |
 | `liti2` | 立体主义（Analytical Cubism） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/liti2/scripts/liti2.py` | 1s |
 | `lunbo` | 伦勃朗明暗（Rembrandt Chiaroscuro） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/lunbo/scripts/lunbo.py` | 1s |
-| `luolun` | 洛伦采蒂空间（Lorenzetti Civic Space） | beta | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/luolun/scripts/luolun.py` | — |
+| `luolun` | 洛伦采蒂空间（Lorenzetti Civic Space） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/luolun/scripts/luolun.py` | 10s（切片） |
 | `make` | 马克笔白纸速写（Marker on Paper） | live | 自研渲染 · vendor/runtime/stylekit.js（板写族） | `pipelines/make/scripts/make.py` | 52s |
 | `mengke` | 蒙克表现主义（Munch Expressionism） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/mengke/scripts/mengke.py` | 1s |
 | `pencil` | 铅笔测试（Pencil Test） | live | Canvas · Chrome 逐帧 | `pipelines/pencil/scripts/pencil.py` | 30s |
@@ -48,15 +49,15 @@
 | `qianhuang2` | 铅黄剪影（Giallo Silhouette Stage） | live | Canvas 2D 单页 · seek(t) 纯函数逐帧（剪影 + 双缘光 + 光池舞台） | `pipelines/qianhuang2/scripts/qianhuang2.py` | 22s |
 | `shouhui` | 逐帧手绘（Hand-drawn Cel） | live | Canvas 逐帧 · 浏览器渲染 | `pipelines/shouhui/scripts/shouhui.py` | 206s |
 | `shuicai` | 水彩笔刷（Watercolor Brush） | live | Canvas 2D · 湿画法笔刷 + 纸张吸收 | `pipelines/shuicai/scripts/shuicai.py` | 114s |
-| `tanbi` | 炭笔擦画（Charcoal, Erased and Redrawn） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/tanbi/scripts/tanbi.py` | — |
+| `tanbi` | 炭笔擦画（Charcoal, Erased and Redrawn） | live | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/tanbi/scripts/tanbi.py` | 10s（切片） |
 | `wenyi` | 文艺复兴晕涂（High Renaissance Sfumato） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/wenyi/scripts/wenyi.py` | 1s |
-| `xiajia` | 夏加尔记忆空间（Chagall Dream Space） | beta | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xiajia/scripts/xiajia.py` | — |
+| `xiajia` | 夏加尔记忆空间（Chagall Dream Space） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xiajia/scripts/xiajia.py` | 10s（切片） |
 | `xiula` | 修拉点彩（Seurat Pointillism） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xiula/scripts/xiula.py` | 1s |
 | `yibi` | 一笔画（One-line Drawing） | live | 自研渲染 · vendor/runtime/stylekit.js（板写族） | `pipelines/yibi/scripts/yibi.py` | 48s |
 | `yinxiang` | 印象派（Impressionism） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/yinxiang/scripts/yinxiang.py` | 1s |
-| `youcai` | 梦境釉彩（Dream Glaze） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/youcai/scripts/youcai.py` | — |
+| `youcai` | 梦境釉彩（Dream Glaze） | live | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/youcai/scripts/youcai.py` | 10s（切片） |
 | `youhua` | 油画厚涂（Impasto Oil Painting） | live | 自研渲染 · vendor/runtime/stylekit.js（板写族） | `pipelines/youhua/scripts/youhua.py` | 40s |
-| `yuanzhu` | 圆珠笔（Ballpoint Sketch） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/yuanzhu/scripts/yuanzhu.py` | — |
+| `yuanzhu` | 圆珠笔（Ballpoint Sketch） | live | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/yuanzhu/scripts/yuanzhu.py` | 10s（切片） |
 
 ## 03 · 传统工艺　*Traditional Crafts*
 
@@ -64,8 +65,8 @@
 | --- | --- | --- | --- | --- | --- |
 | `aiji` | 埃及墓室壁画（Egyptian Wall Painting） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/aiji/scripts/aiji.py` | 1s |
 | `boli` | 彩色玻璃窗（Stained Glass） | live | 自研渲染 · vendor/runtime/stylekit.js（纸艺族） | `pipelines/boli/scripts/boli.py` | 56s |
-| `bosi` | 波斯细密画（Persian Miniature） | beta | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/bosi/scripts/bosi.py` | — |
-| `cixiu` | 刺绣（Hand Embroidery） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/cixiu/scripts/cixiu.py` | — |
+| `bosi` | 波斯细密画（Persian Miniature） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/bosi/scripts/bosi.py` | 10s（切片） |
+| `cixiu` | 刺绣（Hand Embroidery） | live | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/cixiu/scripts/cixiu.py` | 10s（切片） |
 | `dongxue` | 洞穴岩画（Cave Painting） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/dongxue/scripts/dongxue.py` | 1s |
 | `dunhuang` | 敦煌壁画（Dunhuang Mural） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/dunhuang/scripts/dunhuang.py` | 1s |
 | `fushihui` | 浮世绘（Ukiyo-e） | live | Canvas 2D · 分色版块 + 错版套印 | `pipelines/fushihui/scripts/fushihui.py` | 44s |
@@ -81,6 +82,26 @@
 | `shuimo2` | 中国水墨（Chinese Ink Wash） | live | Canvas 2D · 墨的浓淡/飞白/渗化 + 程序化宣纸 | `pipelines/shuimo2/scripts/shuimo2.py` | 48s |
 | `tapestry` | 贝叶挂毯（Bayeux Tapestry） | live | Canvas · Chrome 逐帧 | `pipelines/tapestry/scripts/tapestry.py` | 30s |
 | `xila` | 古希腊黑绘陶（Attic Black-Figure） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xila/scripts/xila.py` | 1s |
+
+## 04 · 卡通动画　*Cartoons*
+
+| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
+| --- | --- | --- | --- | --- | --- |
+| `gaoxiao` | 搞笑历史卡通（Comic History Cartoon） | live | 自研渲染 · vendor/runtime/stylekit.js（赛璐珞族） | `pipelines/gaoxiao/scripts/gaoxiao.py` | 51s |
+| `goldenage` | 黄金卡通（Golden-age Toon） | live | Canvas · Chrome 逐帧 | `pipelines/goldenage/scripts/goldenage.py` | 30s |
+| `jibuli` | 吉卜力水彩（Ghibli Watercolor） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/jibuli/scripts/jibuli.py` | 1s |
+| `jiezou` | 节奏综艺（Rhythm Game Show） | live | 自研渲染 · vendor/runtime/stylekit.js（赛璐珞族） | `pipelines/jiezou/scripts/jiezou.py` | 149s |
+| `kehuan` | 科幻情景喜剧卡通（Sci-Fi Sitcom Toon） | live | 自研渲染 · vendor/runtime/stylekit.js（赛璐珞族） | `pipelines/kehuan/scripts/kehuan.py` | 58s |
+| `manga` | 漫画分格（Manga Panels） | live | Canvas · Chrome 逐帧 | `pipelines/manga/scripts/manga.py` | 30s |
+| `nanfang` | 南方公园剪纸（South Park Cutout） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/nanfang/scripts/nanfang.py` | 10s（切片） |
+| `pikesi` | 皮克斯三维（Pixar 3D） | live | 自研封装 · 本地 runtime（Canvas 2D + Three.js 逐帧） | `pipelines/pikesi/scripts/pikesi.py` | 10s（切片） |
+| `sailu` | 80 年代赛璐璐动画（80s Cel Anime） | live | 自研渲染 · vendor/runtime/stylekit.js（赛璐珞族） | `pipelines/sailu/scripts/sailu.py` | 59s |
+| `tianshu` | 天书奇谭（Tianshu Cel） | live | ComfyUI + Wan2.2 | `pipelines/tianshu/scripts/tianshu.py` | 41s |
+| `weiyou` | 微游戏快闪（Microgame Frenzy） | live | 自研渲染 · vendor/runtime/stylekit.js（像素族） | `pipelines/weiyou/scripts/weiyou.py` | 60s |
+| `wushi` | 50s 扁平卡通（Mid-century Cartoon） | live | 自研渲染 · vendor/runtime/stylekit.js（赛璐珞族） | `pipelines/wushi/scripts/wushi.py` | 40s |
+| `xiangsu` | 像素风（Pixel Art） | live | Canvas · Puppeteer 逐帧 | `pipelines/xiangsu/scripts/xiangsu.py` | 29s |
+| `xiangsu2` | 2.5D 像素（2.5D Pixel Art） | live | 自研渲染 · vendor/runtime/stylekit.js（像素族） | `pipelines/xiangsu2/scripts/xiangsu2.py` | 76s |
+| `xinhai` | 新海诚光影（Makoto Shinkai Light） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xinhai/scripts/xinhai.py` | 1s |
 
 ## 05 · 平面图形　*Graphic & Motion*
 
@@ -101,7 +122,7 @@
 | `muke` | 木刻版画（Woodcut Print） | live | 自研渲染 · vendor/runtime/stylekit.js（刻印族） | `pipelines/muke/scripts/muke.py` | 58s |
 | `muxia` | 慕夏新艺术（Mucha Art Nouveau） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/muxia/scripts/muxia.py` | 1s |
 | `oupu` | 欧普艺术（Op Art） | live | Canvas · Chrome 逐帧（本地运行时） | `pipelines/oupu/scripts/oupu.py` | 22s |
-| `pintie` | 拼贴剪贴（Collage Cutout） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/pintie/scripts/pintie.py` | — |
+| `pintie` | 拼贴剪贴（Collage Cutout） | live | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/pintie/scripts/pintie.py` | 10s（切片） |
 | `ruishi` | 瑞士动态排版（Swiss Motion Graphics） | live | 自研渲染 · vendor/runtime/stylekit.js（平面族） | `pipelines/ruishi/scripts/ruishi.py` | 44s |
 | `shiliang` | 扁平矢量（Flat Vector） | live | SVG 单页 · 逐帧确定性渲染 | `pipelines/shiliang/scripts/shiliang.py` | 30s |
 | `siyin` | 丝印旅行海报（Silkscreen Travel Poster） | live | 自研渲染 · vendor/runtime/stylekit.js（网点族） | `pipelines/siyin/scripts/siyin.py` | 50s |
@@ -109,8 +130,8 @@
 | `wangdian` | 网点档案（Halftone Dossier） | live | 自研渲染 · vendor/runtime/stylekit.js（网点族） | `pipelines/wangdian/scripts/wangdian.py` | 30s |
 | `wenzi` | 文字闪切（Text Flash Cuts） | live | 自研渲染 · vendor/runtime/stylekit.js（平面族） | `pipelines/wenzi/scripts/wenzi.py` | 46s |
 | `xiangxing` | 象形运动图形（Pictogram Motion） | live | 自研渲染 · vendor/runtime/stylekit.js（平面族） | `pipelines/xiangxing/scripts/xiangxing.py` | 50s |
-| `xingbian` | 形变动画（Shape Morph） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xingbian/scripts/xingbian.py` | — |
-| `yetai` | 液态流动（Liquid Motion） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/yetai/scripts/yetai.py` | — |
+| `xingbian` | 形变动画（Shape Morph） | live | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xingbian/scripts/xingbian.py` | 10s（切片） |
+| `yetai` | 液态流动（Liquid Motion） | live | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/yetai/scripts/yetai.py` | 10s（切片） |
 | `yugao` | 电影预告（Movie Trailer） | live | Canvas · Chrome 逐帧（本地运行时） | `pipelines/yugao/scripts/yugao.py` | 83s |
 | `zhuangshi` | 装饰艺术（Art Deco） | live | Canvas 2D · 金色渐变线 + 灯泡招牌 + 装饰字体排版 | `pipelines/zhuangshi/scripts/zhuangshi.py` | 39s |
 
@@ -125,7 +146,7 @@
 | `fabu` | 暗色科技发布（Dark Tech Keynote） | live | 自研渲染 · vendor/runtime/stylekit.js（平面族） | `pipelines/fabu/scripts/fabu.py` | 42s |
 | `guangzhui` | 光追 CGI（Ray-traced CGI） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/guangzhui/scripts/guangzhui.py` | 1s |
 | `houshi` | 后室录像带（Liminal Found Footage） | live | 自研渲染 · vendor/runtime/stylekit.js（屏幕族） | `pipelines/houshi/scripts/houshi.py` | 60s |
-| `huazi` | 综艺花字（Variety Show Captions） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/huazi/scripts/huazi.py` | — |
+| `huazi` | 综艺花字（Variety Show Captions） | live | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/huazi/scripts/huazi.py` | 10s（切片） |
 | `leida` | 雷达扫描纪录片（Radar Sweep Documentary） | live | 自研渲染 · vendor/runtime/stylekit.js（摄影族） | `pipelines/leida/scripts/leida.py` | 52s |
 | `liaotian` | 聊天叙事（Chat Narrative） | live | Canvas · Chrome 逐帧（本地运行时） | `pipelines/liaotian/scripts/liaotian.py` | 59s |
 | `liuchang` | 流场风线（Flow-field Wind Lines） | live | 自研渲染 · vendor/runtime/stylekit.js（霓虹族） | `pipelines/liuchang/scripts/liuchang.py` | 52s |
@@ -141,6 +162,22 @@
 | `zhike` | 胶片直刻（Scratch Film） | live | 自研渲染 · vendor/runtime/stylekit.js（摄影族） | `pipelines/zhike/scripts/zhike.py` | 52s |
 | `zhuomian` | 桌面卡片穿梭（Tabletop App Flythrough） | live | 自研渲染 · vendor/runtime/stylekit.js（屏幕族） | `pipelines/zhuomian/scripts/zhuomian.py` | 60s |
 | `zifu` | CRT 字符终端（CRT ASCII Terminal） | live | 自研渲染 · vendor/runtime/stylekit.js（屏幕族） | `pipelines/zifu/scripts/zifu.py` | 60s |
+
+## 07 · 三维推演　*3D & Diorama*
+
+| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
+| --- | --- | --- | --- | --- | --- |
+| `chanpin` | 玻璃质感产品（Glass Product Render） | live | 自研渲染 · vendor/runtime/stylekit.js（立体族） | `pipelines/chanpin/scripts/chanpin.py` | 32s |
+| `chengshi` | 城市年轮（City Rings） | live | Three.js + Remotion | `pipelines/chengshi/scripts/chengshi.py` | 161s |
+| `dengju` | 等轴 2.5D（Isometric 2.5D） | live | Three.js 正交场景 | `pipelines/dengju/scripts/dengju.py` | 30s |
+| `diduo` | 低多边形（Low-poly） | live | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/diduo/scripts/diduo.py` | 10s（切片） |
+| `isometric` | 等距微缩（Isometric Diorama） | live | Canvas · Chrome 逐帧 | `pipelines/isometric/scripts/isometric.py` | 30s |
+| `jimu` | 积木玩具（Brick Toy） | live | 自研渲染 · vendor/runtime/stylekit.js（立体族） | `pipelines/jimu/scripts/jimu.py` | 54s |
+| `labi2` | 蜡笔立体世界（Crayon World 3D） | live | 自研渲染 · vendor/runtime/stylekit.js（板写族） | `pipelines/labi2/scripts/labi2.py` | 64s |
+| `liti` | 纸片立体书（Paper Pop-up Book） | live | 自研渲染 · vendor/runtime/stylekit.js（立体族） | `pipelines/liti/scripts/liti.py` | 133s |
+| `tuiyan` | 3D 战场推演（3D Battle Sim） | live | 3D 兵棋引擎 · 逐帧稳帧渲染 | `pipelines/tuiyan/scripts/tuiyan.py` | 540s |
+| `weisuo` | 孟菲斯微缩（Memphis Diorama） | live | three.js 3D 微缩 + 法线/深度描边后处理 | `pipelines/weisuo/scripts/weisuo.py` | 45s |
+| `yizhou` | 移轴微缩（Tilt-Shift Miniature） | live | 自研渲染 · vendor/runtime/stylekit.js（立体族） | `pipelines/yizhou/scripts/yizhou.py` | 38s |
 
 ## 08 · 地图地理　*Maps & Terrain*
 
@@ -194,88 +231,7 @@
 
 | id | 名称 | 状态 | 引擎 | 入口 | 样片 |
 | --- | --- | --- | --- | --- | --- |
-| `peiyin` | 配音前端（Voice Front-end） | beta | GPT-SoVITS · 长稿分段合成 | `pipelines/peiyin/scripts/synthesize_dabao_paragraphs.py` | — |
-
-## 99 · d3　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `chanpin` | 玻璃质感产品（Glass Product Render） | live | 自研渲染 · vendor/runtime/stylekit.js（立体族） | `pipelines/chanpin/scripts/chanpin.py` | 32s |
-| `chengshi` | 城市年轮（City Rings） | live | Three.js + Remotion | `pipelines/chengshi/scripts/chengshi.py` | 161s |
-| `dengju` | 等轴 2.5D（Isometric 2.5D） | live | Three.js 正交场景 | `pipelines/dengju/scripts/dengju.py` | 30s |
-| `diduo` | 低多边形（Low-poly） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/diduo/scripts/diduo.py` | — |
-
-## 99 · toon　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `gaoxiao` | 搞笑历史卡通（Comic History Cartoon） | live | 自研渲染 · vendor/runtime/stylekit.js（赛璐珞族） | `pipelines/gaoxiao/scripts/gaoxiao.py` | 51s |
-| `goldenage` | 黄金卡通（Golden-age Toon） | live | Canvas · Chrome 逐帧 | `pipelines/goldenage/scripts/goldenage.py` | 30s |
-
-## 99 · d3　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `isometric` | 等距微缩（Isometric Diorama） | live | Canvas · Chrome 逐帧 | `pipelines/isometric/scripts/isometric.py` | 30s |
-
-## 99 · toon　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `jibuli` | 吉卜力水彩（Ghibli Watercolor） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/jibuli/scripts/jibuli.py` | 1s |
-| `jiezou` | 节奏综艺（Rhythm Game Show） | live | 自研渲染 · vendor/runtime/stylekit.js（赛璐珞族） | `pipelines/jiezou/scripts/jiezou.py` | 149s |
-
-## 99 · d3　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `jimu` | 积木玩具（Brick Toy） | live | 自研渲染 · vendor/runtime/stylekit.js（立体族） | `pipelines/jimu/scripts/jimu.py` | 54s |
-
-## 99 · toon　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `kehuan` | 科幻情景喜剧卡通（Sci-Fi Sitcom Toon） | live | 自研渲染 · vendor/runtime/stylekit.js（赛璐珞族） | `pipelines/kehuan/scripts/kehuan.py` | 58s |
-
-## 99 · d3　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `labi2` | 蜡笔立体世界（Crayon World 3D） | live | 自研渲染 · vendor/runtime/stylekit.js（板写族） | `pipelines/labi2/scripts/labi2.py` | 64s |
-| `liti` | 纸片立体书（Paper Pop-up Book） | live | 自研渲染 · vendor/runtime/stylekit.js（立体族） | `pipelines/liti/scripts/liti.py` | 133s |
-
-## 99 · toon　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `manga` | 漫画分格（Manga Panels） | live | Canvas · Chrome 逐帧 | `pipelines/manga/scripts/manga.py` | 30s |
-| `nanfang` | 南方公园剪纸（South Park Cutout） | beta | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/nanfang/scripts/nanfang.py` | — |
-| `pikesi` | 皮克斯三维（Pixar 3D） | beta | 自研封装 · 本地 runtime（Canvas 2D + Three.js 逐帧） | `pipelines/pikesi/scripts/pikesi.py` | — |
-| `sailu` | 80 年代赛璐璐动画（80s Cel Anime） | live | 自研渲染 · vendor/runtime/stylekit.js（赛璐珞族） | `pipelines/sailu/scripts/sailu.py` | 59s |
-| `tianshu` | 天书奇谭（Tianshu Cel） | live | ComfyUI + Wan2.2 | `pipelines/tianshu/scripts/tianshu.py` | 41s |
-
-## 99 · d3　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `tuiyan` | 3D 战场推演（3D Battle Sim） | live | 3D 兵棋引擎 · 逐帧稳帧渲染 | `pipelines/tuiyan/scripts/tuiyan.py` | 540s |
-| `weisuo` | 孟菲斯微缩（Memphis Diorama） | live | three.js 3D 微缩 + 法线/深度描边后处理 | `pipelines/weisuo/scripts/weisuo.py` | 45s |
-
-## 99 · toon　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `weiyou` | 微游戏快闪（Microgame Frenzy） | live | 自研渲染 · vendor/runtime/stylekit.js（像素族） | `pipelines/weiyou/scripts/weiyou.py` | 60s |
-| `wushi` | 50s 扁平卡通（Mid-century Cartoon） | live | 自研渲染 · vendor/runtime/stylekit.js（赛璐珞族） | `pipelines/wushi/scripts/wushi.py` | 40s |
-| `xiangsu` | 像素风（Pixel Art） | live | Canvas · Puppeteer 逐帧 | `pipelines/xiangsu/scripts/xiangsu.py` | 29s |
-| `xiangsu2` | 2.5D 像素（2.5D Pixel Art） | live | 自研渲染 · vendor/runtime/stylekit.js（像素族） | `pipelines/xiangsu2/scripts/xiangsu2.py` | 76s |
-| `xinhai` | 新海诚光影（Makoto Shinkai Light） | live | 自研封装 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/xinhai/scripts/xinhai.py` | 1s |
-
-## 99 · d3　**
-
-| id | 名称 | 状态 | 引擎 | 入口 | 样片 |
-| --- | --- | --- | --- | --- | --- |
-| `yizhou` | 移轴微缩（Tilt-Shift Miniature） | live | 自研渲染 · vendor/runtime/stylekit.js（立体族） | `pipelines/yizhou/scripts/yizhou.py` | 38s |
+| `peiyin` | 配音前端（Voice Front-end） | 前端 | GPT-SoVITS · 长稿分段合成 | `pipelines/peiyin/scripts/synthesize_dabao_paragraphs.py` | —（不出片） |
 
 
 ---
