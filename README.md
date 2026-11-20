@@ -10,6 +10,7 @@
 [![stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
 [![last commit](https://img.shields.io/github/last-commit/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/commits/main)
 [![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
+[![release](https://img.shields.io/github/v/release/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/releases/latest)
 ![pipelines](https://img.shields.io/badge/pipelines-165%20films%20%2B%201%20frontend-111111?style=flat-square)
 ![stations](https://img.shields.io/badge/stations-11-111111?style=flat-square)
 ![samples](https://img.shields.io/badge/samples-165%20clips-e9b47c?style=flat-square)
