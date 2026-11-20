@@ -1,4 +1,4 @@
-# 管线清单：165 条，一条一个命令
+# 管线清单：166 条，一条一个命令
 
 这份清单由 `tools/build_pipeline_doc.py` 从 `catalog/pipelines.json` 生成，是目录的镜像；
 **入口与参数以各管线自己的 `SKILL.md` 为准**。这里回答的是「这条线现在能不能跑、从哪儿进、吃到什么输入」。
@@ -9,7 +9,7 @@
 - **beta** = 代码与文档在，样片还没补齐；
 - 命令都在仓库根目录执行，入口路径取 `pipeline.json` 的 `meta.entry`；不确定就 `--help`。
 
-当前：**146 条 live / 19 条待补样片 / 11 个工位**。
+当前：**146 条 live / 20 条待补样片 / 11 个工位**。
 
 ## 01 · 纸本叙事　*Paper & Chronicle*
 
@@ -45,6 +45,7 @@
 | `pencil` | 铅笔测试（Pencil Test） | live | Canvas · Chrome 逐帧 | `pipelines/pencil/scripts/pencil.py` | 30s |
 | `pingban` | 平板速写（Tablet Sketch） | live | 纯 Canvas · 零依赖 | `pipelines/pingban/scripts/pingban.py` | 39s |
 | `qianhuang` | 铅黄浓彩（Giallo Gouache） | live | Canvas 逐帧 · 钢笔浓彩 + 彩色色片光 + 合成音效 | `pipelines/qianhuang/scripts/qianhuang.py` | 22s |
+| `qianhuang2` | 铅黄剪影（Giallo Silhouette Stage） | beta | Canvas 2D 单页 · seek(t) 纯函数逐帧（剪影 + 双缘光 + 光池舞台） | `pipelines/qianhuang2/scripts/qianhuang2.py` | — |
 | `shouhui` | 逐帧手绘（Hand-drawn Cel） | live | Canvas 逐帧 · 浏览器渲染 | `pipelines/shouhui/scripts/shouhui.py` | 206s |
 | `shuicai` | 水彩笔刷（Watercolor Brush） | live | Canvas 2D · 湿画法笔刷 + 纸张吸收 | `pipelines/shuicai/scripts/shuicai.py` | 114s |
 | `tanbi` | 炭笔擦画（Charcoal, Erased and Redrawn） | beta | 自研渲染 · 本地 runtime（Canvas 2D 逐帧） | `pipelines/tanbi/scripts/tanbi.py` | — |

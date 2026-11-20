@@ -2814,6 +2814,20 @@
       "status": "live",
       "sample": null,
       "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
+    },
+    {
+      "id": "qianhuang2",
+      "station": "hand",
+      "name_zh": "铅黄剪影",
+      "name_en": "Giallo Silhouette Stage",
+      "tagline": "全黑剪影站进一池舞台光，回头只靠发丝晚两帧与一道月白弧。",
+      "engine": "Canvas 2D 单页 · seek(t) 纯函数逐帧（剪影 + 双缘光 + 光池舞台）",
+      "aspect": "16:9",
+      "fps": 30,
+      "entry": "scripts/qianhuang2.py",
+      "status": "beta",
+      "sample": null,
+      "sample_note": "样片《血之海滩 · 剪影舞台》已在本机出片（projects/001_bayofblood_stage/out/bayofblood_stage.mp4，21.47 s），待同步到 $SAMPLES_DIR 后跑 tools/build_samples.py"
     }
   ]
 }
