@@ -12,8 +12,12 @@
     "aspect": "16:9",
     "fps": 30,
     "entry": "scripts/qianhuang2.py",
-    "status": "beta",
-    "sample": null,
+    "status": "live",
+    "sample": {
+      "file": "qianhuang2 血之海滩·剪影舞台.mp4",
+      "title": "血之海滩·剪影舞台",
+      "seconds": 21.5
+    },
     "updated": "2026-11-20"
   },
   "spec": {

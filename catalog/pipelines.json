@@ -2825,9 +2825,12 @@
       "aspect": "16:9",
       "fps": 30,
       "entry": "scripts/qianhuang2.py",
-      "status": "beta",
-      "sample": null,
-      "sample_note": "样片《血之海滩 · 剪影舞台》已在本机出片（projects/001_bayofblood_stage/out/bayofblood_stage.mp4，21.47 s），待同步到 $SAMPLES_DIR 后跑 tools/build_samples.py"
+      "status": "live",
+      "sample": {
+        "file": "qianhuang2 血之海滩·剪影舞台.mp4",
+        "title": "血之海滩·剪影舞台",
+        "seconds": 21.5
+      }
     }
   ]
 }

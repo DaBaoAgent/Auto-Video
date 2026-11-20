@@ -5275,6 +5275,36 @@
    "source": "Auto-Video 本地 runtime 自渲（10 s，题材与画法均为本仓库重写）",
    "music": "搞笑-节日 Playful & Quirky Music (royalty free background music) - Halloween",
    "note": "本仓库自渲 10 秒样片"
+  },
+  {
+   "key": "qianhuang2",
+   "kind": "pipeline",
+   "pipeline": "qianhuang2",
+   "title": "血之海滩·剪影舞台",
+   "style": "铅黄剪影",
+   "style_en": "Giallo Silhouette Stage",
+   "station": "hand",
+   "long_edge": 1280,
+   "max_seconds": 30.0,
+   "crf": 30,
+   "seconds": 21.5,
+   "duration": "0:21",
+   "width": 1920,
+   "height": 1080,
+   "aspect": "16:9",
+   "clip_seconds": 21.5,
+   "poster_pick": {
+    "by": "manual-override",
+    "note": "夕阳海面：剪影女站在栈桥、白船屋与帆船同框，是整条片子的定型帧",
+    "seconds": 10.6
+   },
+   "mp4": "media/qianhuang2.mp4",
+   "poster": "media/qianhuang2.jpg",
+   "source": "本仓库 runtime 自渲（21.5 s，剪影舞台与光池构图均为本仓库重写）",
+   "bytes": 835287,
+   "display_title": "血之海滩·剪影舞台",
+   "badge": "21 秒样片 · 自渲",
+   "music": null
   }
  ],
  "note": "2026-11-19：77 条 外部登记管线的样片取自 公开样片库，原有 40 条与风格样片条目原样保留"
