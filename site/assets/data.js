@@ -1267,9 +1267,9 @@ window.AV = {
    "no": "54",
    "name_zh": "白板讲解",
    "name_en": "Whiteboard Explainer",
-   "title": "口袋里的爱因斯坦",
+   "title": "飞机为什么能飞",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-   "tagline": "手机怎么知道你在哪：GPS、原子钟，和相对论每天多出的 38 微秒。",
+   "tagline": "机翼剖面配六条流线，一口气讲清「上方快、低压，下方慢、高压」。",
    "aspect": "16:9",
    "seconds": 10.0,
    "duration": "0:10",
@@ -1277,7 +1277,7 @@ window.AV = {
    "mp4": "media/baiban.mp4",
    "poster": "media/baiban.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "badge": "10 秒样片 · 本仓库重渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/baiban/SKILL.md"
   },
   {
@@ -1289,9 +1289,9 @@ window.AV = {
    "no": "55",
    "name_zh": "黑板粉笔",
    "name_en": "Chalkboard",
-   "title": "汉字的故事",
+   "title": "鲸为什么这么大",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-   "tagline": "粉笔写下网上的说法，再一擦，把「射」写回三千年前。",
+   "tagline": "一条粉笔鲸配上三米小舢板，量尺一拉，十八米就有了分量。",
    "aspect": "16:9",
    "seconds": 10.0,
    "duration": "0:10",
@@ -1299,7 +1299,7 @@ window.AV = {
    "mp4": "media/heiban.mp4",
    "poster": "media/heiban.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "badge": "10 秒样片 · 本仓库重渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/heiban/SKILL.md"
   },
   {
@@ -1313,7 +1313,7 @@ window.AV = {
    "name_en": "Sketchnote",
    "title": "蜜蜂怎样酿蜜",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-   "tagline": "一只蜜蜂一辈子只酿 1/12 茶匙蜜；笔跟着一滴黄从花走到罐子，最后整页成了一张海报。",
+   "tagline": "采蜜、酿造、封盖三张卡片，虚线箭头把流程串成一页海报。",
    "aspect": "16:9",
    "seconds": 10.0,
    "duration": "0:10",
@@ -1321,7 +1321,7 @@ window.AV = {
    "mp4": "media/biji.mp4",
    "poster": "media/biji.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "badge": "10 秒样片 · 本仓库重渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/biji/SKILL.md"
   },
   {
@@ -1333,9 +1333,9 @@ window.AV = {
    "no": "57",
    "name_zh": "马克笔白纸速写",
    "name_en": "Marker on Paper",
-   "title": "你能看多远？",
+   "title": "平江路的清晨",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-   "tagline": "一支马克笔在白纸上算出海边能看多远，再告诉你：爬高 100 倍，只能多看远 10 倍。",
+   "tagline": "黑笔起形、马克笔压面，白墙青瓦和石拱桥在一张纸上醒来。",
    "aspect": "16:9",
    "seconds": 10.0,
    "duration": "0:10",
@@ -1343,7 +1343,7 @@ window.AV = {
    "mp4": "media/make.mp4",
    "poster": "media/make.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "badge": "10 秒样片 · 本仓库重渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/make/SKILL.md"
   },
   {
@@ -2521,9 +2521,9 @@ window.AV = {
    "no": "111",
    "name_zh": "蜡笔立体世界",
    "name_en": "Crayon World 3D",
-   "title": "蝴蝶",
+   "title": "一朵花上的蝴蝶",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-   "tagline": "第一人称飞过蜡笔画的村子，落在老人花园里的一朵花上；最后换成他的眼睛，和他说的一句话。",
+   "tagline": "蜡笔的粗线画出一个等轴的小村子，镜头飞到花园，停在一朵花上的蝴蝶。",
    "aspect": "16:9",
    "seconds": 10.0,
    "duration": "0:10",
@@ -2531,7 +2531,7 @@ window.AV = {
    "mp4": "media/labi2.mp4",
    "poster": "media/labi2.jpg",
    "note": null,
-   "badge": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "badge": "10 秒样片 · 本仓库重渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/labi2/SKILL.md"
   },
   {

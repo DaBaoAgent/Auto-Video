@@ -14,9 +14,9 @@
     "entry": "scripts/make.py",
     "status": "live",
     "sample": {
-      "file": "make marker-paper.mp4",
-      "title": "你能看多远？",
-      "seconds": 52.0
+      "file": "site/media/make.mp4",
+      "title": "平江路的清晨",
+      "seconds": 10.0
     },
     "updated": "2026-11-20"
   },
@@ -29,7 +29,7 @@
     "upstream_film": "How Far Can You See?",
     "upstream_dur": 52.0,
     "sample_source": "site/media/make.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+    "sample_note": "本仓库 projects/ 自渲 10 秒片（2026-11-20 重制，程序化画面 + 口播 + BGM）",
     "engine_note": "逐笔写出来：每一笔有起笔时间，高亮带压在关键笔画上。",
     "style": {
       "family": "board",

@@ -1719,7 +1719,7 @@
    "key": "baiban",
    "kind": "pipeline",
    "pipeline": "baiban",
-   "title": "口袋里的爱因斯坦",
+   "title": "飞机为什么能飞",
    "style": "白板讲解",
    "style_en": "Whiteboard Explainer",
    "station": "hand",
@@ -1734,21 +1734,26 @@
    "clip_seconds": 10.0,
    "poster_pick": {
     "by": "manual-override",
-    "note": "白板讲解：取瓶+气泡+两颗圆点画全的时刻，避开 1s 前的空板",
-    "seconds": 6.0
+    "seconds": 8.6,
+    "note": "升力箭头、红圈与公式同时在场，图解完整"
    },
    "mp4": "media/baiban.mp4",
    "poster": "media/baiban.jpg",
-   "source": "samples-v3/baiban-10s.mp4",
-   "bytes": 41682,
-   "badge": "10 秒样片",
-   "note": "Auto-Video 自研封装 10 秒样片"
+   "source": "samples-v2/baiban-10s.mp4",
+   "bytes": 229089,
+   "badge": "10 秒样片 · 本仓库重渲",
+   "note": "机翼剖面 + 六条流线 + 压差标注，白板笔一路写满",
+   "display_title": "飞机为什么能飞",
+   "voice": "zh-CN-YunjianNeural",
+   "music": "自然-静谧 Invisible_Beauty",
+   "narration": "机翼上方气流跑得更快、压强更小，下方慢、压强大，压差就这样把飞机托了起来。",
+   "subtitle": true
   },
   {
    "key": "heiban",
    "kind": "pipeline",
    "pipeline": "heiban",
-   "title": "汉字的故事",
+   "title": "鲸为什么这么大",
    "style": "黑板粉笔",
    "style_en": "Chalkboard",
    "station": "hand",
@@ -1762,19 +1767,21 @@
    "aspect": "16:9",
    "clip_seconds": 10.0,
    "poster_pick": {
-    "by": "appeal-complete",
-    "score": 1.01,
-    "edge": 2.8,
-    "sat": 4.2,
-    "yavg": 35.8,
-    "seconds": 8.63
+    "by": "manual-override",
+    "seconds": 8.6,
+    "note": "鲸、量尺、公式与尾鳍圈齐全"
    },
    "mp4": "media/heiban.mp4",
    "poster": "media/heiban.jpg",
-   "source": "samples-v3/heiban-10s.mp4",
-   "bytes": 37437,
-   "badge": "10 秒样片",
-   "note": "Auto-Video 自研封装 10 秒样片"
+   "source": "samples-v2/heiban-10s.mp4",
+   "bytes": 243975,
+   "badge": "10 秒样片 · 本仓库重渲",
+   "note": "粉笔画的鲸侧影 + 小舢板给尺度 + 18 米量尺与 V ∝ L³",
+   "display_title": "鲸为什么这么大",
+   "voice": "zh-CN-YunjianNeural",
+   "music": "自然-氛围 Nature Documentary Ambient Music",
+   "narration": "鲸能长到十八米。体积按立方涨，吃得够多，才养得起这么大的身子。",
+   "subtitle": true
   },
   {
    "key": "biji",
@@ -1795,23 +1802,28 @@
    "clip_seconds": 10.0,
    "poster_pick": {
     "by": "manual-override",
-    "note": "视觉笔记：同上，取箭头与双圆点齐备的一帧",
-    "seconds": 6.0
+    "seconds": 8.6,
+    "note": "三卡、虚实箭头与注脚同框"
    },
    "mp4": "media/biji.mp4",
    "poster": "media/biji.jpg",
-   "source": "samples-v3/biji-10s.mp4",
-   "bytes": 40567,
-   "badge": "10 秒样片",
-   "note": "Auto-Video 自研封装 10 秒样片"
+   "source": "samples-v2/biji-10s.mp4",
+   "bytes": 213017,
+   "badge": "10 秒样片 · 本仓库重渲",
+   "note": "三张卡片走完采蜜、酿造、封盖，虚线箭头串成流程",
+   "display_title": "蜜蜂怎样酿蜜",
+   "voice": "zh-CN-XiaoxiaoNeural",
+   "music": "自然 Nature Documentary Music",
+   "narration": "一只蜜蜂一辈子，只酿得出一小勺蜜。采、酿、封盖，三步才算成蜜。",
+   "subtitle": true
   },
   {
    "key": "make",
    "kind": "pipeline",
    "pipeline": "make",
-   "title": "你能看多远？",
+   "title": "平江路的清晨",
    "style": "马克笔白纸速写",
-   "style_en": "Marker on Paper",
+   "style_en": "Marker Sketch",
    "station": "hand",
    "long_edge": 1024,
    "max_seconds": 10.0,
@@ -1823,16 +1835,21 @@
    "aspect": "16:9",
    "clip_seconds": 10.0,
    "poster_pick": {
-    "by": "appeal-complete",
-    "fallback": "no-valid-frame",
-    "seconds": 7.0
+    "by": "manual-override",
+    "seconds": 8.6,
+    "note": "白墙青瓦、灯笼红与河水绿同时到位"
    },
    "mp4": "media/make.mp4",
    "poster": "media/make.jpg",
-   "source": "samples-v3/make-10s.mp4",
-   "bytes": 34343,
-   "badge": "10 秒样片",
-   "note": "Auto-Video 自研封装 10 秒样片"
+   "source": "samples-v2/make-10s.mp4",
+   "bytes": 236642,
+   "badge": "10 秒样片 · 本仓库重渲",
+   "note": "黑笔起形、彩色马克笔压面：板檐、粉墙、窗棂、灯笼、河水与石拱桥",
+   "display_title": "平江路的清晨",
+   "voice": "zh-CN-XiaoxiaoNeural",
+   "music": "乡村 Juneberry_Junction",
+   "narration": "平江路的清晨：黑笔起形，颜色压上去，白墙、青瓦和河水就活了。",
+   "subtitle": true
   },
   {
    "key": "jianzhi",
@@ -3522,7 +3539,7 @@
    "key": "labi2",
    "kind": "pipeline",
    "pipeline": "labi2",
-   "title": "蝴蝶",
+   "title": "一朵花上的蝴蝶",
    "style": "蜡笔立体世界",
    "style_en": "Crayon World 3D",
    "station": "d3",
@@ -3536,16 +3553,21 @@
    "aspect": "16:9",
    "clip_seconds": 10.0,
    "poster_pick": {
-    "by": "appeal-complete",
-    "fallback": "no-valid-frame",
-    "seconds": 7.0
+    "by": "manual-override",
+    "seconds": 8.6,
+    "note": "花与蝴蝶同时在场"
    },
    "mp4": "media/labi2.mp4",
    "poster": "media/labi2.jpg",
-   "source": "samples-v3/labi2-10s.mp4",
-   "bytes": 28868,
-   "badge": "10 秒样片",
-   "note": "Auto-Video 自研封装 10 秒样片"
+   "source": "samples-v2/labi2-10s.mp4",
+   "bytes": 235110,
+   "badge": "10 秒样片 · 本仓库重渲",
+   "note": "蜡笔一笔两遍的错位描线 + 等轴草垛 + 八瓣花，最后落一只蝴蝶",
+   "display_title": "一朵花上的蝴蝶",
+   "narration": "蜡笔把村子画成了方块。顺着小路飞过去，停在一朵花上，蝴蝶就在那儿等着。",
+   "voice": "zh-CN-XiaoyiNeural",
+   "music": "自然-钢琴 Nature Music",
+   "subtitle": true
   },
   {
    "key": "weixing",

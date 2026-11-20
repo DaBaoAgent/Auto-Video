@@ -10,6 +10,12 @@
     font-weight: 400 900;
     font-display: block;
   }
+  /* 手写体：马克笔中文 / 英文手写 / 粉笔行书，都是仓库字体清单里的 OFL 字体 */
+  @font-face { font-family: "mk"; src: url("../../../../assets/fonts/LXGWMarkerGothic-Regular.ttf") format("truetype"); font-display: block; }
+  @font-face { font-family: "cav"; src: url("../../../../assets/fonts/Caveat.ttf") format("truetype"); font-display: block; }
+  @font-face { font-family: "cavb"; src: url("../../../../assets/fonts/caveatbrush_CaveatBrush-Regular.ttf") format("truetype"); font-display: block; }
+  @font-face { font-family: "zhi"; src: url("../../../../assets/fonts/ZhiMangXing-Regular.ttf") format("truetype"); font-display: block; }
+  @font-face { font-family: "msz"; src: url("../../../../assets/fonts/MaShanZheng-Regular.ttf") format("truetype"); font-display: block; }
   html, body { margin: 0; background: #fcfcf8; }
   #c { display: block; width: 100vw; height: 100vh; object-fit: contain; }
 </style>
@@ -17,6 +23,7 @@
 <body>
 <canvas id="c" width="1920" height="1080"></canvas>
 <script src="../../../../vendor/runtime/stylekit.js"></script>
+<script src="../../../../vendor/runtime/board-draw.js"></script>
 <script src="./main.js"></script>
 </body>
 </html>
