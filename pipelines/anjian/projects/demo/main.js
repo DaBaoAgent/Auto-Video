@@ -23,28 +23,28 @@ const SPEC = {
     },
     {
       "kind": "rect",
-      "x": 321.0,
+      "x": 342.7,
       "y": 590.5,
-      "w": 510.1,
+      "w": 466.5,
       "h": 84.7,
       "fill": true,
       "lw": 2
     },
     {
       "kind": "rect",
-      "x": 448.1,
-      "y": 381.3,
-      "w": 255.9,
-      "h": 209.3,
+      "x": 430.2,
+      "y": 314.9,
+      "w": 291.6,
+      "h": 275.6,
       "fill": false,
       "lw": 2.6
     },
     {
       "kind": "circle",
-      "x": 504.4,
-      "y": 216.6,
-      "w": 143.1,
-      "h": 143.1,
+      "x": 474.1,
+      "y": 80.7,
+      "w": 203.7,
+      "h": 203.7,
       "fill": false,
       "lw": 2
     },
@@ -52,31 +52,31 @@ const SPEC = {
       "kind": "circle",
       "x": 1190.4,
       "y": 108.0,
-      "w": 269.9,
-      "h": 269.9,
+      "w": 221.6,
+      "h": 221.6,
       "fill": false,
       "lw": 2
     },
     {
       "kind": "gear",
-      "x": 1325.4,
-      "y": 243.0,
-      "r": 62.1
+      "x": 1301.2,
+      "y": 218.8,
+      "r": 51.0
     },
     {
       "kind": "trace",
       "pts": [
         [
-          1163.4,
-          275.4
+          1168.2,
+          245.4
         ],
         [
-          1077.0,
-          356.3
+          1097.3,
+          311.9
         ],
         [
           929.3,
-          475.4
+          438.9
         ]
       ],
       "color": "#ff8a5c",
@@ -121,7 +121,7 @@ const SPEC = {
       "kind": "label",
       "x": 1204.4,
       "y": 691.2,
-      "text": "C-03",
+      "text": "A-01",
       "size": 20,
       "color": "#bfe4ff"
     },
@@ -129,7 +129,7 @@ const SPEC = {
       "kind": "label",
       "x": 1204.4,
       "y": 783.0,
-      "text": "REF 07",
+      "text": "REF 11",
       "size": 20,
       "color": "#bfe4ff"
     },
@@ -139,20 +139,20 @@ const SPEC = {
       "y": 799.2,
       "w": 883.2,
       "h": 0,
-      "text": "898 mm"
+      "text": "699 mm"
     },
     {
       "kind": "label",
       "x": 134.4,
       "y": 1026.0,
-      "text": "DETAIL C",
+      "text": "SECTION B-B",
       "size": 22
     }
   ],
   "gridGap": 90,
-  "sheet": "AV·DWG 03",
+  "sheet": "AV·DWG 02",
   "paperMode": false,
-  "scan": true,
+  "scan": false,
   "label": {
     "zh": "安检 X 光",
     "en": "Security X-ray",

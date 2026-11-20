@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>守灯人</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/900.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/oswald@5/500.css">
+<style>html,body{margin:0;background:#000}#stage{position:relative;overflow:hidden}</style>
+<script src="assets/manifest.js"></script>
+<script src="timeline.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/lumen.js"></script>
+</head><body><div id="stage"></div><script>
+const { M } = PROMO;
+PROMO.compose({
+  bpm: 90, offset: 0, duration: 10, grain: false,
+  theme: { bg: '#000', fg: '#efeae2', ink: '#efeae2', muted: '#9a958c', accent: '#ffb648', paper: '#0c0d12', fonts: { display: '"Noto Sans SC", sans-serif', sans: '"Noto Sans SC", sans-serif' } },
+  build: (F) => {
+    const b = (n) => F.beat(n), L = PROMO.lumen(F), PR = L.prop, P = L.P;
+    L.cast({ you: { topColor: '#c8963e' } });
+    F.section(0, 0, { name: 'night' });
+    L.cover({ a: 0, b: b(4), title: '守灯人', sub: '灯塔 · 最后一夜', face: 'empty',
+      set: (S) => S.add(PR.room({ floor: 330 })), act: (A) => { A.act(0.3, b(4), 'breathe'); A.face(b(2), 'tired', 0.8); } });
+
+    { const S = L.shot(b(4), b(9), { dip: 0.4, ambient: [22, 25, 34], fog: 0.5 });
+      S.add([PR.room({ floor: 330, wall: '#3b4652' }), PR.window({ x: -250, y: -600, w: 540, h: 570, dawn: 0.1, floor: 330, dir: [0.2, 1] })]);
+      S.cam({ x: -40, y: -120, h: 1000 }, { x: -120, y: -180, h: 700 });
+      const A = S.actor('you', { x: -60, feet: 380, s: 1.1, pose: 'window' }); A.act(b(4), b(8), 'breathe'); A.face(b(6), 'empty', 0.5); }
+
+    L.meter(b(4), b(9), { kind: 'tank', label: '灯油', from: 78, to: 12, max: 100, unit: '%', warn: 20, x: P(0.74, 0.52), y: P(0.36, 0.28) });
+    F.section(b(6), 2, { name: 'watch', hit: true });
+
+    { const S = L.shot(b(9), b(12), { ambient: [30, 30, 36], fog: 0.35 });
+      S.add([PR.room({ floor: 330 }), PR.chair({ x: 0, floor: 330 }), PR.desk({ x: 0, floor: 330 }), PR.laptop({ x: 240, y: 90 })]);
+      S.cam({ x: 40, y: -60, h: 860 }, { x: 20, y: -80, h: 640 });
+      const A = S.actor('you', { x: -40, feet: 330, pose: 'desk', face: 'tired' }); A.act(b(9), b(11), 'type'); }
+
+    F.section(b(12), 3, { name: 'dawn', hit: true });
+    L.title(b(12), F.duration, '天亮了', { sub: '第 1,842 夜' });
+  },
+});
+</script></body></html>

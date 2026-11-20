@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>第三只座钟</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/900.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/900.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng@5/400.css">
+<style>html,body{margin:0;background:#000}#stage{position:relative;overflow:hidden}</style>
+<script src="assets/manifest.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/mystery.js"></script>
+</head><body><div id="stage"></div><script>
+const { M } = PROMO;
+PROMO.compose({
+  bpm: 120, offset: 0, duration: 10, grain: false, chapters: false,
+  theme: { bg: '#000', fg: '#fff', ink: '#fff', muted: '#b9c0ff', accent: '#ff2b2b', paper: '#ededed', fonts: { display: '"Noto Serif SC", serif', serif: '"Noto Serif SC", serif', sans: '"Noto Sans SC", sans-serif' } },
+  build: (F) => {
+    const R = PROMO.mystery(F, { brand: { name: '日常谜案' }, title: '第三只座钟' });
+    const B4 = 4 * F.B;
+
+    { const a = 0, b = 2.5 * B4, L = R.shot(a, b); R.title(L, { a, b, lines: ['阁楼上的', '第三只<em>座钟</em>'] }); }
+    { const a = 2.5 * B4, b = 3.5 * B4, L = R.shot(a, b); R.point(L, { a, b, n: '一', text: '两只钟，三种滴答' }); }
+    { const a = 3.5 * B4, b = 7.5 * B4, L = R.shot(a, b, { push: { from: { s: 1, x: 0.5, y: 0.5 }, to: { s: 1.1, x: 0.5, y: 0.46 } } }), S = R.svg(L);
+      R.prop(S, 'box', { x: 520, y: 820, s: 1.1, rot: -6, text: '壹', a: a + 0.1, enter: 'fly', from: [-500, 0] });
+      R.prop(S, 'box', { x: 1380, y: 760, s: 0.9, rot: 8, text: '贰', a: a + F.B, enter: 'fly', from: [500, 0] });
+      R.prop(S, 'qmark', { x: 1000, y: 560, s: 0.8, a: a + 2.5 * F.B, color: '#ffffff' }); }
+    { const a = 7.5 * B4, b = 9 * B4, L = R.shot(a, b); R.point(L, { a, b, n: '二', text: '墙里，还有一只' }); }
+    { const a = 9 * B4, b = F.duration, L = R.shot(a, b, { grade: 'plain' }); R.title(L, { a, b, lines: ['它<em>一直在走</em>', '第三只座钟'] }); }
+
+    F.section(0, 1, { name: 'cold' }); F.section(2.5 * B4, 1, { name: 'probe' }); F.section(3.5 * B4, 2, { name: 'tension' });
+  },
+});
+</script></body></html>

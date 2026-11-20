@@ -336,3 +336,7 @@ pipelines/qianhuang/projects/*/fonts/*.ttf
 # 77 条自研风格管线的抓帧与静帧（随时可重跑，不入库）
 pipelines/*/projects/demo/out/
 pipelines/*/projects/demo/frames/
+
+# 样片工程（projects/demo10 等）的成片与抓帧（随时可重跑，不入库）
+pipelines/*/projects/*/out/
+pipelines/*/projects/*/frames/

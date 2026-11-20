@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>青团 · 把春天包进糯米里</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/900.css">
+<style>html,body{margin:0;background:#f7f3e9}#stage{position:relative;overflow:hidden}</style>
+<script src="assets/manifest.js"></script>
+<script src="lib/core.js"></script>
+<script src="lib/promo.js"></script>
+<script src="lib/grain.js"></script>
+</head><body><div id="stage"></div><script>
+const { M } = PROMO;
+PROMO.compose({
+  bpm: 120, offset: 0.4, duration: 10, grain: false,
+  theme: { bg: '#f4efe2', fg: '#1d3a2a', ink: '#1d3a2a', muted: '#5d7a62', accent: '#4f8a55', paper: '#f4efe2', fonts: { display: '"Inter", "Noto Sans SC", sans-serif', serif: '"Inter", "Noto Sans SC", sans-serif', sans: '"Inter", "Noto Sans SC", sans-serif' } },
+  build: (F) => {
+    const b = (n) => F.beat(n), G = PROMO.grain(F, {}), L = G.L;
+    G.ground({ from: -1800, to: 1800 });
+    G.hill({ x: L(-620, -360), w: 560, h: 150 });
+    G.sun({ x: L(620, 320), y: -470, r: 86 });
+    G.tree({ x: L(-320, -250), h: 128, at: b(5), enter: 'pop' });
+    const head = { x: -340, y: -690, w: 760, h: 240 };
+
+    G.text('青团', { x: 0, y: -610, size: L(118, 96), tone: 'b', weight: 900, at: b(1), enter: 'rise', kind: 'slam' });
+    G.text('把春天包进糯米里', { x: 0, y: -510, size: L(42, 38), tone: 'b2', at: b(3), enter: 'rise' });
+
+    const shop = G.building({ x: -100, w: 260, h: 290, roof: 'flat', windows: { tone: 'b3' }, at: b(2), enter: 'rise' });
+    shop.windows.forEach((wn, i) => { const bx = G.box(wn, 0); G.rect({ x: bx.x, y: bx.y, w: bx.w, h: bx.h, fill: 'a3', shade: 'glow', at: b(4) + i * 0.08, enter: 'grain', sfx: i === 0 }); });
+    G.cam(0, { on: [shop, head], pad: 1.5 });
+    G.move(b(1), b(5), { on: [shop, head], pad: 1.2 });
+    F.section(0, 1, { name: 'hook' });
+
+    const crowd = G.row({ x: 250, y: 0, n: 4, gap: 68, at: b(6), every: 0.12, item: 'figure', props: (i) => ({ h: 108, tone: i % 2 ? 'b' : 'a', pose: i === 1 ? 'wave' : 'stand' }) });
+    const sign = G.sign({ x: -470, y: -390, w: 180, h: 190, title: '艾草', from: 0, to: 300, at: b(8), show: b(7), sub: '克' });
+    G.move(b(5), b(8), { on: [shop, crowd, sign], pad: 1.14 });
+    F.section(b(5), 2, { name: 'make' });
+
+    const ins = G.inset({ x: L(450, 220), y: -460, r: 138, from: shop, at: b(10), until: b(16),
+      build: (g) => { g.circle({ x: 0, y: 6, r: 42, fill: 'a', shade: 'round' }); g.rect({ x: -12, y: -56, w: 24, h: 28, r: 4, fill: 'b', shade: 'top' }); } });
+    G.move(b(9), b(11), { on: [shop, ins, sign], pad: 1.12 });
+    G.text('清明前 · 第一笼', { x: 0, y: 60, size: L(54, 48), tone: 'a0', weight: 800, at: b(13), enter: 'rise', kind: 'endcard' });
+    F.section(b(9), 3, { name: 'steam', hit: true });
+  },
+});
+</script></body></html>
