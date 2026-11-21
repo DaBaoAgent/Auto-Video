@@ -119,14 +119,6 @@
     "rate": "-3%",
     "cps": 3.67
   },
-  "piying": {
-    "id": "piying",
-    "chars": 25,
-    "seconds": 8.496,
-    "voice": "zh-CN-YunjianNeural",
-    "rate": "-3%",
-    "cps": 2.94
-  },
   "shuimo": {
     "id": "shuimo",
     "chars": 21,
@@ -270,5 +262,13 @@
     "voice": "zh-CN-YunxiNeural",
     "rate": "+3%",
     "cps": 3.27
+  },
+  "piying": {
+    "id": "piying",
+    "chars": 25,
+    "seconds": 8.496,
+    "voice": "zh-CN-YunjianNeural",
+    "rate": "-3%",
+    "cps": 2.94
   }
 }

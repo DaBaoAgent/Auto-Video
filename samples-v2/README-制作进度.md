@@ -142,3 +142,25 @@ ffmpeg -y -i raw.mp4 -i samples-v2/audio/<id>.wav ^
 - 老库 demo 的坑：① 字体 gitignore，`@font-face` 的 `url(fonts/…)` 一律换 `local('Georgia')`；② 有的字体在 JS 里 `new FontFace(...)`，要 try/catch；③ 字幕有的是 DOM 选择器（CSS 隐藏即可）、有的是 canvas 画（`drawSub` 首行 `return;`）、有的支持 `nosub` 参数（改成 `NOSUB = true`）；④ paper-popup 要 `node_modules/three`，缺 HDR 素材跑不起来，改用 printed-long-take。
 
 **统一收尾**：字幕 `sub-<id>.ass`（微软雅黑 58px、白字黑描边 3、MarginV 80），混音公式 `fps=30 + ass` / `audio 550ms 延迟 + apad` / `BGM volume 0.42 + 淡入 0.7s 淡出 8.9s` / `amix normalize=0` / 单遍 `loudnorm I=-16 TP=-1.5 LRA=11`，输出 `-crf 18 -preset medium -c:a aac 192k`。全部 34 条复检：1920×1080 / 10.0s / 有音轨。
+
+---
+
+## piying 皮影卡片重制 v2（2026-11-20）
+
+老样片问题：前 5 秒空场景、只有黄橙一路色、人物快结束才上台、道具只有山房树草。
+重制保留管线优势（素白幕背光 / 透光牛皮 / 镂空漏光 / 一物一杆 / 红纸签 / 灯暗换场），改成两场热闹戏。
+
+- **工程**：`samples-v2/work/piying_v2/`（`index.html` 手写场景 + `brief.md` 事实表 + `lib/` 从 `pipelines/shadow/runtime` 复制 core/promo/shadow/rods 四件）。参考底本是 `git show c3690d0:shadow/template/index.html`，已存成工程里的 `_ref_anu.html`。
+- **第一场 0–4.55s 元宵灯会**：将军朱红骑马（`horse.move + gallop`，`gen.ride(horse)`）、娘子靛蓝水袖舞、文官墨绿说话作揖；楼阁、青绿+靛蓝两山、金月、祥云、六盏红灯笼、灯/会两旗、花丛、三只飞鸟，全部 `at: 0`，第 0 帧满台在动。
+- **第二场 4.55–10s 武场**：白蛇游场抬头吐信、将军与丑角对打、娘子续舞；酒坛、芦苇、月亮、灯笼、飞鸟补齐密度；红纸签「四道门」→ 大字「开灯」→ `Y.lamp(9.0, {to:1.06})` 收尾。
+- **渲染**：`node pipelines/shadow/runtime/render.mjs <工程> --no-audio --out raw.mp4 --workers 4 --blur 4 --force`，236 秒出 300 帧。**这条 render.mjs 走 CDP，不需要 PLAYWRIGHT_CORE**（那是 render-legacy.mjs 的事），只要 `CHROME_PATH` + PATH 里的 ffmpeg。
+- **成片**：1920×1080 / 30fps / 10.000s / -15.97 LUFS / -1.94 dBTP；`samples-v2/piying-10s.mp4` + `site/media/piying.mp4`（1024×576）+ `piying.jpg`（取 3.2s）。BGM 用「搞笑 Funny Quirky Comedy」，配灯会的热闹，不用 shadow 那条的悬疑仪式感。
+
+### 这一轮踩到的坑
+
+1. **`k.blob()` 返回 path 字符串，不是点数组**：`k.plain(g, k.blob(pts), color)` 直接用；再包一层 `k.poly()` 就报 `pts.map is not a function`。`k.ring/oval/rose` 才是点数组，才配 `k.poly`。
+2. **`Y.prop fire` 别放在山上**：multiply 叠在山皮上变成一撮黑刺，读不出火焰。要热闹用 jar / reeds / blossom 更稳。
+3. **白蛇参数决定像不像蛇**：`w 54 + amp 74 + waves 3` 是一根粗波浪带子；改成 `w 34 / amp 46 / waves 2.5 / speed 2.2 / crawl 58`，细长多折才灵动。
+4. **人物头顶别挂灯笼**：灯笼 `y ≈ 0.30H` 正好压将军头盔，错开 `x` 或抬到 `0.26H`。
+5. **楼阁 `palace` 很抢戏**：`size 540 + depth .35` 是一大片灰黑屋顶；`size 370–430 + depth .5–.55` 虚化后才衬人物。
+6. **无 brief.md 会报「事实核对」错误**：样片也要写一张屏幕文字表，列清每个上屏的字。
