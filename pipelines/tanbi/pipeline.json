@@ -1,34 +1,34 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "tanbi",
-    "no": "157",
-    "name_zh": "炭笔擦画",
-    "name_en": "Charcoal, Erased and Redrawn",
-    "station": "hand",
-    "station_no": "02",
-    "tagline": "柳炭起形、纸擦笔揉开、可塑橡皮提白，再在擦掉的旧痕上重画一遍。",
-    "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-    "aspect": "16:9",
-    "fps": 24,
-    "entry": "scripts/tanbi.py",
-    "status": "live",
-    "sample": null,
-    "updated": "2026-11-20"
-  },
-  "spec": {
-    "source": "anidoodle v0.9.x（2026-11 快照，Apache-2.0）（画法参考，代码自研，运行时不依赖上游）",
-    "upstream": "https://github.com/alexgreensh/anidoodle",
-    "style_slug": "charcoalErasure",
-    "medium": "柳炭条与压缩炭在粗纹棉纸上，纸擦笔揉成中间调，可塑橡皮只提亮不提线。",
-    "workflow": "炭笔介质的三段工序：起形（短线拱出来的轮廓）→ 揉擦（把暗部揉散成纸灰）→ 提白 → 在旧痕上复画。",
-    "quality": "★★★",
-    "engine": "runtime/render.py",
-    "license": "Apache-2.0（仅读媒介描述，未复制上游代码与素材）",
-    "runtime": "pipelines/tanbi/runtime",
-    "stage": "runtime/stage.html",
-    "player": "runtime/player.js",
-    "drawing_script": "runtime/scene.js",
-    "self_contained": true
-  }
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "tanbi",
+  "no": "157",
+  "name_zh": "炭笔擦画",
+  "name_en": "Charcoal, Erased and Redrawn",
+  "station": "hand",
+  "station_no": "02",
+  "tagline": "柳炭起形、纸擦笔揉开、可塑橡皮提白，再在擦掉的旧痕上重画一遍。",
+  "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+  "aspect": "16:9",
+  "fps": 24,
+  "entry": "scripts/tanbi.py",
+  "status": "live",
+  "sample": null,
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "anidoodle v0.9.x（2026-11 快照，Apache-2.0）（画法参考，代码自研，运行时不依赖上游）",
+  "upstream": "https://github.com/alexgreensh/anidoodle",
+  "style_slug": "charcoalErasure",
+  "medium": "柳炭条与压缩炭在粗纹棉纸上，纸擦笔揉成中间调，可塑橡皮只提亮不提线。",
+  "workflow": "炭笔介质的三段工序：起形（短线拱出来的轮廓）→ 揉擦（把暗部揉散成纸灰）→ 提白 → 在旧痕上复画。",
+  "quality": "★★★",
+  "engine": "runtime/render.py",
+  "license": "Apache-2.0（仅读媒介描述，未复制上游代码与素材）",
+  "runtime": "pipelines/tanbi/runtime",
+  "stage": "runtime/stage.html",
+  "player": "runtime/player.js",
+  "drawing_script": "runtime/scene.js",
+  "self_contained": true
+ }
 }
