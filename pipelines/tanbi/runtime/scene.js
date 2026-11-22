@@ -300,6 +300,48 @@
     charFill(ctx, paths, tone);
   }
 
+  // 纸齿颗粒层：整张纸的粗糙感，算一次、缓存成离屏图，逐帧直接贴
+  let PAPER_TOOTH = null;
+  function paperTooth(W, H) {
+    if (PAPER_TOOTH) return PAPER_TOOTH;
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const g = c.getContext('2d');
+    const r = U.rng(9301);
+    // 细颗粒
+    for (let i = 0; i < 9000; i++) {
+      const x = r() * W, y = r() * H;
+      const s = 1.0 + r() * 2.2;
+      g.globalAlpha = 0.06 + r() * 0.14;
+      g.fillStyle = r() > 0.32 ? `rgba(${INK},1)` : `rgba(${CHALK},1)`;
+      g.fillRect(x, y, s, s);
+    }
+    // 纸纤维：短横丝
+    for (let i = 0; i < 2600; i++) {
+      const x = r() * W, y = r() * H, len = 6 + r() * 34;
+      g.globalAlpha = 0.04 + r() * 0.07;
+      g.strokeStyle = r() > 0.72 ? `rgba(${INK},1)` : `rgba(${CHALK},1)`;
+      g.lineWidth = 0.6 + r() * 1.2;
+      g.beginPath();
+      g.moveTo(x, y);
+      g.lineTo(x + len, y + (r() - 0.5) * 2.4);
+      g.stroke();
+    }
+    // 成片的擦痕（炭粉被抹开的地方）
+    for (let i = 0; i < 120; i++) {
+      const x = r() * W, y = r() * H, len = 60 + r() * 300;
+      g.globalAlpha = 0.02 + r() * 0.05;
+      g.strokeStyle = `rgba(${INK},1)`;
+      g.lineWidth = 6 + r() * 26;
+      g.beginPath();
+      g.moveTo(x, y);
+      g.lineTo(x + len, y + (r() - 0.5) * 18);
+      g.stroke();
+    }
+    PAPER_TOOTH = c;
+    return c;
+  }
+
   window.SCENES.tanbi = {
     init: async () => {},
     draw(ctx, t) {
@@ -389,16 +431,45 @@
         chalkStroke(ctx, [[w.x, w.y + w.h * 0.55], [w.x + w.w, w.y + w.h * 0.55]], a, 1.6, 0.24);
       });
 
-      const gp = U.easeInOut(U.p(t, -0.65, 0.8));
+      const gp = U.easeInOut(U.p(t, -1.35, 0.9));
       if (gp > 0) {
         chalkFill(ctx, groundPath(), 0.34 * gp);
         ctx.save();
-        ctx.globalAlpha = 0.12 * gp;
-        ctx.fillStyle = 'rgba(108,130,166,1)';
-        [[1180, 828, 520, 44], [520, 872, 420, 52], [1560, 900, 460, 40]].forEach(([x, y, w2, h2]) => {
-          ctx.beginPath();
-          ctx.ellipse(x, y, w2 / 2, h2 / 2, 0, 0, Math.PI * 2);
-          ctx.fill();
+        ctx.fillStyle = 'rgba(126,140,158,1)';
+        ctx.strokeStyle = 'rgba(118,132,152,1)';
+        const sr = U.rng(6111);
+        [[1180, 830, 540, 40], [520, 874, 430, 46], [1560, 902, 470, 38]].forEach(([x, y, w2, h2]) => {
+          // 打底：几块半透明不规则块叠出影子，边缘不封死
+          for (let k = 0; k < 5; k++) {
+            const cx = x + (sr() - 0.5) * w2 * 0.55;
+            const cy = y + (sr() - 0.5) * h2 * 0.5;
+            const rw = w2 * (0.28 + sr() * 0.22), rh = h2 * (0.5 + sr() * 0.4);
+            ctx.globalAlpha = (0.026 + sr() * 0.028) * gp;
+            const n = 10, pts = [];
+            for (let i = 0; i < n; i++) {
+              const ang = i / n * Math.PI * 2;
+              const rr = 0.72 + sr() * 0.34;
+              pts.push([cx + Math.cos(ang) * rw * rr, cy + Math.sin(ang) * rh * rr * 0.62]);
+            }
+            ctx.beginPath();
+            ctx.moveTo(pts[0][0], pts[0][1]);
+            for (let i = 1; i < n; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+            ctx.closePath();
+            ctx.fill();
+          }
+          // 炭粉擦痕：一排短横线把影子"扫"出来
+          ctx.lineCap = 'butt';
+          for (let k = 0; k < 58; k++) {
+            const cy = y + (sr() - 0.5) * h2 * 0.85;
+            const cx = x + (sr() - 0.5) * w2 * 0.92;
+            const len = 14 + sr() * 46;
+            ctx.globalAlpha = (0.030 + sr() * 0.055) * gp;
+            ctx.lineWidth = 2 + sr() * 5;
+            ctx.beginPath();
+            ctx.moveTo(cx - len / 2, cy);
+            ctx.lineTo(cx + len / 2, cy + (sr() - 0.5) * 3);
+            ctx.stroke();
+          }
         });
         ctx.restore();
         charcoal(ctx, [[-40, GY + 2], [520, GY + 8], [1040, GY + 10], [1520, GY + 2], [1960, GY + 6]], U.clamp(gp), 3.4, 0.30);
@@ -430,9 +501,9 @@
         charcoal(ctx, [[LAMP_X, LAMP_BOT], [LAMP_X + 2, (LAMP_BOT + LAMP_TOP) / 2], [LAMP_X, LAMP_TOP + 12]], postIn, 11, 0.9);
         mass(ctx, poly([[LAMP_X - 30, LAMP_BOT], [LAMP_X + 30, LAMP_BOT], [LAMP_X + 20, LAMP_BOT - 40], [LAMP_X - 20, LAMP_BOT - 40]]), 0.8 * postIn);
         const headIn = U.easeOut(U.p(t, 0.05, 0.4));
-        mass(ctx, poly([[LAMP_X - 44, LAMP_TOP + 4], [LAMP_X - 26, LAMP_TOP - 48], [LAMP_X + 26, LAMP_TOP - 48], [LAMP_X + 44, LAMP_TOP + 4], [LAMP_X, LAMP_TOP + 52]]), 0.82 * headIn);
-        charcoal(ctx, [[LAMP_X, LAMP_TOP - 82], [LAMP_X, LAMP_TOP - 48]], headIn, 5, 0.7);
-        chalkStroke(ctx, [[LAMP_X - 30, LAMP_TOP + 2], [LAMP_X - 12, LAMP_TOP - 40]], headIn, 7, 0.4);
+        mass(ctx, poly([[LAMP_X - 40, LAMP_TOP + 2], [LAMP_X - 22, LAMP_TOP - 40], [LAMP_X + 22, LAMP_TOP - 40], [LAMP_X + 40, LAMP_TOP + 2]]), 0.80 * headIn);
+        charcoal(ctx, [[LAMP_X, LAMP_TOP - 76], [LAMP_X, LAMP_TOP - 40]], headIn, 5, 0.7);
+        chalkStroke(ctx, [[LAMP_X - 30, LAMP_TOP + 0], [LAMP_X - 14, LAMP_TOP - 34]], headIn, 7, 0.4);
       }
       const glow = U.easeInOut(U.p(t, 0.2, 0.65));
       if (glow > 0) {
@@ -450,31 +521,40 @@
         ctx.fill();
         ctx.restore();
         // 光晕之后把灯罩压回实心：罩框 + 中间一块亮的玻璃 + 一根灯芯
-        mass(ctx, poly([[LAMP_X - 46, LAMP_TOP + 6], [LAMP_X - 27, LAMP_TOP - 50], [LAMP_X + 27, LAMP_TOP - 50], [LAMP_X + 46, LAMP_TOP + 6], [LAMP_X, LAMP_TOP + 56]]), 0.96 * glow);
-        chalkFill(ctx, poly([[LAMP_X - 33, LAMP_TOP + 2], [LAMP_X - 20, LAMP_TOP - 40], [LAMP_X + 20, LAMP_TOP - 40], [LAMP_X + 33, LAMP_TOP + 2], [LAMP_X, LAMP_TOP + 40]]), 0.62 * glow);
-        // 玻璃上的竖棂
+        // 玻璃罩
+        mass(ctx, poly([[LAMP_X - 38, LAMP_TOP + 4], [LAMP_X - 21, LAMP_TOP - 42], [LAMP_X + 21, LAMP_TOP - 42], [LAMP_X + 38, LAMP_TOP + 4]]), 0.95 * glow);
+        chalkFill(ctx, poly([[LAMP_X - 30, LAMP_TOP + 1], [LAMP_X - 17, LAMP_TOP - 37], [LAMP_X + 17, LAMP_TOP - 37], [LAMP_X + 30, LAMP_TOP + 1]]), 0.66 * glow);
+        // 灯芯与火苗
         ctx.save();
-        ctx.globalAlpha = glow * 0.8;
-        ctx.strokeStyle = `rgba(${INK},0.55)`;
-        ctx.lineWidth = 2;
-        [-14, 14].forEach(dx => {
+        ctx.globalAlpha = glow * 0.95;
+        ctx.fillStyle = `rgba(255,196,120,1)`;
+        ctx.beginPath();
+        ctx.ellipse(LAMP_X, LAMP_TOP - 12, 5.5, 13, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+        // 竖棂
+        ctx.save();
+        ctx.globalAlpha = glow * 0.75;
+        ctx.strokeStyle = `rgba(${INK},0.50)`;
+        ctx.lineWidth = 1.8;
+        [-12, 0, 12].forEach(dx => {
           ctx.beginPath();
-          ctx.moveTo(LAMP_X + dx * 0.8, LAMP_TOP - 38);
-          ctx.lineTo(LAMP_X + dx, LAMP_TOP + 26);
+          ctx.moveTo(LAMP_X + dx * 0.72, LAMP_TOP - 36);
+          ctx.lineTo(LAMP_X + dx, LAMP_TOP + 0);
           ctx.stroke();
         });
         ctx.restore();
-        // 罩顶
-        mass(ctx, poly([[LAMP_X - 30, LAMP_TOP - 50], [LAMP_X + 30, LAMP_TOP - 50], [LAMP_X + 16, LAMP_TOP - 66], [LAMP_X - 16, LAMP_TOP - 66]]), 0.95 * glow);
-        ctx.save();
-        ctx.globalAlpha = glow;
-        ctx.strokeStyle = `rgba(${INK},0.7)`;
-        ctx.lineWidth = 2.2;
-        ctx.beginPath();
-        ctx.moveTo(LAMP_X, LAMP_TOP - 38);
-        ctx.lineTo(LAMP_X, LAMP_TOP + 34);
-        ctx.stroke();
-        ctx.restore();
+        // 钟形罩顶
+        mass(ctx, poly([[LAMP_X - 44, LAMP_TOP - 40], [LAMP_X + 44, LAMP_TOP - 40], [LAMP_X + 22, LAMP_TOP - 62], [LAMP_X - 22, LAMP_TOP - 62]]), 0.96 * glow);
+        const dome = [];
+        for (let i = 0; i <= 14; i++) {
+          const a2 = Math.PI + (i / 14) * Math.PI;
+          dome.push([LAMP_X + Math.cos(a2) * 22, LAMP_TOP - 62 + Math.sin(a2) * 14]);
+        }
+        mass(ctx, poly(dome), 0.96 * glow);
+        // 顶针
+        mass(ctx, poly([[LAMP_X - 5, LAMP_TOP - 62], [LAMP_X + 5, LAMP_TOP - 62], [LAMP_X + 3, LAMP_TOP - 82], [LAMP_X - 3, LAMP_TOP - 82]]), 0.96 * glow);
+        chalkFill(ctx, box(LAMP_X - 44, LAMP_TOP - 41, 88, 3), 0.30 * glow);
         const g2 = ctx.createRadialGradient(LAMP_X, GY + 46, 4, LAMP_X, GY + 46, 250);
         g2.addColorStop(0, `rgba(${CHALK},${0.22 * glow})`);
         g2.addColorStop(1, `rgba(${CHALK},0)`);
@@ -593,6 +673,35 @@
         ctx.restore();
       }
 
+      // 雪地底纹：一开场就把地面"扫"出排线与擦痕，别留白纸
+      const base = U.easeInOut(U.p(t, -1.15, 1.3));
+      if (base > 0) {
+        const r0 = U.rng(3312);
+        for (let i = 0; i < 170; i++) {
+          const y = GY + 16 + Math.pow(r0(), 0.66) * 390;
+          const len = 30 + r0() * 130;
+          const x = r0() * (W - len);
+          charcoal(ctx, [[x, y], [x + len, y - 4 + r0() * 10]], 1, 1.0 + r0() * 2.4, (0.055 + r0() * 0.115) * base);
+        }
+        // 远去的一串脚印
+        for (let i = 0; i < 34; i++) {
+          const k = i / 34;
+          const side = i % 2 ? 1 : -1;
+          const x = 190 + k * 640 + Math.sin(i * 0.7) * 9 + side * (5 - k * 3);
+          const y = GY + 296 - k * 206 + side * 6;
+          const sc = 13 - k * 6;
+          ctx.save();
+          ctx.globalAlpha = (0.13 - k * 0.06) * base;
+          ctx.fillStyle = `rgba(${INK},1)`;
+          ctx.beginPath();
+          ctx.ellipse(x, y, sc, sc * 0.44, 0.24 + k + side * 0.1, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+        // 灯柱脚下的一圈雪堆
+        chalkFill(ctx, ell(LAMP_X - 2, LAMP_BOT + 1, 34, 9, 0), 0.16 * base);
+      }
+
       const hatchIn2 = U.easeInOut(U.p(t, 3.0, 0.9));
       if (hatchIn2 > 0) {
         const r = U.rng(661);
@@ -652,7 +761,7 @@
         ctx.restore();
       }
 
-      const snowA = 0.4 + 0.45 * U.easeOut(U.p(t, 0.25, 1.3));
+      const snowA = 0.4 + 0.45 * U.easeOut(U.p(t, -0.4, 1.1));
       ctx.save();
       for (const f of FLAKES) {
         const yy = (f.y + t * f.v) % (H + 40) - 20;
@@ -663,6 +772,14 @@
         ctx.arc(xx, yy, f.s, 0, Math.PI * 2);
         ctx.fill();
       }
+      // 16b 纸齿颗粒
+      if (dust > 0) {
+        ctx.save();
+        ctx.globalAlpha = 0.5 * dust;
+        ctx.drawImage(paperTooth(W, H), 0, 0);
+        ctx.restore();
+      }
+
       // 17 暗角
       const tooth = U.rng(5150);
       ctx.save();
