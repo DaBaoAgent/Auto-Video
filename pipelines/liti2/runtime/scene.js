@@ -1,165 +1,227 @@
-/* 画法脚本：移植自 huashu-art-motion v1.3.1 的 scenes/11_cubism.js（MIT）。
-   运行所需的库、字体、舞台都在本管线的 runtime/ 内，不引用外部仓库。 */
-// 1912 分析立体主义（毕加索／布拉克）——纯代码。
-// 管线：①缓存底版：赭灰米色「透明叠面」（每面一条明→暗线性渐变，alpha 0.35–0.7 叠出层次）
-//        ＋ 点画／排线肌理面 ＋ 布拉克式短划砂纹 ＋ 贯穿的细直线（passage）＋ 仿木纹（桌、木板）＋ 藤编椅背
-//      → ②会动的：窗格碎面各自滑动（窗景缓存成一张大图，四格各自错位取景）、CAFÉ 字母跳动换位（12fps 卡点）、报纸微颤
-//      → ③角色：RIG 平涂进离屏层 → 自写切面器 facetize（抖动三角网，取色＋随机明暗＋两端渐变，三角不裁剪 = 轮廓被切成直边）
-//        → 补毕加索式五官（侧脸＋正面杏眼、半边脸蓝灰面）、裙摆放射切线、直线外轮廓（端点外伸）
-//      → ④最上层再压几片低透明度的叠面，让人和猫「嵌」进空间
+/* Auto-Video 自研画法脚本 · 分析立体主义（Cubism, 1912 巴黎）
+   场景：咖啡馆一角。吉他手在桌边拨弦，侍者俯身斟酒，报纸被风掀起一角，窗外屋顶碎成切面。
+   一镜到底 10 秒：切面网在「沸」、窗格错位、琴弦与酒线在抖，镜头极慢横移。
+   管线：①叠面底版（每面明→暗渐变）→ ②点画/排线/木纹肌理 → ③人物平涂进离屏层 → 自写切面器 facetize
+        → ④毕加索式侧脸、直线外轮廓（端点外伸）→ ⑤桌沿遮住下身 → ⑥最上层低透明叠面把人和物嵌进空间。
+   全部由代码绘制，不使用任何外部图片。 */
 SCENES['11_cubism'] = (() => {
-  const W = 1920, H = 1080, { clamp, lerp } = U, P = PAINT, TAU = Math.PI * 2;
-  const C = { paper: '#d6c8ac', cream: '#ece3cf', ochre: '#b8975f', brown: '#6e5538', dbrown: '#3a2c1e', grey: '#a8a395', bgrey: '#8e9eab', dgrey: '#5a5852', ink: '#2e241a' };
+  const W = 1920, H = 1080, { clamp } = U, P = PAINT, TAU = Math.PI * 2;
+  const C = { paper: '#d6c8ac', cream: '#ece3cf', ochre: '#b8975f', brown: '#7a5a34', dbrown: '#3a2c1e', grey: '#a8a395', bgrey: '#8e9eab', dgrey: '#5a5852', ink: '#2e241a', blue: '#5f7488', olive: '#77784a', rust: '#9c5330', teal: '#2f4858' };
   const H2 = P.hex;
-  // 要 getImageData 的离屏层必须一开始就声明 willReadFrequently：否则第一帧走 GPU、读回后 Chrome 改走 CPU，抗锯齿不同 → 第一帧与之后不一致（不确定性）
   const LAYERS = {}; const layer = (k) => { if (!LAYERS[k]) { const cv = document.createElement('canvas'); cv.width = W; cv.height = H; cv.getContext('2d', { willReadFrequently: true }); LAYERS[k] = cv; } return LAYERS[k]; };
   const poly = (g, pts) => { g.beginPath(); pts.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.closePath(); };
-  // 一个「切面」：沿某方向从亮到暗的渐变（立体主义的明暗切面）
   const plane = (g, pts, col, alpha, r, dark = 0.4, light = 0.25) => {
     const c0 = Array.isArray(col) ? col : H2(col);
     let a = pts[0], b = pts[(r() * pts.length) | 0]; if (a === b) b = pts[(pts.length / 2) | 0];
     const gr = g.createLinearGradient(a[0], a[1], b[0], b[1]);
-    gr.addColorStop(0, P.rgb(P.mix(c0, [250, 244, 228], light), alpha)); gr.addColorStop(0.55, P.rgb(c0, alpha)); gr.addColorStop(1, P.rgb(P.mix(c0, [45, 35, 25], dark), alpha));
+    gr.addColorStop(0, P.rgb(P.mix(c0, [250, 244, 228], light), alpha));
+    gr.addColorStop(0.55, P.rgb(c0, alpha));
+    gr.addColorStop(1, P.rgb(P.mix(c0, [45, 35, 25], dark), alpha));
     g.fillStyle = gr; poly(g, pts); g.fill();
   };
-  // 仿木纹（布拉克用木纹梳画的假木头）
   const wood = (g, x, y, w, h, vertical, seed, base = '#b8874a', dark = '#7a5228') => {
     const r = U.rng(seed); g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip(); g.fillStyle = base; g.fillRect(x, y, w, h);
     g.strokeStyle = dark; const L = vertical ? h : w, S = vertical ? w : h, kx = 0.35 + r() * 0.3, ky = 0.3 + r() * 0.4;
     for (let i = 0; i < S / 6; i++) { g.lineWidth = 0.8 + r() * 1.6; g.globalAlpha = 0.35 + r() * 0.4; g.beginPath();
       for (let s = 0; s <= L; s += 6) { const u = s / L, off = i * 6 + Math.sin(u * 7 + i * 0.4) * 3 + 14 * Math.exp(-((u - kx) ** 2) / 0.01) * Math.sign(i * 6 - S * ky);
         const X = vertical ? x + off : x + s, Y = vertical ? y + s : y + off; s ? g.lineTo(X, Y) : g.moveTo(X, Y); } g.stroke(); }
-    g.globalAlpha = 1; const kX = vertical ? x + S * ky : x + L * kx, kY = vertical ? y + L * kx : y + S * ky;
-    for (let k = 0; k < 4; k++) { g.lineWidth = 1.6; g.beginPath(); g.ellipse(kX, kY, (vertical ? 6 : 16) + k * 5, (vertical ? 16 : 6) + k * 4, 0, 0, TAU); g.stroke(); }
-    g.fillStyle = dark; g.beginPath(); g.ellipse(kX, kY, vertical ? 4 : 10, vertical ? 10 : 4, 0, 0, TAU); g.fill(); g.restore();
+    g.globalAlpha = 1; g.restore();
   };
+  const seg = (g, a, b, w, col) => { g.strokeStyle = col || C.ink; g.lineWidth = w; g.lineCap = 'round'; g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke(); };
 
-  // ---------- ① 底版 ----------
-  const bg = () => P.cached('cb_bg', W, H, (g) => {
+  // 桌面透视：左高右低
+  const SY = (x) => 820 - (x - 520) * 0.0327;
+
+  // ---------- ① 墙面与窗 ----------
+  function wall(c, lt, t) {
     const r = U.rng(1912);
-    g.fillStyle = C.paper; g.fillRect(0, 0, W, H);
-    // 手工排的大叠面（参照原片构图）
+    c.fillStyle = C.paper; c.fillRect(0, 0, W, H);
     const big = [
-      [[[0, 0], [330, 0], [180, 330], [0, 260]], C.grey, .6], [[[60, 0], [560, 0], [340, 110]], C.cream, .6], [[[0, 280], [200, 330], [110, 1080], [0, 1080]], C.dgrey, .45],
-      [[[160, 520], [350, 600], [280, 860], [120, 780]], C.ochre, .5], [[[820, 0], [1010, 0], [930, 330]], C.cream, .55], [[[880, 120], [1220, 40], [1100, 420], [860, 380]], C.bgrey, .5],
-      [[[1050, 0], [1500, 0], [1320, 240], [1180, 210]], C.grey, .45], [[[1500, 0], [1920, 0], [1920, 330], [1640, 260]], C.cream, .35], [[[1290, 170], [1720, 310], [1610, 620], [1240, 450]], C.grey, .45],
-      [[[1700, 340], [1920, 290], [1920, 900], [1760, 880]], C.ochre, .45], [[[840, 380], [1150, 320], [1210, 560], [880, 600]], C.grey, .5], [[[350, 560], [820, 600], [800, 900], [300, 930]], C.cream, .45],
-      [[[690, 620], [860, 560], [910, 1080], [630, 1080]], C.brown, .4], [[[1250, 600], [1560, 640], [1500, 1080], [1200, 1080]], C.dgrey, .35], [[[0, 640], [380, 560], [420, 1080], [0, 1080]], C.ochre, .35],
-      [[[560, 0], [880, 0], [820, 120], [600, 90]], C.ochre, .45], [[[1560, 620], [1920, 560], [1920, 1080], [1500, 1080]], C.ochre, .4], [[[300, 70], [520, 40], [470, 300], [280, 260]], C.dgrey, .3],
+      [[[0, 0], [430, 0], [300, 300], [0, 250]], C.grey, .62],
+      [[[390, 0], [900, 0], [770, 250], [330, 220]], C.cream, .58],
+      [[[860, 0], [1290, 0], [1230, 290], [880, 250]], C.ochre, .5],
+      [[[1270, 0], [1920, 0], [1920, 430], [1470, 300]], C.cream, .44],
+      [[[0, 240], [270, 300], [210, 770], [0, 720]], C.dgrey, .4],
+      [[[0, 700], [380, 730], [430, 1080], [0, 1080]], C.ochre, .42],
+      [[[1330, 300], [1920, 280], [1920, 700], [1480, 740]], C.grey, .38],
+      [[[1400, 690], [1920, 640], [1920, 1080], [1450, 1080]], C.teal, .16],
+      [[[820, 0], [1000, 300], [890, 640]], C.bgrey, .3],
+      [[[980, 250], [1300, 230], [1330, 690], [1000, 700]], C.brown, .22],
+      [[[430, 120], [760, 100], [760, 560], [420, 580]], C.ochre, .18],
     ];
-    big.forEach(([pts, col, a]) => plane(g, pts, col, a, r));
-    // 桌下放射扇面
-    for (let i = 0; i < 9; i++) { const a0 = -Math.PI + 0.25 + i * 0.3, a1 = a0 + 0.16; plane(g, [[1000, 1090], [1000 + Math.cos(a0) * 620, 1090 + Math.sin(a0) * 520], [1000 + Math.cos(a1) * 620, 1090 + Math.sin(a1) * 520]], i % 2 ? C.cream : C.brown, 0.3, r, 0.5, 0.3); }
-    // 随机小切面
-    for (let i = 0; i < 70; i++) { const cx = r() * W, cy = r() * H, s = 60 + r() * 200, a0 = r() * TAU, n = r() < 0.6 ? 3 : 4;
-      const pts = []; for (let k = 0; k < n; k++) { const a = a0 + k / n * TAU + (r() - .5) * 0.8; pts.push([cx + Math.cos(a) * s * (0.5 + r() * 0.6), cy + Math.sin(a) * s * (0.5 + r() * 0.6)]); }
-      if (cx > 1480 && cy < 230) continue;
-      plane(g, pts, [C.cream, C.grey, C.ochre, C.bgrey, C.brown, C.dgrey][(r() * 6) | 0], 0.18 + r() * 0.3, r); }
-    // 点画面、排线面
-    [[[930, 430], [1080, 380], [1060, 520], [960, 560]], [[1540, 420], [1700, 380], [1660, 520]], [[130, 380], [260, 420], [210, 560]], [[720, 700], [820, 690], [800, 820]]].forEach((pts, k) => {
-      g.save(); poly(g, pts); g.clip(); g.fillStyle = 'rgba(40,30,20,.45)'; for (let y = 0; y < H; y += 9) for (let x = (y / 9 % 2) * 4.5; x < W; x += 9) { if (x < pts[0][0] - 200 || x > pts[0][0] + 260 || y < pts[0][1] - 200 || y > pts[0][1] + 260) continue; g.beginPath(); g.arc(x, y, 1.6, 0, TAU); g.fill(); } g.restore(); });
-    [[[1040, 470], [1200, 400], [1220, 520], [1080, 560]], [[40, 300], [110, 280], [80, 640], [20, 660]], [[1230, 690], [1330, 660], [1310, 840]], [[600, 160], [700, 130], [690, 300]]].forEach((pts, k) => {
-      g.save(); poly(g, pts); g.clip(); g.strokeStyle = 'rgba(50,38,26,.45)'; g.lineWidth = 1.2; g.beginPath(); for (let d = -1200; d < 1200; d += 7) { g.moveTo(pts[0][0] + d, pts[0][1] - 300); g.lineTo(pts[0][0] + d + (k % 2 ? 300 : -120), pts[0][1] + 300); } g.stroke(); g.restore(); });
-    // 左侧竖排线（纸页）
-    g.save(); poly(g, [[0, 280], [100, 290], [70, 800], [0, 820]]); g.clip(); g.fillStyle = 'rgba(236,227,207,.7)'; g.fillRect(0, 280, 110, 560); g.strokeStyle = 'rgba(60,45,30,.4)'; g.lineWidth = 1; g.beginPath(); for (let y = 290; y < 820; y += 8) { g.moveTo(0, y); g.lineTo(110, y - 6); } g.stroke(); g.restore();
-    // 右侧木板（布拉克的假木纹）
-    g.save(); g.translate(1615, 590); g.rotate(-0.04); wood(g, -66, -205, 130, 410, true, 7, '#c4925a', '#7a4f26'); g.strokeStyle = C.ink; g.lineWidth = 2; g.strokeRect(-66, -205, 130, 410); g.restore();
-    // 藤编椅背＋椅框
-    g.save(); poly(g, [[1484, 492], [1588, 470], [1588, 692], [1486, 700]]); g.clip(); g.fillStyle = '#c9a466'; g.fillRect(1480, 460, 120, 250);
-    g.fillStyle = 'rgba(70,46,24,.85)'; for (let y = 470; y < 705; y += 10) for (let x = 1480 + (y / 10 % 2) * 5; x < 1600; x += 10) { g.beginPath(); g.arc(x, y, 2.6, 0, TAU); g.fill(); }
-    g.strokeStyle = 'rgba(240,220,170,.5)'; g.lineWidth = 1.2; g.beginPath(); for (let d = -260; d < 260; d += 10) { g.moveTo(1480 + d, 460); g.lineTo(1480 + d + 250, 710); g.moveTo(1600 - d, 460); g.lineTo(1600 - d - 250, 710); } g.stroke(); g.restore();
-    g.strokeStyle = C.dbrown; g.lineWidth = 9; g.lineCap = 'round'; g.beginPath(); g.moveTo(1478, 900); g.lineTo(1478, 470); g.quadraticCurveTo(1530, 455, 1590, 486); g.lineTo(1590, 710); g.stroke();
-    g.lineWidth = 7; g.beginPath(); g.moveTo(1380, 720); g.lineTo(1488, 718); g.moveTo(1384, 720); g.lineTo(1384, 900); g.stroke();
-    // 桌：木纹桌面＋深色裙板＋抽屉＋独脚＋菱形
-    g.save(); poly(g, [[818, 600], [1202, 596], [1196, 644], [824, 646]]); g.clip(); wood(g, 810, 590, 400, 60, false, 3, '#b98b52', '#6e4a24'); g.restore();
-    g.strokeStyle = C.ink; g.lineWidth = 2.5; poly(g, [[818, 600], [1202, 596], [1196, 644], [824, 646]]); g.stroke();
-    plane(g, [[826, 646], [1194, 644], [1188, 702], [834, 704]], '#5a4128', 0.95, r, 0.35, 0.15);
-    g.fillStyle = '#8a6a44'; g.fillRect(952, 668, 118, 26); g.strokeStyle = C.ink; g.lineWidth = 2; g.strokeRect(952, 668, 118, 26); g.fillStyle = '#efe6d0'; g.beginPath(); g.arc(1011, 681, 5, 0, TAU); g.fill();
-    plane(g, [[988, 704], [1018, 704], [1022, 892], [984, 892]], '#8a6338', 0.95, r, 0.45, 0.25);
-    g.fillStyle = '#d8c39a'; poly(g, [[1004, 740], [1036, 780], [1004, 820], [972, 780]]); g.fill(); g.strokeStyle = C.ink; g.lineWidth = 2; g.stroke();
-    g.fillStyle = '#3a2c1e'; poly(g, [[1004, 780], [1036, 780], [1004, 820]]); g.fill();
-    plane(g, [[900, 860], [1110, 860], [1150, 900], [860, 900]], C.brown, 0.6, r);
-    // 碟（杯子举走后仍在桌上）
-    g.fillStyle = '#e8e0cc'; g.beginPath(); g.ellipse(990, 636, 54, 9, 0, 0, TAU); g.fill(); g.strokeStyle = C.ink; g.lineWidth = 2; g.stroke();
-    // 窗右侧透明「盒子」面与透视线
-    plane(g, [[815, 110], [892, 140], [890, 545], [815, 565]], C.bgrey, 0.3, r);
-    g.strokeStyle = 'rgba(46,36,26,.7)'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(815, 105); g.lineTo(892, 140); g.lineTo(890, 545); g.lineTo(815, 565); g.stroke();
-    // 布拉克短划砂纹（亮暗两种）
-    for (let i = 0; i < 9000; i++) { const x = r() * W, y = r() * H; g.fillStyle = r() < 0.55 ? 'rgba(246,238,220,.28)' : 'rgba(60,45,30,.16)'; g.fillRect(x, y, 3 + r() * 5, 1.5); }
-    // 贯穿的细直线
-    g.strokeStyle = 'rgba(40,30,20,.55)'; g.lineWidth = 1.3;
-    for (let i = 0; i < 46; i++) { const x = r() * W, y = r() * H, a = r() * Math.PI, L = 120 + r() * 520; if (x > 1460 && y < 240) continue; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * L, y + Math.sin(a) * L); g.stroke(); }
-    g.drawImage(P.grain('cb', 0.05, [50, 40, 30], 0.18), 0, 0);
-  });
-
-  // 窗景（缓存一张比窗大的图，四格各自错位取景）
-  const winScene = () => P.cached('cb_win', 560, 540, (g) => {
-    const r = U.rng(77); g.fillStyle = '#9fb0bd'; g.fillRect(0, 0, 560, 540);
-    const ox = 300, oy = 60;     // 场景坐标 = 屏幕坐标 - (ox, oy)
-    for (let i = 0; i < 55; i++) { const cx = r() * 560, cy = r() * 540, s = 40 + r() * 170, a0 = r() * TAU; const pts = [0, 1, 2].map(k => { const a = a0 + k * 2.1 + (r() - .5) * 0.6; return [cx + Math.cos(a) * s, cy + Math.sin(a) * s * (0.4 + r())]; });
-      plane(g, pts, ['#c9d3da', '#8fa3b3', '#e4e6e2', '#6f8597', '#b4c1cb', '#5f7385'][(r() * 6) | 0], 0.45 + r() * 0.4, r, 0.45, 0.35); }
-    // 斜向长条光束
-    [[150, 0, 60], [230, 0, 30], [80, 120, 40]].forEach(([x, y, w]) => plane(g, [[x, y], [x + w, y], [x + w + 300, y + 420], [x + 300, y + 420]], '#e8ecec', 0.55, r, 0.3, 0.5));
-    // 埃菲尔铁塔（右侧，碎成两段）
-    const tx = 690 - ox; g.fillStyle = '#4a4c50'; poly(g, [[tx - 6, 120 - oy], [tx + 6, 120 - oy], [tx + 14, 330 - oy], [tx - 14, 330 - oy]]); g.fill();
-    poly(g, [[tx - 22, 330 - oy], [tx + 22, 330 - oy], [tx + 70, 560 - oy], [tx + 44, 560 - oy], [tx, 470 - oy], [tx - 44, 560 - oy], [tx - 70, 560 - oy]]); g.fill();
-    g.strokeStyle = 'rgba(220,226,230,.6)'; g.lineWidth = 1; g.beginPath(); for (let y = 340; y < 560; y += 9) { const w = 22 + (y - 330) * 0.21; g.moveTo(tx - w, y - oy); g.lineTo(tx + w, y - oy + 9); g.moveTo(tx + w, y - oy); g.lineTo(tx - w, y - oy + 9); } g.stroke();
-    g.fillStyle = '#4a4c50'; g.fillRect(tx - 46, 452 - oy, 92, 9);
-    // 白色海鸥弧
-    g.strokeStyle = '#f4f2ec'; g.lineWidth = 4; g.lineCap = 'round'; [[420, 200], [455, 190], [400, 390], [440, 380]].forEach(([x, y]) => { g.beginPath(); g.arc(x - ox, y - oy + 18, 18, -2.6, -0.5); g.stroke(); });
-    g.drawImage(P.grain('cbw', 0.04, [255, 255, 255], 0.2), 0, 0, 560, 540, 0, 0, 560, 540);
-  });
-  function windowPanes(c, lt, t) {
-    const panes = [[362, 120, 218, 212], [588, 120, 214, 212], [362, 340, 218, 212], [588, 340, 214, 212]];
-    const st = P.boilSeed(t, 10);
-    panes.forEach(([x, y, w, h], i) => {
-      const dx = Math.sin(lt * 9 + i * 1.7) * 18 + (U.hash(st, i) - 0.5) * 6, dy = Math.cos(lt * 7 + i) * 8;
-      c.save(); c.beginPath(); c.rect(x, y, w, h); c.clip(); c.drawImage(winScene(), 300 - 30 + dx, 60 - 30 + dy, 560, 540);
-      // 每格一片自己滑动的碎面
-      const sx = x + ((lt * 260 + i * 70) % (w + 120)) - 60;
-      c.fillStyle = 'rgba(232,236,236,.5)'; poly(c, [[sx, y + 20 + i * 12], [sx + 70, y + 60], [sx + 10, y + 150]]); c.fill(); c.strokeStyle = 'rgba(40,40,46,.6)'; c.lineWidth = 1.5; c.stroke();
-      c.restore();
-    });
-    c.strokeStyle = '#4a3420'; c.lineWidth = 15; c.strokeRect(352, 112, 457, 448); c.lineWidth = 10; c.beginPath(); c.moveTo(584, 112); c.lineTo(584, 560); c.moveTo(352, 336); c.lineTo(809, 336); c.stroke();
-    c.strokeStyle = C.ink; c.lineWidth = 2; c.strokeRect(345, 105, 471, 462);
-    c.fillStyle = '#8a6a44'; poly(c, [[330, 566], [826, 566], [818, 584], [338, 584]]); c.fill(); c.stroke();
-  }
-
-  // ---------- CAFÉ：模版字，12fps 跳动、偶尔换位 ----------
-  const ORDERS = ['CAFÉ', 'CAFÉ', 'ACFÉ', 'CAFÉ', 'CAÉF', 'CFAÉ', 'CAFÉ', 'CAFÉ', 'ACFÉ', 'CAFÉ'];
-  function cafe(c, lt) {
-    const L = P.scratch('cbCafe'), g = L.getContext('2d'); g.clearRect(0, 0, 420, 170);
-    const st = Math.floor(Math.max(0, lt) * 12), order = ORDERS[st % ORDERS.length];
-    const slots = [20, 108, 196, 284];
-    g.font = '104px "AlfaSlabOne-400"'; g.textBaseline = 'alphabetic'; g.fillStyle = '#3b2e22';
-    [...order].forEach((ch, i) => { const h = U.hash(st, i * 3 + 1), jy = (h - 0.5) * 26 - (i === 1 ? 8 : 0), rot = (U.hash(st, i * 5 + 2) - 0.5) * 0.22;
-      g.save(); g.translate(slots[i] + 40, 128 + jy); g.rotate(rot + (i === 2 ? -0.06 : 0)); g.fillText(ch, -40, 0); g.restore(); });
-    // 模版字的断口
-    g.globalCompositeOperation = 'destination-out'; g.fillStyle = '#000';
-    [[44, 60], [132, 92], [220, 70], [306, 84]].forEach(([x, y], i) => { g.fillRect(x - 40 + (i * 7) % 20, y, 90, 6); g.fillRect(x + 4, 40, 5, 100); });
-    g.globalCompositeOperation = 'source-over';
-    c.drawImage(L, 0, 0, 420, 170, 868, 120, 420, 170);
-  }
-
-  // ---------- 报纸 JOU（缓存成小图，逐帧微颤） ----------
-  const paper = () => P.cached('cb_jou', 300, 190, (g) => {
-    g.fillStyle = '#ebe3cc'; g.fillRect(0, 0, 300, 190); g.strokeStyle = 'rgba(60,45,30,.6)'; g.lineWidth = 1; g.strokeRect(0.5, 0.5, 299, 189);
-    g.fillStyle = '#2b2219'; g.font = '84px "LibreBaskerville-700"'; g.textBaseline = 'alphabetic'; g.fillText('JOU', 16, 82);
-    g.fillRect(12, 94, 276, 3); g.font = '12px "LibreBaskerville-700"'; g.fillText('LA BATAILLE', 14, 118); g.fillText("S'EST ENGAGÉ UN CHAT", 112, 118); g.fillRect(12, 126, 276, 1.5);
-    g.fillStyle = 'rgba(50,40,30,.55)'; for (let col = 0; col < 3; col++) for (let y = 136; y < 185; y += 5) g.fillRect(14 + col * 94, y, 84 - ((y * 7 + col * 13) % 23), 2);
-    g.strokeStyle = 'rgba(40,30,20,.5)'; g.beginPath(); g.moveTo(106, 128); g.lineTo(106, 186); g.moveTo(200, 128); g.lineTo(200, 186); g.stroke();
-  });
-  function news(c, lt, t) {
-    const st = P.boilSeed(t, 8), a = -0.12 + (U.hash(st, 9) - 0.5) * 0.025, dx = (U.hash(st, 4) - 0.5) * 3;
-    c.save(); c.translate(205 + dx, 912); c.rotate(a); c.drawImage(paper(), -150, -95);
-    // 翘起的折角（随帧翻动）
-    const f = 18 + Math.sin(lt * 20) * 6; c.fillStyle = '#d8ceb4'; poly(c, [[150, -95], [150 - f, -95], [150, -95 + f]]); c.fill(); c.strokeStyle = 'rgba(40,30,20,.6)'; c.stroke();
+    big.forEach(([pts, col, a]) => plane(c, pts, col, a, r));
+    // 三块强色切面：锈红／橄榄／石板蓝，压住米黄
+    plane(c, [[790, 0], [900, 0], [880, 430], [800, 470]], C.rust, .52, U.rng(7), .55, .14);
+    plane(c, [[900, 0], [1006, 0], [996, 340], [908, 300]], C.olive, .44, U.rng(8), .5, .12);
+    plane(c, [[1298, 60], [1420, 40], [1440, 470], [1320, 500]], C.blue, .38, U.rng(6), .5, .14);
+    plane(c, [[470, 620], [700, 600], [706, 760], [478, 780]], C.rust, .34, U.rng(5), .5, .12);
+    // 窗
+    plane(c, [[232, 122], [772, 104], [788, 574], [220, 590]], C.cream, .7, r);
+    c.save(); poly(c, [[240, 132], [762, 114], [778, 564], [230, 580]]); c.clip();
+    c.fillStyle = '#c4cfd6'; c.fillRect(228, 110, 560, 480);
+    const wr = U.rng(77);
+    for (let k = 0; k < 14; k++) { const x = 240 + wr() * 500, y = 180 + wr() * 240, w = 70 + wr() * 130, hh = 50 + wr() * 130;
+      plane(c, [[x, y + hh], [x + w, y + hh - wr() * 20], [x + w * .8, y], [x + w * .1, y + 8]], k % 3 ? C.bgrey : C.blue, .55, wr, .5, .2); }
+    for (let k = 0; k < 7; k++) { const x = 246 + k * 74, y = 478, s = 58 + wr() * 42;
+      plane(c, [[x, y], [x + s * .55, y - s * .58], [x + s, y]], k % 2 ? C.dgrey : C.bgrey, .82, wr, .4);
+      c.fillStyle = 'rgba(50,44,38,.55)'; c.fillRect(x + s * .68, y - s * .5, 9, 24); }
     c.restore();
-    // 报纸下的支脚线（原片里的两根斜线）
-    c.strokeStyle = 'rgba(40,30,20,.7)'; c.lineWidth = 2; c.beginPath(); c.moveTo(320, 960); c.lineTo(352, 1010); c.moveTo(80, 1010); c.lineTo(60, 1060); c.stroke();
+    seg(c, [244, 130], [764, 112], 10); seg(c, [228, 580], [780, 562], 10);
+    seg(c, [238, 126], [222, 584], 10); seg(c, [770, 108], [786, 564], 10);
+    seg(c, [244, 330 + Math.sin(t * .4) * 3], [770, 316 + Math.sin(t * .4) * 3], 6);
+    seg(c, [508 + Math.cos(t * .5) * 4, 120], [516 + Math.cos(t * .5) * 4, 570], 5);
+    // 吊灯
+    const sw = Math.sin(t * 1.4) * 6;
+    seg(c, [1430, 0], [1430 + sw, 246], 5);
+    c.fillStyle = '#2e241a'; c.beginPath(); c.ellipse(1430 + sw, 252, 64, 14, 0.05, 0, TAU); c.fill();
+    c.fillStyle = '#d8a457'; c.beginPath(); c.moveTo(1392 + sw, 250); c.lineTo(1470 + sw, 250); c.lineTo(1454 + sw, 338); c.lineTo(1406 + sw, 338); c.closePath(); c.fill();
+    c.fillStyle = '#f8eec6'; c.beginPath(); c.ellipse(1430 + sw, 338, 20, 8, 0, 0, TAU); c.fill();
+    // 右墙：立体派静物小画
+    c.save(); c.translate(1730, 330); c.rotate(-0.03);
+    c.fillStyle = '#d8ccb0'; c.fillRect(-112, -122, 224, 244);
+    seg(c, [-112, -122], [112, -122], 8); seg(c, [112, -122], [112, 122], 8); seg(c, [112, 122], [-112, 122], 8); seg(c, [-112, 122], [-112, -122], 8);
+    plane(c, [[-100, -110], [26, -110], [26, 34], [-100, 34]], C.blue, .5, r);
+    plane(c, [[26, -110], [104, -98], [92, 62], [26, 34]], C.cream, .55, r);
+    plane(c, [[-100, 34], [8, 26], [24, 108], [-92, 112]], C.olive, .45, r);
+    c.fillStyle = '#8a6a3a'; c.beginPath(); c.ellipse(44, 44, 44, 22, -0.2, 0, TAU); c.fill();
+    c.restore();
+    // 墙上小搁板＋酒瓶（吃掉中段空白）
+    plane(c, [[880, 372], [1230, 356], [1240, 384], [872, 398]], C.ochre, .6, r);
+    seg(c, [880, 392], [1230, 378], 4, 'rgba(40,30,20,.5)');
+    const br = U.rng(303);
+    for (let k = 0; k < 5; k++) {
+      const x = 918 + k * 62, y = 356 - (x - 880) * 0.045, hh = 62 + br() * 46, w = 18 + br() * 10;
+      c.fillStyle = ['#3a4a3a', '#5a3a2a', '#2e3a4a', '#6a5a2a', '#4a2a2a'][k % 5];
+      c.beginPath(); c.moveTo(x, y); c.lineTo(x + w, y); c.lineTo(x + w, y - hh + 18); c.lineTo(x + w * .68, y - hh + 6); c.lineTo(x + w * .32, y - hh + 6); c.lineTo(x, y - hh + 18); c.closePath(); c.fill();
+      c.fillStyle = 'rgba(240,230,200,.35)'; c.fillRect(x + 3, y - hh + 26, w - 6, 10);
+    }
+    // 地面：墙脚线 → 木地板 → 投影，把人钉在地上
+    plane(c, [[0, 992], [1920, 960], [1920, 1080], [0, 1080]], C.brown, .85, U.rng(101), .55, .12);
+    c.save(); c.beginPath(); c.moveTo(0, 992); c.lineTo(1920, 960); c.lineTo(1920, 1080); c.lineTo(0, 1080); c.closePath(); c.clip();
+    const fr = U.rng(102);
+    for (let i = 0; i < 16; i++) { c.strokeStyle = 'rgba(40,26,14,' + (0.18 + fr() * 0.25) + ')'; c.lineWidth = 1.4 + fr() * 2; c.beginPath();
+      for (let x = -200; x < 2100; x += 60) c.lineTo(x, 972 + i * 8 - (x / 1920) * 32 + Math.sin(x * .008 + i) * 1.6); c.stroke(); }
+    c.restore();
+    seg(c, [0, 992], [1920, 960], 7, 'rgba(40,28,16,.55)');
+    // 桌与人的投影
+    for (const [sx, sy, rx] of [[630, 1024, 240], [1610, 1000, 210], [760, 1046, 130], [1230, 1020, 150]]) {
+      const gg = c.createRadialGradient(sx, sy, 4, sx, sy, rx);
+      gg.addColorStop(0, 'rgba(20,14,8,.45)'); gg.addColorStop(1, 'rgba(20,14,8,0)');
+      c.fillStyle = gg; c.beginPath(); c.ellipse(sx, sy, rx, rx * 0.28, 0, 0, TAU); c.fill();
+    }
+    // 右墙一块冷色切面（打散米黄）
+    plane(c, [[1430, 400], [1920, 366], [1920, 700], [1466, 740]], C.teal, .16, U.rng(103));
+    // 衣帽架
+    seg(c, [1806, 1080], [1808, 596], 7);
+    for (const [dx, dy] of [[-40, 626], [38, 618], [0, 600]]) { seg(c, [1807, 642], [1807 + dx, 642 - 30], 5); c.strokeStyle = C.ink; c.lineWidth = 5; c.beginPath(); c.arc(1807 + dx, 610, 9, 0.6, 3.4); c.stroke(); }
+    c.fillStyle = '#6a4a2a'; c.beginPath(); c.ellipse(1808, 588, 46, 12, 0.04, Math.PI, 0); c.fill();
+    c.fillRect(1832, 550, 12, 34);
   }
 
-  // ---------- 切面器：抖动三角网，三角不裁剪（轮廓被切成直边） ----------
+  // ---------- ② 桌面（人物之前） ----------
+  function tableTop(c) {
+    const r = U.rng(77);
+    plane(c, [[520, 820], [1560, 786], [1700, 882], [500, 916]], C.brown, .92, r, .5, .18);
+    c.fillStyle = '#b8874a'; c.beginPath(); c.moveTo(522, 821); c.lineTo(1558, 787); c.lineTo(1692, 876); c.lineTo(502, 912); c.closePath(); c.fill();
+    c.save(); c.beginPath(); c.moveTo(522, 821); c.lineTo(1558, 787); c.lineTo(1690, 876); c.lineTo(502, 912); c.closePath(); c.clip();
+    const rr = U.rng(88);
+    for (let i = 0; i < 24; i++) { c.strokeStyle = 'rgba(90,58,26,' + (0.18 + rr() * 0.22) + ')'; c.lineWidth = 1 + rr() * 2.4; c.beginPath();
+      const y0 = 792 + i * 4.4; for (let x = 500; x < 1720; x += 40) c.lineTo(x, y0 - (x - 520) * 0.0327 + Math.sin(x * .01 + i) * 2.6); c.stroke(); }
+    c.restore();
+  }
+
+  // 座椅（人物之前）
+  function chairs(c) {
+    const r = U.rng(77);
+    // 大扶手椅（右侧，深蓝绿，压住右端）
+    plane(c, [[1580, 700], [1780, 676], [1800, 940], [1596, 964]], C.teal, .82, U.rng(120), .5, .1);
+    plane(c, [[1590, 720], [1772, 698], [1784, 860], [1602, 882]], '#4a6a64', .7, U.rng(121), .5, .12);
+    seg(c, [1592, 724], [1774, 702], 6, 'rgba(20,16,12,.55)');
+    seg(c, [1782, 690], [1796, 946], 7, 'rgba(20,16,12,.5)');
+    c.fillStyle = '#c8b48a'; c.fillRect(1606, 760, 168, 24);
+    // 椅子（吉他手身后，先画）
+    plane(c, [[1246, 726], [1408, 710], [1420, 846], [1258, 862]], C.brown, .62, r);
+    seg(c, [1256, 762], [1410, 746], 5); seg(c, [1259, 806], [1413, 790], 5);
+    plane(c, [[1224, 848], [1436, 834], [1450, 896], [1236, 910]], C.ochre, .55, r);
+  }
+
+  // 桌面（人物之后，遮住坐在桌前的人身下半截）
+  function tableSurface(c) {
+    const r = U.rng(77);
+    plane(c, [[520, 820], [1560, 786], [1700, 882], [500, 916]], C.brown, .92, r, .5, .18);
+    c.fillStyle = '#b8874a'; c.beginPath(); c.moveTo(522, 821); c.lineTo(1558, 787); c.lineTo(1692, 876); c.lineTo(502, 912); c.closePath(); c.fill();
+    c.save(); c.beginPath(); c.moveTo(522, 821); c.lineTo(1558, 787); c.lineTo(1690, 876); c.lineTo(502, 912); c.closePath(); c.clip();
+    const rr = U.rng(88);
+    for (let i = 0; i < 24; i++) { c.strokeStyle = 'rgba(90,58,26,' + (0.18 + rr() * 0.22) + ')'; c.lineWidth = 1 + rr() * 2.4; c.beginPath();
+      const y0 = 792 + i * 4.4; for (let x = 500; x < 1720; x += 40) c.lineTo(x, y0 - (x - 520) * 0.0327 + Math.sin(x * .01 + i) * 2.6); c.stroke(); }
+    c.restore();
+  }
+
+  // ---------- ③ 桌沿（人物之后，遮住下半身） ----------
+  function tableFront(c) {
+    const r = U.rng(55);
+    plane(c, [[500, 916], [1700, 882], [1702, 946], [498, 980]], C.ochre, .85, r, .55, .14);
+    c.fillStyle = '#8a5a30'; c.beginPath(); c.moveTo(500, 916); c.lineTo(1700, 882); c.lineTo(1702, 938); c.lineTo(498, 972); c.closePath(); c.fill();
+    c.save(); c.beginPath(); c.moveTo(500, 916); c.lineTo(1700, 882); c.lineTo(1702, 938); c.lineTo(498, 972); c.closePath(); c.clip();
+    const rr = U.rng(66);
+    for (let i = 0; i < 14; i++) { c.strokeStyle = 'rgba(70,44,20,' + (0.2 + rr() * 0.3) + ')'; c.lineWidth = 1.4 + rr() * 2; c.beginPath();
+      const y0 = 890 + i * 3.6; for (let x = 490; x < 1720; x += 40) c.lineTo(x, y0 - (x - 520) * 0.0327 + Math.sin(x * .01 + i) * 1.8); c.stroke(); }
+    c.restore();
+    seg(c, [500, 916], [1700, 882], 6, 'rgba(40,28,16,.7)');
+    // 桌腿
+    plane(c, [[600, 970], [660, 964], [646, 1080], [588, 1080]], C.dbrown, .8, r);
+    plane(c, [[1580, 932], [1640, 926], [1652, 1080], [1594, 1080]], C.dbrown, .8, r);
+    seg(c, [598, 974], [588, 1078], 5, 'rgba(30,20,12,.55)'); seg(c, [1580, 936], [1594, 1078], 5, 'rgba(30,20,12,.55)');
+    // 桌下的深影：把坐在桌后的人的脚藏进去
+    const us = c.createLinearGradient(0, 930, 0, 1080);
+    us.addColorStop(0, 'rgba(20,14,8,.55)'); us.addColorStop(0.55, 'rgba(20,14,8,.38)'); us.addColorStop(1, 'rgba(20,14,8,.06)');
+    c.fillStyle = us; c.fillRect(480, 930, 1240, 150);
+  }
+
+  // ---------- ④ 桌上物件 ----------
+  function items(c, lt, t) {
+    const r = U.rng(21), fl = Math.sin(t * 3.1) * 6;
+    // 报纸（平放，被风掀起一角）
+    c.save(); c.translate(1060, SY(1060) + 6); c.rotate(-0.10 + fl * 0.006);
+    c.fillStyle = '#efe7d4'; c.beginPath(); c.moveTo(-112, 4); c.lineTo(100, -12); c.lineTo(108 + fl, 30); c.lineTo(-106, 44); c.closePath(); c.fill();
+    seg(c, [-112, 4], [100, -12], 2, 'rgba(50,40,30,.35)');
+    for (let k = 0; k < 5; k++) seg(c, [-98, 12 + k * 7], [16, 6 + k * 7], 1.6, 'rgba(50,40,30,.4)');
+    c.fillStyle = C.ink; c.font = 'bold 20px serif'; c.fillText('JOURNAL', 38, 26); c.restore();
+    // 两只玻璃杯
+    for (let k = 0; k < 2; k++) {
+      const gx = 726 + k * 52, gy = SY(726 + k * 52);
+      c.fillStyle = 'rgba(226,232,214,.45)'; c.beginPath(); c.moveTo(gx - 17, gy - 34); c.lineTo(gx + 17, gy - 34); c.lineTo(gx + 12, gy - 2); c.lineTo(gx - 12, gy - 2); c.closePath(); c.fill();
+      seg(c, [gx - 17, gy - 34], [gx - 12, gy - 2], 2, 'rgba(50,40,30,.55)'); seg(c, [gx + 17, gy - 34], [gx + 12, gy - 2], 2, 'rgba(50,40,30,.55)');
+      c.strokeStyle = 'rgba(60,50,40,.5)'; c.lineWidth = 2; c.beginPath(); c.ellipse(gx, gy - 34, 17, 5, 0, 0, TAU); c.stroke();
+      c.fillStyle = 'rgba(140,60,30,.55)'; c.beginPath(); c.ellipse(gx, gy - 14, 13, 4, 0, 0, TAU); c.fill();
+    }
+    // 酒瓶（侍者倒的那瓶之外的备用瓶）
+    const bx = 962, by = SY(962);
+    c.fillStyle = '#3a4a3a'; c.beginPath(); c.moveTo(bx - 13, by - 96); c.lineTo(bx + 13, by - 96); c.lineTo(bx + 15, by - 2); c.lineTo(bx - 15, by - 2); c.closePath(); c.fill();
+    c.fillRect(bx - 6, by - 128, 12, 34);
+    c.fillStyle = 'rgba(230,236,220,.4)'; c.fillRect(bx - 10, by - 80, 20, 22);
+    // 烟灰缸＋方糖罐
+    c.fillStyle = '#e8e2d2'; c.beginPath(); c.ellipse(1246, SY(1246) - 2, 34, 11, 0, 0, TAU); c.fill();
+    c.fillStyle = '#c8bfa8'; c.beginPath(); c.ellipse(1246, SY(1246) - 8, 24, 8, 0, 0, TAU); c.fill();
+    c.fillStyle = '#d8cfb8'; c.fillRect(1336, SY(1336) - 62, 44, 60);
+    seg(c, [1336, SY(1336) - 62], [1336, SY(1336) - 2], 2, 'rgba(50,40,30,.5)'); seg(c, [1380, SY(1380) - 62], [1380, SY(1380) - 2], 2, 'rgba(50,40,30,.5)');
+    c.fillStyle = '#e8dfc8'; c.beginPath(); c.ellipse(1358, SY(1358) - 62, 22, 7, 0, 0, TAU); c.fill();
+    // 右侧：酒壶（带高光）、盘子、餐巾
+    const cx = 1502, cy = SY(1502);
+    c.fillStyle = 'rgba(210,220,206,.6)'; c.beginPath(); c.moveTo(cx - 26, cy - 96); c.lineTo(cx + 26, cy - 96); c.lineTo(cx + 20, cy - 4); c.lineTo(cx - 20, cy - 4); c.closePath(); c.fill();
+    c.strokeStyle = 'rgba(50,40,30,.55)'; c.lineWidth = 3; c.beginPath(); c.moveTo(cx - 26, cy - 96); c.lineTo(cx - 20, cy - 4); c.moveTo(cx + 26, cy - 96); c.lineTo(cx + 20, cy - 4); c.stroke();
+    c.strokeStyle = 'rgba(60,50,40,.5)'; c.lineWidth = 2.4; c.beginPath(); c.ellipse(cx, cy - 96, 26, 8, 0, 0, TAU); c.stroke();
+    c.fillStyle = 'rgba(150,60,40,.5)'; c.beginPath(); c.ellipse(cx, cy - 40, 18, 6, 0, 0, TAU); c.fill();
+    c.fillStyle = '#e8e0cc'; c.beginPath(); c.ellipse(1400, SY(1400) - 4, 44, 13, 0, 0, TAU); c.fill();
+    c.strokeStyle = 'rgba(70,55,40,.5)'; c.lineWidth = 2; c.stroke();
+    c.fillStyle = '#efe7d4'; c.beginPath(); c.moveTo(1420, SY(1420) - 12); c.lineTo(1462, SY(1462) - 14); c.lineTo(1466, SY(1466) - 2); c.lineTo(1424, SY(1424)); c.closePath(); c.fill();
+    // 桌下暖光池与投影
+    const sh = c.createLinearGradient(0, 800, 0, 900);
+    sh.addColorStop(0, 'rgba(30,22,14,.22)'); sh.addColorStop(1, 'rgba(30,22,14,0)');
+    c.fillStyle = sh; c.fillRect(500, 800, 1200, 100);
+  }
+
+  // ---------- 切面器 ----------
   function facetize(g, src, box, cell, seed, t, { boilFrac = 0.25, alpha = 0.95, edge = 'rgba(40,30,20,.32)', light = 0.2, dark = 0.32, minA = 120, only = null } = {}) {
     const [x0, y0, x1, y1] = box, w = x1 - x0, h = y1 - y0, d = src.getContext('2d').getImageData(x0, y0, w, h).data;
     const nx = Math.ceil(w / cell), ny = Math.ceil(h / cell), r = U.rng(seed), pts = [];
@@ -181,87 +243,145 @@ SCENES['11_cubism'] = (() => {
       });
     }
   }
-  // 直线外轮廓：每段两端各外伸 ext（立体派的线常常画出界）
-  const segs = (g, pts, ext = 16, col = 'rgba(40,30,20,.72)', w = 2.2) => { g.strokeStyle = col; g.lineWidth = w; g.lineCap = 'round'; g.beginPath();
-    for (let i = 0; i < pts.length - 1; i++) { const a = pts[i], b = pts[i + 1], L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
-      g.moveTo(a[0] - ux * ext, a[1] - uy * ext); g.lineTo(b[0] + ux * ext, b[1] + uy * ext); } g.stroke(); };
 
-  const girlPal = { skin: '#e2cfae', hair: '#c9a256', hairLine: '#8a6a2e', dress: '#6a7a8b', sleeve: '#3c4857', fold: null, apron: '#c9cbc4', cuff: '#d9d4c4', shoe: '#2e241a', cheek: null, lip: '#a8443a', iris: '#2b2219', line: C.ink, lw: 0, mode: 'fill', cupBody: '#e6e2d8', cupRim: '#2a1e14' };
-  const catPal = { orange: '#c8773a', white: '#e8dfc9', stripe: '#7e4420', eye: '#c9a43a', line: C.ink, lw: 0, earInner: '#d79a88' };
+  // ---------- 人物 ----------
+  const GIT = { features: false, lw: 2.6, line: 'rgba(35,26,18,.78)', skin: '#c98a5e', hair: '#241a12', shirt: '#c89a54', sleeve: '#b8863e', trousers: '#33465c', shoes: '#241c14', hat: '#7a5330', belt: '#4a2e16' };
+  const WTR = { features: false, lw: 2.6, line: 'rgba(35,26,18,.78)', skin: '#c98a5e', hair: '#241a12', shirt: '#e6ddc6', sleeve: '#d8cfb6', trousers: '#26303a', shoes: '#1e1a16', belt: '#26303a' };
+  const FIG_G = (() => { const cv = document.createElement('canvas'); cv.width = W; cv.height = H; return cv.getContext('2d', { willReadFrequently: true }); })();
 
-  function girl(c, G, lt, t, ch) {
-    const L = layer('girl'), g = L.getContext('2d'); g.reset(); // reset 清像素＋清状态（lineJoin/lineCap 等会从上一帧残留，导致第一帧与之后不一致）
-    RIG.drawGirl(g, G, girlPal);
-    // 金发再加一条垂到背后的辫子（切面后变成三角发片）
-    g.fillStyle = '#c9a256'; g.beginPath(); const a = G.A; g.moveTo(a.nape[0] - 8, a.nape[1] - 40); g.lineTo(a.nape[0] + 52, a.nape[1] + 10); g.lineTo(a.back[0] + 36, a.back[1] + 70); g.lineTo(a.back[0] + 6, a.back[1] + 92); g.lineTo(a.nape[0] - 6, a.nape[1] + 30); g.closePath(); g.fill();
-    facetize(g, L, [1060, 230, 1540, 945], 58, 19, t, { boilFrac: 0.2, edge: 'rgba(40,30,20,.22)', light: 0.28, dark: 0.4 });
-    // 发区再细切一遍（更多金色三角）
-    g.save(); g.beginPath(); g.arc(a.headC[0] + 30, a.headC[1] - 10, 95, 0, TAU); g.rect(a.back[0] - 60, a.nape[1] - 30, 110, 260); g.clip();
-    facetize(g, L, [1240, 250, 1500, 640], 26, 23, t, { boilFrac: 0.3, alpha: 0.85, light: 0.3, minA: 200, only: s => s[0] > 150 && s[2] < 130 && s[0] - s[2] > 60 }); g.restore();
-    // 裙摆：从腰部放射的切线＋明暗交替楔面
-    g.save(); g.clip(G.skirt); const O = [a.waist[0] - 40, a.waist[1] + 10];
-    [[1100, 930], [1150, 935], [1200, 935], [1250, 935], [1300, 935], [1350, 930], [1400, 900], [1450, 780]].forEach((p, i, arr) => { if (i < arr.length - 1) { g.fillStyle = i % 2 ? 'rgba(235,228,210,.22)' : 'rgba(30,36,46,.28)'; poly(g, [O, p, arr[i + 1]]); g.fill(); } g.strokeStyle = 'rgba(30,24,18,.42)'; g.lineWidth = 1.8; g.beginPath(); g.moveTo(...O); g.lineTo(...p); g.stroke(); });
-    g.restore();
-    // 毕加索式脸：前半张脸压一块蓝灰面，正面杏眼，红唇
-    // 脸重铺：肤色两块明暗面（切面会把发色带进脸里，这里还原）
-    g.save(); g.clip(G.face); g.fillStyle = '#e4d1b0'; g.fill(G.face); g.fillStyle = '#c9b28c'; poly(g, [[a.ear[0] - 30, a.ear[1] - 60], [a.ear[0] + 20, a.ear[1] - 40], [a.chin[0] + 50, a.chin[1] + 10], [a.chin[0] + 10, a.chin[1] - 10]]); g.fill(); g.restore();
-    g.fillStyle = '#e4d1b0'; g.fill(G.neck);
-    g.save(); g.clip(G.face); g.fillStyle = 'rgba(82,104,128,.82)'; poly(g, [[a.forehead[0] - 20, a.forehead[1] - 10], [a.forehead[0] + 22, a.forehead[1] - 4], [a.chin[0] + 8, a.chin[1] - 30], [a.chin[0] + 6, a.chin[1] + 10], [a.chin[0] - 40, a.chin[1] + 10]]); g.fill(); g.restore();
-    const e = G.eye; g.fillStyle = '#efe8d8'; g.beginPath(); g.moveTo(e.x - 14, e.y); g.quadraticCurveTo(e.x + 2, e.y - 12, e.x + 18, e.y); g.quadraticCurveTo(e.x + 2, e.y + 11, e.x - 14, e.y); g.fill(); g.strokeStyle = C.ink; g.lineWidth = 2.4; g.stroke();
-    if (ch.blink) { g.beginPath(); g.moveTo(e.x - 14, e.y); g.lineTo(e.x + 18, e.y); g.stroke(); } else { g.fillStyle = '#231a12'; g.beginPath(); g.arc(e.x + 3, e.y, 5.5, 0, TAU); g.fill(); }
-    g.lineWidth = 2.2; g.beginPath(); g.moveTo(e.x - 12, e.y - 14); g.quadraticCurveTo(e.x + 4, e.y - 22, e.x + 20, e.y - 13); g.stroke();
-    g.fillStyle = '#a8443a'; g.beginPath(); g.moveTo(...G.lips[0]); g.lineTo(G.lips[1][0] + 3, G.lips[1][1]); g.lineTo(...G.lips[2]); g.closePath(); g.fill();
-    // 耳（螺旋）
-    g.strokeStyle = C.ink; g.lineWidth = 2; g.beginPath(); for (let k = 0; k < 14; k++) { const q = k / 13, ang = q * 5.5, rr = 11 * (1 - q * 0.7); const x = a.ear[0] + Math.cos(ang) * rr, y = a.ear[1] + Math.sin(ang) * rr * 1.3; k ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke();
-    // 白领（两块明暗三角）
-    { const n = a.neck; g.fillStyle = '#e9e2d0'; poly(g, [[n[0] - 30, n[1] + 2], [n[0] + 4, n[1] + 12], [n[0] - 14, n[1] + 46]]); g.fill(); g.fillStyle = '#bdb5a2'; poly(g, [[n[0] + 4, n[1] + 12], [n[0] + 40, n[1] + 2], [n[0] + 18, n[1] + 44]]); g.fill();
-      g.strokeStyle = C.ink; g.lineWidth = 1.8; poly(g, [[n[0] - 30, n[1] + 2], [n[0] + 40, n[1] + 2], [n[0] + 18, n[1] + 44], [n[0] + 4, n[1] + 12], [n[0] - 14, n[1] + 46]]); g.stroke();
-      g.fillStyle = '#2e241a'; [0, 1, 2].forEach(k => { g.beginPath(); g.arc(n[0] + 6 - k * 2, n[1] + 60 + k * 26, 3, 0, TAU); g.fill(); }); }
-    // 直线外轮廓
-    segs(g, [a.forehead, [a.forehead[0] - 12, a.forehead[1] + 40], [a.chin[0] - 14, a.chin[1] - 18], a.chin, a.neck]);
-    segs(g, [a.headTop, [a.nape[0] + 30, a.nape[1] - 40], a.nape, a.back, [a.back[0] + 14, a.back[1] + 90]]);
-    segs(g, [a.neck, a.chest, [a.chest[0] - 4, a.chest[1] + 100], a.lap, a.knee, [a.knee[0] - 50, a.knee[1] + 160], a.hemL]);
-    segs(g, [a.shoulder, a.elbow, a.hand], 12, 'rgba(40,30,20,.7)', 2.2);
-    // 杯：重画清楚（半边暗面）
-    const k = G.cup; g.save(); g.translate(k.x, k.y); g.rotate(k.tilt); g.fillStyle = '#ebe6da'; poly(g, [[-24, 0], [-21, 40], [21, 40], [24, 0]]); g.fill(); g.fillStyle = '#56606a'; poly(g, [[4, 0], [24, 0], [21, 40], [4, 40]]); g.fill();
-    g.strokeStyle = C.ink; g.lineWidth = 2.2; poly(g, [[-24, 0], [-21, 40], [21, 40], [24, 0]]); g.stroke(); g.beginPath(); g.arc(28, 18, 11, -1.3, 1.4); g.lineWidth = 4; g.stroke();
-    g.fillStyle = '#231a12'; g.beginPath(); g.ellipse(0, 1, 23, 5, 0, 0, TAU); g.fill(); g.restore();
-    c.drawImage(L, 0, 0);
-  }
-  function cat(c, K, lt, t, ch) {
-    const L = layer('cat'), g = L.getContext('2d'); g.reset();
-    RIG.drawCat(g, K, catPal);
-    facetize(g, L, [320, 520, 740, 920], 26, 31, t, { boilFrac: 0.35, light: 0.25, dark: 0.36 });
-    // 头的直线轮廓＋毕加索式双眼（一只正面、一只侧面）＋侧面鼻
-    const h = K.headC, e = K.eyes;
-    segs(g, [[h[0] - 66, h[1] + 4], [h[0] - 44, h[1] - 50], [h[0] - 40, h[1] - 88], [h[0] - 6, h[1] - 50], [h[0] + 30, h[1] - 58], [h[0] + 52, h[1] - 86], [h[0] + 60, h[1] - 30], [h[0] + 66, h[1] + 14], [h[0] + 30, h[1] + 52], [h[0] - 34, h[1] + 50], [h[0] - 66, h[1] + 4]], 10);
-    segs(g, K.bodyPts.concat([K.bodyPts[0]]), 12);
-    e.forEach((p, i) => { g.fillStyle = '#d6b040'; g.beginPath(); g.moveTo(p.x - 12, p.y); g.lineTo(p.x, p.y - 9); g.lineTo(p.x + 12, p.y); g.lineTo(p.x, p.y + 9); g.closePath(); g.fill(); g.strokeStyle = C.ink; g.lineWidth = 2; g.stroke();
-      if (ch.blink) { g.beginPath(); g.moveTo(p.x - 12, p.y); g.lineTo(p.x + 12, p.y); g.stroke(); } else { g.fillStyle = '#1a140e'; g.fillRect(p.x - 2 + (i ? 3 : 0), p.y - 7, 5, 14); } });
-    g.fillStyle = '#c4706a'; poly(g, [[K.nose[0] - 6, K.nose[1] - 8], [K.nose[0] + 12, K.nose[1] + 2], [K.nose[0] - 4, K.nose[1] + 6]]); g.fill();
-    g.strokeStyle = 'rgba(30,24,18,.8)'; g.lineWidth = 1.4; K.whiskers.forEach(w => { g.beginPath(); g.moveTo(...w[0]); g.lineTo(w[1][0] + 20, w[1][1]); g.stroke(); });
-    c.drawImage(L, 0, 0, 820, 1080, 0, 0, 820, 1080);
-  }
-  // 最上层的透明叠面（缓慢错动），把角色嵌进空间
-  function overPlanes(c, lt, t) {
-    const st = P.boilSeed(t, 8), r = U.rng(5);
-    [[[1150, 260], [1330, 220], [1290, 470]], [[1180, 520], [1300, 470], [1330, 700], [1200, 720]], [[420, 640], [560, 600], [520, 780]], [[880, 300], [1060, 260], [1000, 420]], [[1350, 600], [1450, 560], [1470, 780]]].forEach((pts, i) => {
-      const dx = Math.sin(lt * 6 + i) * 8 + (U.hash(st, i) - .5) * 3; const q = pts.map(([x, y]) => [x + dx, y]);
-      plane(c, q, [C.cream, C.bgrey, C.ochre, C.cream, C.grey][i], 0.2, r, 0.35, 0.4); c.strokeStyle = 'rgba(40,30,20,.45)'; c.lineWidth = 1.2; poly(c, q); c.stroke(); });
+  function guitarist(t, lt) {
+    const x = 1206, y = 966, h = 500, strum = Math.sin(lt * 6.4);
+    const G = FIG.build({ x, y, h, face: -1, armFront: true, hipUp: 0.30,
+      thighL: 1.62, shinL: -1.52, footL: 0.10, thighR: 1.40, shinR: -1.30, footR: 0.10,
+      lean: 0.10, head: 0.14,
+      handL: [x - 0.31 * h, y - 0.62 * h], handR: [x - 0.06 * h, y - 0.44 * h + strum * 0.026 * h],
+      hair: 'short', hat: 'bowler', bottom: 'trousers', top: 'shirt', sleeve: true });
+    FIG.draw(FIG_G, G, GIT);
+    { // 深绿马甲
+      const a = G.J.shoulderL, b = G.J.shoulderR, w = G.J.waist;
+      FIG_G.fillStyle = '#39463a'; FIG_G.beginPath();
+      FIG_G.moveTo(a[0] + 0.012 * h, a[1] + 0.02 * h); FIG_G.lineTo(b[0], b[1] + 0.03 * h);
+      FIG_G.lineTo(w[0] + 0.05 * h, w[1]); FIG_G.lineTo(w[0] - 0.03 * h, w[1] + 0.01 * h);
+      FIG_G.lineTo(a[0] - 0.01 * h, a[1] + 0.10 * h); FIG_G.closePath(); FIG_G.fill();
+      seg(FIG_G, [a[0], a[1] + 0.02 * h], [w[0] - 0.02 * h, w[1]], 2, 'rgba(30,24,16,.55)');
+    }
+    // 吉他
+    const gx = x - 0.27 * h, gy = y - 0.56 * h;
+    FIG_G.save(); FIG_G.translate(gx, gy); FIG_G.rotate(-0.32);
+    FIG_G.fillStyle = '#a8682c'; FIG_G.beginPath(); FIG_G.ellipse(0, 0, 0.135 * h, 0.105 * h, 0, 0, TAU); FIG_G.fill();
+    FIG_G.fillStyle = '#7a4620'; FIG_G.beginPath(); FIG_G.ellipse(-0.025 * h, 0.025 * h, 0.112 * h, 0.088 * h, 0, 0, TAU); FIG_G.fill();
+    FIG_G.fillStyle = '#2e2018'; FIG_G.beginPath(); FIG_G.ellipse(0, 0, 0.037 * h, 0.031 * h, 0, 0, TAU); FIG_G.fill();
+    FIG_G.strokeStyle = '#5a3818'; FIG_G.lineWidth = 9; FIG_G.beginPath(); FIG_G.moveTo(0.10 * h, -0.04 * h); FIG_G.lineTo(0.34 * h, -0.17 * h); FIG_G.stroke();
+    FIG_G.fillStyle = '#3a2414'; FIG_G.beginPath(); FIG_G.ellipse(0.35 * h, -0.18 * h, 0.036 * h, 0.052 * h, -0.3, 0, TAU); FIG_G.fill();
+    FIG_G.strokeStyle = 'rgba(240,230,200,.8)'; FIG_G.lineWidth = 1.2;
+    for (let k = -2; k <= 2; k++) { FIG_G.beginPath(); FIG_G.moveTo(k * 0.013 * h, -0.09 * h); FIG_G.lineTo(0.33 * h + k * 0.008 * h, -0.18 * h); FIG_G.stroke(); }
+    FIG_G.restore();
+    return G;
   }
 
+  function waiter(t, lt) {
+    const x = 404, y = 1072, h = 520, tilt = Math.sin(lt * 1.5) * 0.08;
+    const G = FIG.build({ x, y, h, face: 1, armFront: true, ...FIG.pose('idle', lt * .5),
+      lean: 0.26, head: 0.22,
+      handR: [x + 0.40 * h, y - 0.56 * h], handL: [x + 0.16 * h, y - 0.30 * h],
+      hair: 'short', bottom: 'trousers', top: 'shirt', sleeve: true });
+    FIG.draw(FIG_G, G, WTR);
+    { // 深灰背心
+      const a = G.J.shoulderL, b = G.J.shoulderR, w = G.J.waist;
+      FIG_G.fillStyle = '#2b3238'; FIG_G.beginPath();
+      FIG_G.moveTo(a[0] + 0.012 * h, a[1] + 0.02 * h); FIG_G.lineTo(b[0], b[1] + 0.03 * h);
+      FIG_G.lineTo(w[0] + 0.05 * h, w[1]); FIG_G.lineTo(w[0] - 0.03 * h, w[1] + 0.01 * h);
+      FIG_G.lineTo(a[0] - 0.01 * h, a[1] + 0.10 * h); FIG_G.closePath(); FIG_G.fill();
+      seg(FIG_G, [a[0], a[1] + 0.02 * h], [w[0] - 0.02 * h, w[1]], 2, 'rgba(20,16,12,.6)');
+    }
+    { // 白围裙
+      const f = G.face, w = G.J.waist;
+      FIG_G.fillStyle = '#efe9da'; FIG_G.beginPath();
+      FIG_G.moveTo(w[0] - f * 0.055 * h, w[1] - 0.01 * h); FIG_G.lineTo(w[0] + f * 0.055 * h, w[1] - 0.01 * h);
+      FIG_G.lineTo(w[0] + f * 0.045 * h, y - 0.34 * h); FIG_G.lineTo(w[0] - f * 0.048 * h, y - 0.34 * h);
+      FIG_G.closePath(); FIG_G.fill();
+    }
+    // 搭在左小臂上的白毛巾
+    { const e = G.J.elbowN, hn = G.J.handN;
+      FIG_G.strokeStyle = '#f4eedf'; FIG_G.lineWidth = 0.032 * h; FIG_G.lineCap = 'round';
+      FIG_G.beginPath(); FIG_G.moveTo((e[0] + hn[0]) / 2, (e[1] + hn[1]) / 2 - 0.012 * h); FIG_G.lineTo(e[0] - 0.008 * h, e[1] + 0.022 * h); FIG_G.stroke(); }
+    // 酒瓶（右手）
+    const hp = G.J.handN;
+    FIG_G.save(); FIG_G.translate(hp[0] + 0.01 * h, hp[1]); FIG_G.rotate(-0.75 + tilt);
+    FIG_G.fillStyle = '#3c4a32'; FIG_G.beginPath(); FIG_G.moveTo(-15, -66); FIG_G.lineTo(15, -66); FIG_G.lineTo(21, 22); FIG_G.lineTo(-19, 22); FIG_G.closePath(); FIG_G.fill();
+    FIG_G.fillStyle = '#e8e2d2'; FIG_G.fillRect(-9, -92, 18, 28);
+    FIG_G.fillStyle = '#8a2a22'; FIG_G.fillRect(-9, -68, 18, 9);
+    FIG_G.restore();
+    return G;
+  }
+
+  // 切面之后再落一张「毕加索式侧脸」
+  function faceProf(c, G, { brow = 0, mouth = true, stache = false } = {}) {
+    const f = G.face, hd = G.J.headC, rx = G.hrx, ry = G.hry;
+    c.save(); c.lineJoin = 'round'; c.lineCap = 'round';
+    c.strokeStyle = 'rgba(28,22,16,.66)'; c.lineWidth = Math.max(1.8, G.h * 0.005);
+    c.beginPath();
+    c.moveTo(hd[0] + f * rx * 0.04, hd[1] - ry * 0.50);
+    c.lineTo(hd[0] + f * rx * 0.50, hd[1] - ry * 0.38 + brow);
+    c.lineTo(hd[0] + f * rx * 0.80, hd[1] - ry * 0.08);
+    c.lineTo(hd[0] + f * rx * 0.88, hd[1] + ry * 0.12);
+    c.lineTo(hd[0] + f * rx * 0.60, hd[1] + ry * 0.18);
+    c.stroke();
+    c.fillStyle = 'rgba(26,20,14,.92)';
+    c.beginPath(); c.ellipse(hd[0] + f * rx * 0.38, hd[1] - ry * 0.14, rx * 0.15, ry * 0.085, f > 0 ? 0.12 : -0.12, 0, TAU); c.fill();
+    c.fillStyle = 'rgba(245,238,220,.9)';
+    c.beginPath(); c.ellipse(hd[0] + f * rx * 0.43, hd[1] - ry * 0.17, rx * 0.045, ry * 0.035, 0, 0, TAU); c.fill();
+    if (mouth) { c.strokeStyle = 'rgba(120,42,34,.85)'; c.lineWidth = Math.max(2.2, G.h * 0.0075);
+      c.beginPath(); c.moveTo(hd[0] + f * rx * 0.40, hd[1] + ry * 0.50); c.lineTo(hd[0] + f * rx * 0.74, hd[1] + ry * 0.46); c.stroke(); }
+    if (stache) { c.fillStyle = 'rgba(30,22,14,.85)'; c.beginPath(); c.ellipse(hd[0] + f * rx * 0.54, hd[1] + ry * 0.34, rx * 0.26, ry * 0.09, 0, 0, TAU); c.fill(); }
+    c.restore();
+  }
+
+  // ---------- 主绘制 ----------
   return {
     draw(c, lt, t) {
-      const ch = P.choreo(lt, t);
-      c.drawImage(bg(), 0, 0);
-      windowPanes(c, lt, t);
-      cafe(c, lt);
-      news(c, lt, t);
-      const G = RIG.girl({ cup: ch.cup, sip: ch.sip, hair: 'long', breathe: ch.breathe });
-      girl(c, G, lt, t, ch);
-      const K = RIG.cat({ tail: ch.tail, blink: ch.blink, breathe: ch.breathe });
-      cat(c, K, lt, t, ch);
-      overPlanes(c, lt, t);
+      const drift = -18 + 24 * (t / 10);
+      c.save(); c.translate(drift, Math.sin(t * 0.5) * 3);
+      wall(c, lt, t);
+      tableTop(c);
+      FIG_G.reset();
+      const GW = waiter(t, lt);
+      const GG = guitarist(t, lt);
+      facetize(FIG_G, FIG_G.canvas, [430, 420, 1560, 1060], 44, 13, t, { boilFrac: 0.22, alpha: 1, edge: 'rgba(30,22,14,.30)', light: 0.12, dark: 0.36 });
+      c.drawImage(FIG_G.canvas, 0, 0);
+      faceProf(c, GW, { brow: 2 });
+      faceProf(c, GG, { stache: true, brow: 3 });
+      // 酒线：从瓶口落到杯子
+      if (lt % 3.4 < 2.6) {
+        const hp = GG ? null : null;
+        c.strokeStyle = 'rgba(150,90,40,.75)'; c.lineWidth = 4;
+        c.beginPath(); c.moveTo(404 + 0.40 * 520 + 10, 1072 - 0.56 * 520 - 70);
+        c.quadraticCurveTo(700, 800, 744, SY(744) - 30); c.stroke();
+      }
+      tableFront(c);
+      items(c, lt, t);
+      // 最上层叠面：把人和物嵌进空间
+      const r = U.rng(31);
+      for (let k = 0; k < 7; k++) {
+        const x = 560 + r() * 980, y = 470 + r() * 420, s = 130 + r() * 210;
+        plane(c, [[x, y], [x + s, y - 18], [x + s * .7, y + s * .68], [x - 18, y + s * .5]], r() < .5 ? C.cream : C.ochre, .08 + r() * .10, r);
+      }
+      // 前景：贴脸的椅背（裁切，制造纵深）
+      plane(c, [[-30, 800], [268, 772], [300, 1080], [-30, 1080]], C.dbrown, 1, U.rng(44), .7, .04);
+      c.strokeStyle = 'rgba(20,14,8,.55)'; c.lineWidth = 6;
+      for (let k = 0; k < 4; k++) { c.beginPath(); c.moveTo(20 + k * 62, 790); c.lineTo(30 + k * 62, 1080); c.stroke(); }
+      plane(c, [[-30, 786], [280, 758], [286, 812], [-30, 844]], C.ochre, .75, U.rng(45), .55, .08);
+      // 灯晕
+      const lg = c.createRadialGradient(1430, 336, 10, 1430, 336, 150);
+      lg.addColorStop(0, 'rgba(255,226,150,.42)'); lg.addColorStop(1, 'rgba(255,240,180,0)');
+      c.fillStyle = lg; c.fillRect(1270, 180, 320, 320);
+      const lg2 = c.createRadialGradient(1180, 760, 20, 1180, 760, 400);
+      lg2.addColorStop(0, 'rgba(255,236,186,.16)'); lg2.addColorStop(1, 'rgba(255,236,186,0)');
+      c.fillStyle = lg2; c.fillRect(760, 520, 900, 500);
+      const vg = c.createLinearGradient(0, 0, 0, H);
+      vg.addColorStop(0, 'rgba(30,24,16,.07)'); vg.addColorStop(1, 'rgba(30,24,16,.26)');
+      c.fillStyle = vg; c.fillRect(-40, 0, W + 80, H);
+      c.restore();
     },
   };
 })();
