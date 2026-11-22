@@ -130,6 +130,21 @@ SCENES['32_rembrandt'] = (() => {
       const L = P.scratch('rbChars'), lg = L.getContext('2d'); lg.reset();
       RIG.drawCat(lg, K, catPal);
       RIG.drawGirl(lg, G, { ...girlPal, mode: 'fill' });
+      // 左侧暗处站着的人（背光剪影，正看向烛火）
+      {
+        const MB = FIG.build({ x: 296, y: 930, h: 700, face: 1, top: 'coat', bottom: 'trousers', sleeve: true, hair: 'short',
+          hat: 'cap', head: .06, lean: .02, handR: [352, 950], elbowR: -1, handL: [376, 880], elbowL: 1 });
+        FIG.draw(lg, MB, { skin: '#20150e', hair: '#1a120c', coat: '#22160e', hem: '#22160e', trousers: '#1c120b', shoes: '#150d08',
+          hat: '#1b120c', hatBand: '#2a1a10', coatLine: 'rgba(10,6,3,.7)', line: 'rgba(10,6,3,.75)', lw: 1.4 });
+      }
+
+      // 桌对面的空高背椅＋桌上陶罐、面包、书
+      lg.fillStyle = '#6a4a2a'; lg.beginPath(); lg.ellipse(700, 720, 34, 42, 0, 0, Math.PI * 2); lg.fill();
+      lg.fillStyle = '#8a6236'; lg.fillRect(692, 674, 16, 22);
+      lg.fillStyle = '#c89a52'; lg.beginPath(); lg.ellipse(870, 742, 44, 20, 0, 0, Math.PI * 2); lg.fill();
+      lg.strokeStyle = 'rgba(90,50,20,.6)'; lg.lineWidth = 2; lg.beginPath(); lg.moveTo(842, 738); lg.lineTo(898, 738); lg.stroke();
+      lg.fillStyle = '#3a2210'; lg.fillRect(940, 700, 96, 16); lg.fillStyle = '#4a2e18'; lg.fillRect(946, 684, 88, 14);
+      lg.fillStyle = '#e8dcc0'; lg.fillRect(952, 690, 76, 4);
       // 服饰：宽白领（平摊在肩上的花边大领）、白亚麻小帽、珍珠耳坠
       lg.save(); lg.lineJoin = 'round';
       const n = G.A.neck, ch_ = G.A.chest, bk = G.A.back;

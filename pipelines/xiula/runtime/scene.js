@@ -85,6 +85,36 @@ SCENES['29_seurat'] = (() => {
     { const bx = 1000 + Math.sin(t * 2.6) * 120, by = 400 + Math.sin(t * 4.1) * 50 - t * 20, fl = 0.25 + 0.75 * Math.abs(Math.sin(t * 20)), dir = Math.cos(t * 2.6) > 0 ? 1 : -1;
       g.save(); g.translate(bx, by); g.scale(dir, 1); g.fillStyle = '#f08a2a'; g.beginPath(); g.ellipse(-14, -6, 22 * fl, 16, -0.5, 0, TAU); g.ellipse(14, -6, 22 * fl, 16, 0.5, 0, TAU); g.fill();
       g.fillStyle = '#e0432a'; g.beginPath(); g.ellipse(-10, 10, 12 * fl, 9, -0.2, 0, TAU); g.ellipse(10, 10, 12 * fl, 9, 0.2, 0, TAU); g.fill(); g.fillStyle = '#1a2058'; g.fillRect(-2, -14, 4, 28); g.restore(); }
+    // 右侧：戴草帽的绅士（倚着手杖）＋ 衣帽架
+    {
+      const MX = 1762, MY = 918, MH = 640;
+      const GM = FIG.build({ x: MX, y: MY, h: MH, face: -1, top: 'coat', bottom: 'trousers', sleeve: true, hat: 'boater',
+        hair: 'short', lean: .02, head: .04, handR: [MX - 96, MY - 190], elbowR: -1, handL: [MX + 22, MY - 210], elbowL: 1,
+        thighL: .04, thighR: -.03 });
+      FIG.draw(g, GM, { skin: '#f2cca8', hair: '#6a4a32', coat: '#232a5c', hem: '#232a5c', trousers: '#2a2a4a', shoes: '#1a2058',
+        hat: '#e8dcae', hatBand: '#8a3a2a', belt: 'rgba(20,20,50,.4)', coatLine: '#1a2058', line: '#1a2058', lw: 1.6, features: true, featureCol: '#1a2058' });
+      // 手杖
+      g.strokeStyle = '#4a2a2a'; g.lineWidth = 7; g.beginPath(); g.moveTo(GM.J.handN[0], GM.J.handN[1]); g.lineTo(MX - 108, MY + 6); g.stroke();
+      g.fillStyle = '#c8a24a'; g.beginPath(); g.arc(MX - 108, MY + 6, 6, 0, TAU); g.fill();
+      // 衣帽架
+      g.strokeStyle = '#4a2a2a'; g.lineWidth = 8; g.beginPath(); g.moveTo(1852, 930); g.lineTo(1852, 560); g.stroke();
+      g.beginPath(); g.moveTo(1852, 560); g.lineTo(1826, 528); g.moveTo(1852, 560); g.lineTo(1880, 528); g.stroke();
+      g.fillStyle = '#2c2c64'; g.beginPath(); g.ellipse(1852, 560, 34, 12, 0, 0, TAU); g.fill();
+    }
+    // 小狗（大碗岛的狗）
+    {
+      const dx = 1300, dy = 946;
+      g.fillStyle = '#e8dcc0'; g.beginPath(); g.ellipse(dx, dy - 34, 52, 26, 0, 0, TAU); g.fill();
+      g.beginPath(); g.ellipse(dx + 48, dy - 62, 20, 16, 0, 0, TAU); g.fill();
+      g.fillStyle = '#c8a24a'; g.beginPath(); g.ellipse(dx + 62, dy - 76, 9, 12, .3, 0, TAU); g.fill();
+      g.fillStyle = '#e8dcc0'; g.fillRect(dx + 34, dy - 30, 7, 30); g.fillRect(dx + 46, dy - 30, 7, 30);
+      g.strokeStyle = '#e8dcc0'; g.lineWidth = 7; g.beginPath(); g.moveTo(dx - 50, dy - 40); g.quadraticCurveTo(dx - 86, dy - 60, dx - 78, dy - 88); g.stroke();
+      g.fillStyle = '#1a2058'; g.beginPath(); g.arc(dx + 52, dy - 64, 2.6, 0, TAU); g.fill();
+    }
+    // 桌上的酒瓶与果盘
+    g.fillStyle = '#2a4a3a'; g.fillRect(1120, 546, 22, 72); g.fillRect(1126, 520, 10, 30);
+    g.fillStyle = '#f6f2ea'; g.beginPath(); g.ellipse(1200, 600, 46, 12, 0, 0, TAU); g.fill();
+    g.fillStyle = '#f08a2a'; [[1184, 592], [1206, 590], [1222, 594]].forEach(([x, y]) => { g.beginPath(); g.arc(x, y, 9, 0, TAU); g.fill(); });
     // 修拉画的边框：深蓝带
     g.fillStyle = '#1e2a78'; g.fillRect(0, 0, W, 28); g.fillRect(0, H - 28, W, 28); g.fillRect(0, 0, 28, H); g.fillRect(W - 28, 0, 28, H);
   }

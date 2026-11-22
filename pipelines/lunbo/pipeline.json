@@ -14,9 +14,9 @@
     "entry": "scripts/lunbo.py",
     "status": "beta",
     "sample": {
-      "file": "lunbo huashu-伦勃朗明暗.mp4",
-      "title": "伦勃朗明暗 · 上游样片",
-      "seconds": 1.07
+      "file": "lunbo-10s.mp4",
+      "title": "烛光信笺",
+      "seconds": 10.0
     },
     "updated": "2026-11-20"
   },

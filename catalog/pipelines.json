@@ -2456,9 +2456,9 @@
    "entry": "scripts/huopu.py",
    "status": "live",
    "sample": {
-    "file": "huopu huashu-霍普美国现实主义.mp4",
-    "title": "霍普美国现实主义 · 上游样片",
-    "seconds": 1.07
+    "file": "huopu-10s.mp4",
+    "title": "窗边的午后",
+    "seconds": 10.0
    }
   },
   {
@@ -2490,9 +2490,9 @@
    "entry": "scripts/xiula.py",
    "status": "live",
    "sample": {
-    "file": "xiula huashu-修拉点彩.mp4",
-    "title": "修拉点彩 · 上游样片",
-    "seconds": 1.07
+    "file": "xiula-10s.mp4",
+    "title": "星期天的房间",
+    "seconds": 10.0
    }
   },
   {
@@ -2541,9 +2541,9 @@
    "entry": "scripts/lunbo.py",
    "status": "beta",
    "sample": {
-    "file": "lunbo huashu-伦勃朗明暗.mp4",
-    "title": "伦勃朗明暗 · 上游样片",
-    "seconds": 1.07
+    "file": "lunbo-10s.mp4",
+    "title": "烛光信笺",
+    "seconds": 10.0
    }
   },
   {
@@ -2575,9 +2575,9 @@
    "entry": "scripts/bijia.py",
    "status": "live",
    "sample": {
-    "file": "bijia huashu-毕加索蓝色时期.mp4",
-    "title": "毕加索蓝色时期 · 上游样片",
-    "seconds": 1.07
+    "file": "bijia-10s.mp4",
+    "title": "蓝色的房间",
+    "seconds": 10.0
    }
   },
   {

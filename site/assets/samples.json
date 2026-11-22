@@ -4509,11 +4509,11 @@
    "key": "huopu",
    "kind": "pipeline",
    "pipeline": "huopu",
-   "title": "霍普美国现实主义",
+   "title": "窗边的午后",
    "style": "霍普美国现实主义",
    "style_en": "Hopper American Realism",
    "station": "hand",
-   "badge": "10 秒样片",
+   "badge": "10 秒样片 · 自渲",
    "long_edge": 1024,
    "max_seconds": 10.0,
    "crf": 30,
@@ -4522,20 +4522,16 @@
    "aspect": "16:9",
    "clip_seconds": 10.0,
    "poster_pick": {
-    "by": "appeal-complete",
-    "score": 1.11,
-    "edge": 3.3,
-    "sat": 19.1,
-    "yavg": 127.0,
-    "seconds": 7.87
+    "seconds": 0.42
    },
    "mp4": "media/huopu.mp4",
    "poster": "media/huopu.jpg",
-   "source": "samples-v3/huopu-10s.mp4",
+   "source": "samples-v4/huopu-10s.mp4",
    "bytes": 110812,
    "note": "Auto-Video 自研封装 10 秒样片",
    "width": 1024,
-   "height": 576
+   "height": 576,
+   "display_title": "窗边的午后"
   },
   {
    "key": "jibuli",
@@ -4573,11 +4569,11 @@
    "key": "xiula",
    "kind": "pipeline",
    "pipeline": "xiula",
-   "title": "修拉点彩",
+   "title": "星期天的房间",
    "style": "修拉点彩",
    "style_en": "Seurat Pointillism",
    "station": "hand",
-   "badge": "10 秒样片",
+   "badge": "10 秒样片 · 自渲",
    "long_edge": 1024,
    "max_seconds": 10.0,
    "crf": 30,
@@ -4586,20 +4582,16 @@
    "aspect": "16:9",
    "clip_seconds": 10.0,
    "poster_pick": {
-    "by": "appeal-complete",
-    "score": 2.08,
-    "edge": 10.4,
-    "sat": 31.4,
-    "yavg": 171.9,
-    "seconds": 8.53
+    "seconds": 0.42
    },
    "mp4": "media/xiula.mp4",
    "poster": "media/xiula.jpg",
-   "source": "samples-v3/xiula-10s.mp4",
+   "source": "samples-v4/xiula-10s.mp4",
    "bytes": 744529,
    "note": "Auto-Video 自研封装 10 秒样片",
    "width": 1024,
-   "height": 576
+   "height": 576,
+   "display_title": "星期天的房间"
   },
   {
    "key": "madisi",
@@ -4669,11 +4661,11 @@
    "key": "lunbo",
    "kind": "pipeline",
    "pipeline": "lunbo",
-   "title": "伦勃朗明暗",
+   "title": "烛光信笺",
    "style": "伦勃朗明暗",
    "style_en": "Rembrandt Chiaroscuro",
    "station": "hand",
-   "badge": "10 秒样片",
+   "badge": "10 秒样片 · 自渲",
    "long_edge": 1024,
    "max_seconds": 10.0,
    "crf": 30,
@@ -4682,20 +4674,16 @@
    "aspect": "16:9",
    "clip_seconds": 10.0,
    "poster_pick": {
-    "by": "appeal-complete",
-    "score": 0.78,
-    "edge": 9.6,
-    "sat": 16.9,
-    "yavg": 78.6,
-    "seconds": 9.0
+    "seconds": 0.42
    },
    "mp4": "media/lunbo.mp4",
    "poster": "media/lunbo.jpg",
-   "source": "samples-v3/lunbo-10s.mp4",
+   "source": "samples-v4/lunbo-10s.mp4",
    "bytes": 336839,
    "note": "Auto-Video 自研封装 10 秒样片",
    "width": 1024,
-   "height": 576
+   "height": 576,
+   "display_title": "烛光信笺"
   },
   {
    "key": "xinhai",
@@ -4733,11 +4721,11 @@
    "key": "bijia",
    "kind": "pipeline",
    "pipeline": "bijia",
-   "title": "毕加索蓝色时期",
+   "title": "蓝色的房间",
    "style": "毕加索蓝色时期",
    "style_en": "Picasso Blue Period",
    "station": "hand",
-   "badge": "10 秒样片",
+   "badge": "10 秒样片 · 自渲",
    "long_edge": 1024,
    "max_seconds": 10.0,
    "crf": 30,
@@ -4746,20 +4734,16 @@
    "aspect": "16:9",
    "clip_seconds": 10.0,
    "poster_pick": {
-    "by": "appeal-complete",
-    "score": 0.99,
-    "edge": 3.6,
-    "sat": 23.5,
-    "yavg": 72.1,
-    "seconds": 8.9
+    "seconds": 0.42
    },
    "mp4": "media/bijia.mp4",
    "poster": "media/bijia.jpg",
-   "source": "samples-v3/bijia-10s.mp4",
+   "source": "samples-v4/bijia-10s.mp4",
    "bytes": 130128,
    "note": "Auto-Video 自研封装 10 秒样片",
    "width": 1024,
-   "height": 576
+   "height": 576,
+   "display_title": "蓝色的房间"
   },
   {
    "key": "guaerdi",

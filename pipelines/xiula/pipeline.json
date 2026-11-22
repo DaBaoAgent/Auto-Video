@@ -14,9 +14,9 @@
     "entry": "scripts/xiula.py",
     "status": "live",
     "sample": {
-      "file": "xiula huashu-修拉点彩.mp4",
-      "title": "修拉点彩 · 上游样片",
-      "seconds": 1.07
+      "file": "xiula-10s.mp4",
+      "title": "星期天的房间",
+      "seconds": 10.0
     },
     "updated": "2026-11-20"
   },
