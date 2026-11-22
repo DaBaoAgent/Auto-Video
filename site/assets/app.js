@@ -57,6 +57,7 @@
       img.alt = "";
       img.loading = "lazy";
       img.decoding = "async";
+      if (it.width && it.height) { img.width = it.width; img.height = it.height; }
       shot.appendChild(img);
 
       const vid = el("video");
