@@ -2961,7 +2961,7 @@ window.AV = {
    "no": "131",
    "name_zh": "印象派",
    "name_en": "Impressionism",
-   "title": "印象派 · 上游样片",
+   "title": "印象派 · 河岸的午后",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "区域粉彩短笔触、位置固定；光斑漂移明灭，罂粟在摇，云在走，丝带在飘。",
    "aspect": "16:9",
@@ -2971,7 +2971,7 @@ window.AV = {
    "mp4": "media/yinxiang.mp4",
    "poster": "media/yinxiang.jpg",
    "note": null,
-   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "badge": "10 秒样片",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/yinxiang/SKILL.md"
   },
   {
@@ -2983,7 +2983,7 @@ window.AV = {
    "no": "132",
    "name_zh": "梵高后印象",
    "name_en": "Van Gogh Post-Impressionism",
-   "title": "梵高后印象 · 上游样片",
+   "title": "梵高后印象 · 麦田播种者",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "流场笔触分三遍铺，墙竖长、地透视；星空漩涡、灯晕外扩，方向场像火苗一样摇曳。",
    "aspect": "16:9",
@@ -2993,7 +2993,7 @@ window.AV = {
    "mp4": "media/fangao.mp4",
    "poster": "media/fangao.jpg",
    "note": null,
-   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "badge": "10 秒样片",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/fangao/SKILL.md"
   },
   {
@@ -3027,7 +3027,7 @@ window.AV = {
    "no": "134",
    "name_zh": "立体主义",
    "name_en": "Analytical Cubism",
-   "title": "立体主义 · 上游样片",
+   "title": "立体主义 · 巴黎咖啡馆",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "半透明渐变面叠出空间，切面器不裁剪三角；CAFÉ 字母跳换、窗格碎面滑动。",
    "aspect": "16:9",
@@ -3037,7 +3037,7 @@ window.AV = {
    "mp4": "media/liti2.mp4",
    "poster": "media/liti2.jpg",
    "note": null,
-   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "badge": "10 秒样片",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/liti2/SKILL.md"
   },
   {
@@ -3093,7 +3093,7 @@ window.AV = {
    "no": "137",
    "name_zh": "蒙克表现主义",
    "name_en": "Munch Expressionism",
-   "title": "蒙克表现主义 · 上游样片",
+   "title": "蒙克表现主义 · 黄昏码头",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "长弯流线笔沿流场走二三十步，整幅按行正弦扭曲；血色天空从上往下压。",
    "aspect": "16:9",
@@ -3103,7 +3103,7 @@ window.AV = {
    "mp4": "media/mengke.mp4",
    "poster": "media/mengke.jpg",
    "note": null,
-   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "badge": "10 秒样片",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/mengke/SKILL.md"
   },
   {
@@ -3159,7 +3159,7 @@ window.AV = {
    "no": "140",
    "name_zh": "达利超现实",
    "name_en": "Dali Surrealism",
-   "title": "达利超现实 · 上游样片",
+   "title": "达利超现实 · 荒原午睡",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "软钟变形、长影子剪切仿射；钟往下流，长腿象走，蚂蚁绕着表盘转。",
    "aspect": "16:9",
@@ -3169,7 +3169,7 @@ window.AV = {
    "mp4": "media/dali.mp4",
    "poster": "media/dali.jpg",
    "note": null,
-   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "badge": "10 秒样片",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/dali/SKILL.md"
   },
   {

@@ -14,11 +14,11 @@
     "entry": "scripts/dali.py",
     "status": "live",
     "sample": {
-      "file": "dali huashu-达利超现实.mp4",
-      "title": "达利超现实 · 上游样片",
-      "seconds": 1.07
+      "file": "dali-10s.mp4",
+      "title": "达利超现实 · 荒原午睡",
+      "seconds": 10.0
     },
-    "updated": "2026-11-20"
+    "updated": "2026-11-22"
   },
   "spec": {
     "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",

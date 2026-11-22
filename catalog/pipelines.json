@@ -2286,9 +2286,9 @@
       "entry": "scripts/yinxiang.py",
       "status": "live",
       "sample": {
-        "file": "yinxiang huashu-印象派.mp4",
-        "title": "印象派 · 上游样片",
-        "seconds": 1.07
+        "file": "yinxiang-10s.mp4",
+        "title": "印象派 · 河岸的午后",
+        "seconds": 10.0
       }
     },
     {
@@ -2303,9 +2303,9 @@
       "entry": "scripts/fangao.py",
       "status": "live",
       "sample": {
-        "file": "fangao huashu-梵高后印象.mp4",
-        "title": "梵高后印象 · 上游样片",
-        "seconds": 1.07
+        "file": "fangao-10s.mp4",
+        "title": "梵高后印象 · 麦田播种者",
+        "seconds": 10.0
       }
     },
     {
@@ -2337,9 +2337,9 @@
       "entry": "scripts/liti2.py",
       "status": "live",
       "sample": {
-        "file": "liti2 huashu-立体主义.mp4",
-        "title": "立体主义 · 上游样片",
-        "seconds": 1.07
+        "file": "liti2-10s.mp4",
+        "title": "立体主义 · 巴黎咖啡馆",
+        "seconds": 10.0
       }
     },
     {
@@ -2388,9 +2388,9 @@
       "entry": "scripts/mengke.py",
       "status": "live",
       "sample": {
-        "file": "mengke huashu-蒙克表现主义.mp4",
-        "title": "蒙克表现主义 · 上游样片",
-        "seconds": 1.07
+        "file": "mengke-10s.mp4",
+        "title": "蒙克表现主义 · 黄昏码头",
+        "seconds": 10.0
       }
     },
     {
@@ -2439,9 +2439,9 @@
       "entry": "scripts/dali.py",
       "status": "live",
       "sample": {
-        "file": "dali huashu-达利超现实.mp4",
-        "title": "达利超现实 · 上游样片",
-        "seconds": 1.07
+        "file": "dali-10s.mp4",
+        "title": "达利超现实 · 荒原午睡",
+        "seconds": 10.0
       }
     },
     {
