@@ -4,7 +4,7 @@
 
 **一句选题 → 165 条画法管线 → 一部能发的片**
 
-原创口播稿 · 本地克隆音色 · 代码逐帧渲染 · 字幕贴真实语音 · 交付门禁
+原创口播稿 · 本地克隆音色 · 代码逐帧渲染 · 字幕贴真实语音 · 交付门禁<br>
 不调云端生图 / 生视频 API，同一稿同一版，出同一帧。
 
 [![stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)

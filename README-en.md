@@ -4,7 +4,7 @@
 
 **One idea → 165 visual pipelines → a film you can actually publish.**
 
-Original voice-over script · local voice cloning · deterministic code-rendered frames · subtitles on real speech · delivery gates.
+Original voice-over script · local voice cloning · deterministic code-rendered frames · subtitles on real speech · delivery gates.<br>
 No cloud image or video generation API. Same script, same version, same pixels.
 
 [![stars](https://img.shields.io/github/stars/DaBaoAgent/Auto-Video?style=flat-square)](https://github.com/DaBaoAgent/Auto-Video/stargazers)
