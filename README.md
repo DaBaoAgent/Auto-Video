@@ -19,9 +19,9 @@
 
 **[▶ 在线样片站](https://dabaoagent.github.io/Auto-Video/)** · **[166 条管线清单](docs/pipelines.md)** · [更新日志](CHANGELOG.md) · [参与贡献](CONTRIBUTING.md)
 
-<img src="site/media/teaser.gif" width="80%" alt="四条管线各两秒：彩铅科普 / 漫画分格 / 水墨手绘 / 三维城市">
+<a href="https://dabaoagent.github.io/Auto-Video/media/showreel.mp4"><img src="site/media/teaser.gif" width="80%" alt="21 条画法管线轮播：皮影卡片 / 中国水墨 / 贝叶挂毯 / 浮世绘 / 油画厚涂 / 铅黄浓彩 … 到地图贴纸"></a>
 
-<sub>8 秒 / 2.3 MB —— 彩铅 · 漫画分格 · 水墨 · 三维城市，四段全部由本仓库代码渲出。</sub>
+<sub>27 秒 / 4.1 MB —— 工艺 4 条、绘画 4 条、笔类 8 条、数码笔记 3 条、花字贴纸 2 条，21 段一次看完；点开看 [完整版 45 秒](https://dabaoagent.github.io/Auto-Video/media/showreel.mp4)（1440×810）。片名、编号都在画面上，全部由本仓库代码渲出。</sub>
 
 </div>
 

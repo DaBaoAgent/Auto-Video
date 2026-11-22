@@ -19,9 +19,9 @@ No cloud image or video generation API, no per-render billing. Same script, same
 
 **[▶ Watch the samples](https://dabaoagent.github.io/Auto-Video/)** · **[Pipeline catalogue](docs/pipelines.md)** · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 
-<img src="site/media/teaser.gif" width="80%" alt="Two seconds each: colored pencil, manga panels, ink wash, 3D city">
+<a href="https://dabaoagent.github.io/Auto-Video/media/showreel.mp4"><img src="site/media/teaser.gif" width="80%" alt="21 pipelines in one reel: shadow-puppet cards, Chinese ink, Bayeux tapestry, ukiyo-e, impasto oil, giallo, up to map stickers"></a>
 
-<sub>8 seconds / 2.3 MB — colored pencil · manga panels · ink wash · 3D city, every frame rendered by this repo's own code.</sub>
+<sub>27 seconds / 4.1 MB — 4 craft, 4 painterly, 8 pen-and-pencil, 3 digital-note and 2 caption/map pipelines, 21 shots back to back; open the [full 45-second cut](https://dabaoagent.github.io/Auto-Video/media/showreel.mp4) (1440×810). Every frame rendered by this repo's own code.</sub>
 
 </div>
 

@@ -20,6 +20,7 @@
 | `python tools/build_samples.py` | 批量把源片切成站点样片并挑封面 |
 | `python tools/poster_appeal.py` | 封面自动挑选（运动量 + 边缘密度，排除白场/黑场/空镜） |
 | `python tools/sample_audit.py` | 样片巡检：时长、体积、画幅、缺片 |
+| `python tools/build_teaser.py [--ids a,b,c] [--gif-only] [--mp4-only]` | 把样片剪成首页总样片：`site/media/showreel.mp4`（1440×810 / 21 段）+ `site/media/teaser.gif`（600 宽快剪） |
 | `tools/poster_overrides.json` | 人工钉秒的封面配置 |
 
 ## 管线与文档
