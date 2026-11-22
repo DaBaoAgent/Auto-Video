@@ -20,6 +20,30 @@ REPO_URL = "https://github.com/DaBaoAgent/Auto-Video"
 DOC_URL = REPO_URL + "/blob/main/pipelines/{id}/SKILL.md"
 
 
+def stamp_index() -> None:
+    """给 index.html 里的 assets/*.css|js 加 ?v=<内容哈希>，杜绝缓存旧文件。
+
+    只改 href/src 属性；正文里 <code>assets/data.js</code> 这类说明文字保持干净。
+    """
+    import hashlib
+    import re
+
+    idx = SITE_DIR / "index.html"
+    if not idx.exists():
+        return
+    html = idx.read_text(encoding="utf-8")
+    # 先清掉上一轮误伤正文的指纹
+    html = re.sub(r'<code>(assets/[^<\s]+?)\?v=[0-9a-f]+</code>', r'<code>\1</code>', html)
+    for name in ("app.css", "data.js", "app.js"):
+        f = SITE_DIR / "assets" / name
+        if not f.exists():
+            continue
+        h = hashlib.sha1(f.read_bytes()).hexdigest()[:8]
+        pat = re.compile(r'((?:href|src)="assets/' + re.escape(name) + r')(\?v=[0-9a-f]+)?(")')
+        html = pat.sub(r'\1?v=' + h + r'\3', html)
+    idx.write_text(html, encoding="utf-8", newline="\n")
+
+
 def main() -> int:
     utf8_stdout()
     stations = load_stations()
@@ -83,6 +107,10 @@ def main() -> int:
     out.write_text(body, encoding="utf-8", newline="\n")
 
     with_m = sum(1 for it in items if it["mp4"])
+
+    # 静态资源加内容指纹：避免浏览器缓存旧 data.js / app.js（线上"没更新"的元凶）
+    stamp_index()
+
     print(f"data.js：{len(data['stations'])} 工位 / {len(pipelines)} 管线 / {len(items)} 张卡（{with_m} 张有样片）")
     print(f"  {out.relative_to(REPO)}  {out.stat().st_size / 1024:.0f} KB")
     return 0
