@@ -42,7 +42,10 @@ def main() -> int:
             "no": f"{i:02d}",
             "name_zh": p["name_zh"],
             "name_en": p["name_en"],
-            "title": m.get("display_title") or (p.get("sample") or {}).get("title", ""),
+            # 卡片只显示管线名：样片名不再上卡（对齐「拼贴剪贴」这类无片名样片）；
+            # 片名仍保留在 samples.json / catalog 里作档案与校验用。
+            "title": "",
+            "sample_title": m.get("display_title") or (p.get("sample") or {}).get("title", ""),
             "engine": p["engine"],
             "tagline": p["tagline"],
             "aspect": m.get("aspect") or p["aspect"] or "16:9",
