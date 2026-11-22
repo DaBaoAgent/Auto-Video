@@ -202,7 +202,10 @@ python frontend/frontend.py run --pipeline laolang --topic "玄奘为什么要�
 - 短片是**风格段**，不是预告片：一段只演示这条管线的一两个镜头语言，看完就能判断它适不适合你的选题；
 - **封面不是「第 2 秒截图」**：逐帧统计运动与边缘密度，排除白屏 / 黑场 / 空镜，取动作最丰富的一帧，确需人挑的
   钉在 [`tools/poster_overrides.json`](tools/poster_overrides.json)；
-- 只有两张卡没有视频：`qianhuang2`（最新接入，样片还没渲）与 `peiyin`（配音前端，本来就不出片）。
+- 只有两张卡没有视频：`qianhuang2`（最新接入，样片还没渲）与 `peiyin`（配音前端，本来就不出片）；
+- **卡片只显示管线名 + 小字 id**（`回形针风 huixingzhen`），不挂片名：片名只作档案字段，免得 166 张卡各带一个《…》；
+- 样片的生产与上线走一条命令，规则（画幅、码率、片名三处同步、资源指纹）见
+  [`docs/演示站样片-固化流程.md`](docs/演示站样片-固化流程.md)，入口是 [`tools/pack_sample.py`](tools/pack_sample.py)。
 
 完整成片（几分钟到十几分钟那种）只做本地归档，不随仓库提交：`out/<编号_片名>/` 放成片、字幕、3:4 封面、4:3 封面与发布信息，旧版下沉 `out/_archive/`。细则见 [`docs/交付规范.md`](docs/交付规范.md)。
 
@@ -219,9 +222,10 @@ Auto-Video/
 ├── frontend/                # 可选前端：选题 → 文案 → 配音 → 出片 → 封面
 ├── fengmian/                # 封面 + 发布信息 + 交付门禁（MIT 导入，规则不改）
 ├── site/                    # 样片站：index.html / assets / fonts / media（Pages 直出）
-├── tools/                   # validate / normalize / build_samples / build_site / check_links …
-├── docs/                    # 管线清单、交付规范、多机同步、接入与审查记录
-├── samples-v2/              # 10 秒样片源片、字幕与制作进度
+├── tools/                   # 门禁 + 站点构建 + 样片固化（一览表见 tools/README.md）
+├── docs/                    # 文档索引（docs/README.md）：交付规范、样片固化、管线清单
+│   └── archive/             # 已结项的历史体检记录，不再维护
+├── samples-v2/              # 早期 10 秒样片源片与制作进度（v3 起改用 pack_sample 直出）
 ├── projects/                # 示例工程（suzhou 等）
 ├── out/                     # 定稿归档：成片 + 字幕 + 两张封面 + 发布信息（mp4 不入库）
 ├── assets/                  # 字体等公共资源

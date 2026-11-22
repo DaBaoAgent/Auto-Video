@@ -132,7 +132,7 @@
 - **6 条管线**：`liaotian`（chat 聊天叙事）、`keli`（grain 扁平颗粒插画）、
   `andiao`（lumen 暗调励志）、`xuanyi`（mystery 悬疑探秘）、`oupu`（op 欧普艺术）、
   `yugao`（trailer 电影预告）。入口统一走本地编排脚本（v1.2.0 起只调 `runtime/render.mjs`）。
-- **处置表**：[`tools/legacy_style_map.json`](tools/legacy_style_map.json)，37 个风格逐条记
+- **处置表**：[`tools/legacy/legacy_style_map.json`](tools/legacy/legacy_style_map.json)，37 个风格逐条记
   `already` / `equivalent` / `import`；接入说明见
   [`docs/风格集接入记录.md`](docs/风格集接入记录.md)。
 

@@ -340,3 +340,7 @@ pipelines/*/projects/demo/frames/
 # 样片工程（projects/demo10 等）的成片与抓帧（随时可重跑，不入库）
 pipelines/*/projects/*/out/
 pipelines/*/projects/*/frames/
+
+# 样片 v3 中间件（站点只认 site/media 下的成品）
+samples-v3/
+
