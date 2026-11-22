@@ -1,38 +1,38 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "wenyi",
-    "no": "130",
-    "name_zh": "文艺复兴晕涂",
-    "name_en": "High Renaissance Sfumato",
-    "station": "hand",
-    "station_no": "02",
-    "tagline": "整层轻模糊压一层清晰层，龟裂纹与黄釉都在；窗口神光里，扑翼机飞过河面碎光。",
-    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-    "aspect": "16:9",
-    "fps": 24,
-    "entry": "scripts/wenyi.py",
-    "status": "live",
-    "sample": {
-      "file": "wenyi huashu-文艺复兴晕涂.mp4",
-      "title": "文艺复兴晕涂 · 上游样片",
-      "seconds": 1.07
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "wenyi",
+  "no": "130",
+  "name_zh": "文艺复兴晕涂",
+  "name_en": "High Renaissance Sfumato",
+  "station": "hand",
+  "station_no": "02",
+  "tagline": "整层轻模糊压一层清晰层，龟裂纹与黄釉都在；窗口神光里，扑翼机飞过河面碎光。",
+  "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+  "aspect": "16:9",
+  "fps": 24,
+  "entry": "scripts/wenyi.py",
+  "status": "live",
+  "sample": {
+   "file": "wenyi huashu-文艺复兴晕涂.mp4",
+   "title": "文艺复兴长厅 · 一镜到底",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
-    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
-    "style_slug": "06_renaissance",
-    "film": "gallery",
-    "quality": "★★",
-    "engine": "runtime/render.py",
-    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
-    "sample_source": "site/media/wenyi.mp4",
-    "runtime": "pipelines/wenyi/runtime",
-    "stage": "runtime/stage.html",
-    "player": "runtime/player.js",
-    "drawing_script": "runtime/scene.js",
-    "self_contained": true
-  }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
+  "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+  "style_slug": "06_renaissance",
+  "film": "gallery",
+  "quality": "★★",
+  "engine": "runtime/render.py",
+  "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+  "sample_source": "site/media/wenyi.mp4",
+  "runtime": "pipelines/wenyi/runtime",
+  "stage": "runtime/stage.html",
+  "player": "runtime/player.js",
+  "drawing_script": "runtime/scene.js",
+  "self_contained": true
+ }
 }

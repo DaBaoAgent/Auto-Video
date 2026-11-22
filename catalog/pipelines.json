@@ -1,2836 +1,2836 @@
 {
-  "schema": "auto-video/catalog@1",
-  "updated": "2026-11-20",
-  "note": "Auto-Video 管线的唯一事实来源。站点、README 总览表与各管线 pipeline.json 的 meta 都从这里派生；改这里再跑 tools/normalize_pipelines.py + tools/build_site.py。",
-  "modules": [
-    {
-      "id": "frontend",
-      "path": "frontend",
-      "name_zh": "前端闭环",
-      "optional": true,
-      "attach_to": "all",
-      "contract": "auto-video/frontend@1",
-      "entry": "frontend/frontend.py",
-      "summary": "选题 → 文案 → 免费 TTS 配音（带 srt）→ 任意风格管线 → 封面 + 发布信息；不接 peiyin 克隆音色也能整条走完。"
-    },
-    {
-      "id": "fengmian",
-      "path": "fengmian",
-      "name_zh": "封面 + 发布信息",
-      "optional": true,
-      "attach_to": "all",
-      "entry": "fengmian/fengmian.py",
-      "vendored_from": "https://github.com/DaBaoAgent/fengmian",
-      "summary": "frontend 的第 05 阶段：文案 → 两张封面（4:3 / 3:4）+ 两行制发布信息，含交付门禁与硬校验。"
-    }
-  ],
-  "pipelines": [
-    {
-      "id": "jianying",
-      "station": "paper",
-      "name_zh": "纸本卡片",
-      "name_en": "Paper-card Chronicle",
-      "tagline": "绢本纸本美术 + 卡片运动语法，2–4 秒一镜，字幕贴着从句走。",
-      "engine": "Remotion",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/jianying_shotcraft.py",
-      "sample": {
-        "file": "jianying 刘秀·位面之子.mp4",
-        "title": "刘秀·位面之子",
-        "seconds": 211.0
-      }
-    },
-    {
-      "id": "lishi",
-      "station": "paper",
-      "name_zh": "纸本史话",
-      "name_en": "Paper History",
-      "tagline": "AI 静帧底图 + 代码运镜，句级全量字幕与纸色衬底常驻。",
-      "engine": "Remotion",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/lishi.py",
-      "sample": {
-        "file": "lishi 朱元璋·碽妃疑案.mp4",
-        "title": "朱元璋·碽妃疑案",
-        "seconds": 144.9
-      }
-    },
-    {
-      "id": "zhidiao",
-      "station": "paper",
-      "name_zh": "纸雕剪影",
-      "name_en": "Paper-cut Lightbox",
-      "tagline": "词级转写与拼音 DP 对齐，HyperFrames 渲一张会动的纸雕灯箱。",
-      "engine": "HyperFrames",
-      "aspect": null,
-      "fps": null,
-      "entry": "scripts/zhidiao_assemble.py",
-      "sample": {
-        "file": "zhidiao 鲤鱼.mp4",
-        "title": "鲤鱼",
-        "seconds": 21.0
-      }
-    },
-    {
-      "id": "shouhui",
-      "station": "hand",
-      "name_zh": "逐帧手绘",
-      "name_en": "Hand-drawn Cel",
-      "tagline": "纸纹、墨线 boil、墨字书写，cel 火焰与火星，24 fps 线条沸腾。",
-      "engine": "Canvas 逐帧 · 浏览器渲染",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/shouhui.py",
-      "sample": {
-        "file": "shouhui 商纣王.mp4",
-        "title": "商纣王",
-        "seconds": 205.7
-      }
-    },
-    {
-      "id": "pencil",
-      "station": "hand",
-      "name_zh": "铅笔测试",
-      "name_en": "Pencil Test",
-      "tagline": "蓝线起稿、石墨勾线、橡皮修改，画与画之间 morph。",
-      "engine": "Canvas · Chrome 逐帧",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/pencil.py",
-      "sample": {
-        "file": "pencil_阿努纳奇.mp4",
-        "title": "阿努纳奇",
-        "seconds": 30.4
-      }
-    },
-    {
-      "id": "caiqian",
-      "station": "hand",
-      "name_zh": "彩铅科普",
-      "name_en": "Colored-pencil Science",
-      "tagline": "四张 G-buffer 由后处理叠成彩铅排线，锚定坐标防漂移。",
-      "engine": "G-buffer + 后处理",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/caiqian.py",
-      "sample": {
-        "file": "caiqian 鳕鱼.mp4",
-        "title": "鳕鱼",
-        "seconds": 27.1
-      }
-    },
-    {
-      "id": "pingban",
-      "station": "hand",
-      "name_zh": "平板速写",
-      "name_en": "Tablet Sketch",
-      "tagline": "六格手卷，铅笔一笔一笔现场画，镜头跟着笔尖走。",
-      "engine": "纯 Canvas · 零依赖",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/pingban.py",
-      "sample": {
-        "file": "pingban 关羽.mp4",
-        "title": "关羽",
-        "seconds": 39.4
-      }
-    },
-    {
-      "id": "gangbi",
-      "station": "hand",
-      "name_zh": "钢笔淡彩",
-      "name_en": "Pen & Wash Sketch",
-      "tagline": "钢笔线先走，水彩跟着到；镜头在整页纸上跟着草帽走。",
-      "engine": "Canvas 逐帧 · 钢笔 + 水彩双层",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/gangbi.py",
-      "sample": {
-        "file": "gangbi 风去了哪里.mp4",
-        "title": "风去了哪里",
-        "seconds": 33.4
-      }
-    },
-    {
-      "id": "labi",
-      "station": "hand",
-      "name_zh": "蜡笔儿童绘本",
-      "name_en": "Crayon Picture Book",
-      "tagline": "一页绘本当着你的面画出来：蜡笔先走，水彩最后把藏起来的星星洗出来。",
-      "engine": "WebGL2 合成 + Canvas 逐帧 · 纸齿 / 蜡附着 / 水彩抗拒",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/labi.py",
-      "sample": {
-        "file": "labi 月亮睡不着.mp4",
-        "title": "月亮睡不着",
-        "seconds": 52.0
-      }
-    },
-    {
-      "id": "shuicai",
-      "station": "hand",
-      "name_zh": "水彩笔刷",
-      "name_en": "Watercolor Brush",
-      "tagline": "一笔一笔湿接湿的水彩，颜色在纸上自己走、自己干、自己留边。",
-      "engine": "Canvas 2D · 湿画法笔刷 + 纸张吸收",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/shuicai.py",
-      "sample": {
-        "file": "shuicai 从旱到涝.mp4",
-        "title": "从旱到涝",
-        "seconds": 113.6
-      }
-    },
-    {
-      "id": "piying",
-      "station": "craft",
-      "name_zh": "皮影卡片",
-      "name_en": "Shadow-puppet Cards",
-      "tagline": "皮影剪影配卡片式讲解，分镜生成与四查门禁。",
-      "engine": "Playwright + Canvas 逐帧",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/piying.py",
-      "sample": {
-        "file": "piying 波斯湾伊甸园.mp4",
-        "title": "波斯湾伊甸园",
-        "seconds": 272.2
-      }
-    },
-    {
-      "id": "shuimo",
-      "station": "craft",
-      "name_zh": "纸本水墨",
-      "name_en": "Ink Wash",
-      "tagline": "宣纸底、生成式 SVG 山水、墨渗转场、竖排题记与朱砂印。",
-      "engine": "SVG + Canvas",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/shuimo.py",
-      "sample": {
-        "file": "shuimo 羽人 水墨.mp4",
-        "title": "羽人",
-        "seconds": 30.0
-      }
-    },
-    {
-      "id": "shadow",
-      "station": "craft",
-      "name_zh": "皮影戏",
-      "name_en": "Shadow Puppetry",
-      "tagline": "素白幕、木质台框、透光牛皮影人，灯暗换场。",
-      "engine": "Canvas · Chrome 逐帧",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/shadow.py",
-      "sample": {
-        "file": "shadow_玄奘.mp4",
-        "title": "玄奘",
-        "seconds": 203.0
-      }
-    },
-    {
-      "id": "tapestry",
-      "station": "craft",
-      "name_zh": "贝叶挂毯",
-      "name_en": "Bayeux Tapestry",
-      "tagline": "亚麻底、羊毛绣线、茎针绣与铺线，长卷滚动推进。",
-      "engine": "Canvas · Chrome 逐帧",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/tapestry.py",
-      "sample": {
-        "file": "tapestry_阿努纳奇.mp4",
-        "title": "阿努纳奇",
-        "seconds": 30.5
-      }
-    },
-    {
-      "id": "laolang",
-      "station": "craft",
-      "name_zh": "上美影手绘",
-      "name_en": "Shanghai Cel",
-      "tagline": "1980 上美影式手绘赛璐璐，4:3 圆角片门，定稿 toon 人物 24 动作。",
-      "engine": "Canvas · Chrome 逐帧",
-      "aspect": "4:3",
-      "fps": 30,
-      "entry": "scripts/laolang.py",
-      "sample": {
-        "file": "laolang 玄奘.mp4",
-        "title": "玄奘",
-        "seconds": 62.2
-      }
-    },
-    {
-      "id": "fushihui",
-      "station": "craft",
-      "name_zh": "浮世绘",
-      "name_en": "Ukiyo-e",
-      "tagline": "一张木版画：墨线、几个色块各自错开半格印上去，纸在吃墨。",
-      "engine": "Canvas 2D · 分色版块 + 错版套印",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/fushihui.py",
-      "sample": {
-        "file": "fushihui 向山.mp4",
-        "title": "向山",
-        "seconds": 44.0
-      }
-    },
-    {
-      "id": "shuimo2",
-      "station": "craft",
-      "name_zh": "中国水墨",
-      "name_en": "Chinese Ink Wash",
-      "tagline": "一张宣纸：墨分五色，一笔下去有骨有肉，朱砂只在印章和一个点上。",
-      "engine": "Canvas 2D · 墨的浓淡/飞白/渗化 + 程序化宣纸",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/shuimo2.py",
-      "sample": {
-        "file": "shuimo2 剑客与河.mp4",
-        "title": "剑客与河",
-        "seconds": 48.0
-      }
-    },
-    {
-      "id": "goldenage",
-      "station": "toon",
-      "name_zh": "黄金卡通",
-      "name_en": "Golden-age Toon",
-      "tagline": "手绘城市背景 + 墨线赛璐璐角色，15 张/秒的抽搐墨线。",
-      "engine": "Canvas · Chrome 逐帧",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/goldenage.py",
-      "sample": {
-        "file": "goldenage_阿努纳奇.mp4",
-        "title": "阿努纳奇",
-        "seconds": 30.3
-      }
-    },
-    {
-      "id": "manga",
-      "station": "toon",
-      "name_zh": "漫画分格",
-      "name_en": "Manga Panels",
-      "tagline": "黑墨线、网点、分格、拟声词，镜头按阅读顺序读页。",
-      "engine": "Canvas · Chrome 逐帧",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/manga.py",
-      "sample": {
-        "file": "manga_阿努纳奇_.mp4",
-        "title": "阿努纳奇",
-        "seconds": 30.4
-      }
-    },
-    {
-      "id": "xiangsu",
-      "station": "toon",
-      "name_zh": "像素风",
-      "name_en": "Pixel Art",
-      "tagline": "640×360 索引色帧缓冲逐像素绘制，×3 最近邻放大并在输出分辨率做 CRT。",
-      "engine": "Canvas · Puppeteer 逐帧",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/xiangsu.py",
-      "sample": {
-        "file": "xiangsu 曹操.mp4",
-        "title": "曹操",
-        "seconds": 29.4
-      }
-    },
-    {
-      "id": "tianshu",
-      "station": "toon",
-      "name_zh": "天书奇谭",
-      "name_en": "Tianshu Cel",
-      "tagline": "本地 ComfyUI 出定帧、Wan2.2 出氛围动态，逐镜锚定原片亮度与饱和。",
-      "engine": "ComfyUI + Wan2.2",
-      "aspect": "4:3",
-      "fps": null,
-      "entry": "scripts/tianshu.py",
-      "sample": {
-        "file": "tianshu 镇魔塔.mp4",
-        "title": "镇魔塔",
-        "seconds": 41.0
-      }
-    },
-    {
-      "id": "shiliang",
-      "station": "graphic",
-      "name_zh": "扁平矢量",
-      "name_en": "Flat Vector",
-      "tagline": "纯色几何世界、弹性入场、元素驱动转场，纯标准库合成 MG-pop 配乐。",
-      "engine": "SVG 单页 · 逐帧确定性渲染",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/shiliang.py",
-      "sample": {
-        "file": "shiliang 扁平矢量.mp4",
-        "title": "扁平矢量",
-        "seconds": 30.0
-      }
-    },
-    {
-      "id": "lvdong",
-      "station": "graphic",
-      "name_zh": "剪影律动",
-      "name_en": "Silhouette Rhythm",
-      "tagline": "纯黑剪影站在落日与水面前，姿势落在 90 BPM 的拍上，关键一拍拍冻结。",
-      "engine": "Canvas + 着色器 · 代码合成配乐",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/lvdong.py",
-      "sample": {
-        "file": "lvdong 玛雅文明.mp4",
-        "title": "玛雅文明",
-        "seconds": 58.0
-      }
-    },
-    {
-      "id": "huixingzhen",
-      "station": "graphic",
-      "name_zh": "回形针风",
-      "name_en": "Paperclip Explainer",
-      "tagline": "实拍照片贴纸化、精确图表、大画布连续运镜。",
-      "engine": "HTML 逐帧 · 确定性渲染",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/gen_episode.py",
-      "sample": {
-        "file": "huixingzhen 羽人.mp4",
-        "title": "羽人",
-        "seconds": 597.3
-      }
-    },
-    {
-      "id": "bianping",
-      "station": "graphic",
-      "name_zh": "扁平尺度漫游",
-      "name_en": "Scale Zoom Explainer",
-      "tagline": "从彗星撞木星连续推到黑洞事件视界，Orbi 小眼睛角色做引导。",
-      "engine": "SVG 代码绘制 · 仓库内抓帧",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/bianping.py",
-      "sample": {
-        "file": "bianping 扁平尺度漫游 僵尸地球.mp4",
-        "title": "僵尸地球",
-        "seconds": 35.7
-      }
-    },
-    {
-      "id": "zhuangshi",
-      "station": "graphic",
-      "name_zh": "装饰艺术",
-      "name_en": "Art Deco",
-      "tagline": "金线、漆面黑、阶梯边：酒店大堂在午夜亮起来，一切都从中心展开。",
-      "engine": "Canvas 2D · 金色渐变线 + 灯泡招牌 + 装饰字体排版",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/zhuangshi.py",
-      "sample": {
-        "file": "zhuangshi 星光酒店午夜.mp4",
-        "title": "星光酒店午夜",
-        "seconds": 39.0
-      }
-    },
-    {
-      "id": "xianshiqi",
-      "station": "screen",
-      "name_zh": "赛博 HUD",
-      "name_en": "Cyber HUD",
-      "tagline": "深青黑底、青色霓虹线框、雷达扫掠与目标锁定。",
-      "engine": "Three.js + Canvas FUI 覆盖层",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/xianshiqi.py",
-      "sample": {
-        "file": "xiangshiqi UAP_赛博.mp4",
-        "title": "UAP · 赛博",
-        "seconds": 30.0
-      }
-    },
-    {
-      "id": "xuni",
-      "station": "screen",
-      "name_zh": "合成波 VHS",
-      "name_en": "Synthwave VHS",
-      "tagline": "霓虹网格、日落、铬字、扫描线、Y2K 窗口。",
-      "engine": "Three.js + Canvas + VHS 后处理",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/xuni.py",
-      "sample": {
-        "file": "xuni_朊病毒.mp4",
-        "title": "朊病毒",
-        "seconds": 30.0
-      }
-    },
-    {
-      "id": "tuiyan",
-      "station": "d3",
-      "name_zh": "3D 战场推演",
-      "name_en": "3D Battle Sim",
-      "tagline": "全 3D 兵棋推演，稳帧 1080p，音效与 BGM 按关键镜挂。",
-      "engine": "3D 兵棋引擎 · 逐帧稳帧渲染",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/tuiyan.py",
-      "sample": {
-        "file": "tuiyan 3D 赤壁之战.mp4",
-        "title": "赤壁之战",
-        "seconds": 539.8
-      }
-    },
-    {
-      "id": "chengshi",
-      "station": "d3",
-      "name_zh": "城市年轮",
-      "name_en": "City Rings",
-      "tagline": "OSM/Esri/SRTM 真实数据驱动的白模 3D 城市，确定性生长。",
-      "engine": "Three.js + Remotion",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/chengshi.py",
-      "sample": {
-        "file": "sz 苏州 城长.mp4",
-        "title": "苏州 · 城长",
-        "seconds": 160.7
-      }
-    },
-    {
-      "id": "dengju",
-      "station": "d3",
-      "name_zh": "等轴 2.5D",
-      "name_en": "Isometric 2.5D",
-      "tagline": "粉彩微缩模型、真正等轴正交相机、地面瓦片波浪与滑轨运镜。",
-      "engine": "Three.js 正交场景",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/dengju.py",
-      "sample": {
-        "file": "dengju 羽人.mp4",
-        "title": "羽人",
-        "seconds": 30.0
-      }
-    },
-    {
-      "id": "isometric",
-      "station": "d3",
-      "name_zh": "等距微缩",
-      "name_en": "Isometric Diorama",
-      "tagline": "45° 等距微缩世界，带厚底座的方形地块组成系统，镜头连续滑行、讲到哪块就抬起哪块。",
-      "engine": "Canvas · Chrome 逐帧",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/isometric.py",
-      "sample": {
-        "file": "isometric_阿努纳奇.mp4",
-        "title": "阿努纳奇",
-        "seconds": 30.4
-      }
-    },
-    {
-      "id": "weisuo",
-      "station": "d3",
-      "name_zh": "孟菲斯微缩",
-      "name_en": "Memphis Diorama",
-      "tagline": "一座 2D 形状搭起来的 3D 微缩小镇，一年四季在框里转，人在一格一格走。",
-      "engine": "three.js 3D 微缩 + 法线/深度描边后处理",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/weisuo.py",
-      "sample": {
-        "file": "weisuo 柚子镇四季.mp4",
-        "title": "柚子镇四季",
-        "seconds": 45.0
-      }
-    },
-    {
-      "id": "map",
-      "station": "map",
-      "name_zh": "地图贴纸",
-      "name_en": "Map Stickers",
-      "tagline": "Natural Earth 真实底图上，人物贴纸与标注卡锚定经纬度。",
-      "engine": "Chrome 逐帧 + ffmpeg",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/map.py",
-      "sample": {
-        "file": "map_张骞寻路.mp4",
-        "title": "张骞寻路",
-        "seconds": 544.2
-      }
-    },
-    {
-      "id": "ditu",
-      "station": "map",
-      "name_zh": "真实地形",
-      "name_en": "Terrain Map",
-      "tagline": "卫星地形 + terrarium 高程，按高程起伏的三维水面从 84 km 推到 26 km。",
-      "engine": "WebGL · 高程驱动水面",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/ditu.py",
-      "sample": {
-        "file": "ditu 关羽.mp4",
-        "title": "关羽",
-        "seconds": 39.4
-      }
-    },
-    {
-      "id": "blueprint",
-      "station": "diagram",
-      "name_zh": "工程蓝图",
-      "name_en": "Blueprint",
-      "tagline": "蓝晒图纸、白色细线，构造线先出、尺寸与 leader 标注跟进，红铅笔唯一强调。",
-      "engine": "Canvas · Chrome 逐帧",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/blueprint.py",
-      "sample": {
-        "file": "blueprint_玄奘.mp4",
-        "title": "玄奘 · 前 10 秒",
-        "seconds": 12.1
-      }
-    },
-    {
-      "id": "parable",
-      "station": "diagram",
-      "name_zh": "火柴人寓言",
-      "name_en": "Stick-figure Parable",
-      "tagline": "黑虚空里的白色火柴人，两个角色同一堆材料，一个红色物件承载意义，无切镜。",
-      "engine": "Three.js · 固定广角",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/parable.py",
-      "sample": {
-        "file": "parable_阿努纳奇.mp4",
-        "title": "阿努纳奇",
-        "seconds": 178.3
-      }
-    },
-    {
-      "id": "shipai",
-      "station": "live",
-      "name_zh": "实拍混剪",
-      "name_en": "Live-footage Cut",
-      "tagline": "Pixabay 按 id 下载、固定顺序拼接，MoneyPrinterTurbo 出底片，一行式字幕烧入。",
-      "engine": "MoneyPrinterTurbo + ffmpeg",
-      "aspect": "9:16",
-      "fps": null,
-      "entry": "scripts/shipai.py",
-      "sample": {
-        "file": "shipai 实拍 玛雅.mp4",
-        "title": "玛雅",
-        "seconds": 17.9
-      }
-    },
-    {
-      "id": "jilupian",
-      "station": "live",
-      "name_zh": "纪录片解说",
-      "name_en": "Documentary",
-      "tagline": "给一份片源 URL 清单，核验、下载、口播、配音、影子匹配、自动剪辑到发布资料。",
-      "engine": "S1–S9 流水线",
-      "aspect": null,
-      "fps": null,
-      "entry": "scripts/jilupian.py",
-      "sample": {
-        "file": "jilupian 一口气看完日本3000年!从蒙古使者被砍头到两颗原子弹 这个国家的故事比权游还刺激#.mp4",
-        "title": "一口气看完日本3000年",
-        "seconds": 818.4
-      }
-    },
-    {
-      "id": "peiyin",
-      "station": "front",
-      "name_zh": "配音前端",
-      "name_en": "Voice Front-end",
-      "tagline": "选题、口播稿审计、批量克隆配音与时间轴，成片之前的两个阶段。",
-      "engine": "GPT-SoVITS · 长稿分段合成",
-      "aspect": null,
-      "fps": null,
-      "entry": "scripts/synthesize_dabao_paragraphs.py",
-      "sample": null,
-      "sample_note": "配音前端：只出口播稿与配音，不出片，因此不需要样片"
-    },
-    {
-      "id": "qianhuang",
-      "station": "hand",
-      "name_zh": "铅黄浓彩",
-      "name_en": "Giallo Gouache",
-      "tagline": "一页手绘浓彩被红蓝两盏色片灯夹住，刀落下去有声音。",
-      "engine": "Canvas 逐帧 · 钢笔浓彩 + 彩色色片光 + 合成音效",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/qianhuang.py",
-      "sample": {
-        "file": "qianhuang 血之海滩.mp4",
-        "title": "血之海滩 · 第一段",
-        "seconds": 21.5
-      }
-    },
-    {
-      "id": "qianhuang2",
-      "station": "hand",
-      "name_zh": "铅黄剪影",
-      "name_en": "Giallo Silhouette Stage",
-      "tagline": "全黑剪影站进一池舞台光，回头只靠发丝晚两帧与一道月白弧。",
-      "engine": "Canvas 2D 单页 · seek(t) 纯函数逐帧（剪影 + 双缘光 + 光池舞台）",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/qianhuang2.py",
-      "status": "live",
-      "sample": {
-        "file": "qianhuang2 血之海滩·剪影舞台.mp4",
-        "title": "血之海滩·剪影舞台",
-        "seconds": 21.5
-      }
-    },
-    {
-      "id": "zimu",
-      "station": "live",
-      "name_zh": "字幕新闻",
-      "name_en": "Caption News",
-      "tagline": "美国一年死掉 130 万箱蜜蜂，总数却涨了 6%：静音也能看懂的新闻。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/zimu.py",
-      "sample": {
-        "file": "zimu caption-news.mp4",
-        "title": "蜜蜂账本",
-        "seconds": 59.5
-      },
-      "status": "live",
-      "style_slug": "caption-news"
-    },
-    {
-      "id": "xinwen",
-      "station": "live",
-      "name_zh": "1920s 新闻影片",
-      "name_en": "1920s Newsreel",
-      "tagline": "1926 年报纸说查尔斯顿会跳坏膝盖，福特工人野餐会上的孩子照跳不误。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/xinwen.py",
-      "sample": {
-        "file": "xinwen newsreel.mp4",
-        "title": "膝盖警报",
-        "seconds": 54.6
-      },
-      "status": "live",
-      "style_slug": "newsreel"
-    },
-    {
-      "id": "daoshu",
-      "station": "live",
-      "name_zh": "实时倒计时分屏",
-      "name_en": "Live Countdown Split-screen",
-      "tagline": "阿尔忒弥斯二号发射的最后一分钟，一秒不剪：格子从 1 开到 9，点火合成 1。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/daoshu.py",
-      "sample": {
-        "file": "daoshu countdown.mp4",
-        "title": "自己倒数",
-        "seconds": 59.5
-      },
-      "status": "live",
-      "style_slug": "countdown"
-    },
-    {
-      "id": "jiaoxiang",
-      "station": "live",
-      "name_zh": "城市交响曲",
-      "name_en": "City Symphony",
-      "tagline": "纽约的一天：延时光河、踩着十六分音符的网格，1899 年和今天并排。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/jiaoxiang.py",
-      "sample": {
-        "file": "jiaoxiang city-symphony.mp4",
-        "title": "纽约的一天",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "city-symphony"
-    },
-    {
-      "id": "diaocha",
-      "station": "live",
-      "name_zh": "视觉调查",
-      "name_en": "Visual Investigation",
-      "tagline": "新闻片、照片、证词和调查报告排上同一条时间轴，五路来源指向一处。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/diaocha.py",
-      "sample": {
-        "file": "diaocha visual-investigation.mp4",
-        "title": "兴登堡号：四分钟与三十二秒",
-        "seconds": 60.0
-      },
-      "status": "live",
-      "style_slug": "visual-investigation"
-    },
-    {
-      "id": "mengtai",
-      "station": "live",
-      "name_zh": "构成主义蒙太奇",
-      "name_en": "Constructivist Montage",
-      "tagline": "帝国大厦的小册子写着建造者，工地实拍和老照片给出答案：每天 2,500 人。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/mengtai.py",
-      "sample": {
-        "file": "mengtai kino-montage.mp4",
-        "title": "410 天",
-        "seconds": 60.0
-      },
-      "status": "live",
-      "style_slug": "kino-montage"
-    },
-    {
-      "id": "zhanshu",
-      "station": "live",
-      "name_zh": "体育战术板",
-      "name_en": "Sports Telestrator",
-      "tagline": "半场 0–3，费内巴切 12 分钟连进三球：冻住画面、画线、分屏、射门图。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/zhanshu.py",
-      "sample": {
-        "file": "zhanshu telestrator.mp4",
-        "title": "定格",
-        "seconds": 54.4
-      },
-      "status": "live",
-      "style_slug": "telestrator"
-    },
-    {
-      "id": "baozhuang",
-      "station": "live",
-      "name_zh": "电视新闻包装",
-      "name_en": "Broadcast News Package",
-      "tagline": "一周四条 AI 新闻，一整套电视台包装：串联单、标题条、翻牌价格表、规格卡。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/baozhuang.py",
-      "sample": {
-        "file": "baozhuang news-package.mp4",
-        "title": "本周 AI 四件事",
-        "seconds": 53.5
-      },
-      "status": "live",
-      "style_slug": "news-package"
-    },
-    {
-      "id": "dangan",
-      "station": "live",
-      "name_zh": "档案看片台",
-      "name_en": "Archive Light Table",
-      "tagline": "电报说最长飞了 57 秒；放大镜下，莱特兄弟的底片和档案说是 59 秒。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/dangan.py",
-      "sample": {
-        "file": "dangan archive-lighttable.mp4",
-        "title": "差两秒",
-        "seconds": 40.0
-      },
-      "status": "live",
-      "style_slug": "archive-lighttable"
-    },
-    {
-      "id": "youhua",
-      "station": "hand",
-      "name_zh": "油画厚涂",
-      "name_en": "Impasto Oil Painting",
-      "tagline": "灰色雨中广场，第一把红伞撑开，圆舞曲把整个广场刷上颜色。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/youhua.py",
-      "sample": {
-        "file": "youhua impasto.mp4",
-        "title": "雨的颜色",
-        "seconds": 39.7
-      },
-      "status": "live",
-      "style_slug": "impasto"
-    },
-    {
-      "id": "yibi",
-      "station": "hand",
-      "name_zh": "一笔画",
-      "name_en": "One-line Drawing",
-      "tagline": "一根不离纸的线画完一个人的一生，再把笔交给孩子。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/yibi.py",
-      "sample": {
-        "file": "yibi one-line.mp4",
-        "title": "笔不离纸",
-        "seconds": 47.5
-      },
-      "status": "live",
-      "style_slug": "one-line"
-    },
-    {
-      "id": "baiban",
-      "station": "hand",
-      "name_zh": "白板讲解",
-      "name_en": "Whiteboard Explainer",
-      "tagline": "机翼剖面配六条流线，一口气讲清「上方快、低压，下方慢、高压」。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/baiban.py",
-      "sample": {
-        "file": "site/media/baiban.mp4",
-        "title": "飞机为什么能飞",
-        "seconds": 10.0
-      },
-      "status": "live",
-      "style_slug": "whiteboard"
-    },
-    {
-      "id": "heiban",
-      "station": "hand",
-      "name_zh": "黑板粉笔",
-      "name_en": "Chalkboard",
-      "tagline": "一条粉笔鲸配上三米小舢板，量尺一拉，十八米就有了分量。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/heiban.py",
-      "sample": {
-        "file": "site/media/heiban.mp4",
-        "title": "鲸为什么这么大",
-        "seconds": 10.0
-      },
-      "status": "live",
-      "style_slug": "chalkboard"
-    },
-    {
-      "id": "biji",
-      "station": "hand",
-      "name_zh": "视觉笔记",
-      "name_en": "Sketchnote",
-      "tagline": "采蜜、酿造、封盖三张卡片，虚线箭头把流程串成一页海报。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/biji.py",
-      "sample": {
-        "file": "site/media/biji.mp4",
-        "title": "蜜蜂怎样酿蜜",
-        "seconds": 10.0
-      },
-      "status": "live",
-      "style_slug": "sketchnote"
-    },
-    {
-      "id": "make",
-      "station": "hand",
-      "name_zh": "马克笔白纸速写",
-      "name_en": "Marker on Paper",
-      "tagline": "黑笔起形、马克笔压面，白墙青瓦和石拱桥在一张纸上醒来。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/make.py",
-      "sample": {
-        "file": "site/media/make.mp4",
-        "title": "平江路的清晨",
-        "seconds": 10.0
-      },
-      "status": "live",
-      "style_slug": "marker-paper"
-    },
-    {
-      "id": "jianzhi",
-      "station": "craft",
-      "name_zh": "红色窗花剪纸",
-      "name_en": "Red Paper-cut",
-      "tagline": "除夕年兽进村，小女孩剪出的大窗花照亮全村，把它吓跑。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/jianzhi.py",
-      "sample": {
-        "file": "jianzhi papercut-red.mp4",
-        "title": "年兽进村",
-        "seconds": 49.0
-      },
-      "status": "live",
-      "style_slug": "papercut-red"
-    },
-    {
-      "id": "boli",
-      "station": "craft",
-      "name_zh": "彩色玻璃窗",
-      "name_en": "Stained Glass",
-      "tagline": "铅条是骨架，光是血：十一块彩玻璃拼成孔雀尾羽，阳光从清晨移到黄昏。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/boli.py",
-      "sample": {
-        "file": "site/media/boli.mp4",
-        "title": "孔雀窗",
-        "seconds": 10.0
-      },
-      "status": "live",
-      "style_slug": "stained-glass"
-    },
-    {
-      "id": "jinbo",
-      "station": "craft",
-      "name_zh": "金箔彩绘",
-      "name_en": "Gilded Illumination",
-      "tagline": "羊皮纸上贴满金箔，蓝色首字母里藏着一句「光」：抄一页，就要一整天的灯。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/jinbo.py",
-      "sample": {
-        "file": "site/media/jinbo.mp4",
-        "title": "金箔抄本",
-        "seconds": 10.0
-      },
-      "status": "live",
-      "style_slug": "gilded-illumination"
-    },
-    {
-      "id": "kongban",
-      "station": "graphic",
-      "name_zh": "孔版印刷",
-      "name_en": "Risograph Print",
-      "tagline": "周日早晨骑车穿过城市：面包店、公园、河边，每到一处加一版油墨，最后三版套印。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/kongban.py",
-      "sample": {
-        "file": "kongban risograph.mp4",
-        "title": "周日骑行",
-        "seconds": 40.0
-      },
-      "status": "live",
-      "style_slug": "risograph"
-    },
-    {
-      "id": "wangdian",
-      "station": "graphic",
-      "name_zh": "网点档案",
-      "name_en": "Halftone Dossier",
-      "tagline": "橘猫胖橘被立案审查：测试重力、凌晨跑酷，最后无罪释放。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/wangdian.py",
-      "sample": {
-        "file": "wangdian halftone-dossier.mp4",
-        "title": "胖橘案卷",
-        "seconds": 30.0
-      },
-      "status": "live",
-      "style_slug": "halftone-dossier"
-    },
-    {
-      "id": "muke",
-      "station": "graphic",
-      "name_zh": "木刻版画",
-      "name_en": "Woodcut Print",
-      "tagline": "村子用一整个冬天铸一口钟，钟声第一次响起，雪停了。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/muke.py",
-      "sample": {
-        "file": "muke woodcut.mp4",
-        "title": "铸钟人",
-        "seconds": 58.5
-      },
-      "status": "live",
-      "style_slug": "woodcut"
-    },
-    {
-      "id": "tongban",
-      "station": "graphic",
-      "name_zh": "铜版画",
-      "name_en": "Copperplate Engraving",
-      "tagline": "一张博物志图版自己刻出来：雕刀推开铜版，蜜蜂一线线成形，最后手工水彩上色。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/tongban.py",
-      "sample": {
-        "file": "tongban engraving.mp4",
-        "title": "蜜蜂，图版七",
-        "seconds": 40.0
-      },
-      "status": "live",
-      "style_slug": "engraving"
-    },
-    {
-      "id": "siyin",
-      "station": "graphic",
-      "name_zh": "丝印旅行海报",
-      "name_en": "Silkscreen Travel Poster",
-      "tagline": "一张满屏丝印海报一座城，票根数着离家的公里数，走到世界的另一头，才发现那是回家的路。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/siyin.py",
-      "sample": {
-        "file": "siyin silkscreen-poster.mp4",
-        "title": "绕远路回家",
-        "seconds": 50.0
-      },
-      "status": "live",
-      "style_slug": "silkscreen-poster"
-    },
-    {
-      "id": "guaban",
-      "station": "graphic",
-      "name_zh": "刮版画长镜头",
-      "name_en": "Scratchboard Long Take",
-      "tagline": "刮版画的北海道河谷一镜到底，丹顶鹤从 33 只数回到 1,927 只。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/guaban.py",
-      "sample": {
-        "file": "guaban printed-long-take.mp4",
-        "title": "三十三只",
-        "seconds": 60.0
-      },
-      "status": "live",
-      "style_slug": "printed-long-take"
-    },
-    {
-      "id": "bopu",
-      "station": "graphic",
-      "name_zh": "波普艺术",
-      "name_en": "Pop Art",
-      "tagline": "超市里几乎每根香蕉都是同一株植物的复制：一面一模一样的版画墙，一根被网点吃黑的老香蕉，最后一波换色翻出上千种香蕉。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/bopu.py",
-      "sample": {
-        "file": "bopu pop-art.mp4",
-        "title": "同一根香蕉",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "pop-art"
-    },
-    {
-      "id": "fugu",
-      "station": "graphic",
-      "name_zh": "复古版画拼贴",
-      "name_en": "Vintage Engraving Collage",
-      "tagline": "1918 年一整版印反了的航空邮票：24 美元买下、剪开散落，66 号至今下落不明。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/fugu.py",
-      "sample": {
-        "file": "fugu vintage-collage.mp4",
-        "title": "倒置的珍妮",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "vintage-collage"
-    },
-    {
-      "id": "ruishi",
-      "station": "graphic",
-      "name_zh": "瑞士动态排版",
-      "name_en": "Swiss Motion Graphics",
-      "tagline": "一张音乐会海报按瑞士设计的五条规则自己排版，第五条是只打破一条。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/ruishi.py",
-      "sample": {
-        "file": "ruishi swiss-motion.mp4",
-        "title": "海报的五条规则",
-        "seconds": 44.0
-      },
-      "status": "live",
-      "style_slug": "swiss-motion"
-    },
-    {
-      "id": "jiandie",
-      "station": "graphic",
-      "name_zh": "60s 间谍片头",
-      "name_en": "60s Spy Title Sequence",
-      "tagline": "虚构 1964 年间谍片的片头：追一把被偷的钥匙，几何碎片最后拼成片名。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/jiandie.py",
-      "sample": {
-        "file": "jiandie spy-titles.mp4",
-        "title": "天鹅绒密码",
-        "seconds": 44.1
-      },
-      "status": "live",
-      "style_slug": "spy-titles"
-    },
-    {
-      "id": "xiangxing",
-      "station": "graphic",
-      "name_zh": "象形运动图形",
-      "name_en": "Pictogram Motion",
-      "tagline": "一把被落在公交车上的黄伞，晴天里在失物招领的货架上等了一整天，暴雨回来时和另外 312 把一起撑开：物件、交通、天气和标识，都是卡着节拍的几何象形符号。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/xiangxing.py",
-      "sample": {
-        "file": "xiangxing pictogram-motion.mp4",
-        "title": "被落下的伞",
-        "seconds": 50.0
-      },
-      "status": "live",
-      "style_slug": "pictogram-motion"
-    },
-    {
-      "id": "baohao",
-      "station": "graphic",
-      "name_zh": "包豪斯几何",
-      "name_en": "Bauhaus Shapes",
-      "tagline": "一个点每十年翻一倍：七十年后是 128，不复利只有 6.02，最后十年抵得上之前的全部。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/baohao.py",
-      "sample": {
-        "file": "baohao bauhaus-shapes.mp4",
-        "title": "复利是怎么滚起来的",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "bauhaus-shapes"
-    },
-    {
-      "id": "wenzi",
-      "station": "graphic",
-      "name_zh": "文字闪切",
-      "name_en": "Text Flash Cuts",
-      "tagline": "一封信、一通电话、一面窗墙、十三级台阶：叫他别回头的她每一话都更近一步，直到她自己猛地回头。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/wenzi.py",
-      "sample": {
-        "file": "wenzi text-flash-cuts.mp4",
-        "title": "身后",
-        "seconds": 46.2
-      },
-      "status": "live",
-      "style_slug": "text-flash-cuts"
-    },
-    {
-      "id": "xinxi",
-      "station": "diagram",
-      "name_zh": "等距信息图",
-      "name_en": "Isometric Infographic",
-      "tagline": "一杯咖啡从种植园到你手里的旅程。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/xinxi.py",
-      "sample": {
-        "file": "xinxi iso-infographic.mp4",
-        "title": "从豆到杯",
-        "seconds": 58.8
-      },
-      "status": "live",
-      "style_slug": "iso-infographic"
-    },
-    {
-      "id": "chaijie",
-      "station": "diagram",
-      "name_zh": "产品拆解",
-      "name_en": "Exploded Teardown",
-      "tagline": "开源键盘的一半在一次环绕中逐层拆开，看到主控再合拢，标上真实尺寸。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/chaijie.py",
-      "sample": {
-        "file": "chaijie teardown.mp4",
-        "title": "二十一键",
-        "seconds": 38.8
-      },
-      "status": "live",
-      "style_slug": "teardown"
-    },
-    {
-      "id": "poumian",
-      "station": "diagram",
-      "name_zh": "线稿剖面图解",
-      "name_en": "Line-Art Cutaway",
-      "tagline": "一部手机握住底角就掉信号；拆开才发现金属边框就是天线，被切成几段，手一握就把缝连上了。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/poumian.py",
-      "sample": {
-        "file": "poumian hardcore-info.mp4",
-        "title": "你手机的天线在哪",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "hardcore-info"
-    },
-    {
-      "id": "jixie",
-      "station": "diagram",
-      "name_zh": "分色机械图解",
-      "name_en": "Color-Coded Mechanism",
-      "tagline": "剖开一块不用电的表：三套系统按能量流向逐一染色，抽走擒纵后齿轮疯转，最后放慢到 1/40 等那一声滴答。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/jixie.py",
-      "sample": {
-        "file": "jixie precise-mechanism.mp4",
-        "title": "三套系统走时",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "precise-mechanism"
-    },
-    {
-      "id": "shuoming",
-      "station": "diagram",
-      "name_zh": "说明书插画",
-      "name_en": "Instruction Manual Art",
-      "tagline": "两个从没装过家具的新手照说明书装婴儿床，十步排在同一张 45° 说明书上；第十步，说明书里没有。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/shuoming.py",
-      "sample": {
-        "file": "shuoming instruction-manual.mp4",
-        "title": "第十步",
-        "seconds": 50.6
-      },
-      "status": "live",
-      "style_slug": "instruction-manual"
-    },
-    {
-      "id": "bishi",
-      "station": "diagram",
-      "name_zh": "笔式绘图仪",
-      "name_en": "Pen Plotter",
-      "tagline": "深夜台灯下，一台笔式绘图仪用四支笔按真实高程画出珠穆朗玛峰，最后一笔写下它的高度。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/bishi.py",
-      "sample": {
-        "file": "bishi pen-plotter.mp4",
-        "title": "8848.86",
-        "seconds": 49.9
-      },
-      "status": "live",
-      "style_slug": "pen-plotter"
-    },
-    {
-      "id": "liushui",
-      "station": "diagram",
-      "name_zh": "流水线图解",
-      "name_en": "Assembly-Line Diagram",
-      "tagline": "把人体剖成一座倒着开的工厂：12:30 的一份三明治被一站一站拆开，六小时后变成追公交车的力气。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/liushui.py",
-      "sample": {
-        "file": "liushui assembly-line-diagram.mp4",
-        "title": "拆解流水线",
-        "seconds": 54.9
-      },
-      "status": "live",
-      "style_slug": "assembly-line-diagram"
-    },
-    {
-      "id": "xianwei",
-      "station": "diagram",
-      "name_zh": "显微镜下",
-      "name_en": "Under the Microscope",
-      "tagline": "一镜从肝组织玻片推到单个细胞核，两个圆逐像素数出 2.4 倍的蓝。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/xianwei.py",
-      "sample": {
-        "file": "xianwei microscope.mp4",
-        "title": "量出来的蓝",
-        "seconds": 39.5
-      },
-      "status": "live",
-      "style_slug": "microscope"
-    },
-    {
-      "id": "jianbao",
-      "station": "diagram",
-      "name_zh": "工程简报板",
-      "name_en": "Engineering Briefing Board",
-      "tagline": "一条河要架桥，四种桥型在一面简报墙上逐个受检，拍板的是桥下要过的船。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/jianbao.py",
-      "sample": {
-        "file": "jianbao briefing-board.mp4",
-        "title": "船说了算",
-        "seconds": 40.0
-      },
-      "status": "live",
-      "style_slug": "briefing-board"
-    },
-    {
-      "id": "anjian",
-      "station": "diagram",
-      "name_zh": "安检 X 光",
-      "name_en": "Security X-ray",
-      "tagline": "机场安检机屏幕上的一个夜班：一个充电宝、一瓶水，还有在 CT 里动了一下腿的六只活蟹。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/anjian.py",
-      "sample": {
-        "file": "anjian security-xray.mp4",
-        "title": "安检口的夜班",
-        "seconds": 51.9
-      },
-      "status": "live",
-      "style_slug": "security-xray"
-    },
-    {
-      "id": "sailu",
-      "station": "toon",
-      "name_zh": "80 年代赛璐璐动画",
-      "name_en": "80s Cel Anime",
-      "tagline": "快递少女骑车穿过雨后霓虹都市，赶在黎明发射前送到一盘磁带。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/sailu.py",
-      "sample": {
-        "file": "sailu cel-anime-80s.mp4",
-        "title": "城市灯火，1987",
-        "seconds": 59.0
-      },
-      "status": "live",
-      "style_slug": "cel-anime-80s"
-    },
-    {
-      "id": "kehuan",
-      "station": "toon",
-      "name_zh": "科幻情景喜剧卡通",
-      "name_en": "Sci-Fi Sitcom Toon",
-      "tagline": "厌世天才开传送门只想买杯咖啡，却穿过越来越离谱的平行宇宙。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/kehuan.py",
-      "sample": {
-        "file": "kehuan scifi-toon.mp4",
-        "title": "跑腿买咖啡",
-        "seconds": 57.5
-      },
-      "status": "live",
-      "style_slug": "scifi-toon"
-    },
-    {
-      "id": "wushi",
-      "station": "toon",
-      "name_zh": "50s 扁平卡通",
-      "name_en": "Mid-century Cartoon",
-      "tagline": "用 50 年代教育片的口吻，三步教你装好一台扫地机。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/wushi.py",
-      "sample": {
-        "file": "wushi midcentury-toon.mp4",
-        "title": "认识一下 Pip",
-        "seconds": 40.0
-      },
-      "status": "live",
-      "style_slug": "midcentury-toon"
-    },
-    {
-      "id": "gaoxiao",
-      "station": "toon",
-      "name_zh": "搞笑历史卡通",
-      "name_en": "Comic History Cartoon",
-      "tagline": "阿尔萨斯-洛林在 1871 到 1945 年间四次换主人：每次都有人撕下那块纸、贴上新的，住在上面的她一步没挪。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/gaoxiao.py",
-      "sample": {
-        "file": "gaoxiao comic-history.mp4",
-        "title": "一块纸",
-        "seconds": 51.0
-      },
-      "status": "live",
-      "style_slug": "comic-history"
-    },
-    {
-      "id": "xiangsu2",
-      "station": "toon",
-      "name_zh": "2.5D 像素",
-      "name_en": "2.5D Pixel Art",
-      "tagline": "灯塔熄灭，孙女提着最后一簇火穿过夜林、爬上风暴悬崖。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/xiangsu2.py",
-      "sample": {
-        "file": "xiangsu2 hd-2d.mp4",
-        "title": "守灯人",
-        "seconds": 76.5
-      },
-      "status": "live",
-      "style_slug": "hd-2d"
-    },
-    {
-      "id": "weiyou",
-      "station": "toon",
-      "name_zh": "微游戏快闪",
-      "name_en": "Microgame Frenzy",
-      "tagline": "见习宇航员闯五秒训练营，越来越快，Boss 关亲手降落回地球。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/weiyou.py",
-      "sample": {
-        "file": "weiyou microgame.mp4",
-        "title": "五秒宇航员",
-        "seconds": 59.8
-      },
-      "status": "live",
-      "style_slug": "microgame"
-    },
-    {
-      "id": "jiezou",
-      "station": "toon",
-      "name_zh": "节奏综艺",
-      "name_en": "Rhythm Game Show",
-      "tagline": "把 AI 发展史做成一局节奏游戏，模型踩着拍登场，最后发成绩单。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/jiezou.py",
-      "sample": {
-        "file": "jiezou game-show.mp4",
-        "title": "AI 进化节拍",
-        "seconds": 148.8
-      },
-      "status": "live",
-      "style_slug": "game-show"
-    },
-    {
-      "id": "zifu",
-      "station": "screen",
-      "name_zh": "CRT 字符终端",
-      "name_en": "CRT ASCII Terminal",
-      "tagline": "月球基地的 AI 沉睡 40 年后被唤醒，用字符画出“家”来回复。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/zifu.py",
-      "sample": {
-        "file": "zifu ascii-crt.mp4",
-        "title": "静海日志",
-        "seconds": 59.8
-      },
-      "status": "live",
-      "style_slug": "ascii-crt"
-    },
-    {
-      "id": "mopian",
-      "station": "screen",
-      "name_zh": "1920s 默片",
-      "name_en": "1920s Silent Film",
-      "tagline": "面包店学徒追一个滚走的面包，最后掰成两半分给饿肚子的小女孩。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/mopian.py",
-      "sample": {
-        "file": "mopian silent-film.mp4",
-        "title": "逃跑的面包",
-        "seconds": 54.2
-      },
-      "status": "live",
-      "style_slug": "silent-film"
-    },
-    {
-      "id": "houshi",
-      "station": "screen",
-      "name_zh": "后室录像带",
-      "name_en": "Liminal Found Footage",
-      "tagline": "新夜班员工拍下入职第一晚：无尽的黄色办公空间，和墙上的员工守则。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/houshi.py",
-      "sample": {
-        "file": "houshi backrooms.mp4",
-        "title": "夜班入职培训",
-        "seconds": 59.7
-      },
-      "status": "live",
-      "style_slug": "backrooms"
-    },
-    {
-      "id": "zhike",
-      "station": "screen",
-      "name_zh": "胶片直刻",
-      "name_en": "Scratch Film",
-      "tagline": "一条手指长的灯笼鱼摸黑往上游半公里，用自己的光藏起影子；镜头拉远，原来每晚有无数动物和它一起升起。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/zhike.py",
-      "sample": {
-        "file": "zhike scratch-film.mp4",
-        "title": "夜里往上游",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "scratch-film"
-    },
-    {
-      "id": "puguang",
-      "station": "screen",
-      "name_zh": "双重曝光",
-      "name_en": "Double Exposure",
-      "tagline": "天黑下来的这一路，从山到海：鹿、狼、鹰、鲑鱼、鲸，每只动物的剪影里装着它的那片天地；最后鲸身体里的港湾落在真的海岸上。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/puguang.py",
-      "sample": {
-        "file": "puguang double-exposure.mp4",
-        "title": "山海",
-        "seconds": 50.5
-      },
-      "status": "live",
-      "style_slug": "double-exposure"
-    },
-    {
-      "id": "fabu",
-      "station": "screen",
-      "name_zh": "暗色科技发布",
-      "name_en": "Dark Tech Keynote",
-      "tagline": "虚构 app Tidy 的发布片：被埋掉的光标一键把几百个窗口归位。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/fabu.py",
-      "sample": {
-        "file": "fabu dark-keynote.mp4",
-        "title": "思考的空间",
-        "seconds": 42.0
-      },
-      "status": "live",
-      "style_slug": "dark-keynote"
-    },
-    {
-      "id": "luping",
-      "station": "screen",
-      "name_zh": "像素小人录屏",
-      "name_en": "Mascot Screencast",
-      "tagline": "像素小人 Clawd 搬进 Claude 应用，一镜到底演示 Plan 模式和自检。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/luping.py",
-      "sample": {
-        "file": "luping living-screencast.mp4",
-        "title": "Clawd 搬进来了",
-        "seconds": 59.4
-      },
-      "status": "live",
-      "style_slug": "living-screencast"
-    },
-    {
-      "id": "zhuomian",
-      "station": "screen",
-      "name_zh": "桌面卡片穿梭",
-      "name_en": "Tabletop App Flythrough",
-      "tagline": "一张猫照片跳过桌上的应用卡片，从一台手机飞到朋友手机里，一镜跟到底。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/zhuomian.py",
-      "sample": {
-        "file": "zhuomian desktop-flythrough.mp4",
-        "title": "叮之前",
-        "seconds": 60.0
-      },
-      "status": "live",
-      "style_slug": "desktop-flythrough"
-    },
-    {
-      "id": "biaoge",
-      "station": "screen",
-      "name_zh": "表格动画",
-      "name_en": "Spreadsheet Film",
-      "tagline": "总数说 B 更好；把藏起来的结石大小列打开，A 在每一组都赢。一张表讲清辛普森悖论，一格就是一位病人。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/biaoge.py",
-      "sample": {
-        "file": "biaoge spreadsheet.mp4",
-        "title": "藏起来的那一列",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "spreadsheet"
-    },
-    {
-      "id": "dianzhen",
-      "station": "screen",
-      "name_zh": "1-bit 点阵",
-      "name_en": "1-bit Dither",
-      "tagline": "1966 年 2 月，月面的第一张近照被英国一座射电望远镜当成报社传真收下，一行一行印出来：早了一天，比例却拉高了。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/dianzhen.py",
-      "sample": {
-        "file": "dianzhen one-bit-dither.mp4",
-        "title": "月亮的传真",
-        "seconds": 50.0
-      },
-      "status": "live",
-      "style_slug": "one-bit-dither"
-    },
-    {
-      "id": "dianlu",
-      "station": "screen",
-      "name_zh": "电路板",
-      "name_en": "Circuit Board",
-      "tagline": "江河变成电路板上的走线，电流从水坝跑 2,080 公里进手机充电器。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/dianlu.py",
-      "sample": {
-        "file": "dianlu circuit-board.mp4",
-        "title": "七毫秒",
-        "seconds": 60.0
-      },
-      "status": "live",
-      "style_slug": "circuit-board"
-    },
-    {
-      "id": "yinghuo",
-      "station": "screen",
-      "name_zh": "萤火光点",
-      "name_en": "Firefly Pointillism",
-      "tagline": "萤火虫闪一下就是在发问：女孩得到的回答是一只鹿，暴风雨吹灭了所有的光，她用最后一只问遍了整片黑夜。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/yinghuo.py",
-      "sample": {
-        "file": "yinghuo firefly-pointillism.mp4",
-        "title": "你亮，我就亮",
-        "seconds": 50.6
-      },
-      "status": "live",
-      "style_slug": "firefly-pointillism"
-    },
-    {
-      "id": "liuchang",
-      "station": "screen",
-      "name_zh": "流场风线",
-      "name_en": "Flow-field Wind Lines",
-      "tagline": "几千条从最佳路径算出来的墨色风线，画出超强台风摩羯的一生：在南海睁开风眼，在文昌登陆，在越南散开，一整周最后收成一条线。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/liuchang.py",
-      "sample": {
-        "file": "liuchang flow-field.mp4",
-        "title": "摩羯过琼州",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "flow-field"
-    },
-    {
-      "id": "shibo",
-      "station": "screen",
-      "name_zh": "示波器数学",
-      "name_en": "Oscilloscope Math",
-      "tagline": "方方正正的波，怎么由圆滚出来？一个个圆叠成方波，直到镜头扎进一个角：那里有一个永远消不掉的 9% 尖角。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/shibo.py",
-      "sample": {
-        "file": "shibo oscilloscope-math.mp4",
-        "title": "吉布斯现象",
-        "seconds": 51.1
-      },
-      "status": "live",
-      "style_slug": "oscilloscope-math"
-    },
-    {
-      "id": "nihong",
-      "station": "screen",
-      "name_zh": "霓虹灯管",
-      "name_en": "Neon Tubes",
-      "tagline": "一只霓虹猫去街尾招牌上偷金鱼当夜宵，一爪子拍漏了鱼缸，又叼着快灭的鱼冒雨跑回家，放进自家招牌上的冰饮杯。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/nihong.py",
-      "sample": {
-        "file": "nihong neon-tubes.mp4",
-        "title": "夜宵",
-        "seconds": 48.0
-      },
-      "status": "live",
-      "style_slug": "neon-tubes"
-    },
-    {
-      "id": "leida",
-      "station": "screen",
-      "name_zh": "雷达扫描纪录片",
-      "name_en": "Radar Sweep Documentary",
-      "tagline": "1969 年 7 月 21 日帕克斯的风暴里，一面放倒到极限的 64 米天线顶住了风，替全世界接住了登月直播。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/leida.py",
-      "sample": {
-        "file": "leida dark-documentary.mp4",
-        "title": "狂风里接住登月直播",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "dark-documentary"
-    },
-    {
-      "id": "jimu",
-      "station": "d3",
-      "name_zh": "积木玩具",
-      "name_en": "Brick Toy",
-      "tagline": "积木宇航员用零件拼出火箭，飞向积木月亮。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/jimu.py",
-      "sample": {
-        "file": "jimu brick-toy.mp4",
-        "title": "零件拼出的火箭",
-        "seconds": 54.0
-      },
-      "status": "live",
-      "style_slug": "brick-toy"
-    },
-    {
-      "id": "liti",
-      "station": "d3",
-      "name_zh": "纸片立体书",
-      "name_en": "Paper Pop-up Book",
-      "tagline": "立体书在书桌上打开，小精灵 Pip 在纸片世界冒险，最后跳出书外。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/liti.py",
-      "sample": {
-        "file": "liti paper-popup.mp4",
-        "title": "小精灵冒险记",
-        "seconds": 133.0
-      },
-      "status": "live",
-      "style_slug": "paper-popup"
-    },
-    {
-      "id": "yizhou",
-      "station": "d3",
-      "name_zh": "移轴微缩",
-      "name_en": "Tilt-Shift Miniature",
-      "tagline": "玩具城的早高峰，一切都像模型。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/yizhou.py",
-      "sample": {
-        "file": "yizhou tilt-shift.mp4",
-        "title": "玩具城早高峰",
-        "seconds": 38.0
-      },
-      "status": "live",
-      "style_slug": "tilt-shift"
-    },
-    {
-      "id": "chanpin",
-      "station": "d3",
-      "name_zh": "玻璃质感产品",
-      "name_en": "Glass Product Render",
-      "tagline": "虚构玻璃耳机 Aura 的开箱与特写。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/chanpin.py",
-      "sample": {
-        "file": "chanpin glass-product.mp4",
-        "title": "Aura：听见光",
-        "seconds": 32.0
-      },
-      "status": "live",
-      "style_slug": "glass-product"
-    },
-    {
-      "id": "labi2",
-      "station": "d3",
-      "name_zh": "蜡笔立体世界",
-      "name_en": "Crayon World 3D",
-      "tagline": "蜡笔的粗线画出一个等轴的小村子，镜头飞到花园，停在一朵花上的蝴蝶。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/labi2.py",
-      "sample": {
-        "file": "site/media/labi2.mp4",
-        "title": "一朵花上的蝴蝶",
-        "seconds": 10.0
-      },
-      "status": "live",
-      "style_slug": "crayon-world"
-    },
-    {
-      "id": "weixing",
-      "station": "map",
-      "name_zh": "卫星简报",
-      "name_en": "Satellite Briefing",
-      "tagline": "卫星照着地图去找咸海，找到的是沙漠；只有筑了坝的那一块回来了。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/weixing.py",
-      "sample": {
-        "file": "weixing satellite-briefing.mp4",
-        "title": "地图上还写着海",
-        "seconds": 37.8
-      },
-      "status": "live",
-      "style_slug": "satellite-briefing"
-    },
-    {
-      "id": "cehui",
-      "station": "map",
-      "name_zh": "点云测绘",
-      "name_en": "LiDAR Survey",
-      "tagline": "激光点云剥掉一片森林的树冠，露出当年农田的石墙：3.4 公里。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/cehui.py",
-      "sample": {
-        "file": "cehui lidar-survey.mp4",
-        "title": "林下的田",
-        "seconds": 40.0
-      },
-      "status": "live",
-      "style_slug": "lidar-survey"
-    },
-    {
-      "id": "recheng",
-      "station": "map",
-      "name_zh": "热成像",
-      "name_en": "Thermal Camera",
-      "tagline": "雪夜里，一台热像仪绕着一栋老居民楼转：漏风的窗、墙里的暖气管、睡在热车盖上的猫，还有一年后改造完的同一栋楼。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（场族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/recheng.py",
-      "sample": {
-        "file": "recheng thermal-camera.mp4",
-        "title": "冬夜，一栋楼的体温",
-        "seconds": 49.0
-      },
-      "status": "live",
-      "style_slug": "thermal-camera"
-    },
-    {
-      "id": "shuju",
-      "station": "map",
-      "name_zh": "数据叙事",
-      "name_en": "Data Storytelling",
-      "tagline": "一百年的夏季气温，图表本身就是故事。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/shuju.py",
-      "sample": {
-        "file": "shuju dataviz.mp4",
-        "title": "一百个夏天",
-        "seconds": 50.0
-      },
-      "status": "live",
-      "style_slug": "dataviz"
-    },
-    {
-      "id": "baimo",
-      "station": "map",
-      "name_zh": "白模投影",
-      "name_en": "Projection-Mapped Model",
-      "tagline": "投影机把数据一层层刷上鹿特丹白模：从 1940 年的空洞到今天的塔楼。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/baimo.py",
-      "sample": {
-        "file": "baimo white-model.mp4",
-        "title": "被炸平的城市怎样长回来",
-        "seconds": 40.0
-      },
-      "status": "live",
-      "style_slug": "white-model"
-    },
-    {
-      "id": "shiwu",
-      "station": "map",
-      "name_zh": "数据实物化",
-      "name_en": "Data Physicalization",
-      "tagline": "十二年风电和太阳能装机叠成实物，绕表盘升成两条螺旋，2021 年太阳能反超。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/shiwu.py",
-      "sample": {
-        "file": "shiwu data-physical.mp4",
-        "title": "两条螺旋",
-        "seconds": 39.4
-      },
-      "status": "live",
-      "style_slug": "data-physical"
-    },
-    {
-      "id": "dietie",
-      "station": "map",
-      "name_zh": "地铁线路图",
-      "name_en": "Transit Map",
-      "tagline": "一张纸上的线路图，从 1993 年的 6 公里长到 21 条线、906 公里。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/dietie.py",
-      "sample": {
-        "file": "dietie transit-map.mp4",
-        "title": "6 公里",
-        "seconds": 47.0
-      },
-      "status": "live",
-      "style_slug": "transit-map"
-    },
-    {
-      "id": "moni",
-      "station": "map",
-      "name_zh": "小人模拟实验",
-      "name_en": "Blob Simulation",
-      "tagline": "160 只植绒小人抢豆子：快的先抢到也先跑不动，跑完 20 代，整块台面都变蓝了。",
-      "engine": "自研渲染 · vendor/runtime/stylekit.js（场族）",
-      "aspect": "16:9",
-      "fps": null,
-      "entry": "scripts/moni.py",
-      "sample": {
-        "file": "moni pip-simulation.mp4",
-        "title": "跑得快，就更好吗？",
-        "seconds": 52.0
-      },
-      "status": "live",
-      "style_slug": "pip-simulation"
-    },
-    {
-      "id": "liaotian",
-      "station": "screen",
-      "name_zh": "聊天叙事",
-      "name_en": "Chat Narrative",
-      "tagline": "故事发生在聊天软件里：气泡、输入中、语音条与引用卡，镜头推进一条时其余变暗。",
-      "engine": "Canvas · Chrome 逐帧（本地运行时）",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/liaotian.py",
-      "sample": {
-        "file": "liaotian bb-chat.mp4",
-        "title": "一骑红尘妃子笑 · 聊天群",
-        "seconds": 58.6
-      },
-      "status": "live",
-      "legacy_style": "chat"
-    },
-    {
-      "id": "keli",
-      "station": "graphic",
-      "name_zh": "扁平颗粒插画",
-      "name_en": "Flat Grain Illustration",
-      "tagline": "两种专色印在暖纸上，体积与光全靠点状颗粒；一条地平线把时代一段段长出来。",
-      "engine": "Canvas · Chrome 逐帧（本地运行时）",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/keli.py",
-      "sample": {
-        "file": "keli bb-grain.mp4",
-        "title": "人类如何照亮夜晚",
-        "seconds": 92.6
-      },
-      "status": "live",
-      "legacy_style": "grain"
-    },
-    {
-      "id": "andiao",
-      "station": "screen",
-      "name_zh": "暗调励志",
-      "name_en": "Dark Motivational",
-      "tagline": "几乎全黑的房间只留一盏动机光，方形头小人用眉眼演完熬夜、拖延与那个决定。",
-      "engine": "Canvas · Chrome 逐帧（本地运行时）",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/andiao.py",
-      "sample": {
-        "file": "andiao bb-lumen.mp4",
-        "title": "再刷五分钟 · 报复性熬夜",
-        "seconds": 165.3
-      },
-      "status": "live",
-      "legacy_style": "lumen"
-    },
-    {
-      "id": "xuanyi",
-      "station": "screen",
-      "name_zh": "悬疑探秘",
-      "name_en": "Suspense Mystery",
-      "tagline": "冷面伪科学电视：4:3 蓝屏、编号症状、橡皮管贴纸演一遍，最后切到测试卡。",
-      "engine": "Canvas · Chrome 逐帧（本地运行时）",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/xuanyi.py",
-      "sample": {
-        "file": "xuanyi bb-mystery.mp4",
-        "title": "为什么你的朋友该叫你爸爸",
-        "seconds": 44.4
-      },
-      "status": "live",
-      "legacy_style": "mystery"
-    },
-    {
-      "id": "oupu",
-      "station": "graphic",
-      "name_zh": "欧普艺术",
-      "name_en": "Op Art",
-      "tagline": "黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。",
-      "engine": "Canvas · Chrome 逐帧（本地运行时）",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/oupu.py",
-      "sample": {
-        "file": "oupu bb-op.mp4",
-        "title": "Stripe · 官网",
-        "seconds": 22.3
-      },
-      "status": "live",
-      "legacy_style": "op"
-    },
-    {
-      "id": "yugao",
-      "station": "graphic",
-      "name_zh": "电影预告",
-      "name_en": "Movie Trailer",
-      "tagline": "2.39:1 遮幅的好莱坞预告：青橙调、黑底金属字卡、钢琴一记、BRAAM 与标题砸屏。",
-      "engine": "Canvas · Chrome 逐帧（本地运行时）",
-      "aspect": "16:9",
-      "fps": 30,
-      "entry": "scripts/yugao.py",
-      "sample": {
-        "file": "yugao bb-trailer.mp4",
-        "title": "Deep Space Echo · 预告",
-        "seconds": 83.2
-      },
-      "status": "live",
-      "legacy_style": "trailer"
-    },
-    {
-      "id": "dongxue",
-      "station": "craft",
-      "name_zh": "洞穴岩画",
-      "name_en": "Cave Painting",
-      "tagline": "噪声岩壁作底、炭点毛边勾形，赭石真的吃进岩面；野牛两姿态交替跑，火光一直在摇。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/dongxue.py",
-      "status": "live",
-      "sample": {
-        "file": "dongxue huashu-洞穴岩画.mp4",
-        "title": "洞穴岩画 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "aiji",
-      "station": "craft",
-      "name_zh": "埃及墓室壁画",
-      "name_en": "Egyptian Wall Painting",
-      "tagline": "侧脸正面眼、平涂细勾线、手写象形字；圣甲虫推着太阳，阿顿的光线一开一合。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/aiji.py",
-      "status": "live",
-      "sample": {
-        "file": "aiji huashu-埃及墓室壁画.mp4",
-        "title": "埃及墓室壁画 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "xila",
-      "station": "craft",
-      "name_zh": "古希腊黑绘陶",
-      "name_en": "Attic Black-Figure",
-      "tagline": "黑剪影配陶土色刻线，紫红带点白；回纹带反向滚动，陶瓶像滚筒一样转面。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/xila.py",
-      "status": "live",
-      "sample": {
-        "file": "xila huashu-古希腊黑绘陶.mp4",
-        "title": "古希腊黑绘陶 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "pangbei",
-      "station": "craft",
-      "name_zh": "庞贝马赛克",
-      "name_en": "Pompeii Mosaic",
-      "tagline": "距离场沿轮廓排石块，灰浆按加权 Voronoi 长出来；颜色顺着波浪纹一圈圈流过。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/pangbei.py",
-      "status": "live",
-      "sample": {
-        "file": "pangbei huashu-庞贝马赛克.mp4",
-        "title": "庞贝马赛克 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "wenyi",
-      "station": "hand",
-      "name_zh": "文艺复兴晕涂",
-      "name_en": "High Renaissance Sfumato",
-      "tagline": "整层轻模糊压一层清晰层，龟裂纹与黄釉都在；窗口神光里，扑翼机飞过河面碎光。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/wenyi.py",
-      "status": "live",
-      "sample": {
-        "file": "wenyi huashu-文艺复兴晕涂.mp4",
-        "title": "文艺复兴晕涂 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "yinxiang",
-      "station": "hand",
-      "name_zh": "印象派",
-      "name_en": "Impressionism",
-      "tagline": "区域粉彩短笔触、位置固定；光斑漂移明灭，罂粟在摇，云在走，丝带在飘。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/yinxiang.py",
-      "status": "live",
-      "sample": {
-        "file": "yinxiang-10s.mp4",
-        "title": "河岸的午后",
-        "seconds": 10.0
-      }
-    },
-    {
-      "id": "fangao",
-      "station": "hand",
-      "name_zh": "梵高后印象",
-      "name_en": "Van Gogh Post-Impressionism",
-      "tagline": "流场笔触分三遍铺，墙竖长、地透视；星空漩涡、灯晕外扩，方向场像火苗一样摇曳。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/fangao.py",
-      "status": "live",
-      "sample": {
-        "file": "fangao-10s.mp4",
-        "title": "麦田播种者",
-        "seconds": 10.0
-      }
-    },
-    {
-      "id": "muxia",
-      "station": "graphic",
-      "name_zh": "慕夏新艺术",
-      "name_en": "Mucha Art Nouveau",
-      "tagline": "可变线宽外粗内细、剪影错位垫底；太阳升起、光环转、卷发成波。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/muxia.py",
-      "status": "live",
-      "sample": {
-        "file": "muxia huashu-慕夏新艺术.mp4",
-        "title": "慕夏新艺术 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "liti2",
-      "station": "hand",
-      "name_zh": "立体主义",
-      "name_en": "Analytical Cubism",
-      "tagline": "半透明渐变面叠出空间，切面器不裁剪三角；CAFÉ 字母跳换、窗格碎面滑动。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/liti2.py",
-      "status": "live",
-      "sample": {
-        "file": "liti2-10s.mp4",
-        "title": "巴黎咖啡馆",
-        "seconds": 10.0
-      }
-    },
-    {
-      "id": "guangzhui",
-      "station": "screen",
-      "name_zh": "光追 CGI",
-      "name_en": "Ray-traced CGI",
-      "tagline": "统一塑料着色、逐像素棋盘倒影、铬球环境映射；绿色线框扫成渲染线。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/guangzhui.py",
-      "status": "live",
-      "sample": {
-        "file": "guangzhui huashu-光追 CGI.mp4",
-        "title": "光追 CGI · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "kelimu",
-      "station": "craft",
-      "name_zh": "克里姆特金色",
-      "name_en": "Klimt Golden Phase",
-      "tagline": "金箔逐像素拉丝压花，螺旋与眼形纹样铺满；袍上的眼睛轮流眨，金屑在飘。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/kelimu.py",
-      "status": "live",
-      "sample": {
-        "file": "kelimu huashu-克里姆特金色.mp4",
-        "title": "克里姆特金色 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "mengke",
-      "station": "hand",
-      "name_zh": "蒙克表现主义",
-      "name_en": "Munch Expressionism",
-      "tagline": "长弯流线笔沿流场走二三十步，整幅按行正弦扭曲；血色天空从上往下压。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/mengke.py",
-      "status": "live",
-      "sample": {
-        "file": "mengke-10s.mp4",
-        "title": "黄昏码头",
-        "seconds": 10.0
-      }
-    },
-    {
-      "id": "dunhuang",
-      "station": "craft",
-      "name_zh": "敦煌壁画",
-      "name_en": "Dunhuang Mural",
-      "tagline": "土红底、矿物色，剥落只发生在背景；飞天飘带扫过，旧画一层层往下落。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/dunhuang.py",
-      "status": "live",
-      "sample": {
-        "file": "dunhuang huashu-敦煌壁画.mp4",
-        "title": "敦煌壁画 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "caojian",
-      "station": "graphic",
-      "name_zh": "草间弥生波点",
-      "name_en": "Kusama Polka Dots",
-      "tagline": "手绘不规则圆按六角网格取模；波点从猫身上一圈圈胀缩，镜屋一直往外长。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/caojian.py",
-      "status": "live",
-      "sample": {
-        "file": "caojian huashu-草间弥生波点.mp4",
-        "title": "草间弥生波点 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "dali",
-      "station": "hand",
-      "name_zh": "达利超现实",
-      "name_en": "Dali Surrealism",
-      "tagline": "软钟变形、长影子剪切仿射；钟往下流，长腿象走，蚂蚁绕着表盘转。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/dali.py",
-      "status": "live",
-      "sample": {
-        "file": "dali-10s.mp4",
-        "title": "荒原午睡",
-        "seconds": 10.0
-      }
-    },
-    {
-      "id": "huopu",
-      "station": "hand",
-      "name_zh": "霍普美国现实主义",
-      "name_en": "Hopper American Realism",
-      "tagline": "亮版与暗版两套光影按光块裁切，硬边光斑缓慢扫过；墙上的人影同步喝茶。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/huopu.py",
-      "status": "live",
-      "sample": {
-        "file": "huopu huashu-霍普美国现实主义.mp4",
-        "title": "霍普美国现实主义 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "jibuli",
-      "station": "toon",
-      "name_zh": "吉卜力水彩",
-      "name_en": "Ghibli Watercolor",
-      "tagline": "水彩洗染透明叠色、留水痕边，角色走赛璐璐月牙影；纱帘被风鼓起，草叶成片摆。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/jibuli.py",
-      "status": "live",
-      "sample": {
-        "file": "jibuli huashu-吉卜力水彩.mp4",
-        "title": "吉卜力水彩 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "xiula",
-      "station": "hand",
-      "name_zh": "修拉点彩",
-      "name_en": "Seurat Pointillism",
-      "tagline": "21 色纯色板按比例并置，补色点等大；画面结晶成圆点，点自己在呼吸。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/xiula.py",
-      "status": "live",
-      "sample": {
-        "file": "xiula huashu-修拉点彩.mp4",
-        "title": "修拉点彩 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "madisi",
-      "station": "craft",
-      "name_zh": "马蒂斯剪纸",
-      "name_en": "Matisse Paper Cut-outs",
-      "tagline": "剪刀边故意不规则，钉纸投影、饱和平涂；纸片飘动，海藻摆动。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/madisi.py",
-      "status": "live",
-      "sample": {
-        "file": "madisi huashu-马蒂斯剪纸.mp4",
-        "title": "马蒂斯剪纸 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "halin",
-      "station": "graphic",
-      "name_zh": "凯斯·哈林",
-      "name_en": "Keith Haring",
-      "tagline": "粗黑等宽线配放射动作线；小人按 8fps 硬切跳舞，一切都跟 BPM 弹跳。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/halin.py",
-      "status": "live",
-      "sample": {
-        "file": "halin huashu-凯斯·哈林.mp4",
-        "title": "凯斯·哈林 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "lunbo",
-      "station": "hand",
-      "name_zh": "伦勃朗明暗",
-      "name_en": "Rembrandt Chiaroscuro",
-      "tagline": "光照图整幅相乘，窗光加烛光；光柱里浮尘，云影让窗光一明一暗。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/lunbo.py",
-      "status": "beta",
-      "sample": {
-        "file": "lunbo huashu-伦勃朗明暗.mp4",
-        "title": "伦勃朗明暗 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "xinhai",
-      "station": "toon",
-      "name_zh": "新海诚光影",
-      "name_en": "Makoto Shinkai Light",
-      "tagline": "积雨云、丁达尔光柱、赛璐璐硬阴影带；光粒在飘，云在移，斜向扫光进场。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/xinhai.py",
-      "status": "live",
-      "sample": {
-        "file": "xinhai huashu-新海诚光影.mp4",
-        "title": "新海诚光影 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "bijia",
-      "station": "hand",
-      "name_zh": "毕加索蓝色时期",
-      "name_en": "Picasso Blue Period",
-      "tagline": "单色蓝调、宽笔触、普鲁士蓝粗轮廓；人体拉长，颜色被抽成蓝再宽刷一遍。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/bijia.py",
-      "status": "live",
-      "sample": {
-        "file": "bijia huashu-毕加索蓝色时期.mp4",
-        "title": "毕加索蓝色时期 · 上游样片",
-        "seconds": 1.07
-      }
-    },
-    {
-      "id": "guaerdi",
-      "station": "hand",
-      "name_zh": "瓜尔迪威尼斯",
-      "name_en": "Guardi Venetian Atmosphere",
-      "tagline": "短促松动的亮笔、断续轮廓，银灰空气把建筑、水与远景连成一体。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/guaerdi.py",
-      "status": "beta",
-      "sample": null,
-      "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
-    },
-    {
-      "id": "luolun",
-      "station": "hand",
-      "name_zh": "洛伦采蒂空间",
-      "name_en": "Lorenzetti Civic Space",
-      "tagline": "可阅读的社会空间：街道、院落与人群在同一画面里各做各的事。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/luolun.py",
-      "status": "beta",
-      "sample": null,
-      "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
-    },
-    {
-      "id": "keer",
-      "station": "hand",
-      "name_zh": "科尔托纳巴洛克",
-      "name_en": "Cortona Baroque",
-      "tagline": "巴洛克体量与流动群组：人群沿对角线卷上去，像天顶画一样翻涌。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/keer.py",
-      "status": "beta",
-      "sample": null,
-      "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
-    },
-    {
-      "id": "gaogeng",
-      "station": "hand",
-      "name_zh": "高更象征色",
-      "name_en": "Gauguin Synthetism",
-      "tagline": "平面、粗轮廓与象征色；色块不解释光，只解释情绪。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/gaogeng.py",
-      "status": "beta",
-      "sample": null,
-      "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
-    },
-    {
-      "id": "xiajia",
-      "station": "hand",
-      "name_zh": "夏加尔记忆空间",
-      "name_en": "Chagall Dream Space",
-      "tagline": "记忆空间与情感色彩：人和房子飘起来，颜色比透视更重要。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/xiajia.py",
-      "status": "beta",
-      "sample": null,
-      "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
-    },
-    {
-      "id": "bosi",
-      "station": "craft",
-      "name_zh": "波斯细密画",
-      "name_en": "Persian Miniature",
-      "tagline": "层叠空间与精密叙事：平面分层、纹样铺满，每一格都在讲同一件事。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/bosi.py",
-      "status": "beta",
-      "sample": null,
-      "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
-    },
-    {
-      "id": "nanfang",
-      "station": "toon",
-      "name_zh": "南方公园剪纸",
-      "name_en": "South Park Cutout",
-      "tagline": "数字剪纸与有限表演：扁平的纸片人，只靠眉眼的有限动作演戏。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/nanfang.py",
-      "status": "beta",
-      "sample": null,
-      "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
-    },
-    {
-      "id": "pikesi",
-      "station": "toon",
-      "name_zh": "皮克斯三维",
-      "name_en": "Pixar 3D",
-      "tagline": "形体、材质与表演：圆润造型、次表面散射，加上挤压拉伸的表演。",
-      "engine": "自研封装 · 本地 runtime（Canvas 2D + Three.js 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/pikesi.py",
-      "status": "beta",
-      "sample": null,
-      "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
-    },
-    {
-      "id": "tanbi",
-      "station": "hand",
-      "name_zh": "炭笔擦画",
-      "name_en": "Charcoal, Erased and Redrawn",
-      "tagline": "柳炭起形、纸擦笔揉开、可塑橡皮提白，再在擦掉的旧痕上重画一遍。",
-      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/tanbi.py",
-      "status": "live",
-      "sample": null,
-      "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
-    },
-    {
-      "id": "youcai",
-      "station": "hand",
-      "name_zh": "梦境釉彩",
-      "name_en": "Dream Glaze",
-      "tagline": "树脂稀释的油彩一层层罩上去，看不见笔触，边缘一律硬，只有一束很低的光。",
-      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/youcai.py",
-      "status": "live",
-      "sample": null,
-      "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
-    },
-    {
-      "id": "cixiu",
-      "station": "craft",
-      "name_zh": "刺绣",
-      "name_en": "Hand Embroidery",
-      "tagline": "棉线在平纹亚麻上一针针走过：枝用轮廓绣、叶用缎面绣、花心最后打结。",
-      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/cixiu.py",
-      "status": "live",
-      "sample": null,
-      "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
-    },
-    {
-      "id": "minjian",
-      "station": "paper",
-      "name_zh": "民间故事绘本",
-      "name_en": "Folk-tale Storybook",
-      "tagline": "水粉压在铅笔稿上，前景不透明，越往远越薄，最后只剩没盖住的那几根线。",
-      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/minjian.py",
-      "status": "live",
-      "sample": null,
-      "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
-    },
-    {
-      "id": "diduo",
-      "station": "d3",
-      "name_zh": "低多边形",
-      "name_en": "Low-poly",
-      "tagline": "手算的三角网格与一束低阳，面片从远到近长出来，不用任何三维引擎。",
-      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/diduo.py",
-      "status": "live",
-      "sample": null,
-      "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
-    },
-    {
-      "id": "yuanzhu",
-      "station": "hand",
-      "name_zh": "圆珠笔",
-      "name_en": "Ballpoint Sketch",
-      "tagline": "一支蓝圆珠笔，线宽不变，明暗全靠排线，收笔处积一点墨。",
-      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/yuanzhu.py",
-      "status": "live",
-      "sample": null,
-      "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
-    },
-    {
-      "id": "pintie",
-      "station": "graphic",
-      "name_zh": "拼贴剪贴",
-      "name_en": "Collage Cutout",
-      "tagline": "旧报纸上剪出的一座城：纸楼房、纸太阳、纸火车、撕边云，12 fps 定格，白剪边与落影。",
-      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/pintie.py",
-      "status": "live",
-      "sample": null,
-      "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
-    },
-    {
-      "id": "yetai",
-      "station": "graphic",
-      "name_zh": "液态流动",
-      "name_en": "Liquid Motion",
-      "tagline": "糖浆色的液体滴落、拉丝、融合，一泼漫过屏幕，最后聚成字标。",
-      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/yetai.py",
-      "status": "live",
-      "sample": null,
-      "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
-    },
-    {
-      "id": "xingbian",
-      "station": "graphic",
-      "name_zh": "形变动画",
-      "name_en": "Shape Morph",
-      "tagline": "一个轮廓连续变成下一个：圆、太阳、星、心、水滴、纸飞机、方标。",
-      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "16:9",
-      "fps": 24,
-      "entry": "scripts/xingbian.py",
-      "status": "live",
-      "sample": null,
-      "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
-    },
-    {
-      "id": "huazi",
-      "station": "screen",
-      "name_zh": "综艺花字",
-      "name_en": "Variety Show Captions",
-      "tagline": "竖屏宵夜：台灯下的面碗与热气，上面压多层描边胖体花字、弹性 pop 与认证章。",
-      "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
-      "aspect": "9:16",
-      "fps": 24,
-      "entry": "scripts/huazi.py",
-      "status": "live",
-      "sample": null,
-      "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
-    }
-  ]
+ "schema": "auto-video/catalog@1",
+ "updated": "2026-11-20",
+ "note": "Auto-Video 管线的唯一事实来源。站点、README 总览表与各管线 pipeline.json 的 meta 都从这里派生；改这里再跑 tools/normalize_pipelines.py + tools/build_site.py。",
+ "modules": [
+  {
+   "id": "frontend",
+   "path": "frontend",
+   "name_zh": "前端闭环",
+   "optional": true,
+   "attach_to": "all",
+   "contract": "auto-video/frontend@1",
+   "entry": "frontend/frontend.py",
+   "summary": "选题 → 文案 → 免费 TTS 配音（带 srt）→ 任意风格管线 → 封面 + 发布信息；不接 peiyin 克隆音色也能整条走完。"
+  },
+  {
+   "id": "fengmian",
+   "path": "fengmian",
+   "name_zh": "封面 + 发布信息",
+   "optional": true,
+   "attach_to": "all",
+   "entry": "fengmian/fengmian.py",
+   "vendored_from": "https://github.com/DaBaoAgent/fengmian",
+   "summary": "frontend 的第 05 阶段：文案 → 两张封面（4:3 / 3:4）+ 两行制发布信息，含交付门禁与硬校验。"
+  }
+ ],
+ "pipelines": [
+  {
+   "id": "jianying",
+   "station": "paper",
+   "name_zh": "纸本卡片",
+   "name_en": "Paper-card Chronicle",
+   "tagline": "绢本纸本美术 + 卡片运动语法，2–4 秒一镜，字幕贴着从句走。",
+   "engine": "Remotion",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/jianying_shotcraft.py",
+   "sample": {
+    "file": "jianying 刘秀·位面之子.mp4",
+    "title": "刘秀·位面之子",
+    "seconds": 211.0
+   }
+  },
+  {
+   "id": "lishi",
+   "station": "paper",
+   "name_zh": "纸本史话",
+   "name_en": "Paper History",
+   "tagline": "AI 静帧底图 + 代码运镜，句级全量字幕与纸色衬底常驻。",
+   "engine": "Remotion",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/lishi.py",
+   "sample": {
+    "file": "lishi 朱元璋·碽妃疑案.mp4",
+    "title": "朱元璋·碽妃疑案",
+    "seconds": 144.9
+   }
+  },
+  {
+   "id": "zhidiao",
+   "station": "paper",
+   "name_zh": "纸雕剪影",
+   "name_en": "Paper-cut Lightbox",
+   "tagline": "词级转写与拼音 DP 对齐，HyperFrames 渲一张会动的纸雕灯箱。",
+   "engine": "HyperFrames",
+   "aspect": null,
+   "fps": null,
+   "entry": "scripts/zhidiao_assemble.py",
+   "sample": {
+    "file": "zhidiao 鲤鱼.mp4",
+    "title": "鲤鱼",
+    "seconds": 21.0
+   }
+  },
+  {
+   "id": "shouhui",
+   "station": "hand",
+   "name_zh": "逐帧手绘",
+   "name_en": "Hand-drawn Cel",
+   "tagline": "纸纹、墨线 boil、墨字书写，cel 火焰与火星，24 fps 线条沸腾。",
+   "engine": "Canvas 逐帧 · 浏览器渲染",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/shouhui.py",
+   "sample": {
+    "file": "shouhui 商纣王.mp4",
+    "title": "商纣王",
+    "seconds": 205.7
+   }
+  },
+  {
+   "id": "pencil",
+   "station": "hand",
+   "name_zh": "铅笔测试",
+   "name_en": "Pencil Test",
+   "tagline": "蓝线起稿、石墨勾线、橡皮修改，画与画之间 morph。",
+   "engine": "Canvas · Chrome 逐帧",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/pencil.py",
+   "sample": {
+    "file": "pencil_阿努纳奇.mp4",
+    "title": "阿努纳奇",
+    "seconds": 30.4
+   }
+  },
+  {
+   "id": "caiqian",
+   "station": "hand",
+   "name_zh": "彩铅科普",
+   "name_en": "Colored-pencil Science",
+   "tagline": "四张 G-buffer 由后处理叠成彩铅排线，锚定坐标防漂移。",
+   "engine": "G-buffer + 后处理",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/caiqian.py",
+   "sample": {
+    "file": "caiqian 鳕鱼.mp4",
+    "title": "鳕鱼",
+    "seconds": 27.1
+   }
+  },
+  {
+   "id": "pingban",
+   "station": "hand",
+   "name_zh": "平板速写",
+   "name_en": "Tablet Sketch",
+   "tagline": "六格手卷，铅笔一笔一笔现场画，镜头跟着笔尖走。",
+   "engine": "纯 Canvas · 零依赖",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/pingban.py",
+   "sample": {
+    "file": "pingban 关羽.mp4",
+    "title": "关羽",
+    "seconds": 39.4
+   }
+  },
+  {
+   "id": "gangbi",
+   "station": "hand",
+   "name_zh": "钢笔淡彩",
+   "name_en": "Pen & Wash Sketch",
+   "tagline": "钢笔线先走，水彩跟着到；镜头在整页纸上跟着草帽走。",
+   "engine": "Canvas 逐帧 · 钢笔 + 水彩双层",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/gangbi.py",
+   "sample": {
+    "file": "gangbi 风去了哪里.mp4",
+    "title": "风去了哪里",
+    "seconds": 33.4
+   }
+  },
+  {
+   "id": "labi",
+   "station": "hand",
+   "name_zh": "蜡笔儿童绘本",
+   "name_en": "Crayon Picture Book",
+   "tagline": "一页绘本当着你的面画出来：蜡笔先走，水彩最后把藏起来的星星洗出来。",
+   "engine": "WebGL2 合成 + Canvas 逐帧 · 纸齿 / 蜡附着 / 水彩抗拒",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/labi.py",
+   "sample": {
+    "file": "labi 月亮睡不着.mp4",
+    "title": "月亮睡不着",
+    "seconds": 52.0
+   }
+  },
+  {
+   "id": "shuicai",
+   "station": "hand",
+   "name_zh": "水彩笔刷",
+   "name_en": "Watercolor Brush",
+   "tagline": "一笔一笔湿接湿的水彩，颜色在纸上自己走、自己干、自己留边。",
+   "engine": "Canvas 2D · 湿画法笔刷 + 纸张吸收",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/shuicai.py",
+   "sample": {
+    "file": "shuicai 从旱到涝.mp4",
+    "title": "从旱到涝",
+    "seconds": 113.6
+   }
+  },
+  {
+   "id": "piying",
+   "station": "craft",
+   "name_zh": "皮影卡片",
+   "name_en": "Shadow-puppet Cards",
+   "tagline": "皮影剪影配卡片式讲解，分镜生成与四查门禁。",
+   "engine": "Playwright + Canvas 逐帧",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/piying.py",
+   "sample": {
+    "file": "piying 波斯湾伊甸园.mp4",
+    "title": "波斯湾伊甸园",
+    "seconds": 272.2
+   }
+  },
+  {
+   "id": "shuimo",
+   "station": "craft",
+   "name_zh": "纸本水墨",
+   "name_en": "Ink Wash",
+   "tagline": "宣纸底、生成式 SVG 山水、墨渗转场、竖排题记与朱砂印。",
+   "engine": "SVG + Canvas",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/shuimo.py",
+   "sample": {
+    "file": "shuimo 羽人 水墨.mp4",
+    "title": "羽人",
+    "seconds": 30.0
+   }
+  },
+  {
+   "id": "shadow",
+   "station": "craft",
+   "name_zh": "皮影戏",
+   "name_en": "Shadow Puppetry",
+   "tagline": "素白幕、木质台框、透光牛皮影人，灯暗换场。",
+   "engine": "Canvas · Chrome 逐帧",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/shadow.py",
+   "sample": {
+    "file": "shadow_玄奘.mp4",
+    "title": "玄奘",
+    "seconds": 203.0
+   }
+  },
+  {
+   "id": "tapestry",
+   "station": "craft",
+   "name_zh": "贝叶挂毯",
+   "name_en": "Bayeux Tapestry",
+   "tagline": "亚麻底、羊毛绣线、茎针绣与铺线，长卷滚动推进。",
+   "engine": "Canvas · Chrome 逐帧",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/tapestry.py",
+   "sample": {
+    "file": "tapestry_阿努纳奇.mp4",
+    "title": "阿努纳奇",
+    "seconds": 30.5
+   }
+  },
+  {
+   "id": "laolang",
+   "station": "craft",
+   "name_zh": "上美影手绘",
+   "name_en": "Shanghai Cel",
+   "tagline": "1980 上美影式手绘赛璐璐，4:3 圆角片门，定稿 toon 人物 24 动作。",
+   "engine": "Canvas · Chrome 逐帧",
+   "aspect": "4:3",
+   "fps": 30,
+   "entry": "scripts/laolang.py",
+   "sample": {
+    "file": "laolang 玄奘.mp4",
+    "title": "玄奘",
+    "seconds": 62.2
+   }
+  },
+  {
+   "id": "fushihui",
+   "station": "craft",
+   "name_zh": "浮世绘",
+   "name_en": "Ukiyo-e",
+   "tagline": "一张木版画：墨线、几个色块各自错开半格印上去，纸在吃墨。",
+   "engine": "Canvas 2D · 分色版块 + 错版套印",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/fushihui.py",
+   "sample": {
+    "file": "fushihui 向山.mp4",
+    "title": "向山",
+    "seconds": 44.0
+   }
+  },
+  {
+   "id": "shuimo2",
+   "station": "craft",
+   "name_zh": "中国水墨",
+   "name_en": "Chinese Ink Wash",
+   "tagline": "一张宣纸：墨分五色，一笔下去有骨有肉，朱砂只在印章和一个点上。",
+   "engine": "Canvas 2D · 墨的浓淡/飞白/渗化 + 程序化宣纸",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/shuimo2.py",
+   "sample": {
+    "file": "shuimo2 剑客与河.mp4",
+    "title": "剑客与河",
+    "seconds": 48.0
+   }
+  },
+  {
+   "id": "goldenage",
+   "station": "toon",
+   "name_zh": "黄金卡通",
+   "name_en": "Golden-age Toon",
+   "tagline": "手绘城市背景 + 墨线赛璐璐角色，15 张/秒的抽搐墨线。",
+   "engine": "Canvas · Chrome 逐帧",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/goldenage.py",
+   "sample": {
+    "file": "goldenage_阿努纳奇.mp4",
+    "title": "阿努纳奇",
+    "seconds": 30.3
+   }
+  },
+  {
+   "id": "manga",
+   "station": "toon",
+   "name_zh": "漫画分格",
+   "name_en": "Manga Panels",
+   "tagline": "黑墨线、网点、分格、拟声词，镜头按阅读顺序读页。",
+   "engine": "Canvas · Chrome 逐帧",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/manga.py",
+   "sample": {
+    "file": "manga_阿努纳奇_.mp4",
+    "title": "阿努纳奇",
+    "seconds": 30.4
+   }
+  },
+  {
+   "id": "xiangsu",
+   "station": "toon",
+   "name_zh": "像素风",
+   "name_en": "Pixel Art",
+   "tagline": "640×360 索引色帧缓冲逐像素绘制，×3 最近邻放大并在输出分辨率做 CRT。",
+   "engine": "Canvas · Puppeteer 逐帧",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/xiangsu.py",
+   "sample": {
+    "file": "xiangsu 曹操.mp4",
+    "title": "曹操",
+    "seconds": 29.4
+   }
+  },
+  {
+   "id": "tianshu",
+   "station": "toon",
+   "name_zh": "天书奇谭",
+   "name_en": "Tianshu Cel",
+   "tagline": "本地 ComfyUI 出定帧、Wan2.2 出氛围动态，逐镜锚定原片亮度与饱和。",
+   "engine": "ComfyUI + Wan2.2",
+   "aspect": "4:3",
+   "fps": null,
+   "entry": "scripts/tianshu.py",
+   "sample": {
+    "file": "tianshu 镇魔塔.mp4",
+    "title": "镇魔塔",
+    "seconds": 41.0
+   }
+  },
+  {
+   "id": "shiliang",
+   "station": "graphic",
+   "name_zh": "扁平矢量",
+   "name_en": "Flat Vector",
+   "tagline": "纯色几何世界、弹性入场、元素驱动转场，纯标准库合成 MG-pop 配乐。",
+   "engine": "SVG 单页 · 逐帧确定性渲染",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/shiliang.py",
+   "sample": {
+    "file": "shiliang 扁平矢量.mp4",
+    "title": "扁平矢量",
+    "seconds": 30.0
+   }
+  },
+  {
+   "id": "lvdong",
+   "station": "graphic",
+   "name_zh": "剪影律动",
+   "name_en": "Silhouette Rhythm",
+   "tagline": "纯黑剪影站在落日与水面前，姿势落在 90 BPM 的拍上，关键一拍拍冻结。",
+   "engine": "Canvas + 着色器 · 代码合成配乐",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/lvdong.py",
+   "sample": {
+    "file": "lvdong 玛雅文明.mp4",
+    "title": "玛雅文明",
+    "seconds": 58.0
+   }
+  },
+  {
+   "id": "huixingzhen",
+   "station": "graphic",
+   "name_zh": "回形针风",
+   "name_en": "Paperclip Explainer",
+   "tagline": "实拍照片贴纸化、精确图表、大画布连续运镜。",
+   "engine": "HTML 逐帧 · 确定性渲染",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/gen_episode.py",
+   "sample": {
+    "file": "huixingzhen 羽人.mp4",
+    "title": "羽人",
+    "seconds": 597.3
+   }
+  },
+  {
+   "id": "bianping",
+   "station": "graphic",
+   "name_zh": "扁平尺度漫游",
+   "name_en": "Scale Zoom Explainer",
+   "tagline": "从彗星撞木星连续推到黑洞事件视界，Orbi 小眼睛角色做引导。",
+   "engine": "SVG 代码绘制 · 仓库内抓帧",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/bianping.py",
+   "sample": {
+    "file": "bianping 扁平尺度漫游 僵尸地球.mp4",
+    "title": "僵尸地球",
+    "seconds": 35.7
+   }
+  },
+  {
+   "id": "zhuangshi",
+   "station": "graphic",
+   "name_zh": "装饰艺术",
+   "name_en": "Art Deco",
+   "tagline": "金线、漆面黑、阶梯边：酒店大堂在午夜亮起来，一切都从中心展开。",
+   "engine": "Canvas 2D · 金色渐变线 + 灯泡招牌 + 装饰字体排版",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/zhuangshi.py",
+   "sample": {
+    "file": "zhuangshi 星光酒店午夜.mp4",
+    "title": "星光酒店午夜",
+    "seconds": 39.0
+   }
+  },
+  {
+   "id": "xianshiqi",
+   "station": "screen",
+   "name_zh": "赛博 HUD",
+   "name_en": "Cyber HUD",
+   "tagline": "深青黑底、青色霓虹线框、雷达扫掠与目标锁定。",
+   "engine": "Three.js + Canvas FUI 覆盖层",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/xianshiqi.py",
+   "sample": {
+    "file": "xiangshiqi UAP_赛博.mp4",
+    "title": "UAP · 赛博",
+    "seconds": 30.0
+   }
+  },
+  {
+   "id": "xuni",
+   "station": "screen",
+   "name_zh": "合成波 VHS",
+   "name_en": "Synthwave VHS",
+   "tagline": "霓虹网格、日落、铬字、扫描线、Y2K 窗口。",
+   "engine": "Three.js + Canvas + VHS 后处理",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/xuni.py",
+   "sample": {
+    "file": "xuni_朊病毒.mp4",
+    "title": "朊病毒",
+    "seconds": 30.0
+   }
+  },
+  {
+   "id": "tuiyan",
+   "station": "d3",
+   "name_zh": "3D 战场推演",
+   "name_en": "3D Battle Sim",
+   "tagline": "全 3D 兵棋推演，稳帧 1080p，音效与 BGM 按关键镜挂。",
+   "engine": "3D 兵棋引擎 · 逐帧稳帧渲染",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/tuiyan.py",
+   "sample": {
+    "file": "tuiyan 3D 赤壁之战.mp4",
+    "title": "赤壁之战",
+    "seconds": 539.8
+   }
+  },
+  {
+   "id": "chengshi",
+   "station": "d3",
+   "name_zh": "城市年轮",
+   "name_en": "City Rings",
+   "tagline": "OSM/Esri/SRTM 真实数据驱动的白模 3D 城市，确定性生长。",
+   "engine": "Three.js + Remotion",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/chengshi.py",
+   "sample": {
+    "file": "sz 苏州 城长.mp4",
+    "title": "苏州 · 城长",
+    "seconds": 160.7
+   }
+  },
+  {
+   "id": "dengju",
+   "station": "d3",
+   "name_zh": "等轴 2.5D",
+   "name_en": "Isometric 2.5D",
+   "tagline": "粉彩微缩模型、真正等轴正交相机、地面瓦片波浪与滑轨运镜。",
+   "engine": "Three.js 正交场景",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/dengju.py",
+   "sample": {
+    "file": "dengju 羽人.mp4",
+    "title": "羽人",
+    "seconds": 30.0
+   }
+  },
+  {
+   "id": "isometric",
+   "station": "d3",
+   "name_zh": "等距微缩",
+   "name_en": "Isometric Diorama",
+   "tagline": "45° 等距微缩世界，带厚底座的方形地块组成系统，镜头连续滑行、讲到哪块就抬起哪块。",
+   "engine": "Canvas · Chrome 逐帧",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/isometric.py",
+   "sample": {
+    "file": "isometric_阿努纳奇.mp4",
+    "title": "阿努纳奇",
+    "seconds": 30.4
+   }
+  },
+  {
+   "id": "weisuo",
+   "station": "d3",
+   "name_zh": "孟菲斯微缩",
+   "name_en": "Memphis Diorama",
+   "tagline": "一座 2D 形状搭起来的 3D 微缩小镇，一年四季在框里转，人在一格一格走。",
+   "engine": "three.js 3D 微缩 + 法线/深度描边后处理",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/weisuo.py",
+   "sample": {
+    "file": "weisuo 柚子镇四季.mp4",
+    "title": "柚子镇四季",
+    "seconds": 45.0
+   }
+  },
+  {
+   "id": "map",
+   "station": "map",
+   "name_zh": "地图贴纸",
+   "name_en": "Map Stickers",
+   "tagline": "Natural Earth 真实底图上，人物贴纸与标注卡锚定经纬度。",
+   "engine": "Chrome 逐帧 + ffmpeg",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/map.py",
+   "sample": {
+    "file": "map_张骞寻路.mp4",
+    "title": "张骞寻路",
+    "seconds": 544.2
+   }
+  },
+  {
+   "id": "ditu",
+   "station": "map",
+   "name_zh": "真实地形",
+   "name_en": "Terrain Map",
+   "tagline": "卫星地形 + terrarium 高程，按高程起伏的三维水面从 84 km 推到 26 km。",
+   "engine": "WebGL · 高程驱动水面",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/ditu.py",
+   "sample": {
+    "file": "ditu 关羽.mp4",
+    "title": "关羽",
+    "seconds": 39.4
+   }
+  },
+  {
+   "id": "blueprint",
+   "station": "diagram",
+   "name_zh": "工程蓝图",
+   "name_en": "Blueprint",
+   "tagline": "蓝晒图纸、白色细线，构造线先出、尺寸与 leader 标注跟进，红铅笔唯一强调。",
+   "engine": "Canvas · Chrome 逐帧",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/blueprint.py",
+   "sample": {
+    "file": "blueprint_玄奘.mp4",
+    "title": "玄奘 · 前 10 秒",
+    "seconds": 12.1
+   }
+  },
+  {
+   "id": "parable",
+   "station": "diagram",
+   "name_zh": "火柴人寓言",
+   "name_en": "Stick-figure Parable",
+   "tagline": "黑虚空里的白色火柴人，两个角色同一堆材料，一个红色物件承载意义，无切镜。",
+   "engine": "Three.js · 固定广角",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/parable.py",
+   "sample": {
+    "file": "parable_阿努纳奇.mp4",
+    "title": "阿努纳奇",
+    "seconds": 178.3
+   }
+  },
+  {
+   "id": "shipai",
+   "station": "live",
+   "name_zh": "实拍混剪",
+   "name_en": "Live-footage Cut",
+   "tagline": "Pixabay 按 id 下载、固定顺序拼接，MoneyPrinterTurbo 出底片，一行式字幕烧入。",
+   "engine": "MoneyPrinterTurbo + ffmpeg",
+   "aspect": "9:16",
+   "fps": null,
+   "entry": "scripts/shipai.py",
+   "sample": {
+    "file": "shipai 实拍 玛雅.mp4",
+    "title": "玛雅",
+    "seconds": 17.9
+   }
+  },
+  {
+   "id": "jilupian",
+   "station": "live",
+   "name_zh": "纪录片解说",
+   "name_en": "Documentary",
+   "tagline": "给一份片源 URL 清单，核验、下载、口播、配音、影子匹配、自动剪辑到发布资料。",
+   "engine": "S1–S9 流水线",
+   "aspect": null,
+   "fps": null,
+   "entry": "scripts/jilupian.py",
+   "sample": {
+    "file": "jilupian 一口气看完日本3000年!从蒙古使者被砍头到两颗原子弹 这个国家的故事比权游还刺激#.mp4",
+    "title": "一口气看完日本3000年",
+    "seconds": 818.4
+   }
+  },
+  {
+   "id": "peiyin",
+   "station": "front",
+   "name_zh": "配音前端",
+   "name_en": "Voice Front-end",
+   "tagline": "选题、口播稿审计、批量克隆配音与时间轴，成片之前的两个阶段。",
+   "engine": "GPT-SoVITS · 长稿分段合成",
+   "aspect": null,
+   "fps": null,
+   "entry": "scripts/synthesize_dabao_paragraphs.py",
+   "sample": null,
+   "sample_note": "配音前端：只出口播稿与配音，不出片，因此不需要样片"
+  },
+  {
+   "id": "qianhuang",
+   "station": "hand",
+   "name_zh": "铅黄浓彩",
+   "name_en": "Giallo Gouache",
+   "tagline": "一页手绘浓彩被红蓝两盏色片灯夹住，刀落下去有声音。",
+   "engine": "Canvas 逐帧 · 钢笔浓彩 + 彩色色片光 + 合成音效",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/qianhuang.py",
+   "sample": {
+    "file": "qianhuang 血之海滩.mp4",
+    "title": "血之海滩 · 第一段",
+    "seconds": 21.5
+   }
+  },
+  {
+   "id": "qianhuang2",
+   "station": "hand",
+   "name_zh": "铅黄剪影",
+   "name_en": "Giallo Silhouette Stage",
+   "tagline": "全黑剪影站进一池舞台光，回头只靠发丝晚两帧与一道月白弧。",
+   "engine": "Canvas 2D 单页 · seek(t) 纯函数逐帧（剪影 + 双缘光 + 光池舞台）",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/qianhuang2.py",
+   "status": "live",
+   "sample": {
+    "file": "qianhuang2 血之海滩·剪影舞台.mp4",
+    "title": "血之海滩·剪影舞台",
+    "seconds": 21.5
+   }
+  },
+  {
+   "id": "zimu",
+   "station": "live",
+   "name_zh": "字幕新闻",
+   "name_en": "Caption News",
+   "tagline": "美国一年死掉 130 万箱蜜蜂，总数却涨了 6%：静音也能看懂的新闻。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/zimu.py",
+   "sample": {
+    "file": "zimu caption-news.mp4",
+    "title": "蜜蜂账本",
+    "seconds": 59.5
+   },
+   "status": "live",
+   "style_slug": "caption-news"
+  },
+  {
+   "id": "xinwen",
+   "station": "live",
+   "name_zh": "1920s 新闻影片",
+   "name_en": "1920s Newsreel",
+   "tagline": "1926 年报纸说查尔斯顿会跳坏膝盖，福特工人野餐会上的孩子照跳不误。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/xinwen.py",
+   "sample": {
+    "file": "xinwen newsreel.mp4",
+    "title": "膝盖警报",
+    "seconds": 54.6
+   },
+   "status": "live",
+   "style_slug": "newsreel"
+  },
+  {
+   "id": "daoshu",
+   "station": "live",
+   "name_zh": "实时倒计时分屏",
+   "name_en": "Live Countdown Split-screen",
+   "tagline": "阿尔忒弥斯二号发射的最后一分钟，一秒不剪：格子从 1 开到 9，点火合成 1。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/daoshu.py",
+   "sample": {
+    "file": "daoshu countdown.mp4",
+    "title": "自己倒数",
+    "seconds": 59.5
+   },
+   "status": "live",
+   "style_slug": "countdown"
+  },
+  {
+   "id": "jiaoxiang",
+   "station": "live",
+   "name_zh": "城市交响曲",
+   "name_en": "City Symphony",
+   "tagline": "纽约的一天：延时光河、踩着十六分音符的网格，1899 年和今天并排。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/jiaoxiang.py",
+   "sample": {
+    "file": "jiaoxiang city-symphony.mp4",
+    "title": "纽约的一天",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "city-symphony"
+  },
+  {
+   "id": "diaocha",
+   "station": "live",
+   "name_zh": "视觉调查",
+   "name_en": "Visual Investigation",
+   "tagline": "新闻片、照片、证词和调查报告排上同一条时间轴，五路来源指向一处。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/diaocha.py",
+   "sample": {
+    "file": "diaocha visual-investigation.mp4",
+    "title": "兴登堡号：四分钟与三十二秒",
+    "seconds": 60.0
+   },
+   "status": "live",
+   "style_slug": "visual-investigation"
+  },
+  {
+   "id": "mengtai",
+   "station": "live",
+   "name_zh": "构成主义蒙太奇",
+   "name_en": "Constructivist Montage",
+   "tagline": "帝国大厦的小册子写着建造者，工地实拍和老照片给出答案：每天 2,500 人。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/mengtai.py",
+   "sample": {
+    "file": "mengtai kino-montage.mp4",
+    "title": "410 天",
+    "seconds": 60.0
+   },
+   "status": "live",
+   "style_slug": "kino-montage"
+  },
+  {
+   "id": "zhanshu",
+   "station": "live",
+   "name_zh": "体育战术板",
+   "name_en": "Sports Telestrator",
+   "tagline": "半场 0–3，费内巴切 12 分钟连进三球：冻住画面、画线、分屏、射门图。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/zhanshu.py",
+   "sample": {
+    "file": "zhanshu telestrator.mp4",
+    "title": "定格",
+    "seconds": 54.4
+   },
+   "status": "live",
+   "style_slug": "telestrator"
+  },
+  {
+   "id": "baozhuang",
+   "station": "live",
+   "name_zh": "电视新闻包装",
+   "name_en": "Broadcast News Package",
+   "tagline": "一周四条 AI 新闻，一整套电视台包装：串联单、标题条、翻牌价格表、规格卡。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/baozhuang.py",
+   "sample": {
+    "file": "baozhuang news-package.mp4",
+    "title": "本周 AI 四件事",
+    "seconds": 53.5
+   },
+   "status": "live",
+   "style_slug": "news-package"
+  },
+  {
+   "id": "dangan",
+   "station": "live",
+   "name_zh": "档案看片台",
+   "name_en": "Archive Light Table",
+   "tagline": "电报说最长飞了 57 秒；放大镜下，莱特兄弟的底片和档案说是 59 秒。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/dangan.py",
+   "sample": {
+    "file": "dangan archive-lighttable.mp4",
+    "title": "差两秒",
+    "seconds": 40.0
+   },
+   "status": "live",
+   "style_slug": "archive-lighttable"
+  },
+  {
+   "id": "youhua",
+   "station": "hand",
+   "name_zh": "油画厚涂",
+   "name_en": "Impasto Oil Painting",
+   "tagline": "灰色雨中广场，第一把红伞撑开，圆舞曲把整个广场刷上颜色。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/youhua.py",
+   "sample": {
+    "file": "youhua impasto.mp4",
+    "title": "雨的颜色",
+    "seconds": 39.7
+   },
+   "status": "live",
+   "style_slug": "impasto"
+  },
+  {
+   "id": "yibi",
+   "station": "hand",
+   "name_zh": "一笔画",
+   "name_en": "One-line Drawing",
+   "tagline": "一根不离纸的线画完一个人的一生，再把笔交给孩子。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/yibi.py",
+   "sample": {
+    "file": "yibi one-line.mp4",
+    "title": "笔不离纸",
+    "seconds": 47.5
+   },
+   "status": "live",
+   "style_slug": "one-line"
+  },
+  {
+   "id": "baiban",
+   "station": "hand",
+   "name_zh": "白板讲解",
+   "name_en": "Whiteboard Explainer",
+   "tagline": "机翼剖面配六条流线，一口气讲清「上方快、低压，下方慢、高压」。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/baiban.py",
+   "sample": {
+    "file": "site/media/baiban.mp4",
+    "title": "飞机为什么能飞",
+    "seconds": 10.0
+   },
+   "status": "live",
+   "style_slug": "whiteboard"
+  },
+  {
+   "id": "heiban",
+   "station": "hand",
+   "name_zh": "黑板粉笔",
+   "name_en": "Chalkboard",
+   "tagline": "一条粉笔鲸配上三米小舢板，量尺一拉，十八米就有了分量。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/heiban.py",
+   "sample": {
+    "file": "site/media/heiban.mp4",
+    "title": "鲸为什么这么大",
+    "seconds": 10.0
+   },
+   "status": "live",
+   "style_slug": "chalkboard"
+  },
+  {
+   "id": "biji",
+   "station": "hand",
+   "name_zh": "视觉笔记",
+   "name_en": "Sketchnote",
+   "tagline": "采蜜、酿造、封盖三张卡片，虚线箭头把流程串成一页海报。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/biji.py",
+   "sample": {
+    "file": "site/media/biji.mp4",
+    "title": "蜜蜂怎样酿蜜",
+    "seconds": 10.0
+   },
+   "status": "live",
+   "style_slug": "sketchnote"
+  },
+  {
+   "id": "make",
+   "station": "hand",
+   "name_zh": "马克笔白纸速写",
+   "name_en": "Marker on Paper",
+   "tagline": "黑笔起形、马克笔压面，白墙青瓦和石拱桥在一张纸上醒来。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/make.py",
+   "sample": {
+    "file": "site/media/make.mp4",
+    "title": "平江路的清晨",
+    "seconds": 10.0
+   },
+   "status": "live",
+   "style_slug": "marker-paper"
+  },
+  {
+   "id": "jianzhi",
+   "station": "craft",
+   "name_zh": "红色窗花剪纸",
+   "name_en": "Red Paper-cut",
+   "tagline": "除夕年兽进村，小女孩剪出的大窗花照亮全村，把它吓跑。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/jianzhi.py",
+   "sample": {
+    "file": "jianzhi papercut-red.mp4",
+    "title": "年兽进村",
+    "seconds": 49.0
+   },
+   "status": "live",
+   "style_slug": "papercut-red"
+  },
+  {
+   "id": "boli",
+   "station": "craft",
+   "name_zh": "彩色玻璃窗",
+   "name_en": "Stained Glass",
+   "tagline": "铅条是骨架，光是血：十一块彩玻璃拼成孔雀尾羽，阳光从清晨移到黄昏。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/boli.py",
+   "sample": {
+    "file": "site/media/boli.mp4",
+    "title": "孔雀窗",
+    "seconds": 10.0
+   },
+   "status": "live",
+   "style_slug": "stained-glass"
+  },
+  {
+   "id": "jinbo",
+   "station": "craft",
+   "name_zh": "金箔彩绘",
+   "name_en": "Gilded Illumination",
+   "tagline": "羊皮纸上贴满金箔，蓝色首字母里藏着一句「光」：抄一页，就要一整天的灯。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（纸艺族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/jinbo.py",
+   "sample": {
+    "file": "site/media/jinbo.mp4",
+    "title": "金箔抄本",
+    "seconds": 10.0
+   },
+   "status": "live",
+   "style_slug": "gilded-illumination"
+  },
+  {
+   "id": "kongban",
+   "station": "graphic",
+   "name_zh": "孔版印刷",
+   "name_en": "Risograph Print",
+   "tagline": "周日早晨骑车穿过城市：面包店、公园、河边，每到一处加一版油墨，最后三版套印。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/kongban.py",
+   "sample": {
+    "file": "kongban risograph.mp4",
+    "title": "周日骑行",
+    "seconds": 40.0
+   },
+   "status": "live",
+   "style_slug": "risograph"
+  },
+  {
+   "id": "wangdian",
+   "station": "graphic",
+   "name_zh": "网点档案",
+   "name_en": "Halftone Dossier",
+   "tagline": "橘猫胖橘被立案审查：测试重力、凌晨跑酷，最后无罪释放。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/wangdian.py",
+   "sample": {
+    "file": "wangdian halftone-dossier.mp4",
+    "title": "胖橘案卷",
+    "seconds": 30.0
+   },
+   "status": "live",
+   "style_slug": "halftone-dossier"
+  },
+  {
+   "id": "muke",
+   "station": "graphic",
+   "name_zh": "木刻版画",
+   "name_en": "Woodcut Print",
+   "tagline": "村子用一整个冬天铸一口钟，钟声第一次响起，雪停了。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/muke.py",
+   "sample": {
+    "file": "muke woodcut.mp4",
+    "title": "铸钟人",
+    "seconds": 58.5
+   },
+   "status": "live",
+   "style_slug": "woodcut"
+  },
+  {
+   "id": "tongban",
+   "station": "graphic",
+   "name_zh": "铜版画",
+   "name_en": "Copperplate Engraving",
+   "tagline": "一张博物志图版自己刻出来：雕刀推开铜版，蜜蜂一线线成形，最后手工水彩上色。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/tongban.py",
+   "sample": {
+    "file": "tongban engraving.mp4",
+    "title": "蜜蜂，图版七",
+    "seconds": 40.0
+   },
+   "status": "live",
+   "style_slug": "engraving"
+  },
+  {
+   "id": "siyin",
+   "station": "graphic",
+   "name_zh": "丝印旅行海报",
+   "name_en": "Silkscreen Travel Poster",
+   "tagline": "一张满屏丝印海报一座城，票根数着离家的公里数，走到世界的另一头，才发现那是回家的路。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/siyin.py",
+   "sample": {
+    "file": "siyin silkscreen-poster.mp4",
+    "title": "绕远路回家",
+    "seconds": 50.0
+   },
+   "status": "live",
+   "style_slug": "silkscreen-poster"
+  },
+  {
+   "id": "guaban",
+   "station": "graphic",
+   "name_zh": "刮版画长镜头",
+   "name_en": "Scratchboard Long Take",
+   "tagline": "刮版画的北海道河谷一镜到底，丹顶鹤从 33 只数回到 1,927 只。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/guaban.py",
+   "sample": {
+    "file": "guaban printed-long-take.mp4",
+    "title": "三十三只",
+    "seconds": 60.0
+   },
+   "status": "live",
+   "style_slug": "printed-long-take"
+  },
+  {
+   "id": "bopu",
+   "station": "graphic",
+   "name_zh": "波普艺术",
+   "name_en": "Pop Art",
+   "tagline": "超市里几乎每根香蕉都是同一株植物的复制：一面一模一样的版画墙，一根被网点吃黑的老香蕉，最后一波换色翻出上千种香蕉。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/bopu.py",
+   "sample": {
+    "file": "bopu pop-art.mp4",
+    "title": "同一根香蕉",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "pop-art"
+  },
+  {
+   "id": "fugu",
+   "station": "graphic",
+   "name_zh": "复古版画拼贴",
+   "name_en": "Vintage Engraving Collage",
+   "tagline": "1918 年一整版印反了的航空邮票：24 美元买下、剪开散落，66 号至今下落不明。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/fugu.py",
+   "sample": {
+    "file": "fugu vintage-collage.mp4",
+    "title": "倒置的珍妮",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "vintage-collage"
+  },
+  {
+   "id": "ruishi",
+   "station": "graphic",
+   "name_zh": "瑞士动态排版",
+   "name_en": "Swiss Motion Graphics",
+   "tagline": "一张音乐会海报按瑞士设计的五条规则自己排版，第五条是只打破一条。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/ruishi.py",
+   "sample": {
+    "file": "ruishi swiss-motion.mp4",
+    "title": "海报的五条规则",
+    "seconds": 44.0
+   },
+   "status": "live",
+   "style_slug": "swiss-motion"
+  },
+  {
+   "id": "jiandie",
+   "station": "graphic",
+   "name_zh": "60s 间谍片头",
+   "name_en": "60s Spy Title Sequence",
+   "tagline": "虚构 1964 年间谍片的片头：追一把被偷的钥匙，几何碎片最后拼成片名。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/jiandie.py",
+   "sample": {
+    "file": "jiandie spy-titles.mp4",
+    "title": "天鹅绒密码",
+    "seconds": 44.1
+   },
+   "status": "live",
+   "style_slug": "spy-titles"
+  },
+  {
+   "id": "xiangxing",
+   "station": "graphic",
+   "name_zh": "象形运动图形",
+   "name_en": "Pictogram Motion",
+   "tagline": "一把被落在公交车上的黄伞，晴天里在失物招领的货架上等了一整天，暴雨回来时和另外 312 把一起撑开：物件、交通、天气和标识，都是卡着节拍的几何象形符号。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/xiangxing.py",
+   "sample": {
+    "file": "xiangxing pictogram-motion.mp4",
+    "title": "被落下的伞",
+    "seconds": 50.0
+   },
+   "status": "live",
+   "style_slug": "pictogram-motion"
+  },
+  {
+   "id": "baohao",
+   "station": "graphic",
+   "name_zh": "包豪斯几何",
+   "name_en": "Bauhaus Shapes",
+   "tagline": "一个点每十年翻一倍：七十年后是 128，不复利只有 6.02，最后十年抵得上之前的全部。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/baohao.py",
+   "sample": {
+    "file": "baohao bauhaus-shapes.mp4",
+    "title": "复利是怎么滚起来的",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "bauhaus-shapes"
+  },
+  {
+   "id": "wenzi",
+   "station": "graphic",
+   "name_zh": "文字闪切",
+   "name_en": "Text Flash Cuts",
+   "tagline": "一封信、一通电话、一面窗墙、十三级台阶：叫他别回头的她每一话都更近一步，直到她自己猛地回头。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/wenzi.py",
+   "sample": {
+    "file": "wenzi text-flash-cuts.mp4",
+    "title": "身后",
+    "seconds": 46.2
+   },
+   "status": "live",
+   "style_slug": "text-flash-cuts"
+  },
+  {
+   "id": "xinxi",
+   "station": "diagram",
+   "name_zh": "等距信息图",
+   "name_en": "Isometric Infographic",
+   "tagline": "一杯咖啡从种植园到你手里的旅程。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/xinxi.py",
+   "sample": {
+    "file": "xinxi iso-infographic.mp4",
+    "title": "从豆到杯",
+    "seconds": 58.8
+   },
+   "status": "live",
+   "style_slug": "iso-infographic"
+  },
+  {
+   "id": "chaijie",
+   "station": "diagram",
+   "name_zh": "产品拆解",
+   "name_en": "Exploded Teardown",
+   "tagline": "开源键盘的一半在一次环绕中逐层拆开，看到主控再合拢，标上真实尺寸。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/chaijie.py",
+   "sample": {
+    "file": "chaijie teardown.mp4",
+    "title": "二十一键",
+    "seconds": 38.8
+   },
+   "status": "live",
+   "style_slug": "teardown"
+  },
+  {
+   "id": "poumian",
+   "station": "diagram",
+   "name_zh": "线稿剖面图解",
+   "name_en": "Line-Art Cutaway",
+   "tagline": "一部手机握住底角就掉信号；拆开才发现金属边框就是天线，被切成几段，手一握就把缝连上了。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/poumian.py",
+   "sample": {
+    "file": "poumian hardcore-info.mp4",
+    "title": "你手机的天线在哪",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "hardcore-info"
+  },
+  {
+   "id": "jixie",
+   "station": "diagram",
+   "name_zh": "分色机械图解",
+   "name_en": "Color-Coded Mechanism",
+   "tagline": "剖开一块不用电的表：三套系统按能量流向逐一染色，抽走擒纵后齿轮疯转，最后放慢到 1/40 等那一声滴答。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/jixie.py",
+   "sample": {
+    "file": "jixie precise-mechanism.mp4",
+    "title": "三套系统走时",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "precise-mechanism"
+  },
+  {
+   "id": "shuoming",
+   "station": "diagram",
+   "name_zh": "说明书插画",
+   "name_en": "Instruction Manual Art",
+   "tagline": "两个从没装过家具的新手照说明书装婴儿床，十步排在同一张 45° 说明书上；第十步，说明书里没有。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/shuoming.py",
+   "sample": {
+    "file": "shuoming instruction-manual.mp4",
+    "title": "第十步",
+    "seconds": 50.6
+   },
+   "status": "live",
+   "style_slug": "instruction-manual"
+  },
+  {
+   "id": "bishi",
+   "station": "diagram",
+   "name_zh": "笔式绘图仪",
+   "name_en": "Pen Plotter",
+   "tagline": "深夜台灯下，一台笔式绘图仪用四支笔按真实高程画出珠穆朗玛峰，最后一笔写下它的高度。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/bishi.py",
+   "sample": {
+    "file": "bishi pen-plotter.mp4",
+    "title": "8848.86",
+    "seconds": 49.9
+   },
+   "status": "live",
+   "style_slug": "pen-plotter"
+  },
+  {
+   "id": "liushui",
+   "station": "diagram",
+   "name_zh": "流水线图解",
+   "name_en": "Assembly-Line Diagram",
+   "tagline": "把人体剖成一座倒着开的工厂：12:30 的一份三明治被一站一站拆开，六小时后变成追公交车的力气。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/liushui.py",
+   "sample": {
+    "file": "liushui assembly-line-diagram.mp4",
+    "title": "拆解流水线",
+    "seconds": 54.9
+   },
+   "status": "live",
+   "style_slug": "assembly-line-diagram"
+  },
+  {
+   "id": "xianwei",
+   "station": "diagram",
+   "name_zh": "显微镜下",
+   "name_en": "Under the Microscope",
+   "tagline": "一镜从肝组织玻片推到单个细胞核，两个圆逐像素数出 2.4 倍的蓝。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/xianwei.py",
+   "sample": {
+    "file": "xianwei microscope.mp4",
+    "title": "量出来的蓝",
+    "seconds": 39.5
+   },
+   "status": "live",
+   "style_slug": "microscope"
+  },
+  {
+   "id": "jianbao",
+   "station": "diagram",
+   "name_zh": "工程简报板",
+   "name_en": "Engineering Briefing Board",
+   "tagline": "一条河要架桥，四种桥型在一面简报墙上逐个受检，拍板的是桥下要过的船。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/jianbao.py",
+   "sample": {
+    "file": "jianbao briefing-board.mp4",
+    "title": "船说了算",
+    "seconds": 40.0
+   },
+   "status": "live",
+   "style_slug": "briefing-board"
+  },
+  {
+   "id": "anjian",
+   "station": "diagram",
+   "name_zh": "安检 X 光",
+   "name_en": "Security X-ray",
+   "tagline": "机场安检机屏幕上的一个夜班：一个充电宝、一瓶水，还有在 CT 里动了一下腿的六只活蟹。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/anjian.py",
+   "sample": {
+    "file": "anjian security-xray.mp4",
+    "title": "安检口的夜班",
+    "seconds": 51.9
+   },
+   "status": "live",
+   "style_slug": "security-xray"
+  },
+  {
+   "id": "sailu",
+   "station": "toon",
+   "name_zh": "80 年代赛璐璐动画",
+   "name_en": "80s Cel Anime",
+   "tagline": "快递少女骑车穿过雨后霓虹都市，赶在黎明发射前送到一盘磁带。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/sailu.py",
+   "sample": {
+    "file": "sailu cel-anime-80s.mp4",
+    "title": "城市灯火，1987",
+    "seconds": 59.0
+   },
+   "status": "live",
+   "style_slug": "cel-anime-80s"
+  },
+  {
+   "id": "kehuan",
+   "station": "toon",
+   "name_zh": "科幻情景喜剧卡通",
+   "name_en": "Sci-Fi Sitcom Toon",
+   "tagline": "厌世天才开传送门只想买杯咖啡，却穿过越来越离谱的平行宇宙。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/kehuan.py",
+   "sample": {
+    "file": "kehuan scifi-toon.mp4",
+    "title": "跑腿买咖啡",
+    "seconds": 57.5
+   },
+   "status": "live",
+   "style_slug": "scifi-toon"
+  },
+  {
+   "id": "wushi",
+   "station": "toon",
+   "name_zh": "50s 扁平卡通",
+   "name_en": "Mid-century Cartoon",
+   "tagline": "用 50 年代教育片的口吻，三步教你装好一台扫地机。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/wushi.py",
+   "sample": {
+    "file": "wushi midcentury-toon.mp4",
+    "title": "认识一下 Pip",
+    "seconds": 40.0
+   },
+   "status": "live",
+   "style_slug": "midcentury-toon"
+  },
+  {
+   "id": "gaoxiao",
+   "station": "toon",
+   "name_zh": "搞笑历史卡通",
+   "name_en": "Comic History Cartoon",
+   "tagline": "阿尔萨斯-洛林在 1871 到 1945 年间四次换主人：每次都有人撕下那块纸、贴上新的，住在上面的她一步没挪。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/gaoxiao.py",
+   "sample": {
+    "file": "gaoxiao comic-history.mp4",
+    "title": "一块纸",
+    "seconds": 51.0
+   },
+   "status": "live",
+   "style_slug": "comic-history"
+  },
+  {
+   "id": "xiangsu2",
+   "station": "toon",
+   "name_zh": "2.5D 像素",
+   "name_en": "2.5D Pixel Art",
+   "tagline": "灯塔熄灭，孙女提着最后一簇火穿过夜林、爬上风暴悬崖。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/xiangsu2.py",
+   "sample": {
+    "file": "xiangsu2 hd-2d.mp4",
+    "title": "守灯人",
+    "seconds": 76.5
+   },
+   "status": "live",
+   "style_slug": "hd-2d"
+  },
+  {
+   "id": "weiyou",
+   "station": "toon",
+   "name_zh": "微游戏快闪",
+   "name_en": "Microgame Frenzy",
+   "tagline": "见习宇航员闯五秒训练营，越来越快，Boss 关亲手降落回地球。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/weiyou.py",
+   "sample": {
+    "file": "weiyou microgame.mp4",
+    "title": "五秒宇航员",
+    "seconds": 59.8
+   },
+   "status": "live",
+   "style_slug": "microgame"
+  },
+  {
+   "id": "jiezou",
+   "station": "toon",
+   "name_zh": "节奏综艺",
+   "name_en": "Rhythm Game Show",
+   "tagline": "把 AI 发展史做成一局节奏游戏，模型踩着拍登场，最后发成绩单。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/jiezou.py",
+   "sample": {
+    "file": "jiezou game-show.mp4",
+    "title": "AI 进化节拍",
+    "seconds": 148.8
+   },
+   "status": "live",
+   "style_slug": "game-show"
+  },
+  {
+   "id": "zifu",
+   "station": "screen",
+   "name_zh": "CRT 字符终端",
+   "name_en": "CRT ASCII Terminal",
+   "tagline": "月球基地的 AI 沉睡 40 年后被唤醒，用字符画出“家”来回复。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/zifu.py",
+   "sample": {
+    "file": "zifu ascii-crt.mp4",
+    "title": "静海日志",
+    "seconds": 59.8
+   },
+   "status": "live",
+   "style_slug": "ascii-crt"
+  },
+  {
+   "id": "mopian",
+   "station": "screen",
+   "name_zh": "1920s 默片",
+   "name_en": "1920s Silent Film",
+   "tagline": "面包店学徒追一个滚走的面包，最后掰成两半分给饿肚子的小女孩。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/mopian.py",
+   "sample": {
+    "file": "mopian silent-film.mp4",
+    "title": "逃跑的面包",
+    "seconds": 54.2
+   },
+   "status": "live",
+   "style_slug": "silent-film"
+  },
+  {
+   "id": "houshi",
+   "station": "screen",
+   "name_zh": "后室录像带",
+   "name_en": "Liminal Found Footage",
+   "tagline": "新夜班员工拍下入职第一晚：无尽的黄色办公空间，和墙上的员工守则。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/houshi.py",
+   "sample": {
+    "file": "houshi backrooms.mp4",
+    "title": "夜班入职培训",
+    "seconds": 59.7
+   },
+   "status": "live",
+   "style_slug": "backrooms"
+  },
+  {
+   "id": "zhike",
+   "station": "screen",
+   "name_zh": "胶片直刻",
+   "name_en": "Scratch Film",
+   "tagline": "一条手指长的灯笼鱼摸黑往上游半公里，用自己的光藏起影子；镜头拉远，原来每晚有无数动物和它一起升起。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/zhike.py",
+   "sample": {
+    "file": "zhike scratch-film.mp4",
+    "title": "夜里往上游",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "scratch-film"
+  },
+  {
+   "id": "puguang",
+   "station": "screen",
+   "name_zh": "双重曝光",
+   "name_en": "Double Exposure",
+   "tagline": "天黑下来的这一路，从山到海：鹿、狼、鹰、鲑鱼、鲸，每只动物的剪影里装着它的那片天地；最后鲸身体里的港湾落在真的海岸上。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/puguang.py",
+   "sample": {
+    "file": "puguang double-exposure.mp4",
+    "title": "山海",
+    "seconds": 50.5
+   },
+   "status": "live",
+   "style_slug": "double-exposure"
+  },
+  {
+   "id": "fabu",
+   "station": "screen",
+   "name_zh": "暗色科技发布",
+   "name_en": "Dark Tech Keynote",
+   "tagline": "虚构 app Tidy 的发布片：被埋掉的光标一键把几百个窗口归位。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/fabu.py",
+   "sample": {
+    "file": "fabu dark-keynote.mp4",
+    "title": "思考的空间",
+    "seconds": 42.0
+   },
+   "status": "live",
+   "style_slug": "dark-keynote"
+  },
+  {
+   "id": "luping",
+   "station": "screen",
+   "name_zh": "像素小人录屏",
+   "name_en": "Mascot Screencast",
+   "tagline": "像素小人 Clawd 搬进 Claude 应用，一镜到底演示 Plan 模式和自检。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/luping.py",
+   "sample": {
+    "file": "luping living-screencast.mp4",
+    "title": "Clawd 搬进来了",
+    "seconds": 59.4
+   },
+   "status": "live",
+   "style_slug": "living-screencast"
+  },
+  {
+   "id": "zhuomian",
+   "station": "screen",
+   "name_zh": "桌面卡片穿梭",
+   "name_en": "Tabletop App Flythrough",
+   "tagline": "一张猫照片跳过桌上的应用卡片，从一台手机飞到朋友手机里，一镜跟到底。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/zhuomian.py",
+   "sample": {
+    "file": "zhuomian desktop-flythrough.mp4",
+    "title": "叮之前",
+    "seconds": 60.0
+   },
+   "status": "live",
+   "style_slug": "desktop-flythrough"
+  },
+  {
+   "id": "biaoge",
+   "station": "screen",
+   "name_zh": "表格动画",
+   "name_en": "Spreadsheet Film",
+   "tagline": "总数说 B 更好；把藏起来的结石大小列打开，A 在每一组都赢。一张表讲清辛普森悖论，一格就是一位病人。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/biaoge.py",
+   "sample": {
+    "file": "biaoge spreadsheet.mp4",
+    "title": "藏起来的那一列",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "spreadsheet"
+  },
+  {
+   "id": "dianzhen",
+   "station": "screen",
+   "name_zh": "1-bit 点阵",
+   "name_en": "1-bit Dither",
+   "tagline": "1966 年 2 月，月面的第一张近照被英国一座射电望远镜当成报社传真收下，一行一行印出来：早了一天，比例却拉高了。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/dianzhen.py",
+   "sample": {
+    "file": "dianzhen one-bit-dither.mp4",
+    "title": "月亮的传真",
+    "seconds": 50.0
+   },
+   "status": "live",
+   "style_slug": "one-bit-dither"
+  },
+  {
+   "id": "dianlu",
+   "station": "screen",
+   "name_zh": "电路板",
+   "name_en": "Circuit Board",
+   "tagline": "江河变成电路板上的走线，电流从水坝跑 2,080 公里进手机充电器。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/dianlu.py",
+   "sample": {
+    "file": "dianlu circuit-board.mp4",
+    "title": "七毫秒",
+    "seconds": 60.0
+   },
+   "status": "live",
+   "style_slug": "circuit-board"
+  },
+  {
+   "id": "yinghuo",
+   "station": "screen",
+   "name_zh": "萤火光点",
+   "name_en": "Firefly Pointillism",
+   "tagline": "萤火虫闪一下就是在发问：女孩得到的回答是一只鹿，暴风雨吹灭了所有的光，她用最后一只问遍了整片黑夜。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/yinghuo.py",
+   "sample": {
+    "file": "yinghuo firefly-pointillism.mp4",
+    "title": "你亮，我就亮",
+    "seconds": 50.6
+   },
+   "status": "live",
+   "style_slug": "firefly-pointillism"
+  },
+  {
+   "id": "liuchang",
+   "station": "screen",
+   "name_zh": "流场风线",
+   "name_en": "Flow-field Wind Lines",
+   "tagline": "几千条从最佳路径算出来的墨色风线，画出超强台风摩羯的一生：在南海睁开风眼，在文昌登陆，在越南散开，一整周最后收成一条线。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/liuchang.py",
+   "sample": {
+    "file": "liuchang flow-field.mp4",
+    "title": "摩羯过琼州",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "flow-field"
+  },
+  {
+   "id": "shibo",
+   "station": "screen",
+   "name_zh": "示波器数学",
+   "name_en": "Oscilloscope Math",
+   "tagline": "方方正正的波，怎么由圆滚出来？一个个圆叠成方波，直到镜头扎进一个角：那里有一个永远消不掉的 9% 尖角。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/shibo.py",
+   "sample": {
+    "file": "shibo oscilloscope-math.mp4",
+    "title": "吉布斯现象",
+    "seconds": 51.1
+   },
+   "status": "live",
+   "style_slug": "oscilloscope-math"
+  },
+  {
+   "id": "nihong",
+   "station": "screen",
+   "name_zh": "霓虹灯管",
+   "name_en": "Neon Tubes",
+   "tagline": "一只霓虹猫去街尾招牌上偷金鱼当夜宵，一爪子拍漏了鱼缸，又叼着快灭的鱼冒雨跑回家，放进自家招牌上的冰饮杯。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/nihong.py",
+   "sample": {
+    "file": "nihong neon-tubes.mp4",
+    "title": "夜宵",
+    "seconds": 48.0
+   },
+   "status": "live",
+   "style_slug": "neon-tubes"
+  },
+  {
+   "id": "leida",
+   "station": "screen",
+   "name_zh": "雷达扫描纪录片",
+   "name_en": "Radar Sweep Documentary",
+   "tagline": "1969 年 7 月 21 日帕克斯的风暴里，一面放倒到极限的 64 米天线顶住了风，替全世界接住了登月直播。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/leida.py",
+   "sample": {
+    "file": "leida dark-documentary.mp4",
+    "title": "狂风里接住登月直播",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "dark-documentary"
+  },
+  {
+   "id": "jimu",
+   "station": "d3",
+   "name_zh": "积木玩具",
+   "name_en": "Brick Toy",
+   "tagline": "积木宇航员用零件拼出火箭，飞向积木月亮。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/jimu.py",
+   "sample": {
+    "file": "jimu brick-toy.mp4",
+    "title": "零件拼出的火箭",
+    "seconds": 54.0
+   },
+   "status": "live",
+   "style_slug": "brick-toy"
+  },
+  {
+   "id": "liti",
+   "station": "d3",
+   "name_zh": "纸片立体书",
+   "name_en": "Paper Pop-up Book",
+   "tagline": "立体书在书桌上打开，小精灵 Pip 在纸片世界冒险，最后跳出书外。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/liti.py",
+   "sample": {
+    "file": "liti paper-popup.mp4",
+    "title": "小精灵冒险记",
+    "seconds": 133.0
+   },
+   "status": "live",
+   "style_slug": "paper-popup"
+  },
+  {
+   "id": "yizhou",
+   "station": "d3",
+   "name_zh": "移轴微缩",
+   "name_en": "Tilt-Shift Miniature",
+   "tagline": "玩具城的早高峰，一切都像模型。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/yizhou.py",
+   "sample": {
+    "file": "yizhou tilt-shift.mp4",
+    "title": "玩具城早高峰",
+    "seconds": 38.0
+   },
+   "status": "live",
+   "style_slug": "tilt-shift"
+  },
+  {
+   "id": "chanpin",
+   "station": "d3",
+   "name_zh": "玻璃质感产品",
+   "name_en": "Glass Product Render",
+   "tagline": "虚构玻璃耳机 Aura 的开箱与特写。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/chanpin.py",
+   "sample": {
+    "file": "chanpin glass-product.mp4",
+    "title": "Aura：听见光",
+    "seconds": 32.0
+   },
+   "status": "live",
+   "style_slug": "glass-product"
+  },
+  {
+   "id": "labi2",
+   "station": "d3",
+   "name_zh": "蜡笔立体世界",
+   "name_en": "Crayon World 3D",
+   "tagline": "蜡笔的粗线画出一个等轴的小村子，镜头飞到花园，停在一朵花上的蝴蝶。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（板写族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/labi2.py",
+   "sample": {
+    "file": "site/media/labi2.mp4",
+    "title": "一朵花上的蝴蝶",
+    "seconds": 10.0
+   },
+   "status": "live",
+   "style_slug": "crayon-world"
+  },
+  {
+   "id": "weixing",
+   "station": "map",
+   "name_zh": "卫星简报",
+   "name_en": "Satellite Briefing",
+   "tagline": "卫星照着地图去找咸海，找到的是沙漠；只有筑了坝的那一块回来了。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/weixing.py",
+   "sample": {
+    "file": "weixing satellite-briefing.mp4",
+    "title": "地图上还写着海",
+    "seconds": 37.8
+   },
+   "status": "live",
+   "style_slug": "satellite-briefing"
+  },
+  {
+   "id": "cehui",
+   "station": "map",
+   "name_zh": "点云测绘",
+   "name_en": "LiDAR Survey",
+   "tagline": "激光点云剥掉一片森林的树冠，露出当年农田的石墙：3.4 公里。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/cehui.py",
+   "sample": {
+    "file": "cehui lidar-survey.mp4",
+    "title": "林下的田",
+    "seconds": 40.0
+   },
+   "status": "live",
+   "style_slug": "lidar-survey"
+  },
+  {
+   "id": "recheng",
+   "station": "map",
+   "name_zh": "热成像",
+   "name_en": "Thermal Camera",
+   "tagline": "雪夜里，一台热像仪绕着一栋老居民楼转：漏风的窗、墙里的暖气管、睡在热车盖上的猫，还有一年后改造完的同一栋楼。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（场族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/recheng.py",
+   "sample": {
+    "file": "recheng thermal-camera.mp4",
+    "title": "冬夜，一栋楼的体温",
+    "seconds": 49.0
+   },
+   "status": "live",
+   "style_slug": "thermal-camera"
+  },
+  {
+   "id": "shuju",
+   "station": "map",
+   "name_zh": "数据叙事",
+   "name_en": "Data Storytelling",
+   "tagline": "一百年的夏季气温，图表本身就是故事。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/shuju.py",
+   "sample": {
+    "file": "shuju dataviz.mp4",
+    "title": "一百个夏天",
+    "seconds": 50.0
+   },
+   "status": "live",
+   "style_slug": "dataviz"
+  },
+  {
+   "id": "baimo",
+   "station": "map",
+   "name_zh": "白模投影",
+   "name_en": "Projection-Mapped Model",
+   "tagline": "投影机把数据一层层刷上鹿特丹白模：从 1940 年的空洞到今天的塔楼。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/baimo.py",
+   "sample": {
+    "file": "baimo white-model.mp4",
+    "title": "被炸平的城市怎样长回来",
+    "seconds": 40.0
+   },
+   "status": "live",
+   "style_slug": "white-model"
+  },
+  {
+   "id": "shiwu",
+   "station": "map",
+   "name_zh": "数据实物化",
+   "name_en": "Data Physicalization",
+   "tagline": "十二年风电和太阳能装机叠成实物，绕表盘升成两条螺旋，2021 年太阳能反超。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/shiwu.py",
+   "sample": {
+    "file": "shiwu data-physical.mp4",
+    "title": "两条螺旋",
+    "seconds": 39.4
+   },
+   "status": "live",
+   "style_slug": "data-physical"
+  },
+  {
+   "id": "dietie",
+   "station": "map",
+   "name_zh": "地铁线路图",
+   "name_en": "Transit Map",
+   "tagline": "一张纸上的线路图，从 1993 年的 6 公里长到 21 条线、906 公里。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（地图族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/dietie.py",
+   "sample": {
+    "file": "dietie transit-map.mp4",
+    "title": "6 公里",
+    "seconds": 47.0
+   },
+   "status": "live",
+   "style_slug": "transit-map"
+  },
+  {
+   "id": "moni",
+   "station": "map",
+   "name_zh": "小人模拟实验",
+   "name_en": "Blob Simulation",
+   "tagline": "160 只植绒小人抢豆子：快的先抢到也先跑不动，跑完 20 代，整块台面都变蓝了。",
+   "engine": "自研渲染 · vendor/runtime/stylekit.js（场族）",
+   "aspect": "16:9",
+   "fps": null,
+   "entry": "scripts/moni.py",
+   "sample": {
+    "file": "moni pip-simulation.mp4",
+    "title": "跑得快，就更好吗？",
+    "seconds": 52.0
+   },
+   "status": "live",
+   "style_slug": "pip-simulation"
+  },
+  {
+   "id": "liaotian",
+   "station": "screen",
+   "name_zh": "聊天叙事",
+   "name_en": "Chat Narrative",
+   "tagline": "故事发生在聊天软件里：气泡、输入中、语音条与引用卡，镜头推进一条时其余变暗。",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/liaotian.py",
+   "sample": {
+    "file": "liaotian bb-chat.mp4",
+    "title": "一骑红尘妃子笑 · 聊天群",
+    "seconds": 58.6
+   },
+   "status": "live",
+   "legacy_style": "chat"
+  },
+  {
+   "id": "keli",
+   "station": "graphic",
+   "name_zh": "扁平颗粒插画",
+   "name_en": "Flat Grain Illustration",
+   "tagline": "两种专色印在暖纸上，体积与光全靠点状颗粒；一条地平线把时代一段段长出来。",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/keli.py",
+   "sample": {
+    "file": "keli bb-grain.mp4",
+    "title": "人类如何照亮夜晚",
+    "seconds": 92.6
+   },
+   "status": "live",
+   "legacy_style": "grain"
+  },
+  {
+   "id": "andiao",
+   "station": "screen",
+   "name_zh": "暗调励志",
+   "name_en": "Dark Motivational",
+   "tagline": "几乎全黑的房间只留一盏动机光，方形头小人用眉眼演完熬夜、拖延与那个决定。",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/andiao.py",
+   "sample": {
+    "file": "andiao bb-lumen.mp4",
+    "title": "再刷五分钟 · 报复性熬夜",
+    "seconds": 165.3
+   },
+   "status": "live",
+   "legacy_style": "lumen"
+  },
+  {
+   "id": "xuanyi",
+   "station": "screen",
+   "name_zh": "悬疑探秘",
+   "name_en": "Suspense Mystery",
+   "tagline": "冷面伪科学电视：4:3 蓝屏、编号症状、橡皮管贴纸演一遍，最后切到测试卡。",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/xuanyi.py",
+   "sample": {
+    "file": "xuanyi bb-mystery.mp4",
+    "title": "为什么你的朋友该叫你爸爸",
+    "seconds": 44.4
+   },
+   "status": "live",
+   "legacy_style": "mystery"
+  },
+  {
+   "id": "oupu",
+   "station": "graphic",
+   "name_zh": "欧普艺术",
+   "name_en": "Op Art",
+   "tagline": "黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/oupu.py",
+   "sample": {
+    "file": "oupu bb-op.mp4",
+    "title": "Stripe · 官网",
+    "seconds": 22.3
+   },
+   "status": "live",
+   "legacy_style": "op"
+  },
+  {
+   "id": "yugao",
+   "station": "graphic",
+   "name_zh": "电影预告",
+   "name_en": "Movie Trailer",
+   "tagline": "2.39:1 遮幅的好莱坞预告：青橙调、黑底金属字卡、钢琴一记、BRAAM 与标题砸屏。",
+   "engine": "Canvas · Chrome 逐帧（本地运行时）",
+   "aspect": "16:9",
+   "fps": 30,
+   "entry": "scripts/yugao.py",
+   "sample": {
+    "file": "yugao bb-trailer.mp4",
+    "title": "Deep Space Echo · 预告",
+    "seconds": 83.2
+   },
+   "status": "live",
+   "legacy_style": "trailer"
+  },
+  {
+   "id": "dongxue",
+   "station": "craft",
+   "name_zh": "洞穴岩画",
+   "name_en": "Cave Painting",
+   "tagline": "噪声岩壁作底、炭点毛边勾形，赭石真的吃进岩面；野牛两姿态交替跑，火光一直在摇。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/dongxue.py",
+   "status": "live",
+   "sample": {
+    "file": "dongxue huashu-洞穴岩画.mp4",
+    "title": "洞穴岩画 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "aiji",
+   "station": "craft",
+   "name_zh": "埃及墓室壁画",
+   "name_en": "Egyptian Wall Painting",
+   "tagline": "侧脸正面眼、平涂细勾线、手写象形字；圣甲虫推着太阳，阿顿的光线一开一合。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/aiji.py",
+   "status": "live",
+   "sample": {
+    "file": "aiji huashu-埃及墓室壁画.mp4",
+    "title": "埃及墓室壁画 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "xila",
+   "station": "craft",
+   "name_zh": "古希腊黑绘陶",
+   "name_en": "Attic Black-Figure",
+   "tagline": "黑剪影配陶土色刻线，紫红带点白；回纹带反向滚动，陶瓶像滚筒一样转面。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/xila.py",
+   "status": "live",
+   "sample": {
+    "file": "xila huashu-古希腊黑绘陶.mp4",
+    "title": "古希腊黑绘陶 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "pangbei",
+   "station": "craft",
+   "name_zh": "庞贝马赛克",
+   "name_en": "Pompeii Mosaic",
+   "tagline": "距离场沿轮廓排石块，灰浆按加权 Voronoi 长出来；颜色顺着波浪纹一圈圈流过。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/pangbei.py",
+   "status": "live",
+   "sample": {
+    "file": "pangbei huashu-庞贝马赛克.mp4",
+    "title": "庞贝马赛克 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "wenyi",
+   "station": "hand",
+   "name_zh": "文艺复兴晕涂",
+   "name_en": "High Renaissance Sfumato",
+   "tagline": "十秒横摇穿过文艺复兴长厅：窗边猫、举银杯的少女、画案上校比例的学者；午后侧光、天鹅绒宝石色、龟裂与黄釉。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/wenyi.py",
+   "status": "live",
+   "sample": {
+    "file": "wenyi huashu-文艺复兴晕涂.mp4",
+    "title": "文艺复兴长厅 · 一镜到底",
+    "seconds": 10.0
+   }
+  },
+  {
+   "id": "yinxiang",
+   "station": "hand",
+   "name_zh": "印象派",
+   "name_en": "Impressionism",
+   "tagline": "区域粉彩短笔触、位置固定；光斑漂移明灭，罂粟在摇，云在走，丝带在飘。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/yinxiang.py",
+   "status": "live",
+   "sample": {
+    "file": "yinxiang-10s.mp4",
+    "title": "河岸的午后",
+    "seconds": 10.0
+   }
+  },
+  {
+   "id": "fangao",
+   "station": "hand",
+   "name_zh": "梵高后印象",
+   "name_en": "Van Gogh Post-Impressionism",
+   "tagline": "流场笔触分三遍铺，墙竖长、地透视；星空漩涡、灯晕外扩，方向场像火苗一样摇曳。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/fangao.py",
+   "status": "live",
+   "sample": {
+    "file": "fangao-10s.mp4",
+    "title": "麦田播种者",
+    "seconds": 10.0
+   }
+  },
+  {
+   "id": "muxia",
+   "station": "graphic",
+   "name_zh": "慕夏新艺术",
+   "name_en": "Mucha Art Nouveau",
+   "tagline": "可变线宽外粗内细、剪影错位垫底；太阳升起、光环转、卷发成波。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/muxia.py",
+   "status": "live",
+   "sample": {
+    "file": "muxia huashu-慕夏新艺术.mp4",
+    "title": "慕夏新艺术 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "liti2",
+   "station": "hand",
+   "name_zh": "立体主义",
+   "name_en": "Analytical Cubism",
+   "tagline": "半透明渐变面叠出空间，切面器不裁剪三角；CAFÉ 字母跳换、窗格碎面滑动。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/liti2.py",
+   "status": "live",
+   "sample": {
+    "file": "liti2-10s.mp4",
+    "title": "巴黎咖啡馆",
+    "seconds": 10.0
+   }
+  },
+  {
+   "id": "guangzhui",
+   "station": "screen",
+   "name_zh": "光追 CGI",
+   "name_en": "Ray-traced CGI",
+   "tagline": "统一塑料着色、逐像素棋盘倒影、铬球环境映射；绿色线框扫成渲染线。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/guangzhui.py",
+   "status": "live",
+   "sample": {
+    "file": "guangzhui huashu-光追 CGI.mp4",
+    "title": "光追 CGI · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "kelimu",
+   "station": "craft",
+   "name_zh": "克里姆特金色",
+   "name_en": "Klimt Golden Phase",
+   "tagline": "金箔逐像素拉丝压花，螺旋与眼形纹样铺满；袍上的眼睛轮流眨，金屑在飘。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/kelimu.py",
+   "status": "live",
+   "sample": {
+    "file": "kelimu huashu-克里姆特金色.mp4",
+    "title": "克里姆特金色 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "mengke",
+   "station": "hand",
+   "name_zh": "蒙克表现主义",
+   "name_en": "Munch Expressionism",
+   "tagline": "长弯流线笔沿流场走二三十步，整幅按行正弦扭曲；血色天空从上往下压。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/mengke.py",
+   "status": "live",
+   "sample": {
+    "file": "mengke-10s.mp4",
+    "title": "黄昏码头",
+    "seconds": 10.0
+   }
+  },
+  {
+   "id": "dunhuang",
+   "station": "craft",
+   "name_zh": "敦煌壁画",
+   "name_en": "Dunhuang Mural",
+   "tagline": "土红底、矿物色，剥落只发生在背景；飞天飘带扫过，旧画一层层往下落。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/dunhuang.py",
+   "status": "live",
+   "sample": {
+    "file": "dunhuang huashu-敦煌壁画.mp4",
+    "title": "敦煌壁画 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "caojian",
+   "station": "graphic",
+   "name_zh": "草间弥生波点",
+   "name_en": "Kusama Polka Dots",
+   "tagline": "手绘不规则圆按六角网格取模；波点从猫身上一圈圈胀缩，镜屋一直往外长。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/caojian.py",
+   "status": "live",
+   "sample": {
+    "file": "caojian huashu-草间弥生波点.mp4",
+    "title": "草间弥生波点 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "dali",
+   "station": "hand",
+   "name_zh": "达利超现实",
+   "name_en": "Dali Surrealism",
+   "tagline": "软钟变形、长影子剪切仿射；钟往下流，长腿象走，蚂蚁绕着表盘转。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/dali.py",
+   "status": "live",
+   "sample": {
+    "file": "dali-10s.mp4",
+    "title": "荒原午睡",
+    "seconds": 10.0
+   }
+  },
+  {
+   "id": "huopu",
+   "station": "hand",
+   "name_zh": "霍普美国现实主义",
+   "name_en": "Hopper American Realism",
+   "tagline": "亮版与暗版两套光影按光块裁切，硬边光斑缓慢扫过；墙上的人影同步喝茶。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/huopu.py",
+   "status": "live",
+   "sample": {
+    "file": "huopu huashu-霍普美国现实主义.mp4",
+    "title": "霍普美国现实主义 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "jibuli",
+   "station": "toon",
+   "name_zh": "吉卜力水彩",
+   "name_en": "Ghibli Watercolor",
+   "tagline": "水彩洗染透明叠色、留水痕边，角色走赛璐璐月牙影；纱帘被风鼓起，草叶成片摆。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/jibuli.py",
+   "status": "live",
+   "sample": {
+    "file": "jibuli huashu-吉卜力水彩.mp4",
+    "title": "吉卜力水彩 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "xiula",
+   "station": "hand",
+   "name_zh": "修拉点彩",
+   "name_en": "Seurat Pointillism",
+   "tagline": "21 色纯色板按比例并置，补色点等大；画面结晶成圆点，点自己在呼吸。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/xiula.py",
+   "status": "live",
+   "sample": {
+    "file": "xiula huashu-修拉点彩.mp4",
+    "title": "修拉点彩 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "madisi",
+   "station": "craft",
+   "name_zh": "马蒂斯剪纸",
+   "name_en": "Matisse Paper Cut-outs",
+   "tagline": "剪刀边故意不规则，钉纸投影、饱和平涂；纸片飘动，海藻摆动。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/madisi.py",
+   "status": "live",
+   "sample": {
+    "file": "madisi huashu-马蒂斯剪纸.mp4",
+    "title": "马蒂斯剪纸 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "halin",
+   "station": "graphic",
+   "name_zh": "凯斯·哈林",
+   "name_en": "Keith Haring",
+   "tagline": "粗黑等宽线配放射动作线；小人按 8fps 硬切跳舞，一切都跟 BPM 弹跳。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/halin.py",
+   "status": "live",
+   "sample": {
+    "file": "halin huashu-凯斯·哈林.mp4",
+    "title": "凯斯·哈林 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "lunbo",
+   "station": "hand",
+   "name_zh": "伦勃朗明暗",
+   "name_en": "Rembrandt Chiaroscuro",
+   "tagline": "光照图整幅相乘，窗光加烛光；光柱里浮尘，云影让窗光一明一暗。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/lunbo.py",
+   "status": "beta",
+   "sample": {
+    "file": "lunbo huashu-伦勃朗明暗.mp4",
+    "title": "伦勃朗明暗 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "xinhai",
+   "station": "toon",
+   "name_zh": "新海诚光影",
+   "name_en": "Makoto Shinkai Light",
+   "tagline": "积雨云、丁达尔光柱、赛璐璐硬阴影带；光粒在飘，云在移，斜向扫光进场。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/xinhai.py",
+   "status": "live",
+   "sample": {
+    "file": "xinhai huashu-新海诚光影.mp4",
+    "title": "新海诚光影 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "bijia",
+   "station": "hand",
+   "name_zh": "毕加索蓝色时期",
+   "name_en": "Picasso Blue Period",
+   "tagline": "单色蓝调、宽笔触、普鲁士蓝粗轮廓；人体拉长，颜色被抽成蓝再宽刷一遍。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/bijia.py",
+   "status": "live",
+   "sample": {
+    "file": "bijia huashu-毕加索蓝色时期.mp4",
+    "title": "毕加索蓝色时期 · 上游样片",
+    "seconds": 1.07
+   }
+  },
+  {
+   "id": "guaerdi",
+   "station": "hand",
+   "name_zh": "瓜尔迪威尼斯",
+   "name_en": "Guardi Venetian Atmosphere",
+   "tagline": "短促松动的亮笔、断续轮廓，银灰空气把建筑、水与远景连成一体。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/guaerdi.py",
+   "status": "beta",
+   "sample": null,
+   "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
+  },
+  {
+   "id": "luolun",
+   "station": "hand",
+   "name_zh": "洛伦采蒂空间",
+   "name_en": "Lorenzetti Civic Space",
+   "tagline": "可阅读的社会空间：街道、院落与人群在同一画面里各做各的事。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/luolun.py",
+   "status": "beta",
+   "sample": null,
+   "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
+  },
+  {
+   "id": "keer",
+   "station": "hand",
+   "name_zh": "科尔托纳巴洛克",
+   "name_en": "Cortona Baroque",
+   "tagline": "巴洛克体量与流动群组：人群沿对角线卷上去，像天顶画一样翻涌。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/keer.py",
+   "status": "beta",
+   "sample": null,
+   "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
+  },
+  {
+   "id": "gaogeng",
+   "station": "hand",
+   "name_zh": "高更象征色",
+   "name_en": "Gauguin Synthetism",
+   "tagline": "平面、粗轮廓与象征色；色块不解释光，只解释情绪。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/gaogeng.py",
+   "status": "beta",
+   "sample": null,
+   "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
+  },
+  {
+   "id": "xiajia",
+   "station": "hand",
+   "name_zh": "夏加尔记忆空间",
+   "name_en": "Chagall Dream Space",
+   "tagline": "记忆空间与情感色彩：人和房子飘起来，颜色比透视更重要。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/xiajia.py",
+   "status": "beta",
+   "sample": null,
+   "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
+  },
+  {
+   "id": "bosi",
+   "station": "craft",
+   "name_zh": "波斯细密画",
+   "name_en": "Persian Miniature",
+   "tagline": "层叠空间与精密叙事：平面分层、纹样铺满，每一格都在讲同一件事。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/bosi.py",
+   "status": "beta",
+   "sample": null,
+   "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
+  },
+  {
+   "id": "nanfang",
+   "station": "toon",
+   "name_zh": "南方公园剪纸",
+   "name_en": "South Park Cutout",
+   "tagline": "数字剪纸与有限表演：扁平的纸片人，只靠眉眼的有限动作演戏。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/nanfang.py",
+   "status": "beta",
+   "sample": null,
+   "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
+  },
+  {
+   "id": "pikesi",
+   "station": "toon",
+   "name_zh": "皮克斯三维",
+   "name_en": "Pixar 3D",
+   "tagline": "形体、材质与表演：圆润造型、次表面散射，加上挤压拉伸的表演。",
+   "engine": "自研封装 · 本地 runtime（Canvas 2D + Three.js 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/pikesi.py",
+   "status": "beta",
+   "sample": null,
+   "sample_note": "研究配方：上游只有单帧原型，暂无成片；封面来自原型帧"
+  },
+  {
+   "id": "tanbi",
+   "station": "hand",
+   "name_zh": "炭笔擦画",
+   "name_en": "Charcoal, Erased and Redrawn",
+   "tagline": "柳炭起形、纸擦笔揉开、可塑橡皮提白，再在擦掉的旧痕上重画一遍。",
+   "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/tanbi.py",
+   "status": "live",
+   "sample": null,
+   "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
+  },
+  {
+   "id": "youcai",
+   "station": "hand",
+   "name_zh": "梦境釉彩",
+   "name_en": "Dream Glaze",
+   "tagline": "树脂稀释的油彩一层层罩上去，看不见笔触，边缘一律硬，只有一束很低的光。",
+   "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/youcai.py",
+   "status": "live",
+   "sample": null,
+   "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
+  },
+  {
+   "id": "cixiu",
+   "station": "craft",
+   "name_zh": "刺绣",
+   "name_en": "Hand Embroidery",
+   "tagline": "棉线在平纹亚麻上一针针走过：枝用轮廓绣、叶用缎面绣、花心最后打结。",
+   "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/cixiu.py",
+   "status": "live",
+   "sample": null,
+   "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
+  },
+  {
+   "id": "minjian",
+   "station": "paper",
+   "name_zh": "民间故事绘本",
+   "name_en": "Folk-tale Storybook",
+   "tagline": "水粉压在铅笔稿上，前景不透明，越往远越薄，最后只剩没盖住的那几根线。",
+   "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/minjian.py",
+   "status": "live",
+   "sample": null,
+   "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
+  },
+  {
+   "id": "diduo",
+   "station": "d3",
+   "name_zh": "低多边形",
+   "name_en": "Low-poly",
+   "tagline": "手算的三角网格与一束低阳，面片从远到近长出来，不用任何三维引擎。",
+   "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/diduo.py",
+   "status": "live",
+   "sample": null,
+   "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
+  },
+  {
+   "id": "yuanzhu",
+   "station": "hand",
+   "name_zh": "圆珠笔",
+   "name_en": "Ballpoint Sketch",
+   "tagline": "一支蓝圆珠笔，线宽不变，明暗全靠排线，收笔处积一点墨。",
+   "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/yuanzhu.py",
+   "status": "live",
+   "sample": null,
+   "sample_note": "演示站暂用 anidoodle 官方 32 风格对照图裁切封面；管线本地可重渲"
+  },
+  {
+   "id": "pintie",
+   "station": "graphic",
+   "name_zh": "拼贴剪贴",
+   "name_en": "Collage Cutout",
+   "tagline": "旧报纸上剪出的一座城：纸楼房、纸太阳、纸火车、撕边云，12 fps 定格，白剪边与落影。",
+   "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/pintie.py",
+   "status": "live",
+   "sample": null,
+   "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
+  },
+  {
+   "id": "yetai",
+   "station": "graphic",
+   "name_zh": "液态流动",
+   "name_en": "Liquid Motion",
+   "tagline": "糖浆色的液体滴落、拉丝、融合，一泼漫过屏幕，最后聚成字标。",
+   "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/yetai.py",
+   "status": "live",
+   "sample": null,
+   "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
+  },
+  {
+   "id": "xingbian",
+   "station": "graphic",
+   "name_zh": "形变动画",
+   "name_en": "Shape Morph",
+   "tagline": "一个轮廓连续变成下一个：圆、太阳、星、心、水滴、纸飞机、方标。",
+   "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "16:9",
+   "fps": 24,
+   "entry": "scripts/xingbian.py",
+   "status": "live",
+   "sample": null,
+   "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
+  },
+  {
+   "id": "huazi",
+   "station": "screen",
+   "name_zh": "综艺花字",
+   "name_en": "Variety Show Captions",
+   "tagline": "竖屏宵夜：台灯下的面碗与热气，上面压多层描边胖体花字、弹性 pop 与认证章。",
+   "engine": "自研渲染 · 本地 runtime（Canvas 2D 逐帧）",
+   "aspect": "9:16",
+   "fps": 24,
+   "entry": "scripts/huazi.py",
+   "status": "live",
+   "sample": null,
+   "sample_note": "演示站暂用 mg-styles-15 官方样片；管线本地可重渲"
+  }
+ ]
 }

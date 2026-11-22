@@ -2939,9 +2939,9 @@ window.AV = {
    "no": "130",
    "name_zh": "文艺复兴晕涂",
    "name_en": "High Renaissance Sfumato",
-   "title": "文艺复兴晕涂 · 上游样片",
+   "title": "文艺复兴长厅 · 一镜到底",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-   "tagline": "整层轻模糊压一层清晰层，龟裂纹与黄釉都在；窗口神光里，扑翼机飞过河面碎光。",
+   "tagline": "十秒横摇穿过文艺复兴长厅：窗边猫、举银杯的少女、画案上校比例的学者；午后侧光、天鹅绒宝石色、龟裂与黄釉。",
    "aspect": "16:9",
    "seconds": 10.0,
    "duration": "0:10",
@@ -2949,7 +2949,7 @@ window.AV = {
    "mp4": "media/wenyi.mp4",
    "poster": "media/wenyi.jpg",
    "note": null,
-   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "badge": "10 秒样片",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/wenyi/SKILL.md"
   },
   {
