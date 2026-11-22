@@ -11,7 +11,9 @@
 加 --push 会顺带 commit / push / 等 Pages 部署 / 校验线上标题。
 
 固化要点（别再手改散落字段）：
-  1. 片名规范：4–6 字裸片名，不带管线名、不带"·"（对齐「河岸的午后」「黄昏码头」）。
+  1. 卡片上不显示样片名：站点所有卡只显示管线名（对齐「拼贴剪贴」），
+     --title 只写进档案字段（samples.json.display_title / sample.title），
+     片名取 4–6 字裸片名，不带管线名、不带"·"。
   2. 标题三处必须一致：samples.json.display_title、
      catalog/pipelines.json.sample.title、pipelines/<key>/pipeline.json.sample.title
      —— 后两处相等是 tools/validate.py 的硬门禁。
