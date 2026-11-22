@@ -4182,7 +4182,7 @@
       "key": "yinxiang",
       "kind": "pipeline",
       "pipeline": "yinxiang",
-      "title": "印象派 · 河岸的午后",
+      "title": "河岸的午后",
       "style": "印象派",
       "style_en": "Impressionism",
       "station": "hand",
@@ -4209,13 +4209,13 @@
       "note": "Auto-Video 自研封装 10 秒样片",
       "width": 1024,
       "height": 576,
-      "display_title": "印象派 · 河岸的午后"
+      "display_title": "河岸的午后"
     },
     {
       "key": "fangao",
       "kind": "pipeline",
       "pipeline": "fangao",
-      "title": "梵高后印象 · 麦田播种者",
+      "title": "麦田播种者",
       "style": "梵高后印象",
       "style_en": "Van Gogh Post-Impressionism",
       "station": "hand",
@@ -4242,7 +4242,7 @@
       "note": "Auto-Video 自研封装 10 秒样片",
       "width": 1024,
       "height": 576,
-      "display_title": "梵高后印象 · 麦田播种者"
+      "display_title": "麦田播种者"
     },
     {
       "key": "muxia",
@@ -4280,7 +4280,7 @@
       "key": "liti2",
       "kind": "pipeline",
       "pipeline": "liti2",
-      "title": "立体主义 · 巴黎咖啡馆",
+      "title": "巴黎咖啡馆",
       "style": "立体主义",
       "style_en": "Analytical Cubism",
       "station": "hand",
@@ -4307,7 +4307,7 @@
       "note": "Auto-Video 自研封装 10 秒样片",
       "width": 1024,
       "height": 576,
-      "display_title": "立体主义 · 巴黎咖啡馆"
+      "display_title": "巴黎咖啡馆"
     },
     {
       "key": "guangzhui",
@@ -4377,7 +4377,7 @@
       "key": "mengke",
       "kind": "pipeline",
       "pipeline": "mengke",
-      "title": "蒙克表现主义 · 黄昏码头",
+      "title": "黄昏码头",
       "style": "蒙克表现主义",
       "style_en": "Munch Expressionism",
       "station": "hand",
@@ -4404,7 +4404,7 @@
       "note": "Auto-Video 自研封装 10 秒样片",
       "width": 1024,
       "height": 576,
-      "display_title": "蒙克表现主义 · 黄昏码头"
+      "display_title": "黄昏码头"
     },
     {
       "key": "dunhuang",
@@ -4474,7 +4474,7 @@
       "key": "dali",
       "kind": "pipeline",
       "pipeline": "dali",
-      "title": "达利超现实 · 荒原午睡",
+      "title": "荒原午睡",
       "style": "达利超现实",
       "style_en": "Dali Surrealism",
       "station": "hand",
@@ -4501,7 +4501,7 @@
       "note": "Auto-Video 自研封装 10 秒样片",
       "width": 1024,
       "height": 576,
-      "display_title": "达利超现实 · 荒原午睡"
+      "display_title": "荒原午睡"
     },
     {
       "key": "huopu",

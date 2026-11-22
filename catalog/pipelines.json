@@ -2287,7 +2287,7 @@
       "status": "live",
       "sample": {
         "file": "yinxiang-10s.mp4",
-        "title": "印象派 · 河岸的午后",
+        "title": "河岸的午后",
         "seconds": 10.0
       }
     },
@@ -2304,7 +2304,7 @@
       "status": "live",
       "sample": {
         "file": "fangao-10s.mp4",
-        "title": "梵高后印象 · 麦田播种者",
+        "title": "麦田播种者",
         "seconds": 10.0
       }
     },
@@ -2338,7 +2338,7 @@
       "status": "live",
       "sample": {
         "file": "liti2-10s.mp4",
-        "title": "立体主义 · 巴黎咖啡馆",
+        "title": "巴黎咖啡馆",
         "seconds": 10.0
       }
     },
@@ -2389,7 +2389,7 @@
       "status": "live",
       "sample": {
         "file": "mengke-10s.mp4",
-        "title": "蒙克表现主义 · 黄昏码头",
+        "title": "黄昏码头",
         "seconds": 10.0
       }
     },
@@ -2440,7 +2440,7 @@
       "status": "live",
       "sample": {
         "file": "dali-10s.mp4",
-        "title": "达利超现实 · 荒原午睡",
+        "title": "荒原午睡",
         "seconds": 10.0
       }
     },
