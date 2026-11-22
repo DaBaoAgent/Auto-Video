@@ -86,7 +86,10 @@
     card.appendChild(shot);
 
     const cap = el("div", "cap");
-    cap.appendChild(el("h3", null, esc(it.name_zh || it.title)));
+    const h3 = el("h3", null);
+    h3.appendChild(el("span", "nm", esc(it.name_zh || it.title)));
+    if (it.pipeline) h3.appendChild(el("span", "slug", esc(it.pipeline)));
+    cap.appendChild(h3);
     cap.appendChild(el("span", "dur", has ? esc(it.duration) : "—"));
     if (it.name_en) cap.appendChild(el("span", "en", esc(it.name_en)));
     if (it.title && it.kind === "pipeline") cap.appendChild(el("span", "title", `《${esc(it.title)}》`));

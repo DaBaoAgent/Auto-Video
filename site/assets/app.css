@@ -230,7 +230,12 @@ body.scrolled .top::before { opacity: 1; }
 .cap h3 {
   font-family: var(--serif); font-weight: 600; font-size: 16px; letter-spacing: .03em;
   line-height: 1.45; transition: color .2s var(--ease);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: flex; align-items: baseline; gap: .5em; min-width: 0;
+}
+.cap h3 .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.cap h3 .slug {
+  flex: none; font-family: var(--mono); font-weight: 400; font-size: 10.5px;
+  color: var(--paper-3); letter-spacing: .04em; text-transform: none;
 }
 .card:hover .cap h3 { color: var(--lamp); }
 .cap .dur { font-family: var(--mono); font-size: 10.5px; color: var(--paper-3); letter-spacing: .06em; }
