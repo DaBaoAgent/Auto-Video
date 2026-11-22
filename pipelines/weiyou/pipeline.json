@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "weiyou",
-    "no": "89",
-    "name_zh": "微游戏快闪",
-    "name_en": "Microgame Frenzy",
-    "station": "toon",
-    "station_no": "04",
-    "tagline": "见习宇航员闯五秒训练营，越来越快，Boss 关亲手降落回地球。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/weiyou.py",
-    "status": "live",
-    "sample": {
-      "file": "weiyou microgame.mp4",
-      "title": "五秒宇航员",
-      "seconds": 59.8
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "weiyou",
+  "no": "89",
+  "name_zh": "微游戏快闪",
+  "name_en": "Microgame Frenzy",
+  "station": "toon",
+  "station_no": "04",
+  "tagline": "见习宇航员闯五秒训练营，越来越快，Boss 关亲手降落回地球。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/weiyou.py",
+  "status": "live",
+  "sample": {
+   "file": "weiyou microgame.mp4",
+   "title": "六连快闪",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "microgame",
-    "upstream_cn": "微游戏快闪",
-    "upstream_en": "Microgame Frenzy",
-    "upstream_line": "A clumsy cadet survives a five-second boot camp, faster and faster, until the boss: landing home.",
-    "upstream_film": "Five-Second Astronaut",
-    "upstream_dur": 59.8,
-    "sample_source": "site/media/weiyou.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "限定色板：大像素块拼前景远景，整帧量化到 8–14 级。",
-    "style": {
-      "family": "pixel",
-      "palette": "micro",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/weiyou/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "microgame",
+  "upstream_cn": "微游戏快闪",
+  "upstream_en": "Microgame Frenzy",
+  "upstream_line": "A clumsy cadet survives a five-second boot camp, faster and faster, until the boss: landing home.",
+  "upstream_film": "Five-Second Astronaut",
+  "upstream_dur": 59.8,
+  "sample_source": "site/media/weiyou.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "限定色板：大像素块拼前景远景，整帧量化到 8–14 级。",
+  "style": {
+   "family": "pixel",
+   "palette": "micro",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/weiyou/projects/demo"
   }
+ }
 }

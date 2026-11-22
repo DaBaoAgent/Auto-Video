@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "kehuan",
-    "no": "85",
-    "name_zh": "科幻情景喜剧卡通",
-    "name_en": "Sci-Fi Sitcom Toon",
-    "station": "toon",
-    "station_no": "04",
-    "tagline": "厌世天才开传送门只想买杯咖啡，却穿过越来越离谱的平行宇宙。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/kehuan.py",
-    "status": "live",
-    "sample": {
-      "file": "kehuan scifi-toon.mp4",
-      "title": "跑腿买咖啡",
-      "seconds": 57.5
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "kehuan",
+  "no": "85",
+  "name_zh": "科幻情景喜剧卡通",
+  "name_en": "Sci-Fi Sitcom Toon",
+  "station": "toon",
+  "station_no": "04",
+  "tagline": "厌世天才开传送门只想买杯咖啡，却穿过越来越离谱的平行宇宙。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/kehuan.py",
+  "status": "live",
+  "sample": {
+   "file": "kehuan scifi-toon.mp4",
+   "title": "传送门早餐",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "scifi-toon",
-    "upstream_cn": "科幻情景喜剧卡通",
-    "upstream_en": "Sci-Fi Sitcom Toon",
-    "upstream_line": "A jaded genius opens a portal just to buy coffee and tumbles through ever-stranger universes.",
-    "upstream_film": "Coffee Run",
-    "upstream_dur": 57.5,
-    "sample_source": "site/media/kehuan.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "平涂加描边：天空渐变、角色几何化剪影、速度线与地平线。",
-    "style": {
-      "family": "cel",
-      "palette": "scifi",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/kehuan/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "scifi-toon",
+  "upstream_cn": "科幻情景喜剧卡通",
+  "upstream_en": "Sci-Fi Sitcom Toon",
+  "upstream_line": "A jaded genius opens a portal just to buy coffee and tumbles through ever-stranger universes.",
+  "upstream_film": "Coffee Run",
+  "upstream_dur": 57.5,
+  "sample_source": "site/media/kehuan.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "平涂加描边：天空渐变、角色几何化剪影、速度线与地平线。",
+  "style": {
+   "family": "cel",
+   "palette": "scifi",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/kehuan/projects/demo"
   }
+ }
 }

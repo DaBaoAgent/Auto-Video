@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "xiangsu2",
-    "no": "88",
-    "name_zh": "2.5D 像素",
-    "name_en": "2.5D Pixel Art",
-    "station": "toon",
-    "station_no": "04",
-    "tagline": "灯塔熄灭，孙女提着最后一簇火穿过夜林、爬上风暴悬崖。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/xiangsu2.py",
-    "status": "live",
-    "sample": {
-      "file": "xiangsu2 hd-2d.mp4",
-      "title": "守灯人",
-      "seconds": 76.5
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "xiangsu2",
+  "no": "88",
+  "name_zh": "2.5D 像素",
+  "name_en": "2.5D Pixel Art",
+  "station": "toon",
+  "station_no": "04",
+  "tagline": "灯塔熄灭，孙女提着最后一簇火穿过夜林、爬上风暴悬崖。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/xiangsu2.py",
+  "status": "live",
+  "sample": {
+   "file": "xiangsu2 hd-2d.mp4",
+   "title": "灯塔夜航",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "hd-2d",
-    "upstream_cn": "2.5D 像素",
-    "upstream_en": "2.5D Pixel Art",
-    "upstream_line": "The lighthouse goes dark; a girl carries the last flame through a night forest and up the storm cliffs.",
-    "upstream_film": "The Lampbearer",
-    "upstream_dur": 76.5,
-    "sample_source": "site/media/xiangsu2.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "限定色板：大像素块拼前景远景，整帧量化到 8–14 级。",
-    "style": {
-      "family": "pixel",
-      "palette": "hd2d",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/xiangsu2/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "hd-2d",
+  "upstream_cn": "2.5D 像素",
+  "upstream_en": "2.5D Pixel Art",
+  "upstream_line": "The lighthouse goes dark; a girl carries the last flame through a night forest and up the storm cliffs.",
+  "upstream_film": "The Lampbearer",
+  "upstream_dur": 76.5,
+  "sample_source": "site/media/xiangsu2.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "限定色板：大像素块拼前景远景，整帧量化到 8–14 级。",
+  "style": {
+   "family": "pixel",
+   "palette": "hd2d",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/xiangsu2/projects/demo"
   }
+ }
 }

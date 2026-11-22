@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "sailu",
-    "no": "84",
-    "name_zh": "80 年代赛璐璐动画",
-    "name_en": "80s Cel Anime",
-    "station": "toon",
-    "station_no": "04",
-    "tagline": "快递少女骑车穿过雨后霓虹都市，赶在黎明发射前送到一盘磁带。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/sailu.py",
-    "status": "live",
-    "sample": {
-      "file": "sailu cel-anime-80s.mp4",
-      "title": "城市灯火，1987",
-      "seconds": 59.0
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "sailu",
+  "no": "84",
+  "name_zh": "80 年代赛璐璐动画",
+  "name_en": "80s Cel Anime",
+  "station": "toon",
+  "station_no": "04",
+  "tagline": "快递少女骑车穿过雨后霓虹都市，赶在黎明发射前送到一盘磁带。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/sailu.py",
+  "status": "live",
+  "sample": {
+   "file": "sailu cel-anime-80s.mp4",
+   "title": "霓虹信使",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "cel-anime-80s",
-    "upstream_cn": "80 年代赛璐璐动画",
-    "upstream_en": "80s Cel Anime",
-    "upstream_line": "A courier girl rides through a rain-soaked neon city to deliver a tape before the dawn launch.",
-    "upstream_film": "City Lights, 1987",
-    "upstream_dur": 59.0,
-    "sample_source": "site/media/sailu.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "平涂加描边：天空渐变、角色几何化剪影、速度线与地平线。",
-    "style": {
-      "family": "cel",
-      "palette": "anime80",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/sailu/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "cel-anime-80s",
+  "upstream_cn": "80 年代赛璐璐动画",
+  "upstream_en": "80s Cel Anime",
+  "upstream_line": "A courier girl rides through a rain-soaked neon city to deliver a tape before the dawn launch.",
+  "upstream_film": "City Lights, 1987",
+  "upstream_dur": 59.0,
+  "sample_source": "site/media/sailu.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "平涂加描边：天空渐变、角色几何化剪影、速度线与地平线。",
+  "style": {
+   "family": "cel",
+   "palette": "anime80",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/sailu/projects/demo"
   }
+ }
 }

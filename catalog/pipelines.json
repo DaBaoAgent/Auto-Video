@@ -1438,15 +1438,15 @@
    "station": "toon",
    "name_zh": "80 年代赛璐璐动画",
    "name_en": "80s Cel Anime",
-   "tagline": "快递少女骑车穿过雨后霓虹都市，赶在黎明发射前送到一盘磁带。",
+   "tagline": "雨夜霓虹街，一路送到你手上",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/sailu.py",
    "sample": {
     "file": "sailu cel-anime-80s.mp4",
-    "title": "城市灯火，1987",
-    "seconds": 59.0
+    "title": "霓虹信使",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "cel-anime-80s"
@@ -1456,15 +1456,15 @@
    "station": "toon",
    "name_zh": "科幻情景喜剧卡通",
    "name_en": "Sci-Fi Sitcom Toon",
-   "tagline": "厌世天才开传送门只想买杯咖啡，却穿过越来越离谱的平行宇宙。",
+   "tagline": "按下红钮，咖啡穿过星门再原路回来",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/kehuan.py",
    "sample": {
     "file": "kehuan scifi-toon.mp4",
-    "title": "跑腿买咖啡",
-    "seconds": 57.5
+    "title": "传送门早餐",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "scifi-toon"
@@ -1474,15 +1474,15 @@
    "station": "toon",
    "name_zh": "50s 扁平卡通",
    "name_en": "Mid-century Cartoon",
-   "tagline": "用 50 年代教育片的口吻，三步教你装好一台扫地机。",
+   "tagline": "一拍一循环，客厅里的每样东西都跟着跳",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/wushi.py",
    "sample": {
     "file": "wushi midcentury-toon.mp4",
-    "title": "认识一下 Pip",
-    "seconds": 40.0
+    "title": "客厅圆舞曲",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "midcentury-toon"
@@ -1492,15 +1492,15 @@
    "station": "toon",
    "name_zh": "搞笑历史卡通",
    "name_en": "Comic History Cartoon",
-   "tagline": "阿尔萨斯-洛林在 1871 到 1945 年间四次换主人：每次都有人撕下那块纸、贴上新的，住在上面的她一步没挪。",
+   "tagline": "四双手抢一块招牌，墙洞里的老头一步不挪",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/gaoxiao.py",
    "sample": {
     "file": "gaoxiao comic-history.mp4",
-    "title": "一块纸",
-    "seconds": 51.0
+    "title": "一块招牌",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "comic-history"
@@ -1510,15 +1510,15 @@
    "station": "toon",
    "name_zh": "2.5D 像素",
    "name_en": "2.5D Pixel Art",
-   "tagline": "灯塔熄灭，孙女提着最后一簇火穿过夜林、爬上风暴悬崖。",
+   "tagline": "光扫过海面，提灯的人还在崖上走",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/xiangsu2.py",
    "sample": {
     "file": "xiangsu2 hd-2d.mp4",
-    "title": "守灯人",
-    "seconds": 76.5
+    "title": "灯塔夜航",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "hd-2d"
@@ -1528,15 +1528,15 @@
    "station": "toon",
    "name_zh": "微游戏快闪",
    "name_en": "Microgame Frenzy",
-   "tagline": "见习宇航员闯五秒训练营，越来越快，Boss 关亲手降落回地球。",
+   "tagline": "六个一屏小关卡，十秒连着过",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/weiyou.py",
    "sample": {
     "file": "weiyou microgame.mp4",
-    "title": "五秒宇航员",
-    "seconds": 59.8
+    "title": "六连快闪",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "microgame"
@@ -1546,15 +1546,15 @@
    "station": "toon",
    "name_zh": "节奏综艺",
    "name_en": "Rhythm Game Show",
-   "tagline": "把 AI 发展史做成一局节奏游戏，模型踩着拍登场，最后发成绩单。",
+   "tagline": "踩准每一拍，评委一起亮出满分",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（赛璐珞族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/jiezou.py",
    "sample": {
     "file": "jiezou game-show.mp4",
-    "title": "AI 进化节拍",
-    "seconds": 148.8
+    "title": "踩拍登场",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "game-show"
