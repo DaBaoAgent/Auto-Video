@@ -14,9 +14,9 @@
     "entry": "scripts/bijia.py",
     "status": "live",
     "sample": {
-      "file": "bijia huashu-毕加索蓝色时期.mp4",
-      "title": "毕加索蓝色时期 · 上游样片",
-      "seconds": 1.07
+      "file": "bijia-10s.mp4",
+      "title": "蓝色的房间",
+      "seconds": 10.0
     },
     "updated": "2026-11-20"
   },

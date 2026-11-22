@@ -86,6 +86,30 @@ SCENES['36_picasso_blue'] = (() => {
       const G = RIG.girl({ cup, sip: 0, breathe: br, hair: 'down', ...GSTR });
       const L = P.scratch('bpChars'), lg = L.getContext('2d'); lg.reset();
       RIG.drawCat(lg, K, { ...catPal, lw: 0 });
+
+      // 窗边站着的男人的剪影（蓝调逆光）
+      {
+        const MX = 760, MY = 946, MH = 664;
+        const GB = FIG.build({ x: MX, y: MY, h: MH, face: 1, top: 'coat', bottom: 'trousers', sleeve: true, hair: 'short',
+          hat: 'cap', lean: .04, head: -.05, handR: [846, 906], elbowR: 1, handL: [706, 912], elbowL: -1 });
+        FIG.draw(lg, GB, { skin: '#3f5c80', hair: '#25405f', coat: '#2a4468', hem: '#2a4468', trousers: '#25405f', shoes: '#1b3150',
+          hat: '#22395c', hatBand: '#16283f', coatLine: 'rgba(12,24,42,.7)', line: 'rgba(16,32,54,.85)', lw: 2, features: true, featureCol: 'rgba(12,24,40,.8)' });
+      }
+      // 桌边靠着的吉他
+      {
+        lg.save(); lg.translate(1108, 918); lg.rotate(-.30);
+        lg.fillStyle = '#2f4e74'; lg.beginPath(); lg.ellipse(0, 40, 62, 78, 0, 0, Math.PI * 2); lg.fill();
+        lg.fillStyle = '#3d6188'; lg.beginPath(); lg.ellipse(-6, 40, 52, 66, 0, 0, Math.PI * 2); lg.fill();
+        lg.fillStyle = '#21395c'; lg.beginPath(); lg.ellipse(0, 36, 20, 22, 0, 0, Math.PI * 2); lg.fill();
+        lg.fillStyle = '#2f4e74'; lg.fillRect(-12, -150, 24, 160);
+        lg.fillStyle = '#21395c'; lg.fillRect(-18, -168, 36, 22);
+        lg.strokeStyle = 'rgba(190,210,230,.5)'; lg.lineWidth = 1.6;
+        for (let k = 0; k < 4; k++) { lg.beginPath(); lg.moveTo(-6 + k * 4, -140); lg.lineTo(-6 + k * 4, 100); lg.stroke(); }
+        lg.restore();
+      }
+      // 桌上的酒瓶与两只杯子
+      lg.fillStyle = '#25405f'; lg.fillRect(880, 556, 22, 74); lg.fillRect(886, 532, 10, 28);
+      lg.fillStyle = '#a8c0d8'; [[930, 620], [960, 622]].forEach(([x, y]) => { lg.beginPath(); lg.ellipse(x, y, 16, 20, 0, 0, Math.PI * 2); lg.fill(); });
       lg.save();
       RIG.drawGirl(lg, G, { ...girlPal, mode: 'fill' });
       // 披肩：从头顶罩下，盖住后脑与肩背，落到腰

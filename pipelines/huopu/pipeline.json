@@ -14,9 +14,9 @@
     "entry": "scripts/huopu.py",
     "status": "live",
     "sample": {
-      "file": "huopu huashu-霍普美国现实主义.mp4",
-      "title": "霍普美国现实主义 · 上游样片",
-      "seconds": 1.07
+      "file": "huopu-10s.mp4",
+      "title": "窗边的午后",
+      "seconds": 10.0
     },
     "updated": "2026-11-20"
   },

@@ -3181,7 +3181,7 @@ window.AV = {
    "no": "141",
    "name_zh": "霍普美国现实主义",
    "name_en": "Hopper American Realism",
-   "title": "霍普美国现实主义 · 上游样片",
+   "title": "窗边的午后",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "亮版与暗版两套光影按光块裁切，硬边光斑缓慢扫过；墙上的人影同步喝茶。",
    "aspect": "16:9",
@@ -3191,7 +3191,7 @@ window.AV = {
    "mp4": "media/huopu.mp4",
    "poster": "media/huopu.jpg",
    "note": null,
-   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/huopu/SKILL.md"
   },
   {
@@ -3225,7 +3225,7 @@ window.AV = {
    "no": "143",
    "name_zh": "修拉点彩",
    "name_en": "Seurat Pointillism",
-   "title": "修拉点彩 · 上游样片",
+   "title": "星期天的房间",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "21 色纯色板按比例并置，补色点等大；画面结晶成圆点，点自己在呼吸。",
    "aspect": "16:9",
@@ -3235,7 +3235,7 @@ window.AV = {
    "mp4": "media/xiula.mp4",
    "poster": "media/xiula.jpg",
    "note": null,
-   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/xiula/SKILL.md"
   },
   {
@@ -3291,7 +3291,7 @@ window.AV = {
    "no": "146",
    "name_zh": "伦勃朗明暗",
    "name_en": "Rembrandt Chiaroscuro",
-   "title": "伦勃朗明暗 · 上游样片",
+   "title": "烛光信笺",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "光照图整幅相乘，窗光加烛光；光柱里浮尘，云影让窗光一明一暗。",
    "aspect": "16:9",
@@ -3301,7 +3301,7 @@ window.AV = {
    "mp4": "media/lunbo.mp4",
    "poster": "media/lunbo.jpg",
    "note": null,
-   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/lunbo/SKILL.md"
   },
   {
@@ -3335,7 +3335,7 @@ window.AV = {
    "no": "148",
    "name_zh": "毕加索蓝色时期",
    "name_en": "Picasso Blue Period",
-   "title": "毕加索蓝色时期 · 上游样片",
+   "title": "蓝色的房间",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "tagline": "单色蓝调、宽笔触、普鲁士蓝粗轮廓；人体拉长，颜色被抽成蓝再宽刷一遍。",
    "aspect": "16:9",
@@ -3345,7 +3345,7 @@ window.AV = {
    "mp4": "media/bijia.mp4",
    "poster": "media/bijia.jpg",
    "note": null,
-   "badge": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+   "badge": "10 秒样片 · 自渲",
    "doc": "https://github.com/DaBaoAgent/Auto-Video/blob/main/pipelines/bijia/SKILL.md"
   },
   {

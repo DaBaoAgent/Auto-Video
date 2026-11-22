@@ -114,7 +114,7 @@ SCENES['24_hopper'] = (() => {
   return {
     draw(c, lt, t) {
       const ch = P.choreo(lt, t);
-      const dx = 30 - 95 * ease.inOut(clamp(lt / 1.25));          // 光斑 1.2s 里向左移 ~95px（太阳在走）
+      const dx = 46 - 300 * ease.inOut(clamp(lt / 10));            // 10 秒里光斑向左爬 ~300px（太阳在走）
       const KK = RIG.cat({ tail: ch.tail * 0.6, blink: ch.blink, breathe: ch.breathe });
       const G = RIG.girl({ cup: ch.cup, sip: ch.sip, breathe: ch.breathe, hair: 'long' });
       // ① 背光底版 → 墙/地光斑里透出受光底版
@@ -137,6 +137,34 @@ SCENES['24_hopper'] = (() => {
       const sw = Math.sin(lt * 4.2) * 0.07; c.save(); c.translate(580, 232); c.rotate(sw); c.strokeStyle = '#7a6a4a'; c.lineWidth = 2; c.beginPath(); c.moveTo(0, 0); c.lineTo(0, 70); c.stroke();
       c.strokeStyle = '#c9b88a'; c.lineWidth = 4; c.beginPath(); c.arc(0, 78, 8, 0, TAU); c.stroke(); c.restore();
       // ③ 家具与角色：先背光色，再裁进斜光带画受光色
+      // 窗边背光的男人（望着对街，剪影）
+      {
+        const MB = FIG.build({ x: 356, y: 734, h: 590, face: 1, top: 'coat', bottom: 'trousers', sleeve: true, hair: 'short',
+          hat: 'cap', head: -.05, lean: .03, handR: [312, 748], elbowR: -1, handL: [408, 742], elbowL: 1 });
+        FIG.draw(c, MB, { skin: '#e2b98c', hair: '#3a2a1c', coat: '#3c4a3e', hem: '#3c4a3e', trousers: '#2c3630', shoes: '#1e241f',
+          hat: '#33403a', hatBand: '#1d2420', coatLine: 'rgba(20,26,22,.55)', line: 'rgba(20,26,22,.6)', lw: 1.4,
+          featureCol: '#2a2418', lip: '#b0654e' });
+      }
+      // 墙上挂的一幅小画
+      {
+        const px = 856, py = 168, pw = 178, ph = 138;
+        c.fillStyle = TS.woodD; c.fillRect(px - 8, py - 8, pw + 16, ph + 16);
+        c.fillStyle = '#e8dcc2'; c.fillRect(px, py, pw, ph);
+        const sk = c.createLinearGradient(px, py, px, py + ph); sk.addColorStop(0, '#b9c6c4'); sk.addColorStop(.55, '#d9cdb2'); sk.addColorStop(1, '#7d8a7e');
+        c.fillStyle = sk; c.fillRect(px + 6, py + 6, pw - 12, ph - 12);
+        c.fillStyle = '#6f7d70'; c.beginPath(); c.moveTo(px + 6, py + ph - 40); c.lineTo(px + 60, py + 60); c.lineTo(px + 120, py + ph - 40); c.closePath(); c.fill();
+        c.fillStyle = '#8a5f42'; c.fillRect(px + 108, py + 82, 26, 40);
+      }
+      // 墙上的挂钟
+      {
+        const cx2 = 1666, cy2 = 420;
+        c.fillStyle = TS.woodD; c.beginPath(); c.arc(cx2, cy2, 50, 0, TAU); c.fill();
+        c.fillStyle = TS.collar; c.beginPath(); c.arc(cx2, cy2, 42, 0, TAU); c.fill();
+        const hA2 = (2 + 10 / 60) / 12 * TAU - Math.PI / 2, mA2 = 52 / 60 * TAU - Math.PI / 2, sA2 = (t % 60) / 60 * TAU - Math.PI / 2;
+        c.strokeStyle = '#2a231a'; c.lineWidth = 5; c.beginPath(); c.moveTo(cx2, cy2); c.lineTo(cx2 + Math.cos(hA2) * 20, cy2 + Math.sin(hA2) * 20); c.stroke();
+        c.lineWidth = 3; c.beginPath(); c.moveTo(cx2, cy2); c.lineTo(cx2 + Math.cos(mA2) * 32, cy2 + Math.sin(mA2) * 32); c.stroke();
+        c.strokeStyle = '#8a3428'; c.lineWidth = 2; c.beginPath(); c.moveTo(cx2, cy2); c.lineTo(cx2 + Math.cos(sA2) * 36, cy2 + Math.sin(sA2) * 36); c.stroke();
+      }
       furniture(c, TS); cat(c, TS, KK); girl(c, TS, G, ch);
       const OP = [[1345 + dx, 0], [W, 0], [W, H], [1185 + dx, H]];
       P.litClip(c, [OP], c => { furniture(c, TL); girl(c, TL, G, ch); });
