@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "zifu",
-    "no": "91",
-    "name_zh": "CRT 字符终端",
-    "name_en": "CRT ASCII Terminal",
-    "station": "screen",
-    "station_no": "06",
-    "tagline": "月球基地的 AI 沉睡 40 年后被唤醒，用字符画出“家”来回复。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/zifu.py",
-    "status": "live",
-    "sample": {
-      "file": "zifu ascii-crt.mp4",
-      "title": "静海日志",
-      "seconds": 59.8
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "zifu",
+  "no": "91",
+  "name_zh": "CRT 字符终端",
+  "name_en": "CRT ASCII Terminal",
+  "station": "screen",
+  "station_no": "06",
+  "tagline": "月球基地的 AI 沉睡 40 年后被唤醒，用字符画出“家”来回复。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/zifu.py",
+  "status": "live",
+  "sample": {
+   "file": "zifu ascii-crt.mp4",
+   "title": "静海回信",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "ascii-crt",
-    "upstream_cn": "CRT 字符终端",
-    "upstream_en": "CRT ASCII Terminal",
-    "upstream_line": "A moon-base AI wakes after forty years to a signal from Earth, and replies by drawing “home” in characters.",
-    "upstream_film": "Tranquility.log",
-    "upstream_dur": 59.8,
-    "sample_source": "site/media/zifu.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "屏幕里的一帧：字符阵、扫描线、横向亮带，外框压住四边。",
-    "style": {
-      "family": "screen",
-      "palette": "crt",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/zifu/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "ascii-crt",
+  "upstream_cn": "CRT 字符终端",
+  "upstream_en": "CRT ASCII Terminal",
+  "upstream_line": "A moon-base AI wakes after forty years to a signal from Earth, and replies by drawing “home” in characters.",
+  "upstream_film": "Tranquility.log",
+  "upstream_dur": 59.8,
+  "sample_source": "site/media/zifu.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "屏幕里的一帧：字符阵、扫描线、横向亮带，外框压住四边。",
+  "style": {
+   "family": "screen",
+   "palette": "crt",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/zifu/projects/demo"
   }
+ }
 }

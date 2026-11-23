@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "chanpin",
-    "no": "110",
-    "name_zh": "玻璃质感产品",
-    "name_en": "Glass Product Render",
-    "station": "d3",
-    "station_no": "07",
-    "tagline": "虚构玻璃耳机 Aura 的开箱与特写。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/chanpin.py",
-    "status": "live",
-    "sample": {
-      "file": "chanpin glass-product.mp4",
-      "title": "Aura：听见光",
-      "seconds": 32.0
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "chanpin",
+  "no": "110",
+  "name_zh": "玻璃质感产品",
+  "name_en": "Glass Product Render",
+  "station": "d3",
+  "station_no": "07",
+  "tagline": "虚构玻璃耳机 Aura 的开箱与特写。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/chanpin.py",
+  "status": "live",
+  "sample": {
+   "file": "chanpin glass-product.mp4",
+   "title": "光的形状",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "glass-product",
-    "upstream_cn": "玻璃质感产品",
-    "upstream_en": "Glass Product Render",
-    "upstream_line": "Unboxing and close-ups of Aura, fictional glass earbuds, in strip-light sweeps and caustics.",
-    "upstream_film": "Aura — Hear the Light",
-    "upstream_dur": 32.0,
-    "sample_source": "site/media/chanpin.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "等轴测：体块按 x/y/z 投影，顶面提亮、左面中间调、右面压暗，落地投影跟着走。",
-    "style": {
-      "family": "iso",
-      "palette": "glass",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/chanpin/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "glass-product",
+  "upstream_cn": "玻璃质感产品",
+  "upstream_en": "Glass Product Render",
+  "upstream_line": "Unboxing and close-ups of Aura, fictional glass earbuds, in strip-light sweeps and caustics.",
+  "upstream_film": "Aura — Hear the Light",
+  "upstream_dur": 32.0,
+  "sample_source": "site/media/chanpin.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "等轴测：体块按 x/y/z 投影，顶面提亮、左面中间调、右面压暗，落地投影跟着走。",
+  "style": {
+   "family": "iso",
+   "palette": "glass",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/chanpin/projects/demo"
   }
+ }
 }

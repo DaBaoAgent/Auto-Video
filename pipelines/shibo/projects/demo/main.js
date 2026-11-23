@@ -1,300 +1,166 @@
-// shibo · 示波器数学
-// 画面全部由本仓库的 vendor/runtime/stylekit.js 在运行时画出来（neon 族），
-// SPEC 里的形状坐标、色板、节拍在生成时就按 id 播种定死，不依赖任何外部脚本。
-const SPEC = {
-  "id": "shibo",
-  "seed": "av:shibo",
-  "family": "neon",
-  "w": 1920,
-  "h": 1080,
-  "bg": "#04110b",
-  "ink": "#c8ffe6",
-  "accent": "#56ffa8",
-  "paths": [
-    {
-      "pts": [
-        [
-          192.0,
-          245.4
-        ],
-        [
-          403.2,
-          293.5
-        ],
-        [
-          614.4,
-          302.3
-        ],
-        [
-          825.6,
-          381.1
-        ],
-        [
-          1036.8,
-          308.2
-        ],
-        [
-          1248.0,
-          382.5
-        ],
-        [
-          1459.2,
-          567.2
-        ],
-        [
-          1670.4,
-          690.4
-        ],
-        [
-          1881.6,
-          823.2
-        ]
-      ],
-      "color": "#56ffa8",
-      "width": 3.9,
-      "blur": 28
-    },
-    {
-      "pts": [
-        [
-          1050.0,
-          469.8
-        ],
-        [
-          1048.4,
-          496.8
-        ],
-        [
-          1031.1,
-          522.9
-        ],
-        [
-          999.2,
-          543.9
-        ],
-        [
-          955.8,
-          556.2
-        ],
-        [
-          906.6,
-          557.0
-        ],
-        [
-          858.3,
-          545.4
-        ],
-        [
-          818.0,
-          521.8
-        ],
-        [
-          792.5,
-          488.7
-        ],
-        [
-          786.6,
-          450.2
-        ],
-        [
-          802.7,
-          411.6
-        ],
-        [
-          840.2,
-          378.4
-        ],
-        [
-          895.1,
-          355.8
-        ],
-        [
-          960.8,
-          347.8
-        ],
-        [
-          1028.4,
-          356.5
-        ],
-        [
-          1088.5,
-          381.8
-        ],
-        [
-          1132.0,
-          421.2
-        ],
-        [
-          1151.6,
-          469.8
-        ],
-        [
-          1143.2,
-          521.2
-        ],
-        [
-          1106.3,
-          568.4
-        ],
-        [
-          1044.5,
-          604.5
-        ],
-        [
-          965.3,
-          623.6
-        ],
-        [
-          878.9,
-          622.2
-        ],
-        [
-          797.1,
-          599.4
-        ],
-        [
-          731.7,
-          557.5
-        ],
-        [
-          692.6,
-          501.2
-        ],
-        [
-          686.7,
-          437.8
-        ],
-        [
-          716.3,
-          376.0
-        ],
-        [
-          778.9,
-          324.4
-        ],
-        [
-          867.2,
-          290.6
-        ],
-        [
-          970.0,
-          280.3
-        ],
-        [
-          1073.6,
-          295.9
-        ],
-        [
-          1163.5,
-          336.2
-        ],
-        [
-          1226.6,
-          396.6
-        ]
-      ],
-      "color": "#4ff0e0",
-      "width": 5.1,
-      "blur": 28
-    },
-    {
-      "pts": [
-        [
-          192.0,
-          450.8
-        ],
-        [
-          403.2,
-          531.3
-        ],
-        [
-          614.4,
-          403.8
-        ],
-        [
-          825.6,
-          436.8
-        ],
-        [
-          1036.8,
-          401.5
-        ],
-        [
-          1248.0,
-          460.2
-        ],
-        [
-          1459.2,
-          401.9
-        ],
-        [
-          1670.4,
-          330.5
-        ],
-        [
-          1881.6,
-          150.8
-        ]
-      ],
-      "color": "#ffd166",
-      "width": 5.5,
-      "blur": 14
-    }
-  ],
-  "dust": 364,
-  "scan": 0,
-  "label": {
-    "zh": "示波器数学",
-    "en": "Oscilloscope Math",
-    "station": "06 · 屏幕赛博",
-    "ink": "#ffffff",
-    "sub": "#ffffff"
-  }
-};
-
+// shibo · 示波器 · 方波的角
+// 一台老式示波器正对着镜头。绿荧光屏上一条方波，上升沿带着 9% 的过冲和一点振铃。
 const canvas = document.getElementById('c');
-const ENV = STYLEKIT.page(canvas, { w: SPEC.w, h: SPEC.h, seed: SPEC.seed });
+const ENV = FILM.page(canvas);
+const { soft, lerp, clamp, rng } = FILM;
+const W = 1920, H = 1080;
 
-// 左下角的版式牌：哪条管线、哪个工位
-function plate(t) {
-  const L = SPEC.label;
-  const k = STYLEKIT.ease(STYLEKIT.clamp((t - 0.15) / 0.8));
-  if (k <= 0) return;
-  const ctx = ENV.ctx, W = ENV.W, H = ENV.H;
-  const m = Math.round(Math.min(W, H) * 0.035);
-  ctx.save();
-  ctx.globalAlpha = 0.92 * k;
-  // 一块极淡的衬底，保证字在任何画面上都读得出
-  const panelW = Math.round(Math.min(W, H) * 0.40);
-  const panelH = Math.round(Math.min(W, H) * 0.145);
-  ctx.fillStyle = SPEC.label.ink === '#ffffff' ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.55)';
-  ctx.fillRect(m - 14, H - m - panelH, panelW, panelH);
-  ctx.strokeStyle = SPEC.accent;
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(m - 14, H - m - panelH);
-  ctx.lineTo(m - 14 + panelW * k, H - m - panelH);
-  ctx.stroke();
+// 屏幕区域（1920×1080 坐标）
+const S = { x: 300, y: 176, w: 1180, h: 640 };
 
-  // 三行分开：工位 → 中文名 → 英文名，避免长名字和工位号撞车
-  STYLEKIT.type(ENV, L.station, { x: m, y: H - m - panelH + Math.round(panelH * 0.22),
-                                 size: Math.round(Math.min(W, H) * 0.016), color: L.sub, weight: 500, letter: 2 });
-  STYLEKIT.type(ENV, L.zh, { x: m, y: H - m - panelH + Math.round(panelH * 0.66),
-                             size: Math.round(Math.min(W, H) * 0.044), color: L.ink, weight: 800 });
-  STYLEKIT.type(ENV, L.en, { x: m, y: H - m - panelH + Math.round(panelH * 0.92),
-                            size: Math.round(Math.min(W, H) * 0.016), color: L.sub, weight: 500, letter: 2 });
-  ctx.restore();
+function panel(c) {
+  const g = c.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#2b2a26'); g.addColorStop(.5, '#1e1d1a'); g.addColorStop(1, '#141310');
+  c.fillStyle = g; c.fillRect(0, 0, W, H);
+  c.fillStyle = 'rgba(255,240,210,.03)';
+  for (let y = 0; y < H; y += 3) c.fillRect(0, y, W, 1);
+  c.fillStyle = '#0d0c0a';
+  c.fill(FILM.rect(S.x - 46, S.y - 46, S.w + 92, S.h + 92, 26));
+  c.strokeStyle = 'rgba(255,240,210,.10)'; c.lineWidth = 2;
+  c.stroke(FILM.rect(S.x - 46, S.y - 46, S.w + 92, S.h + 92, 26));
+  [[S.x - 26, S.y - 26], [S.x + S.w + 26, S.y - 26], [S.x - 26, S.y + S.h + 26], [S.x + S.w + 26, S.y + S.h + 26]].forEach(([x, y]) => {
+    c.fillStyle = '#3a3733'; c.beginPath(); c.arc(x, y, 7, 0, 7); c.fill();
+    c.strokeStyle = 'rgba(0,0,0,.5)'; c.beginPath(); c.moveTo(x - 4, y); c.lineTo(x + 4, y); c.stroke();
+  });
 }
 
-window.renderAt = (t) => {
-  STYLEKIT.scene(ENV, SPEC, t);
-  plate(t);
-};
+function screenBg(c) {
+  const g = c.createRadialGradient(S.x + S.w / 2, S.y + S.h / 2, 40, S.x + S.w / 2, S.y + S.h / 2, S.w * .72);
+  g.addColorStop(0, '#0b2a22'); g.addColorStop(.6, '#07180f'); g.addColorStop(1, '#020806');
+  c.fillStyle = g; c.fillRect(S.x, S.y, S.w, S.h);
+  c.strokeStyle = 'rgba(90,255,210,.20)'; c.lineWidth = 1;
+  for (let i = 1; i < 10; i++) { const x = S.x + i * S.w / 10; c.beginPath(); c.moveTo(x, S.y); c.lineTo(x, S.y + S.h); c.stroke(); }
+  for (let j = 1; j < 8; j++) { const y = S.y + j * S.h / 8; c.beginPath(); c.moveTo(S.x, y); c.lineTo(S.x + S.w, y); c.stroke(); }
+  c.strokeStyle = 'rgba(90,255,200,.30)';
+  for (let i = 0; i <= 10; i++) { const x = S.x + i * S.w / 10; c.beginPath(); c.moveTo(x, S.y + S.h / 2 - 6); c.lineTo(x, S.y + S.h / 2 + 6); c.stroke(); }
+}
 
-// 先画第 0 秒，等字体就绪再宣布 ready
-STYLEKIT.scene(ENV, SPEC, 0);
-plate(0);
-(document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
-  window.renderAt(0);
-  window.__ready = true;
-});
+function wave(c, t, amp, col) {
+  const cy = S.y + S.h * .56;
+  const per = S.w / 3.4;
+  const hi = cy - amp * S.h * .30;
+  const lo = cy + amp * S.h * .14;
+  const over = hi - amp * S.h * .30 * .09;
+  const rise = per * .10;
+  const pts = [];
+  for (let k = 0; k <= 4; k++) {
+    const x0 = S.x - per * .35 + k * per;
+    pts.push([x0, lo], [x0 + per * .5, lo]);
+    for (let i = 0; i <= 16; i++) {
+      const u = i / 16;
+      const x = x0 + per * .5 + u * rise * 2.8;
+      let y;
+      if (u < .28) {
+        const q = u / .28;
+        y = lerp(lo, hi, q) - (hi - over) * Math.sin(q * Math.PI) * .55;
+      } else {
+        const d = (u - .28) / .72;
+        y = hi - (hi - over) * Math.exp(-d * 3.6) * Math.cos(d * Math.PI * 3.2);
+      }
+      pts.push([x, y]);
+    }
+    pts.push([x0 + per * .99, hi]);
+  }
+  c.strokeStyle = col;
+  c.lineWidth = 3.2;
+  c.beginPath();
+  pts.forEach((p, i) => { i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); });
+  c.stroke();
+  c.save();
+  c.globalCompositeOperation = 'lighter';
+  c.strokeStyle = 'rgba(90,255,190,.20)'; c.lineWidth = 10;
+  c.beginPath(); pts.forEach((p, i) => { i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); }); c.stroke();
+  c.restore();
+  return { cy, hi, lo, per, over };
+}
+
+function knob(c, x, y, r, ang) {
+  c.fillStyle = '#171613'; c.beginPath(); c.arc(x, y, r + 8, 0, 7); c.fill();
+  const g = c.createLinearGradient(x - r, y - r, x + r, y + r);
+  g.addColorStop(0, '#3d3a34'); g.addColorStop(1, '#1b1a17');
+  c.fillStyle = g; c.beginPath(); c.arc(x, y, r, 0, 7); c.fill();
+  c.strokeStyle = 'rgba(255,240,210,.16)'; c.lineWidth = 2; c.beginPath(); c.arc(x, y, r, 0, 7); c.stroke();
+  for (let i = 0; i < 24; i++) {
+    const a = i / 24 * Math.PI * 2;
+    c.strokeStyle = 'rgba(0,0,0,.35)'; c.lineWidth = 1.5;
+    c.beginPath(); c.moveTo(x + Math.cos(a) * r * .96, y + Math.sin(a) * r * .96); c.lineTo(x + Math.cos(a) * r * .86, y + Math.sin(a) * r * .86); c.stroke();
+  }
+  c.strokeStyle = 'rgba(255,244,220,.85)'; c.lineWidth = 3;
+  c.beginPath(); c.moveTo(x, y); c.lineTo(x + Math.cos(ang) * r * .82, y + Math.sin(ang) * r * .82); c.stroke();
+  c.fillStyle = 'rgba(255,244,220,.14)'; c.beginPath(); c.arc(x, y, r * .18, 0, 7); c.fill();
+}
+
+function frame(t) {
+  const c = ENV.ctx;
+  ENV.reset('#0b0a08');
+  panel(c);
+
+  c.save();
+  c.globalCompositeOperation = 'lighter';
+  FILM.glow(c, S.x + S.w / 2, S.y + S.h / 2, S.w * .8, '#3affc0', .07);
+  c.restore();
+
+  screenBg(c);
+
+  const on = soft((t - .2) / .8);
+  const flick = t < 1.6 ? (1 - soft((t - .2) / 1.3)) : 0;
+  const gain = on * (1 - .10 * Math.sin(t * 62) * flick);
+  c.save();
+  c.globalAlpha = clamp(on, 0, 1);
+  c.strokeStyle = 'rgba(90,255,190,.22)'; c.lineWidth = 2;
+  c.beginPath(); c.moveTo(S.x, S.y + S.h * .56); c.lineTo(S.x + S.w, S.y + S.h * .56); c.stroke();
+
+  const amp = clamp(gain, 0, 1) * (1 + .003 * Math.sin(t * 90));
+  c.save(); c.beginPath(); c.rect(S.x + 2, S.y + 2, S.w - 4, S.h - 4); c.clip();
+  const info = wave(c, t, amp, 'rgba(120,255,196,.95)');
+
+  c.restore();
+  const show = soft((t - 3.1) / .9);
+  if (show > 0) {
+    c.save(); c.globalAlpha = show;
+    const px = S.x + S.w * .44;
+    c.strokeStyle = 'rgba(255,220,120,.75)'; c.lineWidth = 2;
+    c.setLineDash([6, 5]);
+    c.beginPath(); c.moveTo(px - 200, info.over - 22); c.lineTo(S.x + S.w - 20, info.over - 22); c.stroke();
+    c.beginPath(); c.moveTo(px - 200, info.hi); c.lineTo(S.x + S.w - 20, info.hi); c.stroke();
+    c.setLineDash([]);
+    const ay = (info.over - 22 + info.hi) / 2;
+    c.beginPath(); c.moveTo(S.x + S.w - 46, info.hi); c.lineTo(S.x + S.w - 46, info.over - 22); c.stroke();
+    c.beginPath(); c.moveTo(S.x + S.w - 52, info.hi - 12); c.lineTo(S.x + S.w - 46, info.hi); c.lineTo(S.x + S.w - 40, info.hi - 12); c.stroke();
+    FILM.text(c, 'OVERSHOOT 9.2%', { x: S.x + 30, y: ay - 2, size: 22, align: 'left', color: '#ffe9a8', weight: 600, tracking: 3 });
+    c.restore();
+  }
+
+  const rd = soft((t - 4.6) / .8);
+  if (rd > 0) {
+    c.save(); c.globalAlpha = rd;
+    FILM.text(c, 'CH1  2.00 V/div', { x: S.x + S.w - 26, y: S.y + S.h - 54, size: 18, align: 'right', color: 'rgba(120,255,196,.55)', tracking: 2 });
+    FILM.text(c, 'TRIG RISING 0.00V', { x: S.x + S.w - 26, y: S.y + S.h - 26, size: 18, align: 'right', color: 'rgba(120,255,196,.4)', tracking: 2 });
+    c.restore();
+  }
+  c.restore();
+
+  const gg = c.createLinearGradient(S.x, S.y, S.x + S.w * .7, S.y + S.h);
+  gg.addColorStop(0, 'rgba(255,255,255,.10)'); gg.addColorStop(.4, 'rgba(255,255,255,0)'); gg.addColorStop(1, 'rgba(255,255,255,0)');
+  c.fillStyle = gg; c.fillRect(S.x, S.y, S.w, S.h);
+
+  knob(c, 1420, 900, 54, lerp(-1.9, -1.1, soft((t - 4.5) / 3.5)));
+  knob(c, 1590, 900, 42, lerp(-1.2, -.5, soft((t - 2.5) / 4)));
+  knob(c, 1726, 900, 33, .7);
+  FILM.text(c, 'HITACHI  V-152', { x: 300, y: 890, size: 30, color: 'rgba(240,232,214,.5)', weight: 600, tracking: 5 });
+  FILM.text(c, 'OSCILLOSCOPE  20MHz', { x: 300, y: 926, size: 16, color: 'rgba(240,232,214,.26)', tracking: 7 });
+  FILM.glow(c, 470, 1004, 42, '#ff5a3c', .5);
+  c.fillStyle = '#ff6a4a'; c.beginPath(); c.arc(470, 1004, 5, 0, 7); c.fill();
+
+  FILM.scanlines(c, 4, .10);
+  FILM.vignette(c, { inner: .5, outer: 1, a: .55 });
+  FILM.grain(c, .07, 33);
+}
+
+window.renderAt = (t) => frame(t);
+frame(0);
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { frame(0); window.__ready = true; });
+
+
+
+

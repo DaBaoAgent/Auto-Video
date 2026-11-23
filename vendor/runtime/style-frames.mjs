@@ -125,7 +125,7 @@ const wsUrl = await new Promise((res, rej) => {
 
 const browser = await puppeteer.connect({ browserWSEndpoint: wsUrl, protocolTimeout: 600000 });
 const page = await browser.newPage();
-page.on('pageerror', (e) => console.log('[page error]', e.message));
+page.on('pageerror', (e) => console.log('[page error]', e.stack || e.message));
 if (process.env.STYLE_DEBUG) {
   page.on('response', (r) => { if (r.status() >= 400) console.log('[http]', r.status(), r.url()); });
   page.on('requestfailed', (r) => console.log('[reqfail]', r.failure()?.errorText, r.url()));

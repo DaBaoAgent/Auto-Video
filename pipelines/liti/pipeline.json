@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "liti",
-    "no": "108",
-    "name_zh": "纸片立体书",
-    "name_en": "Paper Pop-up Book",
-    "station": "d3",
-    "station_no": "07",
-    "tagline": "立体书在书桌上打开，小精灵 Pip 在纸片世界冒险，最后跳出书外。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/liti.py",
-    "status": "live",
-    "sample": {
-      "file": "liti paper-popup.mp4",
-      "title": "小精灵冒险记",
-      "seconds": 133.0
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "liti",
+  "no": "108",
+  "name_zh": "纸片立体书",
+  "name_en": "Paper Pop-up Book",
+  "station": "d3",
+  "station_no": "07",
+  "tagline": "立体书在书桌上打开，小精灵 Pip 在纸片世界冒险，最后跳出书外。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/liti.py",
+  "status": "live",
+  "sample": {
+   "file": "liti paper-popup.mp4",
+   "title": "跳出书页",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "paper-popup",
-    "upstream_cn": "纸片立体书",
-    "upstream_en": "Paper Pop-up Book",
-    "upstream_line": "A pop-up book opens on a desk; a sprite named Pip adventures through paper worlds and jumps out into ours.",
-    "upstream_film": "Pip's Paper Adventure",
-    "upstream_dur": 133.0,
-    "sample_source": "site/media/liti.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "等轴测：体块按 x/y/z 投影，顶面提亮、左面中间调、右面压暗，落地投影跟着走。",
-    "style": {
-      "family": "iso",
-      "palette": "popup",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/liti/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "paper-popup",
+  "upstream_cn": "纸片立体书",
+  "upstream_en": "Paper Pop-up Book",
+  "upstream_line": "A pop-up book opens on a desk; a sprite named Pip adventures through paper worlds and jumps out into ours.",
+  "upstream_film": "Pip's Paper Adventure",
+  "upstream_dur": 133.0,
+  "sample_source": "site/media/liti.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "等轴测：体块按 x/y/z 投影，顶面提亮、左面中间调、右面压暗，落地投影跟着走。",
+  "style": {
+   "family": "iso",
+   "palette": "popup",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/liti/projects/demo"
   }
+ }
 }

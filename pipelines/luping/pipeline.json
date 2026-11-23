@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "luping",
-    "no": "97",
-    "name_zh": "像素小人录屏",
-    "name_en": "Mascot Screencast",
-    "station": "screen",
-    "station_no": "06",
-    "tagline": "像素小人 Clawd 搬进 Claude 应用，一镜到底演示 Plan 模式和自检。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/luping.py",
-    "status": "live",
-    "sample": {
-      "file": "luping living-screencast.mp4",
-      "title": "Clawd 搬进来了",
-      "seconds": 59.4
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "luping",
+  "no": "97",
+  "name_zh": "像素小人录屏",
+  "name_en": "Mascot Screencast",
+  "station": "screen",
+  "station_no": "06",
+  "tagline": "像素小人 Clawd 搬进 Claude 应用，一镜到底演示 Plan 模式和自检。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/luping.py",
+  "status": "live",
+  "sample": {
+   "file": "luping living-screencast.mp4",
+   "title": "小像素搬家",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "living-screencast",
-    "upstream_cn": "像素小人录屏",
-    "upstream_en": "Mascot Screencast",
-    "upstream_line": "Clawd hops out of the terminal into the Claude app and acts out plan mode and self-checks in one take.",
-    "upstream_film": "Clawd Moves In",
-    "upstream_dur": 59.4,
-    "sample_source": "site/media/luping.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "屏幕里的一帧：字符阵、扫描线、横向亮带，外框压住四边。",
-    "style": {
-      "family": "screen",
-      "palette": "cast",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/luping/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "living-screencast",
+  "upstream_cn": "像素小人录屏",
+  "upstream_en": "Mascot Screencast",
+  "upstream_line": "Clawd hops out of the terminal into the Claude app and acts out plan mode and self-checks in one take.",
+  "upstream_film": "Clawd Moves In",
+  "upstream_dur": 59.4,
+  "sample_source": "site/media/luping.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "屏幕里的一帧：字符阵、扫描线、横向亮带，外框压住四边。",
+  "style": {
+   "family": "screen",
+   "palette": "cast",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/luping/projects/demo"
   }
+ }
 }

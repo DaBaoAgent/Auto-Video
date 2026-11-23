@@ -1564,15 +1564,15 @@
    "station": "screen",
    "name_zh": "CRT 字符终端",
    "name_en": "CRT ASCII Terminal",
-   "tagline": "月球基地的 AI 沉睡 40 年后被唤醒，用字符画出“家”来回复。",
+   "tagline": "月面基地里，字符终端一行行敲出月面、地球，和一个宇航员。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/zifu.py",
    "sample": {
     "file": "zifu ascii-crt.mp4",
-    "title": "静海日志",
-    "seconds": 59.8
+    "title": "静海回信",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "ascii-crt"
@@ -1582,15 +1582,15 @@
    "station": "screen",
    "name_zh": "1920s 默片",
    "name_en": "1920s Silent Film",
-   "tagline": "面包店学徒追一个滚走的面包，最后掰成两半分给饿肚子的小女孩。",
+   "tagline": "学徒追着滚走的面包跑过整条街，一个早上都在追。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/mopian.py",
    "sample": {
     "file": "mopian silent-film.mp4",
-    "title": "逃跑的面包",
-    "seconds": 54.2
+    "title": "半个面包",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "silent-film"
@@ -1600,15 +1600,15 @@
    "station": "screen",
    "name_zh": "后室录像带",
    "name_en": "Liminal Found Footage",
-   "tagline": "新夜班员工拍下入职第一晚：无尽的黄色办公空间，和墙上的员工守则。",
+   "tagline": "黄墙走廊，一盏灯管接触不良，保洁推车从走廊那头走到这头。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/houshi.py",
    "sample": {
     "file": "houshi backrooms.mp4",
-    "title": "夜班入职培训",
-    "seconds": 59.7
+    "title": "夜班守则",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "backrooms"
@@ -1618,15 +1618,15 @@
    "station": "screen",
    "name_zh": "胶片直刻",
    "name_en": "Scratch Film",
-   "tagline": "一条手指长的灯笼鱼摸黑往上游半公里，用自己的光藏起影子；镜头拉远，原来每晚有无数动物和它一起升起。",
+   "tagline": "灯笼鱼从半公里深处上浮，整片海亮起一条线。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/zhike.py",
    "sample": {
     "file": "zhike scratch-film.mp4",
-    "title": "夜里往上游",
-    "seconds": 52.0
+    "title": "向上半公里",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "scratch-film"
@@ -1636,15 +1636,15 @@
    "station": "screen",
    "name_zh": "双重曝光",
    "name_en": "Double Exposure",
-   "tagline": "天黑下来的这一路，从山到海：鹿、狼、鹰、鲑鱼、鲸，每只动物的剪影里装着它的那片天地；最后鲸身体里的港湾落在真的海岸上。",
+   "tagline": "鹿、狼、鹰、鲑、鲸，每只动物的身体里装着它出生的那片地景。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/puguang.py",
    "sample": {
     "file": "puguang double-exposure.mp4",
-    "title": "山海",
-    "seconds": 50.5
+    "title": "鲸里的港湾",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "double-exposure"
@@ -1654,15 +1654,15 @@
    "station": "screen",
    "name_zh": "暗色科技发布",
    "name_en": "Dark Tech Keynote",
-   "tagline": "虚构 app Tidy 的发布片：被埋掉的光标一键把几百个窗口归位。",
+   "tagline": "发布厅里六个窗口飞回网格，一颗键帽按下去，全部就位。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/fabu.py",
    "sample": {
     "file": "fabu dark-keynote.mp4",
-    "title": "思考的空间",
-    "seconds": 42.0
+    "title": "一键归位",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "dark-keynote"
@@ -1672,15 +1672,15 @@
    "station": "screen",
    "name_zh": "像素小人录屏",
    "name_en": "Mascot Screencast",
-   "tagline": "像素小人 Clawd 搬进 Claude 应用，一镜到底演示 Plan 模式和自检。",
+   "tagline": "像素小人拖着箱子，从草地走进另一个世界的对话框。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/luping.py",
    "sample": {
     "file": "luping living-screencast.mp4",
-    "title": "Clawd 搬进来了",
-    "seconds": 59.4
+    "title": "小像素搬家",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "living-screencast"
@@ -1690,15 +1690,15 @@
    "station": "screen",
    "name_zh": "桌面卡片穿梭",
    "name_en": "Tabletop App Flythrough",
-   "tagline": "一张猫照片跳过桌上的应用卡片，从一台手机飞到朋友手机里，一镜跟到底。",
+   "tagline": "桌面上一张拍立得，猫的照片在窗口之间跳来跳去。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/zhuomian.py",
    "sample": {
     "file": "zhuomian desktop-flythrough.mp4",
-    "title": "叮之前",
-    "seconds": 60.0
+    "title": "跳窗的猫",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "desktop-flythrough"
@@ -1708,15 +1708,15 @@
    "station": "screen",
    "name_zh": "表格动画",
    "name_en": "Spreadsheet Film",
-   "tagline": "总数说 B 更好；把藏起来的结石大小列打开，A 在每一组都赢。一张表讲清辛普森悖论，一格就是一位病人。",
+   "tagline": "合计在涨，是因为高客单的占比变了——被藏起来的那一列。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（屏幕族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/biaoge.py",
    "sample": {
     "file": "biaoge spreadsheet.mp4",
-    "title": "藏起来的那一列",
-    "seconds": 52.0
+    "title": "藏起来的列",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "spreadsheet"
@@ -1726,15 +1726,15 @@
    "station": "screen",
    "name_zh": "1-bit 点阵",
    "name_en": "1-bit Dither",
-   "tagline": "1966 年 2 月，月面的第一张近照被英国一座射电望远镜当成报社传真收下，一行一行印出来：早了一天，比例却拉高了。",
+   "tagline": "1966 年，传真机一行行吐出 1-bit 的月面图，盖下 RECEIVED。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（像素族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/dianzhen.py",
    "sample": {
     "file": "dianzhen one-bit-dither.mp4",
-    "title": "月亮的传真",
-    "seconds": 50.0
+    "title": "月面传真",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "one-bit-dither"
@@ -1744,15 +1744,15 @@
    "station": "screen",
    "name_zh": "电路板",
    "name_en": "Circuit Board",
-   "tagline": "江河变成电路板上的走线，电流从水坝跑 2,080 公里进手机充电器。",
+   "tagline": "江口在三百里外流成电路板，汇流处长出一颗芯片。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（图纸族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/dianlu.py",
    "sample": {
     "file": "dianlu circuit-board.mp4",
-    "title": "七毫秒",
-    "seconds": 60.0
+    "title": "电从江来",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "circuit-board"
@@ -1762,15 +1762,15 @@
    "station": "screen",
    "name_zh": "萤火光点",
    "name_en": "Firefly Pointillism",
-   "tagline": "萤火虫闪一下就是在发问：女孩得到的回答是一只鹿，暴风雨吹灭了所有的光，她用最后一只问遍了整片黑夜。",
+   "tagline": "夏夜草坡，一颗萤火落在鹿的鼻尖，整片光就飞起来了。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/yinghuo.py",
    "sample": {
     "file": "yinghuo firefly-pointillism.mp4",
-    "title": "你亮，我就亮",
-    "seconds": 50.6
+    "title": "最后一只萤火",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "firefly-pointillism"
@@ -1780,15 +1780,15 @@
    "station": "screen",
    "name_zh": "流场风线",
    "name_en": "Flow-field Wind Lines",
-   "tagline": "几千条从最佳路径算出来的墨色风线，画出超强台风摩羯的一生：在南海睁开风眼，在文昌登陆，在越南散开，一整周最后收成一条线。",
+   "tagline": "卫星视角看台风，风绕着风眼转成一圈圈细线。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/liuchang.py",
    "sample": {
     "file": "liuchang flow-field.mp4",
-    "title": "摩羯过琼州",
-    "seconds": 52.0
+    "title": "风眼一周",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "flow-field"
@@ -1798,15 +1798,15 @@
    "station": "screen",
    "name_zh": "示波器数学",
    "name_en": "Oscilloscope Math",
-   "tagline": "方方正正的波，怎么由圆滚出来？一个个圆叠成方波，直到镜头扎进一个角：那里有一个永远消不掉的 9% 尖角。",
+   "tagline": "示波器上一条方波的上升沿，带着 9% 的过冲和一点振铃。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/shibo.py",
    "sample": {
     "file": "shibo oscilloscope-math.mp4",
-    "title": "吉布斯现象",
-    "seconds": 51.1
+    "title": "方波的角",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "oscilloscope-math"
@@ -1816,15 +1816,15 @@
    "station": "screen",
    "name_zh": "霓虹灯管",
    "name_en": "Neon Tubes",
-   "tagline": "一只霓虹猫去街尾招牌上偷金鱼当夜宵，一爪子拍漏了鱼缸，又叼着快灭的鱼冒雨跑回家，放进自家招牌上的冰饮杯。",
+   "tagline": "雨夜霓虹巷，黑猫沿着窗台走到鱼缸前，金鱼跳了出来。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/nihong.py",
    "sample": {
     "file": "nihong neon-tubes.mp4",
-    "title": "夜宵",
-    "seconds": 48.0
+    "title": "猫的夜宵",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "neon-tubes"
@@ -1834,15 +1834,15 @@
    "station": "screen",
    "name_zh": "雷达扫描纪录片",
    "name_en": "Radar Sweep Documentary",
-   "tagline": "1969 年 7 月 21 日帕克斯的风暴里，一面放倒到极限的 64 米天线顶住了风，替全世界接住了登月直播。",
+   "tagline": "1969 年，帕克斯天线在风暴里对准月球，接住阿波罗的信号。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（摄影族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/leida.py",
    "sample": {
     "file": "leida dark-documentary.mp4",
-    "title": "狂风里接住登月直播",
-    "seconds": 52.0
+    "title": "风暴里的耳朵",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "dark-documentary"
@@ -1852,15 +1852,15 @@
    "station": "d3",
    "name_zh": "积木玩具",
    "name_en": "Brick Toy",
-   "tagline": "积木宇航员用零件拼出火箭，飞向积木月亮。",
+   "tagline": "一地木头积木自己滑到一起，摞成火箭，然后点火。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/jimu.py",
    "sample": {
     "file": "jimu brick-toy.mp4",
-    "title": "零件拼出的火箭",
-    "seconds": 54.0
+    "title": "积木火箭",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "brick-toy"
@@ -1870,15 +1870,15 @@
    "station": "d3",
    "name_zh": "纸片立体书",
    "name_en": "Paper Pop-up Book",
-   "tagline": "立体书在书桌上打开，小精灵 Pip 在纸片世界冒险，最后跳出书外。",
+   "tagline": "摊开的立体书里，纸做的城市一格一格站起来，纸鹤飞走。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/liti.py",
    "sample": {
     "file": "liti paper-popup.mp4",
-    "title": "小精灵冒险记",
-    "seconds": 133.0
+    "title": "跳出书页",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "paper-popup"
@@ -1888,15 +1888,15 @@
    "station": "d3",
    "name_zh": "移轴微缩",
    "name_en": "Tilt-Shift Miniature",
-   "tagline": "玩具城的早高峰，一切都像模型。",
+   "tagline": "移轴镜头下的微缩城市，早高峰的车像玩具一样挪动。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/yizhou.py",
    "sample": {
     "file": "yizhou tilt-shift.mp4",
-    "title": "玩具城早高峰",
-    "seconds": 38.0
+    "title": "玩具早高峰",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "tilt-shift"
@@ -1906,15 +1906,15 @@
    "station": "d3",
    "name_zh": "玻璃质感产品",
    "name_en": "Glass Product Render",
-   "tagline": "虚构玻璃耳机 Aura 的开箱与特写。",
+   "tagline": "演棚里一对玻璃耳机浮出充电盒，光沿着壳面走了一遍。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（立体族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/chanpin.py",
    "sample": {
     "file": "chanpin glass-product.mp4",
-    "title": "Aura：听见光",
-    "seconds": 32.0
+    "title": "光的形状",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "glass-product"

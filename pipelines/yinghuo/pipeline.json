@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "yinghuo",
-    "no": "102",
-    "name_zh": "萤火光点",
-    "name_en": "Firefly Pointillism",
-    "station": "screen",
-    "station_no": "06",
-    "tagline": "萤火虫闪一下就是在发问：女孩得到的回答是一只鹿，暴风雨吹灭了所有的光，她用最后一只问遍了整片黑夜。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/yinghuo.py",
-    "status": "live",
-    "sample": {
-      "file": "yinghuo firefly-pointillism.mp4",
-      "title": "你亮，我就亮",
-      "seconds": 50.6
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "yinghuo",
+  "no": "102",
+  "name_zh": "萤火光点",
+  "name_en": "Firefly Pointillism",
+  "station": "screen",
+  "station_no": "06",
+  "tagline": "萤火虫闪一下就是在发问：女孩得到的回答是一只鹿，暴风雨吹灭了所有的光，她用最后一只问遍了整片黑夜。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（霓虹族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/yinghuo.py",
+  "status": "live",
+  "sample": {
+   "file": "yinghuo firefly-pointillism.mp4",
+   "title": "最后一只萤火",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "firefly-pointillism",
-    "upstream_cn": "萤火光点",
-    "upstream_en": "Firefly Pointillism",
-    "upstream_line": "A firefly's blink is a question: a girl gets her answer as a deer, loses every light in a storm, and asks the whole dark with the last one.",
-    "upstream_film": "Shine Back",
-    "upstream_dur": 50.6,
-    "sample_source": "site/media/yinghuo.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "黑底加色：描线分多遍叠加，亮芯压在光晕上，暗角收边。",
-    "style": {
-      "family": "neon",
-      "palette": "firefly",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/yinghuo/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "firefly-pointillism",
+  "upstream_cn": "萤火光点",
+  "upstream_en": "Firefly Pointillism",
+  "upstream_line": "A firefly's blink is a question: a girl gets her answer as a deer, loses every light in a storm, and asks the whole dark with the last one.",
+  "upstream_film": "Shine Back",
+  "upstream_dur": 50.6,
+  "sample_source": "site/media/yinghuo.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "黑底加色：描线分多遍叠加，亮芯压在光晕上，暗角收边。",
+  "style": {
+   "family": "neon",
+   "palette": "firefly",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/yinghuo/projects/demo"
   }
+ }
 }
