@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "wenzi",
-    "no": "73",
-    "name_zh": "文字闪切",
-    "name_en": "Text Flash Cuts",
-    "station": "graphic",
-    "station_no": "05",
-    "tagline": "一封信、一通电话、一面窗墙、十三级台阶：叫他别回头的她每一话都更近一步，直到她自己猛地回头。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/wenzi.py",
-    "status": "live",
-    "sample": {
-      "file": "wenzi text-flash-cuts.mp4",
-      "title": "身后",
-      "seconds": 46.2
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "wenzi",
+  "no": "73",
+  "name_zh": "文字闪切",
+  "name_en": "Text Flash Cuts",
+  "station": "graphic",
+  "station_no": "05",
+  "tagline": "一封信、一通电话、一面窗墙、十三级台阶：叫他别回头的她每一话都更近一步，直到她自己猛地回头。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/wenzi.py",
+  "status": "live",
+  "sample": {
+   "file": "wenzi text-flash-cuts.mp4",
+   "title": "慢一点更快",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "text-flash-cuts",
-    "upstream_cn": "文字闪切",
-    "upstream_en": "Text Flash Cuts",
-    "upstream_line": "A letter, a phone call, a wall of windows, thirteen steps: the girl who told him not to look back is always one step closer, until she turns her head.",
-    "upstream_film": "Behind You",
-    "upstream_dur": 46.2,
-    "sample_source": "site/media/wenzi.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "大色块 + 大字：几何压底，字按行进场，横线随进度长出来。",
-    "style": {
-      "family": "flat",
-      "palette": "typeflash",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/wenzi/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "text-flash-cuts",
+  "upstream_cn": "文字闪切",
+  "upstream_en": "Text Flash Cuts",
+  "upstream_line": "A letter, a phone call, a wall of windows, thirteen steps: the girl who told him not to look back is always one step closer, until she turns her head.",
+  "upstream_film": "Behind You",
+  "upstream_dur": 46.2,
+  "sample_source": "site/media/wenzi.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "大色块 + 大字：几何压底，字按行进场，横线随进度长出来。",
+  "style": {
+   "family": "flat",
+   "palette": "typeflash",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/wenzi/projects/demo"
   }
+ }
 }

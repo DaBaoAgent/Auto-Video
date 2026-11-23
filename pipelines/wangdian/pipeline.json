@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "wangdian",
-    "no": "62",
-    "name_zh": "网点档案",
-    "name_en": "Halftone Dossier",
-    "station": "graphic",
-    "station_no": "05",
-    "tagline": "橘猫胖橘被立案审查：测试重力、凌晨跑酷，最后无罪释放。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/wangdian.py",
-    "status": "live",
-    "sample": {
-      "file": "wangdian halftone-dossier.mp4",
-      "title": "胖橘案卷",
-      "seconds": 30.0
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "wangdian",
+  "no": "62",
+  "name_zh": "网点档案",
+  "name_en": "Halftone Dossier",
+  "station": "graphic",
+  "station_no": "05",
+  "tagline": "橘猫胖橘被立案审查：测试重力、凌晨跑酷，最后无罪释放。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/wangdian.py",
+  "status": "live",
+  "sample": {
+   "file": "wangdian halftone-dossier.mp4",
+   "title": "雨夜站牌",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "halftone-dossier",
-    "upstream_cn": "网点档案",
-    "upstream_en": "Halftone Dossier",
-    "upstream_line": "A chubby orange cat stands trial for testing gravity and 4 a.m. parkour, and walks free.",
-    "upstream_film": "Case File: Chubby",
-    "upstream_dur": 30.0,
-    "sample_source": "site/media/wangdian.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "网点分色：同形状叠两三版网，套色故意偏 2–3 px，出印刷的错位感。",
-    "style": {
-      "family": "halftone",
-      "palette": "mono",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/wangdian/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "halftone-dossier",
+  "upstream_cn": "网点档案",
+  "upstream_en": "Halftone Dossier",
+  "upstream_line": "A chubby orange cat stands trial for testing gravity and 4 a.m. parkour, and walks free.",
+  "upstream_film": "Case File: Chubby",
+  "upstream_dur": 30.0,
+  "sample_source": "site/media/wangdian.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "网点分色：同形状叠两三版网，套色故意偏 2–3 px，出印刷的错位感。",
+  "style": {
+   "family": "halftone",
+   "palette": "mono",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/wangdian/projects/demo"
   }
+ }
 }

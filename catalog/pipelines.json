@@ -1024,15 +1024,15 @@
    "station": "graphic",
    "name_zh": "孔版印刷",
    "name_en": "Risograph Print",
-   "tagline": "周日早晨骑车穿过城市：面包店、公园、河边，每到一处加一版油墨，最后三版套印。",
+   "tagline": "蓝红黄黑四色版依次压印，渔港清晨的收网在套色偏移里成形。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/kongban.py",
    "sample": {
     "file": "kongban risograph.mp4",
-    "title": "周日骑行",
-    "seconds": 40.0
+    "title": "收网时分",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "risograph"
@@ -1042,15 +1042,15 @@
    "station": "graphic",
    "name_zh": "网点档案",
    "name_en": "Halftone Dossier",
-   "tagline": "橘猫胖橘被立案审查：测试重力、凌晨跑酷，最后无罪释放。",
+   "tagline": "全网点夜雨，路灯打出网点光锥，撑伞人等在站牌下。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/wangdian.py",
    "sample": {
     "file": "wangdian halftone-dossier.mp4",
-    "title": "胖橘案卷",
-    "seconds": 30.0
+    "title": "雨夜站牌",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "halftone-dossier"
@@ -1078,15 +1078,15 @@
    "station": "graphic",
    "name_zh": "铜版画",
    "name_en": "Copperplate Engraving",
-   "tagline": "一张博物志图版自己刻出来：雕刀推开铜版，蜜蜂一线线成形，最后手工水彩上色。",
+   "tagline": "奶油纸上的赭墨排线，台风压境，海堤上的雨衣人被风掀起衣角。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/tongban.py",
    "sample": {
     "file": "tongban engraving.mp4",
-    "title": "蜜蜂，图版七",
-    "seconds": 40.0
+    "title": "台风海堤",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "engraving"
@@ -1096,15 +1096,15 @@
    "station": "graphic",
    "name_zh": "丝印旅行海报",
    "name_en": "Silkscreen Travel Poster",
-   "tagline": "一张满屏丝印海报一座城，票根数着离家的公里数，走到世界的另一头，才发现那是回家的路。",
+   "tagline": "丝印块色海报，红日蓝海与敞篷车，前两秒还有套版错位的呼吸。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/siyin.py",
    "sample": {
     "file": "siyin silkscreen-poster.mp4",
-    "title": "绕远路回家",
-    "seconds": 50.0
+    "title": "海岸公路",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "silkscreen-poster"
@@ -1114,15 +1114,15 @@
    "station": "graphic",
    "name_zh": "刮版画长镜头",
    "name_en": "Scratchboard Long Take",
-   "tagline": "刮版画的北海道河谷一镜到底，丹顶鹤从 33 只数回到 1,927 只。",
+   "tagline": "纯黑板刮白线，暴雨里灯塔的双束扫光扫过海面与礁石。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/guaban.py",
    "sample": {
     "file": "guaban printed-long-take.mp4",
-    "title": "三十三只",
-    "seconds": 60.0
+    "title": "灯塔守夜",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "printed-long-take"
@@ -1132,15 +1132,15 @@
    "station": "graphic",
    "name_zh": "波普艺术",
    "name_en": "Pop Art",
-   "tagline": "超市里几乎每根香蕉都是同一株植物的复制：一面一模一样的版画墙，一根被网点吃黑的老香蕉，最后一波换色翻出上千种香蕉。",
+   "tagline": "本戴点底上，一罐汽水被拉开，气泡上升、拉环飞转、POP 字炸开。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/bopu.py",
    "sample": {
     "file": "bopu pop-art.mp4",
-    "title": "同一根香蕉",
-    "seconds": 52.0
+    "title": "午后汽水",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "pop-art"
@@ -1150,15 +1150,15 @@
    "station": "graphic",
    "name_zh": "复古版画拼贴",
    "name_en": "Vintage Engraving Collage",
-   "tagline": "1918 年一整版印反了的航空邮票：24 美元买下、剪开散落，66 号至今下落不明。",
+   "tagline": "旧纸泛黄的航空封，红日旋转，螺旋桨飞机沿虚线航线飞越大洋。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/fugu.py",
    "sample": {
     "file": "fugu vintage-collage.mp4",
-    "title": "倒置的珍妮",
-    "seconds": 52.0
+    "title": "越洋邮路",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "vintage-collage"
@@ -1168,15 +1168,15 @@
    "station": "graphic",
    "name_zh": "瑞士动态排版",
    "name_en": "Swiss Motion Graphics",
-   "tagline": "一张音乐会海报按瑞士设计的五条规则自己排版，第五条是只打破一条。",
+   "tagline": "十二栏模数网格，巨型数字跳到正午，红方块按节拍在格子里跳。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/ruishi.py",
    "sample": {
     "file": "ruishi swiss-motion.mp4",
-    "title": "海报的五条规则",
-    "seconds": 44.0
+    "title": "正午十二",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "swiss-motion"
@@ -1186,15 +1186,15 @@
    "station": "graphic",
    "name_zh": "60s 间谍片头",
    "name_en": "60s Spy Title Sequence",
-   "tagline": "虚构 1964 年间谍片的片头：追一把被偷的钥匙，几何碎片最后拼成片名。",
+   "tagline": "黑金档案片头，风衣人走过光锥，刻度环与 DOSSIER 07 慢慢转。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/jiandie.py",
    "sample": {
     "file": "jiandie spy-titles.mp4",
-    "title": "天鹅绒密码",
-    "seconds": 44.1
+    "title": "档案零七",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "spy-titles"
@@ -1204,15 +1204,15 @@
    "station": "graphic",
    "name_zh": "象形运动图形",
    "name_en": "Pictogram Motion",
-   "tagline": "一把被落在公交车上的黄伞，晴天里在失物招领的货架上等了一整天，暴雨回来时和另外 312 把一起撑开：物件、交通、天气和标识，都是卡着节拍的几何象形符号。",
+   "tagline": "米白跑道上五个公里牌依次点亮，三个小人错开晨跑。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/xiangxing.py",
    "sample": {
     "file": "xiangxing pictogram-motion.mp4",
-    "title": "被落下的伞",
-    "seconds": 50.0
+    "title": "晨跑五公里",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "pictogram-motion"
@@ -1222,15 +1222,15 @@
    "station": "graphic",
    "name_zh": "包豪斯几何",
    "name_en": "Bauhaus Shapes",
-   "tagline": "一个点每十年翻一倍：七十年后是 128，不复利只有 6.02，最后十年抵得上之前的全部。",
+   "tagline": "包豪斯三原色在斜轨与网格上滑动，三角、圆、黄条各走各的节拍。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/baohao.py",
    "sample": {
     "file": "baohao bauhaus-shapes.mp4",
-    "title": "复利是怎么滚起来的",
-    "seconds": 52.0
+    "title": "正午构成",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "bauhaus-shapes"
@@ -1240,15 +1240,15 @@
    "station": "graphic",
    "name_zh": "文字闪切",
    "name_en": "Text Flash Cuts",
-   "tagline": "一封信、一通电话、一面窗墙、十三级台阶：叫他别回头的她每一话都更近一步，直到她自己猛地回头。",
+   "tagline": "大字用竖条擦入，四段话最后拼成一句：慢一点，反而更快。",
    "engine": "自研渲染 · vendor/runtime/stylekit.js（平面族）",
    "aspect": "16:9",
    "fps": null,
    "entry": "scripts/wenzi.py",
    "sample": {
     "file": "wenzi text-flash-cuts.mp4",
-    "title": "身后",
-    "seconds": 46.2
+    "title": "慢一点更快",
+    "seconds": 10.0
    },
    "status": "live",
    "style_slug": "text-flash-cuts"
@@ -2104,15 +2104,15 @@
    "station": "graphic",
    "name_zh": "扁平颗粒插画",
    "name_en": "Flat Grain Illustration",
-   "tagline": "两种专色印在暖纸上，体积与光全靠点状颗粒；一条地平线把时代一段段长出来。",
+   "tagline": "奶油色街角面包房，窗格一盏盏亮起，四点开始醒，五点第一炉。",
    "engine": "Canvas · Chrome 逐帧（本地运行时）",
    "aspect": "16:9",
    "fps": 30,
    "entry": "scripts/keli.py",
    "sample": {
     "file": "keli bb-grain.mp4",
-    "title": "人类如何照亮夜晚",
-    "seconds": 92.6
+    "title": "夜里出炉",
+    "seconds": 10.0
    },
    "status": "live",
    "legacy_style": "grain"
@@ -2158,15 +2158,15 @@
    "station": "graphic",
    "name_zh": "欧普艺术",
    "name_en": "Op Art",
-   "tagline": "黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。",
+   "tagline": "条纹场被透镜扭成环与棋盘，白牌上的字在图案里浮沉。",
    "engine": "Canvas · Chrome 逐帧（本地运行时）",
    "aspect": "16:9",
    "fps": 30,
    "entry": "scripts/oupu.py",
    "sample": {
     "file": "oupu bb-op.mp4",
-    "title": "Stripe · 官网",
-    "seconds": 22.3
+    "title": "场的牵引",
+    "seconds": 10.0
    },
    "status": "live",
    "legacy_style": "op"
@@ -2466,7 +2466,7 @@
    "station": "toon",
    "name_zh": "吉卜力水彩",
    "name_en": "Ghibli Watercolor",
-   "tagline": "水彩洗染透明叠色、留水痕边，角色走赛璐璐月牙影；纱帘被风鼓起，草叶成片摆。",
+   "tagline": "水彩洗染的夏日稻田，草帽女孩沿田埂走过，蜻蜓与稻穗一起被风吹动。",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "aspect": "16:9",
    "fps": 24,
@@ -2474,8 +2474,8 @@
    "status": "live",
    "sample": {
     "file": "jibuli huashu-吉卜力水彩.mp4",
-    "title": "吉卜力水彩 · 上游样片",
-    "seconds": 1.07
+    "title": "夏日田埂",
+    "seconds": 10.0
    }
   },
   {
@@ -2551,7 +2551,7 @@
    "station": "toon",
    "name_zh": "新海诚光影",
    "name_en": "Makoto Shinkai Light",
-   "tagline": "积雨云、丁达尔光柱、赛璐璐硬阴影带；光粒在飘，云在移，斜向扫光进场。",
+   "tagline": "落日压着河面，碎金一路铺到堤下，两个人站在栏杆边看天黑。",
    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
    "aspect": "16:9",
    "fps": 24,
@@ -2559,8 +2559,8 @@
    "status": "live",
    "sample": {
     "file": "xinhai huashu-新海诚光影.mp4",
-    "title": "新海诚光影 · 上游样片",
-    "seconds": 1.07
+    "title": "黄昏河堤",
+    "seconds": 10.0
    }
   },
   {

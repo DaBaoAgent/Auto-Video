@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "kongban",
-    "no": "61",
-    "name_zh": "孔版印刷",
-    "name_en": "Risograph Print",
-    "station": "graphic",
-    "station_no": "05",
-    "tagline": "周日早晨骑车穿过城市：面包店、公园、河边，每到一处加一版油墨，最后三版套印。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/kongban.py",
-    "status": "live",
-    "sample": {
-      "file": "kongban risograph.mp4",
-      "title": "周日骑行",
-      "seconds": 40.0
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "kongban",
+  "no": "61",
+  "name_zh": "孔版印刷",
+  "name_en": "Risograph Print",
+  "station": "graphic",
+  "station_no": "05",
+  "tagline": "周日早晨骑车穿过城市：面包店、公园、河边，每到一处加一版油墨，最后三版套印。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（网点族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/kongban.py",
+  "status": "live",
+  "sample": {
+   "file": "kongban risograph.mp4",
+   "title": "收网时分",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "risograph",
-    "upstream_cn": "孔版印刷",
-    "upstream_en": "Risograph Print",
-    "upstream_line": "A Sunday-morning bike ride through the city — bakery, park, riverside — each stop adding an ink until three misregistered plates overprint.",
-    "upstream_film": "Sunday Ride",
-    "upstream_dur": 40.0,
-    "sample_source": "site/media/kongban.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "网点分色：同形状叠两三版网，套色故意偏 2–3 px，出印刷的错位感。",
-    "style": {
-      "family": "halftone",
-      "palette": "riso",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/kongban/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "risograph",
+  "upstream_cn": "孔版印刷",
+  "upstream_en": "Risograph Print",
+  "upstream_line": "A Sunday-morning bike ride through the city — bakery, park, riverside — each stop adding an ink until three misregistered plates overprint.",
+  "upstream_film": "Sunday Ride",
+  "upstream_dur": 40.0,
+  "sample_source": "site/media/kongban.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "网点分色：同形状叠两三版网，套色故意偏 2–3 px，出印刷的错位感。",
+  "style": {
+   "family": "halftone",
+   "palette": "riso",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/kongban/projects/demo"
   }
+ }
 }

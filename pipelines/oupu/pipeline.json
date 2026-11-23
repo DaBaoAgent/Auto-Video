@@ -1,47 +1,47 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "oupu",
-    "no": "124",
-    "name_zh": "欧普艺术",
-    "name_en": "Op Art",
-    "station": "graphic",
-    "station_no": "05",
-    "tagline": "黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。",
-    "engine": "Canvas · Chrome 逐帧（本地运行时）",
-    "aspect": "16:9",
-    "fps": 30,
-    "entry": "scripts/oupu.py",
-    "status": "live",
-    "sample": {
-      "file": "oupu bb-op.mp4",
-      "title": "Stripe · 官网",
-      "seconds": 22.3
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "oupu",
+  "no": "124",
+  "name_zh": "欧普艺术",
+  "name_en": "Op Art",
+  "station": "graphic",
+  "station_no": "05",
+  "tagline": "黑白条纹、同心环与棋盘在透镜里鼓起来，百叶窗式揭开产品。",
+  "engine": "Canvas · Chrome 逐帧（本地运行时）",
+  "aspect": "16:9",
+  "fps": 30,
+  "entry": "scripts/oupu.py",
+  "status": "live",
+  "sample": {
+   "file": "oupu bb-op.mp4",
+   "title": "场的牵引",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染（本地运行时）",
-    "style_slug": "op",
-    "upstream_cn": "欧普艺术",
-    "upstream_en": "Op Art",
-    "upstream_line": "Black-and-white stripes, rings and checkerboards bulge through lenses; venetian-blind reveals.",
-    "upstream_film": "Stripe · 官网",
-    "upstream_dur": 22.3,
-    "sample_source": "site/media/oupu.mp4",
-    "sample_note": "演示站短片为早期外部成片，管线本身已本地封装",
-    "engine_note": "本地 runtime/render.mjs，不依赖上游 checkout",
-    "vendored": true,
-    "runtime": {
-      "style": "runtime/op.js",
-      "shared": [
-        "runtime/core.js",
-        "runtime/promo.js",
-        "runtime/render.mjs"
-      ],
-      "license": "runtime/LICENSE"
-    },
-    "template": "template/",
-    "migration": "MIGRATION.md"
-  }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染（本地运行时）",
+  "style_slug": "op",
+  "upstream_cn": "欧普艺术",
+  "upstream_en": "Op Art",
+  "upstream_line": "Black-and-white stripes, rings and checkerboards bulge through lenses; venetian-blind reveals.",
+  "upstream_film": "Stripe · 官网",
+  "upstream_dur": 22.3,
+  "sample_source": "site/media/oupu.mp4",
+  "sample_note": "演示站短片为早期外部成片，管线本身已本地封装",
+  "engine_note": "本地 runtime/render.mjs，不依赖上游 checkout",
+  "vendored": true,
+  "runtime": {
+   "style": "runtime/op.js",
+   "shared": [
+    "runtime/core.js",
+    "runtime/promo.js",
+    "runtime/render.mjs"
+   ],
+   "license": "runtime/LICENSE"
+  },
+  "template": "template/",
+  "migration": "MIGRATION.md"
+ }
 }

@@ -1,5 +1,5 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><title>圆 · 呼吸</title>
+<html><head><meta charset="utf-8"><title>场 · 牵引</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/unbounded@5/800.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/700.css">
 <style>html,body{margin:0;background:#111}#stage{position:relative;overflow:hidden}</style>
@@ -7,19 +7,38 @@
 <script src="lib/promo.js"></script>
 <script src="lib/op.js"></script>
 </head><body><div id="stage"></div><script>
+// 欧普艺术《场》：竖条被一只镜头吸进去，条子一圈圈收成环，再化成棋盘，红条只在节拍上出现一下。
 PROMO.compose({
   bpm: 120, offset: 0.5, duration: 10, grain: false,
-  theme: { bg: '#F2EFE9', fg: '#111111', ink: '#111111', paper: '#F2EFE9', accent: '#E8312A', muted: '#555555', fonts: { display: '"Unbounded", sans-serif', serif: '"Unbounded", sans-serif', sans: 'Inter, sans-serif', script: '"Unbounded", sans-serif' } },
+  theme: { bg: '#F2EFE9', fg: '#111111', ink: '#111111', paper: '#F2EFE9', accent: '#E8312A', muted: '#555555',
+    fonts: { display: '"Unbounded", sans-serif', serif: '"Unbounded", sans-serif', sans: 'Inter, sans-serif', script: '"Unbounded", sans-serif' } },
   build: async (F) => {
     const b = (n) => F.beat(n);
     const Q = PROMO.op(F);
-    F.section(0, 1); F.section(b(8), 2, { hit: true }); F.section(F.duration - 3, 1);
+    F.section(0, 1); F.section(b(9), 2, { hit: true }); F.section(F.duration - 2.5, 1);
 
-    const f = Q.field(F.layer('', 0), { pattern: 'stripes', period: F.px(38), amp: F.px(28), speed: 1.4, angle: -8 });
-    f.lens(0, { x: F.W / 2, y: F.H / 2, r: 0, s: 0.6 }); f.lensTo(0, b(1), 0.6, { r: F.px(430) });
-    Q.word(F.layer('', 2), { at: b(2), until: b(7), text: '圆', size: 210 });
-    f.morph(b(7), 0.8, 'rings');
-    Q.word(F.layer('', 2), { at: b(8), until: F.duration, text: '呼吸', size: 150 });
+    // 一、竖条：慢慢推，条子像水一样起伏
+    const f = Q.field(F.layer('', 0), { pattern: 'stripes', period: F.px(64), amp: F.px(20), speed: 0.9, angle: 0, wave: 0.9 });
+    // 中间一只镜头从零张开，把条子吸成球面
+    f.lens(0, { x: F.W / 2, y: F.H / 2 + F.px(60), r: 0, s: 0.6 });
+    f.lensTo(0, 0.3, 1.9, { r: F.px(520) });
+    // 第二只小镜头（左上），反向拧着
+    f.lens(1, { x: F.W * 0.26, y: F.H * 0.3, r: F.px(210), s: -0.5 });
+
+    // 二、条子收成环
+    f.morph(b(6), 0.9, 'rings');
+    f.lensTo(1, b(6.2), 1.1, { s: 0.56, r: F.px(280) });
+
+    // 三、环化成棋盘
+    f.morph(b(10), 0.7, 'checker');
+
+    // 字：黑条灌进字里（不要白牌），先「场」后「牵引」
+    Q.word(F.layer('', 2), { at: b(1), until: b(9), text: '场', size: 300, x: F.W * 0.30, y: F.H * 0.42, plate: true });
+    Q.word(F.layer('', 2), { at: b(10), until: F.duration, text: '牵引', size: 180, x: F.W * 0.30, y: F.H * 0.46, plate: true });
+
+    // 一张白卡片：右下角的小字注脚
+    
   },
 });
 </script></body></html>
+

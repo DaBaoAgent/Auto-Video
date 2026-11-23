@@ -1,38 +1,38 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "jibuli",
-    "no": "142",
-    "name_zh": "吉卜力水彩",
-    "name_en": "Ghibli Watercolor",
-    "station": "toon",
-    "station_no": "04",
-    "tagline": "水彩洗染透明叠色、留水痕边，角色走赛璐璐月牙影；纱帘被风鼓起，草叶成片摆。",
-    "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
-    "aspect": "16:9",
-    "fps": 24,
-    "entry": "scripts/jibuli.py",
-    "status": "live",
-    "sample": {
-      "file": "jibuli huashu-吉卜力水彩.mp4",
-      "title": "吉卜力水彩 · 上游样片",
-      "seconds": 1.07
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "jibuli",
+  "no": "142",
+  "name_zh": "吉卜力水彩",
+  "name_en": "Ghibli Watercolor",
+  "station": "toon",
+  "station_no": "04",
+  "tagline": "水彩洗染透明叠色、留水痕边，角色走赛璐璐月牙影；纱帘被风鼓起，草叶成片摆。",
+  "engine": "自研封装 · 本地 runtime（Canvas 2D 逐帧）",
+  "aspect": "16:9",
+  "fps": 24,
+  "entry": "scripts/jibuli.py",
+  "status": "live",
+  "sample": {
+   "file": "jibuli huashu-吉卜力水彩.mp4",
+   "title": "夏日田埂",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
-    "upstream": "https://github.com/alchaincyf/huashu-art-motion",
-    "style_slug": "25_ghibli",
-    "film": "gallery",
-    "quality": "★★",
-    "engine": "runtime/render.py",
-    "license": "MIT（角色帧与总览图不在授权范围，未收录）",
-    "sample_source": "site/media/jibuli.mp4",
-    "runtime": "pipelines/jibuli/runtime",
-    "stage": "runtime/stage.html",
-    "player": "runtime/player.js",
-    "drawing_script": "runtime/scene.js",
-    "self_contained": true
-  }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "huashu-art-motion v1.3.1（画法脚本 MIT 移植，运行时不依赖上游）",
+  "upstream": "https://github.com/alchaincyf/huashu-art-motion",
+  "style_slug": "25_ghibli",
+  "film": "gallery",
+  "quality": "★★",
+  "engine": "runtime/render.py",
+  "license": "MIT（角色帧与总览图不在授权范围，未收录）",
+  "sample_source": "site/media/jibuli.mp4",
+  "runtime": "pipelines/jibuli/runtime",
+  "stage": "runtime/stage.html",
+  "player": "runtime/player.js",
+  "drawing_script": "runtime/scene.js",
+  "self_contained": true
+ }
 }

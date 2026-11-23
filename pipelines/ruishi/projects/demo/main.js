@@ -1,125 +1,131 @@
-// ruishi · 瑞士动态排版
-// 画面全部由本仓库的 vendor/runtime/stylekit.js 在运行时画出来（flat 族），
-// SPEC 里的形状坐标、色板、节拍在生成时就按 id 播种定死，不依赖任何外部脚本。
-const SPEC = {
-  "id": "ruishi",
-  "seed": "av:ruishi",
-  "family": "flat",
-  "w": 1920,
-  "h": 1080,
-  "bg": "#f4f2ed",
-  "ink": "#141414",
-  "accent": "#e2372c",
-  "bgForms": [
-    {
-      "kind": "arc",
-      "x": 732.5,
-      "y": 346.6,
-      "w": 913.4,
-      "h": 257.6,
-      "color": "#e2372c",
-      "alpha": 0.98
-    },
-    {
-      "kind": "circle",
-      "x": 984.3,
-      "y": 155.4,
-      "w": 598.7,
-      "h": 345.8,
-      "color": "#111111",
-      "alpha": 0.91
-    },
-    {
-      "kind": "rect",
-      "x": 577.1,
-      "y": 294.1,
-      "w": 856.5,
-      "h": 404.2,
-      "color": "#f4f2ed",
-      "alpha": 0.73
-    }
-  ],
-  "bars": [
-    {
-      "x": 174.9,
-      "y": 660.9,
-      "w": 267.0,
-      "h": 14,
-      "color": "#e2372c"
-    }
-  ],
-  "dots": true,
-  "lines": [
-    {
-      "text": "瑞士动态排版",
-      "size": 144.3,
-      "x": 190.8,
-      "y": 470.9,
-      "color": "#141414",
-      "weight": 800,
-      "letter": 4
-    },
-    {
-      "text": "Swiss Motion Graphics",
-      "size": 53.3,
-      "x": 134.0,
-      "y": 613.2,
-      "color": "#141414",
-      "weight": 500,
-      "letter": 6
-    }
-  ],
-  "label": {
-    "zh": "瑞士动态排版",
-    "en": "Swiss Motion Graphics",
-    "station": "05 · 平面图形",
-    "ink": "#141414",
-    "sub": "#4a4a46"
-  }
-};
-
+// ruishi · 瑞士动态排版（模数网格、无衬线、左对齐、红当唯一的标点）
+// 场景《正午十二点四十五》：大号数字走时间，红方块在网格上按节拍跳格，细线永远对齐。
 const canvas = document.getElementById('c');
-const ENV = STYLEKIT.page(canvas, { w: SPEC.w, h: SPEC.h, seed: SPEC.seed });
+const W = 1920, H = 1080;
+const ENV = STYLEKIT.page(canvas, { w: W, h: H, seed: 'av:ruishi:v4' });
+const { ctx } = ENV;
+const S = STYLEKIT;
+const TAU = Math.PI * 2;
 
-// 左下角的版式牌：哪条管线、哪个工位
-function plate(t) {
-  const L = SPEC.label;
-  const k = STYLEKIT.ease(STYLEKIT.clamp((t - 0.15) / 0.8));
-  if (k <= 0) return;
-  const ctx = ENV.ctx, W = ENV.W, H = ENV.H;
-  const m = Math.round(Math.min(W, H) * 0.035);
-  ctx.save();
-  ctx.globalAlpha = 0.92 * k;
-  // 一块极淡的衬底，保证字在任何画面上都读得出
-  const panelW = Math.round(Math.min(W, H) * 0.40);
-  const panelH = Math.round(Math.min(W, H) * 0.145);
-  ctx.fillStyle = SPEC.label.ink === '#ffffff' ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.55)';
-  ctx.fillRect(m - 14, H - m - panelH, panelW, panelH);
-  ctx.strokeStyle = SPEC.accent;
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(m - 14, H - m - panelH);
-  ctx.lineTo(m - 14 + panelW * k, H - m - panelH);
-  ctx.stroke();
+const BG = '#f3f1ea';
+const INK = '#141414';
+const RED = '#e2372c';
+const GREY = '#8d8a83';
 
-  // 三行分开：工位 → 中文名 → 英文名，避免长名字和工位号撞车
-  STYLEKIT.type(ENV, L.station, { x: m, y: H - m - panelH + Math.round(panelH * 0.22),
-                                 size: Math.round(Math.min(W, H) * 0.016), color: L.sub, weight: 500, letter: 2 });
-  STYLEKIT.type(ENV, L.zh, { x: m, y: H - m - panelH + Math.round(panelH * 0.66),
-                             size: Math.round(Math.min(W, H) * 0.044), color: L.ink, weight: 800 });
-  STYLEKIT.type(ENV, L.en, { x: m, y: H - m - panelH + Math.round(panelH * 0.92),
-                            size: Math.round(Math.min(W, H) * 0.016), color: L.sub, weight: 500, letter: 2 });
-  ctx.restore();
-}
+// 网格：12 栏 × 6 行
+const M = { l: 96, t: 84, r: W - 96, b: H - 84 };
+const COL = (M.r - M.l) / 12;
+const ROW = (M.b - M.t) / 6;
+const SANS = '"Helvetica Neue",Helvetica,Arial,"Source Han Sans SC",sans-serif';
 
 window.renderAt = (t) => {
-  STYLEKIT.scene(ENV, SPEC, t);
-  plate(t);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalAlpha = 1;
+  ctx.globalCompositeOperation = 'source-over';
+
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+
+  // ---------- 模数网格（很淡，但对齐） ----------
+  ctx.strokeStyle = 'rgba(20,20,20,0.14)';
+  ctx.lineWidth = 1;
+  for (let c = 0; c <= 12; c++) {
+    const x = M.l + c * COL;
+    ctx.beginPath(); ctx.moveTo(x, M.t - 20); ctx.lineTo(x, M.b + 20); ctx.stroke();
+  }
+  for (let r = 0; r <= 6; r++) {
+    const y = M.t + r * ROW;
+    ctx.beginPath(); ctx.moveTo(M.l - 20, y); ctx.lineTo(M.r + 20, y); ctx.stroke();
+  }
+  // 一条实心黑规（版式的骨头）
+  ctx.fillStyle = INK;
+  ctx.fillRect(M.l, M.t, 6, ROW * 2);
+
+  // ---------- 时间：12:45 → 12:46 ----------
+  const step = Math.min(9, Math.floor(t / 1.1));
+  const mm = 45 + step;
+  const hh = 12 + Math.floor(mm / 60);
+  const sec = Math.floor((t % 1.1) * 60);
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = INK;
+
+  // 大数字：时
+  const F = `700 260px ${SANS}`;
+  const BASE = M.t + ROW * 2.5;
+  ctx.font = F;
+  ctx.fillText(String(hh), M.l + 40, BASE);
+  // 冒号（红，跟着秒闪）
+  ctx.fillStyle = RED;
+  const blink = 0.5 + 0.5 * Math.sin(t * 6.4);
+  ctx.globalAlpha = 0.4 + blink * 0.6;
+  ctx.font = `700 200px ${SANS}`;
+  ctx.fillText(':', M.l + 348, BASE - 8);
+  ctx.globalAlpha = 1;
+
+  // 分：换数字时做一次竖直滚切
+  const p = S.clamp((t % 1.1) / 0.34, 0, 1);
+  const ep = S.ease(p);
+  const prevY = BASE - ep * 170;
+  const newY = BASE + (1 - ep) * 170;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(M.l + 430, M.t + 30, 460, ROW * 2.7);
+  ctx.clip();
+  ctx.font = F;
+  if (ep < 0.97) {
+    ctx.fillStyle = INK;
+    ctx.globalAlpha = 0.16;
+    ctx.fillText(String((mm + 59) % 60).padStart(2, '0'), M.l + 430, prevY);
+    ctx.globalAlpha = 1;
+  }
+  ctx.fillStyle = INK;
+  ctx.fillText(String(mm % 60).padStart(2, '0'), M.l + 430, newY);
+  ctx.restore();
+
+  // 秒：小号，跟在右边
+  ctx.fillStyle = GREY;
+  ctx.font = `500 44px ${SANS}`;
+  ctx.fillText(String(sec).padStart(2, '0'), M.l + 860, BASE - 6);
+
+  // ---------- 上方：两行说明字 ----------
+  ctx.fillStyle = INK;
+  ctx.font = `700 54px ${SANS}`;
+  ctx.fillText('正 午 十 二 点', M.l + 40, M.t + 62);
+  ctx.fillStyle = GREY;
+  ctx.font = `400 26px ${SANS}`;
+  ctx.fillText('ZÜRICH  ·  MITTAG  ·  MODULAR GRID  ·  12 / 45', M.l + 40, M.t + 104);
+
+  // ---------- 红方块：按拍子跳格 ----------
+  const beat = Math.floor(t * 2) % 12;
+  const bx = M.l + beat * COL + 6;
+  const by = M.b - ROW * 0.9;
+  ctx.fillStyle = RED;
+  ctx.beginPath();
+  ctx.rect(bx, by, COL - 12, 88);
+  ctx.fill();
+  // 跳格落点的一条竖线
+  ctx.globalAlpha = 0.25;
+  ctx.fillRect(bx + COL - 12, by - 260, 2, 348);
+  ctx.globalAlpha = 1;
+
+  // ---------- 右下：柱状节拍 ----------
+  const barX = M.r - COL * 4;
+  for (let i = 0; i < 16; i++) {
+    const h = (0.12 + 0.7 * Math.abs(Math.sin(i * 0.8 + t * 2.2))) * ROW * 1.4;
+    ctx.fillStyle = i % 5 === 0 ? RED : 'rgba(20,20,20,0.72)';
+    ctx.fillRect(barX + i * 24, M.b - 96 - h, 14, h);
+  }
+  ctx.fillStyle = GREY;
+  ctx.font = `400 20px ${SANS}`;
+  ctx.fillText('TAKT', barX, M.b - 66);
+
+  // ---------- 左下一道长的红规 ----------
+  ctx.fillStyle = RED;
+  ctx.fillRect(M.l, H - 60, S.clamp(t / 4.5) * COL * 12, 12);
 };
 
-// 先画第 0 秒，等字体就绪再宣布 ready
-STYLEKIT.scene(ENV, SPEC, 0);
-plate(0);
+window.renderAt(0);
 (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
   window.renderAt(0);
   window.__ready = true;

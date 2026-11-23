@@ -1,42 +1,42 @@
 {
-  "schema": "auto-video/pipeline@2",
-  "meta": {
-    "id": "tongban",
-    "no": "64",
-    "name_zh": "铜版画",
-    "name_en": "Copperplate Engraving",
-    "station": "graphic",
-    "station_no": "05",
-    "tagline": "一张博物志图版自己刻出来：雕刀推开铜版，蜜蜂一线线成形，最后手工水彩上色。",
-    "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
-    "aspect": "16:9",
-    "fps": null,
-    "entry": "scripts/tongban.py",
-    "status": "live",
-    "sample": {
-      "file": "tongban engraving.mp4",
-      "title": "蜜蜂，图版七",
-      "seconds": 40.0
-    },
-    "updated": "2026-11-20"
+ "schema": "auto-video/pipeline@2",
+ "meta": {
+  "id": "tongban",
+  "no": "64",
+  "name_zh": "铜版画",
+  "name_en": "Copperplate Engraving",
+  "station": "graphic",
+  "station_no": "05",
+  "tagline": "一张博物志图版自己刻出来：雕刀推开铜版，蜜蜂一线线成形，最后手工水彩上色。",
+  "engine": "自研渲染 · vendor/runtime/stylekit.js（刻印族）",
+  "aspect": "16:9",
+  "fps": null,
+  "entry": "scripts/tongban.py",
+  "status": "live",
+  "sample": {
+   "file": "tongban engraving.mp4",
+   "title": "台风海堤",
+   "seconds": 10.0
   },
-  "spec": {
-    "source": "自研渲染",
-    "style_slug": "engraving",
-    "upstream_cn": "铜版画",
-    "upstream_en": "Copperplate Engraving",
-    "upstream_line": "A natural-history plate engraves itself: the burin cuts the copper, the bee builds up line by line, and a watercolour wash brings it to life.",
-    "upstream_film": "The Honeybee, Plate VII",
-    "upstream_dur": 40.0,
-    "sample_source": "site/media/tongban.mp4",
-    "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
-    "engine_note": "一刀一色：形状先定，再用排线造明暗，浅线压在深块上。",
-    "style": {
-      "family": "hatch",
-      "palette": "engrave",
-      "kit": "vendor/runtime/stylekit.js",
-      "harness": "vendor/runtime/style-frames.mjs",
-      "project": "pipelines/tongban/projects/demo"
-    }
+  "updated": "2026-11-20"
+ },
+ "spec": {
+  "source": "自研渲染",
+  "style_slug": "engraving",
+  "upstream_cn": "铜版画",
+  "upstream_en": "Copperplate Engraving",
+  "upstream_line": "A natural-history plate engraves itself: the burin cuts the copper, the bee builds up line by line, and a watercolour wash brings it to life.",
+  "upstream_film": "The Honeybee, Plate VII",
+  "upstream_dur": 40.0,
+  "sample_source": "site/media/tongban.mp4",
+  "sample_note": "演示站短片暂为早期外部样片，后续换成本仓库 projects/ 出片",
+  "engine_note": "一刀一色：形状先定，再用排线造明暗，浅线压在深块上。",
+  "style": {
+   "family": "hatch",
+   "palette": "engrave",
+   "kit": "vendor/runtime/stylekit.js",
+   "harness": "vendor/runtime/style-frames.mjs",
+   "project": "pipelines/tongban/projects/demo"
   }
+ }
 }

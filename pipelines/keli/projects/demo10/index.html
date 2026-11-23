@@ -1,48 +1,72 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><title>青团 · 把春天包进糯米里</title>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>夜里出炉 · 面包房</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/500.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/700.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5/800.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/500.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/700.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-sc@5/900.css">
-<style>html,body{margin:0;background:#f7f3e9}#stage{position:relative;overflow:hidden}</style>
+<style>html,body{margin:0;background:#f6efe1}#stage{position:relative;overflow:hidden}</style>
 <script src="assets/manifest.js"></script>
 <script src="lib/core.js"></script>
 <script src="lib/promo.js"></script>
 <script src="lib/grain.js"></script>
 </head><body><div id="stage"></div><script>
+// 扁平颗粒插画《夜里出炉》：一条地平线上的小世界——街角面包房，窗一格一格亮起来，
+// 门口排着等的人，招牌上的数往上跳，最后一个圆形特写盯住那只刚出炉的面包。
 const { M } = PROMO;
 PROMO.compose({
-  bpm: 120, offset: 0.4, duration: 10, grain: false,
-  theme: { bg: '#f4efe2', fg: '#1d3a2a', ink: '#1d3a2a', muted: '#5d7a62', accent: '#4f8a55', paper: '#f4efe2', fonts: { display: '"Inter", "Noto Sans SC", sans-serif', serif: '"Inter", "Noto Sans SC", sans-serif', sans: '"Inter", "Noto Sans SC", sans-serif' } },
+  bpm: 108, offset: 0.4, duration: 10, grain: false,
+  theme: { bg: '#f6efe1', fg: '#2a1d12', ink: '#2a1d12', muted: '#7d6a55', accent: '#c8552f', paper: '#f6efe1',
+    fonts: { display: '"Inter", "Noto Sans SC", sans-serif', serif: '"Inter", "Noto Sans SC", sans-serif', sans: '"Inter", "Noto Sans SC", sans-serif' } },
   build: (F) => {
     const b = (n) => F.beat(n), G = PROMO.grain(F, {}), L = G.L;
+
+    // 地平线 + 远山 + 月亮 + 街树
     G.ground({ from: -1800, to: 1800 });
-    G.hill({ x: L(-620, -360), w: 560, h: 150 });
-    G.sun({ x: L(620, 320), y: -470, r: 86 });
-    G.tree({ x: L(-320, -250), h: 128, at: b(5), enter: 'pop' });
-    const head = { x: -340, y: -690, w: 760, h: 240 };
+    G.hill({ x: L(-700, -420), w: 600, h: 130 });
+    G.hill({ x: L(760, 460), w: 520, h: 100 });
+    G.sun({ x: L(640, 330), y: -520, r: 78 });
+    G.tree({ x: L(-360, -280), h: 132, at: b(2), enter: 'pop' });
+    G.tree({ x: L(430, 300), h: 96, at: b(3), enter: 'pop' });
 
-    G.text('青团', { x: 0, y: -610, size: L(118, 96), tone: 'b', weight: 900, at: b(1), enter: 'rise', kind: 'slam' });
-    G.text('把春天包进糯米里', { x: 0, y: -510, size: L(42, 38), tone: 'b2', at: b(3), enter: 'rise' });
+    const head = { x: -360, y: -720, w: 780, h: 250 };
 
-    const shop = G.building({ x: -100, w: 260, h: 290, roof: 'flat', windows: { tone: 'b3' }, at: b(2), enter: 'rise' });
-    shop.windows.forEach((wn, i) => { const bx = G.box(wn, 0); G.rect({ x: bx.x, y: bx.y, w: bx.w, h: bx.h, fill: 'a3', shade: 'glow', at: b(4) + i * 0.08, enter: 'grain', sfx: i === 0 }); });
+    // 标题
+    G.text('夜里出炉', { x: -20, y: -640, size: L(112, 92), tone: 'b', weight: 900, at: b(1), enter: 'rise', kind: 'slam' });
+    G.text('街角面包房 · 四点开始醒', { x: -10, y: -540, size: L(40, 36), tone: 'b2', at: b(3), enter: 'rise' });
+
+    // 面包房（扁顶 + 一格一格的窗）
+    const shop = G.building({ x: -60, w: 300, h: 320, roof: 'flat', windows: { tone: 'b3' }, at: b(2), enter: 'rise' });
+    shop.windows.forEach((wn, i) => {
+      const bx = G.box(wn, 0);
+      G.rect({ x: bx.x, y: bx.y, w: bx.w, h: bx.h, fill: 'a3', shade: 'glow', at: b(4) + i * 0.07, enter: 'grain', sfx: i === 0 });
+    });
+    // 门口的小门廊
+    G.rect({ x: 40, y: -96, w: 96, h: 96, r: 6, fill: 'b', shade: 'top', at: b(4.6), enter: 'grain' });
+
     G.cam(0, { on: [shop, head], pad: 1.5 });
     G.move(b(1), b(5), { on: [shop, head], pad: 1.2 });
     F.section(0, 1, { name: 'hook' });
 
-    const crowd = G.row({ x: 250, y: 0, n: 4, gap: 68, at: b(6), every: 0.12, item: 'figure', props: (i) => ({ h: 108, tone: i % 2 ? 'b' : 'a', pose: i === 1 ? 'wave' : 'stand' }) });
-    const sign = G.sign({ x: -470, y: -390, w: 180, h: 190, title: '艾草', from: 0, to: 300, at: b(8), show: b(7), sub: '克' });
-    G.move(b(5), b(8), { on: [shop, crowd, sign], pad: 1.14 });
-    F.section(b(5), 2, { name: 'make' });
+    // 排队的人（三个，交替深浅）
+    const crowd = G.row({ x: 300, y: 0, n: 3, gap: 74, at: b(6), every: 0.14,
+      item: 'figure', props: (i) => ({ h: 112, tone: i % 2 ? 'b' : 'a', pose: i === 1 ? 'wave' : 'stand' }) });
 
-    const ins = G.inset({ x: L(450, 220), y: -460, r: 138, from: shop, at: b(10), until: b(16),
-      build: (g) => { g.circle({ x: 0, y: 6, r: 42, fill: 'a', shade: 'round' }); g.rect({ x: -12, y: -56, w: 24, h: 28, r: 4, fill: 'b', shade: 'top' }); } });
+    // 招牌：出炉数
+    const sign = G.sign({ x: -520, y: -420, w: 200, h: 200, title: '出炉', from: 0, to: 48, at: b(9), show: b(7.5), sub: '个' });
+    G.move(b(5), b(8), { on: [shop, crowd, sign], pad: 1.14 });
+    F.section(b(5), 2, { name: 'bake' });
+
+    // 特写：一只刚出炉的面包
+    const ins = G.inset({ x: L(470, 240), y: -470, r: 146, from: shop, at: b(10), until: b(15), build: (g) => {
+      g.arc ? g.arc({ x: 0, y: 8, r: 62, fill: 'a', shade: 'round' }) : g.circle({ x: 0, y: 8, r: 62, fill: 'a', shade: 'round' });
+      g.rect({ x: -46, y: -26, w: 92, h: 10, r: 5, fill: 'b', shade: 'top' });
+      g.rect({ x: -30, y: -8, w: 60, h: 8, r: 4, fill: 'b', shade: 'top' });
+    } });
     G.move(b(9), b(11), { on: [shop, ins, sign], pad: 1.12 });
-    G.text('清明前 · 第一笼', { x: 0, y: 60, size: L(54, 48), tone: 'a0', weight: 800, at: b(13), enter: 'rise', kind: 'endcard' });
-    F.section(b(9), 3, { name: 'steam', hit: true });
+    G.text('五点 · 第一炉', { x: 0, y: 62, size: L(56, 50), tone: 'a0', weight: 800, at: b(13), enter: 'rise', kind: 'endcard' });
+    F.section(b(9), 3, { name: 'crust', hit: true });
   },
 });
 </script></body></html>
